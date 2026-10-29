@@ -1,0 +1,42 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.2, line cap=round, line join=round]
+    % 1. 定义核心点坐标 (基于图像视觉比例)
+    \coordinate (G) at (0,0);           % 地面辅助线左端点
+    \coordinate (D) at (3,0);           % 地面辅助线右端点/直角点
+    \coordinate (A) at (0,1.2);         % 点A的位置
+    \coordinate (B) at (0,5);           % 点B，位于A上方
+    \coordinate (C) at (3,0.7);         % 点C，位于D上方
+    \coordinate (E) at (2.2,0.6);       % 点E，在斜线上
+    
+    % 2. 绘制水平地面 (左右略宽出辅助线范围)
+    \draw[thick] (-0.8,0) -- (G);
+    \draw[thick] (D) -- (4,0);
+    
+    % 3. 绘制实线部分 (图形主体)
+    \draw[thick] (B) -- (A) -- (E) -- (C) -- (D); % 连接 B-A-E-C-D
+    \draw[thick] (B) -- (E);                       % 连接 B-E
+    \draw[thick] (E) -- (D);                       % 连接 E-D (形成 A-E-D 直线感)
+    
+    % 4. 绘制虚线部分 (辅助线)
+    \draw[dashed, thick] (A) -- (G);               % 垂线 AG
+    \draw[dashed] (G) -- (D);               % 地面辅助线段 GD
+    
+    % 5. 标注字母节点
+    % anchor 用于微调文字相对于坐标点的方位
+    \node[left]  at (A) {$A$};
+    \node[above] at (B) {$B$};
+    \node[above right] at (C) {$C$};
+    \node[below] at (D) {$D$};
+    \node[above right] at (E) {$E$};
+    \node[below] at (G) {$G$};
+    
+    % 6. (可选) 如果需要标注直角符号，可以取消下面代码的注释
+    % \draw (G) +(0,0.2) -- +(0.2,0.2) -- +(0.2,0);
+    % \draw (D) +(-0.2,0) -- +(-0.2,0.2) -- +(0,0.2);
+
+\end{tikzpicture}
+\end{document}
