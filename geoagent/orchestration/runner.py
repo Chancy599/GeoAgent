@@ -68,7 +68,7 @@ class GeoAgentRunner:
         self.store = EvidenceStore(self.run_dir)
         self.geometry_agent = GeometryAgent(self.client, self.state, self.run_dir)
         self.tikz_agent = TikZAgent(self.client, self.state, self.run_dir)
-        self.critic_agent = CriticAgent(self.client, self.state)
+        self.critic_agent = CriticAgent(self.client, self.state, out_dir=self.run_dir)
 
         self.counters = {"steps": 0, "tool_calls": 0}
         self.stop_reason = ""

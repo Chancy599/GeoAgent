@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from geoagent.cv_tools.registry import call_cv_tool
@@ -63,3 +65,38 @@ def test_unknown_tool_returns_error(tmp_path) -> None:
     result = call_cv_tool("does_not_exist", {}, image_path=tmp_path / "x.png", out_dir=tmp_path)
     assert result["ok"] is False
     assert "unknown" in result["error"].lower()
+
+
+def _write_dashed_perpendicular(path: Path, with_square: bool) -> None:
+    """Solid horizontal line crossed by a dashed vertical arm at (180, 100)."""
+    from PIL import Image, ImageDraw
+
+    image = Image.new("L", (320, 200), 255)
+    draw = ImageDraw.Draw(image)
+    draw.line([(40, 100), (260, 100)], fill=0, width=3)
+    for y in range(30, 174, 18):  # 11 px dashes with 7 px gaps
+        draw.line([(180, y), (180, y + 11)], fill=0, width=3)
+    if with_square:
+        draw.line([(162, 100), (162, 118)], fill=0, width=3)
+        draw.line([(162, 118), (180, 118)], fill=0, width=3)
+    image.save(path)
+
+
+def test_right_angle_fallback_detects_square_on_dashed_arm(tmp_path) -> None:
+    image = tmp_path / "dashed_square.png"
+    _write_dashed_perpendicular(image, with_square=True)
+    result = call_cv_tool("detect_right_angle_marker", {}, image_path=image, out_dir=tmp_path)
+
+    assert result["ok"], result.get("error")
+    assert result["results"]["count"] == 1
+    vx, vy = result["results"]["markers"][0]["vertex_px"]
+    assert abs(vx - 180) < 4 and abs(vy - 100) < 4
+
+
+def test_right_angle_fallback_ignores_bare_cross(tmp_path) -> None:
+    image = tmp_path / "dashed_cross.png"
+    _write_dashed_perpendicular(image, with_square=False)
+    result = call_cv_tool("detect_right_angle_marker", {}, image_path=image, out_dir=tmp_path)
+
+    assert result["ok"], result.get("error")
+    assert result["results"]["count"] == 0

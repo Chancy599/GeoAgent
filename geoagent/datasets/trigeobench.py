@@ -54,6 +54,11 @@ def _find(base: Path, stem: str, suffixes: tuple[str, ...]) -> Path | None:
     return None
 
 
+def normalise_stem(stem: str) -> str:
+    """Strip stray leading punctuation some TriGeoBench files carry (e.g. ',971_q_fig2')."""
+    return stem.lstrip(" ,.;_-") or stem
+
+
 def scan_dataset(
     image_dir: str | Path,
     latex_dir: str | Path | None = None,
@@ -66,20 +71,29 @@ def scan_dataset(
         return []
     latex_root = Path(latex_dir) if latex_dir else None
     items: list[BenchItem] = []
+    seen: set[str] = set()
     for path in sorted(images.iterdir()):
         if not path.is_file() or path.suffix.lower() not in IMAGE_SUFFIXES:
             continue
-        stem = path.stem
+        stem = normalise_stem(path.stem)
+        if stem in seen:
+            continue
         latex_path = _find(latex_root, stem, LATEX_SUFFIXES) if latex_root else None
+        if latex_path is None and latex_root is not None and stem != path.stem:
+            latex_path = _find(latex_root, path.stem, LATEX_SUFFIXES)
         width, height = _size_of(path)
+        seen.add(stem)
         items.append(BenchItem(stem=stem, image_path=path, latex_path=latex_path, width=width, height=height))
-        if limit is not None and len(items) >= limit:
-            break
+    # Normalisation can reorder names (',971...' becomes '971...'), so sort on
+    # the public stem rather than the raw filename before applying the limit.
+    items.sort(key=lambda item: item.stem)
+    if limit is not None:
+        items = items[:limit]
     return items
 
 
 def find_item(stem_or_path: str | Path, items: list[BenchItem]) -> BenchItem | None:
-    needle = Path(stem_or_path).stem
+    needle = normalise_stem(Path(stem_or_path).stem)
     for item in items:
         if item.stem == needle:
             return item

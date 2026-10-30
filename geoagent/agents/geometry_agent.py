@@ -121,6 +121,7 @@ class GeometryAgent:
         cv_used = 0
         submit_error: str | None = None
         token_usage: dict[str, Any] = {}
+        empty_submissions = 0
 
         for iteration in range(5):
             # Force the submission on the final iteration so the agent cannot keep
@@ -138,6 +139,13 @@ class GeometryAgent:
             token_usage = result.usage
             calls = result.tool_calls
             truncated = (result.finish_reason or "").lower() == "length"
+            if truncated and calls:
+                # The provider may still return tool calls on a length-stopped
+                # response, but their arguments come from a generation that ran
+                # out of budget.  A truncated call can carry an empty/partial
+                # submission, so discard the whole response and ask for a
+                # compact retry instead of merging garbage.
+                calls = []
             if not calls:
                 text = (result.text or "").strip()
                 # A length-stopped reply may contain a half-written JSON object; never
@@ -191,6 +199,32 @@ class GeometryAgent:
                         messages.append(
                             tool_reply(call.id, name, {"ok": False, "error": "json must be a string object"})
                         )
+                        continue
+                    if not (parsed.get("objects") or parsed.get("relations")):
+                        empty_submissions += 1
+                        submit_error = "empty submission (no objects or relations)"
+                        messages.append(
+                            tool_reply(
+                                call.id,
+                                name,
+                                {
+                                    "ok": False,
+                                    "error": (
+                                        "submission is empty: include at least one object or relation "
+                                        "derived from the CV evidence"
+                                    ),
+                                },
+                            )
+                        )
+                        if empty_submissions >= 3:
+                            return {
+                                "ok": False,
+                                "merged": {"objects": 0},
+                                "summary": "geometry agent submitted empty geometry",
+                                "error": submit_error,
+                                "cv_calls": cv_used,
+                                "usage": token_usage,
+                            }
                         continue
                     merged = merge_geometry_submission(self.state, parsed)
                     messages.append(tool_reply(call.id, name, {"ok": True, "merged": merged}))

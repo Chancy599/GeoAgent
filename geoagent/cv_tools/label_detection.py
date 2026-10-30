@@ -120,12 +120,30 @@ def _templates() -> dict[str, np.ndarray]:
 
 
 def _cap_height(mask: np.ndarray, stroke_w: float) -> float:
+    """Estimate glyph cap height, ignoring dashed-line fragments.
+
+    A dashed figure floods the text mask with many 2x9 px dash fragments whose
+    median height (~10 px) is far below the ~20 px letters; taking the plain
+    median then rejects every real letter.  Restrict the estimate to
+    glyph-shaped components (wide enough, not a thin dash, not a whole arc).
+    """
+    h_img, w_img = mask.shape[:2]
     n, lab, stats, _ = cv2.connectedComponentsWithStats((mask > 0).astype(np.uint8), 8)
-    heights = []
+    glyph_like: list[int] = []
+    heights: list[int] = []
     for i in range(1, n):
         x, y, w, h, area = stats[i]
         if area >= 10 and h >= 6 and h <= 3.0 * (max(stroke_w, 2.0)) ** 2 + 40:
             heights.append(h)
+        if (
+            area >= 8
+            and w >= max(4.0, 1.4 * stroke_w)
+            and h >= 12
+            and h <= 0.18 * min(h_img, w_img)
+        ):
+            glyph_like.append(h)
+    if len(glyph_like) >= 2:
+        return float(np.clip(np.median(glyph_like), 10.0, 40.0))
     if heights:
         return float(np.clip(np.median(heights), 10.0, 32.0))
     return 20.0
@@ -144,6 +162,48 @@ def _sampled_component(seg: tuple[float, float, float, float], labels: np.ndarra
         window = labels[max(0, y - 1): y + 2, max(0, x - 1): x + 2]
         ids.update(int(v) for v in window[window > 0])
     return ids
+
+
+def _has_prime_stroke(mask: np.ndarray, w: int, h: int) -> bool:
+    """Detect a detached prime/apostrophe stroke at the upper right.
+
+    Labels like C' are grouped with their prime by the dilation step; the NCC
+    template (plain C) then scores poorly.  Recover the prime explicitly so the
+    label reads C' instead of a duplicate C.
+    """
+    n, lab, stats, _ = cv2.connectedComponentsWithStats((mask > 0).astype(np.uint8), 8)
+    if n < 3:
+        return False
+    areas = [(i, int(stats[i][4]), stats[i]) for i in range(1, n)]
+    areas.sort(key=lambda item: item[1], reverse=True)
+    main_id, main_area, main_stats = areas[0]
+    mx, my, mw, mh = (int(main_stats[j]) for j in range(4))
+    for cid, area, st in areas[1:]:
+        x, y, cw, ch = (int(st[j]) for j in range(4))
+        if area < 3 or area > 0.4 * main_area:
+            continue
+        if x + cw < mx + mw - 1:  # not to the right of the letter
+            continue
+        if y > my + 0.55 * mh:  # not in the upper part
+            continue
+        if ch > 0.75 * h or cw > 0.4 * w:
+            continue
+        if cw > 0.6 * ch:  # a prime is a thin stroke, not a square marker
+            continue
+        ys, xs = np.where(lab == cid)
+        if len(xs) < 4:
+            continue
+        pts = np.column_stack([xs, ys]).astype(np.float32)
+        _u, sv, vt = np.linalg.svd(pts - pts.mean(0), full_matrices=False)
+        if sv[0] < 1.8 * sv[1]:  # not clearly a stroke
+            continue
+        angle = abs(math.degrees(math.atan2(float(vt[0, 1]), float(vt[0, 0]))))
+        if angle > 90:
+            angle = 180 - angle
+        if not 15.0 <= angle <= 76.0:  # a prime slants; glyph stems are vertical
+            continue
+        return True
+    return False
 
 
 def _glyph_groups(text: np.ndarray, cap_h: float) -> list[dict[str, Any]]:
@@ -233,9 +293,14 @@ def extract_label_candidates(
             continue
         if area < 8 or h < 5 or w < 2:
             continue
-        if not (0.42 * cap_h <= h <= 1.9 * cap_h):
+        # Dashed-line remnants survive line suppression as short thick dashes.
+        # They are much smaller than a cap-height letter; accepting them feeds
+        # fragments into the template matcher, which then invents "1"/"3"/"U".
+        if not (0.62 * cap_h <= h <= 1.9 * cap_h):
             continue
-        if w > 2.6 * cap_h or max(h, w) < 0.45 * cap_h:
+        if w > 2.6 * cap_h or max(h, w) < 0.5 * cap_h:
+            continue
+        if w < 0.22 * cap_h:
             continue
         if w / max(h, 1) > 3.0:
             continue
@@ -251,6 +316,7 @@ def extract_label_candidates(
         if int(glyph.sum()) < 8:
             continue
         fill_ratio = float(component.sum()) / max(1.0, float(w * h))
+        prime_candidate = _has_prime_stroke(component, w, h)
         crop_path = glyph_dir / f"label_{len(candidates) + 1:02d}.png"
         save_png(crop_path, np.repeat((glyph * 255)[:, :, None], 3, axis=2))
         candidates.append(
@@ -265,6 +331,7 @@ def extract_label_candidates(
                 "area_px": area,
                 "fill_ratio": round(fill_ratio, 3),
                 "glyph_png": str(crop_path),
+                "prime_candidate": prime_candidate,
                 "possible_point_marker": bool(fill_ratio > 0.58 and h <= 1.6 * stroke_w * 2.0),
             }
         )
@@ -356,12 +423,23 @@ def match_label_templates(
         )[:top_k]
         top = [{"char": ch, "ncc": round(score, 4)} for ch, score in scored]
         ambiguous = len(top) >= 2 and (top[0]["ncc"] - top[1]["ncc"]) < 0.06
+        reason = None
+        chosen = top[0]["char"] if top else "?"
+        if top and top[0]["ncc"] < 0.45:
+            # A weak best match is usually a clipped letter fragment or an
+            # artifact; reporting "?" keeps a wrong letter out of the binding.
+            chosen = "?"
+            ambiguous = True
+            reason = f"low-confidence match ({top[0]['ncc']:.2f} < 0.45)"
+        if chosen != "?" and chosen.isalpha() and cand.get("prime_candidate"):
+            chosen = f"{chosen}'"
         matches.append(
             {
                 **cand,
                 "top": top,
-                "chosen": top[0]["char"] if top else "?",
+                "chosen": chosen,
                 "ambiguous": bool(ambiguous),
+                **({"reason": reason} if reason else {}),
                 "score_kind": "normalised cross-correlation (template match), not a probability",
             }
         )

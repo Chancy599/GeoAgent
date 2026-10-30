@@ -72,3 +72,64 @@ def test_truncated_prefix_is_not_accepted_as_submission(tmp_path) -> None:
         message.get("role") == "user" and "cut off" in str(message.get("content", ""))
         for message in client.seen_messages[1]
     )
+
+
+class _TruncatedToolCallClient:
+    """First reply is length-stopped yet carries an (empty) submit tool call."""
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def build_content(self, text, image_paths=None):
+        return text
+
+    def chat(self, messages, **kwargs):
+        self.calls += 1
+        if self.calls == 1:
+            function = SimpleNamespace(
+                name="submit_geometry", arguments=json.dumps({"json": json.dumps({"objects": []})})
+            )
+            call = SimpleNamespace(id="call_trunc", function=function)
+            message = SimpleNamespace(content=None, tool_calls=[call])
+            return LLMResult(text="", message=message, tool_calls=[call], finish_reason="length", usage={})
+        function = SimpleNamespace(name="submit_geometry", arguments=json.dumps({"json": json.dumps(SUBMISSION)}))
+        call = SimpleNamespace(id="call_1", function=function)
+        message = SimpleNamespace(content=None, tool_calls=[call])
+        return LLMResult(text="", message=message, tool_calls=[call], finish_reason="tool_calls", usage={})
+
+
+def test_truncated_tool_call_is_discarded(tmp_path) -> None:
+    state = _state(tmp_path)
+    client = _TruncatedToolCallClient()
+    result = GeometryAgent(client, state, tmp_path / "out").run("consolidate", cv_calls_left=0)
+
+    assert client.calls == 2
+    assert result["ok"] is True
+    assert result["merged"]["objects"] == 2
+
+
+class _EmptySubmitClient:
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def build_content(self, text, image_paths=None):
+        return text
+
+    def chat(self, messages, **kwargs):
+        self.calls += 1
+        function = SimpleNamespace(
+            name="submit_geometry", arguments=json.dumps({"json": json.dumps({"summary": "nothing", "objects": []})})
+        )
+        call = SimpleNamespace(id=f"call_{self.calls}", function=function)
+        message = SimpleNamespace(content=None, tool_calls=[call])
+        return LLMResult(text="", message=message, tool_calls=[call], finish_reason="tool_calls", usage={})
+
+
+def test_empty_submission_is_rejected(tmp_path) -> None:
+    state = _state(tmp_path)
+    client = _EmptySubmitClient()
+    result = GeometryAgent(client, state, tmp_path / "out").run("consolidate", cv_calls_left=0)
+
+    assert client.calls == 3
+    assert result["ok"] is False
+    assert not state.objects

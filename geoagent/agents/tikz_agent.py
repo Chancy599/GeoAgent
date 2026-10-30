@@ -12,6 +12,18 @@ from .prompts import TIKZ_SYSTEM
 from .schemas import TIKZ_TOOLS
 
 
+def _complete_document(tex: str) -> bool:
+    """A submission must be a standalone document, not a bare snippet."""
+    lowered = tex.lower()
+    return (
+        "\\documentclass" in lowered
+        and "\\begin{document}" in lowered
+        and "\\begin{tikzpicture}" in lowered
+        and "\\end{tikzpicture}" in lowered
+        and "\\end{document}" in lowered
+    )
+
+
 def _geometry_digest(state: GeometricEvidenceState, limit: int = 8000) -> str:
     lines: list[str] = []
     for obj in list(state.objects.values())[:60]:
@@ -94,9 +106,20 @@ class TikZAgent:
                         continue
                     tex = str(args.get("tex") or "").strip()
                     notes = str(args.get("notes") or "")
-                    if "\\begin{tikzpicture}" not in tex and "\\documentclass" not in tex:
+                    if not _complete_document(tex):
                         messages.append(
-                            tool_reply(call.id, name, {"ok": False, "error": "tex contains no tikzpicture/documentclass"})
+                            tool_reply(
+                                call.id,
+                                name,
+                                {
+                                    "ok": False,
+                                    "error": (
+                                        "tex must be a COMPLETE standalone document: "
+                                        "\\documentclass, \\begin{document}, \\begin{tikzpicture}, "
+                                        "\\end{tikzpicture}, \\end{document}"
+                                    ),
+                                },
+                            )
                         )
                         continue
                     messages.append(tool_reply(call.id, name, {"ok": True, "chars": len(tex)}))
@@ -114,8 +137,30 @@ class TikZAgent:
                 tex = text.strip("`").strip()
                 if tex.lower().startswith("latex"):
                     tex = tex[5:].strip()
-            if tex:
+                start = tex.find("\\documentclass")
+                end = tex.rfind("\\end{document}")
+                if start >= 0 and end > start:
+                    tex = tex[start: end + len("\\end{document}")].strip()
+                else:
+                    start = tex.find("\\begin{tikzpicture}")
+                    end = tex.rfind("\\end{tikzpicture}")
+                    if start >= 0 and end > start:
+                        tex = tex[start: end + len("\\end{tikzpicture}")].strip()
+            if tex and _complete_document(tex):
                 return {"ok": True, "tex": tex, "notes": notes or "recovered from plain reply", "usage": usage}
+            if tex:
+                messages.append({"role": "assistant", "content": text[:6000]})
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "That is not a complete standalone document. Call submit_tikz with the "
+                            "FULL document (\\documentclass ... \\begin{document} ... \\end{document}) "
+                            "as one string, no markdown fences, no prose."
+                        ),
+                    }
+                )
+                continue
             messages.append({"role": "assistant", "content": text or "(empty)"})
             messages.append(
                 {"role": "user", "content": "Please call submit_tikz with the full LaTeX document."}

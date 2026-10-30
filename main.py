@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
+from geoagent.archive import archive_and_clean
 from geoagent.config import load_settings
 from geoagent.datasets import find_item, scan_dataset
 from geoagent.orchestration import GeoAgentRunner
@@ -104,6 +105,8 @@ def cmd_run(args: argparse.Namespace) -> int:
         on_event=None if args.quiet else _print_events,
     )
     result = runner.run()
+    if result.get("best_version") is not None and not args.no_archive:
+        result = archive_and_clean(result, args.archive_dir)
     print("\n== RESULT ==")
     print(json.dumps({k: result[k] for k in (
         "status", "stop_reason", "summary", "best_version", "best_score",
@@ -114,13 +117,24 @@ def cmd_run(args: argparse.Namespace) -> int:
 
 def cmd_batch(args: argparse.Namespace) -> int:
     settings = load_settings()
-    items = scan_dataset(settings.paths.image_dir, settings.paths.latex_dir, limit=args.limit)
+    items = scan_dataset(
+        settings.paths.image_dir,
+        settings.paths.latex_dir,
+        limit=None if args.only else args.limit,
+    )
     if args.start:
         items = [i for i in items if i.stem >= args.start]
+    if args.only:
+        order = {stem: index for index, stem in enumerate(args.only)}
+        items = sorted(
+            (i for i in items if i.stem in order),
+            key=lambda i: order[i.stem],
+        )
+        for stem in args.only:
+            if stem not in {i.stem for i in items}:
+                print(f"warning: no dataset image matches stem {stem!r}")
     results = []
     for item in items:
-        if args.only and item.stem not in args.only:
-            continue
         print(f"\n===== {item.stem} =====")
         run_settings = _settings(args)
         runner = GeoAgentRunner(
@@ -130,6 +144,8 @@ def cmd_batch(args: argparse.Namespace) -> int:
             on_event=None if args.quiet else _print_events,
         )
         result = runner.run()
+        if result.get("best_version") is not None and not args.no_archive:
+            result = archive_and_clean(result, args.archive_dir)
         results.append(result)
         print(
             f"  -> status={result['status']} best_version={result['best_version']} "
@@ -162,6 +178,8 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--max-visual-calls", type=int, default=None)
     run.add_argument("--max-total-tokens", type=int, default=None)
     run.add_argument("--timeout-seconds", type=int, default=None)
+    run.add_argument("--archive-dir", default="outputs/ours", help="where successful runs are archived")
+    run.add_argument("--no-archive", action="store_true", help="keep the temporary run directory")
     run.set_defaults(func=cmd_run)
 
     batch = sub.add_parser("batch", help="run several images and write a JSON report")
@@ -176,6 +194,8 @@ def build_parser() -> argparse.ArgumentParser:
     batch.add_argument("--max-visual-calls", type=int, default=None)
     batch.add_argument("--max-total-tokens", type=int, default=None)
     batch.add_argument("--timeout-seconds", type=int, default=None)
+    batch.add_argument("--archive-dir", default="outputs/ours", help="where successful runs are archived")
+    batch.add_argument("--no-archive", action="store_true", help="keep the temporary run directories")
     batch.set_defaults(func=cmd_batch)
     return parser
 

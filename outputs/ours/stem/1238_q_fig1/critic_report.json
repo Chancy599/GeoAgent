@@ -1,0 +1,42 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render reproduces the trapezoid ABCD with correct shape, vertex positions and labels; differences are mainly label placement and scale.",
+  "figure_type": {
+    "original": "Isosceles-like trapezoid ABCD with AB and DC horizontal, four solid straight sides, labels at corners",
+    "render": "Trapezoid ABCD with AB and DC horizontal, four solid straight sides, labels at corners"
+  },
+  "issues": [
+    {
+      "type": "layout_error",
+      "severity": "low",
+      "description": "Label positions are offset differently: in the original, labels sit close to each vertex (A and B slightly below-left/right, D and C above-left/right of the corner, tight). In the render, labels sit farther from the vertices (e.g., D and C are placed above the corner with more spacing, A and B are farther below).",
+      "suggestion": "Tighten label anchor offsets (e.g., use anchor=north east/north west/south east/south west with small inner sep) so labels hug their vertices as in the original."
+    },
+    {
+      "type": "other",
+      "severity": "low",
+      "description": "Overall aspect ratio differs: the original is about 531x290 px while the render is wider (about 700x370), so the figure is scaled, not warped; proportions of the trapezoid appear consistent.",
+      "suggestion": "Optionally scale the TikZ coordinates or use a scale factor so the figure matches the original's dimensions; no change to vertex geometry is needed."
+    }
+  ],
+  "matches": [
+    "Four vertices A, B, C, D in the same arrangement: AB bottom, DC top, DC shorter than AB",
+    "Four solid straight sides AB, BC, CD, DA with no dashed segments",
+    "Left side slants inward from A up to D and right side from B up to C, matching the original proportions",
+    "Labels A, B, C, D are present and attached to the correct corners",
+    "No right-angle markers or extra elements in either figure"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

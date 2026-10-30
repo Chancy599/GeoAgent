@@ -24,3 +24,13 @@ def test_reference_is_only_loaded_offline(bench_items) -> None:
     tex = load_reference("1035_q_fig1", bench_items)
     assert tex is not None
     assert "tikzpicture" in tex
+
+
+def test_leading_punctuation_in_filename_still_pairs(bench_items) -> None:
+    # data/test/image contains ',971_q_fig2.png'; its stem is normalised so the
+    # reference tex pairs and the stem can be used on the CLI.
+    item = find_item("971_q_fig2", bench_items)
+    assert item is not None
+    assert item.stem == "971_q_fig2"
+    assert item.latex_path is not None and item.latex_path.stem == "971_q_fig2"
+    assert find_item(",971_q_fig2.png", bench_items) is item

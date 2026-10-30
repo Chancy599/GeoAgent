@@ -1,0 +1,38 @@
+\documentclass[tikz,border=10pt]{standalone}
+% No extra TikZ libraries needed
+\begin{document}
+\begin{tikzpicture}[line width=1.2pt, line join=round]
+  % Coordinates: x_t = px*0.02, y_t = (604 - py)*0.02
+  \coordinate (B) at (2.08,10.76);
+  \coordinate (A) at (2.08,3.58);
+  \coordinate (G) at (2.08,1.32);
+  \coordinate (D) at (7.74,1.32);
+  \coordinate (C) at (7.74,2.64);
+  \coordinate (E) at (6.235,2.46);
+  \coordinate (L) at (0.66,1.32);   % left baseline end (x=33px)
+  \coordinate (R) at (9.62,1.32);   % right baseline end (x=481px)
+
+  % Solid segments
+  \draw (B) -- (A);
+  \draw (B) -- (E) -- (D);
+  \draw (A) -- (E);
+  \draw (E) -- (C);
+  \draw (C) -- (D);
+
+  % Dashed segments
+  \draw[dash pattern=on 4pt off 3pt] (A) -- (G);
+  \draw[dash pattern=on 4pt off 3pt] (G) -- (D);
+
+  % Solid baseline extensions beyond G and D
+  \draw (L) -- (G);
+  \draw (D) -- (R);
+
+  % Point labels
+  \node[above] at (B) {$B$};
+  \node[left]  at (A) {$A$};
+  \node[below] at (G) {$G$};
+  \node[below] at (D) {$D$};
+  \node[above right] at (C) {$C$};
+  \node[above right] at (E) {$E$};  % moved to above-right to clear B-E and E-C strokes
+\end{tikzpicture}
+\end{document}
