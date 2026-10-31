@@ -1,0 +1,39 @@
+\documentclass[tikz,border=10pt]{standalone}
+% Scale s = 0.009963 cm/px, origin at image centre (457.5, 319)
+\usetikzlibrary{calc}
+\begin{document}
+\begin{tikzpicture}[line join=round, line width=1.1pt,
+  lbl/.style={font=\fontsize{11.5}{13.8}\selectfont}]
+  % Vertices
+  \coordinate (A) at (-3.527,2.206);
+  \coordinate (D) at (3.533,2.202);
+  \coordinate (C) at (3.529,-2.214);
+  \coordinate (B) at (-3.533,-2.212);
+  \coordinate (E) at (-1.415,-2.213);
+  \coordinate (F) at (3.526,-0.764);
+  \coordinate (P) at (0.004,0.716);
+  % Intersection of PC and EF (label M)
+  \coordinate (M) at (2.235,-1.139);
+
+  % Quadrilateral sides
+  \draw (A) -- (D) -- (C) -- (B) -- cycle;
+
+  % Interior segments
+  \draw (A) -- (F) -- (E) -- cycle;
+  \draw (A) -- (E);
+  % CP ends at P (no overshoot stub)
+  \draw (C) -- (P);
+  % Dashed PE with finer dashes and thinner stroke
+  \draw[dash pattern=on 2pt off 2pt, line width=0.5pt] (P) -- (E);
+
+  % Labels
+  \node[above left, lbl] at (A) {$A$};
+  \node[above right, lbl] at (D) {$D$};
+  \node[below left, lbl] at (B) {$B$};
+  \node[below right, lbl] at (C) {$C$};
+  \node[below, lbl] at (E) {$E$};
+  \node[right, lbl] at (F) {$F$};
+  \node[above right, lbl] at (P) {$P$};
+  \node[below, lbl] at (M) {$M$};
+\end{tikzpicture}
+\end{document}

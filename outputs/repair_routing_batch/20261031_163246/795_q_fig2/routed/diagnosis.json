@@ -1,0 +1,36 @@
+{
+  "route": "perception",
+  "hypotheses": [
+    {
+      "cause": "The label E is missing from the GES because label extraction did not produce a label object for it, not because the geometry is wrong.",
+      "evidence": "LABEL_BINDINGS and the label_* objects cover only A, B, C, D, F and P. point_07 at (224.0, 184.33) is an unlabeled point, and the audit lists no E in drawn_labels or ges_point_labels. The critic's E claim comes only from a VLM comparison against the original."
+    },
+    {
+      "cause": "The PF/AB crossing (point_07) is a plausible location for E, but its visibility is not yet established by the GES.",
+      "evidence": "point_07 lies on seg_AB and seg_PF, and the computed y at x=224 on PF is about 184.3, which matches point_07. The detected segments seg_03 and seg_07 both have ink_support 1.0. Per the rule on computed intersections, this does not prove a visible stroke crossing or a marker at that spot."
+    },
+    {
+      "cause": "The critic's E claim may be imprecise in location or in identity, since it is a heuristic VLM finding.",
+      "evidence": "The critic's bbox [0.29, 0.46, 0.35, 0.54] is normalized and has not been mapped to pixels or checked against the GES. The critic also marks flaky=false, but it provides no OCR or pixel-level verification. Its suggested placement, upper-right of the crossing, is a suggestion and not evidence."
+    },
+    {
+      "cause": "The stroke-weight complaint is a style observation with no measured stroke width in the GES.",
+      "evidence": "The GES records dash_lengths_px, ink_coverage and sampled_length_px, but no stroke thickness in pixels. The critic rates the issue low severity and reports it by visual impression ('read as heavier'). The CURRENT_TIKZ uses line width 0.6pt."
+    }
+  ],
+  "missing_evidence": [
+    "A pixel-level crop of the source image around (224, 184) to confirm the glyph 'E', its bounding box, and its position relative to the crossing.",
+    "Confirmation of whether the original shows a visible dot or other marker at the PF/AB crossing, separate from the line intersection.",
+    "A binding check of point_07 to the label E, so the E label can be tied to a geometric point in the GES.",
+    "Measured stroke thickness in pixels for the rectangle sides and the diagonals in the source, to compare against the render's 0.6pt setting.",
+    "Confirmation that the critic's normalized bbox maps to the expected pixel region and matches the source image."
+  ],
+  "instruction": "Send a perception request to the source image, with no code edits. (1) Localize any label glyph 'E' near pixel (224, 184), report its pixel bounding box and its position relative to the crossing of seg_PF and seg_AB, and say whether it exists at all. (2) Report whether a visible marker or dot is at the crossing, without assuming one from the computed intersection. (3) Measure the stroke thickness in pixels of the top side PD, the bottom side BC, and the diagonals PF, AF and PB in the source, and report the values with their measurement method. (4) Report any other unlabeled glyphs that the label extraction may have missed. Return the findings as evidence, and do not propose numeric repairs.",
+  "verification_checks": [
+    "The E bbox returned by perception falls within a few pixels of the PF/AB crossing at about (224, 184), and the glyph is clearly an 'E'.",
+    "point_07 is confirmed as the crossing point, or the E label is confirmed as attached to a different point. Either way, the binding is recorded.",
+    "The source stroke widths are measured in pixels with a stated method, and the same measurement is taken on the render so the comparison is like for like.",
+    "No code changes are made at this stage. The next step is to decide between code and geometry based on the perception result.",
+    "The critic's label_error and wrong_style claims are each marked as confirmed, refuted, or still unresolved, with the evidence cited."
+  ]
+}

@@ -86,6 +86,7 @@ Requirements
 - Preserve line styles (solid/dashed/dotted; dashed as dash pattern).
 - Draw each segment between its GES endpoints, but if an endpoint overshoots a labelled vertex by only 2-8 px, stop the stroke at the vertex instead of leaving a tick stub. Longer overhangs (roughly >=10 px, e.g. a vertical continuing below its base) are intentional: keep them.
 - Draw a small square right-angle marker at the vertex of EVERY right_angle object in the GES; leaving one out is a defect.
+- Right-angle vertices and their incident segment endpoints are already rectified to exact 90 degrees; draw each square from vertex_px and mark_points_px so it aligns with the two arms.
 - Draw exactly one mark per right_angle object. Short segments in the GES that merely trace a marker's own square must not be drawn again (that yields a duplicated, cluttered mark).
 - Do not use shell-escape, \\write18, external files, or packages beyond TikZ libraries. No markdown fences in the tex field.
 - Repair mode: return the FULL corrected document (not a diff); keep everything that already worked, including the current coordinate scale, line width and label font unless an issue explicitly targets them.

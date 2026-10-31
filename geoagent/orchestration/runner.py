@@ -26,6 +26,7 @@ from ..config import Settings, load_settings
 from ..cv_tools.registry import call_cv_tool
 from ..llm.client import LLMClient
 from ..state.evidence_store import EvidenceStore
+from ..state.rectify import rectify_right_angles
 from ..state.schemas import ActionRecord, GeometricEvidenceState
 from ..tools import compile_tikz, frame_like_original, render_pdf, validate_compilation
 from ..vision.context import VisualContextManager
@@ -334,6 +335,15 @@ class GeoAgentRunner:
         image = None
         if mode == "generate" and bool(args.get("use_image")) and self._visual_left() > 0:
             image = self.ctx.original()
+        # Verified right-angle markers imply exact 90 degrees; rectify the GES
+        # before the TikZ agent reads its coordinates. Never let this fail a run.
+        try:
+            rectify_right_angles(self.state)
+        except Exception as exc:  # pragma: no cover - defensive guard
+            self.state.meta["rectification"] = {
+                "ok": False,
+                "error": f"{type(exc).__name__}: {exc}",
+            }
         result = self.tikz_agent.run(mode, instruction, image_path=image)
         if not result.get("ok") or not result.get("tex"):
             return {"ok": False, "error": result.get("error", "TikZ agent produced no source")}

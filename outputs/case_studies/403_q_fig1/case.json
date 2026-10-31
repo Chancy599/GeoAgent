@@ -1,0 +1,3034 @@
+{
+  "schema": "geoagent.case-study.v1",
+  "stem": "403_q_fig1",
+  "title": "403_q_fig1 | critic removes a spurious CV arc (0.45 -> 0.88 -> 0.90)",
+  "input": "data\\test\\image\\403_q_fig1.png",
+  "reference_latex": "data\\test\\latex\\403_q_fig1.tex",
+  "best_version": 5,
+  "best_score": 0.9,
+  "metrics": {
+    "stem": "403_q_fig1",
+    "ssim": 0.920332,
+    "clip": 0.991736,
+    "dino": 0.988544
+  },
+  "counts": {
+    "steps": 18,
+    "tool_calls": 16,
+    "objects": 44,
+    "relations": 21,
+    "tikz_versions": 5,
+    "compilations": 5,
+    "critic_reports": 5,
+    "conflicts": 4,
+    "unresolved": 6
+  },
+  "stages": [
+    {
+      "name": "lines",
+      "tool": "detect_lines",
+      "params": {},
+      "count": 8,
+      "image": "s02_lines.png",
+      "caption": "Line detection (8 raw segments)"
+    },
+    {
+      "name": "circles",
+      "tool": "detect_circles",
+      "params": {},
+      "count": 1,
+      "image": "s03_circles.png",
+      "caption": "Circle detection: 1 FALSE POSITIVE arc"
+    },
+    {
+      "name": "right_angle",
+      "tool": "detect_right_angle_marker",
+      "params": {},
+      "count": 1,
+      "image": "s04_right_angle.png",
+      "caption": "Right-angle mark at A (1 verified)"
+    },
+    {
+      "name": "labels",
+      "tool": "bind_point_labels",
+      "params": {},
+      "count": null,
+      "image": "s05_labels.png",
+      "caption": "Label binding (A-E)"
+    }
+  ],
+  "versions": [
+    {
+      "version": 1,
+      "mode": "generate",
+      "score": 0.45,
+      "image": "v1.png",
+      "compare_image": "compare_v1.png",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\case_studies\\403_q_fig1\\tikz\\v1\\v1.tex",
+      "compiled": true,
+      "notes": "Scale s=0.022346 from STYLE METRICS with origin at A and y flipped. Line width 1.8pt with round joins; label font 17.5/21pt. Solid A-D extended below A (overhang ~38px kept), dashed E-D ends at D, right-angle mark drawn once at A, four arcs drawn in math convention (D lies on arc at ~167 deg)."
+    },
+    {
+      "version": 2,
+      "mode": "repair",
+      "score": 0.88,
+      "image": "v2.png",
+      "compare_image": "compare_v2.png",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\case_studies\\403_q_fig1\\tikz\\v2\\v2.tex",
+      "compiled": true,
+      "notes": "Removed all arc/circle commands and the stray stroke near BC and the short arc fragment along AB. D-C now runs from D to C (replacing C-F stub and the separate C-(94,159) stroke). Dashed D-E extended by a short stub above E; E-C dashed horizontal. Single right-angle mark at A. Labels placed per instruction. Kept scale s=0.022346, line width 1.8pt, label font 17.5/21."
+    },
+    {
+      "version": 3,
+      "mode": "repair",
+      "score": 0.88,
+      "image": "v3.png",
+      "compare_image": "compare_v3.png",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\case_studies\\403_q_fig1\\tikz\\v3\\v3.tex",
+      "compiled": true,
+      "notes": "Repair for critic issue on D-E overhang. The previous single dashed path D--Estub could end in an off-gap at E, hiding the stub. Split it into dashed D--E and a separate dashed E--Estub that begins with an on-dash, so the ~0.08-unit stub above E is always inked. Everything else (coordinates, scale, line width, label font, right-angle mark, other segments) is unchanged."
+    },
+    {
+      "version": 4,
+      "mode": "repair",
+      "score": 0.86,
+      "image": "v4.png",
+      "compare_image": "compare_v4.png",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\case_studies\\403_q_fig1\\tikz\\v4\\v4.tex",
+      "compiled": true,
+      "notes": "Only changed the Estub coordinate from (0,6.23) to (0,6.85), so the dashed stub above E now reaches about y_px=33. Dash pattern, line width, labels, and all other segments are unchanged."
+    },
+    {
+      "version": 5,
+      "mode": "repair",
+      "score": 0.9,
+      "image": "v5.png",
+      "compare_image": "compare_v5.png",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\case_studies\\403_q_fig1\\tikz\\v5\\v5.tex",
+      "compiled": true,
+      "notes": "Repair: moved the top endpoint of the dashed stub above E from (0,6.85) to (0,7.16) (about +0.31 units). Stub stays dashed. All other coordinates, line width, label font, and the right-angle mark are unchanged."
+    }
+  ],
+  "actions": [
+    {
+      "step": 1,
+      "action": "call_cv_tool:detect_lines",
+      "purpose": "Detect straight segments on whole figure",
+      "params": {
+        "tool_name": "detect_lines",
+        "params": {
+          "visualize": false
+        }
+      },
+      "status": "ok",
+      "result_summary": "ok=True; count=8",
+      "duration_s": 0.48,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 2,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "Detect right-angle marks",
+      "params": {
+        "tool_name": "detect_right_angle_marker",
+        "params": {
+          "visualize": false
+        }
+      },
+      "status": "ok",
+      "result_summary": "ok=True; count=1",
+      "duration_s": 0.69,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 3,
+      "action": "call_cv_tool:detect_circles",
+      "purpose": "Detect circles/arcs on whole figure",
+      "params": {
+        "tool_name": "detect_circles",
+        "params": {}
+      },
+      "status": "ok",
+      "result_summary": "ok=True; count=1",
+      "duration_s": 0.41,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 4,
+      "action": "call_cv_tool:bind_point_labels",
+      "purpose": "Install point labels via glyph extraction and binding",
+      "params": {
+        "tool_name": "bind_point_labels",
+        "params": {}
+      },
+      "status": "ok",
+      "result_summary": "ok=True",
+      "duration_s": 1.22,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 5,
+      "action": "run_geometry_agent",
+      "purpose": "Reconcile geometry for a figure (image 434x410, pixel origin top-left). Verified labels: A=(70,341) bottom-left; B=(384,341) bottom-right; C=(189,66) top; E=(70,66) top-left (ambiguous glyph match, ve",
+      "params": {
+        "instruction": "Reconcile geometry for a figure (image 434x410, pixel origin top-left). Verified labels: A=(70,341) bottom-left; B=(384,341) bottom-right; C=(189,66) top; E=(70,66) top-left (ambiguous glyph match, verify); D=(70,205) on left vertical. Detected evidence: solid segment A-B horizontal y=341 x 71..385; solid vertical A to D (x=70, y 341 to 221); dashed vertical E to D (x=70, y 39..235 chain, ends near D); dashed horizontal E-C at y=66 (x 68..197); solid line B-C (from (384,341) to (189,67)); solid segment C to (94,159) going down-left; short solid right-angle mark at A (verified square of side 23px at vertex A, arms along AB and AD). Circle/arc: center (182.6,231.0), radius 114.9, visible arcs only (ranges 66-115, 159-247, 292-303, 347-358 deg); not full circle, treat as arc. Please derive: the polygon/segment structure, which segments are dashed vs solid, whether the arc is centered on a labelled point, and the right-angle verified at A only (not at E or C). Output consolidated objects, relations, and conflicts concisely.",
+        "use_image": null,
+        "roi": null
+      },
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 14, 'relations': 16, 'conflicts': 4, 'rejected': []}",
+      "duration_s": 24.71,
+      "token_usage": {
+        "delta": 25644
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 6,
+      "action": "run_tikz_agent",
+      "purpose": "Draw figure in TikZ (use pixel coordinates scaled by ~0.01 and flip y, e.g. x_tikz = x_px/100, y_tikz = (410 - y_px)/100 or equivalent). Points: A=(70,341), B=(384.4,341), C=(188.6,66.1), E=(70.5,65.9",
+      "params": {
+        "mode": "generate",
+        "use_image": null,
+        "instruction": "Draw figure in TikZ (use pixel coordinates scaled by ~0.01 and flip y, e.g. x_tikz = x_px/100, y_tikz = (410 - y_px)/100 or equivalent). Points: A=(70,341), B=(384.4,341), C=(188.6,66.1), E=(70.5,65.9), D=(70.5,205.5). Solid segments: A-B, A-D, C-B, and a solid segment from C down-left to (94.3,159.05). Dashed segments: E-D (vertical, continues from E down to D) and E-C (horizontal at top). Draw right-angle square mark at A (side ~0.23 units, inside the angle between AB and AD). Draw arc: center (182.6,231.0) radius 114.9 px, visible angular range roughly 66-115, 159-247, 292-303, 347-358 degrees (only draw the visible arcs, i.e. draw the arc portions in image convention; the arc passes through D). Label A,B,C,D,E with small offsets outside the figure. Use standalone document with tikz package."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 20.2,
+      "token_usage": {
+        "delta": 9399
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 7,
+      "action": "run_critic",
+      "purpose": "arc extent, dashed segments, labels, right-angle mark",
+      "params": {
+        "focus": "arc extent, dashed segments, labels, right-angle mark"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.45; issues=5",
+      "duration_s": 21.02,
+      "token_usage": {
+        "delta": 9633
+      },
+      "visual_calls": 1,
+      "error": null
+    },
+    {
+      "step": 8,
+      "action": "inspect_image",
+      "purpose": "Is there a circular arc in the original figure? If so, describe where it runs (which labelled points it passes near, e.g. through D or near C/B) and whether it is solid. Also confirm whether there is ",
+      "params": {
+        "region": null,
+        "question": "Is there a circular arc in the original figure? If so, describe where it runs (which labelled points it passes near, e.g. through D or near C/B) and whether it is solid. Also confirm whether there is a short stub above E and whether segment C-D exists in the original."
+      },
+      "status": "ok",
+      "result_summary": "ok=True",
+      "duration_s": 0.01,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 9,
+      "action": "run_tikz_agent",
+      "purpose": "Remove ALL arc/circle drawing commands (there is no circular arc in the original). Keep only: solid segments A-B (y=341 px, horizontal), A-D (vertical, solid, slight overhang of ~a few px below A), D-",
+      "params": {
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Remove ALL arc/circle drawing commands (there is no circular arc in the original). Keep only: solid segments A-B (y=341 px, horizontal), A-D (vertical, solid, slight overhang of ~a few px below A), D-C (solid, from D all the way to C at (188.6,66.1)), C-B (solid). Dashed segments: D-E (vertical, from D up to E at (70.5,65.9)), extended by a short stub a few px above E; E-C (horizontal dashed at y=66). Right-angle square mark at A only. Remove the stray short stroke near segment BC and any short arc fragment along AB. Labels: A at bottom-left of A, B bottom-right of B, C above C, D left of D, E left of E. Do not draw segment C-(94,159) as a separate stroke; it is the same line D-C."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 14.63,
+      "token_usage": {
+        "delta": 9910
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 10,
+      "action": "run_critic",
+      "purpose": "arc removed, CD reaches D, stub above E, right angle at A",
+      "params": {
+        "focus": "arc removed, CD reaches D, stub above E, right angle at A"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.88; issues=1",
+      "duration_s": 14.08,
+      "token_usage": {
+        "delta": 8306
+      },
+      "visual_calls": 1,
+      "error": null
+    },
+    {
+      "step": 11,
+      "action": "run_tikz_agent",
+      "purpose": "Extend the dashed vertical segment D-E upward past E so it overhangs E by a short dashed stub (about 0.08 units / ~4 px above E at (0,6.148), i.e. to (0,6.23)). Keep it dashed with the same dash patte",
+      "params": {
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Extend the dashed vertical segment D-E upward past E so it overhangs E by a short dashed stub (about 0.08 units / ~4 px above E at (0,6.148), i.e. to (0,6.23)). Keep it dashed with the same dash pattern. Change nothing else."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=2",
+      "duration_s": 11.69,
+      "token_usage": {
+        "delta": 8408
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 12,
+      "action": "run_critic",
+      "purpose": "stub above E and overall match",
+      "params": {
+        "focus": "stub above E and overall match"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=3; best_version=3; assessment_score=0.88; issues=1",
+      "duration_s": 16.95,
+      "token_usage": {
+        "delta": 8885
+      },
+      "visual_calls": 1,
+      "error": null
+    },
+    {
+      "step": 13,
+      "action": "run_tikz_agent",
+      "purpose": "The dashed stub above E must be much longer: extend the dashed vertical line from E upward to about y_px=33, which is about 0.7 units above E (E is at (0,6.148), so the top end should be at (0,6.85)).",
+      "params": {
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "The dashed stub above E must be much longer: extend the dashed vertical line from E upward to about y_px=33, which is about 0.7 units above E (E is at (0,6.148), so the top end should be at (0,6.85)). Keep it dashed. Change nothing else."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=4; compile_ok=True; validation_passed=True; best_version=3",
+      "duration_s": 6.22,
+      "token_usage": {
+        "delta": 7523
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 14,
+      "action": "run_critic",
+      "purpose": "stub above E length and overall match",
+      "params": {
+        "focus": "stub above E length and overall match"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=4; best_version=4; assessment_score=0.86; issues=2",
+      "duration_s": 13.05,
+      "token_usage": {
+        "delta": 8058
+      },
+      "visual_calls": 1,
+      "error": null
+    },
+    {
+      "step": 15,
+      "action": "finish",
+      "purpose": "finish run",
+      "params": {
+        "summary": "Produced a compiling TikZ reconstruction of the figure (triangle-like quadrilateral A-B-C-D with dashed E-D/E-C guides, labels A-E, right-angle mark at A). The CV circle detection was a false positive: the original has no arc, so it was removed. Segment D-C now reaches D. Best-scored version is v3 (critic score 0.88); v4 (score 0.86) lengthened the dashed stub above E, but the critic still reports that stub as too short. The CV-detected circle and the critic's arc complaint were both rejected after visual confirmation of the original.",
+        "unresolved": [
+          "Dashed stub above E is still shorter than in the original (v4 critic: about 14 px short). The best-scored version v3 has a shorter stub.",
+          "Final TikZ should be v3 (best score 0.88) unless a later version scores higher; v4 was not re-scored as best."
+        ],
+        "status": "partial"
+      },
+      "status": "error",
+      "result_summary": "ok=False; error=finish blocked: best version 4 still has 0 high, 1 medium and 1 low actionable critic issues (must_repair=true); run_tikz_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)",
+      "duration_s": 0.0,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": "finish blocked: best version 4 still has 0 high, 1 medium and 1 low actionable critic issues (must_repair=true); run_tikz_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)"
+    },
+    {
+      "step": 16,
+      "action": "run_tikz_agent",
+      "purpose": "Lengthen the dashed vertical stub above E by about 0.31 units: change the top endpoint Estub from (0,6.85) to (0,7.16). Keep it dashed. Change nothing else.",
+      "params": {
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Lengthen the dashed vertical stub above E by about 0.31 units: change the top endpoint Estub from (0,6.85) to (0,7.16). Keep it dashed. Change nothing else."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=5; compile_ok=True; validation_passed=True; best_version=4",
+      "duration_s": 8.3,
+      "token_usage": {
+        "delta": 7987
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 17,
+      "action": "run_critic",
+      "purpose": "stub above E length",
+      "params": {
+        "focus": "stub above E length"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=5; best_version=5; assessment_score=0.9; issues=1",
+      "duration_s": 17.68,
+      "token_usage": {
+        "delta": 8870
+      },
+      "visual_calls": 1,
+      "error": null
+    },
+    {
+      "step": 18,
+      "action": "finish",
+      "purpose": "finish run",
+      "params": {
+        "summary": "Compiled TikZ reconstruction (v5, critic score 0.90, must_repair=false) of the figure: quadrilateral-like layout A-B-C-D with solid AB, AD, BC, DC; dashed D-E and E-C guides with a short dashed stub above E; labels A-E; right-angle mark at A. The spurious CV circle/arc was removed after visual confirmation that the original has no arc.",
+        "unresolved": [
+          "Dashed stub above E is slightly longer than in the original (low severity, informational)."
+        ],
+        "status": "success"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; best_version=5; status=success",
+      "duration_s": 0.0,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": null
+    }
+  ],
+  "critics": [
+    {
+      "assessment_score": 0.45,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Labels, dashed EC/ED, solid AB/AD/BC and the right angle at A match the original, but the render adds spurious arcs and stray marks and truncates CD before it reaches D.",
+      "figure_type": {
+        "original": "Quadrilateral-like figure ABCDE with right angle at A, dashed construction lines EC and ED, and a short dashed stub above E; no arcs.",
+        "render": "Same polygon outline with a large spurious circular arc through D and A, an extra arc near CD, stray fragments near AB and BC, and CD not reaching D."
+      },
+      "issues": [
+        {
+          "type": "arc_error",
+          "severity": "high",
+          "object_ids": [
+            "circle_01"
+          ],
+          "bbox": [
+            0.1,
+            0.18,
+            0.5,
+            0.85
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The render draws a circular arc (about 159 degrees, centred near A/D) and a second arc near C that do not appear in the original figure.",
+          "suggestion": "Remove the arc/circle drawing commands from the TikZ source so that only the polygon, dashed guides and right-angle mark are drawn."
+        },
+        {
+          "type": "wrong_position",
+          "severity": "medium",
+          "object_ids": [
+            "seg_05"
+          ],
+          "bbox": [
+            0.12,
+            0.13,
+            0.44,
+            0.45
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "Segment CD stops short of vertex D (ends near the midpoint of CD), whereas in the original it runs from C all the way to D on the vertical line.",
+          "suggestion": "Extend the CD segment so its endpoint is exactly at D (about x=70, y=205 in the original pixel frame)."
+        },
+        {
+          "type": "other",
+          "severity": "low",
+          "object_ids": [
+            "seg_C_x"
+          ],
+          "bbox": [
+            0.64,
+            0.55,
+            0.7,
+            0.65
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "A stray short mark ('l'-like stroke) sits on or next to segment BC, with no counterpart in the original.",
+          "suggestion": "Identify and remove the stray stroke or extra segment causing it, since it is not part of the original figure."
+        },
+        {
+          "type": "other",
+          "severity": "low",
+          "object_ids": [
+            "circle_01"
+          ],
+          "bbox": [
+            0.48,
+            0.76,
+            0.56,
+            0.82
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "A short arc fragment is drawn along the base near AB, between A and B, with no counterpart in the original.",
+          "suggestion": "Remove this fragment together with the spurious arc drawing."
+        },
+        {
+          "type": "missing_element",
+          "severity": "low",
+          "object_ids": [
+            "seg_03"
+          ],
+          "bbox": [
+            0.12,
+            0.05,
+            0.16,
+            0.15
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The original extends the vertical line slightly above E as a short stub; the render stops the dashed line at E.",
+          "suggestion": "Extend the dashed vertical segment a few pixels above E to match the original's stub."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "circle_01",
+          "status": "wrong",
+          "note": "Arc drawn in render (about 159 degrees, plus a second arc near C) that does not exist in the original."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "BC solid segment matches the original."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Solid base AB matches the original."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Dashed vertical ED line present; top stub above E is shorter in render."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Solid vertical AD present."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "wrong",
+          "note": "CD is drawn but stops short of D."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Dashed horizontal EC present."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Right-angle arm along base present."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "Right-angle arm along vertical present."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "AB matches the original."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "AD matches the original."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "BC matches the original."
+        },
+        {
+          "object_id": "seg_C_x",
+          "status": "unclear",
+          "note": "Id not identifiable from the figure; a stray stroke near BC appears in the render, but it is not clearly linked to this id."
+        },
+        {
+          "object_id": "seg_EC",
+          "status": "present",
+          "note": "Dashed EC matches the original."
+        },
+        {
+          "object_id": "seg_ED",
+          "status": "present",
+          "note": "Dashed ED matches the original."
+        },
+        {
+          "object_id": "ra_A",
+          "status": "present",
+          "note": "Right-angle marker at A present."
+        },
+        {
+          "object_id": "right_angle_01",
+          "status": "present",
+          "note": "Right-angle marker at A present."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "Label B present at the correct vertex."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "Label C present at the correct vertex."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Label A present at the correct vertex."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "Label E present at the correct vertex."
+        },
+        {
+          "object_id": "point_13",
+          "status": "present",
+          "note": "Label D present at the correct vertex."
+        },
+        {
+          "object_id": "point_A",
+          "status": "present",
+          "note": "Label A present at the correct vertex."
+        },
+        {
+          "object_id": "point_B",
+          "status": "present",
+          "note": "Label B present at the correct vertex."
+        }
+      ],
+      "checklist_score": 0.957,
+      "actionable_counts": {
+        "high": 1,
+        "medium": 1,
+        "low": 3
+      },
+      "flaky_count": 0,
+      "must_repair": true,
+      "matches": [
+        "Labels A, B, C, D and E are present, correctly spelled and attached to the right vertices.",
+        "Dashed style of ED and EC matches the original.",
+        "Solid segments AB, AD and BC match the original.",
+        "Right-angle mark at A is present."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 1,
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.88,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Render matches the original closely: arc removed, CD reaches D, and the right angle at A is present. The one discrepancy is the dashed stub above E, which the original extends past E and the render stops at E.",
+      "figure_type": {
+        "original": "triangle-like quadrilateral ABCD with dashed auxiliary lines to E, right angle at A, dashed vertical extending past E",
+        "render": "same configuration; dashed vertical ends exactly at E, no stub above E"
+      },
+      "issues": [
+        {
+          "type": "wrong_position",
+          "severity": "medium",
+          "object_ids": [
+            "seg_03",
+            "seg_ED"
+          ],
+          "bbox": [
+            0.1,
+            0.05,
+            0.16,
+            0.16
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The original dashed vertical line through E overhangs above E by a short stub (about 50 px above the E label's baseline). The render's dashed segment ends exactly at E, so the stub is missing.",
+          "suggestion": "Extend the dashed vertical ED line beyond E upward by a short overhang (roughly 0.1 of AD length) so it ends past the E point, keeping it dashed."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "circle_01",
+          "status": "unclear",
+          "note": "No arc is visible in the original either, so the arc is correctly absent in the render; the detected arc is a detector artifact."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Segment BC drawn solid and correctly placed."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Horizontal AB solid, ends at B as in original."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "wrong",
+          "note": "Dashed vertical through E lacks the short overhang above E present in the original."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Solid vertical AD portion drawn correctly."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Segment CD solid and reaches D as in the original."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Dashed horizontal EC drawn correctly."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Right-angle marker side present in render."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "Right-angle marker side present in render."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "AB matches original."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "AD matches original, including the short extension below A."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "BC matches original."
+        },
+        {
+          "object_id": "seg_C_x",
+          "status": "unclear",
+          "note": "Id not identifiable from the geometry state; corresponding segment (CD) appears correct."
+        },
+        {
+          "object_id": "seg_EC",
+          "status": "present",
+          "note": "Dashed EC matches original."
+        },
+        {
+          "object_id": "seg_ED",
+          "status": "wrong",
+          "note": "Dashed ED ends at E; original overhangs above E."
+        },
+        {
+          "object_id": "ra_A",
+          "status": "present",
+          "note": "Right-angle mark at A is drawn in both panels."
+        },
+        {
+          "object_id": "right_angle_01",
+          "status": "present",
+          "note": "Right-angle mark at A present and correctly oriented."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "Label B present at B."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "Label C present at C."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Label A present at A."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "Label E present at E."
+        },
+        {
+          "object_id": "point_13",
+          "status": "present",
+          "note": "Label D present at D."
+        },
+        {
+          "object_id": "point_A",
+          "status": "present",
+          "note": "Label A present."
+        },
+        {
+          "object_id": "point_B",
+          "status": "present",
+          "note": "Label B present."
+        }
+      ],
+      "checklist_score": 0.955,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 1,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": true,
+      "matches": [
+        "Arc is absent in the render, consistent with the original.",
+        "Segment CD reaches D.",
+        "Right angle at A is present with correct orientation.",
+        "Solid AB, AD, BC, CD and dashed EC, ED match the original's styles and endpoints.",
+        "All five labels A, B, C, D, E are present and attached to the right vertices."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 2,
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.88,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Render closely matches the original: same quadrilateral/triangle layout, labels, dashed auxiliary lines and right-angle mark at A. The only discrepancy is the short dashed stub that extends above E in the original.",
+      "figure_type": {
+        "original": "Planar geometry diagram: quadrilateral-like figure ABCDE with right angle at A, dashed auxiliary lines from E to C and E to D, and a dashed stub extending above E",
+        "render": "Same planar diagram without the dashed stub above E; right angle at A, dashed EC and ED present"
+      },
+      "issues": [
+        {
+          "type": "wrong_position",
+          "severity": "medium",
+          "object_ids": [
+            "seg_03",
+            "seg_ED"
+          ],
+          "bbox": [
+            0.1,
+            0.05,
+            0.17,
+            0.16
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The original's vertical dashed line through E continues past E upward as a short stub (ending near the top of the panel). In the render the dashed line ends exactly at E, so the overhang above E is missing.",
+          "suggestion": "Extend the dashed segment ED beyond E (about 50 px in the original scale) so it overhangs E, e.g. draw the dashed line from D through E to a point above E, instead of stopping at E."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "circle_01",
+          "status": "unclear",
+          "note": "No arc is visible in the original, so it cannot be verified; not drawn in the render either."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Segment BC matches the original."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Bottom segment AB matches in position and solid style."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "wrong",
+          "note": "Dashed vertical E-D line in the original extends above E; render stops at E."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Solid vertical segment A-D matches the original."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Segment CD matches the original."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Dashed horizontal E-C matches the original."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Right-angle leg at A matches the original."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "Right-angle leg at A matches the original."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Segment AB matches the original."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "Segment AD matches, including the overhang below A."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Segment BC matches the original."
+        },
+        {
+          "object_id": "seg_C_x",
+          "status": "unclear",
+          "note": "No identifiable segment with this id corresponds to a visible element in the original."
+        },
+        {
+          "object_id": "seg_EC",
+          "status": "present",
+          "note": "Dashed segment EC matches the original."
+        },
+        {
+          "object_id": "seg_ED",
+          "status": "wrong",
+          "note": "ED is drawn but does not overhang E upward as in the original."
+        },
+        {
+          "object_id": "ra_A",
+          "status": "present",
+          "note": "Right-angle mark at A is present in both panels."
+        },
+        {
+          "object_id": "right_angle_01",
+          "status": "present",
+          "note": "Right-angle mark at A is present in both panels."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "Label B is at the correct vertex."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "Label C is at the correct vertex."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Label A is at the correct vertex."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "Label E is at the correct vertex."
+        },
+        {
+          "object_id": "point_13",
+          "status": "present",
+          "note": "Label D is at the correct vertex."
+        },
+        {
+          "object_id": "point_A",
+          "status": "present",
+          "note": "Label A is present and correctly placed."
+        },
+        {
+          "object_id": "point_B",
+          "status": "present",
+          "note": "Label B is present and correctly placed."
+        }
+      ],
+      "checklist_score": 0.955,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 1,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": true,
+      "matches": [
+        "Overall triangle/quadrilateral shape and vertex positions A, B, C, D, E match the original",
+        "Solid segments AB, AD, BC, CD match in position and extent",
+        "Dashed auxiliary lines E-C and E-D are present and dashed",
+        "Right-angle mark at A is present and correctly oriented",
+        "Labels A, B, C, D, E are present and attached to the correct vertices",
+        "Aspect ratio and overall scale are consistent with the original"
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 3,
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.86,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Close match overall; the main discrepancy is that the dashed stub above E is shorter in the render than in the original.",
+      "figure_type": {
+        "original": "Quadrilateral-like figure ABCDE with right angle at A, dashed construction lines from E, and a vertical line extending past A and past E",
+        "render": "Same figure type: triangle-like outline A-B-C-D with dashed E-C and E-D construction lines and right angle at A"
+      },
+      "issues": [
+        {
+          "type": "wrong_position",
+          "severity": "medium",
+          "object_ids": [
+            "seg_03"
+          ],
+          "bbox": [
+            0.1,
+            0.05,
+            0.16,
+            0.16
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The dashed vertical stub above E ends roughly 14 px lower in the render than in the original. In the original it rises to near the top edge of the panel (about 50 px above E), while in the render it stops about 37 px above E.",
+          "suggestion": "Extend the top endpoint of the dashed vertical line (seg_03) upward so it extends further above E, by about 14 px at the original scale (roughly 0.3 of the E-to-D distance)."
+        },
+        {
+          "type": "wrong_position",
+          "severity": "low",
+          "object_ids": [
+            "seg_ED"
+          ],
+          "bbox": [
+            0.142,
+            0.161,
+            0.182,
+            0.501
+          ],
+          "flaky": false,
+          "source": "checklist",
+          "description": "Checklist: segment seg_ED is visible but misplaced.",
+          "suggestion": "Move this element to match the original."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "circle_01",
+          "status": "present",
+          "note": "No circular arc is visible in either panel; not applicable to this figure."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Solid segment B-C is drawn in the render, matching the original."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Solid base A-B is drawn and matches the original."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "wrong",
+          "note": "Dashed vertical stub above E is shorter in the render than in the original."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Solid vertical segment A-D is drawn and matches the original."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Solid segment D-C is drawn and matches the original."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Dashed horizontal E-C line is drawn and matches the original."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Right-angle leg is present at A."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "Right-angle leg is present at A."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Segment AB is drawn and matches the original."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "Segment AD is drawn and matches the original."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Segment BC is drawn and matches the original."
+        },
+        {
+          "object_id": "seg_C_x",
+          "status": "unclear",
+          "note": "No segment identifier for this object is defined in the state, so it cannot be matched to a visible element."
+        },
+        {
+          "object_id": "seg_EC",
+          "status": "present",
+          "note": "Dashed segment EC is drawn and matches the original."
+        },
+        {
+          "object_id": "seg_ED",
+          "status": "wrong",
+          "note": "The dashed E-D line is present, but its extension above E is shorter than in the original (same issue as seg_03)."
+        },
+        {
+          "object_id": "ra_A",
+          "status": "present",
+          "note": "Right-angle marker at A is present in both panels."
+        },
+        {
+          "object_id": "right_angle_01",
+          "status": "present",
+          "note": "Right-angle marker at A is present in both panels."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "Label B is present at the right end of the base."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "Label C is present at the top vertex."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Label A is present at the bottom-left vertex."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "Label E is present at the dashed corner."
+        },
+        {
+          "object_id": "point_13",
+          "status": "present",
+          "note": "Label D is present on the vertical line."
+        },
+        {
+          "object_id": "point_A",
+          "status": "present",
+          "note": "Label A is present."
+        },
+        {
+          "object_id": "point_B",
+          "status": "present",
+          "note": "Label B is present."
+        }
+      ],
+      "checklist_score": 0.957,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 1,
+        "low": 1
+      },
+      "flaky_count": 0,
+      "must_repair": true,
+      "matches": [
+        "Solid outline A-B-C-D and the dashed E-C and E-D construction lines match the original.",
+        "The right-angle marker at A is present with the correct orientation.",
+        "All five point labels A, B, C, D, E are present and correctly attached.",
+        "Vertical line extends below A by about the same amount as in the original.",
+        "Overall proportions and positions of the vertices are consistent with the original."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 4,
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.9,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Render closely matches the original; the only notable difference is that the dashed stub above E is somewhat longer in the render.",
+      "figure_type": {
+        "original": "Quadrilateral-like figure ABCD with right angle at A, dashed construction lines from D and C meeting at E, and a dashed stub extending above E",
+        "render": "Same figure: right angle at A, segments AB, BC, CD, AD, and dashed ED/EC construction lines with a stub above E"
+      },
+      "issues": [
+        {
+          "type": "wrong_position",
+          "severity": "low",
+          "object_ids": [
+            "seg_03"
+          ],
+          "bbox": [
+            0.1,
+            0.05,
+            0.16,
+            0.16
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The dashed stub extending above E is longer in the render (about 12-13% of figure height above E) than in the original (about 10%). The render's stub ends slightly higher than the original's.",
+          "suggestion": "Shorten the dashed ED extension above E by roughly 10-15 px (in figure units, about 0.2-0.3 cm less overhang) so its top end matches the original."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "circle_01",
+          "status": "unclear",
+          "note": "No arc is visible in the original or the render; the detected arc appears to be spurious or a construction artifact."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Corresponds to segment BC; drawn solid in both panels with matching endpoints."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Corresponds to segment AB; solid horizontal base matches the original."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "wrong",
+          "note": "Dashed ED line matches the original, but the stub above E is slightly longer in the render."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Corresponds to segment AD; solid vertical from A to D matches."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Corresponds to segment CD; solid, endpoints match the original."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Dashed horizontal EC matches the original, ending at C."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Right-angle marker edge at A; present in both panels."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "Right-angle marker edge at A; present in both panels."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Segment AB drawn solid between A and B in both panels."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "Segment AD drawn solid between A and D in both panels."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Segment BC drawn solid between B and C in both panels."
+        },
+        {
+          "object_id": "seg_C_x",
+          "status": "unclear",
+          "note": "No segment with this id is identifiable from the geometry state; cannot map it to a visible element."
+        },
+        {
+          "object_id": "seg_EC",
+          "status": "present",
+          "note": "Dashed EC horizontal matches the original."
+        },
+        {
+          "object_id": "seg_ED",
+          "status": "present",
+          "note": "Dashed ED vertical present; stub length above E is the only difference."
+        },
+        {
+          "object_id": "ra_A",
+          "status": "present",
+          "note": "Right-angle mark at A is present in both panels."
+        },
+        {
+          "object_id": "right_angle_01",
+          "status": "present",
+          "note": "Right-angle square at vertex A is drawn in both panels."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "Label B is at the correct vertex on the right."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "Label C is at the correct top vertex."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Label A is at the bottom-left vertex."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "Label E is attached to the dashed corner point left of the dashed horizontal."
+        },
+        {
+          "object_id": "point_13",
+          "status": "present",
+          "note": "Label D is at the point where AD meets the dashed ED line."
+        },
+        {
+          "object_id": "point_A",
+          "status": "unclear",
+          "note": "No point with this id appears in the geometry state; the label A is visible at the correct vertex in both panels."
+        },
+        {
+          "object_id": "point_B",
+          "status": "unclear",
+          "note": "No point with this id appears in the geometry state; the label B is visible at the correct vertex in both panels."
+        }
+      ],
+      "checklist_score": 0.975,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "flaky_count": 0,
+      "must_repair": false,
+      "matches": [
+        "Overall figure structure: quadrilateral ABCD with right angle at A",
+        "Solid segments AB, BC, CD, AD match in position and extent",
+        "Dashed construction lines EC and ED are present with correct dashed style",
+        "Right-angle marker at A is present",
+        "Endpoints of EC at C and ED at D match the original",
+        "Labels A, B, C, D, E are present and attached to the correct vertices"
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 5,
+      "raw_meta": "{}"
+    }
+  ],
+  "objects": [
+    {
+      "id": "seg_01",
+      "type": "segment",
+      "label": null,
+      "coords": {
+        "a_px": [
+          383.0,
+          339.0
+        ],
+        "b_px": [
+          189.0,
+          67.0
+        ],
+        "length_px": 334.1,
+        "angle_deg": 54.5
+      },
+      "normalized": {
+        "a": [
+          0.8825,
+          0.8268
+        ],
+        "b": [
+          0.4355,
+          0.1634
+        ]
+      },
+      "style": {
+        "line": "solid",
+        "metrics": {
+          "supported": true,
+          "ink_support": 1.0,
+          "gap_count": 0,
+          "gap_lengths_px": [],
+          "dash_lengths_px": [
+            308.3
+          ],
+          "ink_coverage": 1.0,
+          "sampled_length_px": 334.1
+        },
+        "notes": []
+      },
+      "source": "cv:detect_lines",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {
+        "detection_kind": "solid_span",
+        "hough_parts": 6
+      }
+    },
+    {
+      "id": "seg_02",
+      "type": "segment",
+      "label": null,
+      "coords": {
+        "a_px": [
+          385.0,
+          341.0
+        ],
+        "b_px": [
+          71.0,
+          341.0
+        ],
+        "length_px": 314.0,
+        "angle_deg": 0.0
+      },
+      "normalized": {
+        "a": [
+          0.8871,
+          0.8317
+        ],
+        "b": [
+          0.1636,
+          0.8317
+        ]
+      },
+      "style": {
+        "line": "solid",
+        "metrics": {
+          "supported": true,
+          "ink_support": 1.0,
+          "gap_count": 0,
+          "gap_lengths_px": [],
+          "dash_lengths_px": [
+            289.8
+          ],
+          "ink_coverage": 1.0,
+          "sampled_length_px": 314.0
+        },
+        "notes": []
+      },
+      "source": "cv:detect_lines",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {
+        "detection_kind": "solid_span",
+        "hough_parts": 3
+      }
+    },
+    {
+      "id": "seg_03",
+      "type": "segment",
+      "label": null,
+      "coords": {
+        "a_px": [
+          70.5,
+          38.6
+        ],
+        "b_px": [
+          70.5,
+          235.4
+        ],
+        "length_px": 196.8,
+        "angle_deg": 90.0
+      },
+      "normalized": {
+        "a": [
+          0.1624,
+          0.0941
+        ],
+        "b": [
+          0.1624,
+          0.5741
+        ]
+      },
+      "style": {
+        "line": "dashed",
+        "metrics": {
+          "dash_pieces": 6,
+          "chain_length_px": 91.0
+        },
+        "notes": [
+          "collinear chain of 6 thin ink dashes with consistent direction"
+        ]
+      },
+      "source": "cv:detect_lines",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [
+        "collinear chain of 6 thin ink dashes with consistent direction"
+      ],
+      "attributes": {
+        "detection_kind": "dash_chain",
+        "hough_parts": 0
+      }
+    },
+    {
+      "id": "seg_04",
+      "type": "segment",
+      "label": null,
+      "coords": {
+        "a_px": [
+          70.0,
+          221.0
+        ],
+        "b_px": [
+          70.0,
+          379.0
+        ],
+        "length_px": 158.0,
+        "angle_deg": 90.0
+      },
+      "normalized": {
+        "a": [
+          0.1613,
+          0.539
+        ],
+        "b": [
+          0.1613,
+          0.9244
+        ]
+      },
+      "style": {
+        "line": "solid",
+        "metrics": {
+          "supported": true,
+          "ink_support": 1.0,
+          "gap_count": 0,
+          "gap_lengths_px": [],
+          "dash_lengths_px": [
+            146.3
+          ],
+          "ink_coverage": 1.0,
+          "sampled_length_px": 158.0
+        },
+        "notes": []
+      },
+      "source": "cv:detect_lines",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {
+        "detection_kind": "solid_span",
+        "hough_parts": 1
+      }
+    },
+    {
+      "id": "seg_05",
+      "type": "segment",
+      "label": null,
+      "coords": {
+        "a_px": [
+          188.0,
+          67.0
+        ],
+        "b_px": [
+          94.34,
+          159.05
+        ],
+        "length_px": 131.32,
+        "angle_deg": 135.5
+      },
+      "normalized": {
+        "a": [
+          0.4332,
+          0.1634
+        ],
+        "b": [
+          0.2174,
+          0.3879
+        ]
+      },
+      "style": {
+        "line": "solid",
+        "metrics": {
+          "supported": true,
+          "ink_support": 1.0,
+          "gap_count": 0,
+          "gap_lengths_px": [],
+          "dash_lengths_px": [
+            121.7
+          ],
+          "ink_coverage": 1.0,
+          "sampled_length_px": 131.3
+        },
+        "notes": []
+      },
+      "source": "cv:detect_lines",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {
+        "detection_kind": "solid_span",
+        "hough_parts": 2
+      }
+    },
+    {
+      "id": "seg_06",
+      "type": "segment",
+      "label": null,
+      "coords": {
+        "a_px": [
+          68.58,
+          65.94
+        ],
+        "b_px": [
+          197.43,
+          65.98
+        ],
+        "length_px": 128.85,
+        "angle_deg": 0.02
+      },
+      "normalized": {
+        "a": [
+          0.158,
+          0.1608
+        ],
+        "b": [
+          0.4549,
+          0.1609
+        ]
+      },
+      "style": {
+        "line": "dashed",
+        "metrics": {
+          "dash_pieces": 6,
+          "chain_length_px": 91.05
+        },
+        "notes": [
+          "collinear chain of 6 thin ink dashes with consistent direction"
+        ]
+      },
+      "source": "cv:detect_lines",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [
+        "collinear chain of 6 thin ink dashes with consistent direction"
+      ],
+      "attributes": {
+        "detection_kind": "dash_chain",
+        "hough_parts": 0
+      }
+    },
+    {
+      "id": "seg_07",
+      "type": "segment",
+      "label": null,
+      "coords": {
+        "a_px": [
+          99.0,
+          318.0
+        ],
+        "b_px": [
+          71.0,
+          318.0
+        ],
+        "length_px": 28.0,
+        "angle_deg": 0.0
+      },
+      "normalized": {
+        "a": [
+          0.2281,
+          0.7756
+        ],
+        "b": [
+          0.1636,
+          0.7756
+        ]
+      },
+      "style": {
+        "line": "solid",
+        "metrics": {
+          "supported": true,
+          "ink_support": 0.893,
+          "gap_count": 1,
+          "gap_lengths_px": [
+            2.9
+          ],
+          "dash_lengths_px": [
+            23.9
+          ],
+          "ink_coverage": 0.893,
+          "sampled_length_px": 28.0
+        },
+        "notes": [
+          "1 localized interruption(s) treated as solid; likely text/label contact rather than a dashed pattern"
+        ]
+      },
+      "source": "cv:detect_lines",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [
+        "1 localized interruption(s) treated as solid; likely text/label contact rather than a dashed pattern"
+      ],
+      "attributes": {
+        "detection_kind": "solid_span",
+        "hough_parts": 1
+      }
+    },
+    {
+      "id": "seg_08",
+      "type": "segment",
+      "label": null,
+      "coords": {
+        "a_px": [
+          94.0,
+          313.0
+        ],
+        "b_px": [
+          94.0,
+          340.0
+        ],
+        "length_px": 27.0,
+        "angle_deg": 90.0
+      },
+      "normalized": {
+        "a": [
+          0.2166,
+          0.7634
+        ],
+        "b": [
+          0.2166,
+          0.8293
+        ]
+      },
+      "style": {
+        "line": "solid",
+        "metrics": {
+          "supported": true,
+          "ink_support": 0.889,
+          "gap_count": 1,
+          "gap_lengths_px": [
+            2.9
+          ],
+          "dash_lengths_px": [
+            22.9
+          ],
+          "ink_coverage": 0.889,
+          "sampled_length_px": 27.0
+        },
+        "notes": [
+          "1 localized interruption(s) treated as solid; likely text/label contact rather than a dashed pattern"
+        ]
+      },
+      "source": "cv:detect_lines",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [
+        "1 localized interruption(s) treated as solid; likely text/label contact rather than a dashed pattern"
+      ],
+      "attributes": {
+        "detection_kind": "solid_span",
+        "hough_parts": 1
+      }
+    },
+    {
+      "id": "right_angle_01",
+      "type": "right_angle",
+      "label": null,
+      "coords": {
+        "vertex_px": [
+          70.0,
+          341.0
+        ],
+        "mark_points_px": [
+          [
+            93.0,
+            341.0
+          ],
+          [
+            93.04,
+            318.0
+          ],
+          [
+            70.04,
+            318.0
+          ]
+        ],
+        "side_length_px": 23.0
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:detect_right_angle_marker",
+      "status": "confirmed",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [
+        "mark presence is verified from local ink, not from perpendicularity alone"
+      ],
+      "attributes": {
+        "evidence": {
+          "side1_ink_coverage": 1.0,
+          "side2_ink_coverage": 1.0,
+          "interior_ink_coverage": 0.0,
+          "independent_side_coverage": [
+            0.957,
+            0.955
+          ],
+          "coverage_kind": "pixel-ink fraction (heuristic, not probability)"
+        }
+      }
+    },
+    {
+      "id": "circle_01",
+      "type": "arc",
+      "label": null,
+      "coords": {
+        "center_px": [
+          182.56,
+          231.03
+        ],
+        "radius_px": 114.94,
+        "visible_ranges_deg": [
+          [
+            66.0,
+            115.0
+          ],
+          [
+            159.0,
+            247.0
+          ],
+          [
+            292.0,
+            303.0
+          ],
+          [
+            347.0,
+            358.0
+          ]
+        ],
+        "visible_span_deg": 159.0
+      },
+      "normalized": {
+        "center": [
+          0.4206,
+          0.5635
+        ],
+        "radius": 0.2648
+      },
+      "style": {},
+      "source": "cv:detect_circles",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [
+        "skeleton RANSAC + Kasa refit"
+      ],
+      "attributes": {
+        "ink_coverage": 0.433,
+        "angle_frame": "image pixel frame (x right, y down); flip y for TikZ"
+      }
+    },
+    {
+      "id": "point_01",
+      "type": "point",
+      "label": "B",
+      "coords": {
+        "px": [
+          384.43,
+          341.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_02",
+      "type": "point",
+      "label": "C",
+      "coords": {
+        "px": [
+          188.63,
+          66.13
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_03",
+      "type": "point",
+      "label": "A",
+      "coords": {
+        "px": [
+          70.0,
+          341.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_04",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          94.0,
+          341.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_05",
+      "type": "point",
+      "label": "E",
+      "coords": {
+        "px": [
+          70.5,
+          65.94
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_06",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          70.0,
+          318.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_07",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          94.0,
+          318.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_08",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          182.56,
+          231.03
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_09",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          296.77,
+          218.1
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_10",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          231.98,
+          127.25
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_11",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          215.99,
+          341.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_12",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          149.13,
+          341.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_13",
+      "type": "point",
+      "label": "D",
+      "coords": {
+        "px": [
+          70.5,
+          205.46
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_14",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          70.0,
+          254.3
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_15",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          117.54,
+          136.25
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_16",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          88.92,
+          164.38
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "label_01",
+      "type": "label",
+      "label": "E",
+      "coords": {
+        "box_px": [
+          40,
+          57,
+          60,
+          76
+        ],
+        "centroid_px": null
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:match_label_templates",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {
+        "ncc": [
+          {
+            "char": "E",
+            "ncc": 0.8474
+          },
+          {
+            "char": "F",
+            "ncc": 0.8357
+          },
+          {
+            "char": "P",
+            "ncc": 0.6332
+          }
+        ],
+        "alternatives": [
+          {
+            "char": "E",
+            "ncc": 0.8474
+          },
+          {
+            "char": "F",
+            "ncc": 0.8357
+          },
+          {
+            "char": "P",
+            "ncc": 0.6332
+          }
+        ],
+        "ambiguous": true,
+        "possible_point_marker": null
+      }
+    },
+    {
+      "id": "label_02",
+      "type": "label",
+      "label": "C",
+      "coords": {
+        "box_px": [
+          179,
+          36,
+          199,
+          57
+        ],
+        "centroid_px": null
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:match_label_templates",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {
+        "ncc": [
+          {
+            "char": "C",
+            "ncc": 0.8704
+          },
+          {
+            "char": "G",
+            "ncc": 0.7822
+          },
+          {
+            "char": "O",
+            "ncc": 0.681
+          }
+        ],
+        "alternatives": [
+          {
+            "char": "C",
+            "ncc": 0.8704
+          },
+          {
+            "char": "G",
+            "ncc": 0.7822
+          },
+          {
+            "char": "O",
+            "ncc": 0.681
+          }
+        ],
+        "ambiguous": false,
+        "possible_point_marker": null
+      }
+    },
+    {
+      "id": "label_03",
+      "type": "label",
+      "label": "D",
+      "coords": {
+        "box_px": [
+          38,
+          175,
+          59,
+          194
+        ],
+        "centroid_px": null
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:match_label_templates",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {
+        "ncc": [
+          {
+            "char": "D",
+            "ncc": 0.8426
+          },
+          {
+            "char": "B",
+            "ncc": 0.7161
+          },
+          {
+            "char": "P",
+            "ncc": 0.6102
+          }
+        ],
+        "alternatives": [
+          {
+            "char": "D",
+            "ncc": 0.8426
+          },
+          {
+            "char": "B",
+            "ncc": 0.7161
+          },
+          {
+            "char": "P",
+            "ncc": 0.6102
+          }
+        ],
+        "ambiguous": false,
+        "possible_point_marker": null
+      }
+    },
+    {
+      "id": "label_04",
+      "type": "label",
+      "label": "A",
+      "coords": {
+        "box_px": [
+          41,
+          351,
+          60,
+          371
+        ],
+        "centroid_px": [
+          52.35,
+          362.62
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {
+        "ncc": 0.9039,
+        "alternatives": [
+          {
+            "char": "A",
+            "ncc": 0.9039
+          },
+          {
+            "char": "2",
+            "ncc": 0.1841
+          },
+          {
+            "char": "Z",
+            "ncc": 0.1828
+          }
+        ],
+        "ambiguous": false
+      }
+    },
+    {
+      "id": "label_05",
+      "type": "label",
+      "label": "B",
+      "coords": {
+        "box_px": [
+          376,
+          352,
+          396,
+          371
+        ],
+        "centroid_px": [
+          386.45,
+          361.12
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:bind_point_labels",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [],
+      "attributes": {
+        "ncc": 0.8482,
+        "alternatives": [
+          {
+            "char": "B",
+            "ncc": 0.8482
+          },
+          {
+            "char": "P",
+            "ncc": 0.7712
+          },
+          {
+            "char": "E",
+            "ncc": 0.6824
+          }
+        ],
+        "ambiguous": false
+      }
+    },
+    {
+      "id": "point_A",
+      "type": "point",
+      "label": "A",
+      "coords": {
+        "px": [
+          70,
+          341
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_B",
+      "type": "point",
+      "label": "B",
+      "coords": {
+        "px": [
+          384.4,
+          341
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_C",
+      "type": "point",
+      "label": "C",
+      "coords": {
+        "px": [
+          188.6,
+          66.1
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_D",
+      "type": "point",
+      "label": "D",
+      "coords": {
+        "px": [
+          70.5,
+          205.5
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_E",
+      "type": "point",
+      "label": "E",
+      "coords": {
+        "px": [
+          70.5,
+          65.9
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "point_O_arc",
+      "type": "point",
+      "label": null,
+      "coords": {
+        "px": [
+          182.6,
+          231.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "seg_AB",
+      "type": "segment",
+      "label": "AB",
+      "coords": {
+        "a_px": [
+          70,
+          341
+        ],
+        "b_px": [
+          384.4,
+          341
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "seg_AD",
+      "type": "segment",
+      "label": "AD",
+      "coords": {
+        "a_px": [
+          70,
+          221
+        ],
+        "b_px": [
+          70,
+          379
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "seg_ED",
+      "type": "segment",
+      "label": "ED",
+      "coords": {
+        "a_px": [
+          70.5,
+          65.9
+        ],
+        "b_px": [
+          70.5,
+          205.5
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "dashed"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "seg_EC",
+      "type": "segment",
+      "label": "EC",
+      "coords": {
+        "a_px": [
+          70.5,
+          65.9
+        ],
+        "b_px": [
+          188.6,
+          66.1
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "dashed"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "seg_BC",
+      "type": "segment",
+      "label": "BC",
+      "coords": {
+        "a_px": [
+          384.4,
+          341
+        ],
+        "b_px": [
+          188.6,
+          66.1
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "seg_C_x",
+      "type": "segment",
+      "label": null,
+      "coords": {
+        "a_px": [
+          188.6,
+          66.1
+        ],
+        "b_px": [
+          94.3,
+          159.05
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    {
+      "id": "ra_A",
+      "type": "right_angle",
+      "label": null,
+      "coords": {
+        "vertex_px": [
+          70,
+          341
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel_label_C",
+      "subject": "label_C",
+      "relation": "labels_point",
+      "object": "point_02",
+      "source": "bind_point_labels",
+      "evidence": "Hungarian assignment distance=20.99px",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_label_E",
+      "subject": "label_E",
+      "relation": "labels_point",
+      "object": "point_05",
+      "source": "bind_point_labels",
+      "evidence": "Hungarian assignment distance=21.23px",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_label_D",
+      "subject": "label_D",
+      "relation": "labels_point",
+      "object": "point_13",
+      "source": "bind_point_labels",
+      "evidence": "Hungarian assignment distance=30.34px",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_label_A",
+      "subject": "label_A",
+      "relation": "labels_point",
+      "object": "point_03",
+      "source": "bind_point_labels",
+      "evidence": "Hungarian assignment distance=27.91px",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_label_B",
+      "subject": "label_B",
+      "relation": "labels_point",
+      "object": "point_01",
+      "source": "bind_point_labels",
+      "evidence": "Hungarian assignment distance=20.22px",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_006",
+      "subject": "point_A",
+      "relation": "endpoint_of",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "CV span 71..385 snapped to A",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_007",
+      "subject": "point_B",
+      "relation": "endpoint_of",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "CV span snapped to B",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_008",
+      "subject": "point_A",
+      "relation": "endpoint_of",
+      "object": "seg_AD",
+      "source": "geometry_agent",
+      "evidence": "solid vertical at x=70 meets base A",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_009",
+      "subject": "point_D",
+      "relation": "endpoint_of",
+      "object": "seg_AD",
+      "source": "geometry_agent",
+      "evidence": "solid vertical ends at D",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_010",
+      "subject": "point_E",
+      "relation": "endpoint_of",
+      "object": "seg_ED",
+      "source": "geometry_agent",
+      "evidence": "dashed chain starts at E",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_011",
+      "subject": "point_D",
+      "relation": "endpoint_of",
+      "object": "seg_ED",
+      "source": "geometry_agent",
+      "evidence": "dashed chain reaches D",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_012",
+      "subject": "point_E",
+      "relation": "endpoint_of",
+      "object": "seg_EC",
+      "source": "geometry_agent",
+      "evidence": "dashed horizontal at y=66",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_013",
+      "subject": "point_C",
+      "relation": "endpoint_of",
+      "object": "seg_EC",
+      "source": "geometry_agent",
+      "evidence": "dashed horizontal ends at C (overshoot ~9px)",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_014",
+      "subject": "point_C",
+      "relation": "endpoint_of",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "solid diagonal from B to C",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_015",
+      "subject": "point_B",
+      "relation": "endpoint_of",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "solid diagonal from B",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_016",
+      "subject": "point_D",
+      "relation": "on_circle",
+      "object": "circle_01",
+      "source": "geometry_agent",
+      "evidence": "distance from center to D = 114.94 vs radius 114.94",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_017",
+      "subject": "point_O_arc",
+      "relation": "center_of",
+      "object": "circle_01",
+      "source": "geometry_agent",
+      "evidence": "CV circle center (182.6,231.0), not a labelled point",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_018",
+      "subject": "seg_AB",
+      "relation": "perpendicular",
+      "object": "seg_AD",
+      "source": "geometry_agent",
+      "evidence": "right-angle mark verified at A",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_019",
+      "subject": "ra_A",
+      "relation": "perpendicular",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "mark arm along AB",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_020",
+      "subject": "ra_A",
+      "relation": "perpendicular",
+      "object": "seg_AD",
+      "source": "geometry_agent",
+      "evidence": "mark arm along AD",
+      "status": "candidate"
+    },
+    {
+      "id": "rel_021",
+      "subject": "seg_AD",
+      "relation": "collinear",
+      "object": "seg_ED",
+      "source": "geometry_agent",
+      "evidence": "both on x=70",
+      "status": "candidate"
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "conflict_001",
+      "topic": "Label E glyph",
+      "claims": [
+        {
+          "source": "supervisor",
+          "claim": "E verified at (70,66)"
+        },
+        {
+          "source": "match_label_templates",
+          "claim": "E ncc 0.847, F ncc 0.836 - ambiguous"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
+    },
+    {
+      "id": "conflict_002",
+      "topic": "Vertical AD extent",
+      "claims": [
+        {
+          "source": "supervisor",
+          "claim": "solid A to D, y 341 to 221"
+        },
+        {
+          "source": "detect_lines",
+          "claim": "solid span y 221 to 379, overshoots A by 38px below base"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
+    },
+    {
+      "id": "conflict_003",
+      "topic": "Vertical ED extent",
+      "claims": [
+        {
+          "source": "supervisor",
+          "claim": "dashed E to D, ends near D"
+        },
+        {
+          "source": "detect_lines",
+          "claim": "dashed chain y 38.6 to 235.4, overshoots E by ~27px above and D by ~30px below"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
+    },
+    {
+      "id": "conflict_004",
+      "topic": "Dashed EC end",
+      "claims": [
+        {
+          "source": "detect_lines",
+          "claim": "dashed horizontal ends at x=197.4, C at x=188.6 (~9px overshoot)"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
+    }
+  ],
+  "unresolved": [
+    {
+      "source": "geometry_agent",
+      "issue": "Whether the AD solid stroke extends below A to y=379 as a figure stroke or is detector noise."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "Whether the dashed ED overshoot above E and below D is intended figure geometry."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "Confirm E vs F glyph visually."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "Arc center is unlabelled; no label bound to point_O_arc."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "Right-angle marks not claimed at E or C; mark strokes seg_07/seg_08 excluded."
+    },
+    {
+      "source": "supervisor",
+      "issue": "Dashed stub above E is slightly longer than in the original (low severity, informational)."
+    }
+  ]
+}

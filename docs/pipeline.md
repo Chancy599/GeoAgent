@@ -37,7 +37,8 @@ GeoAgentRunner（创建 run_dir，读取图像尺寸）
 │  inspect_image ─────────► VisualContextManager 裁剪（下一轮附图）    │
 │  run_geometry_agent ────► GeometryAgent（CV ≤6 次，submit_geometry）  │
 │                            └─ merge_geometry_submission → GES        │
-│  run_tikz_agent ────────► TikZAgent（generate / repair）             │
+│  run_tikz_agent ────────► rectify_right_angles（确定性正交化，写回 GES）│
+│                            └─ TikZAgent（generate / repair）         │
 │                            └─ compile_tikz → render_pdf → validate   │
 │  run_critic ──────────► CriticAgent（左原图/右渲染，内容等尺度对比图）│
 │                            └─ critic_report + assessment_score       │
@@ -121,7 +122,7 @@ CLI 的 `run` / `batch` 在运行成功且存在 `best_version` 时，默认调�
 
 ### 3.3 推荐流程（非硬编码）
 
-Prompt 建议：`detect_circles` / `detect_lines` / `detect_right_angle_marker` → `bind_point_labels` → `run_geometry_agent` → `run_tikz_agent(generate)` → `run_critic` → 若 `must_repair=true` 则 `run_tikz_agent(repair)` → 再 `run_critic` → `finish`。`flaky` 问题（与上一版方向相反）不驱动修复；低严重度缩放/长宽比提示视为信息项；`source=checklist/tikz_source_check` 的确定性 issue 与 VLM issue 同等修复。Critic 回复还带 `checklist_score` 与 `checks_pending`。实际执行顺序由模型根据证据决定，但 finish 门控会兜底。
+Prompt 建议：`detect_circles` / `detect_lines` / `detect_right_angle_marker` → `bind_point_labels` → `run_geometry_agent` → `run_tikz_agent(generate)`（进入 TikZ 前 Runner 自动做确定性直角正交化，见 4.3）→ `run_critic` → 若 `must_repair=true` 则 `run_tikz_agent(repair)` → 再 `run_critic` → `finish`。`flaky` 问题（与上一版方向相反）不驱动修复；低严重度缩放/长宽比提示视为信息项；`source=checklist/tikz_source_check` 的确定性 issue 与 VLM issue 同等修复。Critic 回复还带 `checklist_score` 与 `checks_pending`。实际执行顺序由模型根据证据决定，但 finish 门控会兜底。
 
 ## 4. 子阶段细节
 
@@ -158,7 +159,22 @@ Prompt 建议：`detect_circles` / `detect_lines` / `detect_right_angle_marker` 
   - 非法对象记录到 `rejected`，不污染 GES；
   - 关系使用受控词表（on_segment、perpendicular、parallel、collinear、midpoint、center_of、endpoint_of、equal_length、tangent 等）。
 
-### 4.3 TikZ Agent
+### 4.3 直角正交化（确定性）
+
+实现：`geoagent/state/rectify.py::rectify_right_angles`。Runner 在每次 `_do_tikz_agent`（generate 与 repair）调用 TikZ Agent **之前**执行一次，结果直接写回 GES，因此 TikZ 输入、Critic 清单与 bbox 自动一致；第二次调用因幂等直接 no-op。
+
+- **前提**：原图与参考 LaTeX 严格对应，`detect_right_angle_marker` 验证到方块墨迹即意味着两条入射边在真实图中**精确垂直**；CV 端点的 1–3 px 拟合噪声需要被确定性消除。
+- **只处理已验证标记**：`status ∈ {confirmed, candidate}` 且 `source` 以 `cv:` 开头或带 `attributes.evidence`；由 `mark_points_px` 恢复两臂方向（`p1−V`、`p3−V`），再与入射线段做方向匹配。
+- **支持两种拓扑**：`end`（线段端点在 V）与 `through`（垂足 / T 形，V 在线段跨度内，取较长一侧为臂）。
+- **初值门**：初始夹角偏离 90° 超过 `angle_tol_deg=12°` 的标记视为假阳性，跳过且不改动坐标。
+- **联合求解与硬约束投影**：节点 = 线段端点 + 直角顶点（`tolerance_px` 内贪心聚类）。先用 `scipy least_squares(method="trf")` 求接近原图的布局，再以最小范数 Newton/SVD 投影消除垂直点积与 through 臂共线残差；最终投影不含位置或长度惩罚，因此它们不能与直角要求折中。支持共角链（矩形四角的冗余约束）与 T 形。缩放后的等式残差须不超过 `1e-10`，退化或不收敛则返回 `constraint_projection_failed`，不写回坐标。
+- **默认容差**：`tolerance_px=max(4, 0.4*cap_h)`、`max_shift_px=max(3, 0.25*cap_h)`、`min_arm_length_px=max(6, 0.6*cap_h)`，`cap_h` 为标签框高中位数（clamp `[10, 40]`，缺省 20）。
+- **位移闸门**：任一参与节点位移超过 `max_shift_px` 的标记整体剔除并重解；全部被剔除则 `applied=false`，坐标逐字节不变。
+- **顶点锚定与端点吸附**：含标记的节点以验证到的 `vertex_px` 为锚（方块画在交点处，比被方块遮挡而截短的线段端点可靠）；`end` 臂的近端点并入该节点，最多吸附 `tolerance_px`。
+- **写回**：线段更新 `a_px/b_px/length_px/angle_deg` 与 `normalized`；直角更新 `vertex_px` 与方形的 `mark_points_px`（保留原臂象限与 `side_length_px`）；附近 `point` 对象跟随顶点。求解后的像素坐标保留浮点精度，不再截为两位小数，以免重新破坏垂直与共线。`max_shift_px` 统计求解位移，报告另带 `max_endpoint_move_px`（含吸附）。每个对象追加 `rectify:` 前缀 note；报告写入 `state.meta["rectification"]`（含 `revision`、`constraint_mode=hard_projection`）并以 `source=right_angle_rectifier` 写入 evidence。这里保证的是 GES 坐标的数值约束，后续 LLM 生成 TikZ 的精度仍需单独检查。
+- **不动**：`id` / `type` / `style` / `status` / `relations`；arc、circle、label、polygon 的坐标。
+
+### 4.4 TikZ Agent
 
 实现：`geoagent/agents/tikz_agent.py`。
 
@@ -167,9 +183,9 @@ Prompt 建议：`detect_circles` / `detect_lines` / `detect_right_angle_marker` 
 - **STYLE METRICS**：`label_detection.measure_style_metrics` 从原图实测笔画宽度与字母 cap height，按“最长边 8 单元（cm）”折算 `line width` 与 `\fontsize`（含建议的像素→单元比例），随指令注入；避免固定 1.2pt / 默认 10pt 在不同图形尺度下比例失真。
 - 提交必须是完整 standalone 文档：`\documentclass`、`\begin{document}`、`\begin{tikzpicture}`、`\end{tikzpicture}`、`\end{document}` 缺一不可；不合格会在子 Agent 内退回重交（最多 3 次）。
 - Prompt 约束：命名坐标、像素→TikZ 坐标换算与 y 翻转、圆弧用 `arc`、标签用 math mode、保留实/虚线样式、验证过的直角才画、禁止 shell escape。
-- 提交后由 Runner 自动编译、渲染、校验（见 4.4），结果写回 tool 回复供 Supervisor 决策。
+- 提交后由 Runner 自动编译、渲染、校验（见 4.5），结果写回 tool 回复供 Supervisor 决策。
 
-### 4.4 编译 / 渲染 / 校验
+### 4.5 编译 / 渲染 / 校验
 
 实现：`geoagent/tools/{compiler,renderer,verifier}.py`。
 
@@ -191,7 +207,7 @@ Prompt 建议：`detect_circles` / `detect_lines` / `detect_right_angle_marker` 
    - 图形 bbox 长宽比与原图差异 ≤ 50%。
 4. `state.mark_compilation` 写入产物路径、错误、警告；`update_best(allow_unscored=True)` 允许未评分版本先成为 best。
 
-### 4.5 Critic Agent
+### 4.6 Critic Agent
 
 实现：`geoagent/agents/critic_agent.py` + `prompts.py::CRITIC_SYSTEM`。
 
@@ -228,7 +244,7 @@ Prompt 建议：`detect_circles` / `detect_lines` / `detect_right_angle_marker` 
     - 结果返回 Supervisor：`assessment_score`、verdict、issues[:8]、`checks_pending`、`checklist_score`、`actionable_counts`、`flaky_count`、`must_repair`、labels、`best_version`、`cached`。
 13. **闭环**：repair 时 TikZ Agent 自动读取 `latest_version().critic_report.issues`，放入 `CRITIC ISSUES`；issue 中的 object_ids/bbox 可用于定位。
 
-### 4.6 Finish
+### 4.7 Finish
 
 `finish(status=success|partial|blocked, summary, unresolved)`：
 
@@ -248,7 +264,8 @@ Pydantic 模型（`geoagent/state/schemas.py`）持久化：
 - objects / relations / evidence / conflicts / label_bindings / unresolved；
 - `tikz_versions`（tex、编译产物、错误、Critic 报告与分数）；
 - compilation_results / validation_results / critic_reports；
-- action_history / token_usage / remaining_budget / meta。
+- action_history / token_usage / remaining_budget / meta；
+- `meta["rectification"]`：最近一次直角正交化报告（`applied`、`reason`、`max_shift_px`、每标记 `initial_angle_deg` / `final_angle_deg` / `error_deg`、`rejected`、`revision`）。
 
 ### 5.2 运行目录
 
@@ -316,8 +333,8 @@ outputs/ours/
 
 ## 7. 当前验证状态
 
-- 测试：`python -m pytest tests -q` → **103 passed, 1 skipped**（在线 E2E 默认跳过）。
-  覆盖：数据集配对（含前导逗号文件名归一化）、GES、CV 结果入库、CV 真实输出、直角标记合成回归、圆心圆点与字母分离（按形状而非面积）、Critic 等尺寸对比图、Critic 问题定位与门控（object_ids/bbox、flaky 反向结论、单/双 low 阈值、长宽比信息项）、Critic 清单（结构对象优先、非法 id 丢弃、missing/wrong 生成确定性 issue、unclear 不计分、与 VLM issue 去重）、源码标签核对（撇号/`^{\prime}` 归一化、数学命令不误报、必须由 VLM `labels.missing` 佐证、空 tex 跳过、6220 的 G/U 误读不产生幽灵 issue）、最佳版本按高/中危问题数与 `checklist_score` 排序、finish 门控与预算兜底、归档与重跑覆盖、渲染画布按原图墨迹框对齐（`frame_like_original`）、CV 风格度量换算（线宽/字号）、Critic 对比图按内容归一化、LLM 截断保护（`finish_reason=length` 双倍预算重试一次、仍截断报错；Critic 空评审报错而非记 0 分）、视觉指标（1000px 白画布 SSIM、余弦、白底合成）、Tectonic 编译/渲染/校验、shell-escape 拒绝、几何提交截断/空提交、TikZ 完整文档、Streamlit 页面。
+- 测试：`python -m pytest tests -q` → **113 passed, 1 skipped**（在线 E2E 默认跳过）。
+  覆盖：数据集配对（含前导逗号文件名归一化）、GES、CV 结果入库、CV 真实输出、直角标记合成回归、直角正交化（简单角/矩形链/T 形垂足/端点吸附与顶点合并/假阳性与位移闸门/幂等/点标签跟随与序列化）、圆心圆点与字母分离（按形状而非面积）、Critic 等尺寸对比图、Critic 问题定位与门控（object_ids/bbox、flaky 反向结论、单/双 low 阈值、长宽比信息项）、Critic 清单（结构对象优先、非法 id 丢弃、missing/wrong 生成确定性 issue、unclear 不计分、与 VLM issue 去重）、源码标签核对（撇号/`^{\prime}` 归一化、数学命令不误报、必须由 VLM `labels.missing` 佐证、空 tex 跳过、6220 的 G/U 误读不产生幽灵 issue）、最佳版本按高/中危问题数与 `checklist_score` 排序、finish 门控与预算兜底、归档与重跑覆盖、渲染画布按原图墨迹框对齐（`frame_like_original`）、CV 风格度量换算（线宽/字号）、Critic 对比图按内容归一化、LLM 截断保护（`finish_reason=length` 双倍预算重试一次、仍截断报错；Critic 空评审报错而非记 0 分）、视觉指标（1000px 白画布 SSIM、余弦、白底合成）、Tectonic 编译/渲染/校验、shell-escape 拒绝、几何提交截断/空提交、TikZ 完整文档、Streamlit 页面。
 - 100 张全量运行（**当前 Critic 协议**：等尺寸对比图 + GES 清单 + 源码标签核对）。
 
   **100 张全量运行（归档 `outputs/ours100/`，合并报告 `outputs/final100/report.json`）**
@@ -356,7 +373,7 @@ outputs/ours/
 2. **线宽/字号**：已由 `measure_style_metrics` 实测并按 8 单元尺度折算，但全图只取一个中位笔画宽度；主轮廓与辅助虚线粗细不同时无法逐元素区分，可扩展为按对象估计。
 3. **虚线识别**：基于 gap 游程，交叉与文字遮挡可能误判。
 4. **标签识别**：依赖 cmmi10/cmr10 单字符模板；被线条裁掉一部分的字母可能丢失；低分返回 `?` 由视觉复核兜底。
-5. **直角标记**：宁可漏画不误画；已支持 ROI 小图（整图取线证据）与虚线臂回退，极端遮挡/极小标记仍可能漏检。
+5. **直角标记**：宁可漏画不误画；已支持 ROI 小图（整图取线证据）与虚线臂回退，极端遮挡/极小标记仍可能漏检。检测到并验证过的标记会在进入 TikZ 前做确定性正交化（4.3）；但不处理仅由几何代理推断、没有方块墨迹证据的直角，也不校正圆/弧与直线的垂直（切线—半径）情形，`perpendicular` 关系本身不参与求解。
 6. **评测接入**：整图 SSIM/CLIP/DINO 已接入（`scripts/evaluate_visual.py`，见第 7 节）；对象级 F1、标签准确率与按图类型分层统计尚未实现，`configs/evaluation/core100.json` 目前只登记清单与 SHA-256，尚无脚本消费。
 7. **批处理**：`main.py batch` 单进程顺序执行；全量评测通过多个 `--only` 分片进程并行完成，CLI 本身尚无并发调度。
 

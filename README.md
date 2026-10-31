@@ -171,6 +171,8 @@ python scripts/run_e2e.py --out-root outputs/baselines/haiku-5.5 `
 
 生成 TikZ 前，`measure_style_metrics` 从原图实测笔画宽度与字母 cap height，并按“绘制图最长边 8 cm”换算成 `line width`（pt）和标签 `\fontsize`，作为 STYLE METRICS 随指令注入 TikZ Agent；坐标尺度也用同一换算，保证线宽/字号与原图的相对比例一致，而不是固定 1.2pt / 默认 10pt。
 
+同一位置还有一次确定性的直角正交化：原图与参考 LaTeX 严格对应，因此 CV 验证到方块墨迹的直角，其两条入射边在真实图中必然精确垂直。`rectify_right_angles` 以线段端点与直角顶点为节点做联合最小二乘（带位移闸门、初值角门与幂等），把坐标校到 90° 后写回 GES（`notes` / `evidence` / `meta["rectification"]`），再交给 TikZ Agent，避免把 1–3 px 的检测噪声带进渲染。
+
 Critic 不会直接发两张不同分辨率的图：`build_comparison_image` 先把原图（左）与渲染图（右）各自裁剪到墨迹包围盒（排除不等量白边），再等比缩放到同一内容框（面板的 90%）并居中，中间留 12px 分隔，拼成一张 1252×620 的对比图（默认 `image_max_dim=1280` 内，不会再被二次缩放）。按“内容”而不是“画布”归一化后，两图的线宽、字号、比例可以直接比较，不会因原图留白多而把渲染图放大。没有 `out_dir` 时回退为发送两张独立图片。
 
 每条 issue 会带 GES 对象 id 与归一化 bbox，便于 repair 定位。若同一元素的方向性风格结论与上一版相反（v1“太粗”、v2“太细”），该条标记为 `flaky`，不计入修复门控；低严重度的缩放/长宽比提示不计入 `actionable_counts`。报告汇总出 `actionable_counts` 与 `must_repair`（任一 high/medium，或 ≥2 条 low）。`finish` 在“最新渲染未评审 / 最佳版本未评审 / `must_repair=true`”且预算允许时会被拒绝一次。相同渲染图按 SHA-256 复用上一次报告，不再消耗视觉调用；最佳版本排序为“高/中危问题数少 → `checklist_score` 高 → `assessment_score` 高 → 版本新”。
@@ -250,7 +252,7 @@ GeoAgent/
 │   │   ├── tikz_agent.py       # 生成/修复
 │   │   └── critic_agent.py     # 清单评审 + 等尺寸对比 + 确定性检查
 │   ├── cv_tools/               # 见 2.3
-│   ├── state/                  # schemas.py + evidence_store.py
+│   ├── state/                  # schemas.py + evidence_store.py + rectify.py（直角正交化）
 │   ├── orchestration/
 │   │   ├── runner.py           # 主循环、动作分发、预算、checkpoint、结果
 │   │   └── ingest.py           # CV 结果 → GES 对象/关系/证据
@@ -264,7 +266,7 @@ GeoAgent/
 │   ├── evaluate_visual.py      # 三项视觉指标 CLI
 │   ├── compare_e2e_visual.py   # 多组 e2e 基线共享有效集对比
 │   └── run_e2e.py              # e2e 单次生成基线（迁移自 geom2code）
-├── tests/                      # 103 个通过 + 1 个需显式开启的在线测试
+├── tests/                      # 113 个通过 + 1 个需显式开启的在线测试
 ├── outputs/ours100/            # 100 张全量结果：stem/<stem>/、image/、latex/
 ├── outputs/final100/report.json # 100 次运行的合并报告
 ├── outputs/metrics/ours100.json # 三项视觉指标逐图与汇总
@@ -356,10 +358,10 @@ outputs/runs/<timestamp>_<stem>/   (或 --out-dir/<stem>)
 
 ```powershell
 python -m pytest tests -q
-# 103 passed, 1 skipped（在线 E2E 默认跳过）
+# 113 passed, 1 skipped（在线 E2E 默认跳过）
 ```
 
-覆盖：模块导入、数据集配对（含前导逗号文件名归一化）、GES 持久化、CV 结果入库、CV 工具真实输出（1035：4 条实线、半圆弧、6 个标签）、直角标记合成回归（虚线臂 + 方块应命中、裸十字不命中）、圆心圆点与字母分离（按形状而非面积，圆点可大于被割裂的字母块）、Critic 内容等尺度对比图（左右面板等大、原图在左、内容而非画布归一化、单图发送与无 `out_dir` 回退）、Critic 问题定位与门控（object_ids/bbox 保留、反向风格结论标记 flaky、单条 low 不强制修复而两条 low 强制、长宽比提示不计入 `actionable_counts`）、Critic 清单（结构对象优先、非法 id 丢弃、missing/wrong 生成确定性 issue、unclear 不计分、与 VLM issue 去重）、源码标签核对（撇号归一化、字体命令不误报、必须有 VLM missing 佐证、空 tex 跳过、6220 的 G/U 误读不产生幽灵 issue）、最佳版本按高/中危问题数与 `checklist_score` 排序、finish 门控（最新渲染未评审 / 未评审最佳版本 / 仍有 must_repair，且预算不足时不阻塞）、归档（重复运行覆盖旧产物/清理旧 Critic 报告、`data/` 保护）、LLM 截断保护（`finish_reason=length` 双倍预算重试一次、仍截断报错；Critic 空评审报错而不是记 0 分）、视觉指标（1000px 白画布 SSIM、余弦、白底合成）、渲染画布按原图墨迹框对齐（`frame_like_original`）、CV 风格度量换算（线宽/字号）、Tectonic 实际编译+渲染+校验、shell-escape 拒绝、几何提交校验（截断带 tool call / 空提交均被拒）、TikZ 完整文档校验、Streamlit 初始页与结果页。
+覆盖：模块导入、数据集配对（含前导逗号文件名归一化）、GES 持久化、CV 结果入库、CV 工具真实输出（1035：4 条实线、半圆弧、6 个标签）、直角标记合成回归（虚线臂 + 方块应命中、裸十字不命中）、直角正交化（简单角/矩形链/T 形垂足/端点吸附与顶点合并/假阳性与位移闸门/幂等/点标签跟随与序列化）、圆心圆点与字母分离（按形状而非面积，圆点可大于被割裂的字母块）、Critic 内容等尺度对比图（左右面板等大、原图在左、内容而非画布归一化、单图发送与无 `out_dir` 回退）、Critic 问题定位与门控（object_ids/bbox 保留、反向风格结论标记 flaky、单条 low 不强制修复而两条 low 强制、长宽比提示不计入 `actionable_counts`）、Critic 清单（结构对象优先、非法 id 丢弃、missing/wrong 生成确定性 issue、unclear 不计分、与 VLM issue 去重）、源码标签核对（撇号归一化、字体命令不误报、必须有 VLM missing 佐证、空 tex 跳过、6220 的 G/U 误读不产生幽灵 issue）、最佳版本按高/中危问题数与 `checklist_score` 排序、finish 门控（最新渲染未评审 / 未评审最佳版本 / 仍有 must_repair，且预算不足时不阻塞）、归档（重复运行覆盖旧产物/清理旧 Critic 报告、`data/` 保护）、LLM 截断保护（`finish_reason=length` 双倍预算重试一次、仍截断报错；Critic 空评审报错而不是记 0 分）、视觉指标（1000px 白画布 SSIM、余弦、白底合成）、渲染画布按原图墨迹框对齐（`frame_like_original`）、CV 风格度量换算（线宽/字号）、Tectonic 实际编译+渲染+校验、shell-escape 拒绝、几何提交校验（截断带 tool call / 空提交均被拒）、TikZ 完整文档校验、Streamlit 初始页与结果页。
 
 可选在线 E2E：
 

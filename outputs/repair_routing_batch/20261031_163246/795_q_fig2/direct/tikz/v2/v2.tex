@@ -1,0 +1,38 @@
+\documentclass[tikz,border=10pt]{standalone}
+% No extra TikZ libraries needed.
+\begin{document}
+\begin{tikzpicture}[line join=round, line width=0.9pt,
+  lbl/.style={font=\fontsize{9}{10.8}\selectfont}]
+  % Named coordinates: s = 0.011561 units/px, centre (384,184), y flipped
+  \coordinate (P) at (-3.90,  1.36);
+  \coordinate (A) at (-1.85,  1.36);
+  \coordinate (D) at ( 3.62,  1.36);
+  \coordinate (C) at ( 3.62, -1.36);
+  \coordinate (B) at (-1.85, -1.36);
+  \coordinate (F) at ( 0.18, -1.36);
+  % E = intersection of PF with AB (x=-1.85, y=0.00)
+  \coordinate (E) at (-1.85,  0.00);
+
+  % Top segment P-D (passes through A)
+  \draw (P) -- (D);
+  % Bottom segment B-C (passes through F)
+  \draw (B) -- (C);
+  % Vertical edges
+  \draw (A) -- (B);
+  \draw (D) -- (C);
+  % Diagonals
+  \draw (P) -- (B);
+  \draw (A) -- (F);
+  \draw (P) -- (F);
+
+  % Labels outside the figure
+  \node[above, lbl] at (P) {$P$};
+  \node[above, lbl] at (A) {$A$};
+  \node[above, lbl] at (D) {$D$};
+  \node[below, lbl] at (C) {$C$};
+  \node[below, lbl] at (B) {$B$};
+  \node[below, lbl] at (F) {$F$};
+  % Crossing of PF and AB, labelled to the upper right
+  \node[above right, lbl] at (E) {$E$};
+\end{tikzpicture}
+\end{document}

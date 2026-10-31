@@ -1,0 +1,35 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\begin{document}
+\begin{tikzpicture}[line width=1.8pt, line join=round]
+  % Named coordinates (pixel -> cm, s = 0.022346, origin at A, y up)
+  \coordinate (A) at (0.00000014106640633393397,0.0007039648278404087);
+  \coordinate (B) at (7.025999858933593,-0.0007039648278404087);
+  \coordinate (C) at (2.650000447764965,6.145234485126814);
+  \coordinate (E) at (0.0003121583070790912,6.145765452230549);
+  \coordinate (Estub) at (0,7.16);    % dashed stub above E, extended to y_px about 33
+  \coordinate (D) at (-0.00031260607204441904,3.028000062642637);
+
+  % Solid segments
+  \draw (A) -- (B);                    % base AB
+  \draw (0,-0.86) -- (D);              % vertical A-D, slight overhang below A
+  \draw (D) -- (C);                    % D-C, full length to D
+  \draw (B) -- (C);                    % BC
+
+  % Dashed segments
+  \draw[dash pattern=on 6pt off 4pt] (D) -- (E);      % dashed D-E up to E
+  \draw[dash pattern=on 6pt off 4pt] (E) -- (Estub);  % dashed stub past E (starts on-dash so it is visible)
+  \draw[dash pattern=on 6pt off 4pt] (E) -- (C);      % horizontal E-C
+
+  % Right-angle mark at A (only one)
+  \draw (0.5140001410664063,0.0007039648278404087) -- (0.5140001410664063,0.5147039648278404) -- (0.00000014106640633393397,0.5147039648278404);
+
+  % Labels
+  \node[font=\fontsize{17.5}{21}\selectfont, below left] at (A) {$A$};
+  \node[font=\fontsize{17.5}{21}\selectfont, below right] at (B) {$B$};
+  \node[font=\fontsize{17.5}{21}\selectfont, above] at (C) {$C$};
+  \node[font=\fontsize{17.5}{21}\selectfont, left] at (E) {$E$};
+  \node[font=\fontsize{17.5}{21}\selectfont, left] at (D) {$D$};
+\end{tikzpicture}
+\end{document}

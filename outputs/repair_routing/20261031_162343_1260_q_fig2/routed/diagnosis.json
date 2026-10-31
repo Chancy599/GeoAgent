@@ -1,0 +1,37 @@
+{
+  "route": "perception",
+  "hypotheses": [
+    {
+      "cause": "The original contains a dashed continuation FG from F toward the base BC, which the GES does not model. The render therefore omits the FG stroke and point G.",
+      "evidence": "The critic reports this as a high-severity missing element, but the critic is a symptom source, not established evidence. The GES has no dashed segment from F toward BC. CV dash detection found dashed chains only for AB (seg_06) and BE (seg_08), and found no dashed chain near the AF extension. The label G (label_06, centroid ~(445.8, 273)) sits below BC, and the AF line extended from A through F would meet y=254 near x≈448. That intersection is a computed value and does not prove a visible stroke."
+    },
+    {
+      "cause": "The only ink beyond F is a short solid overhang of about 12 px, and the rest of the AF extension is absent or too faint for the detector. The critic may be treating this overhang as the start of a dashed line.",
+      "evidence": "seg_05 (CV) runs from A to (250.16, 155.58), about 12 px past F at (238.26, 149.63), and is classified solid with ink_coverage 1.0. geometry_agent seg_AF has the same overhang and records it as a kept visible stroke, not a snapped endpoint. The GES has no evidence that this overhang is dashed."
+    },
+    {
+      "cause": "The point labelled G is unmodelled. The GES has a label without a matching point or base vertex, so the render has no anchor for G even if the FG stroke exists.",
+      "evidence": "The UNRESOLVED entry records label_06 'G' at (446, 273) with no CV vertex near x≈446 on BC. The GES point list contains only A to F, and the audit shows G as neither drawn nor a GES point. The critic lists G as missing."
+    },
+    {
+      "cause": "The critic's assessment of seg_AF is internally inconsistent, so its defect localisation may be unreliable.",
+      "evidence": "The critic's checks mark seg_AF as 'wrong' but also state 'Segment AF is drawn correctly from A to F' and 'present'. Its matches also list the vertices, sides and labels A to F as correct. The check-wrong flag on seg_AF may come from the overhang rather than a missing FG stroke."
+    }
+  ],
+  "missing_evidence": [
+    "A high-resolution crop of the image region between F (≈238, 150) and the base BC (y≈254) along the A–F direction, roughly x 238 to 455, to determine whether a dashed FG stroke is visible.",
+    "Whether the 12 px overhang past F is solid, or the first dash of a dashed line.",
+    "Whether a point mark, tick or dot exists on BC near x≈446–448, and whether label G is attached to it.",
+    "A per-dash count or spacing along the F-to-BC path, to test whether the dash pattern matches the AB/BE dashes if FG is present.",
+    "Whether the critic's 'wrong seg_AF' flag refers to the overhang, the missing FG, or both."
+  ],
+  "instruction": "Route to perception. Do not add or modify GES objects, relations, or TikZ yet. Request a targeted crop of the original image covering the path from F (≈238, 150) along the A–F direction to the base BC, with a small margin around the base near x≈440–455. Ask perception to report, separately: (1) whether any ink exists beyond F along the A–F direction, and if so whether it is solid or dashed, with pixel extents; (2) whether any dashed stroke reaches BC, and its endpoint pixel location; (3) whether a point mark or tick exists on BC near that endpoint, and whether the label G is visually attached to it; (4) whether the 12 px overhang past F is a standalone solid stroke or part of a dashed series. Treat the computed intersection of line AF with BC as a hypothesis only, not as evidence. If perception confirms a dashed FG and a G point, the next step is to add a G point and FG segment with an on_segment relation to BC and a dashed style, then re-evaluate under the geometry route. If perception finds no FG ink, the critic's missing-element claim should be rejected and the review route should be considered.",
+  "verification_checks": [
+    "The perception report states explicitly whether any ink exists between F and BC along the A–F direction, with pixel evidence.",
+    "Any reported dashed stroke has its endpoints and dash count recorded and is checked against the dashed style used for AB and BE.",
+    "The label G is confirmed or rejected as attached to a visible point on BC, with its pixel location recorded.",
+    "The overhang past F is classified as solid or dashed by perception, not inferred from the GES alone.",
+    "After any subsequent GES update, every GES point label, including G, has a matching drawn label and a point object.",
+    "The critic is re-run after any change, and its seg_AF status is checked for consistency with its own checks list."
+  ]
+}
