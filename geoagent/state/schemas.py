@@ -21,6 +21,32 @@ def _now() -> str:
     return time.strftime("%Y-%m-%dT%H:%M:%S")
 
 
+def _serious_issue_count(report: dict[str, Any] | None) -> int:
+    """Count non-flaky high/medium issues in a critic report."""
+    if not isinstance(report, dict):
+        return 0
+    counts = report.get("actionable_counts")
+    if isinstance(counts, dict):
+        return int(counts.get("high", 0) or 0) + int(counts.get("medium", 0) or 0)
+    serious = 0
+    for issue in report.get("issues") or []:
+        if not isinstance(issue, dict) or issue.get("flaky"):
+            continue
+        if str(issue.get("severity", "")).lower() in ("high", "medium"):
+            serious += 1
+    return serious
+
+
+def _checklist_value(report: dict[str, Any] | None) -> float:
+    """Deterministic checklist score for ranking; -1 when absent."""
+    if not isinstance(report, dict):
+        return -1.0
+    try:
+        return float(report.get("checklist_score"))
+    except (TypeError, ValueError):
+        return -1.0
+
+
 def _truncate(value: Any, limit: int = MAX_TEXT) -> Any:
     if isinstance(value, str):
         return value if len(value) <= limit else value[:limit] + f"\n...[truncated {len(value) - limit} chars]"
@@ -302,13 +328,26 @@ class GeometricEvidenceState(BaseModel):
         return None
 
     def update_best(self, *, allow_unscored: bool = True) -> int | None:
-        """Pick the best compiled version, preferring critic scores."""
+        """Pick the best compiled version.
+
+        Prefer versions with fewer high/medium actionable issues, then the
+        deterministic checklist score, then the VLM critic score, then the
+        newest version.
+        """
         candidates = [v for v in self.tikz_versions if v.ok and v.png_path]
         if not candidates:
             return None
         scored = [v for v in candidates if v.critic_score is not None]
         if scored:
-            best = max(scored, key=lambda v: (float(v.critic_score or 0), v.version))
+            best = max(
+                scored,
+                key=lambda v: (
+                    -_serious_issue_count(v.critic_report),
+                    _checklist_value(v.critic_report),
+                    float(v.critic_score or 0),
+                    v.version,
+                ),
+            )
         elif allow_unscored:
             best = max(candidates, key=lambda v: v.version)
         else:
@@ -407,12 +446,25 @@ class GeometricEvidenceState(BaseModel):
         if self.critic_reports:
             latest = self.critic_reports[-1]
             issues = latest.get("issues") or []
-            lines.append(f"CRITIC: {len(issues)} issues; latest assessment={latest.get('assessment_score')}")
+            checklist = latest.get("checklist_score")
+            checklist_bit = f" checklist={checklist}" if checklist is not None else ""
+            lines.append(
+                f"CRITIC: {len(issues)} issues; latest assessment={latest.get('assessment_score')}; "
+                f"must_repair={latest.get('must_repair', 'unknown')}{checklist_bit}"
+            )
             for issue in issues[:6]:
+                marker = " flaky" if issue.get("flaky") else ""
                 lines.append(
-                    f"  - [{issue.get('severity', '?')}] {str(issue.get('type', 'issue'))}: "
+                    f"  - [{issue.get('severity', '?')}{marker}] {str(issue.get('type', 'issue'))}: "
                     f"{str(issue.get('description', ''))[:140]}"
                 )
+            pending = [
+                check
+                for check in latest.get("checks") or []
+                if isinstance(check, dict) and check.get("status") in ("missing", "wrong")
+            ]
+            for check in pending[:4]:
+                lines.append(f"  - [check {check['status']}] {check['object_id']}")
         if self.unresolved_issues:
             lines.append("UNRESOLVED:")
             for issue in self.unresolved_issues[:8]:

@@ -1,0 +1,143 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original trapezoid ABCD closely in shape, vertex positions, and extent, with all four vertex labels present in the correct corners; the only difference is that the render's labels sit a little farther from their vertices.",
+  "figure_type": {
+    "original": "Trapezoid ABCD with AB and DC horizontal, solid outline, no markers",
+    "render": "Trapezoid ABCD with AB and DC horizontal, solid outline, no markers"
+  },
+  "issues": [
+    {
+      "type": "layout_error",
+      "severity": "low",
+      "object_ids": [
+        "point_A",
+        "point_B",
+        "point_C",
+        "point_D",
+        "label_01",
+        "label_02",
+        "label_03",
+        "label_04"
+      ],
+      "bbox": [
+        0.0,
+        0.2,
+        1.0,
+        0.8
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Vertex labels in the render are offset further from their vertices than in the original. The original labels sit tightly against the corners (A and B just outside the bottom corners, D and C just outside the top corners), while the render places A and B noticeably lower and outward, and D and C higher and outward.",
+      "suggestion": "Reduce the label anchor offset for A, B, C, D (e.g. use a smaller node distance or a tighter anchor such as above left / below right) so each label hugs its vertex as in the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom side AB, horizontal, same extent as in the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top side DC, horizontal, same extent as in the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Right leg BC, slope and endpoints match the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Left leg AD, slope and endpoints match the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Bottom side AB drawn between A and B, matching the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Left leg AD drawn from A to D, matching the original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Right leg BC drawn from B to C, matching the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Top side DC drawn between D and C, matching the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label B sits at the bottom-right corner, as in the original, though slightly farther out."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label A sits at the bottom-left corner, as in the original, though slightly farther out."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label C sits at the top-right corner, as in the original, though slightly farther out."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D sits at the top-left corner, as in the original, though slightly farther out."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is at the bottom-left corner, matching the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is at the bottom-right corner, matching the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is at the top-right corner, matching the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is at the top-left corner, matching the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Trapezoid shape and extent: top side DC and bottom side AB are horizontal and the legs AD and BC slope inward at the same angles as the original.",
+    "Vertex positions for A, B, C, D match the original corners to within a few pixels.",
+    "All four sides are solid, with no extra segments, dashes, or markers.",
+    "Label letters and their corner assignments (A bottom-left, B bottom-right, C top-right, D top-left) match the original; no label is missing or extra."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

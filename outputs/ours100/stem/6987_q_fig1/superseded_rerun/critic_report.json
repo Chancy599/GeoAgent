@@ -1,0 +1,237 @@
+{
+  "assessment_score": 0.72,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the layout, labels, and right-angle mark, but the A-E stretch is drawn as a curve instead of the straight line through E to C, and the strokes are thinner than the original.",
+  "figure_type": {
+    "original": "Rectangle ABCD with a straight line A-E-C from corner A through point E to corner C, a segment BE perpendicular to AC at E, and a right-angle mark at E",
+    "render": "Rectangle ABCD with a curved stroke from A to E, a straight stroke from E to C, a segment BE, and a right-angle mark at E"
+  },
+  "issues": [
+    {
+      "type": "arc_error",
+      "severity": "high",
+      "object_ids": [
+        "circle_01",
+        "seg_AE"
+      ],
+      "bbox": [
+        0.06,
+        0.22,
+        0.3,
+        0.37
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The stroke from A to E bulges upward as a curve. In the original, A, E and C lie on one straight line, so the A-E part should be straight and collinear with E-C.",
+      "suggestion": "Replace the arc or curve from A to E with a straight segment from A to E on the same line as E to C. Remove the spurious circle_01 arc from the render."
+    },
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_05",
+        "seg_06",
+        "seg_03"
+      ],
+      "bbox": [
+        0.05,
+        0.2,
+        0.95,
+        0.8
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Stroke weight is thinner in the render. The rectangle sides and the diagonal look thinner than in the original, which uses heavier lines.",
+      "suggestion": "Increase the line width of the rectangle sides and diagonal, for example from the default to about 1.2pt or more."
+    },
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "right_angle_01",
+        "ra_E"
+      ],
+      "bbox": [
+        0.19,
+        0.31,
+        0.28,
+        0.39
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The right-angle mark at E is present and sits in the right place, but its stroke is thinner than in the original.",
+      "suggestion": "Optionally increase the stroke width of the right-angle square to match the original."
+    },
+    {
+      "type": "wrong_position",
+      "severity": "low",
+      "object_ids": [
+        "seg_07"
+      ],
+      "bbox": [
+        0.112,
+        0.185,
+        0.274,
+        0.285
+      ],
+      "flaky": false,
+      "source": "checklist",
+      "description": "Checklist: segment seg_07 is visible but misplaced.",
+      "suggestion": "Move this element to match the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "wrong",
+      "note": "A curved arc is drawn from A toward E, but the original has a straight line there."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom side BC is present and in the right place."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top side AD is present and in the right place."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Diagonal E-C is present and in the right place, though thinner."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment BE is present and perpendicular to the diagonal at E."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Right side DC is present."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Left side AB is present."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "wrong",
+      "note": "The A-E stretch is drawn as a curve rather than a straight line."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Left side AB is present."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Top side AD is present."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "wrong",
+      "note": "A-E is curved in the render; the original is straight and collinear with E-C."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Bottom side BC is present."
+    },
+    {
+      "object_id": "seg_BE",
+      "status": "present",
+      "note": "Segment BE is present and perpendicular at E."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Right side DC is present."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "Straight line from E to C is present and matches the original."
+    },
+    {
+      "object_id": "ra_E",
+      "status": "present",
+      "note": "Right-angle mark at E is present in the correct place."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle mark at E is present and matches the original's position."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label C is present at the bottom-right corner."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label B is present at the bottom-left corner."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label D is present at the top-right corner."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label A is present at the top-left corner."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label E is present above and right of E."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Label A is present at the top-left corner."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Label B is present at the bottom-left corner."
+    }
+  ],
+  "checklist_score": 0.938,
+  "actionable_counts": {
+    "high": 1,
+    "medium": 0,
+    "low": 3
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "The rectangle corners and labels A, B, C, D are all present and placed correctly.",
+    "The label E sits just above and right of point E, as in the original.",
+    "The perpendicular from B to E is present and at the correct angle.",
+    "The right-angle mark at E is present and in the correct location.",
+    "The segments EC, DC, BC, AB and AD are present and in the correct positions."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 3,
+  "raw_meta": "{}",
+  "cached": true,
+  "cached_from_version": 1
+}

@@ -1,0 +1,164 @@
+{
+  "assessment_score": 0.86,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original geometry and labels closely; the main difference is that the render's strokes are lighter than the original's.",
+  "figure_type": {
+    "original": "semicircle MN with diameter MN, centre O, radius OP, with points A on OP and B on the arc, and segments AB and OB",
+    "render": "semicircle MN with diameter MN, centre O, radius OP, with points A on OP and B on the arc, and segments AB and OB"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_OP",
+        "arc_PBN",
+        "seg_diameter"
+      ],
+      "bbox": [
+        0.23,
+        0.27,
+        0.27,
+        0.72
+      ],
+      "flaky": true,
+      "source": "vlm",
+      "description": "Stroke weight is lighter in the render than in the original. The vertical radius OP and the semicircular arc look noticeably thinner than in the original, and the diameter MN is also slightly lighter.",
+      "suggestion": "Increase the line width for the arc, the diameter and OP to match the original's heavier strokes (roughly 1.5 to 2 times the current width). Leave AB and OB at their current weight, since they look close to the original.",
+      "flaky_reason": "opposite verdict in v5: Stroke weight is heavier in the render than in the original. The arc, diameter MN and the segments OP, AB and OB are drawn noticeably thicker than the thin, fin"
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "arc_PBN",
+      "status": "present",
+      "note": "Semicircular arc from M through P and B to N is drawn with the correct extent and radius; stroke is lighter than the original."
+    },
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Detected arc corresponds to the same upper semicircle as arc_PBN."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Diameter MN is drawn, with the same extent as the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Segment OB is drawn from O to B on the arc, matching the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Vertical radius OP is drawn from O to P; the original's stroke is heavier."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment AB is drawn from A to B, matching the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment AB is drawn from A to B and is labelled correctly in the original's layout."
+    },
+    {
+      "object_id": "seg_OB",
+      "status": "present",
+      "note": "Segment OB is drawn from O to B."
+    },
+    {
+      "object_id": "seg_OP",
+      "status": "present",
+      "note": "Segment OP is drawn from O to P, with A on it; the stroke is lighter than the original."
+    },
+    {
+      "object_id": "seg_diameter",
+      "status": "present",
+      "note": "Diameter MN is drawn with O on it."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label O is placed below the centre, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label B is placed upper-right of B, as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label A is placed left of A, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label N is placed below N, as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label P is placed above P, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Point A is on OP at the same height as in the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Point B is on the arc at the same position as in the original."
+    },
+    {
+      "object_id": "point_N",
+      "status": "present",
+      "note": "Point N is at the right end of the diameter."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Point O is at the centre of the diameter and the base of OP."
+    },
+    {
+      "object_id": "point_P",
+      "status": "present",
+      "note": "Point P is at the top of the arc, on OP."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "flaky_count": 1,
+  "must_repair": false,
+  "matches": [
+    "Semicircle with diameter MN and centre O is correct.",
+    "P lies at the top of the arc, and OP is vertical.",
+    "A lies on OP at the same height as in the original.",
+    "B lies on the arc at the same position as in the original.",
+    "Segments AB and OB are present with the correct endpoints.",
+    "No dashed styles are involved, and all segments are solid, as in the original.",
+    "All six labels (P, A, B, M, O, N) are present, correctly spelled and attached to the right points."
+  ],
+  "labels": {
+    "present": [
+      "P",
+      "A",
+      "B",
+      "M",
+      "O",
+      "N"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 6,
+  "raw_meta": "{}"
+}

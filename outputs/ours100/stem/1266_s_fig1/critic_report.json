@@ -1,0 +1,173 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render closely matches the original: same two circles, chord AB, the F-O-E line ending at E, dashed E-B and C-B, and all labels. The main difference is the placement of label E.",
+  "figure_type": {
+    "original": "Large circle centred at O with diameter AB, a small circle centred at B, line F-O-E ending at E on the small circle, dashed E-B and C-B, intersection points C and D, no right-angle markers.",
+    "render": "Large circle centred at O with diameter AB, a small circle centred at B, line F-O-E ending at E on the small circle, dashed E-B and C-B, intersection points C and D, no right-angle markers."
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_E"
+      ],
+      "bbox": [
+        0.66,
+        0.34,
+        0.73,
+        0.42
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "In the original, the label E sits just left of and over the endpoint of line FE, touching the line. In the render, E is placed above-left of its endpoint with clear space. The label is correct and correctly attached, but its offset differs.",
+      "suggestion": "Optionally move the E label to the left/below-left anchor (for example, anchor=east or left with a small shift) to match the original's placement. This is cosmetic only."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Large circle centred at O, passes through A, C, D, F and B, matches original."
+    },
+    {
+      "object_id": "circle_02",
+      "status": "present",
+      "note": "Small circle centred at B, matches original extent and position."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Line F-O-E is drawn and ends at E in both panels."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Diameter AB is solid and spans A to B in both panels."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Dashed C-B chord is drawn in both panels."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Solid diameter from A to B, matches original."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Dashed segment from C to B appears in both panels."
+    },
+    {
+      "object_id": "seg_EB",
+      "status": "present",
+      "note": "Dashed segment from E to B appears in both panels."
+    },
+    {
+      "object_id": "seg_FC_line",
+      "status": "unclear",
+      "note": "In the original the solid line from F ends at E and no solid extension toward C is visible, so the FC-through-E extent cannot be confirmed. The render also stops at E, matching the visible original."
+    },
+    {
+      "object_id": "seg_FE",
+      "status": "present",
+      "note": "Solid segment F to E matches original, ending at E."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label O is present near the centre in both panels."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label B is present to the right of B in both panels."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label C is present above the intersection in both panels."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label F is present below-left of F in both panels."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Label A is present to the left of A in both panels."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Label A matches original position."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Label B matches original position."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Label C matches original position."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Label D is present below the lower intersection in both panels."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Label E is present and correctly attached to E; placement offset differs slightly from original."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Label F matches original position."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Label O matches original position."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Large circle and small circle with correct centres and radii.",
+    "Solid diameter AB with A at the left of the large circle and B at the right intersection.",
+    "Line F-O-E: F on the large circle, passes through O, ends at E on the small circle.",
+    "Dashed segments E-B and C-B are present with the same dash style.",
+    "Intersection points C and D are placed where the circles meet.",
+    "All point labels A, B, C, D, E, F, O are present and correctly spelled.",
+    "No right-angle markers in either panel, so none are missing.",
+    "Overall aspect ratio and scale match."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "O"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

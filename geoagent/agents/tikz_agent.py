@@ -44,6 +44,39 @@ class TikZAgent:
         self.client = client
         self.state = state
         self.out_dir = Path(out_dir)
+        self._style_cache: dict[str, Any] | None = None
+
+    def _style_metrics(self) -> dict[str, Any] | None:
+        """Measure source stroke/label sizes once per agent instance."""
+        if self._style_cache is not None:
+            return self._style_cache or None
+        metrics: dict[str, Any] = {}
+        try:
+            from ..cv_tools.label_detection import measure_style_metrics
+
+            measured = measure_style_metrics(self.state.image_path)
+            if measured.get("ok"):
+                metrics = measured
+        except Exception:
+            metrics = {}
+        self._style_cache = metrics
+        return metrics or None
+
+    @staticmethod
+    def _style_block(metrics: dict[str, Any]) -> str:
+        width, height = metrics["ink_size_px"]
+        span = metrics["target_span_units"]
+        return (
+            "STYLE METRICS (CV-measured from the original; prefer these over defaults):\n"
+            f"- Ink bbox {width}x{height} px; longest side {metrics['span_px']} px.\n"
+            f"- Stroke width {metrics['stroke_width_px']} px -> line width={metrics['line_width_pt']}pt "
+            f"at a span of {span:g} units (cm).\n"
+            f"- Label cap height {metrics['cap_height_px']} px -> "
+            f"font=\\fontsize{{{metrics['label_font_pt']:g}}}{{{metrics['label_line_pt']:g}}}\\selectfont "
+            "on every label node.\n"
+            f"- Scale: s={metrics['suggested_scale']} units per pixel so the longest side spans {span:g} units.\n"
+            "- Keep these proportions unless a critic issue explicitly targets stroke weight or label size."
+        )
 
     def run(
         self,
@@ -72,6 +105,9 @@ class TikZAgent:
             _geometry_digest(self.state),
             "RELATIONS: " + compact_json({k: rel.model_dump() for k, rel in list(self.state.relations.items())[:30]}, 2500),
         ]
+        metrics = self._style_metrics()
+        if metrics:
+            parts.append(self._style_block(metrics))
         if mode == "repair":
             parts += [
                 "PREVIOUS TIKZ (full source to fix):",

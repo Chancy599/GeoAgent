@@ -1,6 +1,7 @@
 """Supervisor-centric agent loop with budgets, checkpoints and tracing."""
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import time
@@ -26,7 +27,7 @@ from ..cv_tools.registry import call_cv_tool
 from ..llm.client import LLMClient
 from ..state.evidence_store import EvidenceStore
 from ..state.schemas import ActionRecord, GeometricEvidenceState
-from ..tools import compile_tikz, render_pdf, validate_compilation
+from ..tools import compile_tikz, frame_like_original, render_pdf, validate_compilation
 from ..vision.context import VisualContextManager
 from .ingest import ingest_cv_result
 
@@ -76,6 +77,11 @@ class GeoAgentRunner:
         self.final_status = ""
         self._nudges = 0
         self._step = 0
+        # Identical renders (e.g. a repair that changed nothing visible) reuse
+        # the earlier critic report instead of spending another visual call.
+        self._critic_cache: dict[str, dict[str, Any]] = {}
+        # finish may be rejected once per gate kind, at most twice per run.
+        self._gate_blocks: dict[str, int] = {}
 
     # ------------------------------------------------------------------ #
     # public API
@@ -269,7 +275,8 @@ class GeoAgentRunner:
                 "error": error,
             }
         )
-        return "finish" if name == "finish" else None
+        # A rejected finish (gated) must not terminate the loop.
+        return "finish" if _stops_run(name, payload) else None
 
     # ------------------------------------------------------------------ #
     # individual actions
@@ -385,6 +392,22 @@ class GeoAgentRunner:
             version=version_number,
             reference_size=(self.state.image_size["width"], self.state.image_size["height"]),
         )
+        # Validate the raw render (its canvas still reflects the compiled
+        # figure), then re-frame it onto the source image's canvas so the
+        # critic and the archived PNG compare equal margins.
+        if png_path and self.state.image_path:
+            framed = frame_like_original(png_path, self.state.image_path)
+            if framed.get("ok"):
+                png_path = framed["png_path"]
+                self.state.add_evidence(
+                    source="renderer",
+                    method="frame_like_original",
+                    summary=(
+                        f"v{version_number} canvas matched to source "
+                        f"{framed.get('reference_size')} (scale {framed.get('scale')})"
+                    ),
+                    payload={k: v for k, v in framed.items() if k != "png_path"},
+                )
         self.state.mark_compilation(
             version_number,
             ok=bool(compiled.get("ok")),
@@ -422,12 +445,24 @@ class GeoAgentRunner:
                 break
         if target is None:
             return {"ok": False, "error": "no successfully rendered TikZ version to critique"}
-        report = self.critic_agent.run(
-            self.ctx.original(),
-            target.png_path,
-            focus=str(args.get("focus", "")),
-            version=target.version,
-        )
+
+        digest = _file_digest(target.png_path)
+        cached = self._critic_cache.get(digest)
+        if cached is not None:
+            report = {
+                **cached,
+                "version": target.version,
+                "cached": True,
+                "cached_from_version": cached.get("version"),
+            }
+        else:
+            report = self.critic_agent.run(
+                self.ctx.original(),
+                target.png_path,
+                focus=str(args.get("focus", "")),
+                version=target.version,
+            )
+            self._critic_cache[digest] = report
         score = float(report.get("assessment_score", 0.0))
         self.state.attach_critic(target.version, report, score)
         self.state.update_best(allow_unscored=True)
@@ -437,11 +472,31 @@ class GeoAgentRunner:
             "assessment_score": score,
             "verdict": report.get("verdict"),
             "issues": report.get("issues", [])[:8],
+            "checks_pending": [
+                check
+                for check in report.get("checks") or []
+                if check.get("status") in ("missing", "wrong")
+            ][:8],
+            "checklist_score": report.get("checklist_score"),
+            "actionable_counts": report.get("actionable_counts")
+            or {"high": 0, "medium": 0, "low": 0},
+            "flaky_count": report.get("flaky_count", 0),
+            "must_repair": bool(report.get("must_repair")),
             "labels": report.get("labels"),
             "best_version": self.state.best_version,
+            "cached": cached is not None,
         }
 
     def _do_finish(self, args: dict[str, Any]) -> dict[str, Any]:
+        problem = _finish_gate_problem(
+            self.state,
+            visual_left=self._visual_left(),
+            tool_left=int(self.settings.budget.max_tool_calls) - self.counters["tool_calls"],
+        )
+        already_blocked = self._gate_blocks.get(problem[0], 0) if problem else 0
+        if problem is not None and already_blocked == 0 and sum(self._gate_blocks.values()) < 2:
+            self._gate_blocks[problem[0]] = already_blocked + 1
+            return {"ok": False, "gate": problem[0], "error": f"finish blocked: {problem[1]}"}
         args = _clean_finish_args(args)
         self.final_summary = str(args.get("summary", ""))[:2000]
         status = str(args.get("status") or "")
@@ -535,6 +590,57 @@ class GeoAgentRunner:
                 self.on_event(event)
             except Exception:
                 pass
+
+
+def _stops_run(name: str, payload: Any) -> bool:
+    """Only a successful finish ends the supervisor loop."""
+    return name == "finish" and isinstance(payload, dict) and bool(payload.get("ok", False))
+
+
+def _file_digest(path: str | Path) -> str:
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _finish_gate_problem(
+    state: GeometricEvidenceState,
+    *,
+    visual_left: int,
+    tool_left: int,
+) -> tuple[str, str] | None:
+    """Return (gate, message) when finish would skip an independent check."""
+    versions = [v for v in state.tikz_versions if v.ok and v.png_path]
+    if not versions or state.best_version is None:
+        return None
+    latest = versions[-1]
+    if latest.critic_score is None and visual_left > 0 and tool_left >= 1:
+        return (
+            "unscored_latest",
+            f"version {latest.version} is the newest render but has no critic report; "
+            "call run_critic on it before finishing",
+        )
+    best = state.get_version(state.best_version)
+    if best is None:
+        return None
+    if best.critic_score is None and visual_left > 0 and tool_left >= 1:
+        return (
+            "unscored_best",
+            f"best version {best.version} has no critic report; call run_critic before finishing",
+        )
+    report = best.critic_report or {}
+    counts = report.get("actionable_counts") or {}
+    if report.get("must_repair") and visual_left > 0 and tool_left >= 2:
+        return (
+            "unresolved_issues",
+            f"best version {best.version} still has {counts.get('high', 0)} high, "
+            f"{counts.get('medium', 0)} medium and {counts.get('low', 0)} low actionable "
+            "critic issues (must_repair=true); run_tikz_agent(mode=repair) with them, "
+            "then run_critic, then finish (explain in unresolved if they are not fixable)",
+        )
+    return None
 
 
 _XML_PARAM = re.compile(r'<parameter\s+name="(?P<name>\w+)">(?P<value>.*?)</parameter>', re.S)

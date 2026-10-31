@@ -1,0 +1,199 @@
+{
+  "assessment_score": 0.8,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render closely matches the original: same triangle A1B1M2 with M2 at the circle centre and the circle through the lower part of the figure, but the circle is slightly smaller and the triangle's top side sits lower and narrower.",
+  "figure_type": {
+    "original": "Isosceles-style triangle A1B1M2 (apex M2 at circle centre) with a circle centred on M2 and extending below it; top side A1B1 horizontal; no visible right-angle marks.",
+    "render": "Same triangle A1B1M2 with M2 at circle centre and a circle below; top side horizontal; no right-angle marks."
+  },
+  "issues": [
+    {
+      "type": "arc_error",
+      "severity": "medium",
+      "object_ids": [
+        "circle_01"
+      ],
+      "bbox": [
+        0.15,
+        0.25,
+        0.85,
+        0.95
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The rendered circle is smaller than the original: its top sits about 24 px lower in the panel (original top ≈153 px, render ≈177 px), so the radius is roughly 5% smaller, while the bottom of the circle is about the same. The centre appears shifted slightly down relative to the original.",
+      "suggestion": "Increase the circle radius by about 5% and re-centre it on M2 so that the top and bottom extents match the original."
+    },
+    {
+      "type": "wrong_position",
+      "severity": "medium",
+      "object_ids": [
+        "seg_A1B1",
+        "point_A1",
+        "point_B1"
+      ],
+      "bbox": [
+        0.2,
+        0.07,
+        0.8,
+        0.2
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The top side A1B1 is drawn about 30 px lower than in the original and the vertices A1 and B1 are about 10 px further inward, so the top side is shorter than the original (roughly 340 px vs 362 px).",
+      "suggestion": "Raise A1 and B1 to the original height and move them outward so the top side matches the original width, keeping M2 at the circle centre."
+    },
+    {
+      "type": "wrong_position",
+      "severity": "low",
+      "object_ids": [
+        "seg_A1M2",
+        "seg_M2B1"
+      ],
+      "bbox": [
+        0.2,
+        0.07,
+        0.8,
+        0.62
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Because A1 and B1 are displaced, sides A1M2 and M2B1 are slightly shorter and steeper than in the original. They still meet at M2 and cross the circle at similar points.",
+      "suggestion": "Adjust A1 and B1 coordinates as above so both legs match the original lengths and angles."
+    },
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_M2"
+      ],
+      "bbox": [
+        0.44,
+        0.62,
+        0.56,
+        0.71
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The M2 label is set in upright math italic, whereas the original uses bold subscript \"2\" (M_{\\mathbf{2}}). The position is close to the original.",
+      "suggestion": "Set the label to M_{\\mathbf{2}} to match the bold subscript."
+    },
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "seg_04"
+      ],
+      "bbox": [
+        0.45,
+        0.35,
+        0.55,
+        0.45
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The detected short segment seg_04 near the M2 label has no visible counterpart in the original and is not clearly drawn in the render.",
+      "suggestion": "Verify the detection of seg_04 against the source; if it is an artifact, exclude it from the geometry state."
+    },
+    {
+      "type": "wrong_position",
+      "severity": "low",
+      "object_ids": [
+        "seg_03"
+      ],
+      "bbox": [
+        0.224,
+        0.11,
+        0.77,
+        0.15
+      ],
+      "flaky": false,
+      "source": "checklist",
+      "description": "Checklist: segment seg_03 is visible but misplaced.",
+      "suggestion": "Move this element to match the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "wrong",
+      "note": "Circle is about 5% smaller in radius and its top is about 24 px lower than the original; bottom extent matches."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Matches the left leg A1M2 of the triangle."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Matches the right leg M2B1 of the triangle."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "wrong",
+      "note": "Top side is drawn about 30 px lower and slightly shorter than the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "unclear",
+      "note": "Short segment near M2 label is not visible in the original and not clearly drawn in the render."
+    },
+    {
+      "object_id": "seg_A1B1",
+      "status": "wrong",
+      "note": "Same top side as seg_03; drawn lower and shorter than the original."
+    },
+    {
+      "object_id": "seg_A1M2",
+      "status": "present",
+      "note": "Drawn from A1 to M2 and crosses the circle at roughly the original points, with a small offset."
+    },
+    {
+      "object_id": "seg_M2B1",
+      "status": "present",
+      "note": "Drawn from M2 to B1 and crosses the circle at roughly the original points, with a small offset."
+    },
+    {
+      "object_id": "point_A1",
+      "status": "present",
+      "note": "A1 label present at top-left, but its vertex is lower and slightly inward."
+    },
+    {
+      "object_id": "point_B1",
+      "status": "present",
+      "note": "B1 label present at top-right, but its vertex is lower and slightly inward."
+    },
+    {
+      "object_id": "point_M2",
+      "status": "present",
+      "note": "M2 label present below the apex at the circle centre; render uses non-bold subscript where the original is bold."
+    }
+  ],
+  "checklist_score": 0.85,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 2,
+    "low": 4
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Triangle structure: A1 top-left, B1 top-right, M2 apex at the circle centre.",
+    "Both legs A1M2 and M2B1 cross the circle at similar points.",
+    "Labels A1, B1 and M2 are present in the correct positions.",
+    "No right-angle markers appear in either panel.",
+    "Solid line styles match throughout."
+  ],
+  "labels": {
+    "present": [
+      "A1",
+      "B1",
+      "M2"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

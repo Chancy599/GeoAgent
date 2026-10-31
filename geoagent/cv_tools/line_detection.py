@@ -9,13 +9,14 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import numpy as np
 
 from ..config import PROJECT_ROOT
 from .common import (
     angle_of,
+    arc_evidence_reliable,
     draw_label,
     draw_segment,
     envelope,
@@ -167,6 +168,10 @@ def _remove_circle_ink(
     offset: np.ndarray,
 ) -> np.ndarray:
     """Erase circle/arc skeleton points so Hough does not shred arcs into chords."""
+    # Only trustworthy arcs may delete ink: a spurious circle fitted to a
+    # tangent chord would otherwise erase that whole straight edge (a real
+    # failure mode on figures with a chord tangent to the arc).
+    circles = [circ for circ in circles or [] if arc_evidence_reliable(circ)]
     if not circles:
         return skel
     ys, xs = np.where(skel > 0)
@@ -268,6 +273,87 @@ def _recover_dash_chains(
     return chains
 
 
+def _extend_endpoint(
+    mask: np.ndarray,
+    p: np.ndarray,
+    unit: np.ndarray,
+    stroke_w: float,
+    max_extension: float,
+    gap_tol: float,
+    gate: Callable[[np.ndarray], bool] | None = None,
+) -> np.ndarray:
+    """Walk outward from ``p`` along ``unit`` while the stroke's ink continues.
+
+    Hough clips a span where circle suppression erased its ink (a chord that
+    grazes or tangents its arc is erased along the annulus), so the remaining
+    ink has to recover the true end.  ``gate`` confines the walk to the region
+    where suppression happened; short gaps (dash spacing) are bridged.
+    """
+    h, w = mask.shape
+    radius = max(1, int(round(0.9 * stroke_w + 1.0)))
+    last_hit = 0.0
+    distance = 0.0
+    while distance < max_extension:
+        distance += 1.0
+        q = p + unit * distance
+        x, y = int(round(q[0])), int(round(q[1]))
+        if not (0 <= x < w and 0 <= y < h):
+            break
+        if gate is not None and not gate(q):
+            break
+        window = mask[max(0, y - radius): y + radius + 1, max(0, x - radius): x + radius + 1]
+        if window.any():
+            last_hit = distance
+        elif distance - last_hit > gap_tol:
+            break
+    return p + unit * last_hit if last_hit > 0 else p
+
+
+def _extend_span(
+    mask: np.ndarray,
+    a: np.ndarray,
+    b: np.ndarray,
+    stroke_w: float,
+    *,
+    max_extension: float,
+    gap_tol: float,
+    gate: Callable[[np.ndarray], bool] | None = None,
+) -> tuple[np.ndarray, np.ndarray]:
+    length = float(np.linalg.norm(b - a))
+    if length < 1e-6:
+        return a, b
+    unit = (b - a) / length
+    a2 = _extend_endpoint(mask, a, -unit, stroke_w, max_extension, gap_tol, gate)
+    b2 = _extend_endpoint(mask, b, unit, stroke_w, max_extension, gap_tol, gate)
+    return a2, b2
+
+
+def _circle_band_gate(
+    circles: list[dict[str, Any]],
+    stroke_w: float,
+    offset: np.ndarray | None = None,
+) -> Callable[[np.ndarray], bool] | None:
+    """Only allow extension where circle suppression could have erased ink.
+
+    ``offset`` converts full-image circle centres into the ROI-local frame
+    the extension walk runs in.
+    """
+    reliable = [circ for circ in circles or [] if arc_evidence_reliable(circ)]
+    if not reliable:
+        return None
+    delta = np.zeros(2, float) if offset is None else np.asarray(offset, float)
+    band = max(2.0, 1.5 * stroke_w) * 2.5
+    centers = [
+        (np.asarray(circ["center_px"], float) - delta, float(circ["radius_px"]))
+        for circ in reliable
+    ]
+
+    def gate(point: np.ndarray) -> bool:
+        return any(abs(float(np.linalg.norm(point - center)) - radius) <= band for center, radius in centers)
+
+    return gate
+
+
 def _overlaps_solid(chain_a: np.ndarray, chain_b: np.ndarray, solids: list[tuple[np.ndarray, np.ndarray]]) -> bool:
     from .common import point_line_distance
 
@@ -355,6 +441,34 @@ def detect_lines(
             for s in raw
         ]
 
+    # Recover the true stroke extent: Hough spans stop where circle
+    # suppression erased ink, but the remaining ink still supports the full
+    # length (and overhangs past labelled vertices are part of the figure).
+    # Spans are in full-image coordinates while the ink masks are ROI-local,
+    # so walk in the local frame against the glyph-suppressed mask; the gate
+    # limits growth to the annulus where suppression happened, which keeps
+    # the walk from crawling into label glyphs.
+    offset = np.array([roi_box.x0, roi_box.y0], float)
+    ink_mask = (work_mask > 0).astype(np.uint8)
+    band_gate = _circle_band_gate(circles, stroke_w, offset)
+    max_extension = max(20.0, 0.12 * min(sub_mask.shape))
+    gap_tol = max(3.0, min(10.0, 4.0 * stroke_w + 1.0))
+    extended = []
+    for a, b, parts in spans:
+        a_l = np.asarray(a, float) - offset
+        b_l = np.asarray(b, float) - offset
+        a_l, b_l = _extend_span(
+            ink_mask,
+            a_l,
+            b_l,
+            stroke_w,
+            max_extension=max_extension,
+            gap_tol=gap_tol,
+            gate=band_gate,
+        )
+        extended.append((a_l + offset, b_l + offset, parts))
+    spans = extended
+
     segments: list[dict[str, Any]] = []
     for a, b, parts in spans:
         length = float(np.linalg.norm(b - a))
@@ -382,6 +496,19 @@ def detect_lines(
     solid_arrays = [(np.asarray(a, float), np.asarray(b, float)) for a, b, _ in spans]
     for chain in dash_chains:
         ca, cb = np.asarray(chain["a"], float), np.asarray(chain["b"], float)
+        # Dash spacing is wider than the solid-line gap tolerance used above;
+        # walking the glyph-suppressed mask keeps the chain from bridging
+        # across a nearby label and overshooting its true extent.
+        ca_l, cb_l = ca - offset, cb - offset
+        ca_l, cb_l = _extend_span(
+            ink_mask,
+            ca_l,
+            cb_l,
+            stroke_w,
+            max_extension=max_extension,
+            gap_tol=max(gap_tol, 9.0),
+        )
+        ca, cb = ca_l + offset, cb_l + offset
         length = float(np.linalg.norm(cb - ca))
         if length < min_length or _overlaps_solid(ca, cb, solid_arrays):
             continue

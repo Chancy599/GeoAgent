@@ -223,6 +223,29 @@ class LLMClient:
     # ------------------------------------------------------------------ #
     # structured output
     # ------------------------------------------------------------------ #
+    def _chat_untruncated(
+        self,
+        messages: list[dict[str, Any]],
+        *,
+        tag: str,
+        max_tokens: int | None,
+    ) -> LLMResult:
+        """Chat, retrying once with a wider budget if the reply hits the cap.
+
+        A ``finish_reason`` of ``length`` means the JSON was cut mid-object;
+        accepting it (or a stray fragment parsed out of it) would silently
+        degrade downstream scores, so this is an error if the retry also truncates.
+        """
+        result = self.chat(messages, tag=tag, max_tokens=max_tokens)
+        if result.finish_reason != "length":
+            return result
+        base = int(max_tokens or self.settings.max_tokens)
+        wider = min(16384, max(base * 2, base + 2048))
+        result = self.chat(messages, tag=f"{tag}:length_retry", max_tokens=wider)
+        if result.finish_reason == "length":
+            raise ValueError(f"Model reply truncated at max_tokens={wider}; refusing partial output")
+        return result
+
     def complete_json(
         self,
         system: str,
@@ -238,7 +261,7 @@ class LLMClient:
             {"role": "system", "content": system},
             {"role": "user", "content": self.build_content(user, images)},
         ]
-        result = self.chat(messages, tag=tag, max_tokens=max_tokens)
+        result = self._chat_untruncated(messages, tag=tag, max_tokens=max_tokens)
         parsed, error = parse_json_object(result.text)
         if parsed is not None:
             return parsed
@@ -252,7 +275,7 @@ class LLMClient:
         )
         messages.append({"role": "assistant", "content": result.text[:4000]})
         messages.append({"role": "user", "content": correction})
-        retry = self.chat(messages, tag=f"{tag}:json_retry", max_tokens=max_tokens)
+        retry = self._chat_untruncated(messages, tag=f"{tag}:json_retry", max_tokens=max_tokens)
         parsed, error = parse_json_object(retry.text)
         if parsed is None:
             raise ValueError(f"Invalid JSON from model after retry: {error}")

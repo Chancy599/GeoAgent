@@ -344,6 +344,38 @@ def in_arc(theta: float, full: bool, lo: float, hi: float, margin_deg: float = 3
     return lo - margin <= theta <= hi + margin
 
 
+def arc_evidence_reliable(
+    circle: dict[str, Any],
+    *,
+    min_coverage: float = 0.30,
+    min_long_range_deg: float = 90.0,
+) -> bool:
+    """Whether an arc/circle detection is trustworthy enough to act on.
+
+    RANSAC happily fits a circle to *straight* ink: a chord tangent to a real
+    arc stays inside the fit tolerance for a long stretch, so a spurious circle
+    can claim several scattered line fragments as its "visible" arc.  Using
+    such a circle to erase line ink or to generate intersection points deletes
+    real geometry, so consumers filter candidates here.  A genuine arc either
+    covers a decent share of its circumference or shows one long contiguous
+    visible range.
+    """
+    try:
+        coverage = float(circle.get("ink_coverage") or 0.0)
+    except (TypeError, ValueError):
+        coverage = 0.0
+    longest = 0.0
+    for entry in circle.get("visible_ranges_deg") or []:
+        try:
+            lo, hi = float(entry[0]), float(entry[1])
+        except (TypeError, ValueError, IndexError):
+            continue
+        longest = max(longest, hi - lo)
+    if circle.get("full_circle"):
+        return coverage >= 0.60
+    return coverage >= min_coverage or (longest >= min_long_range_deg and coverage >= 0.20)
+
+
 def line_circle_intersections(a: Any, b: Any, center: Any, radius: float) -> list[np.ndarray]:
     a = np.asarray(a, float)
     b = np.asarray(b, float)

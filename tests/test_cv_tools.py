@@ -100,3 +100,52 @@ def test_right_angle_fallback_ignores_bare_cross(tmp_path) -> None:
 
     assert result["ok"], result.get("error")
     assert result["results"]["count"] == 0
+
+
+def test_detach_point_dots_drops_filled_dot_not_split_ring() -> None:
+    """A centre dot must be detached even when it is the largest component.
+
+    Erasing the line band through a circle-centre "O" splits the letter into
+    pieces smaller than the accompanying filled dot, so size rank alone cannot
+    identify the dot.
+    """
+    import numpy as np
+
+    from geoagent.cv_tools.label_detection import _detach_point_dots
+
+    sel = np.zeros((30, 40), bool)
+    yy, xx = np.mgrid[0:30, 0:40]
+    ring = (np.hypot(xx - 10, yy - 15) >= 6) & (np.hypot(xx - 10, yy - 15) <= 9)
+    ring &= ~((xx >= 9) & (xx <= 11))
+    sel |= ring
+    sel |= np.hypot(xx - 30.5, yy - 14.5) <= 5  # filled dot, larger than each half
+
+    kept = _detach_point_dots(sel, cap_h=20.0)
+
+    assert kept[:, :20].sum() == sel[:, :20].sum()  # letter halves fully kept
+    assert not kept[:, 24:].any()  # filled dot removed
+
+
+def test_style_metrics_convert_pixels_to_points_for_a_fixed_span(monkeypatch) -> None:
+    """Stroke width / label size must be expressed relative to the figure span."""
+    import numpy as np
+
+    from geoagent.cv_tools import label_detection
+
+    mask = np.zeros((100, 200), np.uint8)
+    mask[10:90, 20:180] = 1  # ink bbox 160x80 -> span 160 px
+    monkeypatch.setattr(
+        label_detection, "_line_suppressed_text", lambda _path: (mask, mask, 2.0, 10.0)
+    )
+
+    metrics = label_detection.measure_style_metrics("unused.png", target_span_units=8.0)
+
+    assert metrics["ok"]
+    assert metrics["ink_size_px"] == [160, 80]
+    assert metrics["span_px"] == 160
+    assert metrics["suggested_scale"] == pytest.approx(0.05)
+    # 2 px / 160 px * (8 cm in pt) = 2.83 pt
+    assert metrics["line_width_pt"] == pytest.approx(2.8)
+    # 10 px cap height -> 10/160 * 226.77 / 0.68 = 20.8 pt
+    assert metrics["label_font_pt"] == pytest.approx(21.0)
+    assert metrics["label_line_pt"] == pytest.approx(25.2)

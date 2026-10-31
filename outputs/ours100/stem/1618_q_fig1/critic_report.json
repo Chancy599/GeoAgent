@@ -1,0 +1,190 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render faithfully reproduces the rectangle, the segments AE, MN, BF and NF, the right-angle mark at the foot of AE on BF, and all nine labels; the only clear difference is thinner strokes.",
+  "figure_type": {
+    "original": "Rectangle ABCD with points E, N on BC and M on AD; segments AE and MN drawn parallel; BF and NF drawn from B and N to F on DC; O is the intersection of BF with MN; right-angle mark at the foot of AE on BF",
+    "render": "Same rectangle ABCD with the same segments AE, MN, BF, NF, right-angle mark at the foot of AE on BF, and point O at the intersection"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_02",
+        "seg_03",
+        "seg_06",
+        "seg_07",
+        "seg_05",
+        "seg_04",
+        "seg_01",
+        "seg_08"
+      ],
+      "bbox": [
+        0.05,
+        0.1,
+        0.95,
+        0.85
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Stroke weight of the rectangle edges and the interior segments (AE, MN, BF, NF) is noticeably thinner in the render than in the original; the render strokes look roughly one pixel wide while the original strokes are heavier.",
+      "suggestion": "Increase line width for the rectangle and the interior segments (e.g. use \\linewidth or thick-style options) to match the heavier original strokes."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Segment BF from B to F is drawn with matching endpoints and passes through O."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top edge AD is drawn with matching extent, but thinner than the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Bottom edge BC is drawn with matching extent, but thinner than the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment MN from M on AD to N on BC matches the original extent."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Segment AE from A to E on BC matches the original extent."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Left edge AB is drawn with matching extent."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Right edge CD is drawn with matching extent."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Segment NF from N to F matches the original."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "unclear",
+      "note": "Short detected stub lies on the right-angle mark's arms, not a separate figure segment; no distinct segment in the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Left side AB is drawn correctly."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "AE matches the original, ending at E on BC."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Bottom side BC is drawn correctly."
+    },
+    {
+      "object_id": "seg_BF",
+      "status": "present",
+      "note": "BF matches the original, ending at F on DC."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Right side CD is drawn correctly."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Top side DA is drawn correctly."
+    },
+    {
+      "object_id": "seg_MN",
+      "status": "present",
+      "note": "MN matches the original extent and endpoints."
+    },
+    {
+      "object_id": "seg_NF",
+      "status": "present",
+      "note": "NF matches the original."
+    },
+    {
+      "object_id": "ra_01",
+      "status": "present",
+      "note": "Right-angle mark at the foot of AE on BF is present in both panels; the ID appears to correspond to right_angle_01, which is not listed in the geometry state."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle mark at the foot of AE on BF is present and in the same position as the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label B is present at the bottom-left vertex."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label O is present near the intersection of BF and MN."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label F is present at the right-side point on DC."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label M is present above the top edge, attached to the correct point."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Label A is present at the top-left vertex."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Rectangle ABCD with the same proportions and vertex positions.",
+    "AE and MN are parallel with matching endpoints on BC and AD.",
+    "BF runs from B to F, passing through O at the intersection with MN.",
+    "NF runs from N to F.",
+    "Right-angle mark sits at the foot of AE on BF in the same place.",
+    "All labels are present, correctly spelled, and attached to the correct vertices."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "M",
+      "N",
+      "O"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

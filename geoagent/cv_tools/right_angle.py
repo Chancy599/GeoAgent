@@ -315,10 +315,19 @@ def detect_right_angle_marker(
     roi_box = parse_roi(roi, width, height)
     sub_mask = mask[roi_box.y0:roi_box.y1, roi_box.x0:roi_box.x1]
     skel = thin(sub_mask)
-    stroke_w = estimate_stroke_width(sub_mask, skel)
-    cap_h = _estimate_cap_height(sub_mask, stroke_w)
+    if roi is None:
+        stroke_w = estimate_stroke_width(sub_mask, skel)
+        cap_h = _estimate_cap_height(sub_mask, stroke_w)
+    else:
+        # Size thresholds on the whole figure: a small ROI crop (e.g. 40x40)
+        # contains only the mark itself and would make cap height and stroke
+        # width meaningless.
+        full_skel = thin(mask)
+        stroke_w = estimate_stroke_width(mask, full_skel)
+        cap_h = _estimate_cap_height(mask, stroke_w)
 
     # All line coordinates below are full-image pixel coordinates.
+    supplied_lines = bool(lines)
     raw: list[list[float]] = []
     if lines:
         if isinstance(lines[0], dict):
@@ -328,12 +337,26 @@ def detect_right_angle_marker(
     else:
         from .line_detection import detect_lines
 
-        detected = detect_lines(image_path, roi, visualize=False)
+        # Detect on the full image even when a ROI is given: cropping the image
+        # first leaves Hough with 20-50 px arm pieces, none of which clears the
+        # structural-length gate below.  The ROI only restricts which vertices
+        # are reported.
+        detected = detect_lines(image_path, None, visualize=False)
         raw = [[*s["a_px"], *s["b_px"]] for s in detected["results"]["segments"]]
     lines = raw
 
     # Keep only long structural edges for vertex candidates.
     structural = [seg for seg in lines if math.hypot(seg[2] - seg[0], seg[3] - seg[1]) >= 3.0 * cap_h]
+    if supplied_lines and len(structural) < 2:
+        # Caller-supplied lines were too short (or every one was clipped) to
+        # form an arm pair; fall back to the full-image detection rather than
+        # reporting "no mark".
+        from .line_detection import detect_lines
+
+        detected = detect_lines(image_path, None, visualize=False)
+        extra = [[*s["a_px"], *s["b_px"]] for s in detected["results"]["segments"]]
+        lines = lines + extra
+        structural = [seg for seg in lines if math.hypot(seg[2] - seg[0], seg[3] - seg[1]) >= 3.0 * cap_h]
     vertices: list[np.ndarray] = []
     incident: dict[int, list[list[float]]] = {}
     for i in range(len(structural)):
@@ -355,6 +378,16 @@ def detect_right_angle_marker(
             vertices.append(p)
             incident.setdefault(len(vertices) - 1, [])
     clustered = cluster_points(vertices, eps=max(4.0, 1.6 * stroke_w)) if vertices else []
+    if roi is not None and len(clustered):
+        margin = max(4.0, 0.6 * cap_h)
+        clustered = np.array(
+            [
+                vertex
+                for vertex in clustered
+                if roi_box.x0 - margin <= vertex[0] <= roi_box.x1 + margin
+                and roi_box.y0 - margin <= vertex[1] <= roi_box.y1 + margin
+            ]
+        )
 
     # Build independent evidence: original ink minus long structural edges.
     independent = _erase_long_edges(mask, lines, stroke_w, cap_h)
@@ -468,6 +501,8 @@ def detect_right_angle_marker(
         viz = save_png(base / "detect_right_angle_marker.png", overlay)
 
     notes = []
+    if roi is not None:
+        notes.append("ROI restricts reported candidate vertices; line evidence is detected on the full image")
     if not markers:
         notes.append("no right-angle marker passed the local square-ink test; perpendicularity alone is not reported as a mark")
     if perpendicular_without_mark:

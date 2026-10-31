@@ -20,6 +20,7 @@ from scipy.optimize import linear_sum_assignment
 from ..config import PROJECT_ROOT
 from .common import (
     angle_of,
+    arc_evidence_reliable,
     cluster_points,
     draw_box,
     draw_label,
@@ -206,6 +207,40 @@ def _has_prime_stroke(mask: np.ndarray, w: int, h: int) -> bool:
     return False
 
 
+def _detach_point_dots(sel: np.ndarray, cap_h: float) -> np.ndarray:
+    """Drop tiny round filled blobs (point-marker dots) from a glyph group.
+
+    The dilation step bridges the letter and a neighbouring centre dot (e.g.
+    the O at a circle centre), inflating the bbox and wrecking template
+    matching.  A dot is a compact, round, filled blob, unlike a prime stroke
+    (thin and slanted) or a letter (a hollow ring, e.g. O), so only blobs that
+    pass those shape tests are removed — and they are removed by shape, not by
+    size rank, because the erased line band can split a letter into pieces
+    smaller than the dot.
+    """
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(sel.astype(np.uint8), 8)
+    if n <= 2:
+        return sel
+    comps: list[tuple[int, bool]] = []
+    for idx in range(1, n):
+        x, y, w, h, _a = (int(v) for v in stats[idx])
+        aspect = float(w) / max(1.0, float(h))
+        dot_like = (
+            max(w, h) <= max(5.0, 0.7 * cap_h)
+            and min(w, h) >= 2
+            and 0.6 <= aspect <= 1.6
+            and _a / max(1.0, float(w * h)) >= 0.58
+        )
+        comps.append((idx, dot_like))
+    if all(dot_like for _idx, dot_like in comps):
+        return sel  # a lone filled blob: let the point-marker path handle it
+    keep = np.zeros_like(sel, dtype=bool)
+    for idx, dot_like in comps:
+        if not dot_like:
+            keep |= lab == idx  # letters, prime strokes and fragments stay
+    return keep & (sel > 0)
+
+
 def _glyph_groups(text: np.ndarray, cap_h: float) -> list[dict[str, Any]]:
     """Group fragments of one glyph that line suppression split apart.
 
@@ -218,14 +253,17 @@ def _glyph_groups(text: np.ndarray, cap_h: float) -> list[dict[str, Any]]:
     n, lab, stats, cents = cv2.connectedComponentsWithStats(dil, 8)
     groups: list[dict[str, Any]] = []
     for i in range(1, n):
-        x, y, w, h, _area = (int(v) for v in stats[i])
-        if w > 2.6 * cap_h or h > 1.9 * cap_h:
-            continue
         sel = (lab == i) & (text > 0)
+        if int(sel.sum()) < 8:
+            continue
+        sel = _detach_point_dots(sel, cap_h)
         if int(sel.sum()) < 8:
             continue
         ys, xs = np.where(sel)
         gb = [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1]
+        gw, gh = gb[2] - gb[0], gb[3] - gb[1]
+        if gw > 2.6 * cap_h or gh > 1.9 * cap_h:
+            continue
         groups.append(
             {
                 "mask": sel,
@@ -235,6 +273,52 @@ def _glyph_groups(text: np.ndarray, cap_h: float) -> list[dict[str, Any]]:
             }
         )
     return groups
+
+
+def measure_style_metrics(
+    image_path: str | Path,
+    *,
+    target_span_units: float = 8.0,
+) -> dict[str, Any]:
+    """Measure source stroke width and label size for TikZ styling.
+
+    The TikZ agent needs *relative* sizes: a fixed ``line width=1.2pt`` or the
+    default 10 pt label looks right on an 8 cm drawing but far too heavy/light
+    on a 4 cm or 10 cm one.  This returns the measured stroke width and label
+    cap height together with the line-width / font-size in points that
+    reproduce them when the drawing's longest side spans ``target_span_units``
+    centimetres (TikZ coordinate units).
+    """
+    mask, _text, stroke_w, cap_h = _line_suppressed_text(image_path)
+    ys, xs = np.where(mask > 0)
+    height, width = mask.shape
+    if not len(xs):
+        return {"ok": False, "image_size_px": [int(width), int(height)], "error": "no ink"}
+    x0, y0 = int(xs.min()), int(ys.min())
+    x1, y1 = int(xs.max()) + 1, int(ys.max()) + 1
+    ink_w, ink_h = x1 - x0, y1 - y0
+    span = max(ink_w, ink_h, 1)
+    unit_pt = float(target_span_units) * 28.3465  # 1 cm in points
+    line_pt = min(3.0, max(0.3, stroke_w / span * unit_pt))
+    # Cap height ≈ 0.68 em for Computer Modern; fall back to 5% of the span
+    # when the text mask yields no usable glyphs.
+    cap_ratio = (cap_h / span) if cap_h and cap_h >= 5 else 0.05
+    font_pt = min(24.0, max(6.0, cap_ratio * unit_pt / 0.68))
+    font_pt = round(font_pt * 2) / 2
+    return {
+        "ok": True,
+        "image_size_px": [int(width), int(height)],
+        "ink_bbox_px": [x0, y0, x1, y1],
+        "ink_size_px": [int(ink_w), int(ink_h)],
+        "span_px": int(span),
+        "stroke_width_px": round(float(stroke_w), 2),
+        "cap_height_px": round(float(cap_h), 2),
+        "target_span_units": float(target_span_units),
+        "suggested_scale": round(float(target_span_units) / span, 6),
+        "line_width_pt": round(line_pt, 1),
+        "label_font_pt": font_pt,
+        "label_line_pt": round(font_pt * 1.2, 1),
+    }
 
 
 def _line_suppressed_text(image_path: str | Path) -> tuple[np.ndarray, np.ndarray, float, float]:
@@ -510,6 +594,10 @@ def _derive_points(image_path: str | Path) -> tuple[list[dict[str, Any]], dict[s
             if _spans_contain(p, a, b) and _spans_contain(p, c, d):
                 points.append(p)
     for circ in circles["results"]["circles"]:
+        if not arc_evidence_reliable(circ):
+            # A spurious circle fitted to straight ink yields phantom centres
+            # and intersections; it must not create candidate points.
+            continue
         center = np.array(circ["center_px"], float)
         radius = float(circ["radius_px"])
         points.append(center)
