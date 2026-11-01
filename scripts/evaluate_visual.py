@@ -1,6 +1,6 @@
 """CLI: score a directory of rendered figures with the TriGeoBench visual metrics.
 
-    python scripts/evaluate_visual.py --pred-dir outputs/ours100/image --out outputs/metrics/ours100.json
+    python scripts/evaluate_visual.py --pred-dir outputs/ablations/no_post_repair/image --out outputs/metrics/ab100_none.json
 """
 from __future__ import annotations
 
@@ -16,9 +16,9 @@ from geoagent.evaluation.visual_metrics import evaluate  # noqa: E402
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="TriGeoBench SSIM / CLIP / DINO")
-    parser.add_argument("--pred-dir", default="outputs/ours100/image", help="rendered PNGs named <stem>.png")
+    parser.add_argument("--pred-dir", default="outputs/ablations/no_post_repair/image", help="rendered PNGs named <stem>.png")
     parser.add_argument("--ref-dir", default="data/test/image", help="reference dataset images")
-    parser.add_argument("--out", default="outputs/metrics/ours100.json", help="JSON report path")
+    parser.add_argument("--out", default="outputs/metrics/ab100_none.json", help="JSON report path")
     parser.add_argument("--limit", type=int, default=None, help="evaluate only the first N stems")
     args = parser.parse_args(argv)
 

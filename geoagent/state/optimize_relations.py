@@ -14,7 +14,9 @@ from .relation_candidates import numeric_candidates, pair_metrics
 
 
 def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
-                         max_length_change_rel=0.01, topology_tol_rel=0.0005):
+                         max_length_change_rel=0.01, topology_tol_rel=0.0005,
+                         incidence_mode="preserve", length_weight=0.0,
+                         length_scope="edges", fixed_points=(), incidence_strength=1.0):
     original=copy.deepcopy(geometry)
     candidates=copy.deepcopy(numeric_candidates(geometry) if candidates is None else candidates)
     names=sorted(geometry["points"])
@@ -26,6 +28,14 @@ def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
     origin=px.mean(axis=0)
     initial=(px-origin)/span
     edges={k:[ids[n] for n in pair] for k,pair in geometry["segments"].items()}
+    if incidence_mode not in ("preserve", "snap") or length_scope not in ("edges", "all_pairs"):
+        raise ValueError("unknown incidence mode or length scope")
+    if not np.isfinite(length_weight) or length_weight < 0:
+        raise ValueError("length_weight must be finite and nonnegative")
+    if not np.isfinite(incidence_strength) or not 0<=incidence_strength<=1:
+        raise ValueError("incidence_strength must be between zero and one")
+    fixed={ids[name] for name in fixed_points}
+    free=np.array([i for p in range(len(names)) if p not in fixed for i in (2*p,2*p+1)],dtype=int)
     for candidate in candidates:
         if candidate["type"] not in ("parallel","perpendicular"):
             raise ValueError("Only parallel/perpendicular constraints are accepted")
@@ -47,7 +57,24 @@ def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
             t=float(offset@edge)/(length*length)
             cross=float(edge[0]*offset[1]-edge[1]*offset[0])/length
             if 0.001<t<0.999 and abs(cross)<=topology_tol_rel:
-                incidence.append((a,b,p,length,cross))
+                incidence.append((a,b,p,length,cross if incidence_mode=="preserve" else cross*(1-incidence_strength)))
+
+    # A fixed quadratic approximation to relative length change. Its metric
+    # protects short edges more strongly, rather than clipping vertices after
+    # solving. Restrict it to free coordinates so curve anchors remain exact.
+    basis=np.eye(len(free))
+    if length_weight and len(free):
+        pairs=list(itertools.combinations(range(len(names)),2)) if length_scope=="all_pairs" else sorted(set(tuple(sorted(e)) for e in edges.values()))
+        rows=[]
+        for a,b in pairs:
+            u=initial[b]-initial[a];den=float(u@u)
+            if den<=1e-12:continue
+            row=np.zeros_like(initial);row[b]=u/den;row[a]=-u/den
+            rows.append(row.ravel()[free])
+        if rows:
+            jac=np.asarray(rows)
+            metric=np.eye(len(free))+length_weight*len(names)/len(rows)*(jac.T@jac)
+            basis=np.linalg.solve(np.linalg.cholesky(metric).T,np.eye(len(free)))
 
     def system(pos,active):
         values,rows=[],[]
@@ -109,8 +136,10 @@ def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
             # Closest point to the ORIGINAL coordinates on the linearized
             # constraint manifold. SVD removes redundant rectangle constraints.
             anchor=(initial-pos).ravel()
-            correction=np.linalg.lstsq(jac,-residual-jac@anchor,rcond=1e-8)[0]
-            delta=(anchor+correction).reshape(pos.shape)
+            reduced=jac[:,free]
+            correction=basis@np.linalg.lstsq(reduced@basis,-residual-reduced@anchor[free],rcond=1e-8)[0]
+            step=np.zeros(pos.size);step[free]=anchor[free]+correction
+            delta=step.reshape(pos.shape)
             if not np.all(np.isfinite(delta)):
                 raise ValueError("nonfinite projection")
             if np.max(np.abs(residual),initial=0)<1e-12 and np.linalg.norm(delta)<1e-10:
@@ -153,6 +182,12 @@ def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
     report={"applied":False,"reason":"no_candidates","input_candidates":len(candidates),
             "accepted":[],"rejected":rejected,"preserved_incidence_count":len(incidence),
             "max_shift_rel":0.0,"max_length_change_rel":0.0,"reference_used":False}
+    report.update(fixed_points=sorted(fixed_points),length_weight=length_weight,
+                  length_scope=length_scope,incidence_mode=incidence_mode,topology_tol_rel=topology_tol_rel,
+                  incidence_strength=incidence_strength)
+    if not len(free):
+        report["reason"]="all_points_fixed"
+        return original,report
     if not active:
         return original,report
     # Reject weaker hypotheses if they conflict or require substantial distortion.
@@ -171,6 +206,7 @@ def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
             continue
         optimized=copy.deepcopy(geometry)
         corrected=pos*span+origin
+        for index in fixed:corrected[index]=px[index]
         for name,xy in zip(names,corrected):
             optimized["points"][name]=xy.tolist()
         details=[]

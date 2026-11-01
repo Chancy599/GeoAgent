@@ -1,0 +1,145 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render reproduces the trapezoid ABCD with correct vertices, edges, and parallel sides; the only visible difference is that the vertex labels sit above or below their vertices instead of beside them.",
+  "figure_type": {
+    "original": "Trapezoid ABCD with AB parallel to DC, solid outline, labelled vertices A, B, C, D, no right-angle marks",
+    "render": "Trapezoid ABCD with AB parallel to DC, solid outline, labelled vertices A, B, C, D, no right-angle marks"
+  },
+  "issues": [
+    {
+      "type": "layout_error",
+      "severity": "low",
+      "object_ids": [
+        "point_01",
+        "point_02",
+        "point_03",
+        "point_04",
+        "label_01",
+        "label_02",
+        "label_03",
+        "label_04"
+      ],
+      "bbox": [
+        0.05,
+        0.28,
+        0.25,
+        0.72
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Label placement differs from the original. In the original, D and C sit to the left and right of their vertices at the same height, and A and B sit to the left and right of theirs. In the render, D and C are placed above-left and above-right of their vertices, and A and B are placed below-left and below-right.",
+      "suggestion": "Set the label anchors to match the original: D with anchor=east (or left-side placement), C with anchor=west, A with anchor=east, and B with anchor=west, keeping each label at the vertex's height."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom side AB is drawn at the same position and extent as in the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top side DC is drawn at the same position and extent as in the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Right leg BC matches the original from B to C."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Left leg DA matches the original from D to A."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "AB is drawn solid and matches the original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "BC is drawn solid and matches the original."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "CD is drawn solid and matches the original."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "DA is drawn solid and matches the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label B is present and attached to vertex B, but placed below-right instead of right."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label A is present and attached to vertex A, but placed below-left instead of left."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label C is present and attached to vertex C, but placed above-right instead of right."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D is present and attached to vertex D, but placed above-left instead of left."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is at the same position as in the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is at the same position as in the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is at the same position as in the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is at the same position as in the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Trapezoid vertices A, B, C, D are at the same relative positions as in the original.",
+    "All four sides AB, BC, CD, DA are present, solid, and of the same extent.",
+    "AB and CD are parallel, as in the original.",
+    "No extra segments, diagonals, or stray strokes appear in the render.",
+    "No right-angle markers are present in either panel.",
+    "Stroke weight and overall aspect ratio are consistent between panels; no warping."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

@@ -1,0 +1,163 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Faithful render: rectangle ABCQ with P on AB and segment PQ, all vertex labels and line extents match; only stroke weight is lighter than the original.",
+  "figure_type": {
+    "original": "Rectangle ABCQ with point P on side AB, joined to Q by segment PQ (labels A, B, C, P, Q)",
+    "render": "Rectangle ABCQ with point P on side AB, joined to Q by segment PQ (labels A, B, C, P, Q)"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_AB",
+        "seg_BC",
+        "seg_CQ",
+        "seg_QA",
+        "seg_PQ"
+      ],
+      "bbox": [
+        0.05,
+        0.2,
+        0.92,
+        0.78
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Stroke weight of the rectangle edges and PQ is thinner in the render than in the original (render lines are lighter, original lines are heavier).",
+      "suggestion": "Increase the line width of the segments (e.g. use 'thick' or a line width of about 1pt) so the stroke weight matches the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Detected line matches PQ (angle ~16.7°, from P to Q)."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Bottom edge AQ, drawn correctly, ends at vertices A and Q."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Top edge BC, drawn correctly, ends at vertices B and C."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Left edge AB, drawn correctly, ends at vertices A and B; P lies on it."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Right edge CQ, drawn correctly, ends at vertices C and Q."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Solid segment AB matches the original left edge."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Solid segment BC matches the original top edge."
+    },
+    {
+      "object_id": "seg_CQ",
+      "status": "present",
+      "note": "Solid segment CQ matches the original right edge."
+    },
+    {
+      "object_id": "seg_PQ",
+      "status": "present",
+      "note": "Segment from P to Q matches the original diagonal in position and extent."
+    },
+    {
+      "object_id": "seg_QA",
+      "status": "present",
+      "note": "Solid segment QA matches the original bottom edge."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Point Q is at the bottom-right vertex with its label, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Point P is on AB, with its label to the left, as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Point A is at the bottom-left vertex with its label, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Point B is at the top-left vertex with its label, as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Point C is at the top-right vertex with its label, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is correctly placed."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is correctly placed."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is correctly placed."
+    },
+    {
+      "object_id": "point_P",
+      "status": "present",
+      "note": "P is correctly placed on AB."
+    },
+    {
+      "object_id": "point_Q",
+      "status": "present",
+      "note": "Vertex Q is correctly placed."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Rectangle ABCQ with the same vertex positions and proportions as the original.",
+    "P sits on AB at the same height, and PQ runs from P to Q with the same slope and extent.",
+    "No line overhangs or stubs past vertices in either panel; all segments end at their vertices.",
+    "All five vertex labels (A, B, C, P, Q) are present, spelled correctly, and attached to the right vertices with the same offsets as the original.",
+    "No right-angle markers appear in either panel.",
+    "All segments are solid in both panels."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "P",
+      "Q"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

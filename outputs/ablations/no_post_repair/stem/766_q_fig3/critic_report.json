@@ -1,0 +1,115 @@
+{
+  "assessment_score": 0.86,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render reproduces the same triangle, circle and labels. The main differences are that the render is about 5% smaller and the labels are lighter in weight than the original.",
+  "figure_type": {
+    "original": "Circle with an inverted triangle (A1 top-left, B1 top-right, M2 apex at the circle centre); top edge horizontal; the full circle is drawn.",
+    "render": "Same configuration: full circle, inverted triangle with apex at the centre, horizontal top edge."
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [],
+      "bbox": [
+        0.09,
+        0.06,
+        0.18,
+        0.12
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Point labels in the original are bold (A1, B1, M2 look like bold math with bold subscripts); the render uses regular-weight italic math for the same labels, so they look lighter.",
+      "suggestion": "Use bold math for the labels, e.g. \\boldsymbol or \\mathbf around the letters and subscripts, if the source style requires it."
+    },
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "circle_01"
+      ],
+      "bbox": [
+        0.15,
+        0.25,
+        0.85,
+        0.95
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The render circle is about 5% smaller than the original (diameter roughly 410 vs 432 px at the same panel scale) and sits slightly lower. The triangle is scaled by the same ratio, so the overall figure is a uniform shrink, not a distortion.",
+      "suggestion": "Scale the whole figure up by about 1.05 or increase the circle radius to match the original extent."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "arc_DE",
+      "status": "present",
+      "note": "The top arc between the two side crossings is drawn in both panels; it is part of the full circle."
+    },
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Full circle drawn in both; the render is about 5% smaller."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Left side from A1 to the centre apex is present and matches the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Right side from B1 to the centre apex is present and matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Horizontal top edge from A1 to B1 is present in both."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "unclear",
+      "note": "No short stub below the apex is visible in the original; the render also has none, so this is consistent with the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Corresponds to the left side A1 to apex, drawn in both."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Corresponds to the right side B1 to apex, drawn in both."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Corresponds to the top edge, drawn in both."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Full circle with the centre at the apex of the triangle.",
+    "Inverted triangle geometry: apex at the centre, horizontal top edge, sides crossing the circle at the same relative positions.",
+    "Both sides cross the circle at the same points, and the top edge and sides end at the same vertices.",
+    "No extra segments, arcs or right-angle marks in either panel."
+  ],
+  "labels": {
+    "present": [
+      "A1",
+      "B1",
+      "M2"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

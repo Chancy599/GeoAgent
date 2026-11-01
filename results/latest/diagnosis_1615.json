@@ -1,0 +1,746 @@
+{
+  "stem": "1615_s_fig1",
+  "frozen_output_changed": false,
+  "post_repair_applied": false,
+  "post_repair_reason": "unsupported_transform_or_scope",
+  "actions": [
+    {
+      "step": 4,
+      "action": "run_tikz_agent",
+      "purpose": "Build a TikZ figure of a 490x340 px image. Use pixel-to-TikZ scale ~0.02 cm per px (x_tikz = x_px*0.02, y_tikz = (340 - y_px)*0.02). Solid outline: quadrilateral with top edge D-C (y=51), left edge D-",
+      "params": {
+        "mode": "generate",
+        "use_image": null,
+        "instruction": "Build a TikZ figure of a 490x340 px image. Use pixel-to-TikZ scale ~0.02 cm per px (x_tikz = x_px*0.02, y_tikz = (340 - y_px)*0.02). Solid outline: quadrilateral with top edge D-C (y=51), left edge D-A, bottom edge A-B (y=288) passing through F(118,288) and N(158,288), right edge C-B. Labels: D(171,51) top-left, C(435,51) top-right, A(53,288) bottom-left, B(316,287) bottom-right, F(118,288) and N(158,288) on bottom edge (small labels below), G(195,217) interior point, E(106,181) interior point (label E is ambiguous, verify by look). Solid interior segments: C-G, B-G-ish (line from B(316,287) through (198,219) to (113,183) area), F-E (from (118,287) to (106,185)). Dashed auxiliary lines (draw dashed, thin): line from C(435,51) through (213,139) to around (160,160); line from (246,174) to (320,293) (ending at B side); line from (223,135) to (97,185); line from (103,174) to (162,295); line from (168,47) to (229,145); line from (202,204) to (152,300). No right angles verified; do not add right-angle marks. Use no external packages beyond tikz. Keep the code compilable standalone and use circles of radius ~1.5pt for points with labels placed with small offsets."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 39.55,
+      "token_usage": {
+        "delta": 21042
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 5,
+      "action": "run_critic",
+      "purpose": "overall geometry: outline quadrilateral, dashed auxiliary lines extents, label placement and letters",
+      "params": {
+        "focus": "overall geometry: outline quadrilateral, dashed auxiliary lines extents, label placement and letters"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.8; issues=3",
+      "duration_s": 130.3,
+      "token_usage": {
+        "delta": 8619
+      },
+      "visual_calls": 1,
+      "error": null
+    },
+    {
+      "step": 6,
+      "action": "run_tikz_agent",
+      "purpose": "Fix the actionable issues: (1) draw the dashed D-B diagonal as ONE continuous dashed segment from D(171,51) to B(316,287) without splitting at crossings (heavier dash weight, around 0.9pt). (2) Increa",
+      "params": {
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Fix the actionable issues: (1) draw the dashed D-B diagonal as ONE continuous dashed segment from D(171,51) to B(316,287) without splitting at crossings (heavier dash weight, around 0.9pt). (2) Increase dashed auxiliary stroke width to match original heavier dashes. (3) Move label G closer to its intersection point, upper-left side. Keep everything else unchanged."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 20.83,
+      "token_usage": {
+        "delta": 10067
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 7,
+      "action": "run_critic",
+      "purpose": "D-B dashed line continuity and dash weight",
+      "params": {
+        "focus": "D-B dashed line continuity and dash weight"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.82; issues=1",
+      "duration_s": 23.47,
+      "token_usage": {
+        "delta": 8174
+      },
+      "visual_calls": 1,
+      "error": null
+    },
+    {
+      "step": 8,
+      "action": "run_tikz_agent",
+      "purpose": "Increase the stroke width of all dashed auxiliary paths (D-B, E-C, E-N, G-N and the other dashed lines) to about 1.2pt so the dash weight is closer to the solid lines. Keep the dash pattern, geometry ",
+      "params": {
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Increase the stroke width of all dashed auxiliary paths (D-B, E-C, E-N, G-N and the other dashed lines) to about 1.2pt so the dash weight is closer to the solid lines. Keep the dash pattern, geometry and labels unchanged."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=2",
+      "duration_s": 17.11,
+      "token_usage": {
+        "delta": 8964
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 9,
+      "action": "run_critic",
+      "purpose": "dashed line weight and overall match",
+      "params": {
+        "focus": "dashed line weight and overall match"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=3; best_version=3; assessment_score=0.9; issues=1",
+      "duration_s": 29.13,
+      "token_usage": {
+        "delta": 9167
+      },
+      "visual_calls": 1,
+      "error": null
+    },
+    {
+      "step": 10,
+      "action": "finish",
+      "purpose": "finish run",
+      "params": {
+        "summary": "TikZ reconstruction v3 compiles and is the best version (critic score 0.9, checklist 1.0, must_repair=false). It shows the lettered quadrilateral D-C-B-A with interior points E, F, G, N, the solid interior segments, and six dashed auxiliary lines, including one continuous dashed D-B diagonal. Labels A, B, C, D, E, F, G, N are all present in the source.",
+        "unresolved": [
+          "Dashed strokes are still slightly lighter and shorter-dashed than the original (low severity, style only; not repaired further).",
+          "Label E was an ambiguous template match (NCC 0.85) and was not visually verified with inspect_image; it was accepted because the critic reported it present.",
+          "No right angles were verified by detect_right_angle_marker, so none were drawn.",
+          "Interior solid segment endpoints were inferred by the geometry agent and were not individually checked against the image."
+        ],
+        "status": "success"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; best_version=3; status=success",
+      "duration_s": 0.0,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": null
+    }
+  ],
+  "critics": [
+    {
+      "assessment_score": 0.8,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Overall outline, solid lines and labels match the original well; the main discrepancy is the dashed auxiliary line D-B, which is broken into two stubs in the render, and the dashes look thinner than the original.",
+      "figure_type": {
+        "original": "Parallelogram ABCD with point E on AD, feet F and N on AB, G on EB, and dashed auxiliary lines EC, DB, EN and GN",
+        "render": "Parallelogram ABCD with point E on AD, feet F and N on AB, point G on EB, and dashed auxiliary lines EC, DB-stubs, EN and NG"
+      },
+      "issues": [
+        {
+          "type": "wrong_position",
+          "severity": "medium",
+          "object_ids": [
+            "seg_06",
+            "seg_09"
+          ],
+          "bbox": [
+            0.33,
+            0.25,
+            0.56,
+            0.68
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The dashed diagonal from D to B is drawn as two disconnected stubs (D to about the EC crossing, and from the CG crossing to B) with a gap in between, whereas the original shows one continuous dashed line D to B.",
+          "suggestion": "Draw the D-B dashed line as one continuous segment from D to B, without splitting it at the crossings."
+        },
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "seg_06",
+            "seg_08",
+            "seg_11"
+          ],
+          "bbox": [
+            0.15,
+            0.25,
+            0.7,
+            0.8
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "Dashed auxiliary lines in the render are thinner and finer than in the original, which uses heavier dashes.",
+          "suggestion": "Increase the dashed-line stroke width (or use a heavier dash pattern) to match the original's dash weight."
+        },
+        {
+          "type": "label_error",
+          "severity": "low",
+          "object_ids": [],
+          "bbox": [
+            0.36,
+            0.5,
+            0.44,
+            0.62
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The label G is placed above and to the right of its point, slightly away from the G vertex compared with the original, where the label sits just beside the intersection.",
+          "suggestion": "Shift the G label closer to the intersection point on EB, to the upper-left as in the original."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "dash_4",
+          "status": "unclear",
+          "note": "No dash_4 id in the geometry state; cannot map to the figure with confidence."
+        },
+        {
+          "object_id": "dash_5",
+          "status": "unclear",
+          "note": "No dash_5 id in the geometry state; cannot map to the figure with confidence."
+        },
+        {
+          "object_id": "dash_6",
+          "status": "unclear",
+          "note": "No dash_6 id in the geometry state; cannot map to the figure with confidence."
+        },
+        {
+          "object_id": "dash_B_2",
+          "status": "unclear",
+          "note": "No dash_B_2 id in the geometry state; cannot map to the figure with confidence."
+        },
+        {
+          "object_id": "dash_CH_1",
+          "status": "unclear",
+          "note": "No dash_CH_1 id in the geometry state; cannot map to the figure with confidence."
+        },
+        {
+          "object_id": "dash_E_3",
+          "status": "unclear",
+          "note": "No dash_E_3 id in the geometry state; cannot map to the figure with confidence."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Side AD (E to A region) is drawn in both panels."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Side DC/CB edge is drawn in both panels."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Base AB is drawn in both panels."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Side AD is drawn in both panels."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Top side DC is drawn in both panels."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "wrong",
+          "note": "Dashed D-B diagonal is split into two stubs in the render; original is one continuous dashed line."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Dashed segment from the G/CG region toward B is matched in the render."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "Dashed E-C line is present in the render."
+        },
+        {
+          "object_id": "seg_09",
+          "status": "wrong",
+          "note": "Dashed D-B continuation is broken in the render, leaving a gap at the crossing."
+        },
+        {
+          "object_id": "seg_10",
+          "status": "present",
+          "note": "Solid G-to-B segment (part of EB) is present."
+        },
+        {
+          "object_id": "seg_11",
+          "status": "present",
+          "note": "Dashed N-G line is present in the render."
+        },
+        {
+          "object_id": "seg_12",
+          "status": "present",
+          "note": "Dashed E-N line is present in the render."
+        },
+        {
+          "object_id": "seg_13",
+          "status": "present",
+          "note": "Solid E-F segment is present."
+        },
+        {
+          "object_id": "seg_14",
+          "status": "present",
+          "note": "Solid E-B segment through G is present."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Base AB drawn solid in both panels."
+        },
+        {
+          "object_id": "seg_BG",
+          "status": "present",
+          "note": "Segment from B toward G on EB is drawn in both panels."
+        },
+        {
+          "object_id": "seg_CB",
+          "status": "present",
+          "note": "Side CB drawn in both panels."
+        },
+        {
+          "object_id": "seg_CD",
+          "status": "present",
+          "note": "Side CD drawn in both panels."
+        }
+      ],
+      "checklist_score": 0.944,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 1,
+        "low": 2
+      },
+      "flaky_count": 0,
+      "must_repair": true,
+      "matches": [
+        "Outline parallelogram ABCD with correct vertex positions",
+        "Solid E-F and E-B segments",
+        "Solid C-G line toward C",
+        "Dashed E-C line from E to C",
+        "Dashed E-N and N-G lines",
+        "Labels A, B, C, D, E, F, N present"
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "N",
+          "G"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 1,
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.82,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Geometry and dashed-line placement match the original; the dashed D-B line is continuous, but its dashes are visibly lighter than the original's.",
+      "figure_type": {
+        "original": "Parallelogram ABCD with interior points E, F, G, N and dashed auxiliary lines (D-B, E-C, E-N, G-N)",
+        "render": "Same parallelogram and point layout with dashed auxiliary lines"
+      },
+      "issues": [
+        {
+          "type": "wrong_style",
+          "severity": "medium",
+          "object_ids": [
+            "seg_07"
+          ],
+          "bbox": [
+            0.36,
+            0.2,
+            0.65,
+            0.95
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The dashed D-B line is continuous from D to B with no visible gaps, which matches the original. However, its dash weight is thinner than in the original, where the dashes are bold and close to the weight of the solid lines. The render's dashes look like hairlines by comparison. The same thinning applies to the other dashed segments (E-C, E-N, G-N).",
+          "suggestion": "Increase the stroke width of the dashed paths (for example, use a thicker dash style or a line width near that of the solid segments) so the dash weight matches the original. Keep the dash pattern unchanged so continuity is preserved."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "dash_4",
+          "status": "unclear",
+          "note": "No dash_4 object is visible in the geometry state provided; cannot confirm it against the original."
+        },
+        {
+          "object_id": "dash_5",
+          "status": "unclear",
+          "note": "No dash_5 object is visible in the geometry state provided; cannot confirm it against the original."
+        },
+        {
+          "object_id": "dash_6",
+          "status": "unclear",
+          "note": "No dash_6 object is visible in the geometry state provided; cannot confirm it against the original."
+        },
+        {
+          "object_id": "dash_B_2",
+          "status": "unclear",
+          "note": "The D-B dashed line is present in both panels; the dash_B_2 id is not in the state, so I cannot map it directly."
+        },
+        {
+          "object_id": "dash_CH_1",
+          "status": "unclear",
+          "note": "No dash_CH_1 object is visible in the geometry state provided; cannot confirm it against the original."
+        },
+        {
+          "object_id": "dash_E_3",
+          "status": "unclear",
+          "note": "The E-N dashed line is present in both panels; the dash_E_3 id is not in the state, so I cannot map it directly."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Solid side AD/line from A to top-left region matches the original."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Solid side BC matches the original."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Solid base AB matches the original."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Solid side AD matches the original."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Solid top side DC matches the original."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Dashed E-C line is present, continuous and in the same position as the original; its dash weight is lighter."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "wrong",
+          "note": "Dashed D-B line is in the correct position and continuous, but its dashes are thinner than the original's."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "unclear",
+          "note": "Cannot reliably map this dashed chain to a visible line in the original."
+        },
+        {
+          "object_id": "seg_09",
+          "status": "present",
+          "note": "Dashed E-N line is present in the same position; dash weight is lighter than the original."
+        },
+        {
+          "object_id": "seg_10",
+          "status": "present",
+          "note": "Solid G-B segment matches the original."
+        },
+        {
+          "object_id": "seg_11",
+          "status": "unclear",
+          "note": "Cannot reliably map this dashed chain to a visible line in the original."
+        },
+        {
+          "object_id": "seg_12",
+          "status": "unclear",
+          "note": "Cannot reliably map this dashed chain to a visible line in the original."
+        },
+        {
+          "object_id": "seg_13",
+          "status": "present",
+          "note": "Solid E-F segment matches the original."
+        },
+        {
+          "object_id": "seg_14",
+          "status": "present",
+          "note": "Solid E-G segment matches the original."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Base AB is drawn and labelled correctly."
+        },
+        {
+          "object_id": "seg_BG",
+          "status": "present",
+          "note": "Solid segment from B to G is present."
+        },
+        {
+          "object_id": "seg_CB",
+          "status": "present",
+          "note": "Side CB is present and solid."
+        },
+        {
+          "object_id": "seg_CD",
+          "status": "present",
+          "note": "Top side CD is present and solid."
+        }
+      ],
+      "checklist_score": 0.967,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 1,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": true,
+      "matches": [
+        "D-B dashed line is continuous from D to B, with no gaps, matching the original.",
+        "D-B dashed line runs from the same endpoints as the original.",
+        "The dash pattern on D-B is regular, and the segment is not broken or offset.",
+        "The dashed E-C and E-N lines are in the correct positions.",
+        "Solid sides AB, BC, CD and AD, and the solid auxiliary segments E-F, E-G and G-B, match the original."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "N"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 2,
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.9,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Render closely matches the original geometry, labels and solid segments; dashed strokes are visibly lighter than in the original.",
+      "figure_type": {
+        "original": "parallelogram ABCD with point E on AD, F and N on AB, G on EB and CN, and dashed auxiliary lines",
+        "render": "parallelogram ABCD with point E on AD, F and N on AB, G on EB and CN, and dashed auxiliary lines"
+      },
+      "issues": [
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "seg_06",
+            "seg_07",
+            "seg_08",
+            "seg_09",
+            "seg_11",
+            "seg_12"
+          ],
+          "bbox": [
+            0.33,
+            0.25,
+            0.66,
+            0.75
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "Dashed strokes (e.g. the D-B diagonal and the E-N and G-N dashes) are thinner and lighter than in the original, which uses bolder dashes with longer dash pieces.",
+          "suggestion": "Increase the dashed line width (e.g. from the default thin width to about 0.8-1pt) and lengthen the dash pattern (e.g. dash 4pt gap 3pt) to match the original."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "dash_4",
+          "status": "unclear",
+          "note": "ID not present in the geometry state; cannot map to a visible segment."
+        },
+        {
+          "object_id": "dash_5",
+          "status": "unclear",
+          "note": "ID not present in the geometry state; cannot map to a visible segment."
+        },
+        {
+          "object_id": "dash_6",
+          "status": "unclear",
+          "note": "ID not present in the geometry state; cannot map to a visible segment."
+        },
+        {
+          "object_id": "dash_B_2",
+          "status": "unclear",
+          "note": "ID not present in the geometry state; cannot map to a visible segment."
+        },
+        {
+          "object_id": "dash_CH_1",
+          "status": "unclear",
+          "note": "ID not present in the geometry state; cannot map to a visible segment."
+        },
+        {
+          "object_id": "dash_E_3",
+          "status": "unclear",
+          "note": "ID not present in the geometry state; cannot map to a visible segment."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Solid top-right edge from C toward G area is drawn in both panels."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Solid right-side edge (C to B region) matches the original."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Solid bottom edge AB matches the original."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Solid left edge AD matches the original."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Solid top edge DC matches the original."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Dashed E-C line is present; thinner than the original."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Dashed D-B diagonal segment is present; thinner than the original."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "Dashed auxiliary segment is present; thinner than the original."
+        },
+        {
+          "object_id": "seg_09",
+          "status": "present",
+          "note": "Dashed E-N segment is present; thinner than the original."
+        },
+        {
+          "object_id": "seg_10",
+          "status": "present",
+          "note": "Solid C-G segment matches the original, ending at G."
+        },
+        {
+          "object_id": "seg_11",
+          "status": "present",
+          "note": "Dashed D-B segment is present; thinner than the original."
+        },
+        {
+          "object_id": "seg_12",
+          "status": "present",
+          "note": "Dashed G-N segment is present; thinner than the original."
+        },
+        {
+          "object_id": "seg_13",
+          "status": "present",
+          "note": "Solid E-F segment matches the original."
+        },
+        {
+          "object_id": "seg_14",
+          "status": "present",
+          "note": "Solid E-B segment matches the original."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Bottom edge AB is drawn in both panels."
+        },
+        {
+          "object_id": "seg_BG",
+          "status": "present",
+          "note": "Solid G-B portion of EB is drawn in both panels."
+        },
+        {
+          "object_id": "seg_CB",
+          "status": "present",
+          "note": "Right edge CB is drawn in both panels."
+        },
+        {
+          "object_id": "seg_CD",
+          "status": "present",
+          "note": "Top edge CD is drawn in both panels."
+        }
+      ],
+      "checklist_score": 1.0,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "flaky_count": 0,
+      "must_repair": false,
+      "matches": [
+        "Parallelogram ABCD outline and proportions match.",
+        "Point E lies on AD, with F and N on AB, in the same relative positions.",
+        "G lies on EB and on the solid C-G line, with dashed G-N continuing to N.",
+        "Dashed E-C and D-B diagonals are present and in the correct places.",
+        "Solid E-F and E-B segments match the original.",
+        "No overshoots or trimmed segments observed."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "N"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 3,
+      "raw_meta": "{}"
+    }
+  ],
+  "metric_coverage": 0.9473684210526315,
+  "missing_edges": [
+    {
+      "labels": [
+        "E",
+        "G"
+      ],
+      "reason": "segment_not_drawn"
+    }
+  ],
+  "GN_literal_endpoint": [
+    152,
+    40
+  ],
+  "N_coordinate": [
+    158,
+    52
+  ],
+  "GN_endpoint_error_px": 13.416407864998739,
+  "EN_endpoint_error_px": 8.06225774829855,
+  "evidence_phase": "original failure before regeneration",
+  "current_validation": {
+    "regenerated": true,
+    "coverage": 1.0,
+    "missing_edges": []
+  }
+}

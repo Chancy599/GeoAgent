@@ -1,0 +1,152 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render is faithful: full circle with inscribed trapezoid ABCD (AB base, DC top), all labels correctly attached. Only a small vertical offset in chord DC is visible.",
+  "figure_type": {
+    "original": "Full circle with inscribed trapezoid ABCD: horizontal chord AB as base, horizontal chord DC as top, legs AD and BC",
+    "render": "Full circle with inscribed trapezoid ABCD: horizontal chord AB as base, horizontal chord DC as top, legs AD and BC"
+  },
+  "issues": [
+    {
+      "type": "wrong_position",
+      "severity": "low",
+      "object_ids": [
+        "seg_DC",
+        "seg_03",
+        "point_C",
+        "point_D"
+      ],
+      "bbox": [
+        0.3,
+        0.15,
+        0.69,
+        0.19
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Top chord DC sits about 8 px higher in the render (y≈105) than in the original (y≈113), so D and C are slightly displaced upward along the circle. Horizontal extent matches. Circle extent and other vertices are unaffected.",
+      "suggestion": "Lower the D and C vertices slightly along the circle, keeping them on circle_O (center ≈ (224.3, 201.9), r ≈ 157.3), so the top chord y matches the original (≈113 px in the 620 px panel). Verify on re-render before changing anything else."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Full 360° circle matches the original extent and position."
+    },
+    {
+      "object_id": "circle_O",
+      "status": "present",
+      "note": "Circle matches the original; A, B, C, D lie on it."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Base chord AB (horizontal) matches the original, ending at A and B."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Leg BC matches the original from B up to C."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "wrong",
+      "note": "Top chord DC is drawn about 8 px higher than in the original; see issue. Horizontal extent and endpoints are otherwise correct."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Leg AD matches the original from A up to D."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Base chord AB matches the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Leg AD matches the original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Leg BC matches the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "wrong",
+      "note": "Top chord DC sits slightly higher than in the original; see issue."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label B is at the right end of AB, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label A is at the left end of AB, as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label C is above-right of the C vertex, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D is above-left of the D vertex, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is at the circle's left intersection with AB, as in the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is at the circle's right intersection with AB, as in the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "wrong",
+      "note": "Vertex C sits about 8 px higher than in the original; see issue."
+    },
+    {
+      "object_id": "point_D",
+      "status": "wrong",
+      "note": "Vertex D sits about 8 px higher than in the original; see issue."
+    }
+  ],
+  "checklist_score": 0.889,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Full circle extent and position match the original.",
+    "Base chord AB is horizontal and ends at A and B on the circle.",
+    "Legs AD and BC match the original's endpoints and angles.",
+    "All four vertex labels A, B, C, D are present, correctly spelled, and attached to the right vertices with matching placement.",
+    "All segments are solid, as in the original.",
+    "Line weights and label sizes are visually comparable.",
+    "No extra labels: the unlabeled center O is unlabeled in the original too."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

@@ -1,0 +1,40 @@
+\documentclass[tikz,border=10pt]{standalone}
+% calc is needed for the ($(M)+(...)$) coordinate arithmetic in the right-angle mark
+\usetikzlibrary{calc}
+\begin{document}
+\begin{tikzpicture}[line width=1.0pt, line join=round]
+% Scale s = 0.018223 cm/px; centre (256,195) px; x = (px-256)s, y = (195-py)s
+
+% Named points
+\coordinate (A) at (-3.444,2.369);
+\coordinate (M) at (-1.713,2.369);
+\coordinate (B) at (3.462,2.369);
+\coordinate (C) at (-1.713,0.638);
+\coordinate (D) at (1.731,0.638);
+\coordinate (E) at (-1.713,-2.806);
+\coordinate (F) at (1.731,-2.806);
+
+% Solid segments
+\draw (A) -- (B);   % AB through M
+\draw (A) -- (C);   % AC
+\draw (B) -- (D);   % BD
+\draw (C) -- (E);   % CE (vertical)
+\draw (E) -- (F);   % EF (horizontal)
+\draw (F) -- (D);   % FD (vertical)
+
+% Dashed segment MC
+\draw[dashed] (M) -- (C);
+
+% Right-angle mark at M (square of side 14.25 px = 0.260 cm, on the C side below AB)
+\draw ($(M)+(0.2597,0)$) -- ++(0,-0.2597) -- ++(-0.2597,0);
+
+% Labels (14.5 pt font, 17.4 pt leading)
+\node[above left,  font=\fontsize{14.5}{17.4}\selectfont] at (A) {$A$};
+\node[above right, font=\fontsize{14.5}{17.4}\selectfont] at (B) {$B$};
+\node[above,       font=\fontsize{14.5}{17.4}\selectfont] at (M) {$M$};
+\node[below left,  font=\fontsize{14.5}{17.4}\selectfont] at (C) {$C$};
+\node[below right, font=\fontsize{14.5}{17.4}\selectfont] at (D) {$D$};
+\node[below left,  font=\fontsize{14.5}{17.4}\selectfont] at (E) {$E$};
+\node[below right, font=\fontsize{14.5}{17.4}\selectfont] at (F) {$F$};
+\end{tikzpicture}
+\end{document}

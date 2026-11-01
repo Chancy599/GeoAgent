@@ -112,3 +112,19 @@ def test_finish_gate_flags_unscored_newer_version(tmp_path) -> None:
     problem = _finish_gate_problem(state, visual_left=3, tool_left=5)
     assert problem is not None
     assert problem[0] == "unscored_latest"
+
+
+def test_recognized_missing_labels_cannot_bypass_gate_by_repeating_finish(tmp_path):
+    from types import SimpleNamespace
+    from geoagent.orchestration.runner import GeoAgentRunner
+    from geoagent.state.schemas import GeometryObject
+    state = _state(tmp_path)
+    state.add_object(GeometryObject(id='label_P',type='label',label='P',coords={'box_px':[1,2,10,20]}))
+    _compiled(state, {'labels':{'missing':['P']},'must_repair':True,'actionable_counts':{'medium':1}}, .9)
+    runner=object.__new__(GeoAgentRunner)
+    runner.state=state;runner._gate_blocks={};runner.settings=SimpleNamespace(budget=SimpleNamespace(max_tool_calls=10))
+    runner.counters={'tool_calls':1};runner._visual_left=lambda:3
+    for _ in range(2):
+        result=runner._do_finish({'status':'partial','unresolved':['critic hallucinated P']})
+        assert not result['ok'] and result['gate']=='unresolved_recognized_labels'
+    assert _finish_gate_problem(state,visual_left=0,tool_left=9) is None

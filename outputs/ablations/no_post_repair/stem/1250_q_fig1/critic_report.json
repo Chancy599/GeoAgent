@@ -1,0 +1,142 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render faithfully reproduces the parallelogram ABCD with correct vertex positions and labels; the only discrepancy is heavier stroke weight than the original.",
+  "figure_type": {
+    "original": "parallelogram ABCD: A top-left, D top-right, B bottom-left, C bottom-right; legs AB and CD parallel; no right-angle marks",
+    "render": "parallelogram ABCD: A top-left, D top-right, B bottom-left, C bottom-right; legs AB and CD parallel; no right-angle marks"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_03",
+        "seg_04"
+      ],
+      "bbox": [
+        0.06,
+        0.35,
+        0.94,
+        0.65
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "All four sides are drawn with a visibly heavier stroke in the render than in the original (render stroke is thick; original is a fine, thin line). Geometry is unaffected.",
+      "suggestion": "Reduce the line width of the quadrilateral sides (e.g. from the current thick setting to a thin/default width such as 0.4pt-0.6pt) to match the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom edge BC (y=150) drawn at the correct extent; stroke heavier than original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top edge DA (y=32) drawn at the correct extent; stroke heavier than original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Right leg CD drawn correctly from C to D, parallel to AB; stroke heavier than original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Left leg AB drawn correctly from A to B; stroke heavier than original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Side AB is drawn between A and B. No printed 'AB' text appears in the original, so this is a bookkeeping name."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Side BC is drawn between B and C. No printed 'BC' text appears in the original, so this is a bookkeeping name."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Side CD is drawn between C and D. No printed 'CD' text appears in the original, so this is a bookkeeping name."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Side DA is drawn between D and A. No printed 'DA' text appears in the original, so this is a bookkeeping name."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label C sits at the bottom-right vertex, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label B sits at the bottom-left vertex, as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label D sits at the top-right vertex, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label A sits at the top-left vertex, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A at top-left corner matches the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B at bottom-left corner matches the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C at bottom-right corner matches the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D at top-right corner matches the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Four vertices A, B, C, D are in the same relative positions (A top-left, D top-right, B bottom-left, C bottom-right).",
+    "Top and bottom sides are horizontal and of matching length relative to the figure.",
+    "Legs AB and CD are parallel with matching slope, so the figure is a parallelogram in both panels; the earlier trapezoid/parallelogram conflict is resolved in favour of parallelogram.",
+    "All four vertex labels A, B, C, D are present, correctly spelled, and attached to the correct vertices.",
+    "No extra labels or stray elements appear in the render.",
+    "All segments are solid in both panels; no dashed styling.",
+    "Aspect ratio and overall proportions match; no warping or overlapping labels."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

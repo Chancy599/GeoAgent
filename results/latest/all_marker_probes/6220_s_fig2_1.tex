@@ -1,0 +1,55 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
+\begin{document}
+% Scale s=0.0077 cm/px, origin at circle centre O (px 543,538); y flipped
+\begin{tikzpicture}[line width=0.9pt, line join=round,
+  lbl/.style={font=\fontsize{9}{10.8}\selectfont}]
+
+% Named points (converted from pixels)
+\coordinate (O) at (0,0);
+\coordinate (A) at (0,3.64);
+\coordinate (B) at (-3.6399999999999997,0);
+\coordinate (C) at (3.63,0);
+\coordinate (H) at (0,-3.63);
+\coordinate (D) at (-2.73,2.4);
+\coordinate (E) at (-1.6404362729822373,1.9888438765970708);
+\coordinate (F) at (1.9859967946173391,1.6485321398327506);
+\coordinate (G) at (1.6472573138297875,0.7482047872340425);
+% Right-angle marker points
+\coordinate (m1) at (1.53125392853348,0.79520606323542);
+\coordinate (m2) at (1.57611125116222,0.91425984184307);
+\coordinate (m3) at (1.69511135014749,0.86925980453309);
+
+% Circle centred at O, radius 472 px
+\draw (O) circle (3.634);
+
+% Segments
+\draw (B) -- (C);            % BC (diameter)
+% (chord AH removed: not in original figure)
+\draw (A) -- (B);
+\draw (A) -- (C);
+\draw (B) -- (H);
+\draw (H) -- (C);
+\draw (A) -- (D);
+\draw (B) -- (D);
+\draw (D) -- (C);            % passes through E and G
+\draw (F) -- (H);            % passes through G
+\draw (O) -- (G);
+
+% Right angle at G between DC and FH
+\draw (m1) -- (m2) -- (m3);
+
+% Labels
+\node[above, lbl] at (A) {$A$};
+\node[left, lbl] at (B) {$B$};
+\node[right, lbl] at (C) {$C$};
+\node[below, lbl] at (H) {$H$};
+\node[below, lbl] at (O) {$O$};
+\node[above left, lbl] at (D) {$D$};
+\node[above, lbl] at (E) {$E$};
+\node[above right, lbl] at (F) {$F$};
+\node[below right, lbl] at (G) {$G$};
+
+\end{tikzpicture}
+\end{document}
+% GEOAGENT_REPAIR_V1 d458ba28941c84b4 ecc94b4542efdd713c3e04429b9017a7d59b8dc4f767cb6c57bd709fed7177db

@@ -1,0 +1,156 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render is faithful: circle, triangle ABC, chord DC through O, dashed OB and all five point labels match the original; differences are limited to the size of the O marker and the dash pattern of OB.",
+  "figure_type": {
+    "original": "circle with inscribed triangle ABC, chord DC through centre O, dashed segment OB from O to B",
+    "render": "circle with inscribed triangle ABC, chord DC through centre O, dashed segment OB from O to B"
+  },
+  "issues": [
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "point_O"
+      ],
+      "bbox": [
+        0.46,
+        0.48,
+        0.55,
+        0.56
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The marker at O is much smaller in the render than the filled dot in the original.",
+      "suggestion": "Draw the O marker as a filled dot roughly twice its current radius."
+    },
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_OB"
+      ],
+      "bbox": [
+        0.29,
+        0.51,
+        0.51,
+        0.88
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Dashed OB stroke is a finer, denser dash pattern in the render (dotted look); the original has longer dashes with clearer gaps.",
+      "suggestion": "Lengthen the dash on/off pattern for OB so the dashes read as longer strokes, as in the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circle extent and position match the original."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Segment DC is drawn from D through O to C, ending at the same points as the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Segment AB matches the original from A to B."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Segment AC matches the original from A to C."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment BC is solid and ends at B and C, as in the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Dashed OB is correctly placed; dash pattern is finer than the original (see issue)."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment drawn correctly; no 'AB' text label appears in the original or the render."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Segment drawn correctly; no 'AC' text label appears in the original or the render."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Segment drawn correctly; no 'BC' text label appears in the original or the render."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Segment drawn correctly; no 'DC' text label appears in the original or the render."
+    },
+    {
+      "object_id": "seg_OB",
+      "status": "present",
+      "note": "Segment drawn correctly; no 'OB' text label appears in the original or the render. Dash style differs slightly."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Label A sits above the top vertex, as in the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Label B sits below-left of the vertex, as in the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Label C sits below-right of the vertex, as in the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Label D sits upper-left of the circle, as in the original."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Label O and its position match the original; the marker dot is smaller (see issue)."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Circle centre, radius and full 360-degree extent match the original",
+    "Triangle ABC edges AB, AC and BC are present with correct endpoints",
+    "Chord DC runs through O to C and ends at D on the circle",
+    "Dashed OB runs from O to B",
+    "Labels A, B, C, D and O are present, spelled correctly and attached to the right vertices",
+    "No right-angle markers are present in either panel"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "O"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

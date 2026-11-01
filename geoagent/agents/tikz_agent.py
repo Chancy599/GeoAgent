@@ -10,6 +10,7 @@ from ..state.schemas import GeometricEvidenceState
 from .base import compact_json, message_to_dict, parse_tool_arguments, tool_reply
 from .prompts import TIKZ_SYSTEM
 from .schemas import TIKZ_TOOLS
+from ..state.measured_topology import topology_block
 
 
 def _complete_document(tex: str) -> bool:
@@ -103,6 +104,7 @@ class TikZAgent:
             f"IMAGE SIZE (pixels): {self.state.image_size}",
             "GEOMETRY OBJECTS:",
             _geometry_digest(self.state),
+            topology_block(self.state),
             "RELATIONS: " + compact_json({k: rel.model_dump() for k, rel in list(self.state.relations.items())[:30]}, 2500),
         ]
         metrics = self._style_metrics()

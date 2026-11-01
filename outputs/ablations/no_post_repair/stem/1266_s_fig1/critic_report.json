@@ -1,0 +1,174 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original closely: both circles, the AB diameter, the slanted FE line, and the two dashed chords to B are placed correctly, with only minor label-placement differences.",
+  "figure_type": {
+    "original": "Large circle centred at O with diameter AB; small circle centred at B passing through O-side intersections; secant from F through O to E on the small circle; dashed segments E-B and C-B; labels A, B, C, D, E, F, O.",
+    "render": "Same configuration: large circle centred at O, small circle centred at B, horizontal AB, slanted F-E line, dashed E-B and C-B chords, labels A, B, C, D, E, F, O."
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_O",
+        "point_E",
+        "point_D"
+      ],
+      "bbox": [
+        0.36,
+        0.33,
+        0.45,
+        0.42
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Label placement differs slightly from the original: O sits directly below the centre instead of lower-left of it, and E and D sit clear of the lines and circles in the render, whereas in the original they overlap the slanted line and the circle.",
+      "suggestion": "Optional: shift the O label to lower-left (e.g. 'below left') and keep E and D offset outward from their points. Cosmetic only; not a geometric error."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Large circle centred at O with radius matching the original; passes through A, B, F."
+    },
+    {
+      "object_id": "circle_02",
+      "status": "present",
+      "note": "Small circle centred at B, same radius and position as the original."
+    },
+    {
+      "object_id": "circle_big",
+      "status": "present",
+      "note": "Matches circle_01 in the original."
+    },
+    {
+      "object_id": "circle_small",
+      "status": "present",
+      "note": "Matches circle_02 in the original."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Slanted line from F through O to E ends at E on the small circle, as in the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Horizontal A-B line spans the same extent as the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Dashed C-B chord is drawn dashed and ends at B, as in the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Horizontal AB segment matches the original."
+    },
+    {
+      "object_id": "seg_BE_dashed",
+      "status": "present",
+      "note": "Dashed E-B chord is visible in both panels. This id is not in the geometry state, but the drawn element matches."
+    },
+    {
+      "object_id": "seg_FC",
+      "status": "present",
+      "note": "Slanted F-to-E line matches the original extent; it ends at E, not C, in both panels."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label O present, attached to the centre."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label B present at the right intersection."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label C present near the upper intersection."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label F present at the lower-left end of the slanted line."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Label A present at the left end of the diameter."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "A is correctly placed on the big circle."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B is correctly placed at the right intersection."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "C is correctly placed at the upper intersection."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "D label present at the lower intersection."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "E is correctly placed where the slanted line meets the small circle."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "F is correctly placed on the big circle."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "O is at the centre of the big circle."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Big circle centred at O, passing through A and B, with matching radius.",
+    "Small circle centred at B with matching radius and intersections C and D.",
+    "Horizontal diameter AB at the same height and extent.",
+    "Slanted line from F through O ending at E on the small circle.",
+    "Dashed chords E-B and C-B, with solid and dashed styles matching the original.",
+    "Labels A, B, C, D, E, F, O all present and attached to the correct vertices.",
+    "No aspect-ratio distortion or warping."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "O"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

@@ -26,6 +26,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from geoagent.config import load_settings
+from geoagent.state.tikz_geometry import clean, extract_geometry
 from geoagent.state.relation_candidates import RELATION_TYPES, DEFAULT_LIMITS, accepts, pair_metrics, numeric_candidates
 
 REFERENCE_LIMITS = {"angle_deg":0.1,"relative_length":0.001,"relative_distance":0.0005}
@@ -40,47 +41,12 @@ def save(path,value):
     path.write_text(json.dumps(value,ensure_ascii=False,indent=2),encoding="utf-8")
 
 
-def clean(tex):
-    return re.sub(r"(?<!\\)%[^\n]*","",tex)
 
 
-def extract_geometry(tex):
-    tex = clean(tex)
-    labels = set(re.findall(r"\\node\b[^;]*?\bat\s*\(("+NAME+r")\)",tex,re.S))
-    definitions = re.findall(r"\\coordinate\s*\(("+NAME+r")\)\s*at\s*(.*?);",tex,re.S)
-    points = {}
-    for name,expr in definitions:
-        if not (re.fullmatch(r"[A-Z]",name) or name in labels):
-            continue  # exclude marker helpers and unlabelled stubs
-        cart = re.fullmatch(r"\s*\(\s*([-+\d.eE]+)\s*,\s*([-+\d.eE]+)\s*\)\s*",expr)
-        polar = re.fullmatch(r"\s*\(\s*([-+\d.eE]+)\s*:\s*([-+\d.eE]+)\s*\)\s*",expr)
-        if cart:
-            xy = [float(x) for x in cart.groups()]
-        elif polar:
-            angle,radius = map(float,polar.groups())
-            xy = [radius*math.cos(math.radians(angle)),radius*math.sin(math.radians(angle))]
-        else:
-            raise ValueError(f"unsupported coordinate {name}: {expr}")
-        if not all(math.isfinite(x) for x in xy):
-            raise ValueError("nonfinite coordinates")
-        points[name] = xy
-    segments = {}
-    for draw in re.findall(r"\\draw\b(.*?);",tex,re.S):
-        pairs = re.findall(r"(?=\(("+NAME+r")\)\s*--\s*\(("+NAME+r")\))",draw)
-        names = re.findall(r"\(("+NAME+r")\)",draw)
-        if re.search(r"--\s*cycle\b",draw) and len(names)>=3:
-            pairs.append((names[-1],names[0]))
-        for a,b in pairs:
-            if a in points and b in points and a!=b:
-                a,b = sorted((a,b))
-                segments[f"{a}--{b}"] = [a,b]
-    if len(points)<2 or not segments:
-        raise ValueError("no supported labelled line segments")
-    return {"points":points,"segments":segments}
 
 
 def prepare(stem,out,limits=DEFAULT_LIMITS):
-    source = ROOT/"outputs/ours100/latex"/f"{stem}.tex"
+    source = ROOT/"outputs/ablations/no_post_repair/latex"/f"{stem}.tex"
     geometry = extract_geometry(source.read_text(encoding="utf-8"))
     candidates = numeric_candidates(geometry,limits)
     save(out/stem/"input.json",geometry)
@@ -204,7 +170,7 @@ def summarize(out,stems,prepared,reports,errors):
                      **{"reference_"+k:row["reference"][k] for k in fields[5:8]}})
     pct=lambda value: "—" if value is None else f"{value:.1%}"
     lines=["# 平行与垂直数值筛选：100图实验","",
-      "输入为 outputs/ours100/latex 已生成代码的命名点和已绘制线段。先完成全部图片的数值候选筛选，再读取参考代码，仅评估、不反向修改候选。没有调用LLM，也没有修改已有TikZ。", "",
+      "输入为 outputs/ablations/no_post_repair/latex 已生成代码的命名点和已绘制线段。先完成全部图片的数值候选筛选，再读取参考代码，仅评估、不反向修改候选。没有调用LLM，也没有修改已有TikZ。", "",
       f"尝试 {len(stems)} 图，成功提取 {len(prepared)} 图，成功完成参考评估 {len(reports)} 图。", "",
       f"主设置 {selected_preset}：平行/垂直角度误差≤{PRESETS[selected_preset]['angle_deg']}°。平行排除共享端点及同一直线的片段。参考支持门限：角度≤0.1°，同线区分容差为图形跨度0.05%。不筛选等长或共线关系。", "",
       "| 类型 | 候选数（可评估） | 参考坐标支持 | 不支持 | 漏检 | 精确率 | 召回率 |","|---|---:|---:|---:|---:|---:|---:|"]
@@ -236,7 +202,7 @@ def main():
     parser.add_argument("--workers",type=int,default=4)
     parser.add_argument("--preset",choices=list(PRESETS),default="tight")
     args=parser.parse_args()
-    stems=args.stems or [p.stem for p in sorted((ROOT/"outputs/ours100/latex").glob("*.tex"))]
+    stems=args.stems or [p.stem for p in sorted((ROOT/"outputs/ablations/no_post_repair/latex").glob("*.tex"))]
     out=args.out_dir.resolve()
     out.mkdir(parents=True,exist_ok=True)
     errors,prepared,reports=[],[],[]

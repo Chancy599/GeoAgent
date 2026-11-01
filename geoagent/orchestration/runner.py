@@ -25,8 +25,10 @@ from ..agents.tikz_agent import TikZAgent
 from ..config import Settings, load_settings
 from ..cv_tools.registry import call_cv_tool
 from ..llm.client import LLMClient
+from ..state.constraint_repair import repair_geometry_constraints
 from ..state.evidence_store import EvidenceStore
 from ..state.rectify import rectify_right_angles
+from ..state.tikz_repair import repair_tikz_constraints
 from ..state.schemas import ActionRecord, GeometricEvidenceState
 from ..tools import compile_tikz, frame_like_original, render_pdf, validate_compilation
 from ..vision.context import VisualContextManager
@@ -333,25 +335,113 @@ class GeoAgentRunner:
         mode = str(args.get("mode", "generate"))
         instruction = str(args.get("instruction", "Write the TikZ figure."))
         image = None
-        if mode == "generate" and bool(args.get("use_image")) and self._visual_left() > 0:
+        if mode == "generate" and args.get("use_image") is not False and self._visual_left() > 0:
             image = self.ctx.original()
-        # Verified right-angle markers imply exact 90 degrees; rectify the GES
-        # before the TikZ agent reads its coordinates. Never let this fail a run.
-        try:
-            rectify_right_angles(self.state)
-        except Exception as exc:  # pragma: no cover - defensive guard
-            self.state.meta["rectification"] = {
-                "ok": False,
-                "error": f"{type(exc).__name__}: {exc}",
-            }
+        geometry = self.settings.geometry
+        # GES projection is available only for explicit legacy comparisons.
+        # The default path never mutates measured geometry before generation.
+        if geometry.repair_stage == "pre_ges":
+            # Soft pixel-relation repair first, then (unless the soft stage owns
+            # right angles) the hard rectifier. Neither may fail the whole run.
+            soft_owns_right_angles = bool(geometry.enabled) and geometry.right_angle_mode == "soft"
+            try:
+                repair_geometry_constraints(
+                    self.state,
+                    enabled=bool(geometry.enabled),
+                    max_relations=int(geometry.max_relations),
+                    angle_tol_deg=float(geometry.angle_tol_deg),
+                    equal_length_rel_tol=float(geometry.equal_length_rel_tol),
+                    collinear_angle_tol_deg=float(geometry.collinear_angle_tol_deg),
+                    collinear_distance_px=float(geometry.collinear_tolerance_px),
+                    max_shift_px=geometry.max_shift_px,
+                    max_disp_frac=float(geometry.max_disp_frac),
+                    iters=int(geometry.iters),
+                    damp=float(geometry.damp),
+                    right_angle_mode=str(geometry.right_angle_mode),
+                    point_writeback=str(geometry.point_writeback),
+                    point_trust_frac=float(geometry.point_trust_frac),
+                )
+            except Exception as exc:  # pragma: no cover - defensive guard
+                self.state.meta["constraint_repair"] = {
+                    "ok": False,
+                    "enabled": bool(self.settings.geometry.enabled),
+                    "applied": False,
+                    "error": f"{type(exc).__name__}: {exc}",
+                }
+            if soft_owns_right_angles:
+                self.state.meta["rectification"] = {
+                    "ok": True,
+                    "enabled": False,
+                    "applied": False,
+                    "reason": "superseded_by_soft_right_angles",
+                }
+            elif bool(geometry.rectify_enabled):
+                try:
+                    rectify_right_angles(self.state)
+                except Exception as exc:  # pragma: no cover - defensive guard
+                    self.state.meta["rectification"] = {
+                        "ok": False,
+                        "error": f"{type(exc).__name__}: {exc}",
+                    }
+            else:
+                self.state.meta["rectification"] = {
+                    "ok": True,
+                    "enabled": False,
+                    "applied": False,
+                    "reason": "disabled",
+                }
         result = self.tikz_agent.run(mode, instruction, image_path=image)
         if not result.get("ok") or not result.get("tex"):
             return {"ok": False, "error": result.get("error", "TikZ agent produced no source")}
 
+        raw_tex = result["tex"]
+        tex = raw_tex
+        post_report = None
+        if geometry.repair_stage == "post_tikz":
+            tex, post_report = repair_tikz_constraints(
+                raw_tex, enabled=bool(geometry.enabled),
+                angle_tol_deg=float(geometry.angle_tol_deg),
+                max_shift_rel=float(geometry.post_max_shift_rel),
+                max_length_change_rel=float(geometry.post_max_length_change_rel),
+                topology_tol_rel=float(geometry.post_topology_tol_rel),
+                incidence_mode=str(geometry.post_incidence_mode),
+                length_weight=float(geometry.post_length_weight),
+                length_scope=str(geometry.post_length_scope),
+                curve_policy=str(geometry.post_curve_policy),
+                incidence_strength=float(geometry.post_incidence_strength),
+                relation_types=tuple(geometry.post_relation_types),
+                relaxation=float(geometry.post_relaxation),
+                curve_options=geometry.post_curve_options,
+            )
+            self.state.meta["constraint_repair"] = post_report
+            self.state.meta["rectification"] = {
+                "applied": False, "reason": "moved_to_post_tikz",
+            }
         version = self.state.add_tikz_version(
-            result["tex"], agent="tikz_agent", mode=mode, notes=result.get("notes", "")
+            tex, agent="tikz_agent", mode=mode, notes=result.get("notes", "")
         )
         compile_info = self._compile_version(version.version)
+        if post_report is not None:
+            if post_report["applied"] and not compile_info["compile_ok"]:
+                post_report.update(
+                    applied=False, reason="compile_fallback",
+                    repaired_compile_errors=compile_info["errors"],
+                    output_sha256=post_report["input_sha256"],
+                )
+                version.tex = raw_tex
+                compile_info = self._compile_version(version.version)
+            self.state.meta.setdefault("tikz_constraint_repairs", {})[str(version.version)] = post_report
+            if getattr(self, "run_dir", None) is not None:
+                folder = self.run_dir / "tikz" / f"v{version.version}"
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / "unrepaired.tex").write_text(raw_tex, encoding="utf-8")
+                (folder / "constraint_repair.json").write_text(
+                    json.dumps(post_report, ensure_ascii=False, indent=2), encoding="utf-8"
+                )
+            self.state.add_evidence(
+                source="tikz_constraint_repair", method="post-generation joint coordinate projection",
+                summary=f"v{version.version}: {post_report['reason']}", payload=post_report,
+            )
         self.state.add_evidence(
             source="tikz_agent",
             method=f"tikz {mode}",
@@ -375,7 +465,7 @@ class GeoAgentRunner:
                 if self.state.best_version != version.version
                 else "critique passed version or repair remaining issues"
             ),
-            "tex_preview": result["tex"][:600],
+            "tex_preview": version.tex[:600],
             "notes": result.get("notes", "")[:400],
         }
 
@@ -504,7 +594,7 @@ class GeoAgentRunner:
             tool_left=int(self.settings.budget.max_tool_calls) - self.counters["tool_calls"],
         )
         already_blocked = self._gate_blocks.get(problem[0], 0) if problem else 0
-        if problem is not None and already_blocked == 0 and sum(self._gate_blocks.values()) < 2:
+        if problem is not None and (problem[0] == 'unresolved_recognized_labels' or (already_blocked == 0 and sum(self._gate_blocks.values()) < 2)):
             self._gate_blocks[problem[0]] = already_blocked + 1
             return {"ok": False, "gate": problem[0], "error": f"finish blocked: {problem[1]}"}
         args = _clean_finish_args(args)
@@ -642,6 +732,14 @@ def _finish_gate_problem(
         )
     report = best.critic_report or {}
     counts = report.get("actionable_counts") or {}
+    recognized = {obj.label for obj in state.objects.values()
+                  if obj.type == 'label' and obj.label and not obj.attributes.get('ambiguous', False)}
+    missing = set((report.get('labels') or {}).get('missing') or []) & recognized
+    if report.get('must_repair') and missing and visual_left > 0 and tool_left >= 2:
+        return ('unresolved_recognized_labels',
+                f'CV and Critic both identify missing visible labels {sorted(missing)}. '
+                'Repair them and run the Critic, or inspect a region covering their label boxes; '
+                'repeating finish without new evidence does not resolve this disagreement.')
     if report.get("must_repair") and visual_left > 0 and tool_left >= 2:
         return (
             "unresolved_issues",

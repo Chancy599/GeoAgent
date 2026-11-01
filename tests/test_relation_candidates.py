@@ -24,7 +24,7 @@ def test_coordinate_only_input_ignores_comments_helpers_and_keeps_path_edges():
 
 def test_inference_preparation_needs_no_reference_file(tmp_path, monkeypatch):
     monkeypatch.setattr(pilot,"ROOT",tmp_path)
-    folder = tmp_path / "outputs/ours100/latex"
+    folder = tmp_path / "outputs/ablations/no_post_repair/latex"
     folder.mkdir(parents=True)
     (folder/"sample.tex").write_text(r"\coordinate (A) at (0,0);\coordinate (B) at (1,0);\coordinate (C) at (0,1);\draw(A)--(B)--(C)--cycle;")
     request = pilot.prepare_input("sample", tmp_path/"test-output")

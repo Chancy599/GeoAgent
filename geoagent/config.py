@@ -73,15 +73,55 @@ class BudgetSettings:
 
 
 @dataclass
+class GeometrySettings:
+    enabled: bool = True
+    repair_stage: str = "post_tikz"  # post_tikz | pre_ges (legacy experiment)
+    post_max_shift_rel: float = 0.005
+    post_max_length_change_rel: float = 0.01
+    post_topology_tol_rel: float = 0.003
+    post_incidence_mode: str = "snap"
+    post_length_weight: float = 0.01
+    post_length_scope: str = "all_pairs"
+    post_curve_policy: str = "defer"  # defer | freeze
+    post_incidence_strength: float = 1.0
+    post_relation_types: tuple[str, ...] = ("parallel", "perpendicular")
+    post_relaxation: float = 1.0
+    post_curve_options: dict[str, Any] | None = field(default_factory=lambda: {
+        "angle_tol_deg":0.5,"max_shift_rel":0.005,"max_length_change_rel":0.01,
+        "topology_tol_rel":0.002,"incidence_mode":"snap","length_weight":0.0,
+        "length_scope":"edges","curve_policy":"freeze","incidence_strength":1.0,
+        "relation_types":["parallel"],"relaxation":1.0,
+    })
+    rectify_enabled: bool = True
+    right_angle_mode: str = "soft"  # lock | soft | ignore
+    point_writeback: str = "trust"  # centre | transport | trust | perp
+    point_trust_frac: float = 0.002
+    max_relations: int = 30
+    angle_tol_deg: float = 0.5
+    equal_length_rel_tol: float = 0.002
+    collinear_angle_tol_deg: float = 0.5
+    collinear_tolerance_px: float = 1.0
+    max_shift_px: float | None = 2.0
+    max_disp_frac: float = 0.02
+    iters: int = 40
+    damp: float = 1.0
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
 class Settings:
     paths: PathSettings = field(default_factory=PathSettings)
     model: ModelSettings = field(default_factory=ModelSettings)
     budget: BudgetSettings = field(default_factory=BudgetSettings)
+    geometry: GeometrySettings = field(default_factory=GeometrySettings)
 
     def public_dict(self) -> dict[str, Any]:
         return {
             "model": self.model.public_dict(),
             "budget": self.budget.to_dict(),
+            "geometry": self.geometry.to_dict(),
             "paths": {
                 "project_root": str(self.paths.project_root),
                 "image_dir": str(self.paths.image_dir),
@@ -173,10 +213,85 @@ def _build_budget(run_overrides: dict[str, Any] | None = None) -> BudgetSettings
     return BudgetSettings(**values)
 
 
+def _env_bool(name: str) -> bool | None:
+    value = os.environ.get(name)
+    if value is None:
+        return None
+    normalized = value.strip().lower()
+    if normalized in ("1", "true", "yes", "on"):
+        return True
+    if normalized in ("0", "false", "no", "off"):
+        return False
+    return None
+
+
+def _build_geometry(run_overrides: dict[str, Any] | None = None) -> GeometrySettings:
+    cfg = _read_json(PROJECT_ROOT / "configs" / "default.json")
+    geometry_cfg = cfg.get("geometry", {}) if isinstance(cfg, dict) else {}
+    defaults = GeometrySettings()
+    values: dict[str, Any] = {}
+    for key in defaults.to_dict():
+        configured = geometry_cfg.get(key, getattr(defaults, key))
+        values[key] = configured
+
+    enabled = _env_bool("GEOAGENT_GEOMETRY_REPAIR")
+    if enabled is not None:
+        values["enabled"] = enabled
+    rectify = _env_bool("GEOAGENT_RIGHT_ANGLE_RECTIFY")
+    if rectify is not None:
+        values["rectify_enabled"] = rectify
+    mode = os.environ.get("GEOAGENT_RIGHT_ANGLE_MODE")
+    if mode:
+        values["right_angle_mode"] = mode.strip().lower()
+    writeback = os.environ.get("GEOAGENT_GEOM_POINT_WRITEBACK")
+    if writeback:
+        values["point_writeback"] = writeback.strip().lower()
+    env_map = {
+        "point_trust_frac": ("GEOAGENT_GEOM_POINT_TRUST_FRAC", float),
+        "post_max_shift_rel": ("GEOAGENT_POST_MAX_SHIFT_REL", float),
+        "post_max_length_change_rel": ("GEOAGENT_POST_MAX_LENGTH_CHANGE_REL", float),
+        "post_topology_tol_rel": ("GEOAGENT_POST_TOPOLOGY_TOL_REL", float),
+        "post_length_weight": ("GEOAGENT_POST_LENGTH_WEIGHT", float),
+        "max_relations": ("GEOAGENT_GEOM_REPAIR_MAX_RELATIONS", int),
+        "angle_tol_deg": ("GEOAGENT_GEOM_REPAIR_ANGLE_TOL_DEG", float),
+        "equal_length_rel_tol": ("GEOAGENT_GEOM_REPAIR_EQ_TOL", float),
+        "collinear_angle_tol_deg": ("GEOAGENT_GEOM_REPAIR_COLLINEAR_ANGLE_TOL_DEG", float),
+        "collinear_tolerance_px": ("GEOAGENT_GEOM_REPAIR_COLLINEAR_PX", float),
+        "max_shift_px": ("GEOAGENT_GEOM_REPAIR_MAX_SHIFT_PX", float),
+        "max_disp_frac": ("GEOAGENT_GEOM_REPAIR_MAX_DISP_FRAC", float),
+        "iters": ("GEOAGENT_GEOM_REPAIR_ITERS", int),
+        "damp": ("GEOAGENT_GEOM_REPAIR_DAMP", float),
+    }
+    for key, (env_name, cast) in env_map.items():
+        if env_name in os.environ:
+            try:
+                values[key] = cast(os.environ[env_name])
+            except ValueError:
+                pass
+    if run_overrides:
+        repair = run_overrides.get("geometry_repair")
+        stage = run_overrides.get("geometry_repair_stage")
+        if stage is not None:
+            values["repair_stage"] = str(stage)
+        if repair is not None:
+            values["enabled"] = bool(repair)
+        rectify = run_overrides.get("rectify")
+        if rectify is not None:
+            values["rectify_enabled"] = bool(rectify)
+        mode = run_overrides.get("right_angle_mode")
+        if mode is not None:
+            values["right_angle_mode"] = str(mode).strip().lower()
+    if values["repair_stage"] not in ("post_tikz", "pre_ges"):
+        raise ValueError("geometry repair_stage must be post_tikz or pre_ges")
+    values["post_relation_types"]=tuple(values["post_relation_types"])
+    return GeometrySettings(**values)
+
+
 def load_settings(run_overrides: dict[str, Any] | None = None) -> Settings:
     """Load settings from .env + configs/default.json + explicit run overrides."""
     return Settings(
         paths=_build_paths(),
         model=_build_model(),
         budget=_build_budget(run_overrides),
+        geometry=_build_geometry(run_overrides),
     )

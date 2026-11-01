@@ -21,5 +21,5 @@
 - 中间版本由 `state.json.tikz_versions[].tex` 重新编译，并做了与原图一致的取景（`frame_like_original`）；重编译的 best 与归档 `best.png` 逐像素一致。
 - `403_q_fig1` 的圆检测阶段图是**假阳性**，正好用于说明 CV 会犯错、Critic 负责纠错。
 - 原始 `s05_labels.png` 是 CV 工具的调试叠加图（含 point/label id），信息较密；如果幻灯片上显得杂乱，可用同目录的 `ges.png` 代替。
-- 指标来自 `outputs/metrics/ours100.json`，均为整图指标（×100 展示）。
+- 指标来自各案例目录的 `case.json`（1000px 白画布整图协议），均为整图指标（×100 展示）。
 - 生成脚本：`outputs/case_studies/build.py`。

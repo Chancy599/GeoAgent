@@ -1,0 +1,201 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render faithfully reproduces the rectangle, the shallow A-E-C bend, the right-angle mark at E and all five labels; only minor stroke-weight and possible A-E curvature differences remain.",
+  "figure_type": {
+    "original": "Rectangle ABCD with interior polyline A-E-C (shallow bend at E), segment EB, and right-angle mark at E between EA and EB. No arcs.",
+    "render": "Rectangle ABCD with interior polyline A-E-C (shallow bend at E), segment EB, and right-angle mark at E between EA and EB. No arcs."
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_05",
+        "seg_06",
+        "seg_03",
+        "seg_04",
+        "seg_07"
+      ],
+      "bbox": [
+        0.03,
+        0.12,
+        0.93,
+        0.85
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Stroke weight of the rectangle edges and interior lines is visibly thinner in the render than in the original (render strokes look roughly 2px versus about 3px in the original panel).",
+      "suggestion": "Increase line width slightly, e.g. from line width=1.5pt to about 2pt, if matching the original weight is required."
+    },
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "seg_07"
+      ],
+      "bbox": [
+        0.05,
+        0.22,
+        0.33,
+        0.36
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The A-E stroke in the render appears slightly bowed near A, though the TikZ source draws (A)--(E) as a straight segment. This may be a rasterisation artifact, but the original's A-E is a straight line with a clean kink at E.",
+      "suggestion": "Verify the render at higher resolution. If the bow persists, check for a stray curve or smoothing (e.g. line join=round interacting with the shallow bend) and keep A-E straight."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "arc_01",
+      "status": "unclear",
+      "note": "No arc is visible in the original and none is drawn in the render; the CV arc candidate is not a figure element."
+    },
+    {
+      "object_id": "circle_01",
+      "status": "unclear",
+      "note": "Circle candidate (CV RANSAC fit) is not visible in the original; no arc in the render."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom edge BC is drawn correctly."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top edge AD is drawn correctly."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Segment EC matches the original, including the slope past E."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment EB matches the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Right edge DC is drawn correctly."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Left edge AB is drawn correctly."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Segment AE matches the original shallow bend at E."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Left rectangle edge AB is drawn correctly."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Top rectangle edge AD is drawn correctly."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "AE arm meets E at the right-angle vertex, with the same slope as the original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Bottom edge BC is drawn correctly."
+    },
+    {
+      "object_id": "seg_CE",
+      "status": "present",
+      "note": "CE arm ends at E as in the original, with no extension past E."
+    },
+    {
+      "object_id": "seg_CE_ext",
+      "status": "unclear",
+      "note": "No extension of CE beyond E is visible in the original or the render; the object does not appear to exist in the figure."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Right edge DC is drawn correctly."
+    },
+    {
+      "object_id": "seg_EB",
+      "status": "present",
+      "note": "EB arm matches the original."
+    },
+    {
+      "object_id": "ra_01",
+      "status": "present",
+      "note": "Right-angle mark at E is present in both panels, between EA and EB."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Same right-angle mark at E; present in both panels."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label C sits at the bottom-right vertex in both panels."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label B sits at the bottom-left vertex in both panels."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label D sits at the top-right vertex in both panels."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label A sits at the top-left vertex in both panels."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label E sits at the shallow-bend vertex in both panels."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Rectangle proportions (about 1.68:1) match the original.",
+    "Shallow bend A-E-C is preserved, with A-E and E-C slopes matching the original (about 0.46 and 0.64).",
+    "Right-angle mark at E sits between EA and EB in both panels.",
+    "No extension of CE beyond E, and no arcs, in either panel.",
+    "All five vertex labels A, B, C, D, E are present at the correct vertices with no overlaps."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 3,
+  "raw_meta": "{}"
+}

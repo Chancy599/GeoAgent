@@ -6,6 +6,15 @@ import pytest
 from scripts.test_repair_routing import audit, prepare_seed, verify_geometry
 from geoagent.state.schemas import GeometryObject, Relation
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _seed_available(stem: str) -> bool:
+    return (
+        (ROOT / "outputs" / "case_studies" / stem / "case.json").exists()
+        or (ROOT / "outputs" / "ours100" / "stem" / stem / "state.json").exists()
+    )
+
 
 def test_replay_seed_has_no_historical_repair_answer(tmp_path: Path):
     state = prepare_seed("1260_q_fig2", tmp_path)
@@ -60,6 +69,8 @@ def test_roi_cv_id_collision_cannot_overwrite_global_segment(tmp_path: Path):
 
 @pytest.mark.parametrize("stem", ["1653_s_fig1", "795_q_fig2", "6215_s_fig1", "3379_q_fig1"])
 def test_archive_seed_excludes_later_repair_evidence(tmp_path: Path, stem: str):
+    if not _seed_available(stem):
+        pytest.skip(f"replay seed for {stem} is not archived in this checkout")
     state = prepare_seed(stem, tmp_path)
     assert len(state.tikz_versions) == 1
     assert not state.action_history

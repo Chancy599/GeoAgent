@@ -16,6 +16,7 @@ from ..llm.client import LLMClient
 from ..state.schemas import GeometricEvidenceState
 from .base import compact_json
 from .prompts import CRITIC_SYSTEM
+from ..state.measured_topology import topology_block
 
 # Two 620 px panels + 12 px separator = 1252 px, inside the default 1280 px
 # image_max_dim, so the client does not downscale the composite again.
@@ -668,6 +669,8 @@ class CriticAgent:
             f"{layout}\n"
             f"FOCUS: {focus or 'overall faithfulness'}\n"
             f"VERSION: {version}\n"
+            f"{topology_block(self.state)}\n"
+            f"GENERATED TIKZ SOURCE (verify actual paths and shared endpoints):\n{self._tex_for(render_png)[:7000]}\n\n"
             f"GEOMETRY STATE (for reference):\n{summary}\n\n"
             f"{checklist_text}"
             "Return only the JSON critique."

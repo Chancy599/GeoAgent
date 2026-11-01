@@ -99,7 +99,7 @@ def extract_input(tex):
 
 def prepare_input(stem, out):
     # Inference boundary: this function never reads data/test/latex or GES.
-    source = ROOT / "outputs/ours100/latex" / f"{stem}.tex"
+    source = ROOT / "outputs/ablations/no_post_repair/latex" / f"{stem}.tex"
     raw = source.read_bytes()
     geometry = extract_input(raw.decode("utf-8"))
     request = {"system": SYSTEM, "user": json.dumps(geometry, ensure_ascii=False)}

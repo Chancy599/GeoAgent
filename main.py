@@ -11,6 +11,8 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -30,6 +32,10 @@ def _settings(args: argparse.Namespace):
         "max_visual_calls": args.max_visual_calls,
         "max_total_tokens": args.max_total_tokens,
         "timeout_seconds": args.timeout_seconds,
+        "geometry_repair": args.geometry_repair,
+        "geometry_repair_stage": args.geometry_repair_stage,
+        "rectify": args.right_angle_rectify,
+        "right_angle_mode": args.right_angle_mode,
     }
     return load_settings({k: v for k, v in overrides.items() if v is not None})
 
@@ -115,6 +121,49 @@ def cmd_run(args: argparse.Namespace) -> int:
     return 0 if result.get("best_version") else 1
 
 
+def _run_batch_item(item, args: argparse.Namespace, print_lock: threading.Lock) -> dict:
+    with print_lock:
+        print(f"\n===== {item.stem} =====", flush=True)
+    run_settings = _settings(args)
+    runner = GeoAgentRunner(
+        item.image_path,
+        settings=run_settings,
+        run_dir=Path(args.out_dir) / f"{item.stem}" if args.out_dir else None,
+        on_event=None if args.quiet else _print_events,
+    )
+    try:
+        result = runner.run()
+        if result.get("best_version") is not None and not args.no_archive:
+            result = archive_and_clean(result, args.archive_dir)
+    except Exception as exc:  # one image must not abort the batch
+        result = {
+            "status": "error",
+            "error": f"{type(exc).__name__}: {exc}",
+            "best_version": None,
+            "best_score": None,
+            "usage": {"totals": {"total_tokens": 0}},
+            "elapsed_s": 0.0,
+        }
+    with print_lock:
+        print(
+            f"  -> [{item.stem}] status={result['status']} best_version={result['best_version']} "
+            f"score={result['best_score']} tokens={result['usage']['totals']['total_tokens']} "
+            f"elapsed={result['elapsed_s']}s",
+            flush=True,
+        )
+    return item.stem, result
+
+
+def _archived_result(stem: str, archive_dir: str) -> dict | None:
+    path = Path(archive_dir) / "stem" / stem / "result.json"
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
 def cmd_batch(args: argparse.Namespace) -> int:
     settings = load_settings()
     items = scan_dataset(
@@ -133,28 +182,51 @@ def cmd_batch(args: argparse.Namespace) -> int:
         for stem in args.only:
             if stem not in {i.stem for i in items}:
                 print(f"warning: no dataset image matches stem {stem!r}")
-    results = []
-    for item in items:
-        print(f"\n===== {item.stem} =====")
-        run_settings = _settings(args)
-        runner = GeoAgentRunner(
-            item.image_path,
-            settings=run_settings,
-            run_dir=Path(args.out_dir) / f"{item.stem}" if args.out_dir else None,
-            on_event=None if args.quiet else _print_events,
-        )
-        result = runner.run()
-        if result.get("best_version") is not None and not args.no_archive:
-            result = archive_and_clean(result, args.archive_dir)
-        results.append(result)
-        print(
-            f"  -> status={result['status']} best_version={result['best_version']} "
-            f"score={result['best_score']} tokens={result['usage']['totals']['total_tokens']} "
-            f"elapsed={result['elapsed_s']}s"
-        )
+    skipped: dict[str, dict] = {}
+    if args.skip_existing:
+        kept = []
+        for item in items:
+            archived = _archived_result(item.stem, args.archive_dir)
+            if archived is not None:
+                skipped[item.stem] = archived
+            else:
+                kept.append(item)
+        print(f"skip-existing: {len(skipped)} archived, {len(kept)} to run")
+        items = kept
+
+    results_by_stem: dict[str, dict] = dict(skipped)
+    if items:
+        workers = max(1, int(args.workers))
+        print(f"running {len(items)} image(s) with {workers} worker(s)", flush=True)
+        print_lock = threading.Lock()
+        if workers == 1:
+            for item in items:
+                stem, result = _run_batch_item(item, args, print_lock)
+                results_by_stem[stem] = result
+        else:
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                futures = [
+                    pool.submit(_run_batch_item, item, args, print_lock) for item in items
+                ]
+                for future in as_completed(futures):
+                    stem, result = future.result()
+                    results_by_stem[stem] = result
+
+    all_items = scan_dataset(
+        settings.paths.image_dir,
+        settings.paths.latex_dir,
+        limit=None if args.only else args.limit,
+    )
+    if args.only:
+        order = {stem: index for index, stem in enumerate(args.only)}
+        all_items = [i for i in all_items if i.stem in order]
+        all_items.sort(key=lambda i: order[i.stem])
+    elif args.start:
+        all_items = [i for i in all_items if i.stem >= args.start]
+    results = [results_by_stem[i.stem] for i in all_items if i.stem in results_by_stem]
     Path(args.report).parent.mkdir(parents=True, exist_ok=True)
     Path(args.report).write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"\nreport: {args.report}")
+    print(f"\nreport: {args.report}", flush=True)
     return 0
 
 
@@ -178,7 +250,27 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--max-visual-calls", type=int, default=None)
     run.add_argument("--max-total-tokens", type=int, default=None)
     run.add_argument("--timeout-seconds", type=int, default=None)
+    run.add_argument(
+        "--geometry-repair",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="deterministic geometric repair after TikZ generation (default: config)",
+    )
+    run.add_argument(
+        "--right-angle-rectify",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="hard orthogonalisation of verified right-angle markers (default: config)",
+    )
+    run.add_argument(
+        "--right-angle-mode",
+        choices=("lock", "soft", "ignore"),
+        default=None,
+        help="how soft repair treats verified right-angle markers (default: config)",
+    )
     run.add_argument("--archive-dir", default="outputs/ours", help="where successful runs are archived")
+    run.add_argument("--geometry-repair-stage", choices=("post_tikz", "pre_ges"), default=None,
+                     help="repair generated TikZ (default), or replay the legacy GES experiment")
     run.add_argument("--no-archive", action="store_true", help="keep the temporary run directory")
     run.set_defaults(func=cmd_run)
 
@@ -189,12 +281,42 @@ def build_parser() -> argparse.ArgumentParser:
     batch.add_argument("--out-dir", default="outputs/batch")
     batch.add_argument("--report", default="outputs/batch/report.json")
     batch.add_argument("--quiet", action="store_true")
+    batch.add_argument(
+        "--workers",
+        type=int,
+        default=4,
+        help="parallel image runs (default 4; 1 = sequential)",
+    )
+    batch.add_argument(
+        "--skip-existing",
+        action="store_true",
+        help="reuse stems whose archive already contains result.json",
+    )
     batch.add_argument("--max-steps", type=int, default=None)
     batch.add_argument("--max-tool-calls", type=int, default=None)
     batch.add_argument("--max-visual-calls", type=int, default=None)
     batch.add_argument("--max-total-tokens", type=int, default=None)
     batch.add_argument("--timeout-seconds", type=int, default=None)
+    batch.add_argument(
+        "--geometry-repair",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="deterministic geometric repair after TikZ generation (default: config)",
+    )
+    batch.add_argument(
+        "--right-angle-rectify",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="hard orthogonalisation of verified right-angle markers (default: config)",
+    )
+    batch.add_argument(
+        "--right-angle-mode",
+        choices=("lock", "soft", "ignore"),
+        default=None,
+        help="how soft repair treats verified right-angle markers (default: config)",
+    )
     batch.add_argument("--archive-dir", default="outputs/ours", help="where successful runs are archived")
+    batch.add_argument("--geometry-repair-stage", choices=("post_tikz", "pre_ges"), default=None)
     batch.add_argument("--no-archive", action="store_true", help="keep the temporary run directories")
     batch.set_defaults(func=cmd_batch)
     return parser

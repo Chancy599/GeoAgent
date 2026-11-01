@@ -610,6 +610,11 @@ def _derive_points(image_path: str | Path) -> tuple[list[dict[str, Any]], dict[s
                     if full or any(in_arc(theta, False, math.radians(lo), math.radians(hi)) for lo, hi in ranges):
                         points.append(p)
     clustered = cluster_points(points, eps=6.0)
+    # Offer free ends only to labels still unmatched after junction binding.
+    # They must never compete with and steal an established labelled junction.
+    free_ends = [p for segment in raw_lines for p in segment
+                 if not any(np.linalg.norm(p-q) <= 6.0 for q in clustered)]
+    endpoint_clusters = cluster_points(free_ends, eps=6.0)
     out = [
         {
             "id": f"point_{idx:02d}",
@@ -621,6 +626,8 @@ def _derive_points(image_path: str | Path) -> tuple[list[dict[str, Any]], dict[s
         "line_segments": len(segments),
         "circles": len(circles["results"]["circles"]),
         "candidate_points": len(out),
+        "free_endpoint_candidates": len(endpoint_clusters),
+        "free_endpoints_px": [p.tolist() for p in endpoint_clusters],
     }
     return out, meta
 
@@ -685,6 +692,7 @@ def bind_point_labels(
     ]
     label_pts = [np.array(lab["centroid_px"], float) for lab in usable_labels]
     point_pts = [np.array(p.get("coords_px") or p.get("coords") or [0, 0], float) for p in points]
+    free_ends = point_meta.pop('free_endpoints_px', [])
 
     bindings: list[dict[str, Any]] = []
     unmatched_labels: list[str] = []
@@ -724,6 +732,26 @@ def bind_point_labels(
     else:
         unmatched_labels = [lab.get("id", "?") for lab in usable_labels]
         unmatched_points = [p.get("id", "?") for p in points]
+
+    pending = [lab for lab in usable_labels if lab['id'] in unmatched_labels]
+    bound_points = [np.asarray(b['point_px'],float) for b in bindings]
+    endpoints = [np.asarray(p,float) for p in free_ends
+                 if not any(np.linalg.norm(np.asarray(p)-q)<=max(12.,cap_h) for q in bound_points)]
+    recovered=[]
+    if pending and endpoints:
+        costs=np.array([[np.linalg.norm(np.asarray(lab['centroid_px'])-p) for p in endpoints] for lab in pending])
+        ri,ci=linear_sum_assignment(np.where(costs<=maxd,costs,1e6+costs))
+        for i,j in zip(ri,ci):
+            if costs[i,j]>maxd:continue
+            lab=pending[i];point={'id':f'point_{len(points)+1:02d}','coords_px':np.round(endpoints[j],2).tolist()}
+            points.append(point)
+            bindings.append({'label_id':lab['id'],'char':lab['chosen'],'point_id':point['id'],'point_px':point['coords_px'],
+                             'distance_px':round(float(costs[i,j]),2),'ncc':lab.get('top',[{}])[0].get('ncc'),
+                             'ambiguous_template':lab.get('ambiguous',False),'method':'unmatched-label recovery at free stroke endpoint'})
+            recovered.append(lab['id'])
+        unmatched_labels=[n for n in unmatched_labels if n not in recovered]
+    point_meta['recovered_endpoint_bindings']=len(recovered)
+    point_meta['candidate_points']=len(points)
 
     viz = None
     if visualize:

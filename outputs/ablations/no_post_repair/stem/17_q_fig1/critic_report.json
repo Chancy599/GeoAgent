@@ -1,0 +1,198 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original hexagonal funnel outline A-B-D-F-E-C with all six vertex labels correctly attached; the only visible differences are label weight and the vertical placement of the E and F labels.",
+  "figure_type": {
+    "original": "closed hexagon A-B-D-F-E-C: top edge AB, two diagonals down to C and D, two verticals to E and F, bottom edge EF (inverted-trapezoid funnel outline)",
+    "render": "closed hexagon A-B-D-F-E-C: top edge AB, two diagonals down to C and D, two verticals to E and F, bottom edge EF (inverted-trapezoid funnel outline)"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_A",
+        "point_B",
+        "point_C",
+        "point_D",
+        "point_E",
+        "point_F"
+      ],
+      "bbox": [
+        0.0,
+        0.1,
+        1.0,
+        0.85
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Vertex label glyphs in the render are regular-weight italic (e.g. A, B, C, D, E, F look light). In the original they are visibly bold. Label weight differs in the render; the stroke weight of the polygon edges is comparable.",
+      "suggestion": "Set the vertex labels to bold math, e.g. \\mathbf{A} instead of $A$ (or \\boldmath / \\bm), keeping the same anchor positions."
+    },
+    {
+      "type": "layout_error",
+      "severity": "low",
+      "object_ids": [
+        "point_E",
+        "point_F"
+      ],
+      "bbox": [
+        0.22,
+        0.76,
+        0.77,
+        0.84
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The E and F labels sit slightly below the bottom vertices in the render (anchor below/below-left and below/below-right). In the original they sit level with the vertices, to the left of E and to the right of F.",
+      "suggestion": "Anchor the E label at west (left of the vertex) and the F label at east (right of the vertex) so they sit at the vertex height, as in the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Top edge AB drawn horizontally in both panels."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Left vertical CE drawn at the same x and extent as the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Right vertical DF drawn at the same x and extent as the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Bottom edge EF drawn in both panels with matching endpoints."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Right diagonal BD drawn from B down to D, matching the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Left diagonal AC drawn from A down to C, matching the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Top edge AB correct in render."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Diagonal BD correct in render."
+    },
+    {
+      "object_id": "seg_CA",
+      "status": "present",
+      "note": "Diagonal CA correct in render."
+    },
+    {
+      "object_id": "seg_DF",
+      "status": "present",
+      "note": "Vertical DF correct in render."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "Vertical EC correct in render."
+    },
+    {
+      "object_id": "seg_FE",
+      "status": "present",
+      "note": "Bottom edge FE correct in render."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label B is visible at the top-right vertex in both panels."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label A is visible at the top-left vertex in both panels."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label E is visible at the bottom-left vertex; placed slightly lower in the render."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label F is visible at the bottom-right vertex; placed slightly lower in the render."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Label D is visible at the right-middle vertex in both panels."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A correct in both panels."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B correct in both panels."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C and its label are correct in both panels."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D and its label are correct in both panels."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Vertex E is correct; label is slightly lower than the original."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Vertex F is correct; label is slightly lower than the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Hexagonal outline A-B-D-F-E-C has the same vertex sequence and overall proportions as the original.",
+    "Top edge AB, diagonals AC and BD, verticals CE and DF, and bottom edge EF all present with matching endpoints.",
+    "No overhangs or stubs in the original are missing; all segment ends land on the correct vertices.",
+    "All six point labels A-F are present, correctly spelled, and attached to the correct vertices.",
+    "No right-angle markers appear in either panel, so none are missing.",
+    "Dash style: all edges are solid in both panels."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

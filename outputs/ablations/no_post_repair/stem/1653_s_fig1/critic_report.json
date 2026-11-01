@@ -1,0 +1,182 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render closely matches the original: rectangle ABCD, points E, F, P and M, and all segments sit in the same positions. The only visible difference is that the dashed P-E segment is heavier in the render.",
+  "figure_type": {
+    "original": "Rectangle ABCD with E on BC, F on CD, P on segment AF, segments AE, PE (dashed), PC, EF, and M at the intersection of PC and EF",
+    "render": "Rectangle ABCD with E on BC, F on CD, P on segment AF, segments AE, PE (dashed), PC, EF, and M at the intersection of PC and EF"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_PE"
+      ],
+      "bbox": [
+        0.33,
+        0.41,
+        0.5,
+        0.75
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The dashed P-E segment is drawn with a visibly heavier stroke than in the original, where the dashes are thin. Direction: dash stroke too thick.",
+      "suggestion": "Reduce the line width of the dashed PE segment (e.g. use thin or a smaller line width) so it matches the lighter dashes of the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Matches the original segment from A down to E, the slanted line AE."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top side AD matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Bottom side BC matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment from E to C or P-C route matches the original; endpoints align."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Segment A-to-F passing through P matches the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Segment P to C matches the original, passing through M."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Left side AB matches the original."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Right side DC matches the original."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "present",
+      "note": "Dashed P-E segment is present and in the same position; the render's dashes are heavier."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Left side AB is drawn and matches the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Top side AD is drawn and matches the original."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "Segment from A to E matches the original."
+    },
+    {
+      "object_id": "seg_AF",
+      "status": "present",
+      "note": "Segment from A to F through P matches the original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Bottom side BC is drawn and matches the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Right side DC is drawn and matches the original."
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "Segment from E to F matches the original and crosses PC at M."
+    },
+    {
+      "object_id": "seg_PC",
+      "status": "present",
+      "note": "Segment from P to C matches the original."
+    },
+    {
+      "object_id": "seg_PE",
+      "status": "present",
+      "note": "Dashed segment is in the correct position; stroke is heavier than the original."
+    },
+    {
+      "object_id": "poly_ABCD",
+      "status": "present",
+      "note": "Rectangle ABCD matches the original in shape, aspect ratio and corner positions."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label A is present at the top-left corner, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label F is present on the right side, as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label P is present above the segment, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D is present at the top-right corner, as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label E is present below the bottom side, as in the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Rectangle ABCD has the same aspect ratio and corner positions in both panels.",
+    "E on BC, F on CD and P on AF are at the same positions.",
+    "Segments AE, AF, EF, PC and the sides of the rectangle match the original.",
+    "The dashed P-E segment is present and in the correct position.",
+    "Point M, the intersection of PC and EF, is present and in the correct place.",
+    "Labels A, B, C, D, E, F, P and M are all present and attached to the correct vertices."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "P",
+      "M"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

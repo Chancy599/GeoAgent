@@ -1,0 +1,196 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Repair v2 is faithful in geometry and dashing: OC, OB and OM are dashed as in the original. The dots at O and P are still rendered noticeably smaller than in the original.",
+  "figure_type": {
+    "original": "Circle (O-circle) with inscribed triangle ABC, small inner circle tangent to CB at M, dashed OC/OB/OM, filled dots at O and P",
+    "render": "Circle with inscribed triangle ABC, small inner circle tangent to CB at M, dashed OC/OB/OM, small dots at O and P"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_O"
+      ],
+      "bbox": [
+        0.46,
+        0.42,
+        0.54,
+        0.5
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The dot at O is rendered much smaller than the bold filled dot in the original (render dot radius is roughly a third of the original's).",
+      "suggestion": "Increase the dot size at O (e.g. fill circle with radius around 2.5-3 pt, or use a larger 'mark=*' size) so it matches the original's prominent dot."
+    },
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_P"
+      ],
+      "bbox": [
+        0.46,
+        0.63,
+        0.54,
+        0.72
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The dot at P is rendered much smaller than the bold filled dot in the original.",
+      "suggestion": "Increase the dot size at P to match the original's filled dot (roughly double the current radius)."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Large circle matches original position, radius and extent."
+    },
+    {
+      "object_id": "circle_02",
+      "status": "present",
+      "note": "Inner circle tangent to CB at M matches original."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Solid chord C-to-A matches the original AC."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Solid base CB matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Solid chord A-to-B matches the original AB."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Dashed OC segment present in both panels."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Dashed OB segment present in both panels."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "unclear",
+      "note": "Short 22 px vertical stub around P; the original shows a dashed vertical OM line through P rather than a separate solid stub, so this is likely a detection artifact of the P dot."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Chord AB matches the original."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Chord AC matches the original."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Chord CB matches the original."
+    },
+    {
+      "object_id": "seg_OB",
+      "status": "present",
+      "note": "Dashed OB present, dashing matches the original."
+    },
+    {
+      "object_id": "seg_OC",
+      "status": "present",
+      "note": "Dashed OC present, dashing matches the original."
+    },
+    {
+      "object_id": "seg_OM",
+      "status": "present",
+      "note": "Dashed vertical from O through P to M present, as in the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label C at the left vertex, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label A at the top vertex, as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label B at the right vertex, as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label O present above the centre, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "A correctly placed on the circle."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B correctly placed on the circle."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "C correctly placed on the circle."
+    },
+    {
+      "object_id": "point_M",
+      "status": "present",
+      "note": "M label and bottom tangency point present."
+    },
+    {
+      "object_id": "point_O",
+      "status": "wrong",
+      "note": "Position matches, but the dot is visibly smaller than the original's filled dot."
+    },
+    {
+      "object_id": "point_P",
+      "status": "wrong",
+      "note": "Position and label match, but the dot is visibly smaller than the original's filled dot."
+    }
+  ],
+  "checklist_score": 0.957,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Circle and inner circle geometry, sizes and positions match the original",
+    "Triangle ABC: chords AC, AB and CB are solid and end at the correct vertices",
+    "Dashed OC, OB and OM are present and dashed as in the original (the v2 repair target)",
+    "Labels A, B, C, O, M and P are present, correctly spelled and attached to the right points",
+    "No extra labels or stray elements"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "O",
+      "M",
+      "P"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 2,
+  "raw_meta": "{}"
+}

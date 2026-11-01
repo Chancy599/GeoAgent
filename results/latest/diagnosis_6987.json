@@ -1,0 +1,249 @@
+{
+  "stem": "6987_q_fig1",
+  "frozen_output_changed": false,
+  "post_repair_applied": false,
+  "post_repair_reason": "unsupported_literal_edge",
+  "actions": [
+    {
+      "step": 7,
+      "action": "run_tikz_agent",
+      "purpose": "Draw rectangle ABCD with labels A (top-left), D (top-right), B (bottom-left), C (bottom-right), using coordinates in cm approx: A(0,0), D(4.5,0), B(0,-2.4), C(4.5,-2.4) (scale ~ 1cm = 90px, flip y). D",
+      "params": {
+        "mode": "generate",
+        "use_image": null,
+        "instruction": "Draw rectangle ABCD with labels A (top-left), D (top-right), B (bottom-left), C (bottom-right), using coordinates in cm approx: A(0,0), D(4.5,0), B(0,-2.4), C(4.5,-2.4) (scale ~ 1cm = 90px, flip y). Draw diagonal AC and segment BE, where E lies on AC at about (1.0,-0.45) (pixel 138,107 relative to A at 47,65: dx=91px->1.0cm, dy=42px->0.47cm down). Mark right angle at E between EA and EB with a small square (side ~0.25cm). Label E above-right of the point. No circles or arcs. Standalone compilable tikzpicture with \\usetikzlibrary{angles,quotes} if needed; use plain draw commands and label placement with 'above'/'below'."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 10.5,
+      "token_usage": {
+        "delta": 7149
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 8,
+      "action": "run_critic",
+      "purpose": "rectangle, diagonal AC, segment BE, right-angle mark at E, labels A B C D E, no spurious arc",
+      "params": {
+        "focus": "rectangle, diagonal AC, segment BE, right-angle mark at E, labels A B C D E, no spurious arc"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.92",
+      "duration_s": 35.03,
+      "token_usage": {
+        "delta": 8953
+      },
+      "visual_calls": 1,
+      "error": null
+    },
+    {
+      "step": 9,
+      "action": "finish",
+      "purpose": "finish run",
+      "params": {
+        "summary": "Produced compilable TikZ (version 1) for rectangle ABCD with diagonal AC, segment BE perpendicular to AC at E (right-angle mark verified by CV), and labels A, B, C, D, E. The spurious circle detection was excluded because no arc is visible. Critic score 0.92, checklist 1.0, no actionable issues.",
+        "unresolved": null,
+        "status": "success"
+      },
+      "status": "ok",
+      "result_summary": "ok=True; best_version=1; status=success",
+      "duration_s": 0.0,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": null
+    }
+  ],
+  "critics": [
+    {
+      "assessment_score": 0.92,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "The render faithfully reproduces the rectangle ABCD, diagonal AC, perpendicular BE with its right-angle mark at E, and all five labels, with no spurious arc.",
+      "figure_type": {
+        "original": "rectangle ABCD with diagonal AC and perpendicular BE meeting at E (right angle at E), no arc",
+        "render": "rectangle ABCD with diagonal AC and perpendicular BE meeting at E (right angle at E), no arc"
+      },
+      "issues": [],
+      "checks": [
+        {
+          "object_id": "circle_01",
+          "status": "unclear",
+          "note": "No arc is visible in the original, and none is drawn in the render. The detected arc is a fitting artifact, so there is nothing to compare."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Bottom side BC is drawn at the same position and extent."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Top side AD is drawn at the same position and extent."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Diagonal AC runs from A through E to C, matching the original."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Segment BE runs from B to the diagonal at E, matching the original."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Right side DC is drawn at the same position and extent."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Left side AB is drawn at the same position and extent."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Portion of diagonal AC between A and E is correctly drawn."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Left side AB is present (corresponds to seg_06)."
+        },
+        {
+          "object_id": "seg_AC",
+          "status": "present",
+          "note": "Diagonal AC is present (corresponds to seg_03 and seg_07)."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "Top side AD is present (corresponds to seg_02)."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Bottom side BC is present (corresponds to seg_01)."
+        },
+        {
+          "object_id": "seg_BE",
+          "status": "present",
+          "note": "Segment BE is present and perpendicular to AC at E (corresponds to seg_04)."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "Right side DC is present (corresponds to seg_05)."
+        },
+        {
+          "object_id": "ra_01",
+          "status": "present",
+          "note": "The only right-angle mark is at E in both panels; no separate id appears in the state."
+        },
+        {
+          "object_id": "right_angle_01",
+          "status": "present",
+          "note": "Right-angle mark at E is visible in both panels with matching placement."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "Label C sits at the lower-right vertex, matching the original."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "Label B sits at the lower-left vertex, matching the original."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Label D sits at the upper-right vertex, matching the original."
+        },
+        {
+          "object_id": "point_04",
+          "status": "present",
+          "note": "Label A sits at the upper-left vertex, matching the original."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "Label E sits beside the vertex at the right-angle foot, matching the original."
+        },
+        {
+          "object_id": "point_A",
+          "status": "present",
+          "note": "Vertex A is correctly placed and labelled."
+        },
+        {
+          "object_id": "point_B",
+          "status": "present",
+          "note": "Vertex B is correctly placed and labelled."
+        },
+        {
+          "object_id": "point_C",
+          "status": "present",
+          "note": "Vertex C is correctly placed and labelled."
+        }
+      ],
+      "checklist_score": 1.0,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": false,
+      "matches": [
+        "Rectangle ABCD proportions and corner positions match the original.",
+        "Diagonal AC is solid, straight, and runs from A through E to C.",
+        "Segment BE is perpendicular to AC and terminates at E.",
+        "Right-angle mark at E is present and oriented consistently with the original.",
+        "No spurious arc is drawn.",
+        "All five labels A, B, C, D, E are present and attached to the correct vertices."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 1,
+      "raw_meta": "{}"
+    }
+  ],
+  "metric_coverage": 0.7142857142857143,
+  "missing_edges": [
+    {
+      "labels": [
+        "A",
+        "E"
+      ],
+      "reason": "segment_not_drawn"
+    },
+    {
+      "labels": [
+        "C",
+        "E"
+      ],
+      "reason": "segment_not_drawn"
+    }
+  ],
+  "reference_AEC_deg": 172.38514720579215,
+  "generated_AEC_label_angle_deg": 172.0772327469265,
+  "generated_AEB_label_angle_deg": 89.77221650702192,
+  "evidence_phase": "original failure before regeneration",
+  "current_validation": {
+    "regenerated": true,
+    "coverage": 1.0,
+    "missing_edges": []
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render is faithful: C, the right-angle marks at C and A, and the segments match the original; only the E label and crossing differ slightly.",
+  "figure_type": {
+    "original": "Semicircle on diameter BD with centre O, chords BC, CA, AB and OA, point E on arc/BC, right angles at C and A",
+    "render": "Semicircle on diameter BD with centre O, chords BC, CA, AB and OA, point E on arc/BC, right angles at C and A"
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "seg_02"
+      ],
+      "bbox": [
+        0.2,
+        0.24,
+        0.26,
+        0.34
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Label E sits about 10-15 px further left and lower than in the original, and the BC/arc crossing it marks appears slightly left of the original crossing.",
+      "suggestion": "Nudge the E label slightly right and up, and check that the BC-arc intersection matches the original position near x≈296 px."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Semicircular arc through B and D is drawn in the same position and extent."
+    },
+    {
+      "object_id": "circle_02",
+      "status": "unclear",
+      "note": "No separate second arc is visible in the original; this detection does not correspond to a drawn arc in either panel."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Base diameter BD matches in position and extent."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Chord from B up to C/E matches; only the E label offset is off."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Chord BA matches in position and extent."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment from A toward O matches the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Segment CA matches the original; C sits at the same height (about y≈163-165)."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle square at C is drawn in the render, as in the original."
+    },
+    {
+      "object_id": "right_angle_02",
+      "status": "present",
+      "note": "Right-angle square at A is drawn in the render, as in the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Vertex C is at the same height and position as in the original, so the earlier 10 px wrong_position claim is not supported.",
+    "Right-angle marks at C and A are present and correctly placed.",
+    "Semicircle arc and base diameter BD match.",
+    "Segments BC, BA, OA and CA match in position and extent.",
+    "Labels B, C, A, O and D are present and correctly placed."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "O"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 2,
+  "raw_meta": "{}"
+}

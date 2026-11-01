@@ -1,0 +1,37 @@
+\documentclass[tikz,border=10pt]{standalone}
+% Scale s = 0.010025 (1 unit = ~100 px), y flipped, origin at px (450,400)
+\begin{document}
+\begin{tikzpicture}[line join=round, line width=1.1pt, font=\fontsize{11}{13.2}\selectfont]
+  % Named coordinates (converted from pixels)
+  \coordinate (A) at (-0.045,2.868);
+  \coordinate (B) at (-3.302,-2.819);
+  \coordinate (C) at (3.783,-2.817);
+  \coordinate (D) at (-1.352,0.590);
+  \coordinate (E) at (1.492,0.589);
+  \coordinate (F) at (1.494,-2.246);
+  \coordinate (G) at (-1.348,-2.247);
+  \coordinate (H) at (-0.045,-2.817);
+
+  % Triangle ABC (solid)
+  \draw (A) -- (B) -- (C) -- cycle;
+
+  % Dashed altitude from A to H on BC (thinner stroke)
+  \draw[dashed, line width=0.5pt] (A) -- (H);
+
+  % Inner square DEFG (solid)
+  \draw (D) -- (E) -- (F) -- (G) -- cycle;
+
+  % Solid segment B to G
+  \draw (B) -- (G);
+
+  % Labels
+  \node[above] at (A) {$A$};
+  \node[left] at (B) {$B$};          % left of B, no vertical offset
+  \node[right] at (C) {$C$};         % right of C, no vertical offset
+  \node[left] at (D) {$D$};          % left of D, level with vertex (anchor east)
+  \node[right] at (E) {$E$};         % right of E, level with vertex (anchor west)
+  \node[right] at (F) {$F$};         % right of F, no vertical offset
+  \node[left] at (G) {$G$};          % left of G, level with vertex (anchor east)
+  \node[below] at (H) {$H$};
+\end{tikzpicture}
+\end{document}

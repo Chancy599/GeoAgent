@@ -1,0 +1,178 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original geometry closely; H label now sits below its point, and the only residual difference is slightly lighter stroke weight on the straight segments.",
+  "figure_type": {
+    "original": "Circle centred near D through A-side region with triangle ABD, interior points E and H on the foot of the altitude from B onto AD",
+    "render": "Same: circle centred at D, triangle ABD with segments AE, ED, BD, and altitude BH meeting AD at H"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_AB",
+        "seg_AE",
+        "seg_ED",
+        "seg_BD"
+      ],
+      "bbox": [
+        0.02,
+        0.1,
+        0.8,
+        0.52
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Straight segments (AB, AE, ED, BD) are drawn slightly thinner than in the original; the original strokes read as heavier relative to the circle, which matches the render's circle weight.",
+      "suggestion": "Increase the line width of the straight segment paths (e.g. from the default 0.4pt toward ~0.6pt) so they match the original's visual weight; leave the circle as is."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circle centre, radius and extent match the original."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Base AD drawn in the same position and extent."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Segment from A to B matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Segment BD matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment AE matches the original, ending at E."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Altitude BH matches the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Segment ED matches the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Drawn from A to B as in the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Drawn from A to D as in the original."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "Drawn from A to E, ends at E as in the original."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Drawn from B to D as in the original."
+    },
+    {
+      "object_id": "seg_BH",
+      "status": "present",
+      "note": "Altitude from B to H as in the original."
+    },
+    {
+      "object_id": "seg_ED",
+      "status": "present",
+      "note": "Drawn from E to D as in the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "D label correctly placed at the right vertex."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "A label correctly placed at the left vertex."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "H label now sits below the foot point, matching the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "B label correctly placed above the apex."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "E label correctly placed left of E."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A matches the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B matches the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D matches the original."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Vertex E matches the original."
+    },
+    {
+      "object_id": "point_H",
+      "status": "present",
+      "note": "Foot H matches the original position."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Circle centre, radius and full 360° extent",
+    "Triangle ABD and its vertices",
+    "Altitude BH and foot H on AD",
+    "Segments AE and ED meeting at E",
+    "All solid styles; no dashed lines in either panel",
+    "No right-angle marker in either panel",
+    "H label moved below the point as requested"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "H"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 2,
+  "raw_meta": "{}"
+}

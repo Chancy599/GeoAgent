@@ -1,0 +1,180 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original's geometry, line styles and endpoints closely; the only visible difference is that the point labels are drawn much smaller.",
+  "figure_type": {
+    "original": "Square ABCD with apex F above D, dashed lines F-D, F-C and F-E, and solid C-E; E lies on AB.",
+    "render": "Same square ABCD with apex F above D, dashed F-D, F-C and F-E, and solid C-E; E lies on AB."
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_A",
+        "point_B",
+        "point_C",
+        "point_D",
+        "point_E",
+        "point_F"
+      ],
+      "bbox": [
+        0.1,
+        0.03,
+        0.9,
+        0.95
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Point labels A, B, C, D, E, F are rendered in a noticeably smaller font than in the original (render label height is roughly half the original's). Their positions relative to their vertices are correct.",
+      "suggestion": "Increase the font size of the point labels (for example use \\large or \\Large, or a larger node font) so they match the original's label size."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Dashed F-E diagonal is drawn from F to E with the same direction and extent."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Solid CE segment runs from C down to E as in the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Dashed F-C segment runs from F to C with matching extent."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Solid left side AD is present and spans A to D."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Solid right side BC is present and spans B to C."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Solid bottom side AB is present and spans A to B."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Solid top side DC is present and spans D to C."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Dashed vertical from F down to D is present with matching dash style."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Bottom side AB matches the original, solid, with E on it."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Right side BC matches the original, solid."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Top side CD matches the original, solid."
+    },
+    {
+      "object_id": "seg_CE",
+      "status": "present",
+      "note": "Solid CE matches the original's endpoints at C and E."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Left side DA matches the original, solid."
+    },
+    {
+      "object_id": "seg_DF",
+      "status": "present",
+      "note": "Dashed DF extends above D to F, as in the original."
+    },
+    {
+      "object_id": "seg_FC",
+      "status": "present",
+      "note": "Dashed FC matches the original."
+    },
+    {
+      "object_id": "seg_FE",
+      "status": "present",
+      "note": "Dashed FE matches the original."
+    },
+    {
+      "object_id": "point_06",
+      "status": "unclear",
+      "note": "Label '1' is not visible in the original near the D-F segment, and is not visible in the render either, so there is no discrepancy to act on."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Label A is at the bottom-left vertex, as in the original, but smaller."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Label B is at the bottom-right vertex, as in the original, but smaller."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Label C is at the top-right vertex, as in the original, but smaller."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Label D is at the top-left vertex, as in the original, but smaller."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Label E is below E on AB, as in the original, but smaller."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Label F is above-left of the apex, as in the original, but smaller."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Square ABCD has the correct proportions and placement (equal width and height).",
+    "Apex F sits directly above D, and the F-D dashed segment overhangs past D as in the original.",
+    "Solid sides AB, BC, CD and DA are all present.",
+    "Dashed F-C, F-E and F-D are present with matching dash style.",
+    "Solid C-E is present with E on AB at the same relative position.",
+    "Label positions for A, B, C, D, E and F are correctly attached to their vertices."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

@@ -1,0 +1,240 @@
+{
+  "assessment_score": 0.82,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original's point set, line topology, dashed/solid pattern and labels; differences are a stray stub at G, a dashed FD that runs into D, and heavier stroke weight.",
+  "figure_type": {
+    "original": "Parallelogram ABCD with diagonals meeting at E, plus dashed polyline F-G-A (F-D dashed extension)",
+    "render": "Parallelogram ABCD with diagonals meeting at E, plus dashed polyline F-G-A (F-D dashed extension)"
+  },
+  "issues": [
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "seg_05",
+        "seg_06"
+      ],
+      "bbox": [
+        0.42,
+        0.15,
+        0.52,
+        0.25
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Render shows a short solid tick crossing the dashed polyline at vertex G; the original has a clean dashed corner at G with no stub.",
+      "suggestion": "Remove the extra stub/overhang at G (check for a stray draw or an over-extended segment endpoint at G) so the dashed corner is continuous."
+    },
+    {
+      "type": "wrong_position",
+      "severity": "low",
+      "object_ids": [
+        "seg_09"
+      ],
+      "bbox": [
+        0.28,
+        0.45,
+        0.35,
+        0.55
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Dashed line F-D runs into D and overhangs slightly past it, whereas in the original the dashed line stops short of D with a gap.",
+      "suggestion": "Shorten the dashed FD segment so it ends just before D, matching the original gap."
+    },
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_03",
+        "seg_04",
+        "seg_07",
+        "seg_08",
+        "seg_05",
+        "seg_06"
+      ],
+      "bbox": [
+        0.05,
+        0.15,
+        0.95,
+        0.85
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Stroke weight is heavier in the render than in the original for both the solid parallelogram/diagonal lines and the dashed lines.",
+      "suggestion": "Reduce line width (e.g. from thick/semithick toward thin) to match the original's lighter strokes."
+    },
+    {
+      "type": "wrong_position",
+      "severity": "low",
+      "object_ids": [
+        "seg_FD"
+      ],
+      "bbox": [
+        0.126,
+        0.37,
+        0.379,
+        0.565
+      ],
+      "flaky": false,
+      "source": "checklist",
+      "description": "Checklist: segment seg_FD is visible but misplaced.",
+      "suggestion": "Move this element to match the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Diagonal A-C drawn solid, correct endpoints and crossing at E."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top edge D-A solid, correct extent."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Diagonal B-D solid, passes through E."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Bottom edge C-B solid, correct extent."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Dashed G-A segment present, correct direction and endpoints."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Dashed F-G segment present; small extra stub at G noted separately."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Solid side D-C present."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Solid side A-B present."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "wrong",
+      "note": "Dashed F-D runs into/overhangs D; original stops short of D."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Side AB solid and correct."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Diagonal AC solid and correct."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Diagonal BD solid and correct."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Side CB solid and correct."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Side DA solid and correct."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Side DC solid and correct."
+    },
+    {
+      "object_id": "seg_FD",
+      "status": "wrong",
+      "note": "Dashed FD overhangs past D in render; original ends before D."
+    },
+    {
+      "object_id": "seg_FG",
+      "status": "present",
+      "note": "Dashed FG present with correct direction."
+    },
+    {
+      "object_id": "seg_GA",
+      "status": "present",
+      "note": "Dashed GA present with correct direction."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label A present at upper-right vertex."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label E present at diagonal intersection."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label C present at lower-left vertex."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D present at upper-left vertex."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label B present at lower-right vertex."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Label G present at top dashed vertex."
+    }
+  ],
+  "checklist_score": 0.958,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 4
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Parallelogram ABCD with the correct vertex arrangement and proportions",
+    "Diagonals AC and BD cross at E in the correct place",
+    "Dashed F-G-A path with G at the apex and F at the left",
+    "Dashed extension from F toward D",
+    "All labels A, B, C, D, E, F, G present and attached to the correct vertices",
+    "No warping or aspect-ratio distortion"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

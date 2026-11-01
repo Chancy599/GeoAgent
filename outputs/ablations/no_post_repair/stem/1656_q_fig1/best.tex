@@ -1,0 +1,48 @@
+\documentclass[tikz,border=10pt]{standalone}
+% Scale s = 0.008484 cm/px (longest side 8 cm); origin at ink-bbox centre (546,449) px
+\begin{document}
+\begin{tikzpicture}[line width=0.7pt, line join=round,
+  lbl/.style={font=\fontsize{10}{12}\selectfont}]
+
+  % Named points (converted from pixel coordinates, y flipped)
+  \coordinate (A) at (-1.20,0.34);
+  \coordinate (B) at (-3.60,-3.25);
+  \coordinate (C) at (3.60,-3.26);
+  \coordinate (D) at (1.80,0.35);
+  \coordinate (E) at (2.88,-1.82);
+  \coordinate (F) at (1.09,1.79);
+  \coordinate (G) at (-0.25,0.35);
+  \coordinate (T) at (0.31,3.34);   % far end of the long line (genuine overhang above F)
+
+  % Base segment B-C
+  \draw (B) -- (C);
+
+  % Horizontal segment A-D (G lies on it)
+  \draw (A) -- (D);
+
+  % Segment F-B (passes through G)
+  \draw (F) -- (B);
+
+  % Segment F-A
+  \draw (F) -- (A);
+
+  % Segment A-B (missing edge restored from CV line_05)
+  \draw (A) -- (B);
+
+  % Long line through C, E, F, extending above F to T
+  \draw (T) -- (C);
+
+  % Segment E-B
+  \draw (E) -- (B);
+
+  % Point labels, offset outward
+  \node[lbl, left] at (A) {$A$};
+  \node[lbl, below left] at (B) {$B$};
+  \node[lbl, below right] at (C) {$C$};
+  \node[lbl, right] at (D) {$D$};
+  \node[lbl, right] at (E) {$E$};
+  \node[lbl, above right] at (F) {$F$};
+  \node[lbl, below] at (G) {$G$};
+
+\end{tikzpicture}
+\end{document}

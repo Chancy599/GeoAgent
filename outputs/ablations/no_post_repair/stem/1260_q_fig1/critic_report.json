@@ -1,0 +1,164 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Geometry matches the original: same quadrilateral ABCD with AD parallel to BC and all four labels correctly placed. The render has thinner strokes and the C vertex sits about 5 px short of the original.",
+  "figure_type": {
+    "original": "Quadrilateral ABCD (trapezoid) with AD parallel to BC, AB perpendicular to both, solid lines, no right-angle markers visible",
+    "render": "Quadrilateral ABCD (trapezoid) with AD parallel to BC, AB perpendicular to both, solid lines, no right-angle markers"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_03",
+        "seg_04",
+        "seg_AB",
+        "seg_AD",
+        "seg_BC",
+        "seg_CD"
+      ],
+      "bbox": [
+        0.05,
+        0.33,
+        0.92,
+        0.64
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Stroke weight of the rendered edges is thinner than in the original: the render lines are about 1 px, while the original lines are about 2 px at the same scale.",
+      "suggestion": "Increase the line width of the figure's edge paths (for example from the default 0.4pt to about 0.8pt, or set line width=0.8pt on the draw path)."
+    },
+    {
+      "type": "wrong_position",
+      "severity": "low",
+      "object_ids": [
+        "point_C",
+        "point_01",
+        "seg_BC",
+        "seg_CD"
+      ],
+      "bbox": [
+        0.86,
+        0.58,
+        0.94,
+        0.68
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Vertex C is about 5 px left of its position in the original (render x about 558 vs original about 563 in panel coordinates), so BC and CD end slightly short of the original's extent.",
+      "suggestion": "Move C slightly right so that its x-coordinate matches the original's horizontal extent, keeping BC horizontal and CD meeting AD at D."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom edge BC is drawn solid and spans B to C, matching the original (C end about 5 px short)."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Slanted edge CD from C to D is present and matches the original's direction."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Top edge AD is present and ends at D as in the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Left edge AB is present and vertical as in the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment AB is drawn between A and B."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Segment AD is drawn between A and D."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Segment BC is drawn between B and C, slightly shorter at C."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Segment CD is drawn between C and D."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Point C is labelled correctly at the bottom-right vertex."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Point B is labelled correctly at the bottom-left vertex."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Point D is labelled correctly at the top-middle vertex."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Point A is labelled correctly at the top-left vertex."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is at the top-left corner, as in the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is at the bottom-left corner, as in the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is at the bottom-right, about 5 px left of the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is at the top, matching the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Quadrilateral ABCD has the same overall shape and proportions as the original.",
+    "AD is horizontal and parallel to BC; AB is vertical and meets both at right angles.",
+    "All four edges are solid and present, with no extra or missing segments.",
+    "Vertex labels A, B, C, D are present, correctly spelled, and attached to the correct vertices with matching placement.",
+    "Label positions relative to their vertices match the original closely."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

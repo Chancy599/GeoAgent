@@ -1,0 +1,180 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render faithfully reproduces the segment set, vertex positions and labels; the only discrepancy is the B label sitting on top of the crossing lines.",
+  "figure_type": {
+    "original": "Straight-line geometry diagram: quadrilateral A–A1–B1–C1 region with interior and extension segments (A1–B–C collinear, B–E–B1 collinear, C–E, C–C1, C1–B1). No arcs, no right-angle markers.",
+    "render": "Straight-line geometry diagram with the same segment structure, vertex layout and label set as the original."
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_03"
+      ],
+      "bbox": [
+        0.46,
+        0.37,
+        0.52,
+        0.43
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The label B in the render sits directly on the vertex, so the A1–B–C line and the B–E–B1 line run through the letter. In the original, B is placed up and to the left of the vertex, clear of the lines.",
+      "suggestion": "Offset the B label to the upper-left of its vertex (e.g. label=above left or anchor=south east with a small shift) so it sits outside the line crossings, matching the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Long diagonal A1 to C through B is drawn and ends at C as in the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Bottom edge A1 to B1 matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Diagonal A1 to B matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Edge C1 to B1 matches the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Segment C to E matches the original and ends at E."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Segment B to B1 through E matches the original."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Edge C to C1 matches the original."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Left edge A to A1 matches the original."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "present",
+      "note": "Top edge A to B matches the original and ends at B."
+    },
+    {
+      "object_id": "seg_10",
+      "status": "unclear",
+      "note": "Short fragment near E lies on the B–B1 line already drawn as seg_06; no separate stub is visible in either panel."
+    },
+    {
+      "object_id": "seg_A1B",
+      "status": "present",
+      "note": "Diagonal A1 to B is drawn in both panels."
+    },
+    {
+      "object_id": "seg_A1B1",
+      "status": "present",
+      "note": "Bottom edge A1 to B1 is drawn in both panels."
+    },
+    {
+      "object_id": "seg_AA1",
+      "status": "present",
+      "note": "Left edge A to A1 is drawn in both panels."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Top edge A to B is drawn in both panels."
+    },
+    {
+      "object_id": "seg_BB1",
+      "status": "present",
+      "note": "B to B1 through E is drawn in both panels."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Segment B to C, the continuation of A1–B, is drawn in both panels."
+    },
+    {
+      "object_id": "seg_C1B1",
+      "status": "present",
+      "note": "Edge C1 to B1 is drawn in both panels."
+    },
+    {
+      "object_id": "seg_CC1",
+      "status": "present",
+      "note": "Edge C to C1 is drawn in both panels."
+    },
+    {
+      "object_id": "seg_CE",
+      "status": "present",
+      "note": "Segment C to E is drawn in both panels."
+    },
+    {
+      "object_id": "seg_EA1",
+      "status": "present",
+      "note": "Segment E to A1 is drawn in both panels."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label C is placed above the vertex C, as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label B is present and attached to the correct vertex, but it overlaps the lines (see issue)."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Label E is placed to the right of vertex E, as in the original."
+    },
+    {
+      "object_id": "point_09",
+      "status": "present",
+      "note": "Label A is placed above-left of vertex A, as in the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Vertex positions and overall proportions match; the render is not warped.",
+    "All segments of the configuration are present with matching endpoints, including the collinear A1–B–C and B–E–B1 runs.",
+    "Line styles are all solid in both panels.",
+    "Labels A, C, C1, E, A1 and B1 are present and correctly placed.",
+    "No right-angle markers are visible in either panel, so none are missing."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "C1",
+      "E",
+      "A1",
+      "B1"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

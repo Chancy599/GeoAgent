@@ -28,7 +28,10 @@ Hard rules
 - Do not fabricate numeric measurements; every coordinate must come from a CV tool result or a labelled vertex.
 - Do not guess letter identities from geometry. Prefer match_label_templates/bind_point_labels, but CHECK them: low-NCC ("?" or ambiguous) matches, numeric results like "1"/"3" in an alphabetical figure, and points the CV left unlabeled are usually glyph fragments. When bindings look wrong, call inspect_image (full figure or a zoomed corner) and read the visible labels yourself; a letter you can actually see is evidence, an invented one is not. Pass verified labels into the geometry/TikZ instructions.
 - Do not claim a right angle unless detect_right_angle_marker verified the square mark. Conversely, every verified right-angle object must reach the TikZ agent, and a missing mark reported by the critic must be repaired.
-- Keep genuine line extents when you brief the geometry/TikZ agents: a stroke that clearly continues past a vertex is part of the figure, while a 2-8 px overshoot is detector noise and should snap to the vertex.
+- Keep every clearly recognized visible label, including free endpoints. Unmatched/unbound labels are unresolved evidence, not evidence of absence. Inspect their own boxes or the full image before omitting them.
+- When a Critic reports a missing label also present in CV, repair it or re-inspect a region that actually covers its box. A crop excluding the disputed region cannot justify dismissing the Critic as hallucinating.
+- Preserve measured topology before choosing a familiar figure name. A path through three labels may bend slightly: do not replace A--E--C with A--C unless collinearity is supported by image/CV evidence. A right angle at E specifies its two incident arms, not every nearby long line.
+- Give named endpoint pairs for confirmed solid AND dashed edges; merge overlapping fragments into the intended edge. Render shared vertices from one coordinate definition. A long detector overshoot alone is not evidence of an intentional extension; verify visible continuation in the original.
 - After a repair compile, the best_version may still point to the previously scored version; run_critic on the new version before finishing.
 - finish can be rejected with an error starting "finish blocked". Read it: if the latest or best version is unscored, call run_critic; if must_repair is true, repair once more; then finish again.
 - Understand the figure TYPE: a semicircle drawn by an arc plus its diameter is an arc (not a full circle); dashed lines vs. solid and gap interruptions caused by labels matter.
@@ -58,7 +61,7 @@ Submission JSON schema
 
 Guidelines
 - Prefer CV ids that already exist; add inferred points (arc endpoints, intersections, midpoints) only when justified.
-- Use the CV spans (a_px/b_px) as segment extents, but snap an endpoint to the labelled vertex when it overshoots by only a few pixels (<= ~8 px, less than half a letter height): that is detector noise, not geometry. Keep a longer, clearly visible overhang (e.g. a vertical that continues below its base vertex) — those strokes are part of the figure.
+- Reconcile CV fragments with labelled vertices and submit explicit endpoint/point-on-segment evidence. A fitted span extending beyond a vertex does not by itself prove a visible overhang; verify the original. Preserve genuine continuation, but connect confirmed label-to-label edges to the same vertex coordinates. Do not straighten a measured shallow kink or infer collinearity solely from a familiar diagram type.
 - Include every right-angle marker returned by detect_right_angle_marker as a right_angle object at its vertex; a verified mark must not be dropped.
 - A right-angle mark is itself drawn with two short square strokes, and detect_lines may report those strokes as short segments near the vertex. Submit the mark as a right_angle object only: do NOT add the marker's own strokes as segments, and do NOT derive another right angle at their intersection (that creates a duplicated mark and extra lines).
 - type must be one of: point, segment, line, circle, arc, right_angle, label, polygon.
@@ -84,10 +87,12 @@ Requirements
 - Label nodes in math mode: \\node[above] at (P) {$P$}; choose anchor directions away from the figure. When STYLE METRICS is present, set every label node to its font=\\fontsize{size}{leading}\\selectfont (the default 10 pt is usually wrong).
 - Stroke weight: use the line width from STYLE METRICS, which was measured from the source, with line join=round. Only fall back to line width=1.2pt when no metrics block is present. Absolute pt sizes are calibrated for the stated span, so do not pair them with a different coordinate scale.
 - Preserve line styles (solid/dashed/dotted; dashed as dash pattern).
-- Draw each segment between its GES endpoints, but if an endpoint overshoots a labelled vertex by only 2-8 px, stop the stroke at the vertex instead of leaving a tick stub. Longer overhangs (roughly >=10 px, e.g. a vertical continuing below its base) are intentional: keep them.
+- Draw confirmed label-to-label edges using their NAMED coordinates, including dashed edges. Do not use independent literal endpoints for an edge whose endpoint vertices are known. Merge fragment overlaps; preserve an overhang only when the original visibly supports it, not merely because a detector span is long.
+- Compare the original and measured coordinates before simplifying paths. If E is off line AC, preserve A--E--C as a polyline when supported; do not draw A--C and leave BE/right-angle marks detached from it. A small visual kink is real geometry.
+- Include all verified labels, including labels at free line endpoints. If the instruction omits a visible label or contradicts the image, retain the evidence-supported feature and explain it in notes.
 - Draw a small square right-angle marker at the vertex of EVERY right_angle object in the GES; leaving one out is a defect.
-- Right-angle vertices and their incident segment endpoints are already rectified to exact 90 degrees; draw each square from vertex_px and mark_points_px so it aligns with the two arms.
-- Draw exactly one mark per right_angle object. Short segments in the GES that merely trace a marker's own square must not be drawn again (that yields a duplicated, cluttered mark).
+- Right-angle vertices and arm endpoints are measurements, not guaranteed rectified coordinates. Align each small square to the actual incident arms; do not use the glyph as a reason to straighten a different polyline or move its vertex onto an unrelated line.
+- Draw exactly one mark per geometric right-angle vertex (duplicate GES records are not extra marks). Prefer a TikZ right-angle pic tied to the named arm endpoints, with size from the CV marker side; avoid independently guessed literal square corners. Short segments tracing the glyph must not be drawn again.
 - Do not use shell-escape, \\write18, external files, or packages beyond TikZ libraries. No markdown fences in the tex field.
 - Repair mode: return the FULL corrected document (not a diff); keep everything that already worked, including the current coordinate scale, line width and label font unless an issue explicitly targets them.
 - Keep source readable with short % comments.
@@ -98,8 +103,8 @@ CRITIC_SYSTEM = """You are the Critic of GeoAgent. You compare the ORIGINAL figu
 Compare them as a geometry diagram, not as pixel art. Check:
 1. Figure type (semicircle vs circle, arc extent, angles).
 2. Number, position and extent of segments/chords/radii; intersections. Does each line end where the original does - including deliberate overhangs past a labelled vertex and short stubs? A line trimmed to an intersection point that continues in the original is a wrong_position issue.
-3. Dashed vs solid styles.
-4. Right-angle markers (a small square at the vertex). These are tiny; when you can see the vertex in both panels, decide present or missing rather than "unclear".
+3. Dashed vs solid styles. Check each dashed endpoint against its intended named vertex; overlapping fragments and tails protruding through a baseline are wrong_position issues, even when dash weight is good.
+4. Preserve topology: check shallow kinks and point-on-line claims using BOTH panels. Do not call a polyline a diagonal merely because it is inside a rectangle. A square mark alone does not prove BE meets the line actually drawn; verify that both arms physically meet at E. Right-angle markers (a small square at the vertex). These are tiny; when you can see the vertex in both panels, decide present or missing rather than "unclear".
 5. Point labels: are all present, correctly spelled and attached to the right vertex? Extra/missing?
 6. Aspect ratio / obvious warping or overlapping labels.
 7. Stroke weight: in the side-by-side layout both panels are cropped to the drawn content and scaled equally, so line widths and label sizes are directly comparable (with two separate images, compare relative to figure size). Do not raise a wrong_style issue unless the difference is obvious, and never report it in opposite directions on consecutive versions.

@@ -108,6 +108,12 @@ def _sidebar() -> tuple[str | None, dict, bool]:
     }
 
     st.sidebar.subheader("3. 运行")
+    geometry_repair = st.sidebar.checkbox(
+        "生成后几何约束修复",
+        value=True,
+        help="在生成的 TikZ 上联合修复近平行、近垂直及近共线点，限制顶点位移和边长变化；不修改前置像素测量。",
+    )
+    overrides["geometry_repair"] = bool(geometry_repair)
     run_clicked = st.sidebar.button("开始运行", type="primary", disabled=image_path is None)
     if st.sidebar.button("清空本次结果", disabled="run_result" not in st.session_state):
         for key in ("run_result", "ges", "run_dir", "events"):

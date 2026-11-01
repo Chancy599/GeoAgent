@@ -1,0 +1,150 @@
+{
+  "assessment_score": 0.95,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original closely; the centre dot at O is now present, though smaller than in the original.",
+  "figure_type": {
+    "original": "circle with diameter MN, interior point P on MN, centre O, and segments PA and PB from P to points A and B on the circle",
+    "render": "circle with diameter MN, interior point P on MN, centre O, and segments PA and PB from P to points A and B on the circle"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_O"
+      ],
+      "bbox": [
+        0.48,
+        0.48,
+        0.52,
+        0.53
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The filled centre dot at O is markedly smaller in the render (about 4 px diameter) than in the original (about 10 px). The dot is present but undersized.",
+      "suggestion": "Increase the radius of the filled dot drawn at O (for example, a larger node or dot size in the TikZ) so it matches the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circle is correctly placed and sized, with M and N on it."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Diameter MN is drawn solid from M to N, passing through O and P."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Segment PA is drawn from P to A on the circle."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Segment PB is drawn from P to B on the circle."
+    },
+    {
+      "object_id": "seg_MN",
+      "status": "present",
+      "note": "Segment MN is drawn solid and labelled correctly."
+    },
+    {
+      "object_id": "seg_PA",
+      "status": "present",
+      "note": "Segment PA is drawn solid and labelled correctly."
+    },
+    {
+      "object_id": "seg_PB",
+      "status": "present",
+      "note": "Segment PB is drawn solid and labelled correctly."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label P is attached to the correct vertex, below the line."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label O is present and attached to the centre; the centre dot is present but smaller than in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label N is present at the right end of the diameter."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label M is present at the left end of the diameter."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Label B is present at the upper-right point on the circle."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Label A is present at the upper point on the circle."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Label B is present at the point on the circle."
+    },
+    {
+      "object_id": "point_M",
+      "status": "present",
+      "note": "M is at the left end of the diameter on the circle."
+    },
+    {
+      "object_id": "point_N",
+      "status": "present",
+      "note": "N is at the right end of the diameter on the circle."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "The centre dot at O is now drawn. It is smaller than the original's dot, which is covered by the wrong_style issue."
+    },
+    {
+      "object_id": "point_P",
+      "status": "present",
+      "note": "P is on MN between O and N, and PA and PB start there."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Circle size and position match the original.",
+    "Diameter MN is solid and runs from M to N through O and P.",
+    "Points A and B lie on the circle, and PA and PB are drawn as solid segments from P.",
+    "Labels M, N, O, P, A and B are all present and placed next to the correct points.",
+    "The centre dot at O is present, which fixes the previous missing_element issue.",
+    "No regressions in the circle, segments or labels compared with the previous version."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "M",
+      "N",
+      "O",
+      "P"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 2,
+  "raw_meta": "{}"
+}

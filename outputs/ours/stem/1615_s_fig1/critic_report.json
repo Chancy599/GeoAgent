@@ -1,0 +1,184 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render is faithful: the solid C–G segment is present and ends at G, dashed/solid styles match the original, and all eight labels are attached to the correct vertices.",
+  "figure_type": {
+    "original": "Parallelogram ABCD with E on AD, F and N on AB, G on EB, and a mix of solid and dashed interior segments (E–C, D–B, E–N, G–N dashed; C–G, E–G–B, E–F solid)",
+    "render": "Parallelogram ABCD with the same vertices, interior segments and dashed/solid pattern as the original"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_03",
+        "seg_04",
+        "seg_05"
+      ],
+      "bbox": [
+        0.05,
+        0.2,
+        0.95,
+        0.8
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Outline strokes in the render (AB, AD, DC, BC) look slightly thinner than in the original, which uses a heavier stroke weight.",
+      "suggestion": "Optionally increase line width slightly (e.g. from 1.4pt toward 1.6pt) for the outer solid outline. This is a minor cosmetic point and may be ignored."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "unclear",
+      "note": "No circular arc is visible in the original or the render; likely a CV artifact, not a figure element."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Solid C–G segment, ending at G, matches the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Solid C–B side of the parallelogram is drawn correctly."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Solid bottom side AB is drawn correctly."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Solid left side DA is drawn correctly."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Solid top side DC is drawn correctly."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Dashed E–C diagonal matches the original."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Dashed D–B diagonal matches the original."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "unclear",
+      "note": "Collinear fragment of the dashed E–C line extending past E; it is not a separate element in the original, so it is treated as part of seg_06."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "present",
+      "note": "Dashed E–N segment matches the original."
+    },
+    {
+      "object_id": "seg_10",
+      "status": "present",
+      "note": "Solid B–G portion of the E–G–B polyline matches the original."
+    },
+    {
+      "object_id": "seg_11",
+      "status": "present",
+      "note": "Fragment of the dashed D–B line, covered by seg_07."
+    },
+    {
+      "object_id": "seg_12",
+      "status": "present",
+      "note": "Dashed G–N segment matches the original."
+    },
+    {
+      "object_id": "seg_13",
+      "status": "present",
+      "note": "Solid E–F segment matches the original."
+    },
+    {
+      "object_id": "seg_14",
+      "status": "present",
+      "note": "Solid E–G portion of the E–G–B polyline matches the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Solid AB is drawn correctly."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Solid BC is drawn correctly."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Solid CD is drawn correctly."
+    },
+    {
+      "object_id": "seg_CG",
+      "status": "present",
+      "note": "Solid C–G is present in the render and ends at G, as in the original."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Solid DA is drawn correctly."
+    },
+    {
+      "object_id": "seg_DB",
+      "status": "present",
+      "note": "Dashed D–B is drawn correctly."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "Dashed E–C is drawn correctly."
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "Solid E–F is drawn correctly."
+    },
+    {
+      "object_id": "seg_EG",
+      "status": "present",
+      "note": "Solid E–G, continuing to B as a shallow bend, is drawn correctly."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Parallelogram ABCD outline and vertex positions match the original.",
+    "Solid C–G segment is present and terminates at G.",
+    "Solid E–G–B polyline with the shallow bend at G is preserved.",
+    "Solid E–F is present and attached to the correct points.",
+    "Dashed E–C, D–B, E–N and G–N match the original's dash pattern and endpoints.",
+    "Label placement for A, B, C, D, E, F, G and N is consistent with the original."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "N"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 2,
+  "raw_meta": "{}"
+}

@@ -7,6 +7,17 @@ import pytest
 from geoagent.cv_tools.registry import call_cv_tool
 
 
+def test_free_endpoints_bind_visible_labels_without_pulling_junctions():
+    from geoagent.cv_tools.label_detection import bind_point_labels
+    root=Path(__file__).resolve().parents[1]
+    result=bind_point_labels(root/'data/test/image/50_q_fig1.png',visualize=False)
+    bindings={b['char']:b['point_px'] for b in result['results']['bindings']}
+    assert bindings['P']==pytest.approx([49,349],abs=1)
+    assert bindings['Q']==pytest.approx([470,349],abs=1)
+    assert bindings['A']==pytest.approx([142,349],abs=1)
+    assert result['params']['free_endpoint_candidates']>=2
+
+
 @pytest.fixture(scope="module")
 def circles_payload(tmp_path_factory, semicircle_item):
     out = tmp_path_factory.mktemp("cv_circles")

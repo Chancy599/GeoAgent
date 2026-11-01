@@ -71,6 +71,11 @@ def archive_and_clean(result: dict[str, Any], archive_root: str | Path = "output
 
     for log in ARCHIVE_LOGS:
         _copy(run_dir / log, target / log)
+    if best is not None:
+        version_dir = run_dir / "tikz" / f"v{best}"
+        for name in ("unrepaired.tex", "constraint_repair.json"):
+            if not _copy(version_dir / name, target / name) and (target / name).is_file():
+                (target / name).unlink()
     # A re-run of the same stem must not keep the previous run's report.
     report = (version or {}).get("critic_report")
     if report:

@@ -1,0 +1,173 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original trapezoid ABCD with diagonals AC and BD crossing, and no O label appears in either panel; the only visible difference is slightly lighter stroke weight.",
+  "figure_type": {
+    "original": "Trapezoid ABCD (AD parallel to BC) with both diagonals AC and BD drawn, legs AB and DC, and an unlabelled crossing point of the diagonals",
+    "render": "Trapezoid ABCD (AD parallel to BC) with both diagonals AC and BD drawn, legs AB and DC, and an unlabelled crossing point of the diagonals"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_AD",
+        "seg_BC",
+        "seg_AB",
+        "seg_DC",
+        "seg_AC",
+        "seg_BD"
+      ],
+      "bbox": [
+        0.03,
+        0.17,
+        0.48,
+        0.82
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Segment strokes in the render are thinner than in the original; the original lines look noticeably bolder relative to the figure size.",
+      "suggestion": "Increase line width for the segments (e.g. use a thicker stroke such as 'thick' or line width of about 0.8pt instead of the default thin width) so the stroke weight matches the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom side BC drawn horizontally, same extent as original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Diagonal AC from A to C matches original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Diagonal BD from D to B matches original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Leg DC matches original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Leg AB matches original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Top side AD matches original; endpoints align with A and D."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment AB drawn and labelled consistently with the original."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Segment AC drawn; crosses BD at the same interior point as the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Top side AD drawn between A and D as in original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Base BC drawn between B and C as in original."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Segment BD drawn; crosses AC at the same interior point as the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Segment DC drawn as in original."
+    },
+    {
+      "object_id": "poly_ABCD",
+      "status": "present",
+      "note": "Outline of trapezoid ABCD matches the original shape and vertex positions."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Vertex C at bottom right, label C present in both panels."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Vertex B at bottom left, label B present in both panels."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Vertex A at top left, label A present in both panels."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Vertex D at top right, label D present in both panels."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Same vertex as point_04; A correctly placed."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Same vertex as point_02; B correctly placed."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Same vertex as point_01; C correctly placed."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Same vertex as point_05; D correctly placed."
+    },
+    {
+      "object_id": "point_O",
+      "status": "unclear",
+      "note": "The diagonal crossing exists in both panels, but no O label is visible in the original, so the O label is correctly absent from the render."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Trapezoid outline ABCD with AD parallel to BC matches the original",
+    "Both diagonals AC and BD are present and cross at the same interior point",
+    "Legs AB and DC are present with correct endpoints",
+    "Vertex labels A, B, C, D are present, correctly spelled and attached to the correct vertices",
+    "No O label in the render, consistent with the original",
+    "Aspect ratio and overall layout are consistent"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 2,
+  "raw_meta": "{}"
+}

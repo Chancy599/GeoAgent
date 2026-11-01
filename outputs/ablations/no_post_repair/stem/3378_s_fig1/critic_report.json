@@ -1,0 +1,165 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original closely: circle extent, chord, segments and point positions agree, and E now sits below-right of its vertex, off the chord. The only discrepancy is the point bound as F, which the original shows as E.",
+  "figure_type": {
+    "original": "Circle centred at D with chord AC, segments AB, AD, DC, vertical ED and point B on DC; labels A, B, C, D, E",
+    "render": "Circle centred at D with chord AC, segments AB, AD, DC, vertical ED and point B on DC; labels A, B, C, D, E"
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_03",
+        "label_03"
+      ],
+      "bbox": [
+        0.5,
+        0.1,
+        0.56,
+        0.16
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The geometry state binds label F to point_03 at the midpoint of AC, but the original shows this vertex labelled E. The render correctly shows E there, so the F binding is a stale OCR artifact and should not be used.",
+      "suggestion": "Keep point_E labelled E at this vertex and do not emit an F label for point_03."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circle extent and centre match the original."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Chord AC (horizontal) is drawn solid in both."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Segment CD is drawn in both."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Segment DA is drawn in both."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Vertical segment ED is drawn in both."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Segment AB is drawn in both."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "AB ends at B on DC, as in the original."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Chord AC matches the original."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "DA matches the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "DC matches the original."
+    },
+    {
+      "object_id": "seg_ED",
+      "status": "present",
+      "note": "ED matches the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label C is at the correct vertex."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label A is at the correct vertex."
+    },
+    {
+      "object_id": "point_03",
+      "status": "wrong",
+      "note": "Bound as F, but the original and render both show E at this vertex."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D is at the centre."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label B is at the correct vertex."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "A is correct."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B is correct."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "C is correct."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "D is correct."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "E is below-right of the vertex, off the chord, matching the original."
+    }
+  ],
+  "checklist_score": 0.976,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Circle extent and centre match the original.",
+    "Chord AC, segments AB, AD, DC and vertical ED are all present and end at the right points.",
+    "E label now sits below-right of its vertex and is not on the chord.",
+    "Labels A, B, C and D are correctly placed."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "missing": [],
+    "extra": [
+      "F (bound to point_03 in the geometry state; not visible in either panel)"
+    ]
+  },
+  "version": 2,
+  "raw_meta": "{}"
+}

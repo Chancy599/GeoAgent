@@ -1,0 +1,162 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original closely: E lies on AD with BE and CE drawn to it, and labels A, B, C, D, E sit at the correct vertices. The only discrepancy is a spurious 'J' label bound to the B vertex in the geometry state.",
+  "figure_type": {
+    "original": "Parallelogram ABDC with point E on side AD, joined to B and C by straight segments (no arcs, no right-angle marks visible)",
+    "render": "Same parallelogram with E on AD, BE and CE drawn; no arcs or right-angle marks"
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_05",
+        "label_01"
+      ],
+      "bbox": [
+        0.41,
+        0.22,
+        0.49,
+        0.33
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The state binds the label 'J' to point_05 at the B vertex. The original shows 'B' there and no 'J' anywhere. The render correctly shows 'B', so the 'J' binding is a stale or misread CV label.",
+      "suggestion": "Do not render a 'J' label. Keep the single label 'B' at the top-left vertex and drop the J binding for point_05 (or merge it into point_B)."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "CE drawn from C to E; the CV overhang past E was deliberately trimmed to the vertex, which matches the original at this scale."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Diagonal A to D through E, correctly placed."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Left side B to C, correctly placed."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Bottom side C to D, horizontal and correct."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Top side B to A, horizontal and correct."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "BE from B to E, correct."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Line A to D passes through E in both panels."
+    },
+    {
+      "object_id": "seg_BA",
+      "status": "present",
+      "note": "Top edge present."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Left edge present."
+    },
+    {
+      "object_id": "seg_BE",
+      "status": "present",
+      "note": "Drawn from B to E."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Bottom edge present."
+    },
+    {
+      "object_id": "seg_CE",
+      "status": "present",
+      "note": "Drawn from C to E, ending at E."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label E sits at the right-hand vertex on AD, matching the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label C is at the lower-left vertex, correct."
+    },
+    {
+      "object_id": "point_05",
+      "status": "wrong",
+      "note": "Bound to label 'J', but the vertex is B in both panels; no J appears in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Label A at the upper-right vertex, correct."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Label B at the top-left vertex, correct."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C at lower left, correct."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D at lower right, correct."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "E lies on AD, correct."
+    }
+  ],
+  "checklist_score": 0.975,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "E lies on segment AD between A and D",
+    "BE and CE drawn to E",
+    "Vertices A, B, C, D positioned as in the original",
+    "Labels A, B, C, D, E present at the correct vertices",
+    "Parallelogram proportions and orientation match",
+    "Solid line style throughout"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "missing": [],
+    "extra": [
+      "J (bound in the geometry state to the B vertex; not visible in the original or render)"
+    ]
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}

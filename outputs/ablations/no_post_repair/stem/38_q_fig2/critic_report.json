@@ -1,0 +1,138 @@
+{
+  "assessment_score": 0.95,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original quadrilateral ABCD: the same four vertices, edge extents and labels, with no extra or missing elements.",
+  "figure_type": {
+    "original": "Convex quadrilateral ABCD drawn with four solid edges and no diagonals, labels A (top), D (right), B (left), C (bottom)",
+    "render": "Convex quadrilateral ABCD with four solid edges and no diagonals, labels A (top), D (right), B (left), C (bottom)"
+  },
+  "issues": [
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "seg_AD",
+        "seg_DC"
+      ],
+      "bbox": [
+        0.8,
+        0.3,
+        0.98,
+        0.7
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The geometry state lists seg_AD perpendicular seg_DC, but neither panel shows a right-angle mark at D, and the drawn angle at D is roughly 100 degrees, not 90. The relation does not match the figure, although the render itself is faithful to the original.",
+      "suggestion": "Do not use the perpendicular relation for AD/DC as a verified fact in the TikZ. Leave the angle unmarked, or verify the angle from the original before adding a right-angle mark."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Edge C-B (lower-left side) is drawn in the render with matching extent and solid style."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Edge D-C (right side) is drawn in the render with matching extent and solid style."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Edge A-D (upper-right side) is drawn in the render with matching extent and solid style."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Edge A-B (upper-left side) is drawn in the render with matching extent and solid style."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment AB is drawn between A and B as in the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Segment AD is drawn between A and D as in the original."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Segment CB is drawn between C and B as in the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Segment DC is drawn between D and C as in the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Vertex C is at the bottom corner in both panels; label C sits below it in both."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Vertex B is at the left corner in both panels; label B sits to its left in both."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Vertex D is at the right corner in both panels; label D sits to its right in both."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Vertex A is at the top corner in both panels; label A sits above it in both."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Same location and label as point_04 (A); matches the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Same location and label as point_02 (B); matches the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Same location and label as point_01 (C); matches the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Same location and label as point_03 (D); matches the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Four vertices A, B, C, D sit at matching positions in both panels (after accounting for the panel offset).",
+    "All four edges AB, BC/CB, CD/DC and DA/AD have matching endpoints and extents, with no overhang or trimming.",
+    "All four vertex labels are present, correctly spelled, italic and attached to the correct vertex.",
+    "No diagonals and no right-angle marks appear in either panel, so the render adds nothing extra.",
+    "Stroke weight and label size are comparable between the panels."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "raw_meta": "{}"
+}
