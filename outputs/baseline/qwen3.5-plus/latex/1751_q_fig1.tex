@@ -1,0 +1,54 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (-0.5, 3);
+    \coordinate (B) at (-2, -1);
+    \coordinate (C) at (5, 3);
+    \coordinate (D) at (-2.5, -4);
+    \coordinate (E) at (2, -4);
+    \coordinate (F) at (-5, 1);
+
+    % Draw solid lines
+    % Triangle ABC
+    \draw (A) -- (B);
+    \draw (A) -- (C);
+    \draw (B) -- (C);
+    
+    % Triangle BDE
+    \draw (B) -- (D);
+    \draw (D) -- (E);
+    \draw (E) -- (B);
+    
+    % Triangle FBD (shares BD)
+    \draw (F) -- (B);
+    \draw (F) -- (D);
+    
+    % Draw dashed lines (radiating from O)
+    \draw[dashed] (O) -- (A);
+    \draw[dashed] (O) -- (B);
+    \draw[dashed] (O) -- (C);
+    \draw[dashed] (O) -- (D);
+    \draw[dashed] (O) -- (E);
+    \draw[dashed] (O) -- (F);
+    
+    % Draw right angle mark at O (between OB and OE)
+    % OB vector is approx (-2, -1), OE vector is approx (2, -4). They are perpendicular.
+    % Unit vectors approx: u_OB = (-0.89, -0.45), u_OE = (0.45, -0.89)
+    % Scale 0.5
+    \coordinate (P_OB) at (-0.45, -0.22);
+    \coordinate (P_OE) at (0.22, -0.45);
+    \coordinate (P_Corner) at (-0.23, -0.67);
+    \draw (P_OB) -- (P_Corner) -- (P_OE);
+
+    % Label points
+    \node[above] at (A) {$A$};
+    \node[left] at (B) {$B$};
+    \node[right] at (C) {$C$};
+    \node[below left] at (D) {$D$};
+    \node[below] at (E) {$E$};
+    \node[left] at (F) {$F$};
+    \node[right] at (O) {$O$};
+\end{tikzpicture}
+\end{document}

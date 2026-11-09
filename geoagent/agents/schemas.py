@@ -34,24 +34,14 @@ SUPERVISOR_TOOLS = CV_TOOL_SCHEMAS + [
         "function": {
             "name": "run_geometry_agent",
             "description": (
-                "Delegate to the Geometry subagent: it runs CV tools itself and "
-                "submits consolidated geometric objects/relations/conflicts."
+                "Ask the Geometry Agent to consolidate fragmented CV measurements into "
+                "geometric objects and relations, or obtain targeted CV measurements. "
+                "Useful for complex curves, repeated detections or missing construction evidence."
             ),
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "instruction": {"type": "string", "description": "Precise task and focus."},
-                    "use_image": {
-                        "type": "boolean",
-                        "description": "Let the subagent see the original image (costs a visual call).",
-                    },
-                    "roi": {
-                        "type": "array",
-                        "items": {"type": "number"},
-                        "minItems": 4,
-                        "maxItems": 4,
-                        "description": "Optional crop for the subagent.",
-                    },
+                    "instruction": {"type": "string", "description": "Geometric object or measurement to consolidate."},
                 },
                 "required": ["instruction"],
             },
@@ -60,9 +50,9 @@ SUPERVISOR_TOOLS = CV_TOOL_SCHEMAS + [
     {
         "type": "function",
         "function": {
-            "name": "run_tikz_agent",
+            "name": "run_code_agent",
             "description": (
-                "Delegate to the TikZ subagent. mode=generate writes a first figure from "
+                "Delegate to the Code Agent. mode=generate writes a first figure from "
                 "the geometry state; mode=repair fixes the latest version using compiler "
                 "errors and critic feedback. Compilation/render/validation happen "
                 "automatically afterwards."
@@ -87,7 +77,8 @@ SUPERVISOR_TOOLS = CV_TOOL_SCHEMAS + [
             "name": "run_critic",
             "description": (
                 "Ask the Critic to compare the latest successful render with the original "
-                "figure and list concrete mismatches. Costs one visual call."
+                "figure, list concrete mismatches, and review pending endpoint cases "
+                "against the original. Costs one visual call."
             ),
             "parameters": {
                 "type": "object",
@@ -159,7 +150,7 @@ TIKZ_TOOLS = [
 SUPERVISOR_NAMES = [
     "inspect_image",
     "run_geometry_agent",
-    "run_tikz_agent",
+    "run_code_agent",
     "run_critic",
     "finish",
 ]

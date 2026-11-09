@@ -1,0 +1,121 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original parallelogram ABCD: all four sides meet at the correct vertices, labels are bound to the right corners and sit clear of strokes. The only discrepancy is heavier stroke weight.",
+  "figure_type": {
+    "original": "parallelogram ABCD (quadrilateral with AD parallel to BC)",
+    "render": "parallelogram ABCD (quadrilateral with AD parallel to BC)"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_03",
+        "seg_04"
+      ],
+      "bbox": [
+        0.03,
+        0.33,
+        0.95,
+        0.66
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "All four solid sides are drawn noticeably heavier than in the original (render strokes look roughly 1.5 to 2 times the original width relative to figure size). Overall the render looks bolder.",
+      "suggestion": "Reduce the global line width, e.g. change \\begin{tikzpicture}[line width=2.2pt, ...] to about line width=1.2pt or 1.4pt, and re-check against the original stroke weight."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom side BC is drawn from B to C, solid, with matching extent and endpoints."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top side AD is drawn from A to D, solid, with matching extent and endpoints."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Right side DC is present and joins D and C as in the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Left side AB is present and joins A and B as in the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Vertex C is at the bottom-right corner, with its label bound correctly."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Vertex B is at the bottom-left corner, with its label bound correctly."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Vertex D is at the top-right corner, with its label bound correctly."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Vertex A is at the top-left corner, with its label bound correctly."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Four-vertex parallelogram shape, with top and bottom sides horizontal and the slant sides matching the original angle.",
+    "Vertex positions A (top-left), D (top-right), B (bottom-left), C (bottom-right) match the original.",
+    "Side AD and side BC both end exactly at their corners with no overhangs or stubs.",
+    "All four labels are present, spelled correctly, and placed on the same side of their vertices as in the original (A above-left, D above-right, B below-left, C below-right).",
+    "Labels have clear separation from the strokes and from each other.",
+    "No dashed styles are involved; all strokes are solid in both panels.",
+    "Aspect ratio and overall layout are consistent with the original."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "39f0b2a1904fff0c",
+      "edge": [
+        "B",
+        "C"
+      ],
+      "reason": "The original bottom stroke runs continuously from the B label corner to the C label corner, so it joins B and C."
+    },
+    {
+      "case_id": "d354d1f36b0d5b6f",
+      "edge": [
+        "A",
+        "D"
+      ],
+      "reason": "The original top stroke runs continuously from the A corner to the D corner, so it joins A and D."
+    }
+  ],
+  "raw_meta": "{}"
+}

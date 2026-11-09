@@ -6,9 +6,9 @@ DINO are directly comparable.  Per-group valid-set metrics are also
 reported when a group covers more images than the shared subset.
 
     python scripts/compare_e2e_visual.py \
-        --group haiku-5.5=outputs/baselines/haiku-5.5/image \
-        --group qwen3.5-plus=outputs/baselines/qwen3.5-plus/image \
-        --group gpt-5.4=outputs/baselines/gpt-5.4/image \
+        --group haiku-5.5=outputs/baseline/haiku-5.5/image \
+        --group qwen3.5-plus=outputs/baseline/qwen3.5-plus/image \
+        --group gpt-5.4=outputs/baseline/gpt-5.4/image \
         --ref-dir data/test/image --out outputs/metrics/e2e-compare.json
 """
 from __future__ import annotations

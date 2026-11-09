@@ -1,0 +1,115 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original's vertices, segments, edge topology and labels (A–F). The only visible difference is the dash style of FE, which looks denser and dotted in the render.",
+  "figure_type": {
+    "original": "quadrilateral ABCD with interior point E on DC, line AE, and dashed FE, with F on AB",
+    "render": "same quadrilateral ABCD with E, AE, dashed FE and F on AB"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_04"
+      ],
+      "bbox": [
+        0.03,
+        0.48,
+        0.37,
+        0.52
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Dashed segment FE (seg_04) renders with short, dense dashes that read as dotted, and looks heavier than the original's longer, lighter dashes.",
+      "suggestion": "Use a dash pattern with longer dashes and wider gaps (e.g. dash 4pt gap 3pt) and consider a thinner line width for this dashed stroke."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom edge BC is drawn from B to C, matching the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Segment DC runs through E to C, matching the original's continuous line."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Segment AE is drawn from A to E, matching the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Dashed FE is in the correct position from F to E; only the dash style differs (see issue)."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Left side A–F–B is drawn with the correct bend at F."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Top edge AD is drawn from A to D, matching the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "C is labelled at the bottom-right vertex, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "B is labelled at the bottom-left vertex, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "D is labelled above the top-right vertex, as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "A is labelled above-left of the top-left vertex, as in the original."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "F is labelled left of the point on AB, as in the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Vertices A, B, C, D, F and interior point E are in the correct positions.",
+    "Edge topology matches: AD, DE–C, CB, BF–A, AE, and dashed FE.",
+    "The D–E–C line is continuous through E, as in the original.",
+    "All six labels (A, B, C, D, E, F) are present, correctly spelled and bound to their vertices, with no collisions with strokes."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

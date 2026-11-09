@@ -1,0 +1,25 @@
+import fs from 'node:fs/promises';
+import {PresentationFile,FileBlob} from '@oai/artifact-tool';
+const root='D:/Users/18217/Desktop/我的文件/GeoAgent';
+const dir=root+'/.codex-build/discussion_simplified';
+await fs.copyFile(root+'/1102讨论.pptx',dir+'/original.pptx');
+const p=await PresentationFile.importPptx(await FileBlob.load(dir+'/original.pptx'));
+function set(slide,name,value,pos){const s=slide.shapes.items.find(x=>x.name===name);if(!s)throw Error(name);s.text=value;if(pos)s.position=pos;}
+const a=p.slides.items[0],b=p.slides.items[1];
+set(a,'step2','02  一起微调，让几何关系更规整');
+set(a,'step2detail','把接近垂直的边一起微调，让它们更规整。\n同时保留交点的位置，尽量少改动原图。');
+for(const n of ['opt-objective','opt-definition','opt-iteration'])set(a,n,'');
+set(a,'step3','03  检查调整是否合理',{left:580,top:487,width:970,height:38});
+set(a,'step3detail','检查调整后有没有把图形拉歪、线段拉长。\n不合适的调整就撤回，再尝试其他约束。',{left:580,top:530,width:970,height:70});
+set(a,'step4','04  写回代码，再检查一次',{left:580,top:620,width:970,height:38});
+set(a,'step4detail','把修改后的坐标写回代码，再读回来核对。\n确认几何关系和整体结构都没问题后保留结果。',{left:580,top:663,width:970,height:70});
+set(b,'phase1','01  找出圆和线段，整理图形结构');
+set(b,'phase2','02  生成代码，编译后检查');
+set(b,'phase3','03  按检查意见修改，再次确认');
+set(b,'cvdetail','先从图像中找出可能的圆和圆弧，\n再检查这些轨迹是否真的有笔画支持。\n结合原图保留完整圆，排除多余候选。\n线段和标签也一起识别出来。');
+set(b,'gesdetail','把圆心、半径、顶点和连线整理到一起，\n明确哪些线相交、各标签对应哪里，\n供后续生成代码时使用。');
+set(b,'v1detail','根据整理好的信息画出图形，\n把圆、线段和标签放到同一坐标系中。\n编译成图片后，与原图进行对照，\n交给 Critic 检查连接和细节。');
+set(b,'v2detail','Critic 发现几条线稍微伸出了圆周。\n只把这些端点收回圆上，保留其他部分。\n重新编译并再次对照原图，\n确认问题已解决后输出结果。');
+set(b,'effect','Critic 的作用：\n在主体已经画对的情况下，\n继续检查并修正局部连接细节。');
+await(await PresentationFile.exportPptx(p)).save(dir+'/authored.pptx');
+console.log('targeted text edits authored');

@@ -1,0 +1,169 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render is geometrically faithful: circle centred at D with the same radius and crossing of AD near H, all five segments end at the same vertices, and all five labels are present and bound correctly. The only visible difference is heavier stroke weight in the original.",
+  "figure_type": {
+    "original": "full circle centred at D (radius through H) with triangle ABD, cevians through H and E, and segments A-E, E-D",
+    "render": "full circle centred at D (radius through H) with triangle ABD, cevians through H and E, and segments A-E, E-D"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_03",
+        "seg_04",
+        "seg_05",
+        "seg_06"
+      ],
+      "bbox": [
+        0.02,
+        0.12,
+        0.98,
+        0.88
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Stroke weight in the render is lighter than the original. The original lines and circle are visibly bolder, while the render uses line width 0.9pt.",
+      "suggestion": "Increase line width (e.g. line width=1.2pt) for the segments and the circle to match the original's heavier stroke. Optional, since the figure is otherwise faithful."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Horizontal A-D line matches the original, ending at A and D."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "B-D diagonal matches the original and ends at D."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "E-D segment matches the original and ends at E and D."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "A-B side matches the original and ends at A and B."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Vertical B-H line through E matches the original, ending at B and H."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "A-E segment matches the original and terminates at E without overhang."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label D is at the correct vertex, to the right of D as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label A is at the correct vertex, lower-left as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label H is below H, matching the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label B is above B, matching the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label E is left of E, matching the original, with clear separation from the strokes."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Circle centred at D passes through H and crosses AD to the left of H, matching the original extent.",
+    "Edge topology A-B, B-D, A-D, B-H through E, A-E, E-D matches the original.",
+    "E lies on the vertical BH line and is the common endpoint of A-E and E-D.",
+    "Labels A, B, D, E, H are present, correctly spelled and bound to their vertices.",
+    "Aspect ratio and overall layout match the original."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "H"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "abe3048f3b3eab88",
+      "edge": [
+        "A",
+        "D"
+      ],
+      "reason": "Original shows a continuous horizontal stroke joining A and D."
+    },
+    {
+      "case_id": "f04fa84babd04b9d",
+      "edge": [
+        "B",
+        "D"
+      ],
+      "reason": "Original shows the diagonal from B to D ending at D."
+    },
+    {
+      "case_id": "8b7417b02f4512cd",
+      "edge": [
+        "D",
+        "E"
+      ],
+      "reason": "Original shows a stroke from E to D; E is the upper end and does not continue past it."
+    },
+    {
+      "case_id": "920dc71c4130c586",
+      "edge": [
+        "A",
+        "B"
+      ],
+      "reason": "Original shows the left side of the triangle joining A and B."
+    },
+    {
+      "case_id": "ca4ac8a4a163c39f",
+      "edge": [
+        "B",
+        "H"
+      ],
+      "reason": "Original shows a single vertical stroke from B down to H passing through E."
+    },
+    {
+      "case_id": "cd0a7793573739ad",
+      "edge": [
+        "A",
+        "E"
+      ],
+      "reason": "Original shows the stroke from A ending at E, with no visible continuation beyond E."
+    }
+  ],
+  "raw_meta": "{}"
+}

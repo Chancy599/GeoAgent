@@ -548,7 +548,7 @@ def detect_lines(
                 color = (230, 140, 20)
             draw_segment(overlay, item["a_px"], item["b_px"], color, 2)
             draw_label(overlay, item["id"], item["a_px"], color)
-        base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+        base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
         viz = save_png(base / "detect_lines.png", overlay)
 
     notes = []
@@ -619,7 +619,7 @@ def merge_collinear_segments_tool(
         for group in groups:
             draw_segment(overlay, group["a_px"], group["b_px"], (30, 160, 60), 2)
             draw_label(overlay, group["id"], group["a_px"], (30, 160, 60))
-        base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+        base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
         viz = save_png(base / "merge_collinear_segments.png", overlay)
     return envelope(
         "merge_collinear_segments",
@@ -679,7 +679,7 @@ def analyze_line_style(
             color = {"solid": (30, 160, 60), "dashed": (30, 90, 220)}.get(item["style"], (230, 140, 20))
             draw_segment(overlay, item["a_px"], item["b_px"], color, 2)
             draw_label(overlay, f"{item['id']}:{item['style']}", item["a_px"], color)
-        base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+        base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
         viz = save_png(base / "analyze_line_style.png", overlay)
     return envelope(
         "analyze_line_style",

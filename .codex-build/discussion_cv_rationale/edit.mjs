@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';
+import {PresentationFile,FileBlob} from '@oai/artifact-tool';
+const d='D:/Users/18217/Desktop/我的文件/GeoAgent/.codex-build/discussion_cv_rationale';
+const p=await PresentationFile.importPptx(await FileBlob.load(d+'/original.pptx'));
+const s=p.slides.items[2];
+const before=await p.export({slide:s,format:'png',scale:1});await fs.writeFile(d+'/before-3.png',new Uint8Array(await before.arrayBuffer()));
+const z=s.shapes.add({geometry:'textbox',name:'cv-repair-rationale',position:{left:55,top:110,width:1490,height:34},fill:'none',line:{fill:'none',width:0}});
+z.text='CV 测量受像素、线宽和交点定位影响，生成坐标可能有细微偏差，因此用几何约束做小幅修正。';
+z.text.style={typeface:'Microsoft YaHei',fontSize:23,color:'#526575',insets:0,autoFit:'none',verticalAlignment:'top'};
+await(await PresentationFile.exportPptx(p)).save(d+'/authored.pptx');

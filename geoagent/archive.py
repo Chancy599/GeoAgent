@@ -86,7 +86,7 @@ def archive_and_clean(result: dict[str, Any], archive_root: str | Path = "output
         (target / "critic_report.json").unlink()
     _copy(state_path, target / "state.json")
 
-    # Benchmark-friendly mirrors, mirroring outputs/baselines/<model>/.
+    # Benchmark-friendly mirrors, mirroring outputs/baseline/<model>/.
     if wrote_tex:
         mirror = root / "latex" / f"{stem}.tex"
         mirror.parent.mkdir(parents=True, exist_ok=True)

@@ -292,7 +292,7 @@ def _detect_square_fallback(
     markers: list[dict[str, Any]] = []
     for marker in found:
         if all(
-            float(np.linalg.norm(marker["_vertex"] - kept["_vertex"])) > 0.6 * cap_h
+            math.dist(marker["vertex_px"], kept["vertex_px"]) > 0.6 * cap_h
             for kept in markers
         ):
             marker.pop("_score", None)
@@ -468,15 +468,16 @@ def detect_right_angle_marker(
                 }
             )
 
-    if not markers:
-        # Dashed arms never form a long structural line; fall back to pairing
-        # the short square-mark strokes themselves.
-        markers = _detect_square_fallback(
-            skel, roi_box, structural, dil, dil_independent, stroke_w, cap_h
-        )
-        for marker in markers:
-            vertex = marker["vertex_px"]
-            marker["vertex_norm"] = normalize_point(vertex[0], vertex[1], width, height)
+    # Short square strokes can reveal a dashed arm even in a figure with
+    # other, already detected marks on solid arms.
+    for marker in _detect_square_fallback(
+        skel, roi_box, structural, dil, dil_independent, stroke_w, cap_h
+    ):
+        vertex = marker["vertex_px"]
+        if any(math.dist(vertex, found["vertex_px"]) <= 0.6 * cap_h for found in markers):
+            continue
+        marker["vertex_norm"] = normalize_point(vertex[0], vertex[1], width, height)
+        markers.append(marker)
 
     for idx, marker in enumerate(markers, start=1):
         marker["id"] = f"right_angle_{idx:02d}"
@@ -497,7 +498,7 @@ def detect_right_angle_marker(
             x1 = max(p[0] for p in pts) + 4
             y1 = max(p[1] for p in pts) + 4
             draw_box(overlay, [x0, y0, x1, y1], (230, 120, 20), 1)
-        base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+        base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
         viz = save_png(base / "detect_right_angle_marker.png", overlay)
 
     notes = []

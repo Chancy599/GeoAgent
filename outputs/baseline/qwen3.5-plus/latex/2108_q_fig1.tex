@@ -1,0 +1,47 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    % Base BC
+    \coordinate (B) at (0,0);
+    \coordinate (C) at (10,0);
+    
+    % Point E such that angle BEC = 90 degrees.
+    % Placed at approx (2.5, 4.33) to satisfy the right angle with B and C.
+    \coordinate (E) at (2.5, 4.3301);
+    
+    % Point A such that angle BAC = 90 degrees.
+    % Placed symmetrically at approx (7.5, 4.33).
+    \coordinate (A) at (7.5, 4.3301);
+    
+    % Point D is the intersection of AB and EC.
+    % Calculated based on the lines.
+    \coordinate (D) at (5, 2.8867);
+
+    % Draw edges
+    \draw (B) -- (C);
+    \draw (B) -- (E);
+    \draw (E) -- (C);
+    \draw (A) -- (C);
+    \draw (A) -- (B);
+    
+    % Draw right-angle mark at E (between BE and EC)
+    \coordinate (E1) at ($(E)!0.3cm!(B)$);
+    \coordinate (E2) at ($(E)!0.3cm!(C)$);
+    \draw (E1) -- ($(E1)+(E2)-(E)$) -- (E2);
+    
+    % Draw right-angle mark at A (between AB and AC)
+    \coordinate (A1) at ($(A)!0.3cm!(B)$);
+    \coordinate (A2) at ($(A)!0.3cm!(C)$);
+    \draw (A1) -- ($(A1)+(A2)-(A)$) -- (A2);
+    
+    % Labels
+    \node[above left] at (E) {$E$};
+    \node[above right] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[below] at (D) {$D$};
+\end{tikzpicture}
+\end{document}

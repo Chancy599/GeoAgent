@@ -1,0 +1,106 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original's topology and line styles: solid triangle sides, solid GD and GC, and dashed A-G-E and B-G-H cevians. The only discrepancy is that the point labels are rendered much smaller than in the original.",
+  "figure_type": {
+    "original": "triangle ABC with cevians A-G-E and B-G-H meeting at G, plus solid segments GD and GC; D and E lie on BC, H lies on AC",
+    "render": "same triangle and construction; dashed A-G-E and B-G-H, solid GD and GC; labels set at about 6pt"
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [],
+      "bbox": [
+        0.04,
+        0.15,
+        0.96,
+        0.85
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Point labels A, B, C, D, E, G, H are all present and bound to the correct vertices, but they are rendered at roughly 6pt, much smaller than the original's math-mode letters. The difference is obvious and makes the labels look disproportionate to the figure.",
+      "suggestion": "Increase the label font size (for example \\fontsize{11}{13}\\selectfont or a \\large-equivalent) or drop the explicit \\fontsize call and use the default math size, keeping each node's anchor and vertex binding unchanged."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Solid side AB from B to A; correct in the render."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Solid side BC along the base; correct in the render."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Solid side AC from A to C; H sits on it as in the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Dashed B-to-G portion of the B-G-H cevian; matches the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Solid GC from G to C; matches the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Dashed A-to-G portion of the A-G-E cevian; matches the original."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Dashed G-to-H portion of the B-G-H cevian; ends at H on AC as in the original."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Dashed G-to-E portion of the A-G-E cevian; ends at E on BC as in the original."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "present",
+      "note": "Solid GD from G to D on BC; matches the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Triangle ABC with the correct vertex positions and aspect ratio",
+    "Dashed A-G-E cevian: passes through G and ends at E on BC",
+    "Dashed B-G-H cevian: passes through G and ends at H on AC",
+    "Solid GD and GC, with the correct endpoints",
+    "Labels A, B, C, D, E, G, H are all present and placed on the correct vertices, with clear separation from the strokes",
+    "Stroke weights of the triangle sides and inner segments are comparable to the original"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

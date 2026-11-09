@@ -1,0 +1,42 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (C) at (0,0);
+    \coordinate (A) at (-9,0);
+    \coordinate (E) at (2.5,0);
+    \coordinate (D) at (0,2);
+    \coordinate (O) at (0,3.5);
+    
+    % Radius
+    \def\radius{1.5}
+    
+    % Point B on the circle
+    % Placed at 200 degrees to match the visual (bottom-left quadrant relative to O)
+    \coordinate (B) at ({\radius * cos(200)}, {3.5 + \radius * sin(200)});
+    
+    % Draw the circle
+    \draw (O) circle (\radius);
+    
+    % Draw solid lines
+    \draw (A) -- (C) -- (E); % Horizontal base line
+    \draw (C) -- (D); % Vertical segment from base to circle
+    \draw (D) -- (E); % Slanted segment
+    \draw (A) -- (B); % Slanted segment from A to circle
+    
+    % Draw dashed lines
+    \draw[dashed] (O) -- (B); % Radius OB
+    \draw[dashed] (O) -- (D); % Radius OD
+    
+    % Draw right-angle mark at C
+    \draw (0, 0.3) -- (0.3, 0.3) -- (0.3, 0);
+    
+    % Labels
+    \node[below left] at (A) {$A$};
+    \node[above left] at (B) {$B$};
+    \node[below] at (C) {$C$};
+    \node[left] at (D) {$D$};
+    \node[above right] at (O) {$O$};
+    \node[below right] at (E) {$E$};
+\end{tikzpicture}
+\end{document}

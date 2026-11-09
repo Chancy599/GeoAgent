@@ -524,7 +524,7 @@ def test_collinear_window_excludes_points_outside_the_span(tmp_path) -> None:
 # runner wiring
 # --------------------------------------------------------------------------- #
 class _FakeTikz:
-    def run(self, mode, instruction, image_path=None):  # noqa: ARG002
+    def run(self, mode, instruction, image_path=None, preserve_cv_coordinates=True):  # noqa: ARG002
         return {"ok": True, "tex": "\\draw (0,0)--(1,0);", "notes": ""}
 
 

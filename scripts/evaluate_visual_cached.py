@@ -67,6 +67,7 @@ def main():
         print(group,json.dumps({k:v*100 for k,v in summary[group].items()}),flush=True)
     result={"schema":"fixed-visual-cached.v1","shared_stems":stems,"count":len(stems),
         "groups":{g:{"summary":summary[g],"per_stem":rows[g],"image_dir":str(groups[g])} for g in groups},
+        "evaluated_image_sha256":hashes,
         "encoder_configs":config,"protocol":"TriGeoBench whole-image fixed protocol; SSIM/CLIP/DINO unchanged; content-addressed features"}
     args.out.parent.mkdir(parents=True,exist_ok=True)
     args.out.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')

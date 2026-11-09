@@ -19,7 +19,7 @@ def test_relaxation_is_between_original_and_full_projection():
     original=extract_geometry(DOC)['points'];f=extract_geometry(full)['points'];h=extract_geometry(half)['points']
     assert a['applied'] and b['applied']
     assert b['max_export_error_deg']>a['max_export_error_deg']
-    for n in original:np.testing.assert_allclose(h[n],(np.array(original[n])+f[n])/2,atol=1e-14)
+    for n in original:np.testing.assert_allclose(h[n],(np.array(original[n])+f[n])/2,atol=.00075,rtol=0)
 
 
 def test_relation_family_filter_is_respected():

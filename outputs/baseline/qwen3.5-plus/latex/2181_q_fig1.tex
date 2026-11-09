@@ -1,0 +1,50 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates based on the analysis
+    % H is the foot of the altitude, let's place it at the origin
+    \coordinate (H) at (0,0);
+    % A is to the left on the horizontal line
+    \coordinate (A) at (-2.5,0);
+    % D is to the right on the horizontal line
+    \coordinate (D) at (3.5,0);
+    % B is the top vertex, on the vertical line through H
+    \coordinate (B) at (0,4.5);
+    % E is on BH, between B and H
+    \coordinate (E) at (0,2);
+
+    % The circle passes through B, E, and D.
+    % We calculate the center and radius.
+    % Perpendicular bisector of BE (vertical segment from y=2 to y=4.5) is y = 3.25.
+    % Let Center = (x, 3.25).
+    % Distance squared to E(0,2): x^2 + (2-3.25)^2 = x^2 + 1.5625
+    % Distance squared to D(3.5,0): (3.5-x)^2 + (0-3.25)^2 = (3.5-x)^2 + 10.5625
+    % Equating: x^2 + 1.5625 = 12.25 - 7x + x^2 + 10.5625
+    % 1.5625 = 22.8125 - 7x  => 7x = 21.25 => x ≈ 3.0357
+    \coordinate (Center) at (3.0357, 3.25);
+    % Radius squared ≈ 3.0357^2 + 1.5625 ≈ 10.777
+    % Radius ≈ 3.28
+    
+    % Draw the circle
+    \draw (Center) circle (3.28);
+    
+    % Draw the lines
+    \draw (A) -- (D);       % Base line AD
+    \draw (B) -- (H);       % Altitude BH
+    \draw (A) -- (B);       % Side AB
+    \draw (B) -- (D);       % Side BD
+    \draw (A) -- (E);       % Segment AE
+    \draw (E) -- (D);       % Segment ED
+    
+    % Draw the right-angle mark at H
+    % It appears in the corner EHD (top-right relative to H)
+    \draw (0, 0.3) -- (0.3, 0.3) -- (0.3, 0);
+    
+    % Label the points
+    \node[left] at (A) {$A$};
+    \node[above] at (B) {$B$};
+    \node[right] at (D) {$D$};
+    \node[left] at (E) {$E$};
+    \node[below] at (H) {$H$};
+\end{tikzpicture}
+\end{document}

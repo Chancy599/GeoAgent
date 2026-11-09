@@ -1,0 +1,33 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
+\begin{document}
+\begin{tikzpicture}[scale=1.5]
+  % circle
+  \draw (0,0) circle (3.5);
+  % coordinates
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (0,3.5);
+  \coordinate (B) at ({3.5*cos(200)},{3.5*sin(200)});
+  \coordinate (C) at ({3.5*cos(-25)},{3.5*sin(-25)});
+  \coordinate (M) at ($(A)!0.5!(B)$);
+  \coordinate (N) at ($(A)!0.5!(C)$);
+  % edges
+  \draw[thick] (A) -- (B);
+  \draw[thick] (A) -- (C);
+  \draw[thick] (A) -- (O);
+  \draw[thick] (O) -- (M);
+  \draw[thick] (O) -- (N);
+  % right angle marks at M and N
+  \draw ($(M)!8pt!(A)$) -- ($($(M)!8pt!(A)$)!8pt!90:(A)$) -- ($(M)!8pt!(O)$);
+  \draw ($(N)!8pt!(A)$) -- ($($(N)!8pt!(A)$)!8pt!90:(A)$) -- ($(N)!8pt!(O)$);
+  % points
+  \fill (O) circle (2pt);
+  % labels
+  \node[above] at (A) {$A$};
+  \node[below left] at (B) {$B$};
+  \node[below right] at (C) {$C$};
+  \node[above left] at (M) {$M$};
+  \node[above right] at (N) {$N$};
+  \node[below right=1pt] at (O) {$O$};
+\end{tikzpicture}
+\end{document}

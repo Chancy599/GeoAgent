@@ -1,0 +1,196 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original closely: all rectangle edges, the solid and dashed segments, and the labelled vertices are in the correct places, with only a minor label-clearance concern at F.",
+  "figure_type": {
+    "original": "Rectangle ABCD with apex E, a long oblique line through N and M, dashed extensions P-D, D-E, A-F and F-B, and point F on segment C-E",
+    "render": "Same configuration: rectangle ABCD, apex E, oblique line through N and M, and the same dashed and solid segments"
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "seg_09",
+        "point_11"
+      ],
+      "bbox": [
+        0.8,
+        0.56,
+        0.88,
+        0.66
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The dashed F-B stroke passes very close to the glyph of label F in both panels, so the label sits on the stroke rather than clearly beside it. This is inherited from the original and is only a minor clearance issue.",
+      "suggestion": "Optionally move the F label slightly further below-right (for example, anchor 'below right' with a small xshift) so the dashed F-B stroke clears the glyph. Keep the node bound to F."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "unclear",
+      "note": "No arc is visible in the original, so this object cannot be confirmed."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom edge A-B is drawn solid in both panels."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top edge D-C is solid and matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Long oblique line through N and M, extended past M, matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Dashed A-F stroke is present and ends at F as in the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Solid E-F stroke is present and matches the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Left edge A-D is solid and matches the original."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Right edge B-C is solid and matches the original."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Solid C-E stroke is present."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "present",
+      "note": "Dashed F-B stroke is present and ends at B."
+    },
+    {
+      "object_id": "seg_10",
+      "status": "present",
+      "note": "Dashed D-E stroke is present and ends at E."
+    },
+    {
+      "object_id": "seg_11",
+      "status": "present",
+      "note": "Collinear continuation of the dashed D-E line in the detection is the same stroke; the render shows it correctly."
+    },
+    {
+      "object_id": "seg_12",
+      "status": "present",
+      "note": "Solid E-N stroke is present."
+    },
+    {
+      "object_id": "seg_13",
+      "status": "present",
+      "note": "Dashed F-B stroke is present; this is the same stroke as seg_09."
+    },
+    {
+      "object_id": "seg_14",
+      "status": "present",
+      "note": "Solid F-C stroke is present."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label A is at the bottom-left corner of the rectangle."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label B is at the bottom-right corner."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label N is on the upper edge where the oblique line crosses it."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Label D is at the upper-left corner."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "Label C is at the upper-right corner."
+    },
+    {
+      "object_id": "point_10",
+      "status": "present",
+      "note": "Label E is at the apex."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Rectangle ABCD with solid edges AB, DC, AD and BC",
+    "Dashed extensions P-D, D-E, A-F and F-B",
+    "Solid segments E-N, E-C, E-F, F-C and M-F",
+    "Oblique line through N and M extended below M",
+    "Labels A, B, C, D, E, N, P, M and F are present and bound to the correct vertices",
+    "Overall aspect ratio and relative positions match"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "N",
+      "P",
+      "M",
+      "F"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "f1e65fba1e261b36",
+      "edge": [
+        "C",
+        "D"
+      ],
+      "reason": "The original top stroke runs continuously from D to C along the rectangle's upper edge."
+    },
+    {
+      "case_id": "d1d1fa1a3683b79e",
+      "edge": [
+        "A",
+        "D"
+      ],
+      "reason": "The original left stroke runs from A up to D along the rectangle's left edge."
+    },
+    {
+      "case_id": "b4614e05db621116",
+      "edge": [
+        "B",
+        "C"
+      ],
+      "reason": "The original right stroke runs from B up to C along the rectangle's right edge."
+    }
+  ],
+  "raw_meta": "{}"
+}

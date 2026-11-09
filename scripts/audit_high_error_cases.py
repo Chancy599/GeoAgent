@@ -118,7 +118,7 @@ D坐标来自CV的(186.97,349.25)，代码约为(0.808,0)，未被后修复移�
         state=read(folder/'state.json')
         repair=read(ROOT/'outputs/ours/stem'/stem/'constraint_repair.json')
         detail={'stem':stem,'frozen_output_changed':False,'post_repair_applied':repair['applied'],
-                'post_repair_reason':repair['reason'],'actions':[a for a in state['action_history'] if a['action'] in ('run_tikz_agent','run_critic','finish')],
+                'post_repair_reason':repair['reason'],'actions':[a for a in state['action_history'] if a['action'] in ('run_code_agent','run_tikz_agent','run_critic','finish')],
                 'critics':state['critic_reports'],'metric_coverage':rows[stem]['coverage'],
                 'missing_edges':rows[stem].get('missing_edges',[])}
         if stem=='1615_s_fig1':

@@ -1,0 +1,152 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original closely in figure type, triangle, both circles, and OF/OA radii; the only clear discrepancy is D sitting about 10 px right of O's vertical axis, whereas the original has D directly below O.",
+  "figure_type": {
+    "original": "triangle ABC inscribed in a circle, with incircle centred at O, tangent points D, E, F, and radii OF and OA",
+    "render": "triangle ABC inscribed in a circle, with incircle centred at O, tangent points D, E, F, and radii OF and OA"
+  },
+  "issues": [
+    {
+      "type": "wrong_position",
+      "severity": "medium",
+      "object_ids": [
+        "point_08"
+      ],
+      "bbox": [
+        0.45,
+        0.68,
+        0.54,
+        0.8
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Tangency point D is drawn about 0.19 units right of O (CV D x=249.3 vs O x=239.0). In the original, D lies directly below O on the same vertical axis as A and O, and the incircle bottom is at D. In the render, the incircle bottom and the D label are shifted right of the O-A axis.",
+      "suggestion": "Change the D coordinate to (0.000,-2.184) so it lies on the vertical through O (0,-0.332) and A (0,3.371). This keeps D on the incircle with radius 1.862 and on line BC, and matches the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circumcircle matches the original in centre, radius and extent."
+    },
+    {
+      "object_id": "circle_02",
+      "status": "present",
+      "note": "Incircle centred at O, tangent to AB, AC and BC, as in the original."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Base BC is drawn between B and C."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "unclear",
+      "note": "CV segment lies on the incircle arc near bottom-left, not on a TikZ edge; likely a detection artifact."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "unclear",
+      "note": "CV segment lies on the incircle arc near D; likely a detection artifact, not a drawn straight edge."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Corresponds to the AB edge near B, which is drawn correctly."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Corresponds to radius OF, which ends at tangent point F in both panels."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Base BC matches the original in position and endpoints."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "A is at the apex, with the OA radius and AB/AC edges meeting there."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "C is bound at the bottom-right vertex."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "F is the tangent point on AB, with OF ending there."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "O is the incircle and circumcircle centre, with label placed below-right as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "B is bound at the bottom-left vertex."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "E is the tangent point on AC, with its label near the tangency as in the original."
+    },
+    {
+      "object_id": "point_08",
+      "status": "wrong",
+      "note": "D is about 10 px right of O's vertical axis; the original has D directly below O."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B coordinate matches the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "C coordinate matches the original."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "O is the centre of both circles and matches the original."
+    }
+  ],
+  "checklist_score": 0.969,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Circumcircle and incircle are correct in centre, radius and extent.",
+    "Triangle ABC edges AB, AC and BC are correct, with A at the apex and B, C at the base corners.",
+    "Radii OA, OF are drawn and end at the correct vertices.",
+    "Labels A, B, C, D, E, F, O are all present and clear of strokes.",
+    "Aspect ratio and overall layout match the original."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "O"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 4,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

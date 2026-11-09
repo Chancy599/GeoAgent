@@ -1,49 +1,49 @@
 \documentclass[tikz,border=10pt]{standalone}
-% Only base TikZ is needed; no extra libraries.
+\usetikzlibrary{calc,angles,quotes}
 \begin{document}
 \begin{tikzpicture}[line width=1.0pt, line join=round]
-% Coordinates: s = 0.008538 cm/px, origin at image point (543.5, 325)
-\coordinate (B) at (-3.633,-1.818);
-\coordinate (C) at (3.635,-1.818);
-\coordinate (H) at (0.723,-1.817);
-\coordinate (A) at (-0.612,0.604);
-\coordinate (D) at (1.804,0.605);
-\coordinate (E) at (2.720,-0.606);
-\coordinate (F) at (-2.423,-0.849);
-\coordinate (G) at (-0.002,-0.851);
-\coordinate (Q) at (1.388,-0.123);
-\coordinate (P) at (0.970,1.866);
+% Coordinates from source frame: x=(px-543.5)*0.008538, y=(326-py)*0.008538
+\coordinate (B) at (-3.633,-1.810);
+\coordinate (H) at (0.724,-1.811);
+\coordinate (C) at (3.630,-1.811);
+\coordinate (A) at (-0.611,0.617);
+\coordinate (D) at (1.811,0.617);
+\coordinate (E) at (2.720,-0.597);
+% Q: perpendicular foot of H on line AE (calc projection)
+\coordinate (Q) at ($(A)!(H)!(E)$);
+\coordinate (F) at (-2.421,-0.837);
+\coordinate (G) at (-0.005,-0.837);
+\coordinate (P) at (0.905,1.825);
 
-% Solid segments
+% Solid edges
 \draw (B) -- (C);
-\draw (B) -- (A);
+\draw (A) -- (B);
 \draw (A) -- (D);
 \draw (A) -- (E);
 \draw (D) -- (C);
 
-% Dashed segments
-\draw[dashed] (A) -- (P);
+% Dashed edges
+\draw[dashed] (P) -- (A);
 \draw[dashed] (P) -- (D);
 \draw[dashed] (F) -- (G);
-\draw[dashed] (G) -- (H);
 \draw[dashed] (F) -- (H);
-\draw[dashed] (H) -- (E);
-\draw[dashed] (H) -- (Q);
+\draw[dashed] (G) -- (H);
+\draw[dashed] (E) -- (H);
+\draw[dashed] (Q) -- (H);
 
-% Right-angle mark at Q (one mark only)
-\draw (1.236,-0.068) -- (1.176,-0.219) -- (1.329,-0.274);
+% Open right-angle mark at Q on arms QA and QH
+\draw pic[draw, angle radius=0.162cm] {right angle=A--Q--H};
 
-% Labels
-\fontsize{6}{7.2}\selectfont
-\node[above left] at (A) {$A$};
-\node[above right] at (D) {$D$};
-\node[above] at (P) {$P$};
-\node[right] at (E) {$E$};
-\node[left] at (F) {$F$};
-\node[above] at (G) {$G$};
-\node[above right] at (Q) {$Q$};
-\node[below] at (H) {$H$};
-\node[below left] at (B) {$B$};
-\node[below right] at (C) {$C$};
+% Labels: 9pt compromise between 7pt (slightly small) and normalsize (slightly large)
+\node[above, font=\fontsize{9}{11}\selectfont] at (P) {$P$};
+\node[above left, font=\fontsize{9}{11}\selectfont] at (A) {$A$};
+\node[above right, font=\fontsize{9}{11}\selectfont] at (D) {$D$};
+\node[above right, font=\fontsize{9}{11}\selectfont] at (Q) {$Q$};
+\node[above right, font=\fontsize{9}{11}\selectfont] at (E) {$E$};
+\node[left, font=\fontsize{9}{11}\selectfont] at (F) {$F$};
+\node[above, font=\fontsize{9}{11}\selectfont] at (G) {$G$};
+\node[below, font=\fontsize{9}{11}\selectfont] at (H) {$H$};
+\node[below left, font=\fontsize{9}{11}\selectfont] at (B) {$B$};
+\node[below right, font=\fontsize{9}{11}\selectfont] at (C) {$C$};
 \end{tikzpicture}
 \end{document}

@@ -80,6 +80,88 @@ TRIANGLE = r"""
 """
 
 
+def test_named_angle_pic_is_ignored_without_losing_its_host_line(tmp_path, parser_backend):
+    gt, _, items = source_geometry(write_tex(tmp_path/'ref.tex', TRIANGLE))
+    annotated = TRIANGLE.replace(
+        r'\draw (p7)--(q8)--(r9)--cycle;',
+        r'\draw (p7)--(q8)--(r9)--cycle pic[draw,angle radius=2mm] {right angle=q8--p7--r9};',
+    ) + r'\draw pic[draw] {angle=r9--q8--p7};'
+    pred, _, _ = source_geometry(write_tex(tmp_path/'pred.tex', annotated))
+    result = score(gt, pred, items)
+    assert result['line_coverage'] == 1
+    assert result['angle']['mean'] == 0
+    assert result['length_ratio']['mean'] == 0
+
+
+def test_label_immediately_after_font_selection_keeps_its_binding(tmp_path, parser_backend):
+    annotated = TRIANGLE.replace('{$A$}', r'{\fontsize{10}{12}\selectfont$A$}')
+    graph, _, _ = source_geometry(write_tex(tmp_path/'font.tex', annotated))
+    assert graph.bindings['A']['xy'] == [0.0, 0.0]
+
+
+def test_bold_math_preserves_visible_label_binding(tmp_path, parser_backend):
+    annotated = TRIANGLE.replace('{$A$}', r'{\fontsize{19}{22.8}\selectfont{\boldmath$A$}}')
+    graph, _, _ = source_geometry(write_tex(tmp_path/'bold.tex', annotated))
+    assert graph.bindings['A']['xy'] == [0.0, 0.0]
+
+
+def test_full_cohort_includes_an_image_with_all_items_missing():
+    from scripts.merge_evaluation_results import full_cohort_geometry
+
+    rows = {'model': {
+        'measured': {'angle_checks': [{'error': 10.}, {'error': 30.}], 'ratio_checks': [{'error': 2.}]},
+        'missing': {'angle_checks': [{'error': None}], 'ratio_checks': [{'error': None}]},
+    }}
+    result = full_cohort_geometry(rows, ['measured', 'missing'])
+    assert result['angle']['n_images'] == result['ratio']['n_images'] == 2
+    assert result['angle']['means']['model'] == 100.
+    assert result['ratio']['means']['model'] == 1.
+
+
+def test_named_intersections_follow_explicit_sort_path(tmp_path, parser_backend):
+    graph, _, _ = source_geometry(write_tex(tmp_path/'intersection.tex', r"""
+\coordinate (L) at (-2,0);\coordinate (R) at (2,0);
+\draw[name path=ring] (0,0) circle (1);
+\draw[name path=axis] (R)--(L);
+\path[name intersections={of=ring and axis,sort by=axis,by={P,Q}}];
+\node at (P) {$A$};\node at (Q) {$B$};
+"""))
+    assert graph.bindings['A']['xy'] == [1.0, 0.0]
+    assert graph.bindings['B']['xy'] == [-1.0, 0.0]
+
+
+def test_orthogonal_path_operator_contributes_both_drawn_legs(tmp_path, parser_backend):
+    graph, _, items = source_geometry(write_tex(tmp_path/'elbow.tex', r"""
+\coordinate (A) at (0,0);\coordinate (B) at (3,3);\coordinate (C) at (0,3);
+\draw (A) |- (B);
+\node at (A) {$A$};\node at (B) {$B$};\node at (C) {$C$};
+"""))
+    assert {tuple(graph.label_names[i] for i in edge) for edge in items['edges']} == {('A','C'),('B','C')}
+
+
+def test_calc_physical_distance_is_not_a_fraction_of_the_edge(tmp_path, parser_backend):
+    graph, _, _ = source_geometry(write_tex(tmp_path/'distance.tex', TRIANGLE + r"""
+\coordinate (Q) at ($(p7)!2.8mm!(q8)$);
+\node at (Q) {$Q$};
+"""))
+    assert graph.bindings['Q']['xy'] == pytest.approx([.28, 0.])
+
+
+def test_nested_rotated_calc_and_foreach_label_bindings(tmp_path, parser_backend):
+    body = r"""
+\coordinate (P) at (0,0);\coordinate (R) at (4,0);
+\coordinate (Q) at ($($(P)!{0.5cm}!(R)$)!{0.5cm}!90:(R)$);
+\draw (P)--(R)--(Q)--cycle;
+\foreach \p/\anchor in {P/{above left},Q/{above},R/{right}} {
+  \node[\anchor] at (\p) {$\p$};
+}
+"""
+    graph, _, items = source_geometry(write_tex(tmp_path/'nested.tex', body))
+    assert graph.bindings['Q']['xy'] == pytest.approx([.5, .5])
+    assert set(graph.label_names) == {'P', 'Q', 'R'}
+    assert len(items['edges']) == 3
+
+
 def test_visible_labels_follow_aliases_not_coordinate_spelling(tmp_path, parser_backend):
     ref = write_tex(tmp_path/'ref.tex', TRIANGLE)
     gt, _, items = source_geometry(ref)

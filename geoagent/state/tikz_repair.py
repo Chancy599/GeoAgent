@@ -13,8 +13,9 @@ from .relation_candidates import numeric_candidates, pair_metrics
 from .tikz_geometry import clean, extract_geometry, has_curves, rewrite_tex
 from .curve_anchors import curve_anchors, rewrite_with_frozen_curves
 from .angle_glyphs import marker_paths
+from .coordinate_precision import number, quantize_tex, QUANTUM
 
-REPAIR_ALGORITHM = 'post_tikz.body_candidates.v2'
+REPAIR_ALGORITHM = 'post_tikz.body_candidates.3dp.v3'
 
 
 def repair_tikz_constraints(
@@ -146,23 +147,56 @@ def repair_tikz_constraints(
             report["constraint_mode"]="relaxed_joint_projection"
         emitted = (rewrite_with_frozen_curves(tex,before,after,anchors,rewrite_tex)
                    if anchors else rewrite_tex(tex, before, after))
+        emitted = quantize_tex(emitted)
         exported = extract_geometry(emitted)
-        if exported != after:
+        expected = {'points': {n:[float(number(v)) for v in xy] for n,xy in after['points'].items()},
+                    'segments': after['segments']}
+        if exported != expected:
             raise ValueError("exported geometry does not round-trip")
+        # Repeat displacement, edge and incidence-order guards on the rounded
+        # program, rather than trusting the unrounded optimizer result.
+        shift = max(np.linalg.norm(np.subtract(exported['points'][n], p)) for n,p in before['points'].items())/span
+        length_change = 0.0
+        for a,b in before['segments'].values():
+            u=np.subtract(before['points'][b],before['points'][a])
+            v=np.subtract(exported['points'][b],exported['points'][a])
+            length=float(np.linalg.norm(u))
+            if length <= 1e-12: continue
+            length_change=max(length_change,abs(float(np.linalg.norm(v))/length-1))
+            if u@v <= 0 or np.linalg.norm(v)<length*.5:
+                raise ValueError('Rounded segment degenerated')
+            for n,p in before['points'].items():
+                if n in (a,b): continue
+                offset=np.subtract(p,before['points'][a]); t=float(offset@u)/(length*length)
+                distance=abs(u[0]*offset[1]-u[1]*offset[0])/length/span
+                if .001<t<.999 and distance<=topology_tol_rel:
+                    new_offset=np.subtract(exported['points'][n],exported['points'][a])
+                    if not 0<float(new_offset@v)/(float(v@v))<1:
+                        raise ValueError('Rounded incidence order changed')
+        if shift>max_shift_rel+1e-12 or length_change>max_length_change_rel+1e-12:
+            raise ValueError('Rounded export exceeds displacement/length limits')
+        report.update(solver_max_shift_rel=report['max_shift_rel'], max_shift_rel=float(shift),
+                      max_length_change_rel=length_change, coordinate_decimals=3)
         # Check all retained relations on the actual exported source, rather
         # than reporting only the solver's internal floating-point layout.
         errors = []
+        export_limits = []
         for candidate in report["accepted"]:
             metric = pair_metrics(exported["points"], *(
                 exported["segments"][sid] for sid in candidate["segments"]
             ))
             errors.append(metric[candidate["type"] + "_error_deg"])
-        limit=1e-7 if relaxation==1 else max((c["before_error_deg"] for c in report["accepted"]),default=0)+1e-7
-        if max(errors, default=0.0) > limit:
+            lengths=[np.linalg.norm(np.subtract(after['points'][b],after['points'][a]))
+                     for a,b in (after['segments'][s] for s in candidate['segments'])]
+            rounding_bound=sum(np.degrees(np.arcsin(min(1.,np.sqrt(2)*QUANTUM/length))) for length in lengths)
+            export_limits.append(min(angle_tol_deg, rounding_bound+(1-relaxation)*candidate['before_error_deg']+1e-7))
+        if any(error>limit for error,limit in zip(errors,export_limits)):
             raise ValueError("exported constraints exceed angle tolerance")
-        if relaxation<1:
-            for candidate,error in zip(report["accepted"],errors):candidate["after_error_deg"]=error
-            report["max_after_error_deg"]=max(errors,default=0.0)
+        for candidate,error,limit in zip(report['accepted'],errors,export_limits):
+            candidate['solver_after_error_deg']=candidate['after_error_deg']
+            candidate['after_error_deg']=error
+            candidate['export_tolerance_deg']=limit
+        report["max_after_error_deg"]=max(errors,default=0.0)
         report["export_verified"] = True
         report["max_export_error_deg"] = max(errors, default=0.0)
         report["point_count"] = len(after["points"])

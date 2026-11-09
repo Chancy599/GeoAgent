@@ -27,7 +27,9 @@ DOC = r"""\documentclass[tikz]{standalone}
 def test_exported_rectangle_constraints_and_repeat_stability():
     tex, report = repair_tikz_constraints(DOC)
     assert report["applied"] and report["export_verified"]
-    assert report["max_export_error_deg"] < 1e-8
+    assert report["max_export_error_deg"] < .05
+    assert all(c['after_error_deg']<=c['export_tolerance_deg'] for c in report['accepted'])
+    assert report['coordinate_decimals']==3
     assert len(report["accepted"]) == 6
     assert report["max_length_change_rel"] <= 0.01
     assert tex != DOC
@@ -75,9 +77,13 @@ def test_labelled_small_polygon_is_not_reclassified_as_annotation():
     assert 'E--F' in geometry['segments']
 
 
-def test_6986_glyphs_are_logged_and_excluded_without_reference_access():
-    from pathlib import Path
-    source = (Path(__file__).resolve().parents[1]/'outputs/ablations/no_post_repair/latex/6986_q_fig1.tex').read_text(encoding='utf-8')
+def test_multiple_glyphs_are_logged_and_excluded_without_reference_access():
+    glyphs = r'''
+\draw ($(A)+(.2,0)$)--($(A)+(.2,.2)$)--($(A)+(0,.2)$);
+\draw ($(B)+(-.2,0)$)--($(B)+(-.2,.2)$)--($(B)+(0,.2)$);
+\draw ($(C)+(-.2,0)$)--($(C)+(-.2,-.2)$)--($(C)+(0,-.2)$);
+'''
+    source = DOC.replace(r'\end{tikzpicture}', glyphs + r'\end{tikzpicture}')
     _, report = repair_tikz_constraints(source, curve_policy='freeze')
     assert report['angle_glyph_exclusion']['excluded_strokes'] == 6
     assert report['angle_glyphs_are_candidates'] is False
@@ -122,7 +128,7 @@ def test_selected_defaults_repair_near_incidence_without_repeated_drift():
     import numpy as np
     c,d,e=(np.asarray(points[n]) for n in ("C","D","E"))
     edge=c-d;offset=e-d
-    assert abs(edge[0]*offset[1]-edge[1]*offset[0])<1e-9
+    assert abs(edge[0]*offset[1]-edge[1]*offset[0])/np.linalg.norm(edge)<.0015
     repeated,again=repair_tikz_constraints(emitted)
     assert not again["applied"] and repeated==emitted
 

@@ -1,0 +1,69 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{intersections, calc}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.2]
+    % Define Center and Radius
+    \coordinate (O) at (0,0);
+    \def\R{5}
+    
+    % Define Points on Circle
+    \coordinate (B) at (-\R, 0);
+    \coordinate (C) at (\R, 0);
+    \coordinate (H) at (0, -\R);
+    
+    % A is near top, slightly right
+    \coordinate (A) at (0.8, 4.93); 
+    % D is top left
+    \coordinate (D) at (-4.2, 2.7);
+    
+    % Draw Circle
+    \draw (O) circle (\R);
+    
+    % Draw Chords and Lines
+    \draw[name path=chord_AB] (A) -- (B);
+    \draw[name path=chord_AC] (A) -- (C);
+    \draw[name path=chord_CD] (C) -- (D);
+    \draw (A) -- (D);
+    \draw (B) -- (D);
+    \draw (B) -- (C); % Diameter
+    \draw (B) -- (H);
+    \draw (C) -- (H);
+    
+    % Intersection E of AB and CD
+    \path[name intersections={of=chord_AB and chord_CD, by=E}];
+    
+    % Point G: Projection of H onto CD (perpendicular foot)
+    \coordinate (G) at ($(C)!(H)!(D)$);
+    
+    % Line H-G-F. F is intersection of line HG extended with AC.
+    \path[name path=line_HG] (H) -- ($(H)!2!(G)$);
+    \path[name intersections={of=line_HG and chord_AC, by=F}];
+    
+    % Draw line segment HF (passing through G)
+    \draw (H) -- (F);
+    
+    % Draw segment OG
+    \draw (O) -- (G);
+    
+    % Right angle mark at G (between CD and HF)
+    % Mark is in angle FGC. 
+    \draw ($(G)!3mm!(C)$) -- ($(G)!3mm!(C) + ($(G)!3mm!(F)$) - (G)$) -- ($(G)!3mm!(F)$);
+    
+    % Dots for specific points
+    \fill (O) circle (1.5pt);
+    \fill (E) circle (1.5pt);
+    \fill (F) circle (1.5pt);
+    
+    % Labels
+    \node[above] at (A) {$A$};
+    \node[left] at (B) {$B$};
+    \node[right] at (C) {$C$};
+    \node[above left] at (D) {$D$};
+    \node[above left] at (E) {$E$};
+    \node[above right] at (F) {$F$};
+    \node[below right] at (G) {$G$};
+    \node[below] at (H) {$H$};
+    \node[below] at (O) {$O$};
+\end{tikzpicture}
+\end{document}

@@ -85,7 +85,7 @@ def main():
             actions[a["action"]] += 1
             if a.get("status") == "error":
                 action_errors[a["action"]] += 1
-        first = next((i for i, a in enumerate(history) if a["action"] == "run_tikz_agent"), None)
+        first = next((i for i, a in enumerate(history) if a["action"] in ("run_code_agent", "run_tikz_agent")), None)
         later = history[first + 1:] if first is not None else []
         later_perception = [a for a in later if a["action"].startswith("call_cv_tool") or a["action"] in ("run_geometry_agent", "inspect_image")]
         if later_perception:

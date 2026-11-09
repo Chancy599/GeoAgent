@@ -1,0 +1,170 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original's geometry, topology, and labels closely; the only visible difference is that the dashed P-E segment is drawn heavier than in the original.",
+  "figure_type": {
+    "original": "Rectangle ABCD with E on BC, P on AD-diagonal segment A-F, dashed P-E, and M as intersection of E-F and P-C",
+    "render": "Rectangle ABCD with E on BC, P on AF, dashed P-E, and M as intersection of E-F and P-C"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_09"
+      ],
+      "bbox": [
+        0.3,
+        0.37,
+        0.47,
+        0.86
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The dashed P-E stroke is drawn noticeably heavier, with bolder dashes, than the fine dashed line in the original. Endpoints at P and E are correct.",
+      "suggestion": "Draw the dashed segment with a thinner width, e.g. \\draw[dashed, line width=0.6pt] (P) -- (E);"
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Segment A-F passes through P, matching the original's continuous A-P-F stroke."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top edge A-D matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Bottom edge B-C matches the original, with E on it."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment E-F ends at F as in the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Segment A-E matches the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Segment P-C continues through M to C, matching the original."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Left edge A-B matches the original."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Right edge D-C matches the original."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "present",
+      "note": "Dashed P-E is correctly placed with endpoints at P and E; dash weight is heavier than the original (see issue)."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label A is bound to the top-left corner and placed correctly."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label F is bound to the right-edge point and placed correctly."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label P is bound to the point on A-F and placed above-right as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D is bound to the top-right corner and placed correctly."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label E is bound to the point on BC and placed below as in the original."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Label C is bound to the bottom-right corner and placed correctly."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "Label B is bound to the bottom-left corner and placed correctly."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Rectangle ABCD with correct corner positions and aspect ratio",
+    "Solid segment A-E from A to a point on BC",
+    "Solid segment A-P-F with P on the line to F",
+    "Solid segment E-F",
+    "Solid segment P-M-C with M at the intersection of E-F and P-C",
+    "Dashed segment P-E with correct endpoints",
+    "Labels A, B, C, D, E, F, P and M are present, correctly spelled, and clear of strokes"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "P",
+      "M"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "399cef61053ea363",
+      "edge": [
+        "A",
+        "F"
+      ],
+      "reason": "In the original, a continuous stroke runs from A through P to F, so the A-F edge is confirmed."
+    },
+    {
+      "case_id": "7acb5d78945aec66",
+      "edge": [
+        "E",
+        "F"
+      ],
+      "reason": "In the original, the solid stroke runs from E up to F, ending at the labelled F vertex."
+    },
+    {
+      "case_id": "ccc765d46e277afc",
+      "edge": [
+        "E",
+        "P"
+      ],
+      "reason": "In the original, the dashed stroke runs from E to P, ending at the labelled P point."
+    }
+  ],
+  "raw_meta": "{}"
+}

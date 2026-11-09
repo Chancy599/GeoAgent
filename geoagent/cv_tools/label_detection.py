@@ -121,6 +121,17 @@ def _templates() -> dict[str, np.ndarray]:
 
 
 def _cap_height(mask: np.ndarray, stroke_w: float) -> float:
+    return _cap_height_estimate(mask, stroke_w)[0]
+
+
+def _ink_elongation(mask: np.ndarray) -> float:
+    ys, xs = np.where(mask)
+    points = np.column_stack([xs, ys]).astype(float)
+    singular = np.linalg.svd(points - points.mean(0), compute_uv=False)
+    return float(singular[0] / max(singular[1], 1e-6))
+
+
+def _cap_height_estimate(mask: np.ndarray, stroke_w: float) -> tuple[float, int]:
     """Estimate glyph cap height, ignoring dashed-line fragments.
 
     A dashed figure floods the text mask with many 2x9 px dash fragments whose
@@ -141,13 +152,14 @@ def _cap_height(mask: np.ndarray, stroke_w: float) -> float:
             and w >= max(4.0, 1.4 * stroke_w)
             and h >= 12
             and h <= 0.18 * min(h_img, w_img)
+            and _ink_elongation(lab[y:y+h, x:x+w] == i) <= 3.4
         ):
             glyph_like.append(h)
     if len(glyph_like) >= 2:
-        return float(np.clip(np.median(glyph_like), 10.0, 40.0))
+        return float(np.clip(np.median(glyph_like), 10.0, 40.0)), len(glyph_like)
     if heights:
-        return float(np.clip(np.median(heights), 10.0, 32.0))
-    return 20.0
+        return float(np.clip(np.median(heights), 10.0, 32.0)), 0
+    return 20.0, 0
 
 
 def _sampled_component(seg: tuple[float, float, float, float], labels: np.ndarray) -> set[int]:
@@ -289,7 +301,7 @@ def measure_style_metrics(
     reproduce them when the drawing's longest side spans ``target_span_units``
     centimetres (TikZ coordinate units).
     """
-    mask, _text, stroke_w, cap_h = _line_suppressed_text(image_path)
+    mask, text, stroke_w, cap_h = _line_suppressed_text(image_path)
     ys, xs = np.where(mask > 0)
     height, width = mask.shape
     if not len(xs):
@@ -313,6 +325,7 @@ def measure_style_metrics(
         "span_px": int(span),
         "stroke_width_px": round(float(stroke_w), 2),
         "cap_height_px": round(float(cap_h), 2),
+        "label_size_samples": _cap_height_estimate(text, stroke_w)[1],
         "target_span_units": float(target_span_units),
         "suggested_scale": round(float(target_span_units) / span, 6),
         "line_width_pt": round(line_pt, 1),
@@ -363,7 +376,7 @@ def extract_label_candidates(
     height, width = mask.shape
     roi_box = parse_roi(roi, width, height)
 
-    base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+    base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
     glyph_dir = base / "glyphs"
     glyph_dir.mkdir(parents=True, exist_ok=True)
 
@@ -388,10 +401,7 @@ def extract_label_candidates(
             continue
         if w / max(h, 1) > 3.0:
             continue
-        ys_c, xs_c = np.where(group["mask"])
-        pts_c = np.column_stack([xs_c, ys_c]).astype(float)
-        _u, singular_c, _vt = np.linalg.svd(pts_c - pts_c.mean(0), full_matrices=False)
-        elongation = float(singular_c[0] / max(singular_c[1], 1e-6))
+        elongation = _ink_elongation(group["mask"])
         if elongation > 3.4:  # curved arc fragments are elongated, not glyphs
             continue
         component = group["mask"]
@@ -539,7 +549,7 @@ def match_label_templates(
             color = (30, 150, 80) if not match.get("ambiguous") else (220, 140, 30)
             draw_box(overlay, box, color, 2)
             draw_label(overlay, f"{match.get('id', '?')}={ch}", box[:2], color)
-        base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+        base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
         viz = save_png(base / "match_label_templates.png", overlay)
 
     return envelope(
@@ -769,7 +779,7 @@ def bind_point_labels(
             if lab and pxy:
                 draw_segment(overlay, lab["centroid_px"], pxy, (20, 150, 80), 1)
                 draw_label(overlay, binding["char"], pxy, (20, 150, 80))
-        base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+        base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
         viz = save_png(base / "bind_point_labels.png", overlay)
 
     return envelope(

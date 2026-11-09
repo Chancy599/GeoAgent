@@ -25,7 +25,7 @@ def test_curve_center_and_boundary_are_fixed_but_free_points_move():
     assert after["points"]["O"] == before["points"]["O"]
     assert after["points"]["A"] == before["points"]["A"]
     assert after["points"]["B"] != before["points"]["B"]
-    assert r"\draw (O) circle (1);" in emitted
+    assert r"\draw (O) circle (1.000);" in emitted
     assert report["fixed_points"] == ["A","O"]
 
 

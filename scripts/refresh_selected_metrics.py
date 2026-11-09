@@ -41,7 +41,7 @@ def main():
     args=p.parse_args();out=ROOT/'results/latest'
     stems=sorted(set(args.generated_stems+args.reference_stems))
     update_geometry(out/'structure.json',stems,{'raw':ROOT/'outputs/ablations/no_post_repair','post':ROOT/'outputs/ours'},args.workers)
-    update_geometry(out/'baselines_geometry.json',sorted(set(args.reference_stems)),{n:ROOT/'outputs/baselines'/n for n in ['haiku-5.5','gpt-5.4']},args.workers)
+    update_geometry(out/'baselines_geometry.json',sorted(set(args.reference_stems)),{n:ROOT/'outputs/baseline'/n for n in ['haiku-5.5','gpt-5.4']},args.workers)
     visual=read(out/'visual.json');cache=ROOT/'.cache/visual_evaluation'
     fingerprints={n:hashlib.sha256(json.dumps(c,sort_keys=True).encode()).hexdigest()[:16] for n,c in visual['encoder_configs'].items()}
     for name,archive in [('raw',ROOT/'outputs/ablations/no_post_repair'),('post',ROOT/'outputs/ours')]:

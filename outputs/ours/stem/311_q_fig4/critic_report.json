@@ -1,0 +1,120 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Version 2 reproduces the original topology (rectangle ABCD with E on DC, and diagonals AE and AC) with correct vertex bindings. The only visible difference is label typography: the original uses italic math letters and the render uses bold upright letters.",
+  "figure_type": {
+    "original": "Rectangle ABCD with point E on top edge DC; segments AE and AC drawn from A",
+    "render": "Rectangle ABCD with point E on top edge DC; segments AE and AC drawn from A"
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_01",
+        "point_02",
+        "point_03",
+        "point_04",
+        "point_05"
+      ],
+      "bbox": [
+        0.02,
+        0.22,
+        0.98,
+        0.76
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Vertex labels use a bold upright font (\\mathbf). The original labels are italic serif math letters (A, B, C, D, E). Positions and clearances are otherwise correct.",
+      "suggestion": "Replace \\mathbf{X} with \\mathit{X} or $X$ in each node so the labels match the original italic style. Keep the node anchors unchanged."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Diagonal AC is drawn from A to C with matching slope and extent."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top edge DC is drawn from D to C and E lies on it."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Bottom edge AB is drawn correctly."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Diagonal AE ends at E on the top edge, matching the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Right edge BC is drawn correctly."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Left edge AD is drawn correctly."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label C sits at the top-right corner, correctly placed."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label A sits at the bottom-left corner, correctly placed."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label E sits above the top edge at the AE endpoint, correctly placed."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D sits at the top-left corner, correctly placed."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label B sits at the bottom-right corner, correctly placed."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Rectangle ABCD with correct corner positions",
+    "E lies on DC and AE ends at E",
+    "Diagonal AC runs from A to C",
+    "Vertex bindings for A, B, C, D, E",
+    "Line weights are comparable to the original; no clear style discrepancy",
+    "No extra or missing segments"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 2,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

@@ -1,0 +1,56 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    % Coordinates
+    \coordinate (B) at (0,0);
+    \coordinate (C) at (10,0);
+    \coordinate (H) at (6,0);
+    \coordinate (A) at (2.5,4);
+    \coordinate (D) at (7.5,4);
+    \coordinate (P) at (5,6.5);
+    % E is on line DC. D(7.5,4), C(10,0).
+    \coordinate (E) at (8.5,2.4);
+    % F is on line AB. A(2.5,4), B(0,0).
+    \coordinate (F) at (1,1.6);
+    % G. F-G looks horizontal.
+    \coordinate (G) at (4,1.6);
+    % Q is projection of H on AE.
+    \coordinate (Q) at (6.76,2.85);
+
+    % Draw Solid Lines
+    \draw (B) -- (A);
+    \draw (A) -- (D);
+    \draw (D) -- (C);
+    \draw (C) -- (B);
+    \draw (A) -- (E);
+
+    % Draw Dashed Lines
+    \draw[dashed] (P) -- (A);
+    \draw[dashed] (P) -- (D);
+    \draw[dashed] (F) -- (H);
+    \draw[dashed] (F) -- (G);
+    \draw[dashed] (G) -- (H);
+    \draw[dashed] (H) -- (E);
+    \draw[dashed] (H) -- (Q);
+
+    % Right Angle Mark at Q
+    % Draw small square corner
+    \draw ($(Q)!2.5mm!(A)$) -- ($(Q)!2.5mm!(A) + ($(Q)!2.5mm!(H)$) - (Q)$) -- ($(Q)!2.5mm!(H)$);
+
+    % Labels
+    \node[left] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[right] at (D) {$D$};
+    \node[right] at (E) {$E$};
+    \node[left] at (F) {$F$};
+    \node[above] at (G) {$G$};
+    \node[below] at (H) {$H$};
+    \node[above] at (P) {$P$};
+    \node[above right] at (Q) {$Q$};
+
+\end{tikzpicture}
+\end{document}

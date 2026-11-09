@@ -1,0 +1,121 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original topology. The B-D stroke now passes clear of the E glyph, but E sits tight against the A-C stroke.",
+  "figure_type": {
+    "original": "Triangle-like quadrilateral A, B, C, D with F on AD and E at the AC/BD/FE intersection; straight segments only",
+    "render": "Same straight-segment figure with the same vertices and intersections"
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_02",
+        "seg_03"
+      ],
+      "bbox": [
+        0.42,
+        0.54,
+        0.48,
+        0.61
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The E label is now clear of the B-D stroke (roughly 15 px gap). It sits below-right of the intersection, however, and its left edge is only about 4 px from the A-C stroke (seg_03). The original places E to the right with about 20 px of clearance from AC.",
+      "suggestion": "Nudge the E node slightly further right or lower (e.g. 'right' or 'below right' with a larger inner sep), keeping it bound to the E coordinate at (-0.968,-0.646). Do not move the vertex itself."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "B-D stroke runs through the E intersection and ends at B and D as in the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top edge A-B matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "A-C stroke matches the original; E lies on it."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "A-D stroke matches; F lies on it."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Base D-C matches the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "F-E stroke matches and ends at E as in the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "B is bound to the top-right vertex with its label placed above-right, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "E is bound to the intersection. The label is clear of the B-D stroke; it is close to A-C but readable and associated with E."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "D is bound to the bottom-left vertex with its label below-left, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "A is bound to the top-left vertex with its label above-left, as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "C is bound to the bottom-right vertex with its label below-right, as in the original."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "F is bound to the left-side point on AD with its label above-left, as in the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "All six segments and their endpoints match the original.",
+    "The B-D line passes through E, and the F-E segment ends at E on AC.",
+    "Vertex bindings A, B, C, D, E, F are correct.",
+    "The E label no longer touches the B-D stroke, which was the focus of this version."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 2,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

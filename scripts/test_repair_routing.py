@@ -81,7 +81,7 @@ def prepare_archive_seed(stem: str, destination: Path) -> GeometricEvidenceState
     archive = ROOT / "outputs" / "ours100" / "stem" / stem / "state.json"
     raw = json.loads(archive.read_text(encoding="utf-8"))
     actions = raw["action_history"]
-    first = next(i for i, a in enumerate(actions) if a["action"] == "run_tikz_agent")
+    first = next(i for i, a in enumerate(actions) if a["action"] in ("run_code_agent", "run_tikz_agent"))
     if any(a["action"] == "run_geometry_agent" or a["action"].startswith("call_cv_tool")
            for a in actions[first + 1:]):
         raise ValueError("Archive revisited geometry after v1; exact checkpoint required")

@@ -7,6 +7,15 @@ import pytest
 from geoagent.cv_tools.registry import call_cv_tool
 
 
+def test_label_style_measurement_ignores_diagonal_dashes():
+    from geoagent.cv_tools.label_detection import measure_style_metrics
+
+    source = Path(__file__).resolve().parents[1] / 'data/test/image/1763_s_fig1.png'
+    metrics = measure_style_metrics(source)
+    assert metrics['cap_height_px'] == pytest.approx(28, abs=1)
+    assert metrics['label_size_samples'] >= 6
+
+
 def test_free_endpoints_bind_visible_labels_without_pulling_junctions():
     from geoagent.cv_tools.label_detection import bind_point_labels
     root=Path(__file__).resolve().parents[1]
@@ -111,6 +120,18 @@ def test_right_angle_fallback_ignores_bare_cross(tmp_path) -> None:
 
     assert result["ok"], result.get("error")
     assert result["results"]["count"] == 0
+
+
+def test_solid_corner_does_not_hide_dashed_foot_marker(tmp_path) -> None:
+    image = Path(__file__).resolve().parents[1] / 'data/test/image/1625_s_fig1.png'
+    result = call_cv_tool('detect_right_angle_marker', {}, image_path=image, out_dir=tmp_path)
+    markers = sorted(result['results']['markers'], key=lambda marker: marker['vertex_px'][0])
+    assert len(markers) == 2
+    assert markers[0]['vertex_px'] == pytest.approx([102, 514], abs=3)
+    foot = markers[1]
+    assert foot['vertex_px'] == pytest.approx([698, 514], abs=3)
+    x, y = foot['mark_points_px'][1]
+    assert x > foot['vertex_px'][0] and y < foot['vertex_px'][1]
 
 
 def test_detach_point_dots_drops_filled_dot_not_split_ring() -> None:

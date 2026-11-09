@@ -42,7 +42,7 @@ def separate_text_and_lines(
     roi_box = parse_roi(roi, width, height)
     skel = thin(mask)
     stroke_w = estimate_stroke_width(mask, skel)
-    base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+    base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
     base.mkdir(parents=True, exist_ok=True)
 
     raw_lines = hough_segments(skel, min_length_frac=0.025, max_gap_frac=0.008)

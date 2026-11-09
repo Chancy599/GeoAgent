@@ -11,7 +11,7 @@ same as the frozen baseline:
   compiled with the local Tectonic binary, then rasterised to PNG;
 * ``--out-root`` receives only ``latex/`` and ``image/``; traces, the batch
   summary and overwrite backups go to ``--log-root`` (default
-  ``outputs/scratch/e2e/<baseline name>``).
+  ``.cache/e2e/<baseline name>``).
 
 Batch conveniences:
 
@@ -25,14 +25,14 @@ Batch conveniences:
 
 Usage (PowerShell / bash):
 
-    python scripts/run_e2e.py --out-root outputs/baselines/haiku-5.5 \
+    python scripts/run_e2e.py --out-root outputs/baseline/haiku-5.5 \
         --missing-only --attempts 3
 
     python scripts/run_e2e.py --model qwen3.5-plus \
-        --out-root outputs/baselines/qwen3.5-plus --workers 4
+        --out-root outputs/baseline/qwen3.5-plus --workers 4
 
     python scripts/run_e2e.py --model gpt-5.4 --reasoning-effort minimal \
-        --out-root outputs/baselines/gpt-5.4 --workers 4
+        --out-root outputs/baseline/gpt-5.4 --workers 4
 """
 from __future__ import annotations
 
@@ -87,33 +87,52 @@ def _normalise(tex: str) -> str:
     return _FENCE_RE.sub("", tex or "").strip()
 
 
-def _request(client, image_path: Path, model: str, params: dict, *, timeout: float) -> tuple[str, dict]:
+def _request(client, image_path: Path, model: str, params: dict, *, timeout: float, stream: bool = False) -> tuple[str, dict]:
     b64 = base64.b64encode(image_path.read_bytes()).decode("ascii")
     content = [
         {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}},
         {"type": "text", "text": E2E_PROMPT},
     ]
     started = time.perf_counter()
-    response = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": content}],
-        timeout=timeout,
-        **params,
-    )
+    request = {"model": model, "messages": [{"role": "user", "content": content}], "timeout": timeout, **params}
+    if stream:
+        parts = []
+        finish_reason = usage_obj = response_model = response_id = None
+        with client.chat.completions.create(
+            **request, stream=True, stream_options={"include_usage": True}
+        ) as chunks:
+            for chunk in chunks:
+                response_model = getattr(chunk, "model", None) or response_model
+                response_id = getattr(chunk, "id", None) or response_id
+                usage_obj = getattr(chunk, "usage", None) or usage_obj
+                if chunk.choices:
+                    choice = chunk.choices[0]
+                    finish_reason = choice.finish_reason or finish_reason
+                    if choice.delta.content:
+                        parts.append(choice.delta.content)
+        if finish_reason is None:
+            raise ValueError("e2e stream closed before its completion marker")
+        raw = "".join(parts)
+    else:
+        response = client.chat.completions.create(**request)
+        choice = response.choices[0]
+        finish_reason = getattr(choice, "finish_reason", None)
+        usage_obj = getattr(response, "usage", None)
+        response_model = getattr(response, "model", None)
+        response_id = getattr(response, "id", None)
+        raw = choice.message.content or ""
     elapsed = round(time.perf_counter() - started, 3)
-    choice = response.choices[0]
-    finish_reason = getattr(choice, "finish_reason", None)
-    usage_obj = getattr(response, "usage", None)
     usage = usage_obj.model_dump() if usage_obj is not None else None
     if finish_reason == "length":
         raise ValueError("e2e completion reached its token limit")
-    text = _normalise(choice.message.content or "")
+    text = _normalise(raw)
     if not text:
         raise ValueError("e2e returned no LaTeX text")
     meta = {
-        "response_model": getattr(response, "model", None),
-        "response_id": getattr(response, "id", None),
+        "response_model": response_model,
+        "response_id": response_id,
         "finish_reason": finish_reason,
+        "stream": stream,
         "usage": usage,
         "elapsed_seconds": elapsed,
     }
@@ -163,7 +182,9 @@ def _run_one(
     try:
         for attempt in range(1, args.attempts + 1):
             try:
-                tex, meta = _request(client, image_path, args.model, args.request_params, timeout=args.timeout)
+                tex, meta = _request(
+                    client, image_path, args.model, args.request_params, timeout=args.timeout, stream=args.stream,
+                )
             except Exception as exc:  # noqa: BLE001 - service errors may be transient
                 record["attempts"].append(
                     {"attempt": attempt, "request_error": f"{type(exc).__name__}: {exc}"}
@@ -257,10 +278,10 @@ def main() -> int:
     settings = load_settings()
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--folder", default=str(settings.paths.data_root / "test"))
-    parser.add_argument("--out-root", default=str(settings.paths.outputs_dir / "baselines" / "haiku-5.5"))
+    parser.add_argument("--out-root", default=str(settings.paths.outputs_dir / "baseline" / "haiku-5.5"))
     parser.add_argument(
         "--log-root",
-        help="trace/summary/backup directory (default: outputs/scratch/e2e/<baseline name>)",
+        help="trace/summary/backup directory (default: .cache/e2e/<baseline name>)",
     )
     parser.add_argument("--model", default=settings.model.model)
     parser.add_argument("--only", help="comma-separated stems")
@@ -272,6 +293,7 @@ def main() -> int:
     parser.add_argument("--temperature", type=float, default=0.0, help="non-reasoning models only")
     parser.add_argument("--reasoning-effort", default="minimal", help="GPT-5.x/6.x only; empty string omits it")
     parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--stream", action="store_true", help="receive the same completion incrementally")
     parser.add_argument("--dpi", type=int, default=150)
     parser.add_argument("--timeout", type=float, default=settings.model.request_timeout)
     parser.add_argument("--compile-timeout", type=float, default=float(settings.budget.compile_timeout_seconds))
@@ -292,7 +314,7 @@ def main() -> int:
     out_root = Path(args.out_root)
     if not out_root.is_absolute():
         out_root = ROOT / out_root
-    log_root = Path(args.log_root) if args.log_root else ROOT / "outputs" / "scratch" / "e2e" / out_root.name
+    log_root = Path(args.log_root) if args.log_root else ROOT / ".cache" / "e2e" / out_root.name
     if not log_root.is_absolute():
         log_root = ROOT / log_root
 

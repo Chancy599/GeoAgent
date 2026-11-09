@@ -22,7 +22,7 @@ from geoagent.tools import discover_compiler
 
 st.set_page_config(page_title="GeoAgent · 图形转 TikZ", page_icon="📐", layout="wide")
 
-UPLOAD_DIR = ROOT / "outputs" / "uploads"
+UPLOAD_DIR = ROOT / ".cache" / "uploads"
 
 
 @st.cache_data(show_spinner=False)
@@ -143,7 +143,7 @@ def _run_agent(image_path: str, overrides: dict) -> None:
     runner = GeoAgentRunner(
         image_path,
         run_overrides=overrides,
-        run_dir=ROOT / "outputs" / "runs" / f"{time.strftime('%Y%m%d_%H%M%S')}_{Path(image_path).stem}",
+        run_dir=ROOT / ".cache" / "runs" / f"{time.strftime('%Y%m%d_%H%M%S')}_{Path(image_path).stem}",
         on_event=on_event,
     )
     started = time.time()

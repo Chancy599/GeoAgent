@@ -200,6 +200,10 @@ def ingest_cv_result(
                     )
                 )
 
+    if tool_name == "bind_point_labels" and state.meta.get("reviewed_bindings"):
+        from ..state.coordinate_contract import restore_reviewed_bindings
+        restore_reviewed_bindings(state)
+
     state.add_evidence(
         source="cv_tool",
         method=tool_name,

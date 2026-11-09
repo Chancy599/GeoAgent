@@ -1,0 +1,30 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {PresentationFile,FileBlob} from '@oai/artifact-tool';
+const root='D:/Users/18217/Desktop/我的文件/GeoAgent';
+const build=path.join(root,'.codex-build/pipeline_cases_2108');
+const skill='C:/Users/18217/.codex/plugins/cache/openai-primary-runtime/presentations/26.1026.10807/skills/presentations';
+const presentation=await PresentationFile.importPptx(await FileBlob.load(path.join(root,'deliverables/pipeline_cases/GeoAgent_928_repair_772_pipeline_final.pptx')));
+const slide=presentation.slides.items[0];
+function edit(name,value,pos,size){const s=slide.shapes.items.find(z=>z.name===name);if(!s)throw Error(name);s.text=value;if(pos)s.position=pos;if(size)s.text.fontSize=size;}
+edit('title','2108：几何约束修复的四个步骤');
+const pic=slide.images.items[0];
+pic.replace({blob:new Uint8Array(await fs.readFile(path.join(root,'data/test/image/2108_q_fig1.png'))),contentType:'image/png',alt:'2108原图：两个相交的直角三角形，AB与EC相交于D'});
+pic.frame={left:60,top:190,width:475,height:247};pic.fit='contain';
+edit('image-caption','原图：AB 与 EC 相交于 D；A、E 处有直角标记',{left:60,top:446,width:475,height:60},22);
+const gain=slide.shapes.add({geometry:'textbox',name:'metric-gains',position:{left:60,top:522,width:480,height:40},fill:'none',line:{fill:'none',width:0}});
+gain.text='MAE 下降 89.5%   ·   MRE 下降 63.4%';
+gain.text.style={typeface:'Microsoft YaHei',fontSize:25,color:'#116778',bold:true,insets:0};
+edit('step1detail','排除 2 个直角标记的 4 条笔画、6 个辅助点；保留主体 5 点、5 线。\n按 0.5° 容差筛出 AB⊥AC、EB⊥EC 两组近垂直候选。');
+edit('step2detail','以输入坐标为锚点迭代线性化求解，使两组主体边满足 u·v=0。\n保持 D 在 AB、EC 上，并加入全点对长度保护（权重 0.01）。');
+edit('step4detail','导出后 AB⊥AC 偏差：0.2188° → 0.00001°；\nEB⊥EC：0.1518° → 0.00758°。最大位移 0.065%，边长变化 0.099%。');
+const table=slide.tables.items[0];
+for(const [r,c,v] of [[1,1,'0.1081'],[1,2,'0.0114'],[2,1,'0.1251'],[2,2,'0.0458']])table.getCell(r,c).value=v;
+edit('footnote','本例前后均完整测得相同的 20 个角度、24 个比例；方向残差与相对于参考的 MAE 是不同指标。');
+slide.speakerNotes.text='替换为2108_q_fig1，展示确定性几何约束修复。来源：data/test/image/2108_q_fig1.png；outputs/ours/stem/2108_q_fig1/constraint_repair.json；results/latest/structure.json的groups.raw/post.per_stem.2108_q_fig1；geoagent/state/tikz_repair.py、optimize_relations.py、relation_candidates.py。\n图元解析识别两个小正交路径，排除PA1/PA2/PA3、QE1/QE2/QE3共6辅助点及4笔画。留下5主体点A/B/C/D/E与5绘制线段BC/AB/EC/EB/AC。按数值0.5度容差筛出2个近垂直候选，不以符号直接产生方向真值，不读取参考数据：AB⊥AC，EB⊥EC。保留D在AB、EC上的两项incidence。将坐标按图形对角线归一化，以输入位置为锚点，迭代线性化联合最小位移投影，全部点对长度保护权重0.01。若超限或不收敛，移除初始误差较大的候选重解。限制最大位移0.5%对角线、已有边长变化1%，保留点在边内的顺序。\n写回3位小数后回读检验实际导出值，失败回退。本例最大导出位移0.0006484687398530013即0.06484687398530013%对角线；最大边长相对变化0.0009888102494954865即0.09888102494954865%。AB⊥AC从0.21884478677269215度降到0.000008590277957409853度；EB⊥EC从0.15179668135613156降到0.007581770252798492度。\n离线参考评测：angle MAE 0.10806765120267148→0.011356664863503063度，下降89.4911523%；ratio MRE 0.1250778470636686%→0.04581037991652631%，下降63.3745056%。两组同样20/20角度、24/24比例，覆盖率均为100%，无缺标签/缺边。本页为按用户要求挑选改善明显的展示案例，不作为整个数据集的汇总效果。第二页772保留原内容。';
+for(let i=0;i<2;i++){const blob=await presentation.export({slide:presentation.slides.items[i],format:'png',scale:1});await fs.writeFile(path.join(build,`slide-${i+1}.png`),new Uint8Array(await blob.arrayBuffer()));}
+const candidate=path.join(build,'candidate.pptx');await(await PresentationFile.exportPptx(presentation)).save(candidate);
+const {finalizePresentation}=await import(pathToFileURL(path.join(skill,'container_tools/artifact_tool_utils.mjs')).href);
+const result=await finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath:path.join(root,'deliverables/pipeline_cases/GeoAgent_2108_repair_772_pipeline.pptx'),pythonExecutable:'C:/Users/18217/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe',integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','15240000,8572500','--validate-heading-fit','--require-native-table-slide','1'],explicitTotalSlideCount:2,requiredNativeTableOwnerSlides:[1],fontPolicy:{basis:'design',families:['Microsoft YaHei']},verifyArtifactToolImport:true,receiptPath:path.join(build,'validation.json')});
+console.log(JSON.stringify({final:result.finalPath,status:result.packageIntegrity.status,slides:result.presentationLayout.slide_count,warnings:result.presentationLayout.warning_count}));

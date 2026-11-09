@@ -1,0 +1,136 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render reproduces the parallelogram ABCD with correct topology, correct vertex bindings and clear labels; the only visible difference is a slightly smaller overall scale.",
+  "figure_type": {
+    "original": "Parallelogram ABCD (solid outline, AD and BC horizontal, AB and CD slanted), labels A, D above and B, C below",
+    "render": "Parallelogram ABCD (solid outline, AD and BC horizontal, AB and CD slanted), labels A, D above and B, C below"
+  },
+  "issues": [
+    {
+      "type": "layout_error",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_03",
+        "seg_04"
+      ],
+      "bbox": [
+        0.05,
+        0.24,
+        0.95,
+        0.76
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The rendered parallelogram is drawn at a smaller overall scale than the original (about 400 px wide by 200 px tall against about 440 by 220 px in the original). The width-to-height ratio (about 2:1) matches, so the shape and proportions are faithful.",
+      "suggestion": "Optional: enlarge the TikZ coordinates by about 1.1 (or set a larger xscale/yscale) to match the original's apparent size. No change to topology or bindings is needed."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Bottom side BC is horizontal and correctly drawn from B to C."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Top side AD is horizontal and correctly drawn from A to D."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Left side AB runs from A down-left to B, with both ends meeting the vertices."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Right side CD runs from D down-left to C, with both ends meeting the vertices."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Vertex B is at the bottom-left corner, labelled B below-left as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Vertex C is at the bottom-right corner, labelled C below-right as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Vertex A is at the top-left corner, labelled A above-left as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Vertex D is at the top-right corner, labelled D above-right as in the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Parallelogram topology: four sides AD, DC, CB, BA form a closed quadrilateral with AD parallel to BC.",
+    "All four sides meet exactly at their shared vertices, with no overhangs or stubs.",
+    "Vertex labels A, B, C, D are present, correctly spelled, and bound to the matching corners.",
+    "Label placement matches the original: A and D above, B and C below, with clear separation from the strokes.",
+    "Aspect ratio (about 2:1) and stroke weight are consistent with the original.",
+    "No extra marks, right-angle markers or auxiliary lines are present or needed."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "b26313be72d64551",
+      "edge": [
+        "B",
+        "C"
+      ],
+      "reason": "The original bottom side is a continuous solid stroke joining B and C."
+    },
+    {
+      "case_id": "5ff6b215ac1efa4e",
+      "edge": [
+        "A",
+        "D"
+      ],
+      "reason": "The original top side is a continuous solid stroke joining A and D."
+    },
+    {
+      "case_id": "a0977966fe5be8a1",
+      "edge": [
+        "A",
+        "B"
+      ],
+      "reason": "The original left side is a straight solid stroke from A down to B."
+    },
+    {
+      "case_id": "72065b6c97b526d8",
+      "edge": [
+        "C",
+        "D"
+      ],
+      "reason": "The original right side is a straight solid stroke from D down to C."
+    }
+  ],
+  "raw_meta": "{}"
+}

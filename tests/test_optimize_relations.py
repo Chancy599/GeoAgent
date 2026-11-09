@@ -74,7 +74,7 @@ def test_export_round_trips_optimized_coordinates():
     tex+=r"\draw(A)--(B)--(C)--(D)--cycle;"
     emitted=pilot.rewrite_tex(tex,before,after)
     parsed=pilot.extract_geometry(emitted)
-    assert parsed["points"]==after["points"]
+    assert parsed['points']=={name:[float(f'{v:.3f}') for v in xy] for name,xy in after['points'].items()}
     assert "e-" not in emitted
 
 

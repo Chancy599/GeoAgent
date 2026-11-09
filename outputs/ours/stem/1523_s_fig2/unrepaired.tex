@@ -1,37 +1,45 @@
 \documentclass[tikz,border=10pt]{standalone}
-% Scale s = 0.010025 (1 unit = ~100 px), y flipped, origin at px (450,400)
+
 \begin{document}
-\begin{tikzpicture}[line join=round, line width=1.1pt, font=\fontsize{11}{13.2}\selectfont]
-  % Named coordinates (converted from pixels)
-  \coordinate (A) at (-0.045,2.868);
-  \coordinate (B) at (-3.302,-2.819);
-  \coordinate (C) at (3.783,-2.817);
-  \coordinate (D) at (-1.352,0.590);
-  \coordinate (E) at (1.492,0.589);
-  \coordinate (F) at (1.494,-2.246);
-  \coordinate (G) at (-1.348,-2.247);
-  \coordinate (H) at (-0.045,-2.817);
+\begin{tikzpicture}[line join=round, line width=1.1pt]
+\coordinate (A) at (-0.291,2.854);
+\coordinate (B) at (-3.548,-2.834);
+\coordinate (C) at (3.537,-2.832);
+\coordinate (D) at (-1.598,0.575);
+\coordinate (E) at (1.246,0.574);
+\coordinate (F) at (1.248,-2.261);
+\coordinate (H) at (-0.291,-2.832);
 
-  % Triangle ABC (solid)
-  \draw (A) -- (B) -- (C) -- cycle;
+  
+  \coordinate (G) at (-1.594,-2.261);  
+  \coordinate (M) at (-0.291,0.577);   
+  \coordinate (N) at (-0.291,-2.258);  
 
-  % Dashed altitude from A to H on BC (thinner stroke)
-  \draw[dashed, line width=0.5pt] (A) -- (H);
+  
+  \draw (A) -- (B);
+  \draw (A) -- (C);
+  \draw (B) -- (C);
 
-  % Inner square DEFG (solid)
-  \draw (D) -- (E) -- (F) -- (G) -- cycle;
+  
+  \draw[dashed] (A) -- (M) -- (N) -- (H);
 
-  % Solid segment B to G
+  
+  \draw (D) -- (E);
+  \draw (E) -- (F);
+  \draw (F) -- (G);
+  \draw (G) -- (D);
+
+  
   \draw (B) -- (G);
 
-  % Labels
-  \node[above] at (A) {$A$};
-  \node[left] at (B) {$B$};          % left of B, no vertical offset
-  \node[right] at (C) {$C$};         % right of C, no vertical offset
-  \node[left] at (D) {$D$};          % left of D, level with vertex (anchor east)
-  \node[right] at (E) {$E$};         % right of E, level with vertex (anchor west)
-  \node[right] at (F) {$F$};         % right of F, no vertical offset
-  \node[left] at (G) {$G$};          % left of G, level with vertex (anchor east)
-  \node[below] at (H) {$H$};
+  
+  \node[above, font=\fontsize{11}{13.2}\selectfont] at (A) {$A$};
+  \node[left, font=\fontsize{11}{13.2}\selectfont] at (B) {$B$};
+  \node[right, font=\fontsize{11}{13.2}\selectfont] at (C) {$C$};
+  \node[above left, font=\fontsize{11}{13.2}\selectfont] at (D) {$D$};
+  \node[above right, font=\fontsize{11}{13.2}\selectfont] at (E) {$E$};
+  \node[right, font=\fontsize{11}{13.2}\selectfont] at (F) {$F$};
+  \node[above left, font=\fontsize{11}{13.2}\selectfont] at (G) {$G$};
+  \node[below, font=\fontsize{11}{13.2}\selectfont] at (H) {$H$};
 \end{tikzpicture}
 \end{document}

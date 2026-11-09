@@ -1,4 +1,4 @@
-"""Reuse frozen scores to compare the two e2e baselines and current ours."""
+"""Validate and report the model comparison on the frozen 100-image set."""
 import argparse
 import hashlib
 import json
@@ -9,7 +9,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.evaluate_structure_ab import _paired_geometry
+FULL_COHORT_ERROR_CAPS = {'angle': 180., 'ratio': 1.}
 
 
 def read(path):
@@ -18,6 +18,29 @@ def read(path):
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def full_cohort_geometry(per_group, stems):
+    """Average each image's reference items, including unavailable predictions."""
+    geometry = {}
+    for kind, cap in FULL_COHORT_ERROR_CAPS.items():
+        key = f'{kind}_checks'
+        reference_counts = [len(next(iter(per_group.values()))[stem][key]) for stem in stems]
+        if not all(reference_counts):
+            raise ValueError(f'Every benchmark image must have reference {kind} items')
+        means = {}
+        for name, rows in per_group.items():
+            image_errors = []
+            for stem, expected in zip(stems, reference_counts):
+                checks = rows[stem][key]
+                if len(checks) != expected:
+                    raise ValueError(f'Incomplete reference {kind} checks: {name}/{stem}')
+                errors = [cap if item['error'] is None else min(item['error'], cap) for item in checks]
+                image_errors.append(sum(errors) / expected)
+            means[name] = sum(image_errors) / len(stems)
+        geometry[kind] = {'n_images': len(stems), 'n_items': sum(reference_counts),
+                          'missing_error': cap, 'error_cap': cap, 'means': means}
+    return geometry
 
 
 def build_ablation(structure):
@@ -68,7 +91,7 @@ def build_ablation(structure):
     lines += ['', f"同一{result['count']}图、同一所选TikZ版本，关闭或开启确定性后修复。两组共同可测项：{angle['n_items']}个角度、{ratio['n_items']}个比例。所有共同项直接合并，每项等权，不先逐图平均，也不按是否修复或改善筛选条目。", '',
               '整体角度MAE = Σ角度绝对误差 / 共同角度数；整体比例MRE = 100 × Σ比例相对误差 / 共同比例数。相对下降 =（不修复−修复后）/不修复。', '',
               f"逐项配对：角度改善{angle['improved']}项、变差{angle['worsened']}项、不变{angle['unchanged']}项；比例改善{ratio['improved']}项、变差{ratio['worsened']}项、不变{ratio['unchanged']}项。不变容差为角度10⁻⁸°、比例相对误差10⁻⁸个百分点。", '',
-              '比例误差的均值小幅改善，但P90、P95及均方根误差未改善，完整分布统计见[ablation.json](results/latest/ablation.json)。不能据此声称所有比例误差均下降。', '',
+              '完整分布统计见[ablation.json](results/latest/ablation.json)。整体均值的下降不代表每个条目都改善。', '',
               '三种方法主表仍按图平均，且使用三组共同项；本消融按条目汇总并使用两组共同项，因此两表的ours数值不同。', '']
     return result, lines
 
@@ -76,86 +99,146 @@ def build_ablation(structure):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--results', type=Path, default=ROOT/'results/latest')
+    parser.add_argument('--ours', type=Path, default=ROOT/'outputs/ours')
+    parser.add_argument('--qwen', type=Path, default=ROOT/'outputs/baseline/qwen3.5-plus')
+    parser.add_argument('--glm', type=Path, default=ROOT/'outputs/baseline/glm-5.3-flash')
+    parser.add_argument('--reference-dir', type=Path, default=ROOT/'data/test/geometry_reference')
+    parser.add_argument('--no-readme', action='store_true', help='stage reports without editing README')
     args = parser.parse_args()
     out = args.results
-    paths = {n:out/f for n,f in [('baseline_geometry','baselines_geometry.json'),('baseline_visual','baselines_visual.json'),('ours_geometry','structure.json'),('ours_visual','visual.json')]}
-    data = {n:read(p) for n,p in paths.items()}
-    bg,og = data['baseline_geometry'],data['ours_geometry']
-    manifest = ROOT/'data/test/geometry_reference/manifest.json'
-    assert bg['reference_manifest_sha256'] == og['reference_manifest_sha256'] == sha(manifest), 'Geometry reference mismatch; rescore first'
-    names = ['haiku-5.5','gpt-5.4','ours']
-    stems = og['shared_stems']
-    assert len(stems) == 100 and set(stems) == set(bg['shared_stems'])
-    rows = {n:bg['groups'][n]['per_stem'] for n in names[:2]}
-    rows['ours'] = og['groups']['post']['per_stem']
-    geometry = _paired_geometry(rows,names,stems)
+    paths = {name: out/f'{name}.json' for name in ('structure', 'visual')}
+    structure, visual = (read(paths[name]) for name in paths)
+    manifest_path = args.reference_dir/'manifest.json'
+    manifest = read(manifest_path)
+    stems = sorted(manifest['files'])
+    if len(stems) != 100 or structure['reference_manifest_sha256'] != sha(manifest_path):
+        raise ValueError('Expected the current frozen 100-image reference manifest')
+    if any(data['shared_stems'] != stems for data in (structure, visual)):
+        raise ValueError('Geometry and visual results must cover the complete manifest in order')
+
+    archives = {
+        'haiku-5.5': ROOT/'outputs/baseline/haiku-5.5',
+        'gpt-5.4': ROOT/'outputs/baseline/gpt-5.4',
+        'qwen3.5-plus': args.qwen,
+    }
+    if 'glm-5.3-flash' in structure['groups']:
+        archives['glm-5.3-flash'] = args.glm
+    baseline_count = len(archives)
+    archives['ours'] = args.ours
+    if any(set(data['groups']) != set(archives) for data in (structure, visual)):
+        raise ValueError('Geometry and visual results must contain the same supported methods')
+    per_group = {name: group['per_stem'] for name, group in structure['groups'].items()}
+    geometry = full_cohort_geometry(per_group, stems)
+    visual_hashes = visual['evaluated_image_sha256']
+    protected = {}
+    for stem in stems:
+        image = ROOT/'data/test/image'/f'{stem}.png'
+        tex = ROOT/'data/test/latex'/f'{stem}.tex'
+        image_hash, tex_hash = sha(image), sha(tex)
+        if visual_hashes['reference'][stem] != image_hash or manifest['source_hashes'][stem] != tex_hash:
+            raise ValueError(f'Reference input changed: {stem}')
+        protected[image.relative_to(ROOT).as_posix()] = image_hash
+        protected[tex.relative_to(ROOT).as_posix()] = tex_hash
+
     values = {}
-    for name in names:
-        if name == 'ours':
-            v = data['ours_visual']
-            assert set(v['shared_stems']) == set(stems)
-            summary = v['groups']['post']['summary']
-            visual_rows = v['groups']['post']['per_stem']
-            g = og['groups']['post']
-            archive = ROOT/'outputs/ours'
-        else:
-            v = data['baseline_visual']['groups'][name]['shared']
-            assert v['count'] == 100
-            visual_rows = v['per_image']
-            assert {r['stem'] for r in visual_rows} == set(stems)
-            summary = v['aggregate']
-            g = bg['groups'][name]
-            archive = ROOT/'outputs/baselines'/name
-        # Inputs are immutable; retaining their hashes makes score reuse auditable.
-        hashes = {'images':{s:sha(archive/'image'/f'{s}.png') for s in stems},
-                  'programs':{s:sha(archive/'latex'/f'{s}.tex') for s in stems}}
-        protected = read(out/'protected_inputs.json')
-        for kind,folder,extension in [('images','image','png'),('programs','latex','tex')]:
-            for stem,digest in hashes[kind].items():
-                path = (archive/folder/f'{stem}.{extension}').relative_to(ROOT).as_posix()
-                assert protected[path] == digest, f'Input changed: {path}'
-        values[name] = {'ssim':summary['ssim'],'clip':summary['clip'],'dino':summary['dino'],
-                        'angle_mae_deg':geometry['angle']['means'][name],
-                        'ratio_mre':geometry['ratio']['means'][name],
-                        'coverage':{k:g['summary'][k] for k in ('coverage','angle_coverage','ratio_coverage')},
-                        'input_sha256':hashes}
-    result = {'schema':'three-model-five-metrics.v1','count':len(stems),'shared_stems':stems,
-              'reference_manifest_sha256':sha(manifest),'geometry_common_items':geometry,
-              'groups':values,'reused_scores':True,'new_model_or_metric_inference':False,
-              'source_sha256':{n:sha(p) for n,p in paths.items()},
-              'visual_caveat':'Baseline visual aggregates were previously stored to six decimal places; retained unchanged.',
-              'geometry_aggregation':'Same items available in all three groups, mean within image then across images; coverage uses the full reference.'}
-    (out/'comparison.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
-    lines = ['| 方法 | SSIM ×100 ↑ | CLIP ×100 ↑ | DINO ×100 ↑ | MAE（°）↓ | MRE（%）↓ |',
+    for name, archive in archives.items():
+        visual_group = visual['groups'][name]
+        visual_stems = [row['stem'] for row in visual_group['per_stem']]
+        if visual_stems != stems or set(per_group[name]) != set(stems):
+            raise ValueError(f'Incomplete per-image results: {name}')
+        coverage = structure['groups'][name]['summary']
+        published = Path('outputs/ours') if name == 'ours' else Path('outputs/baseline')/name
+        hashes = {'images': {}, 'programs': {}}
+        for stem in stems:
+            image_hash = sha(archive/'image'/f'{stem}.png')
+            tex_hash = sha(archive/'latex'/f'{stem}.tex')
+            if (visual_hashes[name][stem] != image_hash
+                    or per_group[name][stem]['program_sha256'] != tex_hash):
+                raise ValueError(f'Evaluated output changed: {name}/{stem}')
+            hashes['images'][stem] = image_hash
+            hashes['programs'][stem] = tex_hash
+            protected[(published/'image'/f'{stem}.png').as_posix()] = image_hash
+            protected[(published/'latex'/f'{stem}.tex').as_posix()] = tex_hash
+        values[name] = {
+            **visual_group['summary'],
+            'angle_mae_with_missing_deg': geometry['angle']['means'][name],
+            'ratio_mre_capped_with_missing': geometry['ratio']['means'][name],
+            'coverage': {key: coverage[key] for key in ('coverage', 'angle_coverage', 'ratio_coverage')},
+            'n_unparseable': coverage['n_unparseable'],
+            'input_sha256': hashes,
+        }
+
+    result = {
+        'schema': 'model-comparison-five-metrics.v4',
+        'count': len(stems),
+        'shared_stems': stems,
+        'reference_manifest_sha256': sha(manifest_path),
+        'geometry_full_cohort': geometry,
+        'groups': values,
+        'source_sha256': {name: sha(path) for name, path in paths.items()},
+        'geometry_aggregation': 'All reference items on the fixed 100 images. Unavailable items receive the error cap; errors are averaged within each image, then across all images.',
+    }
+    (out/'comparison.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    (out/'protected_inputs.json').write_text(json.dumps(protected, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+
+    def metric(value, scale, digits):
+        return '—' if value is None else f'{value*scale:.{digits}f}'
+
+    lines = ['| 方法 | SSIM ×100 ↑ | CLIP ×100 ↑ | DINO ×100 ↑ | 角度 MAE（含缺测，°）↓ | 比例 MRE（含缺测及封顶，%）↓ |',
              '|---|---:|---:|---:|---:|---:|']
-    for name in names:
-        v = values[name]
-        lines.append(f"| {name} | {v['ssim']*100:.4f} | {v['clip']*100:.4f} | {v['dino']*100:.4f} | {v['angle_mae_deg']:.6f} | {v['ratio_mre']*100:.6f} |")
-    lines += ['', f"同一100图；几何采用三组共同可测项：{geometry['angle']['n_items']}个角度、{geometry['ratio']['n_items']}个比例，均覆盖{geometry['angle']['n_images']}图。先按图平均，再跨图平均。", '',
-              '主表几何使用三组共同可测项，与不修复消融的两组均值不同。', '',
-              '| 方法 | 线段覆盖率（%）↑ | 角度覆盖率（%）↑ | 比例覆盖率（%）↑ |', '|---|---:|---:|---:|']
-    for name in names:
-        c=values[name]['coverage']
-        lines.append(f"| {name} | {c['coverage']*100:.4f} | {c['angle_coverage']*100:.4f} | {c['ratio_coverage']*100:.4f} |")
-    (out/'comparison.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
-    ablation_result, ablation = build_ablation(og)
-    ablation_result['source_sha256'] = sha(paths['ours_geometry'])
-    ablation_result['reference_manifest_sha256'] = sha(manifest)
-    ablation_result['implementation_sha256'] = sha(Path(__file__))
-    (out/'ablation.json').write_text(json.dumps(ablation_result,ensure_ascii=False,indent=2),encoding='utf-8')
-    (out/'ablation.md').write_text('\n'.join(ablation).replace('(results/latest/ablation.json)', '(ablation.json)'),encoding='utf-8')
-    readme=ROOT/'README.md'
-    text=readme.read_text(encoding='utf-8')
-    start,end='<!-- benchmark:start -->','<!-- benchmark:end -->'
-    if start in text and end in text:
-        before,tail=text.split(start,1)
-        _,after=tail.split(end,1)
-        text=before+start+'\n\n'+'\n'.join(lines)+'\n\n'+end+after
-    start,end='<!-- ablation:start -->','<!-- ablation:end -->'
-    if start in text and end in text:
-        before,tail=text.split(start,1);_,after=tail.split(end,1)
-        text=before+start+'\n\n'+'\n'.join(ablation)+'\n'+end+after
-    readme.write_text(text,encoding='utf-8')
+    for name, row in values.items():
+        fields = [metric(row[key], 100, 4) for key in ('ssim', 'clip', 'dino')]
+        fields.extend((metric(row['angle_mae_with_missing_deg'], 1, 6),
+                       metric(row['ratio_mre_capped_with_missing'], 100, 6)))
+        lines.append('| ' + ' | '.join([name, *fields]) + ' |')
+    angle, ratio = geometry['angle'], geometry['ratio']
+    lines += ['', f"几何指标纳入全部 {angle['n_images']} 张图、{angle['n_items']} 个参考角度和 "
+              f"{ratio['n_items']} 个参考比例。缺测角度计 {angle['missing_error']:g}°，缺测比例计 "
+              f"{ratio['missing_error']*100:g}%，可测比例误差同样封顶 {ratio['error_cap']*100:g}%。"
+              "先在各图内平均，再等权平均 100 张图。", '',
+              '| 方法 | 线段覆盖率（%）↑ | 角度覆盖率（%）↑ | 比例覆盖率（%）↑ |',
+              '|---|---:|---:|---:|']
+    for name, row in values.items():
+        fields = [metric(row['coverage'][key], 100, 4) for key in ('coverage', 'angle_coverage', 'ratio_coverage')]
+        lines.append('| ' + ' | '.join([name, *fields]) + ' |')
+    (out/'comparison.md').write_text('\n'.join(lines)+'\n', encoding='utf-8')
+    generation_path = out/'input_manifest.json'
+    generation = read(generation_path).get('groups', {}) if generation_path.is_file() else {}
+    generation_lines = []
+    if {'ours', 'qwen3.5-plus'} <= generation.keys():
+        ours = generation['ours']
+        qwen = generation['qwen3.5-plus']
+        partial = ours['generation_statuses'].get('partial', 0)
+        generation_lines = [
+            f"GeoAgent 和 Qwen3.5-Plus 分别用 {ours['workers']} 和 {qwen['workers']} 个 worker 生成，"
+            f"各有 {ours['compiled']} 和 {qwen['compiled']} 份编译产物。GeoAgent 的 {partial} 份 partial 结果也纳入评测。",
+            '[GeoAgent 生成记录](ours_generation.json) · [Qwen3.5-Plus 生成记录](qwen3.5-plus_generation.json)',
+        ]
+        if 'glm-5.3-flash' in archives and 'glm-5.3-flash' in generation:
+            glm = generation['glm-5.3-flash']
+            generation_lines.extend([
+                '', f"GLM-5.3-Flash 用 {glm['workers']} 个 worker 生成，编译通过 {glm['compiled']} 张。"
+                '重试沿用相同提示与参数，并直接编译模型返回的 TikZ。',
+                '[GLM-5.3-Flash 生成记录](glm-5.3-flash_generation.json)',
+            ])
+        generation_lines.append('')
+    report = [
+        '# GeoAgent 100图实验结果', '',
+        f'当前 GeoAgent 与 {baseline_count} 个图像到 TikZ 的端到端模型在同一100图上评测。视觉采用固定的 SSIM、CLIP 和 DINO；'
+        '几何按可见标签绑定计算角度和线段长度比。覆盖率以完整参考清单为分母，无法测量的项保留为缺失。', '',
+        *generation_lines,
+        *lines, '',
+        '逐图几何见 [structure.json](structure.json)，逐图视觉见 [visual.json](visual.json)，'
+        '输出和输入哈希见 [comparison.json](comparison.json)。这批图已用于项目开发。', '',
+    ]
+    (out/'report.md').write_text('\n'.join(report), encoding='utf-8')
+    if not args.no_readme:
+        readme = ROOT/'README.md'
+        text = readme.read_text(encoding='utf-8')
+        start, end = '<!-- benchmark:start -->', '<!-- benchmark:end -->'
+        before, tail = text.split(start, 1)
+        _, after = tail.split(end, 1)
+        readme.write_text(before + start + '\n\n' + '\n'.join(lines) + '\n\n' + end + after, encoding='utf-8')
     print('\n'.join(lines))
 
 

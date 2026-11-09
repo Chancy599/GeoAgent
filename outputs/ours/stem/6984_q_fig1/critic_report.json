@@ -1,0 +1,141 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render is geometrically faithful: circle, diameter AB, chord DG, line AEC, segment EO, right-angle mark at F and all eight labels match the original, with only a heavier stroke weight in the original.",
+  "figure_type": {
+    "original": "Full circle with horizontal diameter AB, vertical chord DG through F, line A-E-C crossing DG at E, segment E-O from E to centre O, and a right-angle mark at F",
+    "render": "Full circle with horizontal diameter AB, vertical chord DG through F, line A-E-C crossing DG at E, segment E-O from E to centre O, and a right-angle mark at F"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "circle_01",
+        "seg_01"
+      ],
+      "bbox": [
+        0.05,
+        0.12,
+        0.92,
+        0.93
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The circle and diameter AB are drawn noticeably thinner in the render than in the original, which shows bolder strokes. The other segments look comparable in weight.",
+      "suggestion": "Optionally increase line width for the circle and the AB diameter (e.g. draw them with a heavier width than the other segments) to match the original's emphasis. This is cosmetic and does not affect geometry."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Full circle centred at O with matching radius and extent in both panels."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Diameter AB is horizontal and spans A to B in both panels; render is thinner."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Chord DG is vertical through F, with the same extent from D to G."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Line A-E-C runs from A through E on DG to C on the circle, as in the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Segment E-O joins E on DG to centre O in both panels."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "F is on AB at the foot of the right-angle mark, with its label below-right as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "A is at the left end of AB on the circle, with its label to the left."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "O is the centre marked with a filled dot and labelled below."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "E is the intersection of AEC with DG, labelled above-left, with clear separation from strokes."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "B is at the right end of AB on the circle, with its label to the right."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "D is the top end of chord DG on the circle, labelled above-left."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "G is the bottom end of chord DG on the circle, labelled below-left."
+    },
+    {
+      "object_id": "point_08",
+      "status": "present",
+      "note": "C is on the circle at the upper right end of line AEC, labelled above-right."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Full circle with the same centre, radius and extent",
+    "Diameter AB from A on the circle to B on the circle",
+    "Chord DG vertical through F, ending on the circle at D and G",
+    "Line AEC passes through E on DG and ends at C on the circle",
+    "Segment EO from E to O",
+    "Right-angle mark at F between AB and DG",
+    "Filled dot at O",
+    "All eight labels (A, B, C, D, E, F, G, O) are present, correctly spelled and placed near their vertices with no collisions"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "O"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "2a0a4b32f26abea1",
+      "edge": [
+        "E",
+        "O"
+      ],
+      "reason": "In the original, a single straight stroke runs from E (on DG, at the AEC crossing) to O, the centre. The render draws the same E-O segment."
+    }
+  ],
+  "raw_meta": "{}"
+}

@@ -1,0 +1,25 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    \coordinate (A) at (0,3);
+    \coordinate (B) at (0,0);
+    \coordinate (C) at (6,0);
+    \coordinate (D) at (6,3);
+    \coordinate (E) at (1.2,2.4);
+
+    \draw (A) -- (B) -- (C) -- (D) -- cycle;
+    \draw (A) -- (C);
+    \draw (B) -- (E);
+    
+    % Right angle mark at E
+    \draw ($(E)!0.25cm!(A)$) -- ($(E)!0.25cm!(A) + (E)!0.25cm!(B) - (E)$) -- ($(E)!0.25cm!(B)$);
+
+    \node[above left] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[above right] at (D) {$D$};
+    \node[above right] at (E) {$E$};
+\end{tikzpicture}
+\end{document}

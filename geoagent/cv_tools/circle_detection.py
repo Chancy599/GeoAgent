@@ -337,7 +337,7 @@ def detect_circles(
                 for lo, hi in item["visible_ranges_deg"]:
                     draw_circle(overlay, item["center_px"], item["radius_px"], color, 2, lo, hi)
             draw_label(overlay, item["id"], item["center_px"], color)
-        base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+        base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
         viz = save_png(base / "detect_circles.png", overlay)
 
     notes = []
@@ -430,7 +430,7 @@ def fit_arcs(
             for lo, hi in arc["visible_ranges_deg"]:
                 draw_circle(overlay, arc["center_px"], arc["radius_px"], (200, 60, 120), 2, lo, hi)
             draw_label(overlay, arc["id"], arc["center_px"], (200, 60, 120))
-        base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+        base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
         viz = save_png(base / "fit_arcs.png", overlay)
 
     return envelope(
@@ -501,7 +501,7 @@ def extract_visible_arc(
                 draw_circle(overlay, (cx, cy), radius, (200, 60, 120), 2, lo, hi)
         for sample in samples[:: max(1, len(samples) // 18)]:
             cv2.circle(overlay, (int(round(sample["x_px"])), int(round(sample["y_px"]))), 2, (20, 120, 220), -1)
-        base = Path(out_dir) if out_dir else PROJECT_ROOT / "outputs" / "cv_preview" / Path(image_path).stem
+        base = Path(out_dir) if out_dir else PROJECT_ROOT / ".cache" / "cv_preview" / Path(image_path).stem
         viz = save_png(base / "extract_visible_arc.png", overlay)
     return envelope(
         "extract_visible_arc",

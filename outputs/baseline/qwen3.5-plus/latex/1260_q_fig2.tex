@@ -1,0 +1,56 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    % B is the origin (0,0)
+    \coordinate (B) at (0,0);
+    % A is directly above B
+    \coordinate (A) at (0,3);
+    % E is on the horizontal line from B
+    \coordinate (E) at (1.2,0);
+    
+    % F is the reflection of B across the line AE.
+    % This corresponds to folding the triangle ABE along AE.
+    % First, find the projection of B onto AE
+    \coordinate (P) at ($(A)!(B)!(E)$);
+    % Then F is such that P is the midpoint of BF
+    \coordinate (F) at ($(B)!2!(P)$);
+    
+    % G is the intersection of the line extending AF and the line BC.
+    % We define a point X far to the right to define the line BC.
+    \coordinate (X) at (10,0);
+    \coordinate (G) at (intersection of A--F and B--X);
+    
+    % C is further to the right on the bottom line
+    \coordinate (C) at (7.5,0);
+    % D is the top-right corner, AD is horizontal
+    \coordinate (D) at (4,3);
+    
+    % Draw dashed lines
+    \draw[dashed] (A) -- (B);
+    \draw[dashed] (B) -- (E);
+    \draw[dashed] (F) -- (G);
+    
+    % Draw solid lines
+    \draw (A) -- (E);
+    \draw (A) -- (F);
+    \draw (E) -- (F);
+    \draw (A) -- (D);
+    \draw (D) -- (C);
+    \draw (E) -- (C);
+    
+    % Draw right-angle mark at B
+    \draw (0, 0.3) -- (0.3, 0.3) -- (0.3, 0);
+    
+    % Label the points
+    \node[left] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below] at (E) {$E$};
+    \node[below] at (G) {$G$};
+    \node[below right] at (C) {$C$};
+    \node[above] at (D) {$D$};
+    \node[above right] at (F) {$F$};
+\end{tikzpicture}
+\end{document}

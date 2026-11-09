@@ -100,7 +100,7 @@ def main():
     save(out/'reference_identity.json', identities)
     repairs = read(out/'repair_manifest.json')['reports']
     previous = read(out/'summary.json')
-    mechanical_keys = ('images','workers','applied_images','repair_settings','generation_statuses','reasons','accepted_relations','compiled','engine_verified_images','engine_errors','max_engine_error_deg','reference_used_for_repair','baseline_hashes_unchanged')
+    mechanical_keys = ('images','workers','applied_images','coordinate_decimals','repair_settings','generation_statuses','reasons','accepted_relations','compiled','engine_verified_images','engine_errors','max_engine_error_deg','reference_used_for_repair','baseline_hashes_unchanged')
     summary = {k: previous[k] for k in mechanical_keys if k in previous}
     summary.update(geometry_protocol=PROTOCOL, groups={n:g['summary'] for n,g in structure['groups'].items()},
                    paired_geometry=structure['paired_geometry'], item_paired=structure['item_paired'])
@@ -111,9 +111,10 @@ def main():
     test_log = (out/'tests.log').read_text(encoding='utf-8-sig')
     status = re.search(r'(\d+) passed, (\d+) skipped', test_log)
     code = [Path(__file__), ROOT/'scripts/merge_evaluation_results.py', ROOT/'geoagent/evaluation/structure.py', ROOT/'scripts/evaluate_structure_ab.py', ROOT/'scripts/build_geometry_reference.py',
+            ROOT/'geoagent/state/coordinate_precision.py',ROOT/'geoagent/state/coordinate_contract.py',
             ROOT/'geoagent/state/tikz_repair.py', ROOT/'geoagent/state/tikz_geometry.py', ROOT/'geoagent/state/angle_glyphs.py',
             ROOT/'geoagent/cv_tools/label_detection.py',ROOT/'geoagent/state/measured_topology.py',ROOT/'geoagent/agents/prompts.py',
-            ROOT/'geoagent/agents/tikz_agent.py',ROOT/'geoagent/agents/critic_agent.py',ROOT/'geoagent/orchestration/runner.py',
+            ROOT/'geoagent/agents/code_agent.py',ROOT/'geoagent/agents/critic_agent.py',ROOT/'geoagent/orchestration/runner.py',
             ROOT/'data/test/geometry_reference/corrections.json', *[Path(m.__file__) for m in backend()]]
     correction = read(out/'reference_correction_effect.json') if (out/'reference_correction_effect.json').exists() else None
     excluded_images = sum(bool(r.get('angle_glyph_exclusion',{}).get('excluded_strokes')) for r in repairs)
@@ -131,7 +132,7 @@ def main():
     lines = ['# 标签绑定几何评测：100图结果', '',
              '只测带可见标签的点：标签名 → 代码中的绑定坐标 → 同名角度与线段比例。没有空间配准或最近点匹配，不带标签的交点与辅助点不参与评测。', '',
              f"参考清单由源代码单独提取到 `data/test/geometry_reference`：{manifest['count']}图，{manifest['edges']}条线段，{manifest['angles']}个角度，{manifest['ratios']}个比例。评测仅读取JSON，不打开参考TeX。", '',
-             '同一100图，20 worker汇总；raw取各图所选版本的后处理前代码，post是当前结果。两组共用版本选择，100份编译档案均成功。', '',
+             '同一100图，20 worker汇总；raw取各图所选版本的后处理前代码，post是当前结果。两组共用版本选择，200份编译档案均成功；坐标与后修复输出统一保留三位小数，按实际导出代码评测。', '',
              *[line.replace('(results/latest/ablation.json)', '(ablation.json)') for line in ablation_lines],
              '| 覆盖率 | 不修复 raw | 生成后修复 post |', '|---|---:|---:|']
     for field,label in (('coverage','线段覆盖率（%）↑'),('angle_coverage','角度覆盖率（%）↑'),('ratio_coverage','比例覆盖率（%）↑')):

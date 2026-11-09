@@ -1,38 +1,55 @@
 \documentclass[tikz,border=10pt]{standalone}
-% Coordinates: x = px*s, y = (629 - py)*s, s = 0.009445 (longest side = 8 cm)
+
 \begin{document}
-\begin{tikzpicture}[line width=1.1pt, line join=round, font=\fontsize{8.5}{10.2}\selectfont]
-  % Named vertices (unchanged)
-  \coordinate (A) at (4.342,4.986);
-  \coordinate (C) at (8.086,4.987);
-  \coordinate (F) at (0.991,4.185);
-  \coordinate (B) at (3.401,2.582);
-  \coordinate (O) at (4.742,2.578);
-  \coordinate (D) at (2.735,0.973);
-  \coordinate (E) at (5.411,0.971);
+\begin{tikzpicture}[line join=round, line width=1.1pt,
+  every node/.style={font=\fontsize{10}{12}\selectfont}]
+\coordinate (A) at (-0.206,2.016);
+\coordinate (C) at (3.538,2.017);
+\coordinate (D) at (-1.812,-1.998);
+\coordinate (F) at (-3.557,1.215);
 
-  % Solid edges
-  \draw (A) -- (C);          % A-C
-  \draw (A) -- (B);          % A-B
-  \draw (B) -- (C);          % B-C
-  \draw (F) -- (D);          % F-D
-  \draw (D) -- (E);          % D-E
-  \draw (F) -- (B) -- (E);   % F-B-E as one solid line
 
-  % Dashed edges
-  \draw[dashed] (A) -- (O);  % A-O
-  \draw[dashed] (F) -- (O);  % F-O
-  \draw[dashed] (C) -- (D);  % C-D, passes near O
-  \draw[dashed] (B) -- (O);  % B-O
-  \draw[dashed] (O) -- (E);  % O-E
 
-  % Labels: larger size (\large) to match original; B moved to west of vertex
-  \node[font=\large, above] at (A) {$A$};
-  \node[font=\large, right] at (C) {$C$};
-  \node[font=\large, left] at (F) {$F$};
-  \node[font=\large, left] at (B) {$B$};
-  \node[font=\large, right] at (O) {$O$};
-  \node[font=\large, below] at (D) {$D$};
-  \node[font=\large, below right] at (E) {$E$};
+
+
+
+
+
+\coordinate (B) at (-1.147,-0.390);
+\coordinate (E) at (0.863,-1.998);
+\coordinate (P3) at (0.088,0.246);
+\coordinate (P4) at (0.195,-0.390);
+\coordinate (O) at (0.195,-0.390);
+\coordinate (P8) at (-0.418,-0.882);
+\coordinate (P10) at (-0.476,-0.929);
+\coordinate (P11) at (-0.952,0.097);
+
+
+\draw (A) -- (C);
+\draw (D) -- (E);
+\draw (F) -- (D);
+\draw (A) -- (B);
+\draw (B) -- (C);
+\draw (F) -- (B) -- (E);
+
+
+\draw[dash pattern=on 3pt off 2pt] (A) -- (O);
+\draw[dash pattern=on 3pt off 2pt] (C) -- (O) -- (D);
+\draw[dash pattern=on 3pt off 2pt] (F) -- (O);
+\draw[dash pattern=on 3pt off 2pt] (B) -- (O);
+\draw[dash pattern=on 3pt off 2pt] (O) -- (E);
+\draw[dash pattern=on 3pt off 2pt] (P8) -- (D);
+\draw[dash pattern=on 3pt off 2pt] (P10) -- (O);
+
+
+\node[above] at (A) {$A$};
+\node[above right] at (C) {$C$};
+\node[left] at (F) {$F$};
+\node[left] at (B) {$B$};
+\node[below] at (D) {$D$};
+\node[below] at (E) {$E$};
+
+
+\node[right, xshift=2pt, yshift=2pt] at (O) {$O$};
 \end{tikzpicture}
 \end{document}

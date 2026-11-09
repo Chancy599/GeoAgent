@@ -1,0 +1,43 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (A) at (0, 5);
+    \coordinate (C) at (0, 0);
+    \coordinate (E) at (0, -4);
+    \coordinate (B) at (-8, 2);
+    
+    % Calculate D and H based on geometric constraints
+    % Line BC: y = -0.25x
+    % H is projection of A onto BC
+    \coordinate (H) at (-1.176, 0.294); 
+    % D is on BC such that AD perp DE
+    \coordinate (D) at (-4.45, 1.11);
+
+    % Draw solid lines
+    \draw (A) -- (B);
+    \draw (A) -- (D);
+    \draw (B) -- (C); % This covers B-D-H-C
+    \draw (D) -- (E);
+    \draw (A) -- (E); % This covers A-C-E
+
+    % Draw dashed line
+    \draw[dashed] (A) -- (H);
+
+    % Draw right angle at H (AH perp BC)
+    \draw ($(H)!0.25cm!(A)$) -- ($(H)!0.25cm!(A) + ($(H)!0.25cm!(C)$) - (H)$) -- ($(H)!0.25cm!(C)$);
+
+    % Draw right angle at D (AD perp DE)
+    \draw ($(D)!0.25cm!(A)$) -- ($(D)!0.25cm!(A) + ($(D)!0.25cm!(E)$) - (D)$) -- ($(D)!0.25cm!(E)$);
+
+    % Labels
+    \node[above right] at (A) {$A$};
+    \node[left] at (B) {$B$};
+    \node[right] at (C) {$C$};
+    \node[left] at (D) {$D$};
+    \node[below right] at (E) {$E$};
+    \node[below right] at (H) {$H$};
+\end{tikzpicture}
+\end{document}

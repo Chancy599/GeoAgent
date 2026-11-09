@@ -1,0 +1,135 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render matches the original's topology, labels and diagonal endpoint at D; the only visible discrepancy is that the right-angle marks at B and C are smaller than in the original.",
+  "figure_type": {
+    "original": "Quadrilateral ABCD with AB and CD vertical, BC horizontal, diagonal AD ending at D, and right-angle marks at B and C",
+    "render": "Same quadrilateral ABCD with the same vertical, horizontal and diagonal structure, and right-angle marks at B and C that are smaller than the original"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_05",
+        "seg_06"
+      ],
+      "bbox": [
+        0.08,
+        0.84,
+        0.2,
+        0.92
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The right-angle marks at B and C are noticeably smaller than in the original, about two-thirds the side length of the original squares. Their top edges (seg_05 and seg_06, at y≈609 px) are correspondingly shorter.",
+      "suggestion": "Increase angle radius in both right-angle pic commands (currently 0.200cm), e.g. to about 0.3cm, so the squares match the original size."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Vertical AB from A to B matches the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Diagonal AD ends at D as in the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Vertical CD matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Horizontal BC matches the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "wrong",
+      "note": "Top edge of the right-angle mark at B is present but the mark is smaller than in the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "wrong",
+      "note": "Top edge of the right-angle mark at C is present but the mark is smaller than in the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label A is top-left of its vertex, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label B is bottom-left of its vertex, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D is top-right of its vertex, as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label C is bottom-right of its vertex, as in the original."
+    }
+  ],
+  "checklist_score": 0.9,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Vertex labels A, B, C, D are present with the same placement as the original.",
+    "Solid edges AB, BC, CD and diagonal AD are present with the same topology.",
+    "Diagonal AD ends at D, not at C or past D.",
+    "Right-angle marks are present at B (inside angle ABC) and at C (inside angle BCD).",
+    "Overall aspect ratio and proportions match the original."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "d9749aba95b2aa47",
+      "edge": [
+        "A",
+        "D"
+      ],
+      "reason": "The original shows a single solid stroke from A to D."
+    },
+    {
+      "case_id": "112b70d07f5255fe",
+      "edge": [
+        "C",
+        "D"
+      ],
+      "reason": "The original shows a vertical solid stroke from C up to D."
+    },
+    {
+      "case_id": "523ac22cd528b199",
+      "edge": [
+        "B",
+        "C"
+      ],
+      "reason": "The original shows a horizontal solid stroke from B to C."
+    }
+  ],
+  "raw_meta": "{}"
+}

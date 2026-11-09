@@ -1,0 +1,63 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+    % Coordinates based on geometric analysis (fold of rectangle corner)
+    % Rectangle ABCD
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (8,0);
+    \coordinate (C) at (8,5);
+    \coordinate (D) at (0,5);
+    
+    % Fold line NM
+    \coordinate (N) at (2,5);
+    \coordinate (M) at (3.5,0);
+    
+    % Folded points E (image of D) and F (image of A)
+    % Calculated to satisfy fold properties (NM is perp bisector of DE and AF)
+    \coordinate (E) at (3.66, 6.1);
+    \coordinate (F) at (6.42, 1.92);
+    
+    % Point P
+    \coordinate (P) at (0,7);
+
+    % Rectangle edges (Solid)
+    \draw (A) -- (B);
+    \draw (B) -- (C);
+    \draw (C) -- (D);
+    \draw (D) -- (A);
+
+    % Folded flap edges (Solid)
+    \draw (E) -- (N);
+    \draw (E) -- (F);
+    \draw (F) -- (M);
+    
+    % Crease line NM (Solid) extended
+    \draw (N) -- (M);
+    % Extend below M
+    \draw (M) -- ++(0.6, -2);
+    % Extend above N
+    \draw (N) -- ++(-0.3, 1);
+
+    % Additional solid lines
+    \draw (E) -- (C);
+    \draw (F) -- (C);
+    \draw (D) -- (E);
+
+    % Dashed lines
+    \draw[dashed] (P) -- (D);
+    \draw[dashed] (P) -- (E);
+    \draw[dashed] (A) -- (F);
+    \draw[dashed] (F) -- (B);
+
+    % Labels
+    \node[left] at (P) {$P$};
+    \node[left] at (D) {$D$};
+    \node[above] at (E) {$E$};
+    \node[below left] at (N) {$N$};
+    \node[right] at (C) {$C$};
+    \node[left] at (A) {$A$};
+    \node[below] at (M) {$M$};
+    \node[below] at (F) {$F$};
+    \node[right] at (B) {$B$};
+\end{tikzpicture}
+\end{document}

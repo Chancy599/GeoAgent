@@ -1,0 +1,44 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates based on the analysis of a folded rectangle
+    % Let A=(0,4), B=(0,0). Width=12.
+    \coordinate (A) at (0,4);
+    \coordinate (B) at (0,0);
+    \coordinate (C) at (12,0);
+    \coordinate (D) at (12,4);
+    
+    % E is on AD such that folding D to B works (EB = ED)
+    % x^2 + 4^2 = (12-x)^2 => x = 16/3 approx 5.33
+    \coordinate (E) at (5.33,4);
+    
+    % F is on BC. Fold line EF is perp bisector of BD.
+    % F x-coord is 20/3 approx 6.67
+    \coordinate (F) at (6.67,0);
+    
+    % G is the image of C (or part of the folded flap)
+    % Based on geometry: BG perpendicular to BE, length BG = AB = 4
+    \coordinate (G) at (2.4,-3.2);
+
+    % Draw the rectangle outline parts
+    \draw (A) -- (B);
+    \draw (A) -- (D);
+    \draw (D) -- (C);
+    \draw (B) -- (C);
+    
+    % Draw the internal fold lines and the flap
+    \draw (B) -- (E);
+    \draw (E) -- (F);
+    \draw (B) -- (G);
+    \draw (F) -- (G);
+    
+    % Label the points
+    \node[above left] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[above right] at (D) {$D$};
+    \node[above] at (E) {$E$};
+    \node[below right] at (F) {$F$};
+    \node[below] at (G) {$G$};
+\end{tikzpicture}
+\end{document}

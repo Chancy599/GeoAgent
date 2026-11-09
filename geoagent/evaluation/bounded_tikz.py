@@ -18,6 +18,12 @@ import demo
 import extract_points as cv
 
 
+_ANGLE_PIC = re.compile(
+    r"pic\s*(?:\[[^\[\]]*\]\s*)?\{\s*(?:right\s+angle|angle)\s*=\s*"
+    r"[\w']+\s*--\s*[\w']+\s*--\s*[\w']+\s*\}"
+)
+
+
 @dataclass
 class Stroke:
     a: np.ndarray
@@ -158,10 +164,38 @@ def _point(token, points, env):
         return a + v * float((p - a) @ v) / den if den else None
     m = re.fullmatch(r"\(([\w\x27]+)\)!\s*([^!]+)!\(([\w\x27]+)\)", token)
     if m and m[1] in points and m[3] in points:
+        a, b = np.asarray(points[m[1]]), np.asarray(points[m[3]])
+        modifier = m[2].strip().removeprefix('{').removesuffix('}')
+        dimension = re.fullmatch(r"\s*([-+]?(?:\d+(?:\.\d*)?|\.\d+))\s*(cm|mm|pt)\s*", modifier)
+        if dimension:
+            length = np.linalg.norm(b - a)
+            distance = float(dimension[1]) * {"cm": 1., "mm": .1, "pt": 2.54/72.27}[dimension[2]]
+            return a + (distance / length) * (b - a) if length > 0 else None
         t = _number(m[2], env)
         if t is not None:
-            a, b = np.asarray(points[m[1]]), np.asarray(points[m[3]])
             return a + t * (b - a)
+    # Calc endpoints can themselves be coordinates computed by calc. Split
+    # the modifiers only at the outer level, preserving the inner expressions.
+    calc = cv._split_top(token, "!")
+    if len(calc) == 3 and calc[0].strip().startswith("($"):
+        a = _point(calc[0], points, env)
+        rotation = cv._split_top(calc[2], ":")
+        if len(rotation) in (1, 2):
+            b = _point(rotation[-1], points, env)
+            angle = _number(rotation[0], env) if len(rotation) == 2 else 0.
+            if a is not None and b is not None and angle is not None:
+                modifier = calc[1].strip().removeprefix('{').removesuffix('}')
+                distance = re.fullmatch(r"([-+]?(?:\d+(?:\.\d*)?|\.\d+))\s*(cm|mm|pt)", modifier)
+                v = b - a
+                length = np.linalg.norm(v)
+                if distance and length > 0:
+                    t = float(distance[1]) * {"cm": 1., "mm": .1, "pt": 2.54/72.27}[distance[2]] / length
+                else:
+                    t = _number(modifier, env) if not distance else None
+                if t is not None:
+                    theta = math.radians(angle)
+                    rot = np.array([[math.cos(theta), -math.sin(theta)], [math.sin(theta), math.cos(theta)]])
+                    return a + t * (rot @ v)
     parts = cv._split_top(token, ",")
     if len(parts) == 2:
         xy = [_number(p, env) for p in parts]
@@ -332,9 +366,10 @@ def _resolve_named_paths(text, points, env):
             a, b = (_point(t, points, env) for t in ends)
             if a is not None and b is not None:
                 paths[name[1]] = ("line", a, b)
-    pattern = r"name intersections\s*=\s*\{\s*of\s*=\s*([\w\x27]+)\s+and\s+([\w\x27]+)\s*,\s*by\s*=\s*(?:\{([^}]*)\}|([\w\x27]+))"
-    for a, b, group, single in re.findall(pattern, text):
-        if a not in paths or b not in paths:
+    pattern = (r"name intersections\s*=\s*\{\s*of\s*=\s*([\w\x27]+)\s+and\s+([\w\x27]+)\s*,"
+               r"\s*(?:sort by\s*=\s*([\w\x27]+)\s*,\s*)?by\s*=\s*(?:\{([^}]*)\}|([\w\x27]+))")
+    for a, b, sort_by, group, single in re.findall(pattern, text):
+        if a not in paths or b not in paths or (sort_by and sort_by not in (a, b)):
             continue
         ga, gb = paths[a], paths[b]
         if ga[0] == gb[0] == "line":
@@ -345,19 +380,21 @@ def _resolve_named_paths(text, points, env):
             solutions = cv._isect_line_circle(ga[1], ga[2], gb[1], gb[2])
         else:
             solutions = cv._isect_line_circle(gb[1], gb[2], ga[1], ga[2])
-        if ga[0] == "circle":
-            solutions.sort(key=lambda p: math.atan2(p[1] - ga[1][1], p[0] - ga[1][0]) % (2 * math.pi))
+        order = paths[sort_by] if sort_by else ga
+        if order[0] == "circle":
+            solutions.sort(key=lambda p: math.atan2(p[1] - order[1][1], p[0] - order[1][0]) % (2 * math.pi))
         else:
-            solutions.sort(key=lambda p: float((np.asarray(p) - ga[1]) @ (ga[2] - ga[1])))
+            solutions.sort(key=lambda p: float((np.asarray(p) - order[1]) @ (order[2] - order[1])))
         for name, value in zip((n.strip() for n in (group or single).split(",")), solutions):
             points[name] = np.asarray(value, float)
 
 
 def canonical_label(text):
     """Visible vertex text, with markup normalized but case/subscript/prime retained."""
-    s = text.strip().replace('$', '').replace(r'\prime', "'").replace('′', "'")
+    s = text.strip().replace(r'\prime', "'").replace('′', "'")
     s = re.sub(r'\\fontsize\s*\{[^{}]*\}\s*\{[^{}]*\}', '', s)
-    s = re.sub(r'\\(?:selectfont|tiny|scriptsize|footnotesize|small|normalsize|large|Large|LARGE|huge|Huge|bfseries|itshape)\b', '', s)
+    s = re.sub(r'\\(?:selectfont|tiny|scriptsize|footnotesize|small|normalsize|large|Large|LARGE|huge|Huge|bfseries|itshape|boldmath|unboldmath)\b', '', s)
+    s = s.replace('$', '')
     for _ in range(8):
         normalized = re.sub(r'\\(?:mathrm|mathbf|mathit|mathsf|mathtt|mathnormal|mathbb|mathcal|boldsymbol|bm|text|textbf|textit|textrm|textsf|texttt|textnormal|textsc|emph|ensuremath|mbox)\s*\{([^{}]*)\}', r'\1', s)
         if normalized == s:
@@ -433,19 +470,35 @@ def capture_curve(result, body, points, env, matrix):
 
 def prepare_source(text):
     """Expand bounded foreach/let syntax generically, without modifying input TeX."""
-    pattern = re.compile(r'\\foreach\s+\\(\w+)\s*(?:\[count\s*=\s*\\(\w+)\])?\s+in\s*\{([^{}]*)\}\s*\{')
+    pattern = re.compile(r'\\foreach\s+(\\\w+(?:\s*/\s*\\\w+)*)\s*'
+                         r'(?:\[count\s*=\s*\\(\w+)\])?\s+in\s*\{')
+    search_from = 0
     for _ in range(10):
-        match = pattern.search(text)
+        match = pattern.search(text, search_from)
         if not match:
             break
-        body, end = _balanced(text, match.end()-1, '{', '}')
-        tokens = [x.strip() for x in match[3].split(',')]
+        variables = re.findall(r'\\(\w+)', match[1])
+        values, after = _balanced(text, match.end()-1, '{', '}')
+        start_body = re.match(r'\s*\{', text[after:])
+        if start_body is None:
+            search_from = after
+            continue  # the seed parser handles the existing unbraced form
+        body, end = _balanced(text, after+start_body.end()-1, '{', '}')
+        tokens = [x.strip() for x in cv._split_top(values)]
         if '...' in tokens:
             start, step, stop = float(tokens[0]), float(tokens[1])-float(tokens[0]), float(tokens[-1])
             tokens = [format(start+k*step, '.12g') for k in range(round((stop-start)/step)+1)]
         expanded = []
         for i, token in enumerate(tokens, 1):
-            part = re.sub(r'\\'+match[1]+r'\b', lambda _: token, body)
+            fields = cv._split_top(token, '/') if len(variables) > 1 else [token]
+            if len(fields) != len(variables):
+                raise ValueError('Unsupported foreach item: '+token)
+            part = body
+            for variable, field in zip(variables, fields):
+                value = field.strip()
+                if value.startswith('{') and _balanced(value, 0, '{', '}')[1] == len(value):
+                    value = value[1:-1]
+                part = re.sub(r'\\'+variable+r'\b', lambda _: value, part)
             if match[2]:
                 part = re.sub(r'\\'+match[2]+r'\b', lambda _: str(i), part)
             expanded.append(part)
@@ -641,8 +694,16 @@ def parse_drawing(tex_path):
                 if body[i].isspace():
                     i += 1
                     continue
+                angle_pic = _ANGLE_PIC.match(body, i)
+                if angle_pic:
+                    result.excluded.append({"reason": "named angle annotation", "path": angle_pic[0]})
+                    i = angle_pic.end()
+                    continue
                 if body.startswith("--", i):
                     pending, i = "line", i + 2
+                    continue
+                if body[i:i+2] in ("|-", "-|"):
+                    pending, i = body[i:i+2], i + 2
                     continue
                 if body.startswith("rectangle", i):
                     pending, i = "rectangle", i + 9
@@ -706,6 +767,12 @@ def parse_drawing(tex_path):
                                    np.array([current[0], target[1]]), current]
                         strokes.extend(Stroke(a.copy(), b.copy(), style, body)
                                        for a, b in zip(corners, corners[1:]))
+                    elif pending in ("|-", "-|"):
+                        here, there = _apply(inv, current), _apply(inv, target)
+                        corner = [here[0], there[1]] if pending == "|-" else [there[0], here[1]]
+                        elbow = _apply(matrix, np.asarray(corner))
+                        strokes.extend((Stroke(current.copy(), elbow, style, body),
+                                        Stroke(elbow, target.copy(), style, body)))
                     else:
                         strokes.append(Stroke(current.copy(), target.copy(), style, body))
                 current, pending = target, None

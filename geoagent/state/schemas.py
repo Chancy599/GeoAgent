@@ -100,6 +100,7 @@ class ConflictRecord(BaseModel):
 
 
 class TikZVersion(BaseModel):
+    topology_check: dict[str, Any] | None = None
     version: int
     tex: str
     tex_path: str | None = None
@@ -110,7 +111,7 @@ class TikZVersion(BaseModel):
     errors: list[str] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
     created_at: str = Field(default_factory=_now)
-    agent: str = "tikz_agent"
+    agent: str = "code_agent"
     mode: str = "generate"
     notes: str = ""
     compile_seconds: float | None = None
@@ -260,7 +261,7 @@ class GeometricEvidenceState(BaseModel):
         self,
         tex: str,
         *,
-        agent: str = "tikz_agent",
+        agent: str = "code_agent",
         mode: str = "generate",
         notes: str = "",
         tex_path: str | None = None,
@@ -337,6 +338,8 @@ class GeometricEvidenceState(BaseModel):
         candidates = [v for v in self.tikz_versions if v.ok and v.png_path]
         if not candidates:
             return None
+        verified = [v for v in candidates if v.topology_check is None or v.topology_check["passed"]]
+        candidates = verified or candidates
         scored = [v for v in candidates if v.critic_score is not None]
         if scored:
             best = max(
@@ -351,7 +354,7 @@ class GeometricEvidenceState(BaseModel):
         elif allow_unscored:
             best = max(candidates, key=lambda v: v.version)
         else:
-            return self.best_version
+            return self.best_version if any(v.version == self.best_version for v in candidates) else None
         self.best_version = best.version
         self.best_tikz = best.tex
         self.best_score = best.critic_score

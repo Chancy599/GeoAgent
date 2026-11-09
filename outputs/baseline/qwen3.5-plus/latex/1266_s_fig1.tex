@@ -1,0 +1,58 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{intersections, calc}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.2]
+    % Define parameters
+    \def\R{4}
+    \def\r{2.2} % Radius of small circle
+    
+    % Define coordinates
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (-\R, 0);
+    \coordinate (B) at (\R, 0); % Center of small circle, on large circle
+    
+    % Calculate intersection C (upper)
+    % Intersection of x^2 + y^2 = R^2 and (x-R)^2 + y^2 = r^2
+    % x = R - r^2 / (2R)
+    \pgfmathsetmacro{\xC}{\R - \r*\r/(2*\R)}
+    \pgfmathsetmacro{\yC}{sqrt(\R*\R - \xC*\xC)}
+    
+    \coordinate (C) at (\xC, \yC);
+    \coordinate (D) at (\xC, -\yC);
+    
+    % Define F
+    % Angle 200 degrees ensures line FC passes above O
+    \coordinate (F) at ({\R*cos(200)}, {\R*sin(200)});
+    
+    % Draw Circles
+    \draw[name path=large_circle] (O) circle (\R);
+    \draw[name path=small_circle] (B) circle (\r);
+    
+    % Draw Line AB
+    \draw (A) -- (B);
+    
+    % Draw Line FC and find E
+    \path[name path=line_FC] (F) -- (C);
+    % Intersections of line FC and small circle. 
+    % Sorted by distance from F, the first is E, the second is C (or close to it).
+    \path[name intersections={of=small_circle and line_FC, sort by=line_FC, by={E, C_dummy}}];
+    
+    \draw (F) -- (C);
+    
+    % Dashed lines
+    \draw[dashed] (C) -- (B);
+    \draw[dashed] (E) -- (B);
+    
+    % Labels
+    \node[left] at (A) {$A$};
+    \node[below] at (O) {$O$};
+    \node[left] at (F) {$F$};
+    \node[above left] at (E) {$E$};
+    \node[above right] at (C) {$C$};
+    \node[right] at (B) {$B$};
+    \node[below right] at (D) {$D$};
+    
+\end{tikzpicture}
+\end{document}

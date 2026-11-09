@@ -1,0 +1,76 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render is geometrically faithful: triangle vertices, sides, and the full circle centred at M2 match the original; the only visible difference is label weight (original labels are bold).",
+  "figure_type": {
+    "original": "Equilateral-style triangle A1-B1-M2 with a full solid circle centred at M2 and labels A1, B1, M2",
+    "render": "Triangle A1-B1-M2 with a full solid circle centred at M2 and labels A1, B1, M2"
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [],
+      "bbox": [
+        0.45,
+        0.64,
+        0.56,
+        0.7
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Label weight differs: in the original, M2 (letter and subscript 2) and the subscripts 1 of A1 and B1 are set in bold, while the render uses regular-weight math. Label placement and clearance are otherwise correct.",
+      "suggestion": "Optional: set the labels in bold math, e.g. \\node[below] at (M) {\\fontsize{21}{25.2}\\selectfont $\\mathbf{M_{\\mathbf{2}}}$}; and similarly bold A_1 and B_1. Keep the current node anchors and vertex bindings unchanged."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Side A1-M2 is drawn from A1 to M2 in the render and matches the original, ending at the M2 vertex with no overhang."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Side B1-M2 is drawn from B1 to M2 in the render and matches the original, ending at the M2 vertex with no overhang."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Top edge A1-B1 is horizontal and spans the same extent as in the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "unclear",
+      "note": "Short 18 px stub below the M2 vertex is not visible as a stroke in the original (the area holds only the M2 label, which sits about 30 px below the vertex) and has no counterpart in the TikZ source. M"
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Top edge A1-B1 is horizontal and at the same height as in the original.",
+    "Side A1-M2 and side B1-M2 meet at the M2 vertex and end at the correct endpoints.",
+    "Full solid circle is centred at M2 with matching radius; it crosses both sides at the same positions.",
+    "Label positions: A1 left of its vertex, B1 right of its vertex, M2 below its vertex, all with clear separation from strokes.",
+    "Overall aspect ratio and scale match the original."
+  ],
+  "labels": {
+    "present": [
+      "A1",
+      "B1",
+      "M2"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

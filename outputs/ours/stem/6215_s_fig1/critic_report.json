@@ -1,0 +1,136 @@
+{
+  "assessment_score": 0.95,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render matches the original's topology and labels; the only visible difference is the smaller dot at I.",
+  "figure_type": {
+    "original": "circle with chords AB, AC, BC, BD, CD, AD, a dashed segment BI to interior point I, and labels A, B, C, D, I",
+    "render": "circle with chords AB, AC, BC, BD, CD, AD, a dashed segment BI to interior point I, and labels A, B, C, D, I"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [],
+      "bbox": [
+        0.3,
+        0.45,
+        0.34,
+        0.54
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The dot marking I is visibly smaller in the render (about 3-4 px radius) than in the original (about 7 px radius). The dot's centre is correctly placed on AD and at the end of dashed BI.",
+      "suggestion": "Increase the radius of the \\fill at I, e.g. \\fill (I) circle[radius=0.12] instead of 0.060, keeping the same coordinate."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circle matches the original's outline and passes through A, B, C, D."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Chord AD is drawn from A through I to D, as in the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Chord AB matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Chord AC matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Chord BC matches the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Dashed BI is drawn from B and ends at I, as in the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Chord BD joins B and D in both panels."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Chord CD joins C and D in both panels."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Vertex A sits at the top of the circle with its label above, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Vertex D sits at the bottom of the circle with its label below, as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Vertex B sits on the left of the circle with its label to the left, as in the original."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "Vertex C sits on the right of the circle with its label to the right, as in the original."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Circle outline and vertex positions A, B, C, D on it",
+    "Chords AB, AC, BC, BD, CD all join the correct vertices",
+    "AD passes through I and ends at D, as in the original",
+    "Dashed BI is solid-to-dashed correctly and ends at I",
+    "Labels A, B, C, D, I are present, correctly spelled and clear of strokes",
+    "Pending endpoint cases: seg_06 is B-D and seg_07 is C-D, both confirmed in the original"
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "I"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "429d7eb9df9cf583",
+      "edge": [
+        "B",
+        "D"
+      ],
+      "reason": "In the original, a single straight stroke runs from B down to D."
+    },
+    {
+      "case_id": "557d008ed27b9802",
+      "edge": [
+        "C",
+        "D"
+      ],
+      "reason": "In the original, a single straight stroke runs from C down to D."
+    }
+  ],
+  "raw_meta": "{}"
+}

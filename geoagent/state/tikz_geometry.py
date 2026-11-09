@@ -9,6 +9,7 @@ import math
 import re
 import numpy as np
 from .angle_glyphs import marker_paths
+from .coordinate_precision import number
 
 NAME = r"[A-Za-z][A-Za-z0-9_']*"
 
@@ -95,15 +96,11 @@ def local_map(point, before, after):
 
 
 def rewrite_tex(tex,before,after):
-    """Keep original drawing commands; replace named coordinates at full precision.
+    """Keep original drawing commands; replace named coordinates at three decimals.
 
     Small explicit marker coordinates follow a local vertex frame. This is a
     limited exporter for the generated sources, not a general TikZ AST rewriter.
     """
-    def number(x):
-        # Shortest round-trip double, expanded without scientific notation
-        # because TikZ dimension parsing is not a Python float parser.
-        return np.format_float_positional(float(x),unique=True,trim="-")
     def replacement(match):
         name=match[1]
         if name in after["points"]:

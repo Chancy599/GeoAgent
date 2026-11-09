@@ -17,18 +17,20 @@ from ..agents.base import (
     parse_tool_arguments,
     tool_reply,
 )
+from ..agents.code_agent import CodeAgent
 from ..agents.critic_agent import CriticAgent
 from ..agents.geometry_agent import GeometryAgent
 from ..agents.schemas import SUPERVISOR_NAMES, SUPERVISOR_TOOLS
 from ..agents.supervisor import initial_messages, step_nudge
-from ..agents.tikz_agent import TikZAgent
 from ..config import Settings, load_settings
 from ..cv_tools.registry import call_cv_tool
 from ..llm.client import LLMClient
 from ..state.constraint_repair import repair_geometry_constraints
+from ..state.coordinate_contract import apply_reviewed_bindings
 from ..state.evidence_store import EvidenceStore
 from ..state.rectify import rectify_right_angles
 from ..state.tikz_repair import repair_tikz_constraints
+from ..state.topology import MAX_ENDPOINT_CASES, build_topology_plan, check_topology, validate_endpoint_decisions
 from ..state.schemas import ActionRecord, GeometricEvidenceState
 from ..tools import compile_tikz, frame_like_original, render_pdf, validate_compilation
 from ..vision.context import VisualContextManager
@@ -70,8 +72,8 @@ class GeoAgentRunner:
         )
         self.ctx = VisualContextManager(self.run_dir, self.image_path)
         self.store = EvidenceStore(self.run_dir)
-        self.geometry_agent = GeometryAgent(self.client, self.state, self.run_dir)
-        self.tikz_agent = TikZAgent(self.client, self.state, self.run_dir)
+        self.geometry_agent = GeometryAgent(self.client, self.state, self.run_dir / "cv")
+        self.code_agent = CodeAgent(self.client, self.state, self.run_dir)
         self.critic_agent = CriticAgent(self.client, self.state, out_dir=self.run_dir)
 
         self.counters = {"steps": 0, "tool_calls": 0}
@@ -82,17 +84,27 @@ class GeoAgentRunner:
         self._step = 0
         # Identical renders (e.g. a repair that changed nothing visible) reuse
         # the earlier critic report instead of spending another visual call.
-        self._critic_cache: dict[str, dict[str, Any]] = {}
+        self._critic_cache: dict[tuple[str, str, str, str], dict[str, Any]] = {}
         # finish may be rejected once per gate kind, at most twice per run.
         self._gate_blocks: dict[str, int] = {}
 
     # ------------------------------------------------------------------ #
     # public API
     # ------------------------------------------------------------------ #
+    @property
+    def tikz_agent(self) -> CodeAgent:
+        """Compatibility for existing experiment runners."""
+        return self.code_agent
+
+    @tikz_agent.setter
+    def tikz_agent(self, agent: CodeAgent) -> None:
+        self.code_agent = agent
+
     def run(self) -> dict[str, Any]:
-        messages = initial_messages(self.state)
         budget = self.settings.budget
         try:
+            self._initial_measurements()
+            messages = initial_messages(self.state)
             for step in range(1, int(budget.max_steps) + 1):
                 self._step = step
                 self.counters["steps"] = step
@@ -194,7 +206,7 @@ class GeoAgentRunner:
         params: dict[str, Any] = {}
 
         try:
-            if name not in SUPERVISOR_NAMES and name != "call_cv_tool":
+            if name not in SUPERVISOR_NAMES and name not in ("call_cv_tool", "run_tikz_agent"):
                 payload = {"ok": False, "error": f"unknown action {name}"}
                 status, error = "error", payload["error"]
             elif err:
@@ -211,14 +223,14 @@ class GeoAgentRunner:
                 payload = self._do_inspect_image(args, messages)
             elif name == "run_geometry_agent":
                 purpose = str(args.get("instruction", "consolidate geometry"))[:200]
-                params = {"instruction": args.get("instruction"), "use_image": args.get("use_image"), "roi": args.get("roi")}
+                params = {"instruction": args.get("instruction")}
                 self.counters["tool_calls"] += 1
                 payload = self._do_geometry_agent(args)
-            elif name == "run_tikz_agent":
+            elif name in ("run_code_agent", "run_tikz_agent"):
                 purpose = str(args.get("instruction", "write tikz"))[:200]
                 params = {"mode": args.get("mode"), "use_image": args.get("use_image"), "instruction": args.get("instruction")}
                 self.counters["tool_calls"] += 1
-                payload = self._do_tikz_agent(args)
+                payload = self._do_code_agent(args)
             elif name == "run_critic":
                 purpose = str(args.get("focus", "critique render"))[:200]
                 params = {"focus": args.get("focus")}
@@ -284,12 +296,70 @@ class GeoAgentRunner:
     # ------------------------------------------------------------------ #
     # individual actions
     # ------------------------------------------------------------------ #
+    def _initial_measurements(self) -> None:
+        for name in ("detect_lines", "bind_point_labels", "detect_right_angle_marker"):
+            if self.counters["tool_calls"] >= int(self.settings.budget.max_tool_calls):
+                break
+            if any(run.get("tool") == name and run.get("ok") for run in self.state.cv_runs):
+                continue
+            self.counters["tool_calls"] += 1
+            try:
+                reply = self._do_cv_tool(name, {"visualize": False}, "initial source evidence")
+            except Exception as exc:
+                reply = {"ok": False, "error": f"{type(exc).__name__}: {exc}"}
+            summary = _summarise_payload(reply)
+            self.state.record_action(ActionRecord(
+                step=0, action=f"call_cv_tool:{name}", purpose="initial source evidence",
+                status="ok" if reply.get("ok") else "error", result_summary=summary,
+            ))
+            self._emit({"event": "action", "step": 0, "action": name,
+                        "ok": bool(reply.get("ok")), "summary": summary})
+        self._checkpoint()
+
     def _do_cv_tool(self, tool_name: str, params: dict[str, Any], purpose: str) -> dict[str, Any]:
         params = {k: v for k, v in (params or {}).items() if k not in ("image_path", "out_dir")}
         result = call_cv_tool(tool_name, params, image_path=self.image_path, out_dir=self.run_dir / "cv")
         result["purpose"] = purpose
         ingest_cv_result(self.state, tool_name, params, result)
-        return compact_cv_result(result, tool_name)
+        plan = self._refresh_topology()
+        return {
+            **compact_cv_result(result, tool_name),
+            "topology_pending": [
+                {"case_id": case["id"], "stroke_id": case["stroke_id"], "options": case["options"]}
+                for case in plan["pending"][:MAX_ENDPOINT_CASES]
+            ],
+        }
+
+    def _refresh_topology(self) -> dict:
+        plan = build_topology_plan(self.state)
+        changed = plan != self.state.meta.get("topology_plan")
+        if changed:
+            self.state.meta["topology_plan"] = plan
+        refreshed = changed
+        for version in self.state.tikz_versions:
+            if changed or version.topology_check is None or self.state.meta.get("reviewed_bindings"):
+                version.topology_check = self._check_version_topology(version, plan)
+                refreshed = True
+        if refreshed:
+            self.state.update_best()
+        return plan
+
+    def _check_version_topology(self, version, plan: dict) -> dict:
+        result = check_topology(version.tex, plan)
+        reviews = self.state.meta.get("reviewed_bindings", {})
+        if not reviews or not self.settings.geometry.preserve_cv_coordinates:
+            return result
+        audits = self.state.meta.get("tikz_coordinate_contracts", {})
+        applied = audits.get(str(version.version), {}).get("coordinates", {}).get("points", {})
+        stale = [
+            label for label, review in reviews.items()
+            if self.state.label_bindings.get(label) == review["point_id"]
+            and self.state.objects[review["point_id"]].coords.get("px") == review["px"]
+            and applied.get(label, {}).get("px") != review["px"]
+        ]
+        if stale:
+            result.update(passed=False, unverified_bindings=sorted(stale))
+        return result
 
     def _do_inspect_image(self, args: dict[str, Any], messages: list[dict[str, Any]]) -> dict[str, Any]:
         if self._visual_left() <= 0:
@@ -317,27 +387,33 @@ class GeoAgentRunner:
         return {"ok": True, **info, "note": "image attached in the next user message"}
 
     def _do_geometry_agent(self, args: dict[str, Any]) -> dict[str, Any]:
-        instruction = str(args.get("instruction", "Consolidate all CV evidence."))
-        use_image = bool(args.get("use_image"))
-        image = None
-        if use_image and self._visual_left() > 0:
-            roi = args.get("roi")
-            image = self.ctx.crop(roi, purpose="geometry agent").path if roi else self.ctx.original()
         result = self.geometry_agent.run(
-            instruction,
-            cv_calls_left=max(0, self.settings.budget.max_tool_calls - self.counters["tool_calls"]),
-            image_path=image,
+            str(args.get("instruction", "Consolidate the CV geometry.")),
+            cv_calls_left=max(0, int(self.settings.budget.max_tool_calls) - self.counters["tool_calls"]),
         )
         self.counters["tool_calls"] += int(result.get("cv_calls", 0))
+        self._refresh_topology()
         return result
 
     def _do_tikz_agent(self, args: dict[str, Any]) -> dict[str, Any]:
+        """Compatibility entry point for existing experiments."""
+        return self._do_code_agent(args)
+
+    def _do_code_agent(self, args: dict[str, Any]) -> dict[str, Any]:
         mode = str(args.get("mode", "generate"))
         instruction = str(args.get("instruction", "Write the TikZ figure."))
         image = None
-        if mode == "generate" and args.get("use_image") is not False and self._visual_left() > 0:
-            image = self.ctx.original()
         geometry = self.settings.geometry
+        latest = self.state.latest_version()
+        previous_audit = self.state.meta.get("tikz_coordinate_contracts", {}).get(
+            str(latest.version) if latest else "", {}
+        )
+        needs_source_frame = (geometry.preserve_cv_coordinates and latest is not None
+                              and self.state.meta.get("reviewed_bindings") and not previous_audit.get("enabled"))
+        wants_image = (mode == "generate" and args.get("use_image") is not False
+                       or mode == "repair" and (args.get("use_image") is True or needs_source_frame))
+        if wants_image and self._visual_left() > 0:
+            image = self.ctx.original()
         # GES projection is available only for explicit legacy comparisons.
         # The default path never mutates measured geometry before generation.
         if geometry.repair_stage == "pre_ges":
@@ -390,11 +466,15 @@ class GeoAgentRunner:
                     "applied": False,
                     "reason": "disabled",
                 }
-        result = self.tikz_agent.run(mode, instruction, image_path=image)
+        plan = self._refresh_topology()
+        result = self.code_agent.run(mode, instruction, image_path=image,
+                                   preserve_cv_coordinates=geometry.preserve_cv_coordinates)
         if not result.get("ok") or not result.get("tex"):
             return {"ok": False, "error": result.get("error", "TikZ agent produced no source")}
 
         raw_tex = result["tex"]
+        if result.get('coordinate_contract'):
+            self.state.meta['coordinate_contract'] = result['coordinate_contract']
         tex = raw_tex
         post_report = None
         if geometry.repair_stage == "post_tikz":
@@ -418,9 +498,16 @@ class GeoAgentRunner:
                 "applied": False, "reason": "moved_to_post_tikz",
             }
         version = self.state.add_tikz_version(
-            tex, agent="tikz_agent", mode=mode, notes=result.get("notes", "")
+            tex, agent="code_agent", mode=mode, notes=result.get("notes", "")
         )
+        if result.get('coordinate_contract'):
+            self.state.meta.setdefault('tikz_coordinate_contracts', {})[str(version.version)] = result['coordinate_contract']
         compile_info = self._compile_version(version.version)
+        if result.get('coordinate_contract') and getattr(self, 'run_dir', None) is not None:
+            folder = self.run_dir / 'tikz' / f'v{version.version}'
+            folder.mkdir(parents=True, exist_ok=True)
+            (folder / 'coordinate_contract.json').write_text(
+                json.dumps(result['coordinate_contract'], ensure_ascii=False, indent=2), encoding='utf-8')
         if post_report is not None:
             if post_report["applied"] and not compile_info["compile_ok"]:
                 post_report.update(
@@ -443,12 +530,14 @@ class GeoAgentRunner:
                 summary=f"v{version.version}: {post_report['reason']}", payload=post_report,
             )
         self.state.add_evidence(
-            source="tikz_agent",
+            source="code_agent",
             method=f"tikz {mode}",
             summary=f"v{version.version} compiled={compile_info['compile_ok']} "
             f"validation={compile_info['validation_passed']}",
             payload={"notes": result.get("notes", ""), "compile": compile_info},
         )
+        version.topology_check = self._check_version_topology(version, plan)
+        self.state.update_best()
         return {
             "ok": bool(compile_info["compile_ok"]),
             "version": version.version,
@@ -456,12 +545,15 @@ class GeoAgentRunner:
             "mode": mode,
             "compile_ok": compile_info["compile_ok"],
             "validation_passed": compile_info["validation_passed"],
+            "topology_check": version.topology_check,
             "errors": compile_info["errors"][:4],
             "warnings": compile_info["warnings"][:2],
             "png_path": compile_info["png_path"],
             "best_version": self.state.best_version,
             "next_step_hint": (
-                "run_critic on this new version to update best_version"
+                "repair unverified edges or corrected source bindings, then recheck"
+                if not version.topology_check["passed"]
+                else "run_critic on this new version to update best_version"
                 if self.state.best_version != version.version
                 else "critique passed version or repair remaining issues"
             ),
@@ -546,8 +638,15 @@ class GeoAgentRunner:
         if target is None:
             return {"ok": False, "error": "no successfully rendered TikZ version to critique"}
 
-        digest = _file_digest(target.png_path)
-        cached = self._critic_cache.get(digest)
+        plan = self._refresh_topology()
+        focus = str(args.get("focus", ""))
+        cache_key = (
+            _file_digest(target.png_path),
+            hashlib.sha256(target.tex.encode("utf-8")).hexdigest(),
+            json.dumps(plan["required_edges"]),
+            focus,
+        )
+        cached = None if plan["pending"] else self._critic_cache.get(cache_key)
         if cached is not None:
             report = {
                 **cached,
@@ -559,10 +658,21 @@ class GeoAgentRunner:
             report = self.critic_agent.run(
                 self.ctx.original(),
                 target.png_path,
-                focus=str(args.get("focus", "")),
+                focus=focus,
                 version=target.version,
             )
-            self._critic_cache[digest] = report
+            if not plan["pending"]:
+                self._critic_cache[cache_key] = report
+        decisions = validate_endpoint_decisions(plan, report.get("topology_decisions"))
+        rebindings = apply_reviewed_bindings(self.state, report.get("binding_decisions"))
+        if decisions:
+            self.state.meta.setdefault("topology_decisions", {}).update(decisions)
+            self.state.add_evidence(
+                source="critic_agent", method="endpoint_review",
+                summary=f"Reviewed {len(decisions)} CV endpoint case(s)", payload=decisions,
+            )
+        if decisions or rebindings:
+            plan = self._refresh_topology()
         score = float(report.get("assessment_score", 0.0))
         self.state.attach_critic(target.version, report, score)
         self.state.update_best(allow_unscored=True)
@@ -581,7 +691,11 @@ class GeoAgentRunner:
             "actionable_counts": report.get("actionable_counts")
             or {"high": 0, "medium": 0, "low": 0},
             "flaky_count": report.get("flaky_count", 0),
-            "must_repair": bool(report.get("must_repair")),
+            "topology_decisions": [{"case_id": case_id, **decision} for case_id, decision in decisions.items()],
+            "binding_decisions": rebindings,
+            "topology_remaining": len(plan["pending"]),
+            "topology_check": target.topology_check,
+            "must_repair": bool(report.get("must_repair") or not target.topology_check["passed"]),
             "labels": report.get("labels"),
             "best_version": self.state.best_version,
             "cached": cached is not None,
@@ -657,6 +771,15 @@ class GeoAgentRunner:
             self.final_status = "success" if self.state.best_version else "partial"
         if not self.final_summary:
             self.final_summary = self._auto_summary()
+        best = self.state.get_version(self.state.best_version)
+        if best and best.topology_check and not best.topology_check["passed"]:
+            if self.final_status == "success":
+                self.final_status = "partial"
+            issue = _unverified_geometry(best.topology_check)
+            self.state.add_unresolved({"source": "topology", "issue": issue})
+            self.final_summary = f"{self.final_summary} {issue}".strip()
+            if "finish" in self.state.meta:
+                self.state.meta["finish"].update(status=self.final_status, summary=self.final_summary)
         self.state.meta["stop_reason"] = self.stop_reason or "max_steps"
         self._checkpoint()
         try:
@@ -697,6 +820,11 @@ def _stops_run(name: str, payload: Any) -> bool:
     return name == "finish" and isinstance(payload, dict) and bool(payload.get("ok", False))
 
 
+def _unverified_geometry(report: dict) -> str:
+    return (f"Unverified named edges: {report['missing_edges']}. "
+            f"Unverified corrected bindings: {report.get('unverified_bindings', [])}.")
+
+
 def _file_digest(path: str | Path) -> str:
     digest = hashlib.sha256()
     with open(path, "rb") as handle:
@@ -715,16 +843,23 @@ def _finish_gate_problem(
     versions = [v for v in state.tikz_versions if v.ok and v.png_path]
     if not versions or state.best_version is None:
         return None
+    best = state.get_version(state.best_version)
+    if best is None:
+        return None
+    if best.topology_check and not best.topology_check["passed"] and tool_left >= 1:
+        return (
+            "unverified_topology",
+            f"version {best.version}: {_unverified_geometry(best.topology_check)} "
+            "Repair the named paths and use the corrected measured bindings.",
+        )
     latest = versions[-1]
-    if latest.critic_score is None and visual_left > 0 and tool_left >= 1:
+    if (latest.critic_score is None and visual_left > 0 and tool_left >= 1
+            and (not latest.topology_check or latest.topology_check["passed"])):
         return (
             "unscored_latest",
             f"version {latest.version} is the newest render but has no critic report; "
             "call run_critic on it before finishing",
         )
-    best = state.get_version(state.best_version)
-    if best is None:
-        return None
     if best.critic_score is None and visual_left > 0 and tool_left >= 1:
         return (
             "unscored_best",
@@ -745,7 +880,7 @@ def _finish_gate_problem(
             "unresolved_issues",
             f"best version {best.version} still has {counts.get('high', 0)} high, "
             f"{counts.get('medium', 0)} medium and {counts.get('low', 0)} low actionable "
-            "critic issues (must_repair=true); run_tikz_agent(mode=repair) with them, "
+            "critic issues (must_repair=true); run_code_agent(mode=repair) with them, "
             "then run_critic, then finish (explain in unresolved if they are not fixable)",
         )
     return None

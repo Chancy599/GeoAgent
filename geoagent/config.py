@@ -27,7 +27,7 @@ class PathSettings:
     tool_dir: Path = PROJECT_ROOT / "tool"
     tectonic: Path = PROJECT_ROOT / "tool" / "tectonic" / "tectonic.exe"
     outputs_dir: Path = PROJECT_ROOT / "outputs"
-    runs_dir: Path = PROJECT_ROOT / "outputs" / "runs"
+    runs_dir: Path = PROJECT_ROOT / ".cache" / "runs"
     configs_dir: Path = PROJECT_ROOT / "configs"
     env_file: Path = PROJECT_ROOT / ".env"
 
@@ -75,6 +75,7 @@ class BudgetSettings:
 @dataclass
 class GeometrySettings:
     enabled: bool = True
+    preserve_cv_coordinates: bool = True
     repair_stage: str = "post_tikz"  # post_tikz | pre_ges (legacy experiment)
     post_max_shift_rel: float = 0.005
     post_max_length_change_rel: float = 0.01
@@ -237,6 +238,9 @@ def _build_geometry(run_overrides: dict[str, Any] | None = None) -> GeometrySett
     enabled = _env_bool("GEOAGENT_GEOMETRY_REPAIR")
     if enabled is not None:
         values["enabled"] = enabled
+    preserve = _env_bool("GEOAGENT_PRESERVE_CV_COORDINATES")
+    if preserve is not None:
+        values["preserve_cv_coordinates"] = preserve
     rectify = _env_bool("GEOAGENT_RIGHT_ANGLE_RECTIFY")
     if rectify is not None:
         values["rectify_enabled"] = rectify
@@ -269,6 +273,8 @@ def _build_geometry(run_overrides: dict[str, Any] | None = None) -> GeometrySett
             except ValueError:
                 pass
     if run_overrides:
+        if run_overrides.get('preserve_cv_coordinates') is not None:
+            values['preserve_cv_coordinates'] = bool(run_overrides['preserve_cv_coordinates'])
         repair = run_overrides.get("geometry_repair")
         stage = run_overrides.get("geometry_repair_stage")
         if stage is not None:

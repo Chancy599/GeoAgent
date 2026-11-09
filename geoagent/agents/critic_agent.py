@@ -17,6 +17,9 @@ from ..state.schemas import GeometricEvidenceState
 from .base import compact_json
 from .prompts import CRITIC_SYSTEM
 from ..state.measured_topology import topology_block
+from ..state.coordinate_contract import binding_review_points
+from ..cv_tools.label_detection import measure_style_metrics
+from ..state.topology import MAX_ENDPOINT_CASES, validate_endpoint_decisions
 
 # Two 620 px panels + 12 px separator = 1252 px, inside the default 1280 px
 # image_max_dim, so the client does not downscale the composite again.
@@ -609,6 +612,25 @@ class CriticAgent:
         self.client = client
         self.state = state
         self.out_dir = Path(out_dir) if out_dir else None
+        self._source_style = {}
+
+    def _label_scale_issue(self, original, render):
+        try:
+            if original not in self._source_style:
+                self._source_style[original] = measure_style_metrics(original)
+            source, drawn = self._source_style[original], measure_style_metrics(render)
+        except (OSError, ValueError):
+            return None
+        if not all(m.get("ok") and m.get("label_size_samples", 0) >= 3 for m in (source, drawn)):
+            return None
+        ratio = (drawn["cap_height_px"] / drawn["span_px"]) / (source["cap_height_px"] / source["span_px"])
+        if 0.74 < ratio < 1.32:
+            return None
+        direction = "larger" if ratio > 1 else "smaller"
+        return {"type": "label_error", "severity": "medium", "object_ids": [], "bbox": None,
+                "flaky": False, "source": "measured_label_scale",
+                "description": f"Measured median label height is {ratio:.2f}× the source relative to diagram size; labels are {direction}.",
+                "suggestion": f"Multiply the current label font size and leading by {1/ratio:.2f}; keep geometry and stroke widths."}
 
     def _tex_for(self, render_png: str | Path) -> str:
         """Return the source that produced ``render_png`` (latest as fallback)."""
@@ -665,11 +687,25 @@ class CriticAgent:
                 f"{items}\n\n"
             )
         summary = self.state.summary(max_objects=30, max_chars=5000)
+        plan = self.state.meta.get("topology_plan", {"pending": []})
+        pending = plan["pending"][:MAX_ENDPOINT_CASES]
+        endpoint_text = ""
+        if pending:
+            endpoint_text = (
+                "PENDING ENDPOINT CASES (pixel coordinates refer to the uncropped original):\n"
+                + compact_json({"image_size": self.state.image_size, "cases": pending}, 10000)
+                + "\n\n"
+            )
+        bindings = {}
+        if self.state.label_bindings:
+            bindings = {"current": self.state.label_bindings, "points": binding_review_points(self.state)}
         user = (
             f"{layout}\n"
             f"FOCUS: {focus or 'overall faithfulness'}\n"
             f"VERSION: {version}\n"
             f"{topology_block(self.state)}\n"
+            f"{endpoint_text}"
+            f"SOURCE POINTS FOR BINDING REVIEW (full-image pixels): {compact_json(bindings, 7000)}\n"
             f"GENERATED TIKZ SOURCE (verify actual paths and shared endpoints):\n{self._tex_for(render_png)[:7000]}\n\n"
             f"GEOMETRY STATE (for reference):\n{summary}\n\n"
             f"{checklist_text}"
@@ -699,6 +735,17 @@ class CriticAgent:
                 "critic returned an empty critique (no verdict, issues, checks, or labels)"
             )
         clean["version"] = version
+        scale_issue = self._label_scale_issue(original_image, render_png)
+        if scale_issue:
+            clean["issues"].append(scale_issue)
+            clean["actionable_counts"] = _actionable_counts(clean["issues"])
+            clean["must_repair"] = True
+        proposals = report.get("binding_decisions")
+        clean["binding_decisions"] = proposals[:8] if isinstance(proposals, list) else []
+        clean["topology_decisions"] = [
+            {"case_id": case_id, **decision}
+            for case_id, decision in validate_endpoint_decisions(plan, report.get("topology_decisions")).items()
+        ]
         clean["raw_meta"] = compact_json(
             {k: v for k, v in report.items() if k not in clean}, 1000
         )

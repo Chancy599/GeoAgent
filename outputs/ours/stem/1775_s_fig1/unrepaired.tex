@@ -1,51 +1,55 @@
 \documentclass[tikz,border=10pt]{standalone}
-% Pixel coordinates are used directly; y-unit is negative so the image is not flipped.
-% Scale s = 0.009963 cm per pixel (STYLE METRICS), so the longest side spans 8 cm.
-\usetikzlibrary{calc}
 \begin{document}
-\begin{tikzpicture}[x=0.009963cm, y=-0.009963cm, line join=round, line width=1.1pt,
-  every node/.style={font=\fontsize{11.5}{13.8}\selectfont}]
+\begin{tikzpicture}[line width=1.1pt, line join=round, font=\fontsize{11.5}{13.8}\selectfont]
+\coordinate (A) at (-3.523,-2.118);
+\coordinate (B) at (3.535,-2.119);
+\coordinate (C) at (3.537,1.410);
+\coordinate (D) at (-3.528,1.410);
+\coordinate (E) at (0.885,2.644);
+\coordinate (N) at (-0.883,1.412);
 
-% Vertices (pixel coordinates)
-\coordinate (A) at (105,576);
-\coordinate (B) at (814,576);
-\coordinate (C) at (814,222);
-\coordinate (D) at (105,222);
-\coordinate (P) at (105,85);
-\coordinate (E) at (548,99);
-\coordinate (N) at (370,222);
-\coordinate (F) at (725,434);
-\coordinate (M) at (496,576);
 
-% Long solid line through N and M, extended beyond both
-\draw (334,115) -- (532,683);
 
-% Solid rectangle ABCD
-\draw (A) -- (B) -- (C) -- (D) -- cycle;
 
-% Solid edges E-N, E-C, E-F, F-C, F-M
-\draw (E) -- (N);
-\draw (E) -- (C);
-\draw (E) -- (F);
-\draw (F) -- (C);
-\draw (F) -- (M);
+\coordinate (P) at (-3.523,2.774);   
+\coordinate (M) at (0.353,-2.118);   
+\coordinate (F) at (2.651,-0.706);   
+\coordinate (T) at (-1.245,2.466);   
+\coordinate (Q) at (0.717,-3.163);   
 
-% Dashed edges
-\draw[dashed] (D) -- (P);
+
+\draw (A) -- (B);
+\draw (D) -- (C);
+\draw (A) -- (D);
+\draw (B) -- (C);
+
+
+\draw[dashed] (P) -- (D);
+
+
 \draw[dashed] (D) -- (E);
 \draw[dashed] (A) -- (F);
 \draw[dashed] (F) -- (B);
 
-% Labels just outside each point
-\node[below left] at (A) {$A$};
-\node[below right] at (B) {$B$};
-\node[right] at (C) {$C$};
+
+\draw (C) -- (E);
+\draw (E) -- (N);
+\draw (E) -- (F);
+\draw (F) -- (C);
+\draw (M) -- (F);
+
+
+\draw (T) -- (N) -- (M) -- (Q);
+
+
+\node[left] at (P) {$P$};
 \node[left] at (D) {$D$};
+\node[right] at (C) {$C$};
+\node[right] at (B) {$B$};
+\node[left] at (A) {$A$};
 \node[above] at (E) {$E$};
 \node[below left] at (N) {$N$};
 \node[below] at (M) {$M$};
 \node[below right] at (F) {$F$};
-\node[left] at (P) {$P$};
-
 \end{tikzpicture}
 \end{document}

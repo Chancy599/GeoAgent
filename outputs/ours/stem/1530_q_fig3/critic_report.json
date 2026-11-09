@@ -1,0 +1,101 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render reproduces the right triangle ABC with the right-angle mark at C and correctly bound A, B, C labels. The only clear difference is stroke weight, with the render's lines thinner than the original.",
+  "figure_type": {
+    "original": "Right triangle ABC (right angle at C) with a small square right-angle mark at C; A is at lower right, B at top left, C at bottom left",
+    "render": "Right triangle ABC (right angle at C) with a small square right-angle mark at C; A is at lower right, B at top left, C at bottom left"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_03"
+      ],
+      "bbox": [
+        0.05,
+        0.2,
+        0.92,
+        0.95
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Triangle strokes (hypotenuse AB, leg CA, leg CB) are thinner in the render than in the original, which shows bolder lines at the same scale.",
+      "suggestion": "Increase the triangle line width, e.g. from line width=1.2pt to about 1.6pt to 2pt, or set it on the \\draw commands for the triangle only. Keep the coordinates unchanged."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Hypotenuse from B to A is drawn at the correct angle and endpoints; stroke is thinner than the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Horizontal leg CA runs from C to A at the same height as in the original; stroke is thinner."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Vertical leg CB runs from C up to B; endpoints match the original; stroke is thinner."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Horizontal arm of the right-angle square at C is visible in both panels and sits on the CA side."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Vertical arm of the right-angle square at C is visible in both panels and sits on the CB side."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label A is at the correct vertex (lower right) with clear separation from the strokes."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label B sits above the top vertex with clear separation."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label C sits below-left of the bottom-left vertex, matching the original; no stroke crosses the glyph."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Triangle vertices A, B, C and their positions match the original.",
+    "The right angle is at C, with legs CA horizontal and CB vertical.",
+    "The right-angle square mark at C is present, on the correct sides, and about the same size.",
+    "Labels A, B, C are present, correctly spelled, and bound to their vertices.",
+    "Label placement is similar: A below-right, B above, C below-left, with clear separation from strokes.",
+    "Overall aspect ratio and proportions match."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

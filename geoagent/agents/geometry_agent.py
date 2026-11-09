@@ -45,7 +45,7 @@ def merge_geometry_submission(
                 coords=raw.get("coords") or {},
                 normalized=raw.get("normalized") or {},
                 style=raw.get("style") or {},
-                source=str(raw.get("source") or source),
+                source=source,
                 status=str(raw.get("status") or "candidate"),
                 confidence=raw.get("confidence"),
                 confidence_kind="heuristic-evidence (not a calibrated probability)",
@@ -66,7 +66,7 @@ def merge_geometry_submission(
                 subject=str(raw["subject"]),
                 relation=str(raw["relation"]),
                 object=str(raw["object"]) if raw.get("object") else None,
-                source=str(raw.get("source") or source),
+                source=source,
                 evidence=str(raw.get("evidence")) if raw.get("evidence") else None,
                 status=str(raw.get("status") or "candidate"),
             )

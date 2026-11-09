@@ -1,0 +1,116 @@
+{
+  "assessment_score": 0.93,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Version 4 matches the original: circle, diameter AB with O and P in the same positions, and chords CP and PD ending on the circle. The only remaining problem is the O binding on point_06, which should be D.",
+  "figure_type": {
+    "original": "circle with horizontal diameter AB, centre O, interior point P, and chords PC and PD meeting the circle at C and D",
+    "render": "circle with horizontal diameter AB, centre O, interior point P, and chords PC and PD meeting the circle at C and D"
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "medium",
+      "object_ids": [
+        "point_06",
+        "label_02"
+      ],
+      "bbox": [
+        0.76,
+        0.2,
+        0.86,
+        0.36
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The point at the end of segment PD on the circle (point_06, [360.31,122.15]) is bound to the letter O. The original prints D beside that endpoint, and O appears only at the centre below AB (point_02). The rendered TikZ is correct (D is drawn there), so this is a binding error in the point metadata, not a drawing error.",
+      "suggestion": "Rebind point_06 to D, or drop the O binding on point_06 and bind D to it. Keep O bound to point_02 only."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Diameter AB is drawn horizontally from A to B, matching the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Chord PC runs from P up-left to the circle at C, as in the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Segment DP runs from P up-right to the circle at D, as in the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "P is a filled dot on AB, just right of O, with its label below-right, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "O is a filled dot at the centre, with its label below, as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "B is at the right intersection of AB with the circle, labelled right, as in the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "A is at the left intersection of AB with the circle, labelled left, as in the original."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "C is on the circle at the upper-left end of PC, labelled above-left, as in the original."
+    },
+    {
+      "object_id": "point_06",
+      "status": "wrong",
+      "note": "The point at the end of PD on the circle is labelled O in the geometry state, but the original prints D there. The render itself shows D correctly."
+    }
+  ],
+  "checklist_score": 0.944,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Circle centre and radius match the original.",
+    "Diameter AB spans the circle from left to right with the correct ends.",
+    "O sits left of P on AB, with O below and P below-right, as in the original.",
+    "Chord PC meets the circle at the upper-left point C, which is labelled above-left.",
+    "Chord PD meets the circle at the upper-right point D, which is labelled above-right.",
+    "The P-C and P-D arms meet at P on AB.",
+    "Label placements for A, B, C, D, O and P match the original."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "O",
+      "P"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 4,
+  "binding_decisions": [
+    {
+      "label": "D",
+      "point_id": "point_06",
+      "reason": "In the original, the printed D sits above-right of the circle endpoint where segment PD ends. There is no O at that endpoint; O is printed only below the centre.",
+      "replaces": "O"
+    }
+  ],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

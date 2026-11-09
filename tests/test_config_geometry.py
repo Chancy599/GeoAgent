@@ -6,6 +6,7 @@ from geoagent.config import GeometrySettings, load_settings
 from main import _settings, build_parser
 
 _ENV_NAMES = (
+    "GEOAGENT_PRESERVE_CV_COORDINATES",
     "GEOAGENT_GEOMETRY_REPAIR",
     "GEOAGENT_RIGHT_ANGLE_RECTIFY",
     "GEOAGENT_RIGHT_ANGLE_MODE",
@@ -34,6 +35,7 @@ def test_geometry_repair_is_enabled_by_default(clean_env) -> None:
     settings = load_settings()
     assert settings.geometry == GeometrySettings()
     assert settings.geometry.enabled is True
+    assert settings.geometry.preserve_cv_coordinates is True
     assert settings.geometry.repair_stage == "post_tikz"
     assert settings.geometry.post_max_shift_rel == 0.005
     assert settings.geometry.post_max_length_change_rel == 0.01

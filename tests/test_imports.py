@@ -39,7 +39,8 @@ def test_supervisor_tools_are_complete() -> None:
     from geoagent.agents.schemas import SUPERVISOR_TOOLS
 
     names = {tool["function"]["name"] for tool in SUPERVISOR_TOOLS}
-    assert {"call_cv_tool", "inspect_image", "run_geometry_agent", "run_tikz_agent", "run_critic", "finish"} <= names
+    assert {"call_cv_tool", "inspect_image", "run_geometry_agent", "run_code_agent", "run_critic", "finish"} <= names
+    assert "run_tikz_agent" not in names
 
 
 def test_model_defaults_to_haiku_5_5(settings) -> None:

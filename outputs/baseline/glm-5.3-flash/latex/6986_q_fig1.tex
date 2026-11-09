@@ -1,0 +1,31 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
+\begin{document}
+\begin{tikzpicture}[scale=1.5]
+  \coordinate (O) at (0,0);
+  \coordinate (B) at (-3,0);
+  \coordinate (D) at (3,0);
+  \coordinate (A) at (1.5,2.598);
+  \coordinate (C) at (-0.75,3.897);
+  \coordinate (E) at (-1.5,2.598);
+
+  \draw (B) arc[start angle=180, end angle=0, radius=3];
+  \draw (B) -- (D);
+  \draw (B) -- (C);
+  \draw (C) -- (A);
+  \draw (B) -- (A);
+  \draw (O) -- (A);
+
+  % right-angle mark at C (between CB and CA)
+  \draw ($(C)!0.18!(B)$) -- ($($(C)!0.18!(B)$)!0.18!90:(C)$) -- ($(C)!0.18!(A)$);
+  % right-angle mark at A (between AC and AO)
+  \draw ($(A)!0.18!(C)$) -- ($($(A)!0.18!(C)$)!0.18!-90:(A)$) -- ($(A)!0.18!(O)$);
+
+  \node[below] at (O) {$O$};
+  \node[below left] at (B) {$B$};
+  \node[right] at (D) {$D$};
+  \node[right] at (A) {$A$};
+  \node[above] at (C) {$C$};
+  \node[above left] at (E) {$E$};
+\end{tikzpicture}
+\end{document}

@@ -1,169 +1,138 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful: the solid C–G segment is present and ends at G, dashed/solid styles match the original, and all eight labels are attached to the correct vertices.",
+  "verdict": "The render matches the original edge set and dashed/solid styling; all eight labels are present and bound to the correct vertices, with no discrepancies found.",
   "figure_type": {
-    "original": "Parallelogram ABCD with E on AD, F and N on AB, G on EB, and a mix of solid and dashed interior segments (E–C, D–B, E–N, G–N dashed; C–G, E–G–B, E–F solid)",
-    "render": "Parallelogram ABCD with the same vertices, interior segments and dashed/solid pattern as the original"
+    "original": "Parallelogram ABCD with point E on AD, F and N on AB, G interior, with solid and dashed connecting segments",
+    "render": "Parallelogram ABCD with point E on AD, F and N on AB, G interior, with solid and dashed connecting segments"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_03",
-        "seg_04",
-        "seg_05"
-      ],
-      "bbox": [
-        0.05,
-        0.2,
-        0.95,
-        0.8
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Outline strokes in the render (AB, AD, DC, BC) look slightly thinner than in the original, which uses a heavier stroke weight.",
-      "suggestion": "Optionally increase line width slightly (e.g. from 1.4pt toward 1.6pt) for the outer solid outline. This is a minor cosmetic point and may be ignored."
-    }
-  ],
+  "issues": [],
   "checks": [
-    {
-      "object_id": "circle_01",
-      "status": "unclear",
-      "note": "No circular arc is visible in the original or the render; likely a CV artifact, not a figure element."
-    },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid C–G segment, ending at G, matches the original."
+      "note": "Solid C-G segment; ends at G as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid C–B side of the parallelogram is drawn correctly."
+      "note": "Solid B-C side of the parallelogram."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid bottom side AB is drawn correctly."
+      "note": "Solid A-B base."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid left side DA is drawn correctly."
+      "note": "Solid D-A side passing through E."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Solid top side DC is drawn correctly."
+      "note": "Solid C-D top side."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed E–C diagonal matches the original."
+      "note": "Dashed E-C, matching the original dashed E-C line."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Dashed D–B diagonal matches the original."
+      "note": "Dashed D-B fragment, matching the original dashed D-B line."
     },
     {
       "object_id": "seg_08",
-      "status": "unclear",
-      "note": "Collinear fragment of the dashed E–C line extending past E; it is not a separate element in the original, so it is treated as part of seg_06."
+      "status": "present",
+      "note": "Dashed E-C fragment, same line as seg_06."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Dashed E–N segment matches the original."
+      "note": "Dashed E-N, ending at N as in the original."
     },
     {
       "object_id": "seg_10",
       "status": "present",
-      "note": "Solid B–G portion of the E–G–B polyline matches the original."
+      "note": "Solid G-B part of the E-G-B path, with the shallow bend at G preserved."
     },
     {
       "object_id": "seg_11",
       "status": "present",
-      "note": "Fragment of the dashed D–B line, covered by seg_07."
+      "note": "Dashed D-B fragment, same line as seg_07."
     },
     {
       "object_id": "seg_12",
       "status": "present",
-      "note": "Dashed G–N segment matches the original."
+      "note": "Dashed N-G, ending at G as in the original."
     },
     {
       "object_id": "seg_13",
       "status": "present",
-      "note": "Solid E–F segment matches the original."
+      "note": "Solid E-F from E down to F on AB."
     },
     {
       "object_id": "seg_14",
       "status": "present",
-      "note": "Solid E–G portion of the E–G–B polyline matches the original."
+      "note": "Solid E-G part of the E-G-B path."
     },
     {
-      "object_id": "seg_AB",
+      "object_id": "point_01",
       "status": "present",
-      "note": "Solid AB is drawn correctly."
+      "note": "Label C sits right of the C vertex, clear of strokes."
     },
     {
-      "object_id": "seg_BC",
+      "object_id": "point_03",
       "status": "present",
-      "note": "Solid BC is drawn correctly."
+      "note": "Label G sits above the G vertex, clear of the E-G-B and C-G strokes."
     },
     {
-      "object_id": "seg_CD",
+      "object_id": "point_04",
       "status": "present",
-      "note": "Solid CD is drawn correctly."
+      "note": "Label B sits right of the B vertex, as in the original."
     },
     {
-      "object_id": "seg_CG",
+      "object_id": "point_05",
       "status": "present",
-      "note": "Solid C–G is present in the render and ends at G, as in the original."
+      "note": "Label A sits left of the A vertex, as in the original."
     },
     {
-      "object_id": "seg_DA",
+      "object_id": "point_06",
       "status": "present",
-      "note": "Solid DA is drawn correctly."
+      "note": "Label N sits below the N vertex, as in the original."
     },
     {
-      "object_id": "seg_DB",
+      "object_id": "point_07",
       "status": "present",
-      "note": "Dashed D–B is drawn correctly."
+      "note": "Label F sits below the F vertex, as in the original."
     },
     {
-      "object_id": "seg_EC",
+      "object_id": "point_08",
       "status": "present",
-      "note": "Dashed E–C is drawn correctly."
+      "note": "Label D sits above the D vertex, as in the original."
     },
     {
-      "object_id": "seg_EF",
+      "object_id": "point_09",
       "status": "present",
-      "note": "Solid E–F is drawn correctly."
-    },
-    {
-      "object_id": "seg_EG",
-      "status": "present",
-      "note": "Solid E–G, continuing to B as a shallow bend, is drawn correctly."
+      "note": "Label E sits left of the E vertex, as in the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Parallelogram ABCD outline and vertex positions match the original.",
-    "Solid C–G segment is present and terminates at G.",
-    "Solid E–G–B polyline with the shallow bend at G is preserved.",
-    "Solid E–F is present and attached to the correct points.",
-    "Dashed E–C, D–B, E–N and G–N match the original's dash pattern and endpoints.",
-    "Label placement for A, B, C, D, E, F, G and N is consistent with the original."
+    "Outer parallelogram sides A-B, B-C, C-D and D-A (through E) are solid and correctly placed.",
+    "Dashed E-C, dashed D-B, dashed E-N and dashed N-G match the original dashed styling and endpoints.",
+    "Solid E-F ends at F on AB, as in the original.",
+    "Solid C-G and the E-G-B path (with the shallow bend at G) match the original.",
+    "All eight point labels (A, B, C, D, E, F, G, N) are present, correctly bound and clear of strokes."
   ],
   "labels": {
     "present": [
@@ -179,6 +148,41 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "aa0f2574b57c1533",
+      "edge": [
+        "E",
+        "G"
+      ],
+      "reason": "In the original, a solid stroke runs from E through G and continues to B with a shallow bend at G, so the E-G join is supported."
+    },
+    {
+      "case_id": "4b76ee1831517aa5",
+      "edge": [
+        "E",
+        "N"
+      ],
+      "reason": "In the original, a dashed stroke runs from E down to N on AB."
+    },
+    {
+      "case_id": "841346c555e89420",
+      "edge": [
+        "G",
+        "N"
+      ],
+      "reason": "In the original, a dashed stroke runs from N up to G and ends there."
+    },
+    {
+      "case_id": "6d1f5aaf45fd2a9f",
+      "edge": [
+        "E",
+        "F"
+      ],
+      "reason": "In the original, a solid stroke runs from E down to F on AB."
+    }
+  ],
   "raw_meta": "{}"
 }

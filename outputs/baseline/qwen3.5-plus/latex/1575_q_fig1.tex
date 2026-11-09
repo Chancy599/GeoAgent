@@ -1,0 +1,35 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (12,0);
+    \coordinate (C) at (9,5);
+    
+    % Rectangle vertices
+    % Calculated for height y=3
+    % G lies on AC: y = (5/9)x -> 3 = 5/9 x -> x = 5.4
+    % F lies on BC: Line passes through (12,0) and (9,5). Slope m = (5-0)/(9-12) = -5/3.
+    % Eq: y - 0 = -5/3 (x - 12). For y=3: 3 = -5/3 (x - 12) -> -1.8 = x - 12 -> x = 10.2
+    \coordinate (D) at (5.4,0);
+    \coordinate (E) at (10.2,0);
+    \coordinate (G) at (5.4,3);
+    \coordinate (F) at (10.2,3);
+    
+    % Draw Triangle ABC
+    \draw (A) -- (B) -- (C) -- cycle;
+    
+    % Draw Rectangle DEFG (excluding base DE which is on AB)
+    \draw (D) -- (G) -- (F) -- (E);
+    
+    % Labels
+    \node[below left] at (A) {$A$};
+    \node[below right] at (B) {$B$};
+    \node[above] at (C) {$C$};
+    \node[below] at (D) {$D$};
+    \node[below] at (E) {$E$};
+    \node[left] at (G) {$G$};
+    \node[right] at (F) {$F$};
+\end{tikzpicture}
+\end{document}

@@ -34,8 +34,10 @@ def _evaluate_group(programs: dict[str, Path], references: dict[str, tuple], sha
     rows: dict[str, dict] = {}
     def evaluate(stem):
         gt, items = references[stem]
+        program_sha256 = None
         try:
             tex = programs[stem]
+            program_sha256 = hashlib.sha256(tex.read_bytes()).hexdigest()
             pred = prediction(tex)
             result = score(gt, pred, items)
         except Exception as exc:  # noqa: BLE001 - experiment harness
@@ -50,6 +52,7 @@ def _evaluate_group(programs: dict[str, Path], references: dict[str, tuple], sha
                 "ratio_reference": len(items["ratios"]),
                 "coverage": 0. if items['edges'] else None,
                 "matched": 0,
+                "program_sha256": program_sha256,
                 "angle_checks": [dict(i, error=None, available=False, unavailable_reasons=['program_missing_or_unparseable']) for i in items['angles']],
                 "ratio_checks": [dict(i, error=None, available=False, unavailable_reasons=['program_missing_or_unparseable']) for i in items['ratios']],
             }
@@ -72,7 +75,7 @@ def _evaluate_group(programs: dict[str, Path], references: dict[str, tuple], sha
             "reference_extraction": gt.extraction_audit,
             "missing_labels": result['missing_labels'],
             "missing_edges": result['missing_edges'],
-            "program_sha256": hashlib.sha256(tex.read_bytes()).hexdigest(),
+            "program_sha256": program_sha256,
         }
     with ThreadPoolExecutor(max_workers=workers) as pool:
         return dict(pool.map(evaluate, shared))

@@ -278,8 +278,8 @@ def build_parser() -> argparse.ArgumentParser:
     batch.add_argument("--limit", type=int, default=5)
     batch.add_argument("--start", default=None, help="stem to start from (lexicographic)")
     batch.add_argument("--only", nargs="*", default=None, help="explicit stems")
-    batch.add_argument("--out-dir", default="outputs/batch")
-    batch.add_argument("--report", default="outputs/batch/report.json")
+    batch.add_argument("--out-dir", default=".cache/batch")
+    batch.add_argument("--report", default=".cache/batch/report.json")
     batch.add_argument("--quiet", action="store_true")
     batch.add_argument(
         "--workers",

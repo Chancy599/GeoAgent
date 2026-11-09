@@ -1,41 +1,50 @@
 \documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc,angles,quotes,intersections}
 \begin{document}
-\begin{tikzpicture}[line width=1.0pt, line join=round]
-% Named coordinates (scale s=0.018141, centre (257,207) px)
-\coordinate (A) at (-3.429,2.576);
-\coordinate (B) at (-3.429,-2.576);
-\coordinate (C) at (3.429,-2.576);
-\coordinate (D) at (3.429,2.576);
-\coordinate (M) at (-1.705,2.576);
-\coordinate (E) at (-0.862,-2.576);
-\coordinate (N) at (0.860,-2.576);
-\coordinate (F) at (3.441,0.867);
-\coordinate (O) at (0.003,-0.851);
-% Right-angle square corners (vertex V and mark points)
-\coordinate (V) at (-1.375,-1.544);
-\coordinate (P1) at (-1.083,-1.397);
-\coordinate (P2) at (-1.230,-1.104);
-\coordinate (P3) at (-1.522,-1.251);
+\begin{tikzpicture}[line join=round, line width=1.0pt]
+\coordinate (A) at (-3.456,2.585);
+\coordinate (B) at (-3.456,-2.567);
+\coordinate (C) at (3.401,-2.567);
+\coordinate (D) at (3.401,2.585);
+\coordinate (F) at (3.414,0.876);
+\coordinate (M) at (-1.732,2.585);
+\coordinate (N) at (0.832,-2.566);
+\coordinate (O) at (-0.025,-0.842);
 
-% Rectangle ABCD, sides at 1.2pt to match original weight
-\draw[line width=1.2pt] (A) -- (D) -- (C) -- (B) -- cycle;
-% Segments AE, MN, BF, FN
+
+
+\coordinate (E) at (-0.889,-2.567);
+
+
+\draw (A) -- (D);
+\draw (D) -- (C);
+\draw (C) -- (B);
+\draw (B) -- (A);
+
+
 \draw (A) -- (E);
 \draw (M) -- (N);
-\draw (B) -- (F);
+\draw (B) -- (F);   
 \draw (F) -- (N);
-% Single right-angle mark at V (BF perpendicular to AE), closed square, thin stroke
-\draw[line width=0.6pt] (V) -- (P1) -- (P2) -- (P3) -- cycle;
 
-% Labels
-\node[above left, font=\fontsize{14.5}{17.4}\selectfont] at (A) {$A$};
-\node[above right, font=\fontsize{14.5}{17.4}\selectfont] at (D) {$D$};
-\node[above, font=\fontsize{14.5}{17.4}\selectfont] at (M) {$M$};
-\node[below right, font=\fontsize{14.5}{17.4}\selectfont] at (C) {$C$};
-\node[below left, font=\fontsize{14.5}{17.4}\selectfont] at (B) {$B$};
-\node[below, font=\fontsize{14.5}{17.4}\selectfont] at (E) {$E$};
-\node[below, font=\fontsize{14.5}{17.4}\selectfont] at (N) {$N$};
-\node[right, font=\fontsize{14.5}{17.4}\selectfont] at (F) {$F$};
-\node[above right, font=\fontsize{14.5}{17.4}\selectfont] at (O) {$O$};
+
+\path [name path=AE] (A) -- (E);
+\path [name path=BF] (B) -- (F);
+\path [name intersections={of=AE and BF, by=P}];
+
+
+\draw pic[draw, angle radius=0.250cm] {right angle=A--P--F};
+
+
+\fontsize{14.5}{17.4}\selectfont
+\node[above left] at (A) {$A$};
+\node[above] at (M) {$M$};
+\node[above right] at (D) {$D$};
+\node[right] at (F) {$F$};
+\node[above right] at (O) {$O$};
+\node[below left] at (B) {$B$};
+\node[below] at (E) {$E$};
+\node[below] at (N) {$N$};
+\node[below right] at (C) {$C$};
 \end{tikzpicture}
 \end{document}
