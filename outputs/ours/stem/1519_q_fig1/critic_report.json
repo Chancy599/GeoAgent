@@ -1,0 +1,180 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render is geometrically faithful: the triangle ABC, the triangle AB'C', the solid BC edge, the dashed baseline starting at C, and all vertex positions match the original. The only visible difference is a slight shift of the C label.",
+  "figure_type": {
+    "original": "Two triangles sharing vertex A, with B, C, B', C' on or around a horizontal dashed baseline extension; solid edges and a dashed line from C to the right.",
+    "render": "Same configuration: triangle ABC with solid BC, triangle AB'C' with solid edges, and a dashed horizontal line from C to the right."
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_C"
+      ],
+      "bbox": [
+        0.66,
+        0.6,
+        0.72,
+        0.66
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The C label sits below and slightly right of its vertex. In the original it is centred roughly directly below C, so the render's placement is a small offset rather than a clash.",
+      "suggestion": "Use `below` instead of `below right` for the C node to match the original's centred placement."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "CV segment A to B' is drawn in the render as the A-B' edge."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "CV segment A to C' is drawn as the A-C' edge."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "CV segment A to B is drawn as the A-B edge."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Dashed baseline to the right of C, matching the original's dashed extension."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "CV segment A to C is drawn as the A-C edge."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "CV segment C' to B' is drawn as the B'C' edge."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "unclear",
+      "note": "CV labels the B-to-C span as dashed, but the original and the render both show BC as solid. The mismatch is in the CV classification, not the render."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Dashed segment from C rightward, matching the original's dashed line."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Edge A-B is drawn solid in both panels."
+    },
+    {
+      "object_id": "seg_ABp",
+      "status": "present",
+      "note": "Edge A-B' is drawn solid and crosses the dashed line at the matching position."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Edge A-C is drawn solid in both panels."
+    },
+    {
+      "object_id": "seg_ACp",
+      "status": "present",
+      "note": "Edge A-C' is drawn solid in both panels, forming the top side of triangle AB'C'."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Solid baseline segment B-C is present in both."
+    },
+    {
+      "object_id": "seg_BpCp",
+      "status": "present",
+      "note": "Edge B'-C' is drawn solid and crosses the dashed line at the matching position."
+    },
+    {
+      "object_id": "seg_dashed_line",
+      "status": "present",
+      "note": "Dashed line starts at C and runs to the right, matching the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Vertex A is at the matching position with its label above."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Vertex C' is at the matching position with its label to the right."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Vertex B is at the matching position with its label to the lower left."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "Vertex C is at the matching position; the label is slightly offset (see label_error)."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Same as point_01."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Same as point_05."
+    },
+    {
+      "object_id": "point_Bp",
+      "status": "present",
+      "note": "B' is at the matching position with its label below."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Same as point_07."
+    },
+    {
+      "object_id": "point_Cp",
+      "status": "present",
+      "note": "Same as point_04."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Triangle ABC with solid edges AB, AC and BC matches the original.",
+    "Triangle AB'C' with B' below the baseline and C' to the right matches the original.",
+    "The dashed horizontal extension starts at C and runs to the right edge, as in the original.",
+    "Crossings of AB' and B'C' with the dashed line are at matching positions.",
+    "Labels A, B, C, B' and C' are present with correct spelling and binding."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "B'",
+      "C'"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

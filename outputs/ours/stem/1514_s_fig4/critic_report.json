@@ -1,122 +1,143 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render faithfully reproduces the square, diagonal BD, segments BE and BF, and dashed EF with endpoints at E and F; only a minor E label offset differs.",
+  "verdict": "The render is a faithful reproduction of the original: square ABCD with E on AD, F on DC, thick BD, solid BE and BF, and dashed EF, with all six labels in matching positions.",
   "figure_type": {
-    "original": "square ABCD with points E on AD and F on DC, segments BE, BF, BD and dashed EF",
-    "render": "square ABCD with points E on AD and F on DC, segments BE, BF, BD and dashed EF"
+    "original": "Square ABCD with interior points E (on AD) and F (on DC), segments BE, BF, BD and dashed EF",
+    "render": "Square ABCD with interior points E (on AD) and F (on DC), segments BE, BF, BD and dashed EF"
   },
-  "issues": [
-    {
-      "type": "label_error",
-      "severity": "low",
-      "object_ids": [
-        "point_05"
-      ],
-      "bbox": [
-        0.27,
-        0.1,
-        0.32,
-        0.15
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "The E label sits centred directly above vertex E in the render. In the original it is printed up and to the left of E, about 10-30 px left of the vertex. The label is still clearly bound to E and does not touch any stroke.",
-      "suggestion": "Optionally place the E label with an 'above left' anchor, e.g. \\node[above left] at (E) {...}, to match the original. This is cosmetic only."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Thick diagonal B to D, matches the original BD stroke and its ends."
+      "note": "Thick diagonal BD, drawn from B to D as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment B to F, ends at F on DC as in the original."
+      "note": "Solid segment BF from B to F."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment B to E, ends at E on AD as in the original."
+      "note": "Solid segment BE from B to E on AD."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Bottom edge BC, matches the original."
+      "note": "Bottom side BC."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Left edge AB, matches the original."
+      "note": "Left side AB."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Right edge DC, matches the original."
+      "note": "Right side DC."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Top edge AD, matches the original."
+      "note": "Top side AD."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Dashed EF fragment on the E side, with dash pattern matching the original."
+      "note": "Upper part of the dashed EF line, which is one dashed segment in the render."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Dashed EF fragment on the F side, ends at F as in the original."
+      "note": "Lower part of the dashed EF line, which is one dashed segment in the render."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Thick diagonal BD drawn from B to D."
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "Dashed segment from E on AD to F on DC."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B is bound to B and placed below-left, as in the original."
+      "note": "B at the bottom-left corner, labelled B."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label D is bound to D and placed above-right, as in the original."
+      "note": "D at the top-right corner, labelled D."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label F is bound to F and placed to the right, clear of strokes."
+      "note": "F on the right side, labelled F."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label E is bound to E. It is centred above the vertex, whereas the original is offset left (low-severity issue)."
+      "note": "E on the top side, labelled E."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label C is bound to C and placed below-right, as in the original."
+      "note": "C at the bottom-right corner, labelled C."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label A is bound to A and placed above-left, as in the original."
+      "note": "A at the top-left corner, labelled A."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A labelled correctly."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B labelled correctly."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C labelled correctly."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D labelled correctly."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Vertex E labelled correctly."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Vertex F labelled correctly."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Square ABCD with correct aspect ratio and corner positions",
-    "Thick diagonal BD running from B to D",
-    "Segments BE and BF meet the top and right edges at the correct points E and F",
-    "Dashed EF runs from E to F with a dash pattern matching the original",
-    "All six point labels are present, correctly spelled and bound to the right vertices",
-    "No right-angle markers appear in either panel, so none are missing"
+    "Square outline ABCD with corners A top-left, D top-right, C bottom-right, B bottom-left.",
+    "E lies on the top side AD and F lies on the right side DC, at the same relative positions.",
+    "Thick diagonal BD, solid BE and BF, and dashed EF with the same endpoints and crossing with BD.",
+    "All six labels (A, B, C, D, E, F) are present, correctly spelled and placed beside their vertices with no collisions with strokes.",
+    "Aspect ratio and overall layout match the original."
   ],
   "labels": {
     "present": [
@@ -130,25 +151,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "8dbee6d5d632debf",
-      "edge": [
-        "B",
-        "D"
-      ],
-      "reason": "In the original, the thick stroke runs continuously from B to D along the diagonal."
-    },
-    {
-      "case_id": "827132d010714064",
-      "edge": [
-        "B",
-        "E"
-      ],
-      "reason": "In the original, the stroke runs from B up to E on the top edge, and the E label sits at that endpoint."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

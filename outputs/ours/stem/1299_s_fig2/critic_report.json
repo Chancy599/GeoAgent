@@ -1,0 +1,183 @@
+{
+  "assessment_score": 0.86,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render is a faithful reconstruction of the circle, triangle, centre O, altitude AD, line BF through E and H, perpendicular CH with its right-angle mark, and dashed FC and HC. The main discrepancy is a visibly heavier stroke along part of BF.",
+  "figure_type": {
+    "original": "Circle with inscribed triangle ABC, altitude AD, centre O, and a line from B through O, E and H to F, with a right-angle mark at H and dashed segments FC and HC.",
+    "render": "Same construction: circle, triangle ABC, altitude AD, centre O, line B-E-H-F, right-angle mark at H, and dashed FC and HC."
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01"
+      ],
+      "bbox": [
+        0.36,
+        0.36,
+        0.95,
+        0.68
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The segment from E to F appears darker and thicker than the rest of the BF line. The TikZ draws B--F and also B--E--H--F, so the two overlapping strokes double the weight. In the original BF is a single thin line.",
+      "suggestion": "Draw BF once. Either remove the separate \\draw (B) -- (F) and keep the polyline B--E--H--F, or keep B--F and drop E--H--F from the polyline, so the stroke is not doubled."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_O",
+      "status": "present",
+      "note": "Circle is centred at O and passes through A, B, C in the same way as the original."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Line B through O, E, H to F matches the original, but the E-F stretch is doubled and heavier."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Base BC is drawn horizontally, matching the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Side AB matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Side AC matches the original, passing through E."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Altitude AD matches the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Segment from C to O matches the original."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "unclear",
+      "note": "Short CV fragment on the dashed FC/HC region, not clearly separate in the original."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "unclear",
+      "note": "Short CV fragment on the dashed FC segment, consistent with the dashed line in both panels."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "present",
+      "note": "Short piece at H on the perpendicular CH, matching the original."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "A-E-C path matches the original."
+    },
+    {
+      "object_id": "seg_BF",
+      "status": "present",
+      "note": "B-F line is present, with the same overlap issue noted in seg_01."
+    },
+    {
+      "object_id": "seg_FC",
+      "status": "present",
+      "note": "Dashed F-C segment matches the original."
+    },
+    {
+      "object_id": "seg_HC",
+      "status": "present",
+      "note": "Dashed H-C segment matches the original."
+    },
+    {
+      "object_id": "ra_H",
+      "status": "present",
+      "note": "Right-angle mark at H between CH and BF is drawn, as in the original."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Same right-angle mark at H, correctly oriented."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "B is labelled at the left base vertex."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "E is labelled at the intersection of AC and BF."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "O is labelled at the centre."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "C is labelled at the right base vertex."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "D is labelled below the base."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "A is labelled at the top vertex."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "F is labelled at the end of the BF line on the circle."
+    },
+    {
+      "object_id": "point_08",
+      "status": "present",
+      "note": "H is labelled near the foot of the perpendicular from C."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Circle, centre O, and inscribed triangle ABC match the original.",
+    "Altitude AD, segment OC, and base BC match.",
+    "Line B-O-E-H-F and its intersections with AC and the perpendicular CH match.",
+    "Right-angle mark at H and dashed segments FC and HC are present.",
+    "All eight point labels A to H are present and bound to the correct vertices."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "H",
+      "O"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 6,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

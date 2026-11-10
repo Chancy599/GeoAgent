@@ -1,0 +1,58 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (A) at (0,8);
+    \coordinate (B) at (0,0);
+    \coordinate (C) at (6,0);
+    \coordinate (D) at (6,8);
+    
+    % E is on AD
+    \coordinate (E) at (4.5,8);
+    
+    % F is on BE such that CF is perpendicular to BE
+    % Line BE: y = (16/9)x
+    % Line CF: y = (-9/16)(x-6)
+    % Intersection: x = 486/337 approx 1.442, y = 864/337 approx 2.564
+    \coordinate (F) at (1.442, 2.564);
+    
+    % H is on AD, vertically aligned with F
+    \coordinate (H) at (1.442, 8);
+    
+    % G is on BC, vertically aligned with F
+    \coordinate (G) at (1.442, 0);
+    
+    % Draw the rectangle
+    \draw (A) -- (B) -- (C) -- (D) -- cycle;
+    
+    % Draw solid internal lines
+    \draw (B) -- (E);
+    \draw (E) -- (C);
+    
+    % Draw dashed lines
+    \draw[dashed] (H) -- (G);
+    \draw[dashed] (F) -- (C);
+    
+    % Draw right angle at G (between HG and GC)
+    \draw ($(G)+(0,0.3)$) -- (G) -- ($(G)+(0.3,0)$);
+    
+    % Draw right angle at F (between FB and FC)
+    % Draws the corner of the square opposite to F
+    \draw ($(F)!3mm!(B)$) -- ($($(F)!3mm!(B)$) + ($(F)!3mm!(C)$) - (F)$) -- ($(F)!3mm!(C)$);
+    
+    % Labels
+    \node[above left] at (A) {$A$};
+    \node[above] at (H) {$H$};
+    \node[above] at (E) {$E$};
+    \node[above right] at (D) {$D$};
+    
+    \node[below left] at (B) {$B$};
+    \node[below] at (G) {$G$};
+    \node[below right] at (C) {$C$};
+    
+    \node[left] at (F) {$F$};
+\end{tikzpicture}
+\end{document}

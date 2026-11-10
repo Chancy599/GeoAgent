@@ -503,6 +503,131 @@
         ],
         "ambiguous": false
       }
+    },
+    "seg_AB": {
+      "id": "seg_AB",
+      "type": "segment",
+      "label": "AB",
+      "coords": {
+        "a_px": [
+          212.0,
+          65.0
+        ],
+        "b_px": [
+          70.03,
+          253.17
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_AD": {
+      "id": "seg_AD",
+      "type": "segment",
+      "label": "AD",
+      "coords": {
+        "a_px": [
+          212.0,
+          65.0
+        ],
+        "b_px": [
+          399.9,
+          65.2
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_DC": {
+      "id": "seg_DC",
+      "type": "segment",
+      "label": "DC",
+      "coords": {
+        "a_px": [
+          399.9,
+          65.2
+        ],
+        "b_px": [
+          540.75,
+          254.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_BC": {
+      "id": "seg_BC",
+      "type": "segment",
+      "label": "BC",
+      "coords": {
+        "a_px": [
+          70.03,
+          253.17
+        ],
+        "b_px": [
+          540.75,
+          254.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_BD": {
+      "id": "seg_BD",
+      "type": "segment",
+      "label": "BD",
+      "coords": {
+        "a_px": [
+          70.03,
+          253.17
+        ],
+        "b_px": [
+          399.9,
+          65.2
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -541,6 +666,33 @@
       "source": "bind_point_labels",
       "evidence": "Hungarian assignment distance=30.08px",
       "status": "candidate"
+    },
+    "rel_005": {
+      "id": "rel_005",
+      "subject": "point_04",
+      "relation": "endpoint_of",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "solid line from A glyph junction down-left to B",
+      "status": "candidate"
+    },
+    "rel_006": {
+      "id": "rel_006",
+      "subject": "point_03",
+      "relation": "endpoint_of",
+      "object": "seg_BD",
+      "source": "geometry_agent",
+      "evidence": "diagonal from B terminates at D junction where top edge meets right side",
+      "status": "candidate"
+    },
+    "rel_007": {
+      "id": "rel_007",
+      "subject": "seg_AD",
+      "relation": "parallel",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "top and bottom horizontal edges, y≈65 and y≈254",
+      "status": "candidate"
     }
   },
   "evidence": {
@@ -555,7 +707,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:22:19"
+      "created_at": "2026-11-09T22:52:50"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -568,10 +720,49 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:22:42"
+      "created_at": "2026-11-09T22:52:51"
     },
     "ev_0003": {
       "id": "ev_0003",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T22:52:51"
+    },
+    "ev_0004": {
+      "id": "ev_0004",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Trapezoid-like quadrilateral ABCD with all edges solid: top edge AD (horizontal, y≈65), bottom edge BC (horizontal, y≈254), slanted sides AB and DC, and diagonal BD from B to D. No dashed strokes, no right-angle marks, no interior feet. Vertices: A=point_04 (212,65), D=point_03 (399.9,65.2), B=point_01 (70,253.2), C=point_02 (540.75,254). Curve extent: none.",
+      "payload": {
+        "merged": {
+          "objects": 9,
+          "relations": 3,
+          "conflicts": 0,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_01",
+          "point_02",
+          "point_03",
+          "point_04",
+          "seg_AB",
+          "seg_AD",
+          "seg_DC",
+          "seg_BC",
+          "seg_BD"
+        ]
+      },
+      "created_at": "2026-11-09T22:52:57"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v1 canvas matched to source [611, 321] (scale 0.8557)",
@@ -587,14 +778,14 @@
         ],
         "scale": 0.8557,
         "offset": [
-          51,
+          31,
           29
         ]
       },
-      "created_at": "2026-11-09T11:23:11"
+      "created_at": "2026-11-09T22:53:09"
     },
-    "ev_0004": {
-      "id": "ev_0004",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: applied",
@@ -608,8 +799,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "5c50bfe036a5d1b18df041d9470cd9a427186984b509d296206ea4623dde336b",
-        "output_sha256": "ecbbb4d3c2366c15d9c453667d6ae227de180514402bf64f496c0f156bc7d24c",
+        "input_sha256": "b5703e27a184dac96ba5a285abc116eb6108cc298cf82f6cda6c0448f4008e5e",
+        "output_sha256": "eb13765328c5dac65cc7a789a799633a6bdd0351152916aaa1796e9cde4cacdf",
         "reason": "applied",
         "accepted": [
           {
@@ -667,22 +858,22 @@
         "point_count": 4,
         "segment_count": 5
       },
-      "created_at": "2026-11-09T11:23:11"
+      "created_at": "2026-11-09T22:53:09"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used the PROGRAM-OWNED CV coordinates by name (A, B, C, D) and did not redefine them. Edges B--C, C--D, D--A, A--B and diagonal B--D are drawn as solid straight named-endpoint paths with no arrows or extra construction lines. Stroke is 0.8pt with round joins and labels are 12/14.4pt per STYLE METRICS. Label placement: A and D above, B and C below. Sanity check: the measured coordinates agree with the stated scale (s=0.014953, centre about (305,160) px). For example, A maps to about (-1.39, 1.42), matching the program values. No right-angle marks, since none were verified.",
+        "notes": "Used program-owned coordinates A, B, C, D by name (not redefined). All five required edges drawn solid with named endpoints. Line width 0.8pt from STYLE METRICS with round joins; labels at 12pt/14.4pt per metrics, placed at the requested diagonal offsets. No right-angle marks, no extra segments.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -712,38 +903,38 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0294"
+              "detail": "ink_ratio=0.0273"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.90 vs render 1.94 (delta 0.02)"
+              "detail": "reference 1.90 vs render 2.09 (delta 0.10)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.99"
+              "detail": "figure bbox ratio 2.15"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T11:23:11"
+      "created_at": "2026-11-09T22:53:09"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v2 canvas matched to source [611, 321] (scale 0.8527)",
+      "summary": "v2 canvas matched to source [611, 321] (scale 0.8245)",
       "payload": {
         "ok": true,
         "size": [
@@ -754,16 +945,16 @@
           611,
           321
         ],
-        "scale": 0.8527,
+        "scale": 0.8245,
         "offset": [
-          52,
+          36,
           29
         ]
       },
-      "created_at": "2026-11-09T11:23:57"
+      "created_at": "2026-11-09T22:53:48"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v2: applied",
@@ -777,8 +968,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "d08735134a8dfb988f8b1263473d569235e32549df8eb13a515d12d03a4e06eb",
-        "output_sha256": "3a91508e32f20bbab5939a0e63ae2867b96a665ff93e33d58508427f48e8d989",
+        "input_sha256": "c1dd0451e9e77e661288db421f2857ef2ea7270fa977f12b1fbc02c35dd4ccd4",
+        "output_sha256": "b492bb864a37e35dc133c79a7089bda00c20c8a904431679cf7c40a16bb03880",
         "reason": "applied",
         "accepted": [
           {
@@ -836,22 +1027,22 @@
         "point_count": 4,
         "segment_count": 5
       },
-      "created_at": "2026-11-09T11:23:57"
+      "created_at": "2026-11-09T22:53:48"
     },
-    "ev_0008": {
-      "id": "ev_0008",
+    "ev_0010": {
+      "id": "ev_0010",
       "source": "code_agent",
       "method": "tikz repair",
       "summary": "v2 compiled=True validation=True",
       "payload": {
-        "notes": "Repair per instruction: global line width raised from 0.8pt to 1.2pt on the tikzpicture options. Paths, labels, and label fonts are unchanged. The five required named edges (AB, AD, BC, BD, CD) are kept. The program-owned \\coordinate definitions for A, B, C, D were removed from the source because the program inserts them at the start of the tikzpicture. The previous source had slightly different literal values (e.g. A at 1.429 vs program 1.428, D at 1.424 vs 1.425), which are superseded by the program-owned block. This document will only compile once the program inserts those definitions. The 1.2pt width overrides the STYLE METRICS value of 0.8pt, as the instruction and critic requested.",
+        "notes": "Cosmetic repair only: global line width raised from 0.8pt to 1.2pt, label font raised to \\fontsize{14}{17}\\selectfont. Edges (AB, AD, DC, BC, BD) and label anchor positions unchanged. The coordinate definitions for A, B, C, D are program-owned and inserted at the start of the tikzpicture, so they are not redefined here. The program-owned values (A y=1.428, D y=1.425) differ very slightly from the previous revision's literal values; flagging for remeasurement rather than silently changing them.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v2\\v2.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v2\\v2.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -881,32 +1072,201 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v2\\v2.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v2\\v2.png"
+              "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0401"
+              "detail": "ink_ratio=0.0366"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.90 vs render 1.93 (delta 0.01)"
+              "detail": "reference 1.90 vs render 2.05 (delta 0.08)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.98"
+              "detail": "figure bbox ratio 2.10"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T11:23:57"
+      "created_at": "2026-11-09T22:53:48"
+    },
+    "ev_0011": {
+      "id": "ev_0011",
+      "source": "renderer",
+      "method": "frame_like_original",
+      "summary": "v3 canvas matched to source [611, 321] (scale 0.8245)",
+      "payload": {
+        "ok": true,
+        "size": [
+          611,
+          321
+        ],
+        "reference_size": [
+          611,
+          321
+        ],
+        "scale": 0.8245,
+        "offset": [
+          36,
+          29
+        ]
+      },
+      "created_at": "2026-11-09T22:54:14"
+    },
+    "ev_0012": {
+      "id": "ev_0012",
+      "source": "tikz_constraint_repair",
+      "method": "post-generation joint coordinate projection",
+      "summary": "v3: applied",
+      "payload": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "20b467278744f89d1e11f716789e8d07d61bc60e6ac318797e1b58f71d0b7874",
+        "output_sha256": "eb456f57cb6fff2bc8ad75b0462253f449f5b396aea2e6ec2f29b5d3fa463608",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "parallel",
+            "segments": [
+              "A--D",
+              "B--C"
+            ],
+            "before_error_deg": 0.036507192374751724,
+            "after_error_deg": 0.004272637515081797,
+            "solver_after_error_deg": 4.421986935550778e-16,
+            "export_tolerance_deg": 0.04034718661415264
+          }
+        ],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
+          ],
+          "relaxation": 1.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "input_candidates": 1,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.00013183735509182182,
+        "max_length_change_rel": 0.00022756309350313586,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 7.75319889791156e-05,
+        "max_after_error_deg": 0.004272637515081797,
+        "curve_policy": "defer",
+        "candidate_count": 1,
+        "solver_max_shift_rel": 0.00010229304191586651,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.004272637515081797,
+        "point_count": 4,
+        "segment_count": 5
+      },
+      "created_at": "2026-11-09T22:54:15"
+    },
+    "ev_0013": {
+      "id": "ev_0013",
+      "source": "code_agent",
+      "method": "tikz repair",
+      "summary": "v3 compiled=True validation=True",
+      "payload": {
+        "notes": "Global line width set to 1.4pt. Labels use \\fontsize{14}{17}\\selectfont\\bfseries as instructed, with the same anchors and vertex bindings. Edges AB, AD, DC, BC, BD unchanged and solid. Program-owned coordinate definitions for A, B, C, D are not re-emitted (the previous draft redefined them with slightly different values, e.g. A y=1.429 vs program 1.428); the program inserts them. Note: STYLE METRICS suggests 12pt labels, but the explicit repair instruction targets 14pt bold, which was applied.",
+        "compile": {
+          "compile_ok": true,
+          "validation_passed": true,
+          "errors": [],
+          "warnings": [],
+          "png_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v3\\v3.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v3\\v3.pdf",
+          "checks": [
+            {
+              "name": "documentclass",
+              "passed": true,
+              "detail": "documentclass present"
+            },
+            {
+              "name": "document_environment",
+              "passed": true,
+              "detail": "begin=1 end=1"
+            },
+            {
+              "name": "tikzpicture",
+              "passed": true,
+              "detail": "one balanced tikzpicture"
+            },
+            {
+              "name": "no_shell_escape",
+              "passed": true,
+              "detail": "no \\write18/\\openout primitives"
+            },
+            {
+              "name": "compiler_ok",
+              "passed": true,
+              "detail": "returncode=0"
+            },
+            {
+              "name": "pdf_created",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v3\\v3.pdf"
+            },
+            {
+              "name": "png_rendered",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v3\\v3.png"
+            },
+            {
+              "name": "render_not_blank",
+              "passed": true,
+              "detail": "ink_ratio=0.0421"
+            },
+            {
+              "name": "aspect_ratio",
+              "passed": true,
+              "detail": "reference 1.90 vs render 2.05 (delta 0.08)"
+            },
+            {
+              "name": "figure_extent_ratio",
+              "passed": true,
+              "detail": "figure bbox ratio 2.11"
+            }
+          ]
+        }
+      },
+      "created_at": "2026-11-09T22:54:15"
     }
   },
   "conflicts": [],
@@ -916,10 +1276,10 @@
     "C": "point_02",
     "B": "point_01"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\\begin{tikzpicture}[line join=round, line width=1.2pt]\n\\coordinate (A) at (-1.398,1.429);\n\\coordinate (B) at (-3.521,-1.386);\n\\coordinate (C) at (3.518,-1.398);\n\\coordinate (D) at (1.412,1.424);\n\n\n  \n  \\draw (B) -- (C);\n  \\draw (C) -- (D);\n  \\draw (D) -- (A);\n  \\draw (A) -- (B);\n\n  \n  \\draw (B) -- (D);\n\n  \n  \\node[above, font=\\fontsize{12}{14.4}\\selectfont] at (A) {$A$};\n  \\node[above, font=\\fontsize{12}{14.4}\\selectfont] at (D) {$D$};\n  \\node[below, font=\\fontsize{12}{14.4}\\selectfont] at (B) {$B$};\n  \\node[below, font=\\fontsize{12}{14.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 0494a67e1035939eff94251ab02dd617b157b001cbcf110506d86d1bef6ee32d\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\\begin{tikzpicture}[line join=round, line width=1.2pt]\n\\coordinate (A) at (-1.398,1.429);\n\\coordinate (B) at (-3.521,-1.386);\n\\coordinate (C) at (3.518,-1.398);\n\\coordinate (D) at (1.412,1.424);\n\n\n  \n  \\draw (B) -- (C);\n  \\draw (C) -- (D);\n  \\draw (D) -- (A);\n  \\draw (A) -- (B);\n\n  \n  \\draw (B) -- (D);\n\n  \n  \\node[above, font=\\fontsize{12}{14.4}\\selectfont] at (A) {$A$};\n  \\node[above, font=\\fontsize{12}{14.4}\\selectfont] at (D) {$D$};\n  \\node[below, font=\\fontsize{12}{14.4}\\selectfont] at (B) {$B$};\n  \\node[below, font=\\fontsize{12}{14.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 0494a67e1035939eff94251ab02dd617b157b001cbcf110506d86d1bef6ee32d\n",
-  "best_version": 2,
-  "best_score": 0.92,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\\begin{tikzpicture}[line join=round, line width=1.4pt, black]\n\\coordinate (A) at (-1.398,1.429);\n\\coordinate (B) at (-3.521,-1.386);\n\\coordinate (C) at (3.518,-1.398);\n\\coordinate (D) at (1.412,1.424);\n\n  \n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (C);\n  \\draw (B) -- (C);\n  \\draw (B) -- (D);\n\n  \n  \\node[above left, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (A) {$A$};\n  \\node[above right, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (D) {$D$};\n  \\node[below left, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (B) {$B$};\n  \\node[below right, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 23a0888e3f904c40acca702dc6b28c76432fb73c9c2093881d1e1865f8ecb5a4\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\\begin{tikzpicture}[line join=round, line width=1.4pt, black]\n\\coordinate (A) at (-1.398,1.429);\n\\coordinate (B) at (-3.521,-1.386);\n\\coordinate (C) at (3.518,-1.398);\n\\coordinate (D) at (1.412,1.424);\n\n  \n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (C);\n  \\draw (B) -- (C);\n  \\draw (B) -- (D);\n\n  \n  \\node[above left, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (A) {$A$};\n  \\node[above right, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (D) {$D$};\n  \\node[below left, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (B) {$B$};\n  \\node[below right, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 23a0888e3f904c40acca702dc6b28c76432fb73c9c2093881d1e1865f8ecb5a4\n",
+  "best_version": 3,
+  "best_score": 0.9,
   "tikz_versions": [
     {
       "topology_check": {
@@ -927,110 +1287,156 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=0.8pt]\n\\coordinate (A) at (-1.398,1.429);\n\\coordinate (B) at (-3.521,-1.386);\n\\coordinate (C) at (3.518,-1.398);\n\\coordinate (D) at (1.412,1.424);\n\n  \n  \\draw (B) -- (C);\n  \\draw (C) -- (D);\n  \\draw (D) -- (A);\n  \\draw (A) -- (B);\n  \n  \\draw (B) -- (D);\n  \n  \\node[above, font=\\fontsize{12}{14.4}\\selectfont] at (A) {$A$};\n  \\node[above, font=\\fontsize{12}{14.4}\\selectfont] at (D) {$D$};\n  \\node[below, font=\\fontsize{12}{14.4}\\selectfont] at (B) {$B$};\n  \\node[below, font=\\fontsize{12}{14.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 fd9b13b448d3485e66c13e7f66199ca887c2e99b09606ad7d5ea43da91c85d0f\n",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=0.8pt, black]\n\\coordinate (A) at (-1.398,1.429);\n\\coordinate (B) at (-3.521,-1.386);\n\\coordinate (C) at (3.518,-1.398);\n\\coordinate (D) at (1.412,1.424);\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (C);\n  \\draw (B) -- (C);\n  \n  \\draw (B) -- (D);\n  \n  \\node[above left, font=\\fontsize{12}{14.4}\\selectfont] at (A) {$A$};\n  \\node[above right, font=\\fontsize{12}{14.4}\\selectfont] at (D) {$D$};\n  \\node[below left, font=\\fontsize{12}{14.4}\\selectfont] at (B) {$B$};\n  \\node[below right, font=\\fontsize{12}{14.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 fdc2b64b3785371cc959e34fbd57c8da3dafb91750cde3aedb0628018cfeb411\n",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:23:09",
+      "created_at": "2026-11-09T22:53:06",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used the PROGRAM-OWNED CV coordinates by name (A, B, C, D) and did not redefine them. Edges B--C, C--D, D--A, A--B and diagonal B--D are drawn as solid straight named-endpoint paths with no arrows or extra construction lines. Stroke is 0.8pt with round joins and labels are 12/14.4pt per STYLE METRICS. Label placement: A and D above, B and C below. Sanity check: the measured coordinates agree with the stated scale (s=0.014953, centre about (305,160) px). For example, A maps to about (-1.39, 1.42), matching the program values. No right-angle marks, since none were verified.",
-      "compile_seconds": 1.995,
+      "notes": "Used program-owned coordinates A, B, C, D by name (not redefined). All five required edges drawn solid with named endpoints. Line width 0.8pt from STYLE METRICS with round joins; labels at 12pt/14.4pt per metrics, placed at the requested diagonal offsets. No right-angle marks, no extra segments.",
+      "compile_seconds": 2.812,
       "critic_report": {
         "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render reproduces the trapezoid ABCD with diagonal BD and matching vertex bindings; the only visible difference is that the render's strokes are noticeably thinner than the original.",
+        "verdict": "Geometry matches the original: trapezoid ABCD with diagonal BD and all vertex labels correctly placed; the render is thinner and has smaller labels than the original.",
         "figure_type": {
-          "original": "Trapezoid ABCD with top side AD, bottom side BC, and diagonal BD drawn as straight segments; solid black strokes, labels A and D above, B and C below.",
-          "render": "Same trapezoid with diagonal BD, straight solid strokes, labels A and D above and B and C below."
+          "original": "Trapezoid ABCD (AD parallel to BC) with diagonal BD, bold strokes, serif italic labels",
+          "render": "Trapezoid ABCD with diagonal BD, thin strokes, smaller italic labels"
         },
         "issues": [
           {
             "type": "wrong_style",
             "severity": "low",
             "object_ids": [
-              "seg_01",
-              "seg_02",
-              "seg_03",
-              "seg_04",
-              "seg_05"
+              "seg_AB",
+              "seg_AD",
+              "seg_BC",
+              "seg_DC",
+              "seg_BD"
             ],
             "bbox": [
-              0.03,
-              0.3,
-              0.97,
+              0.05,
+              0.32,
+              0.95,
               0.68
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Stroke weight is too thin: the original outline and diagonal look roughly 2-3 px wide at this scale, while the render's strokes look about 1 px.",
-            "suggestion": "Increase the global line width (e.g. line width=1.2pt or 1.5pt) in the tikzpicture options, keeping the same coordinates."
+            "description": "Stroke weight: all figure lines are noticeably thinner in the render than in the original (the original strokes look roughly twice as heavy at the same scale).",
+            "suggestion": "Increase the global line width in the tikzpicture options (e.g. line width=1.2pt or 1.5pt) to better match the original's stroke weight."
+          },
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "point_01",
+              "point_02",
+              "point_03",
+              "point_04"
+            ],
+            "bbox": [
+              0.05,
+              0.28,
+              0.95,
+              0.72
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "Point labels A, B, C, D are slightly smaller and lighter in the render than the bold-looking labels in the original.",
+            "suggestion": "Optionally increase the label font size (e.g. \\fontsize{14}{17}) or use a bolder math font to match the original; label positions and bindings are already correct and should be kept."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Bottom side BC is drawn from B to C and matches the original's horizontal bottom edge."
+            "note": "Bottom edge BC is drawn horizontally from B to C, matching the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Diagonal BD runs from B to D as in the original."
+            "note": "Diagonal BD is drawn from B to D, matching the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Left side AB joins A and B as in the original."
+            "note": "Left side AB is drawn from A to B, matching the original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Right side CD joins C and D as in the original."
+            "note": "Right side DC is drawn from D to C, matching the original."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Top side DA joins D and A as in the original."
+            "note": "Top edge AD is drawn horizontally from A to D, matching the original."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "Segment AB from A to B is drawn correctly."
+          },
+          {
+            "object_id": "seg_AD",
+            "status": "present",
+            "note": "Segment AD from A to D is drawn correctly."
+          },
+          {
+            "object_id": "seg_BC",
+            "status": "present",
+            "note": "Segment BC from B to C is drawn correctly."
+          },
+          {
+            "object_id": "seg_BD",
+            "status": "present",
+            "note": "Diagonal BD from B to D is drawn correctly."
+          },
+          {
+            "object_id": "seg_DC",
+            "status": "present",
+            "note": "Segment DC from D to C is drawn correctly."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "B is bound at the lower-left vertex, with its label below-left as in the original."
+            "note": "Label B sits below-left of the B vertex, as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "C is bound at the lower-right vertex, with its label below-right as in the original."
+            "note": "Label C sits below-right of the C vertex, as in the original."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "D is bound at the upper-right vertex, with its label above as in the original."
+            "note": "Label D sits above-right of the D vertex, as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "A is bound at the upper-left vertex, with its label above as in the original."
+            "note": "Label A sits above-left of the A vertex, as in the original."
           }
         ],
         "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
           "medium": 0,
-          "low": 1
+          "low": 2
         },
         "flaky_count": 0,
-        "must_repair": false,
+        "must_repair": true,
         "matches": [
-          "All five edges BC, CD, DA, AB and diagonal BD are present with correct endpoints.",
-          "Overall trapezoid proportions (width-to-height about 2.5) match the original.",
-          "Vertex labels A, B, C, D are present, correctly spelled, and sit clear of the strokes on the correct side of each vertex.",
-          "Label bindings A→point_04, D→point_03, C→point_02, B→point_01 match the source points."
+          "Trapezoid outline ABCD with AD parallel to BC.",
+          "Vertex positions and proportions of A, B, C, D match the original.",
+          "Diagonal BD runs from B to D and ends at D as in the original.",
+          "No extra or missing segments.",
+          "Label placement and vertex bindings for A, B, C, D are correct."
         ],
         "labels": {
           "present": [
@@ -1055,89 +1461,155 @@
         "missing_edges": []
       },
       "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\\begin{tikzpicture}[line join=round, line width=1.2pt]\n\\coordinate (A) at (-1.398,1.429);\n\\coordinate (B) at (-3.521,-1.386);\n\\coordinate (C) at (3.518,-1.398);\n\\coordinate (D) at (1.412,1.424);\n\n\n  \n  \\draw (B) -- (C);\n  \\draw (C) -- (D);\n  \\draw (D) -- (A);\n  \\draw (A) -- (B);\n\n  \n  \\draw (B) -- (D);\n\n  \n  \\node[above, font=\\fontsize{12}{14.4}\\selectfont] at (A) {$A$};\n  \\node[above, font=\\fontsize{12}{14.4}\\selectfont] at (D) {$D$};\n  \\node[below, font=\\fontsize{12}{14.4}\\selectfont] at (B) {$B$};\n  \\node[below, font=\\fontsize{12}{14.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 0494a67e1035939eff94251ab02dd617b157b001cbcf110506d86d1bef6ee32d\n",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1259_s_fig1\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1259_s_fig1\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1259_s_fig1\\best.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\\begin{tikzpicture}[line join=round, line width=1.2pt, black]\n\\coordinate (A) at (-1.398,1.429);\n\\coordinate (B) at (-3.521,-1.386);\n\\coordinate (C) at (3.518,-1.398);\n\\coordinate (D) at (1.412,1.424);\n\n  \n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (C);\n  \\draw (B) -- (C);\n  \\draw (B) -- (D);\n\n  \n  \\node[above left, font=\\fontsize{14}{17}\\selectfont] at (A) {$A$};\n  \\node[above right, font=\\fontsize{14}{17}\\selectfont] at (D) {$D$};\n  \\node[below left, font=\\fontsize{14}{17}\\selectfont] at (B) {$B$};\n  \\node[below right, font=\\fontsize{14}{17}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 32644c36e4d9876240cc159fa8986cd8e97c89f1e8baca28bef232ad7580e9a6\n",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:23:54",
+      "created_at": "2026-11-09T22:53:43",
       "agent": "code_agent",
       "mode": "repair",
-      "notes": "Repair per instruction: global line width raised from 0.8pt to 1.2pt on the tikzpicture options. Paths, labels, and label fonts are unchanged. The five required named edges (AB, AD, BC, BD, CD) are kept. The program-owned \\coordinate definitions for A, B, C, D were removed from the source because the program inserts them at the start of the tikzpicture. The previous source had slightly different literal values (e.g. A at 1.429 vs program 1.428, D at 1.424 vs 1.425), which are superseded by the program-owned block. This document will only compile once the program inserts those definitions. The 1.2pt width overrides the STYLE METRICS value of 0.8pt, as the instruction and critic requested.",
-      "compile_seconds": 2.515,
+      "notes": "Cosmetic repair only: global line width raised from 0.8pt to 1.2pt, label font raised to \\fontsize{14}{17}\\selectfont. Edges (AB, AD, DC, BC, BD) and label anchor positions unchanged. The coordinate definitions for A, B, C, D are program-owned and inserted at the start of the tikzpicture, so they are not redefined here. The program-owned values (A y=1.428, D y=1.425) differ very slightly from the previous revision's literal values; flagging for remeasurement rather than silently changing them.",
+      "compile_seconds": 4.633,
       "critic_report": {
-        "assessment_score": 0.92,
+        "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render matches the original quadrilateral with diagonal BD, all four labels are bound to the correct vertices, and stroke weight is now comparable to the original.",
+        "verdict": "The render reproduces the trapezoid ABCD with diagonal BD, with matching vertices, edge topology, and label bindings; only the stroke and label weight appear lighter than the original.",
         "figure_type": {
-          "original": "Quadrilateral ABCD (trapezoid-like) with diagonal BD, drawn as straight segments with labelled vertices",
-          "render": "Quadrilateral ABCD with diagonal BD, drawn as straight segments with labelled vertices"
+          "original": "Quadrilateral ABCD (trapezoid with AD parallel to BC) with diagonal BD drawn as a plain polygon outline",
+          "render": "Quadrilateral ABCD (trapezoid with AD parallel to BC) with diagonal BD drawn as a plain polygon outline"
         },
-        "issues": [],
+        "issues": [
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "seg_01",
+              "seg_02",
+              "seg_03",
+              "seg_04",
+              "seg_05"
+            ],
+            "bbox": [
+              0.05,
+              0.3,
+              0.97,
+              0.7
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "Edge strokes in the render look slightly thinner than the heavier strokes in the original. The difference is modest and not clearly obvious.",
+            "suggestion": "Optionally increase the global line width slightly (for example from 1.2pt to about 1.4pt). Keep the coordinates unchanged."
+          },
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "point_01",
+              "point_02",
+              "point_03",
+              "point_04"
+            ],
+            "bbox": [
+              0.03,
+              0.3,
+              0.97,
+              0.72
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "The A, B, C, D labels in the render look lighter and slightly smaller than the bolder labels in the original. The positions and bindings are correct.",
+            "suggestion": "Optionally use a heavier math font or a slightly larger size for the node labels, keeping the same anchor and vertex binding."
+          }
+        ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Bottom edge BC is drawn from B to C with matching extent and stroke weight."
+            "note": "Base BC is drawn as the bottom horizontal edge from B to C."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Diagonal BD runs from B to D and ends at D as in the original."
+            "note": "Diagonal BD is drawn from B to D, matching the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Left edge AB is drawn from A to B and joins at both vertices."
+            "note": "Left leg AB is drawn from A down to B."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Right edge DC is drawn from D to C and joins at both vertices."
+            "note": "Right leg DC is drawn from D down to C."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Top edge AD is drawn from A to D, level and matching the original."
+            "note": "Top edge AD is drawn horizontally between A and D."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "Edge AB is present and joins A to B."
+          },
+          {
+            "object_id": "seg_AD",
+            "status": "present",
+            "note": "Edge AD is present and joins A to D."
+          },
+          {
+            "object_id": "seg_BC",
+            "status": "present",
+            "note": "Edge BC is present and joins B to C."
+          },
+          {
+            "object_id": "seg_BD",
+            "status": "present",
+            "note": "Diagonal BD is present and joins B to D."
+          },
+          {
+            "object_id": "seg_DC",
+            "status": "present",
+            "note": "Edge DC is present and joins D to C."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Vertex B sits at the lower-left corner and its label is below it, as in the original."
+            "note": "Point B is at the bottom-left vertex with its label below-left."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Vertex C sits at the lower-right corner and its label is below it, as in the original."
+            "note": "Point C is at the bottom-right vertex with its label below-right."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Vertex D sits at the upper-right of the top edge and its label is above it, as in the original."
+            "note": "Point D is at the top-right vertex with its label above-right."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Vertex A sits at the upper-left of the top edge and its label is above it, as in the original."
+            "note": "Point A is at the top-left vertex with its label above-left."
           }
         ],
         "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
           "medium": 0,
-          "low": 0
+          "low": 2
         },
         "flaky_count": 0,
-        "must_repair": false,
+        "must_repair": true,
         "matches": [
-          "All five segments (BC, BD, AB, DC, AD) are present with the same endpoints as the original.",
-          "Diagonal BD meets the top edge at D and the bottom edge at B, as in the original.",
-          "Stroke weight of the outline and diagonal is now comparable to the original at this scale; the earlier 'too thin' verdict is no longer supported, so no wrong_style issue is raised.",
-          "Labels A, B, C, D are present, correctly spelled, and bound to their vertices, with clear separation from strokes.",
-          "Overall aspect ratio and proportions of the quadrilateral match the original."
+          "Trapezoid vertex positions A (top-left), D (top-right), B (bottom-left) and C (bottom-right) match the original.",
+          "Edges AB, AD, DC, BC and the diagonal BD are all present with correct endpoints.",
+          "Label bindings A, B, C, D are correct and placed in the same quadrants as the original.",
+          "No extra or missing segments are present."
         ],
         "labels": {
           "present": [
@@ -1154,7 +1626,181 @@
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.92
+      "critic_score": 0.9
+    },
+    {
+      "topology_check": {
+        "passed": true,
+        "missing_edges": []
+      },
+      "version": 3,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\\begin{tikzpicture}[line join=round, line width=1.4pt, black]\n\\coordinate (A) at (-1.398,1.429);\n\\coordinate (B) at (-3.521,-1.386);\n\\coordinate (C) at (3.518,-1.398);\n\\coordinate (D) at (1.412,1.424);\n\n  \n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (C);\n  \\draw (B) -- (C);\n  \\draw (B) -- (D);\n\n  \n  \\node[above left, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (A) {$A$};\n  \\node[above right, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (D) {$D$};\n  \\node[below left, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (B) {$B$};\n  \\node[below right, font=\\fontsize{14}{17}\\selectfont\\bfseries] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 23a0888e3f904c40acca702dc6b28c76432fb73c9c2093881d1e1865f8ecb5a4\n",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1259_s_fig1\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1259_s_fig1\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1259_s_fig1\\best.png",
+      "ok": true,
+      "compiled": true,
+      "errors": [],
+      "warnings": [],
+      "created_at": "2026-11-09T22:54:10",
+      "agent": "code_agent",
+      "mode": "repair",
+      "notes": "Global line width set to 1.4pt. Labels use \\fontsize{14}{17}\\selectfont\\bfseries as instructed, with the same anchors and vertex bindings. Edges AB, AD, DC, BC, BD unchanged and solid. Program-owned coordinate definitions for A, B, C, D are not re-emitted (the previous draft redefined them with slightly different values, e.g. A y=1.429 vs program 1.428); the program inserts them. Note: STYLE METRICS suggests 12pt labels, but the explicit repair instruction targets 14pt bold, which was applied.",
+      "compile_seconds": 3.312,
+      "critic_report": {
+        "assessment_score": 0.9,
+        "score_kind": "heuristic visual similarity (not a calibrated probability)",
+        "verdict": "The render reproduces the quadrilateral ABCD with diagonal BD and the same vertex layout; only minor label and stroke weight differences remain.",
+        "figure_type": {
+          "original": "Quadrilateral ABCD (trapezoid-like, AD parallel to BC) with diagonal BD, labelled vertices A, B, C, D",
+          "render": "Quadrilateral ABCD with diagonal BD, same vertex layout and proportions"
+        },
+        "issues": [
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "point_01",
+              "point_02",
+              "point_03",
+              "point_04"
+            ],
+            "bbox": [
+              0.04,
+              0.27,
+              0.1,
+              0.7
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "The A, B, C, D labels in the render look lighter and slightly smaller than the bolder labels in the original. Positions and vertex bindings match. The render uses math-italic letters, so the \\bfseries setting has no visible effect on them.",
+            "suggestion": "Optionally use \\boldmath or \\mathbf{A} etc. inside the node, or increase the label font size slightly, to match the heavier label weight. Keep the current node anchors."
+          },
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "seg_AB",
+              "seg_AD",
+              "seg_BC",
+              "seg_BD",
+              "seg_DC"
+            ],
+            "bbox": [
+              0.05,
+              0.32,
+              0.92,
+              0.67
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "Edge strokes in the render look slightly thinner than the heavier strokes in the original. The difference is modest and not clearly obvious.",
+            "suggestion": "Optionally raise line width marginally (e.g. from 1.4pt to about 1.5pt). This is not required for fidelity."
+          }
+        ],
+        "checks": [
+          {
+            "object_id": "seg_01",
+            "status": "present",
+            "note": "Base line at the bottom of the figure (BC) is drawn horizontally in the render, matching the original."
+          },
+          {
+            "object_id": "seg_02",
+            "status": "present",
+            "note": "Diagonal from B to D is drawn in the render and ends at the labelled D vertex as in the original."
+          },
+          {
+            "object_id": "seg_03",
+            "status": "present",
+            "note": "Left leg AB is drawn from A down to B, matching the original."
+          },
+          {
+            "object_id": "seg_04",
+            "status": "present",
+            "note": "Right leg DC is drawn from D down to C, matching the original."
+          },
+          {
+            "object_id": "seg_05",
+            "status": "present",
+            "note": "Top edge AD is drawn horizontally between A and D, matching the original."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "Edge AB is drawn from A to B in the render, as in the original."
+          },
+          {
+            "object_id": "seg_AD",
+            "status": "present",
+            "note": "Edge AD is drawn from A to D in the render, as in the original."
+          },
+          {
+            "object_id": "seg_BC",
+            "status": "present",
+            "note": "Edge BC is drawn from B to C in the render, as in the original."
+          },
+          {
+            "object_id": "seg_BD",
+            "status": "present",
+            "note": "Diagonal BD is drawn from B to D in the render, as in the original."
+          },
+          {
+            "object_id": "seg_DC",
+            "status": "present",
+            "note": "Edge DC is drawn from D to C in the render, as in the original."
+          },
+          {
+            "object_id": "point_01",
+            "status": "present",
+            "note": "Vertex B is at the bottom-left corner of the figure, with its label bound correctly."
+          },
+          {
+            "object_id": "point_02",
+            "status": "present",
+            "note": "Vertex C is at the bottom-right corner, with its label bound correctly."
+          },
+          {
+            "object_id": "point_03",
+            "status": "present",
+            "note": "Vertex D is at the top-right corner, with its label bound correctly."
+          },
+          {
+            "object_id": "point_04",
+            "status": "present",
+            "note": "Vertex A is at the top-left corner, with its label bound correctly."
+          }
+        ],
+        "checklist_score": 1.0,
+        "actionable_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 2
+        },
+        "flaky_count": 0,
+        "must_repair": true,
+        "matches": [
+          "Quadrilateral ABCD topology: AB, AD, DC, BC edges and diagonal BD all present",
+          "Vertex positions and relative proportions match the original",
+          "AD runs horizontally and BC runs horizontally, as in the original",
+          "Labels A, B, C, D are present, spelled correctly, and placed on the outside of their vertices with clear separation from strokes",
+          "No extra lines or labels in the render"
+        ],
+        "labels": {
+          "present": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "missing": [],
+          "extra": []
+        },
+        "version": 3,
+        "binding_decisions": [],
+        "topology_decisions": [],
+        "raw_meta": "{}"
+      },
+      "critic_score": 0.9
     }
   ],
   "compilation_results": [
@@ -1162,27 +1808,40 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.995,
+      "seconds": 2.812,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.404296875 KiB)\nnote: Writing `figure.pdf` (2.3984375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:23:11"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.404296875 KiB)\nnote: Writing `figure.pdf` (2.4072265625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T22:53:09"
     },
     {
       "version": 2,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.515,
+      "seconds": 4.633,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.3974609375 KiB)\nnote: Writing `figure.log` (10.404296875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v2\\v2.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v2\\v2.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T11:23:57"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.404296875 KiB)\nnote: Writing `figure.log` (10.4833984375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-09T22:53:48"
+    },
+    {
+      "version": 3,
+      "ok": true,
+      "returncode": 0,
+      "seconds": 3.312,
+      "errors": [],
+      "warnings": [],
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.4033203125 KiB)\nnote: Writing `figure.log` (10.4833984375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v3\\v3.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v3\\v3.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v3\\v3.png",
+      "created_at": "2026-11-09T22:54:14"
     }
   ],
   "validation_results": [
@@ -1218,30 +1877,30 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0294"
+          "detail": "ink_ratio=0.0273"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.90 vs render 1.94 (delta 0.02)"
+          "detail": "reference 1.90 vs render 2.09 (delta 0.10)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.99"
+          "detail": "figure bbox ratio 2.15"
         }
       ],
-      "created_at": "2026-11-09T11:23:11"
+      "created_at": "2026-11-09T22:53:09"
     },
     {
       "version": 2,
@@ -1275,124 +1934,227 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v2\\v2.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1259_s_fig1\\tikz\\v2\\v2.png"
+          "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v2\\v2.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0401"
+          "detail": "ink_ratio=0.0366"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.90 vs render 1.93 (delta 0.01)"
+          "detail": "reference 1.90 vs render 2.05 (delta 0.08)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.98"
+          "detail": "figure bbox ratio 2.10"
         }
       ],
-      "created_at": "2026-11-09T11:23:57"
+      "created_at": "2026-11-09T22:53:48"
+    },
+    {
+      "version": 3,
+      "passed": true,
+      "checks": [
+        {
+          "name": "documentclass",
+          "passed": true,
+          "detail": "documentclass present"
+        },
+        {
+          "name": "document_environment",
+          "passed": true,
+          "detail": "begin=1 end=1"
+        },
+        {
+          "name": "tikzpicture",
+          "passed": true,
+          "detail": "one balanced tikzpicture"
+        },
+        {
+          "name": "no_shell_escape",
+          "passed": true,
+          "detail": "no \\write18/\\openout primitives"
+        },
+        {
+          "name": "compiler_ok",
+          "passed": true,
+          "detail": "returncode=0"
+        },
+        {
+          "name": "pdf_created",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v3\\v3.pdf"
+        },
+        {
+          "name": "png_rendered",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\1259_s_fig1\\tikz\\v3\\v3.png"
+        },
+        {
+          "name": "render_not_blank",
+          "passed": true,
+          "detail": "ink_ratio=0.0421"
+        },
+        {
+          "name": "aspect_ratio",
+          "passed": true,
+          "detail": "reference 1.90 vs render 2.05 (delta 0.08)"
+        },
+        {
+          "name": "figure_extent_ratio",
+          "passed": true,
+          "detail": "figure bbox ratio 2.11"
+        }
+      ],
+      "created_at": "2026-11-09T22:54:14"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render reproduces the trapezoid ABCD with diagonal BD and matching vertex bindings; the only visible difference is that the render's strokes are noticeably thinner than the original.",
+      "verdict": "Geometry matches the original: trapezoid ABCD with diagonal BD and all vertex labels correctly placed; the render is thinner and has smaller labels than the original.",
       "figure_type": {
-        "original": "Trapezoid ABCD with top side AD, bottom side BC, and diagonal BD drawn as straight segments; solid black strokes, labels A and D above, B and C below.",
-        "render": "Same trapezoid with diagonal BD, straight solid strokes, labels A and D above and B and C below."
+        "original": "Trapezoid ABCD (AD parallel to BC) with diagonal BD, bold strokes, serif italic labels",
+        "render": "Trapezoid ABCD with diagonal BD, thin strokes, smaller italic labels"
       },
       "issues": [
         {
           "type": "wrong_style",
           "severity": "low",
           "object_ids": [
-            "seg_01",
-            "seg_02",
-            "seg_03",
-            "seg_04",
-            "seg_05"
+            "seg_AB",
+            "seg_AD",
+            "seg_BC",
+            "seg_DC",
+            "seg_BD"
           ],
           "bbox": [
-            0.03,
-            0.3,
-            0.97,
+            0.05,
+            0.32,
+            0.95,
             0.68
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "Stroke weight is too thin: the original outline and diagonal look roughly 2-3 px wide at this scale, while the render's strokes look about 1 px.",
-          "suggestion": "Increase the global line width (e.g. line width=1.2pt or 1.5pt) in the tikzpicture options, keeping the same coordinates."
+          "description": "Stroke weight: all figure lines are noticeably thinner in the render than in the original (the original strokes look roughly twice as heavy at the same scale).",
+          "suggestion": "Increase the global line width in the tikzpicture options (e.g. line width=1.2pt or 1.5pt) to better match the original's stroke weight."
+        },
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "point_01",
+            "point_02",
+            "point_03",
+            "point_04"
+          ],
+          "bbox": [
+            0.05,
+            0.28,
+            0.95,
+            0.72
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "Point labels A, B, C, D are slightly smaller and lighter in the render than the bold-looking labels in the original.",
+          "suggestion": "Optionally increase the label font size (e.g. \\fontsize{14}{17}) or use a bolder math font to match the original; label positions and bindings are already correct and should be kept."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Bottom side BC is drawn from B to C and matches the original's horizontal bottom edge."
+          "note": "Bottom edge BC is drawn horizontally from B to C, matching the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Diagonal BD runs from B to D as in the original."
+          "note": "Diagonal BD is drawn from B to D, matching the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Left side AB joins A and B as in the original."
+          "note": "Left side AB is drawn from A to B, matching the original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Right side CD joins C and D as in the original."
+          "note": "Right side DC is drawn from D to C, matching the original."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Top side DA joins D and A as in the original."
+          "note": "Top edge AD is drawn horizontally from A to D, matching the original."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Segment AB from A to B is drawn correctly."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "Segment AD from A to D is drawn correctly."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Segment BC from B to C is drawn correctly."
+        },
+        {
+          "object_id": "seg_BD",
+          "status": "present",
+          "note": "Diagonal BD from B to D is drawn correctly."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "Segment DC from D to C is drawn correctly."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "B is bound at the lower-left vertex, with its label below-left as in the original."
+          "note": "Label B sits below-left of the B vertex, as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "C is bound at the lower-right vertex, with its label below-right as in the original."
+          "note": "Label C sits below-right of the C vertex, as in the original."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "D is bound at the upper-right vertex, with its label above as in the original."
+          "note": "Label D sits above-right of the D vertex, as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "A is bound at the upper-left vertex, with its label above as in the original."
+          "note": "Label A sits above-left of the A vertex, as in the original."
         }
       ],
       "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
         "medium": 0,
-        "low": 1
+        "low": 2
       },
       "flaky_count": 0,
-      "must_repair": false,
+      "must_repair": true,
       "matches": [
-        "All five edges BC, CD, DA, AB and diagonal BD are present with correct endpoints.",
-        "Overall trapezoid proportions (width-to-height about 2.5) match the original.",
-        "Vertex labels A, B, C, D are present, correctly spelled, and sit clear of the strokes on the correct side of each vertex.",
-        "Label bindings A→point_04, D→point_03, C→point_02, B→point_01 match the source points."
+        "Trapezoid outline ABCD with AD parallel to BC.",
+        "Vertex positions and proportions of A, B, C, D match the original.",
+        "Diagonal BD runs from B to D and ends at D as in the original.",
+        "No extra or missing segments.",
+        "Label placement and vertex bindings for A, B, C, D are correct."
       ],
       "labels": {
         "present": [
@@ -1410,75 +2172,141 @@
       "raw_meta": "{}"
     },
     {
-      "assessment_score": 0.92,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render matches the original quadrilateral with diagonal BD, all four labels are bound to the correct vertices, and stroke weight is now comparable to the original.",
+      "verdict": "The render reproduces the trapezoid ABCD with diagonal BD, with matching vertices, edge topology, and label bindings; only the stroke and label weight appear lighter than the original.",
       "figure_type": {
-        "original": "Quadrilateral ABCD (trapezoid-like) with diagonal BD, drawn as straight segments with labelled vertices",
-        "render": "Quadrilateral ABCD with diagonal BD, drawn as straight segments with labelled vertices"
+        "original": "Quadrilateral ABCD (trapezoid with AD parallel to BC) with diagonal BD drawn as a plain polygon outline",
+        "render": "Quadrilateral ABCD (trapezoid with AD parallel to BC) with diagonal BD drawn as a plain polygon outline"
       },
-      "issues": [],
+      "issues": [
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "seg_01",
+            "seg_02",
+            "seg_03",
+            "seg_04",
+            "seg_05"
+          ],
+          "bbox": [
+            0.05,
+            0.3,
+            0.97,
+            0.7
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "Edge strokes in the render look slightly thinner than the heavier strokes in the original. The difference is modest and not clearly obvious.",
+          "suggestion": "Optionally increase the global line width slightly (for example from 1.2pt to about 1.4pt). Keep the coordinates unchanged."
+        },
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "point_01",
+            "point_02",
+            "point_03",
+            "point_04"
+          ],
+          "bbox": [
+            0.03,
+            0.3,
+            0.97,
+            0.72
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The A, B, C, D labels in the render look lighter and slightly smaller than the bolder labels in the original. The positions and bindings are correct.",
+          "suggestion": "Optionally use a heavier math font or a slightly larger size for the node labels, keeping the same anchor and vertex binding."
+        }
+      ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Bottom edge BC is drawn from B to C with matching extent and stroke weight."
+          "note": "Base BC is drawn as the bottom horizontal edge from B to C."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Diagonal BD runs from B to D and ends at D as in the original."
+          "note": "Diagonal BD is drawn from B to D, matching the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Left edge AB is drawn from A to B and joins at both vertices."
+          "note": "Left leg AB is drawn from A down to B."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Right edge DC is drawn from D to C and joins at both vertices."
+          "note": "Right leg DC is drawn from D down to C."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Top edge AD is drawn from A to D, level and matching the original."
+          "note": "Top edge AD is drawn horizontally between A and D."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Edge AB is present and joins A to B."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "Edge AD is present and joins A to D."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Edge BC is present and joins B to C."
+        },
+        {
+          "object_id": "seg_BD",
+          "status": "present",
+          "note": "Diagonal BD is present and joins B to D."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "Edge DC is present and joins D to C."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Vertex B sits at the lower-left corner and its label is below it, as in the original."
+          "note": "Point B is at the bottom-left vertex with its label below-left."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Vertex C sits at the lower-right corner and its label is below it, as in the original."
+          "note": "Point C is at the bottom-right vertex with its label below-right."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Vertex D sits at the upper-right of the top edge and its label is above it, as in the original."
+          "note": "Point D is at the top-right vertex with its label above-right."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Vertex A sits at the upper-left of the top edge and its label is above it, as in the original."
+          "note": "Point A is at the top-left vertex with its label above-left."
         }
       ],
       "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
         "medium": 0,
-        "low": 0
+        "low": 2
       },
       "flaky_count": 0,
-      "must_repair": false,
+      "must_repair": true,
       "matches": [
-        "All five segments (BC, BD, AB, DC, AD) are present with the same endpoints as the original.",
-        "Diagonal BD meets the top edge at D and the bottom edge at B, as in the original.",
-        "Stroke weight of the outline and diagonal is now comparable to the original at this scale; the earlier 'too thin' verdict is no longer supported, so no wrong_style issue is raised.",
-        "Labels A, B, C, D are present, correctly spelled, and bound to their vertices, with clear separation from strokes.",
-        "Overall aspect ratio and proportions of the quadrilateral match the original."
+        "Trapezoid vertex positions A (top-left), D (top-right), B (bottom-left) and C (bottom-right) match the original.",
+        "Edges AB, AD, DC, BC and the diagonal BD are all present with correct endpoints.",
+        "Label bindings A, B, C, D are correct and placed in the same quadrants as the original.",
+        "No extra or missing segments are present."
       ],
       "labels": {
         "present": [
@@ -1494,9 +2322,167 @@
       "binding_decisions": [],
       "topology_decisions": [],
       "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.9,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "The render reproduces the quadrilateral ABCD with diagonal BD and the same vertex layout; only minor label and stroke weight differences remain.",
+      "figure_type": {
+        "original": "Quadrilateral ABCD (trapezoid-like, AD parallel to BC) with diagonal BD, labelled vertices A, B, C, D",
+        "render": "Quadrilateral ABCD with diagonal BD, same vertex layout and proportions"
+      },
+      "issues": [
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "point_01",
+            "point_02",
+            "point_03",
+            "point_04"
+          ],
+          "bbox": [
+            0.04,
+            0.27,
+            0.1,
+            0.7
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The A, B, C, D labels in the render look lighter and slightly smaller than the bolder labels in the original. Positions and vertex bindings match. The render uses math-italic letters, so the \\bfseries setting has no visible effect on them.",
+          "suggestion": "Optionally use \\boldmath or \\mathbf{A} etc. inside the node, or increase the label font size slightly, to match the heavier label weight. Keep the current node anchors."
+        },
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "seg_AB",
+            "seg_AD",
+            "seg_BC",
+            "seg_BD",
+            "seg_DC"
+          ],
+          "bbox": [
+            0.05,
+            0.32,
+            0.92,
+            0.67
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "Edge strokes in the render look slightly thinner than the heavier strokes in the original. The difference is modest and not clearly obvious.",
+          "suggestion": "Optionally raise line width marginally (e.g. from 1.4pt to about 1.5pt). This is not required for fidelity."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Base line at the bottom of the figure (BC) is drawn horizontally in the render, matching the original."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Diagonal from B to D is drawn in the render and ends at the labelled D vertex as in the original."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Left leg AB is drawn from A down to B, matching the original."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Right leg DC is drawn from D down to C, matching the original."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Top edge AD is drawn horizontally between A and D, matching the original."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Edge AB is drawn from A to B in the render, as in the original."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "Edge AD is drawn from A to D in the render, as in the original."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Edge BC is drawn from B to C in the render, as in the original."
+        },
+        {
+          "object_id": "seg_BD",
+          "status": "present",
+          "note": "Diagonal BD is drawn from B to D in the render, as in the original."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "Edge DC is drawn from D to C in the render, as in the original."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "Vertex B is at the bottom-left corner of the figure, with its label bound correctly."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "Vertex C is at the bottom-right corner, with its label bound correctly."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Vertex D is at the top-right corner, with its label bound correctly."
+        },
+        {
+          "object_id": "point_04",
+          "status": "present",
+          "note": "Vertex A is at the top-left corner, with its label bound correctly."
+        }
+      ],
+      "checklist_score": 1.0,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 2
+      },
+      "flaky_count": 0,
+      "must_repair": true,
+      "matches": [
+        "Quadrilateral ABCD topology: AB, AD, DC, BC edges and diagonal BD all present",
+        "Vertex positions and relative proportions match the original",
+        "AD runs horizontally and BC runs horizontally, as in the original",
+        "Labels A, B, C, D are present, spelled correctly, and placed on the outside of their vertices with clear separation from strokes",
+        "No extra lines or labels in the render"
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 3,
+      "binding_decisions": [],
+      "topology_decisions": [],
+      "raw_meta": "{}"
     }
   ],
-  "unresolved_issues": [],
+  "unresolved_issues": [
+    {
+      "source": "supervisor",
+      "issue": "Label and stroke weight are marginally lighter than the original (low severity, cosmetic; critic must_repair flag stems only from these style notes)."
+    }
+  ],
   "action_history": [
     {
       "step": 0,
@@ -1523,69 +2509,135 @@
       "error": null
     },
     {
+      "step": 0,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "initial source evidence",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; count=0",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 9, 'relations': 3, 'conflicts': 0, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 1,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=2",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw a quadrilateral/trapezoid with vertices from bound labels: A at (212,65), B at (70,253), C at (541,254), D at (400,65) in image pixels (origin top-left, flip y for TikZ). Edges (solid, named endp",
+      "purpose": "Draw quadrilateral ABCD with diagonal BD, all solid black thin lines, no fill. Use measured pixel vertices (origin top-left, y down), converted to TikZ by x/100 and -y/100 (y flipped): A=(212,65) -> (",
       "params": {
         "mode": "generate",
-        "use_image": false,
-        "instruction": "Draw a quadrilateral/trapezoid with vertices from bound labels: A at (212,65), B at (70,253), C at (541,254), D at (400,65) in image pixels (origin top-left, flip y for TikZ). Edges (solid, named endpoint pairs): B--C (bottom horizontal), C--D, D--A (top horizontal), A--B, and diagonal B--D. No arrows, no extra decorations. Label the four vertices A, B, C, D with letters placed outside the figure (A and D above, B and C below). Use a simple standalone tikz picture with no fabricated extra construction lines."
+        "use_image": null,
+        "instruction": "Draw quadrilateral ABCD with diagonal BD, all solid black thin lines, no fill. Use measured pixel vertices (origin top-left, y down), converted to TikZ by x/100 and -y/100 (y flipped): A=(212,65) -> (2.12,-0.65); D=(399.9,65.2) -> (4.00,-0.65); B=(70.0,253.2) -> (0.70,-2.53); C=(540.75,254.0) -> (5.41,-2.54). Edges: A--B, A--D, D--C, B--C (solid), and diagonal B--D (solid). Place labels: A above-left of A, D above-right of D, B below-left of B, C below-right of C. Use \\begin{tikzpicture}, no axis, and keep the figure compact. Do not add extra segments."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 17.67,
+      "duration_s": 20.99,
       "token_usage": {
-        "delta": 5971
+        "delta": 16047
       },
-      "visual_calls": 0,
+      "visual_calls": 2,
       "error": null
     },
     {
       "step": 2,
       "action": "run_critic",
-      "purpose": "Check the edges (BC, CD, DA, AB, diagonal BD), the vertex letters and their placement against the original.",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.9; issues=2",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 2,
+      "action": "run_code_agent",
+      "purpose": "Repair cosmetic issues only: increase the global line width to about 1.2pt, and increase the label font to about \\fontsize{14}{17}\\selectfont. Keep all coordinates, edges (AB, AD, DC, BC, BD) and labe",
       "params": {
-        "focus": "Check the edges (BC, CD, DA, AB, diagonal BD), the vertex letters and their placement against the original."
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Repair cosmetic issues only: increase the global line width to about 1.2pt, and increase the label font to about \\fontsize{14}{17}\\selectfont. Keep all coordinates, edges (AB, AD, DC, BC, BD) and label positions unchanged."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
-      "duration_s": 9.54,
+      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
+      "duration_s": 33.91,
       "token_usage": {
-        "delta": 7804
+        "delta": 25633
       },
       "visual_calls": 1,
       "error": null
     },
     {
       "step": 3,
-      "action": "run_code_agent",
-      "purpose": "Increase the global line width of the tikzpicture from 0.8pt to 1.2pt. Keep all coordinates, edges and labels unchanged.",
+      "action": "finish",
+      "purpose": "finish run",
       "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Increase the global line width of the tikzpicture from 0.8pt to 1.2pt. Keep all coordinates, edges and labels unchanged."
+        "summary": "Reconstructed the figure as a compiled TikZ quadrilateral ABCD (trapezoid) with diagonal BD, using CV-measured vertices (A, D on top; B, C on bottom) and bound labels A, B, C, D. Version 2 (line width 1.2pt, labels at 14pt) compiles, passes topology check (AB, AD, DC, BC, BD), and received a critic score of 0.9 with only low-severity style notes (stroke/label weight). The critic still set must_repair=true solely because of these low-severity style items; geometry and labels were confirmed correct.",
+        "unresolved": [
+          "Stroke weight and label boldness are slightly lighter than the original (low severity, cosmetic)."
+        ],
+        "status": "success"
       },
-      "status": "ok",
-      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 14.36,
+      "status": "error",
+      "result_summary": "ok=False; error=finish blocked: best version 2 still has 0 high, 0 medium and 2 low actionable critic issues (must_repair=true); run_code_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)",
+      "duration_s": 0.0,
       "token_usage": {
-        "delta": 6950
+        "delta": 0
       },
+      "visual_calls": 0,
+      "error": "finish blocked: best version 2 still has 0 high, 0 medium and 2 low actionable critic issues (must_repair=true); run_code_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)"
+    },
+    {
+      "step": 4,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=3; best_version=3; assessment_score=0.9; issues=2",
+      "duration_s": 0.0,
+      "token_usage": {},
       "visual_calls": 0,
       "error": null
     },
     {
       "step": 4,
-      "action": "run_critic",
-      "purpose": "Confirm stroke weight now matches the original and edges/labels are unchanged.",
+      "action": "run_code_agent",
+      "purpose": "Final cosmetic repair: set global line width to 1.4pt, and make the vertex labels bolder using \\bfseries inside the node font (e.g. \\fontsize{14}{17}\\selectfont\\bfseries). Keep all coordinates, edges ",
       "params": {
-        "focus": "Confirm stroke weight now matches the original and edges/labels are unchanged."
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Final cosmetic repair: set global line width to 1.4pt, and make the vertex labels bolder using \\bfseries inside the node font (e.g. \\fontsize{14}{17}\\selectfont\\bfseries). Keep all coordinates, edges (AB, AD, DC, BC, BD) and label anchors unchanged."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.92",
-      "duration_s": 17.13,
+      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=3",
+      "duration_s": 25.39,
       "token_usage": {
-        "delta": 8300
+        "delta": 17209
       },
       "visual_calls": 1,
       "error": null
@@ -1595,12 +2647,14 @@
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Reconstructed the figure as a compilable TikZ standalone (version 2, best). It shows trapezoid ABCD with solid edges AB, BC, CD, DA and diagonal BD, with vertex labels A, B, C, D placed outside. The Critic scored v2 at 0.92 with checklist score 1.0, no open issues, and topology check passed.</summary>\n<parameter name=\"unresolved\">[]",
-        "unresolved": null,
+        "summary": "Reconstructed the figure as compilable TikZ: quadrilateral ABCD (trapezoid) with diagonal BD, using CV-measured vertices and bound labels A, B, C, D. Version 3 (line width 1.4pt, bold 14pt labels) compiles, passes the topology check (AB, AD, DC, BC, BD), and has critic score 0.9. Critic issues are cosmetic only: label and stroke weight are slightly lighter than the original, and the critic's suggested bold-label change had no visible effect on the math-italic glyphs.",
+        "unresolved": [
+          "Label and stroke weight are marginally lighter than the original (low severity, cosmetic; critic must_repair flag stems only from these style notes)."
+        ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=2; status=success",
+      "result_summary": "ok=True; best_version=3; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -1631,57 +2685,74 @@
       "count": null,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "initial source evidence",
+      "ok": true,
+      "count": 0,
+      "visualization": null,
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 9,
-      "visual_calls": 2,
-      "prompt_tokens": 62932,
-      "completion_tokens": 8709,
-      "total_tokens": 71641,
-      "cached_tokens": 31330.0,
-      "cache_write_tokens": 31574.0,
-      "latency_s": 95.04
+      "calls": 13,
+      "visual_calls": 5,
+      "prompt_tokens": 99423,
+      "completion_tokens": 14982,
+      "total_tokens": 114405,
+      "cached_tokens": 33881.0,
+      "cache_write_tokens": 20499.0,
+      "latency_s": 87.86
     },
     "by_agent": {
+      "geometry_agent": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 6772,
+        "latency_s": 6.38
+      },
       "supervisor": {
         "calls": 5,
         "visual_calls": 0,
-        "total_tokens": 42616,
-        "latency_s": 41.67
+        "total_tokens": 48744,
+        "latency_s": 14.94
       },
       "code_agent:generate": {
         "calls": 1,
-        "visual_calls": 0,
-        "total_tokens": 5971,
-        "latency_s": 15.33
+        "visual_calls": 1,
+        "total_tokens": 7039,
+        "latency_s": 4.09
       },
       "critic_agent": {
-        "calls": 2,
-        "visual_calls": 2,
-        "total_tokens": 16104,
-        "latency_s": 26.33
+        "calls": 3,
+        "visual_calls": 3,
+        "total_tokens": 27095,
+        "latency_s": 38.57
       },
       "code_agent:repair": {
-        "calls": 1,
+        "calls": 3,
         "visual_calls": 0,
-        "total_tokens": 6950,
-        "latency_s": 11.71
+        "total_tokens": 24755,
+        "latency_s": 23.88
       }
     }
   },
   "remaining_budget": {
     "steps_left": 19,
-    "tool_calls_left": 42,
-    "visual_calls_left": 22,
-    "tokens_left": 328359,
+    "tool_calls_left": 38,
+    "visual_calls_left": 19,
+    "tokens_left": 285595,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 71641
+    "total_tokens_used": 114405
   },
   "meta": {
     "topology_plan": {
@@ -1708,7 +2779,88 @@
         ]
       ],
       "pending": [],
-      "adjudicated": []
+      "adjudicated": [],
+      "ink_confirmed_edges": [],
+      "required_styles": [
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "D"
+          ],
+          "style": "solid"
+        }
+      ],
+      "required_marks": {}
+    },
+    "source_construction": {
+      "summary": "Trapezoid-like quadrilateral ABCD with all edges solid: top edge AD (horizontal, y≈65), bottom edge BC (horizontal, y≈254), slanted sides AB and DC, and diagonal BD from B to D. No dashed strokes, no right-angle marks, no interior feet. Vertices: A=point_04 (212,65), D=point_03 (399.9,65.2), B=point_01 (70,253.2), C=point_02 (540.75,254). Curve extent: none.",
+      "strokes": [
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "D"
+          ],
+          "style": "solid"
+        }
+      ],
+      "marks": {},
+      "feet": []
     },
     "coordinate_contract": {
       "enabled": true,
@@ -1783,8 +2935,8 @@
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "d08735134a8dfb988f8b1263473d569235e32549df8eb13a515d12d03a4e06eb",
-      "output_sha256": "3a91508e32f20bbab5939a0e63ae2867b96a665ff93e33d58508427f48e8d989",
+      "input_sha256": "20b467278744f89d1e11f716789e8d07d61bc60e6ac318797e1b58f71d0b7874",
+      "output_sha256": "eb456f57cb6fff2bc8ad75b0462253f449f5b396aea2e6ec2f29b5d3fa463608",
       "reason": "applied",
       "accepted": [
         {
@@ -1972,6 +3124,69 @@
           "reference_used": false,
           "coordinate_decimals": 3
         }
+      },
+      "3": {
+        "enabled": true,
+        "schema": "cv-coordinate-contract.v1",
+        "n_points": 4,
+        "reference_used": false,
+        "coordinates": {
+          "schema": "cv-coordinate-contract.v1",
+          "scale": 0.014953,
+          "origin_px": [
+            305.5,
+            160.5
+          ],
+          "points": {
+            "A": {
+              "point_id": "point_04",
+              "px": [
+                212.0,
+                65.0
+              ],
+              "tikz": [
+                -1.398,
+                1.428
+              ]
+            },
+            "B": {
+              "point_id": "point_01",
+              "px": [
+                70.03,
+                253.17
+              ],
+              "tikz": [
+                -3.521,
+                -1.386
+              ]
+            },
+            "C": {
+              "point_id": "point_02",
+              "px": [
+                540.75,
+                254.0
+              ],
+              "tikz": [
+                3.518,
+                -1.398
+              ]
+            },
+            "D": {
+              "point_id": "point_03",
+              "px": [
+                399.9,
+                65.2
+              ],
+              "tikz": [
+                1.412,
+                1.425
+              ]
+            }
+          },
+          "skipped": {},
+          "reference_used": false,
+          "coordinate_decimals": 3
+        }
       }
     },
     "tikz_constraint_repairs": {
@@ -1985,8 +3200,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "5c50bfe036a5d1b18df041d9470cd9a427186984b509d296206ea4623dde336b",
-        "output_sha256": "ecbbb4d3c2366c15d9c453667d6ae227de180514402bf64f496c0f156bc7d24c",
+        "input_sha256": "b5703e27a184dac96ba5a285abc116eb6108cc298cf82f6cda6c0448f4008e5e",
+        "output_sha256": "eb13765328c5dac65cc7a789a799633a6bdd0351152916aaa1796e9cde4cacdf",
         "reason": "applied",
         "accepted": [
           {
@@ -2054,8 +3269,77 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "d08735134a8dfb988f8b1263473d569235e32549df8eb13a515d12d03a4e06eb",
-        "output_sha256": "3a91508e32f20bbab5939a0e63ae2867b96a665ff93e33d58508427f48e8d989",
+        "input_sha256": "c1dd0451e9e77e661288db421f2857ef2ea7270fa977f12b1fbc02c35dd4ccd4",
+        "output_sha256": "b492bb864a37e35dc133c79a7089bda00c20c8a904431679cf7c40a16bb03880",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "parallel",
+            "segments": [
+              "A--D",
+              "B--C"
+            ],
+            "before_error_deg": 0.036507192374751724,
+            "after_error_deg": 0.004272637515081797,
+            "solver_after_error_deg": 4.421986935550778e-16,
+            "export_tolerance_deg": 0.04034718661415264
+          }
+        ],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
+          ],
+          "relaxation": 1.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "input_candidates": 1,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.00013183735509182182,
+        "max_length_change_rel": 0.00022756309350313586,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 7.75319889791156e-05,
+        "max_after_error_deg": 0.004272637515081797,
+        "curve_policy": "defer",
+        "candidate_count": 1,
+        "solver_max_shift_rel": 0.00010229304191586651,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.004272637515081797,
+        "point_count": 4,
+        "segment_count": 5
+      },
+      "3": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "20b467278744f89d1e11f716789e8d07d61bc60e6ac318797e1b58f71d0b7874",
+        "output_sha256": "eb456f57cb6fff2bc8ad75b0462253f449f5b396aea2e6ec2f29b5d3fa463608",
         "reason": "applied",
         "accepted": [
           {
@@ -2115,8 +3399,8 @@
       }
     },
     "finish": {
-      "summary": "Reconstructed the figure as a compilable TikZ standalone (version 2, best). It shows trapezoid ABCD with solid edges AB, BC, CD, DA and diagonal BD, with vertex labels A, B, C, D placed outside. The Critic scored v2 at 0.92 with checklist score 1.0, no open issues, and topology check passed.",
-      "status": "success"
+      "summary": "Reconstructed the figure as compilable TikZ: quadrilateral ABCD (trapezoid) with diagonal BD, using CV-measured vertices and bound labels A, B, C, D. Version 3 (line width 1.4pt, bold 14pt labels) compiles, passes the topology check (AB, AD, DC, BC, BD), and has critic score 0.9. Critic issues are cosmetic only: label and stroke weight are slightly lighter than the original, and the critic's suggested bold-label change had no visible effect on the math-italic glyphs.",
+      "status": "partial"
     },
     "stop_reason": "finish"
   }

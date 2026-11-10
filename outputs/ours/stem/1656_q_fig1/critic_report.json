@@ -1,82 +1,127 @@
 {
-  "assessment_score": 0.95,
+  "assessment_score": 0.94,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original: the overshoot beyond F now ends at the same top-edge point, and all other segments and labels are unchanged.",
+  "verdict": "The render is faithful to the original: same lines, intersections, point labels and overall geometry, with no substantive discrepancies.",
   "figure_type": {
-    "original": "Triangle BCF-type construction with lines from B to interior points, segment A-G-D horizontal, and the line C-E-D-F extended past F to a free endpoint",
-    "render": "Same construction; overshoot beyond F ends at the matching measured point"
+    "original": "Triangle-like figure with points A–G: lines C–E–D–F extended past F, B–C base, B–E, B–G–F, A–D through G, A–B, A–F, with a stub above F",
+    "render": "Same figure: C–E–D–F with stub above F, B–C, B–E, B–G–F, A–G–D, A–B, A–F"
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Line C-E-D-F continues past F to the overshoot endpoint near (0.300, 3.440) TikZ, about (582, 56) px, matching the original's top end (about 333, 78 in the left panel, 332, 78 in the right)."
+      "note": "Line through C, E, D, F with extension above F is drawn in the render (the CF/F-H path)."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Base B-C drawn horizontally between the correct vertices."
+      "note": "Horizontal base B–C is drawn and matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Line B-F runs from B through G to F, as in the original."
+      "note": "Segment B–G–F is drawn and passes through G as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Line B-E ends at E on the C-D-F line, matching the original."
+      "note": "Segment B–E is drawn and ends at E on the C–F line."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Line B-A ends at A, matching the original."
+      "note": "Segment A–B is drawn and matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Horizontal A-D passes through G and ends at D, matching the original."
+      "note": "Horizontal A–G–D is drawn; G lies on it as in the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Line A-F joins A to F, matching the original."
+      "note": "Segment A–F is drawn and matches the original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Base BC is visible and correctly drawn; the GES does not list an explicit seg_BC id, but the segment is present."
+    },
+    {
+      "object_id": "seg_CF",
+      "status": "present",
+      "note": "Line C through E, D, F with the top stub is drawn; positions match."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "C is labelled at the correct vertex, at the right end of the base."
+      "note": "Point C is drawn at the lower-right vertex with label C."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "F is labelled at the correct vertex, on the C-D-F line."
+      "note": "Point F is drawn at the top intersection with label F."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "E is labelled at the correct vertex, above right of E."
+      "note": "Point E is drawn on the C–F line with label E."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "D is labelled at the correct vertex, at the end of the horizontal A-D line."
+      "note": "Point D is drawn at the end of A–D on the C–F line with label D."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "B is labelled at the correct vertex, at the lower left."
+      "note": "Point B is drawn at the lower-left vertex with label B."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "G is labelled below the intersection of A-D and B-F, as in the original."
+      "note": "Point G is drawn on A–D and B–F with label G below."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "A is labelled at the correct vertex, above left."
+      "note": "Point A is drawn at the left vertex with label A."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Same location as point_07; label A present."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Same location as point_05; label B present."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Same location as point_01; label C present."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Same location as point_04; label D present."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Same location as point_03; label E present."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Same location as point_02; label F present."
+    },
+    {
+      "object_id": "point_G",
+      "status": "present",
+      "note": "Same location as point_06; label G present."
     }
   ],
   "checklist_score": 1.0,
@@ -88,15 +133,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Overshoot of the C-E-D-F line beyond F now ends at the same top-edge point as the original.",
-    "Segment B-C is horizontal along the base.",
-    "Segment B-F passes through G and ends at F.",
-    "Segment B-E ends at E on the C-D-F line.",
-    "Segment B-A ends at A.",
-    "Segment A-D is horizontal, passes through G, and ends at D.",
-    "Segment A-F joins A to F.",
-    "Segment C-E-D-F keeps its vertices and stops at D as in the original.",
-    "All seven point labels (A to G) are present, correctly bound, and clear of strokes."
+    "Base BC horizontal with C at the lower right and B at the lower left.",
+    "Line from C through E and D to F, with the stub extending above F.",
+    "Segment B–E ends on the C–F line at E.",
+    "A–D is horizontal and passes through G; B–G–F is collinear.",
+    "A–B and A–F are drawn at the correct vertices.",
+    "All seven point labels A–G are present and bound to the correct vertices with clear spacing."
   ],
   "labels": {
     "present": [

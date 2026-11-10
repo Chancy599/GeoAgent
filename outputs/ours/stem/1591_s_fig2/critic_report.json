@@ -1,82 +1,122 @@
 {
-  "assessment_score": 0.95,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original: same vertices, edges, dashed/solid styles, and label bindings. No right-angle square appears in either panel.",
+  "verdict": "Render is faithful to the original: same vertices, segments, dashed A-G and G-D, and labels, with no clear geometric discrepancies.",
   "figure_type": {
-    "original": "Triangle-like figure with baseline through G and D, dashed A-G and G-D, point E inside, short C-D vertical and E-C stub",
-    "render": "Same figure type and structure as the original"
+    "original": "Triangle-like construction with vertical B-A-G, slanted A-E-B, short E-C, C-D vertical, and a dashed baseline G-D with solid extensions past G and D.",
+    "render": "Same construction: vertical B-A, dashed A-G, B-E, A-E, E-C, C-D, E-D, dashed G-D with solid baseline extensions."
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "B-E solid, ends at E as in the original"
+      "note": "Solid B-E stroke ends at E in both panels."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Dashed G-D baseline segment present; in the render it spans G to D as in the original"
+      "note": "Dashed baseline G-D with solid extensions past G and D matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid B-A segment present"
+      "note": "Solid vertical B-A matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid A-E segment, ends at E"
+      "note": "Solid A-E stroke meets E in both panels."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed A-G vertical present, matching the original"
+      "note": "Dashed vertical A-G matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Solid E-D segment, ends at D"
+      "note": "Solid D-E stroke meets E and D in both panels."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Short solid E-C stub present"
+      "note": "Short solid E-C stroke matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Vertical C-D present; no right-angle square in original or render"
+      "note": "Solid vertical C-D matches the original."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "Same stroke as seg_04; joins A and E."
+    },
+    {
+      "object_id": "seg_AG",
+      "status": "present",
+      "note": "Dashed A-G is drawn and ends at G."
+    },
+    {
+      "object_id": "seg_BE",
+      "status": "present",
+      "note": "Same stroke as seg_01; joins B and E."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Vertical C-D is drawn and ends at D."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "E-C stroke joins E and C."
+    },
+    {
+      "object_id": "seg_ED",
+      "status": "present",
+      "note": "E-D stroke joins E and D."
+    },
+    {
+      "object_id": "seg_GD",
+      "status": "present",
+      "note": "Dashed G-D baseline is drawn and ends at D."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B bound to top vertex"
+      "note": "B label is present at the top vertex."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "E bound to the junction point"
+      "note": "E label is present, above-right of E, with clearance from strokes."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "G bound to bottom-left vertex"
+      "note": "G label is present below G."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "D bound to bottom-right vertex"
+      "note": "D label is present below-right of D."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "A bound to the point on BG"
+      "note": "A label is present to the left of A."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "C bound to the upper-right vertex"
+      "note": "C label is present to the right of C."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "E vertex matches the original junction."
     }
   ],
   "checklist_score": 1.0,
@@ -88,14 +128,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "B-A solid vertical segment",
-    "A-G dashed vertical segment",
-    "G-D dashed baseline",
-    "Solid baseline extensions beyond G and D",
-    "B-E, A-E, E-D, E-C edges all end at E",
-    "C-D vertical edge",
-    "No right-angle square at D or C in either panel",
-    "Labels A, B, C, D, E, G present with clear separation from strokes"
+    "B-A-G vertical alignment and the solid/dashed split at A match the original.",
+    "A-E and B-E meet at E at the same junction as the original.",
+    "E-C short stub and vertical C-D match the original.",
+    "E-D runs from E to D as in the original.",
+    "Dashed G-D baseline with solid extensions past G and D matches the original.",
+    "All six point labels A, B, C, D, E, G are present and correctly placed."
   ],
   "labels": {
     "present": [
@@ -109,7 +147,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [
     {
@@ -118,15 +156,7 @@
         "B",
         "E"
       ],
-      "reason": "Original shows a continuous solid stroke from B to E ending at E"
-    },
-    {
-      "case_id": "d36c2f8c0b93c85b",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "Original shows a solid vertical stroke from B down to A"
+      "reason": "In the original the solid stroke from B ends at E, the labelled junction."
     },
     {
       "case_id": "489f5b5f96caad85",
@@ -134,7 +164,7 @@
         "A",
         "E"
       ],
-      "reason": "Original shows a solid stroke from A to E ending at E"
+      "reason": "In the original the solid stroke from A runs to E and joins the B-E junction."
     },
     {
       "case_id": "4b4b4e15db5ee7c6",
@@ -142,7 +172,7 @@
         "D",
         "E"
       ],
-      "reason": "Original shows a solid stroke from E down to D"
+      "reason": "In the original the stroke from D goes up-left to E, which is the labelled junction."
     },
     {
       "case_id": "d3215b57bdab67dd",
@@ -150,7 +180,7 @@
         "C",
         "E"
       ],
-      "reason": "Original shows a short solid stroke from E up-right to C"
+      "reason": "In the original a short stroke runs from E to C."
     }
   ],
   "raw_meta": "{}"

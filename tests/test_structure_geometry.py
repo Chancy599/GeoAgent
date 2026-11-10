@@ -1,10 +1,11 @@
 from pathlib import Path
 from types import SimpleNamespace
+import hashlib
 
 import numpy as np
 import pytest
 
-from geoagent.evaluation.structure import backend, core_drawing, source_geometry, score
+from geoagent.evaluation.structure import backend, core_drawing, freeze_reference, source_geometry, score
 
 
 def stroke(a, b, source):
@@ -130,6 +131,25 @@ def test_named_intersections_follow_explicit_sort_path(tmp_path, parser_backend)
     assert graph.bindings['B']['xy'] == [-1.0, 0.0]
 
 
+def test_reference_intersection_order_updates_dependent_drawn_connections(tmp_path, parser_backend):
+    path = write_tex(tmp_path/'circle.tex', r"""
+\path[name path=ring] (0,0) circle (1);
+\draw[name path=axis] (-2,0)--(2,0);
+\path[name intersections={of=ring and axis,by=E}];
+\coordinate (D) at (0,-1);
+\draw (E)--(D);
+\node at (E) {$E$};\node at (D) {$D$};
+""")
+    original = path.read_bytes()
+    spec = {'source_sha256': hashlib.sha256(original).hexdigest(), 'reason': 'Verified path order',
+            'intersection_order': [{'paths': ['ring', 'axis'], 'sort_by': 'axis'}]}
+    frozen = freeze_reference(path, {path.stem: spec})
+    assert path.read_bytes() == original
+    assert frozen['points']['E']['xy'] == [-1.0, 0.0]
+    assert ['D', 'E'] in frozen['edges']
+    assert frozen['audit']['reviewed_reference_corrections'][0]['type'] == 'intersection_order'
+
+
 def test_orthogonal_path_operator_contributes_both_drawn_legs(tmp_path, parser_backend):
     graph, _, items = source_geometry(write_tex(tmp_path/'elbow.tex', r"""
 \coordinate (A) at (0,0);\coordinate (B) at (3,3);\coordinate (C) at (0,3);
@@ -160,6 +180,49 @@ def test_nested_rotated_calc_and_foreach_label_bindings(tmp_path, parser_backend
     assert graph.bindings['Q']['xy'] == pytest.approx([.5, .5])
     assert set(graph.label_names) == {'P', 'Q', 'R'}
     assert len(items['edges']) == 3
+
+
+def test_projection_arc_intersection_and_unbraced_label_loop(tmp_path, parser_backend):
+    body = r"""
+\coordinate (A) at (0,0);\coordinate (B) at (4,0);\coordinate (C) at (2,3);
+\tkzDefPointBy[projection=onto A--B](C) \tkzGetPoint{D}
+\path[name path=arm] (2,-3)--(2,3);
+\path[name path=upper] (4,0) arc (0:180:2);
+\path[name intersections={of=arm and upper,by=E}];
+\draw (A)--(B)--(C)--cycle;
+\draw (C)--(D);
+\foreach \p/\pos in {A/left,B/right,C/above,D/below,E/right}
+  \fill (\p) circle (.3pt) node[\pos] {$\p$};
+"""
+    graph, _, _ = source_geometry(write_tex(tmp_path/'constructions.tex', body))
+    assert graph.bindings['D']['xy'] == pytest.approx([2, 0])
+    assert graph.bindings['E']['xy'] == pytest.approx([2, 2])
+
+
+def test_shifted_intersection_and_let_rotation(tmp_path, parser_backend):
+    body = r"""
+\coordinate (A) at (0,0);\coordinate (B) at (2,0);\coordinate (C) at (2,2);
+\coordinate (K) at (intersection of A--[shift={(0,1)}]A and C--(0,2));
+\path let \p1 = ($(B)-(A)$), \n1 = {atan2(\y1,\x1)+90}, \n2 = {veclen(\x1,\y1)}
+  in coordinate (R) at ($(A)+(\n1:\n2)$);
+\node at (K) {$K$};\node at (R) {$R$};
+"""
+    graph, _, _ = source_geometry(write_tex(tmp_path/'let.tex', body))
+    assert graph.bindings['K']['xy'] == pytest.approx([0, 2])
+    assert graph.bindings['R']['xy'] == pytest.approx([0, 2])
+
+
+def test_curve_operations_keep_adjacent_straight_segments(tmp_path, parser_backend):
+    body = r"""
+\coordinate (A) at (0,0);\coordinate (B) at (2,0);\coordinate (C) at (3,2);
+\coordinate (D) at (0,2);
+\draw (A)--(B) .. controls +(1,0) and +(-1,0) .. (C) to[out=170,in=0] (D)--(A);
+\draw (A) circle ({sqrt(2)});
+\node at (A) {$A$};\node at (B) {$B$};\node at (C) {$C$};\node at (D) {$D$};
+"""
+    graph, _, items = source_geometry(write_tex(tmp_path/'curves.tex', body))
+    assert {tuple(graph.label_names[i] for i in edge) for edge in items['edges']} == {('A', 'B'), ('A', 'D')}
+    assert graph.curves[0]['radius'] == pytest.approx(np.sqrt(2))
 
 
 def test_visible_labels_follow_aliases_not_coordinate_spelling(tmp_path, parser_backend):
@@ -339,5 +402,66 @@ def test_missing_program_keeps_reference_denominator(tmp_path, parser_backend):
     assert summary['angle_coverage'] == 0
     assert len(rows['missing']['angle_checks']) == 3
     assert rows['missing']['angle_mae'] is None
+    quality = summary['geometry_quality']
+    assert (quality['edge_f1'], quality['point_error']) == (0., 1.)
+
+
+QUADRILATERAL = r"""
+\coordinate (A) at (0,0); \coordinate (B) at (4,0);
+\coordinate (C) at (3,2); \coordinate (D) at (0,3);
+\draw (A)--(B)--(C)--(D)--cycle;
+\node at (A) {$A$}; \node at (B) {$B$};
+\node at (C) {$C$}; \node at (D) {$D$};
+"""
+
+
+@pytest.fixture
+def quality_probe(tmp_path, parser_backend):
+    from geoagent.evaluation.geometry_quality import score_geometry_quality
+    ref, _, items = source_geometry(write_tex(tmp_path/'ref.tex', QUADRILATERAL))
+
+    def measure(body):
+        pred, _, _ = source_geometry(write_tex(tmp_path/'pred.tex', body))
+        return score_geometry_quality(ref, items['edges'], pred)
+
+    return measure
+
+
+def test_geometry_quality_invariant_to_similarity_and_equivalent_strokes(quality_probe):
+    body = QUADRILATERAL.replace(r'\draw (A)--(B)', r'\coordinate (Mid) at (2,0); \draw (A)--(Mid)--(B)')
+    body += r'\draw pic[draw] {right angle=B--A--D};'
+    body = r'\begin{scope}[scale=2,rotate=31,shift={(4,-7)}]' + body + r'\end{scope}'
+    body = body.replace(r'\node at (A)', r'\node[xshift=2pt,above] at (A)')
+    row = quality_probe(body)
+    assert row['edges']['f1'] == 1
+    assert row['points']['mean'] == pytest.approx(0., abs=1e-12)
+
+
+def test_geometry_quality_edge_f1_penalizes_extra_and_missing_connections(quality_probe):
+    extra = quality_probe(QUADRILATERAL + r'\draw (A)--(C);')
+    missing = quality_probe(QUADRILATERAL.replace('(D)--cycle', '(D)'))
+    assert extra['edges']['recall'] == 1.
+    assert extra['edges']['precision'] == pytest.approx(.8)
+    assert extra['edges']['f1'] == pytest.approx(8/9)
+    assert missing['edges']['precision'] == 1.
+    assert missing['edges']['recall'] == pytest.approx(.75)
+    assert missing['edges']['f1'] == pytest.approx(6/7)
+    assert extra['points']['mean'] == missing['points']['mean'] == pytest.approx(0., abs=1e-12)
+
+
+def test_geometry_quality_point_error_detects_deformation_and_mirror(quality_probe):
+    slight, larger = [quality_probe(QUADRILATERAL.replace('(3,2)', f'({x},2)')) for x in (3.1, 3.5)]
+    mirror = quality_probe(r'\begin{scope}[xscale=-1]' + QUADRILATERAL + r'\end{scope}')
+    assert slight['edges']['f1'] == larger['edges']['f1'] == mirror['edges']['f1'] == 1.
+    assert 0 < slight['points']['mean'] < larger['points']['mean'] < mirror['points']['mean']
+
+
+def test_geometry_quality_wrong_names_and_insufficient_matches(quality_probe):
+    renamed = quality_probe(QUADRILATERAL.replace('{$D$}', '{$X$}'))
+    assert renamed['edges']['f1'] == pytest.approx(.5)
+    assert renamed['points']['mean'] == pytest.approx(.25)
+    insufficient = quality_probe(QUADRILATERAL.replace('{$D$}', '{$X$}').replace('{$C$}', '{$Y$}'))
+    assert insufficient['points']['mean'] == 1.
+    assert not insufficient['points']['aligned']
 
 

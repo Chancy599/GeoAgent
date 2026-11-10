@@ -1063,6 +1063,72 @@
         ],
         "ambiguous": false
       }
+    },
+    "right_angle_01": {
+      "id": "right_angle_01",
+      "type": "right_angle",
+      "label": null,
+      "coords": {
+        "vertex_px": [
+          181.16,
+          292.12
+        ],
+        "mark_points_px": [
+          [
+            197.29,
+            284.01
+          ],
+          [
+            189.24,
+            267.86
+          ],
+          [
+            173.11,
+            275.96
+          ]
+        ],
+        "side_length_px": 18.05
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:detect_right_angle_marker",
+      "status": "confirmed",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [
+        "mark presence is verified from local ink, not from perpendicularity alone"
+      ],
+      "attributes": {
+        "evidence": {
+          "side1_ink_coverage": 1.0,
+          "side2_ink_coverage": 1.0,
+          "interior_ink_coverage": 0.0,
+          "independent_side_coverage": [
+            0.944,
+            0.944
+          ],
+          "coverage_kind": "pixel-ink fraction (heuristic, not probability)"
+        }
+      }
+    },
+    "ra_01": {
+      "id": "ra_01",
+      "type": "right_angle",
+      "label": null,
+      "coords": {
+        "vertex_px": [
+          181.16,
+          292.12
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -1146,6 +1212,33 @@
       "source": "bind_point_labels",
       "evidence": "Hungarian assignment distance=18.44px",
       "status": "candidate"
+    },
+    "rel_010": {
+      "id": "rel_010",
+      "subject": "point_03",
+      "relation": "on_segment",
+      "object": "seg_AE",
+      "source": "geometry_agent",
+      "evidence": "AE ∩ BF",
+      "status": "candidate"
+    },
+    "rel_011": {
+      "id": "rel_011",
+      "subject": "seg_BF",
+      "relation": "perpendicular",
+      "object": "seg_AE",
+      "source": "geometry_agent",
+      "evidence": "direction dot product ~0 and square mark at point_03",
+      "status": "candidate"
+    },
+    "rel_012": {
+      "id": "rel_012",
+      "subject": "point_02",
+      "relation": "on_segment",
+      "object": "seg_MN",
+      "source": "geometry_agent",
+      "evidence": "O is intersection of BF and MN",
+      "status": "candidate"
     }
   },
   "evidence": {
@@ -1160,7 +1253,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:24:05"
+      "created_at": "2026-11-09T22:58:19"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -1173,13 +1266,45 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:24:09"
+      "created_at": "2026-11-09T22:58:57"
     },
     "ev_0003": {
       "id": "ev_0003",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 1 result(s)",
+      "payload": {
+        "params": {
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T22:59:34"
+    },
+    "ev_0004": {
+      "id": "ev_0004",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Rectangle ABCD: A(68,65), D(446,65), C(446,349), B(68,349) with solid sides. M on AD (point_05), E on BC (point_09), N on BC (point_08), F on DC (point_04). Solid line AE runs A to E. Solid line MN runs M to N and crosses BF at O (point_02). Solid line BF runs from B through O and the unlabeled crossing point_03 to F. Solid segment FN runs F to N. All strokes are solid; no dashed strokes found. Junction point_03 = AE ∩ BF, unlabeled interior point, and BF is perpendicular to AE there. Right-angle square at point_03 lies between ray toward F and ray toward A. Foot of perpendicular from B onto AE is point_03.",
+      "payload": {
+        "merged": {
+          "objects": 2,
+          "relations": 3,
+          "conflicts": 0,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_03",
+          "ra_01"
+        ]
+      },
+      "created_at": "2026-11-09T22:59:50"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [517, 415] (scale 0.6972)",
+      "summary": "v1 canvas matched to source [517, 415] (scale 0.7087)",
       "payload": {
         "ok": true,
         "size": [
@@ -1190,133 +1315,33 @@
           517,
           415
         ],
-        "scale": 0.6972,
+        "scale": 0.7087,
         "offset": [
           32,
           30
         ]
       },
-      "created_at": "2026-11-09T11:25:15"
+      "created_at": "2026-11-09T23:00:22"
     },
-    "ev_0004": {
-      "id": "ev_0004",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v1: applied",
+      "summary": "v1: unsupported_or_failed",
       "payload": {
-        "ok": true,
+        "ok": false,
         "enabled": true,
-        "applied": true,
+        "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "cb0ea94d353fbf8f3af08603d2ea5ab7aa850c1c73b6424bbc92c1377fa76750",
-        "output_sha256": "df15345f2eef44e59386fc39d772e8063e89afa45628000396177b24099f20e1",
-        "reason": "applied",
-        "accepted": [
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--B",
-              "A--D"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.005574045210295253,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.02754420929319377
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--B",
-              "B--C"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.005574045210295253,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.02754420929319377
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--B",
-              "C--D"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 4.944927133835851e-15,
-            "solver_after_error_deg": 4.941230884110787e-15,
-            "export_tolerance_deg": 0.031485982715986814
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--D",
-              "B--C"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 3.70650101974763e-15,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.023602435870400736
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--D",
-              "C--D"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.005574045210295253,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.02754420929319377
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "C--D"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.005574045210295253,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.02754420929319377
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--E",
-              "M--N"
-            ],
-            "before_error_deg": 0.022297435452793196,
-            "after_error_deg": 0.004452578442468518,
-            "solver_after_error_deg": 3.0725763691799434e-15,
-            "export_tolerance_deg": 0.0281575000319946
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--E",
-              "B--F"
-            ],
-            "before_error_deg": 0.13347879408871677,
-            "after_error_deg": 0.004452578442467825,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.024632425263234076
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--F",
-              "M--N"
-            ],
-            "before_error_deg": 0.15577622954150172,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.024632425263234083
-          }
-        ],
+        "input_sha256": "0a86320ff7cb9c5aa990c83a7c3ba1f22d8425f260a0e37d6dfe161c694a3761",
+        "output_sha256": "0a86320ff7cb9c5aa990c83a7c3ba1f22d8425f260a0e37d6dfe161c694a3761",
+        "reason": "unsupported_or_failed",
+        "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
@@ -1334,48 +1359,24 @@
           ],
           "relaxation": 1.0
         },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 9,
-        "preserved_incidence_count": 6,
-        "max_shift_rel": 0.001001761372474162,
-        "max_length_change_rel": 0.0029741342347596733,
-        "fixed_points": [],
-        "length_weight": 0.01,
-        "length_scope": "all_pairs",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.003,
-        "incidence_strength": 1.0,
-        "rms_shift_rel": 0.0006606858655776628,
-        "max_after_error_deg": 0.005574045210295253,
-        "curve_policy": "defer",
-        "candidate_count": 9,
-        "solver_max_shift_rel": 0.0010604782412074914,
-        "coordinate_decimals": 3,
-        "export_verified": true,
-        "max_export_error_deg": 0.005574045210295253,
-        "point_count": 9,
-        "segment_count": 8
+        "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
       },
-      "created_at": "2026-11-09T11:25:15"
+      "created_at": "2026-11-09T23:00:22"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used named coordinates from the program block (not redefined). E was not in the program set, so I placed it in the same frame at (-0.889,-2.567) from pixel (209.5,349). The AE/BF crossing is computed by the intersections library as P (about pixel (181.3,292.2), matching the CV point (181.2,292.1)). Right-angle mark is a TikZ right-angle pic on arms P->A and P->F, radius 0.25 cm. Stroke 1.0pt, label font 14.5/17.4pt per STYLE METRICS. No dashed lines. Note: the standalone document will not compile on its own, since the program supplies the A,B,C,D,F,M,N,O definitions.",
+        "notes": "Used program-owned coordinates A,B,C,D,F,M,N,O unchanged. E is not program-owned, so it was defined in the same source frame from its measured pixel position (209.5,349). point_03 is defined as the projection of B onto AE via calc, so BF is perpendicular to AE there. Right-angle pic uses arms A and F (the source square sits toward A and F). Rectangle drawn as a closed path covering AB, BC, CD, DA; all strokes solid, line width 1.0pt, labels at 14.5/17.4pt.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1618_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1618_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1405,17 +1406,150 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1618_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1618_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0433"
+              "detail": "ink_ratio=0.0454"
+            },
+            {
+              "name": "aspect_ratio",
+              "passed": true,
+              "detail": "reference 1.25 vs render 1.28 (delta 0.03)"
+            },
+            {
+              "name": "figure_extent_ratio",
+              "passed": true,
+              "detail": "figure bbox ratio 1.29"
+            }
+          ]
+        }
+      },
+      "created_at": "2026-11-09T23:00:22"
+    },
+    "ev_0008": {
+      "id": "ev_0008",
+      "source": "renderer",
+      "method": "frame_like_original",
+      "summary": "v2 canvas matched to source [517, 415] (scale 0.7072)",
+      "payload": {
+        "ok": true,
+        "size": [
+          517,
+          415
+        ],
+        "reference_size": [
+          517,
+          415
+        ],
+        "scale": 0.7072,
+        "offset": [
+          32,
+          30
+        ]
+      },
+      "created_at": "2026-11-09T23:00:50"
+    },
+    "ev_0009": {
+      "id": "ev_0009",
+      "source": "tikz_constraint_repair",
+      "method": "post-generation joint coordinate projection",
+      "summary": "v2: unsupported_or_failed",
+      "payload": {
+        "ok": false,
+        "enabled": true,
+        "applied": false,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
+        "output_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
+        "reason": "unsupported_or_failed",
+        "accepted": [],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
+          ],
+          "relaxation": 1.0
+        },
+        "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
+      },
+      "created_at": "2026-11-09T23:00:50"
+    },
+    "ev_0010": {
+      "id": "ev_0010",
+      "source": "code_agent",
+      "method": "tikz repair",
+      "summary": "v2 compiled=True validation=True",
+      "payload": {
+        "notes": "Repair: top boundary now explicit named path A--M--D and right boundary D--F--C; rectangle sides drawn as named solid paths (A--M, M--D, D--F, F--C, C--B, B--A). Line width set to 1.3pt per the critic/instruction (the metrics block suggested 1.0pt; the explicit request was followed). Program-owned coordinates are no longer redefined. E and P remain unmeasured helpers in the same frame. Right-angle pic, labels, and font are unchanged.",
+        "compile": {
+          "compile_ok": true,
+          "validation_passed": true,
+          "errors": [],
+          "warnings": [],
+          "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf",
+          "checks": [
+            {
+              "name": "documentclass",
+              "passed": true,
+              "detail": "documentclass present"
+            },
+            {
+              "name": "document_environment",
+              "passed": true,
+              "detail": "begin=1 end=1"
+            },
+            {
+              "name": "tikzpicture",
+              "passed": true,
+              "detail": "one balanced tikzpicture"
+            },
+            {
+              "name": "no_shell_escape",
+              "passed": true,
+              "detail": "no \\write18/\\openout primitives"
+            },
+            {
+              "name": "compiler_ok",
+              "passed": true,
+              "detail": "returncode=0"
+            },
+            {
+              "name": "pdf_created",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf"
+            },
+            {
+              "name": "png_rendered",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png"
+            },
+            {
+              "name": "render_not_blank",
+              "passed": true,
+              "detail": "ink_ratio=0.0547"
             },
             {
               "name": "aspect_ratio",
@@ -1430,30 +1564,23 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:25:15"
+      "created_at": "2026-11-09T23:00:50"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0011": {
+      "id": "ev_0011",
       "source": "critic_agent",
       "method": "endpoint_review",
-      "summary": "Reviewed 2 CV endpoint case(s)",
+      "summary": "Reviewed 1 CV endpoint case(s)",
       "payload": {
-        "4bfdc4d1427d1e2e": {
-          "edge": [
-            "M",
-            "N"
-          ],
-          "reason": "In the original, the solid stroke runs from M on the top edge to N on the bottom edge, passing through O."
-        },
         "3c601fd8894a0c4f": {
           "edge": [
             "A",
             "E"
           ],
-          "reason": "In the original, the solid stroke runs from corner A to E on the bottom edge, with the right-angle mark on it where it crosses BF."
+          "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
         }
       },
-      "created_at": "2026-11-09T11:25:37"
+      "created_at": "2026-11-09T23:01:10"
     }
   },
   "conflicts": [],
@@ -1468,154 +1595,187 @@
     "E": "point_09",
     "N": "point_08"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc,angles,quotes,intersections}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.0pt]\n\\coordinate (A) at (-3.459,2.584);\n\\coordinate (B) at (-3.461,-2.563);\n\\coordinate (C) at (3.405,-2.565);\n\\coordinate (D) at (3.407,2.582);\n\\coordinate (F) at (3.407,0.871);\n\\coordinate (M) at (-1.737,2.584);\n\\coordinate (N) at (0.837,-2.564);\n\\coordinate (O) at (-0.023,-0.844);\n\n\n\n\\coordinate (E) at (-0.885,-2.563);\n\n\n\\draw (A) -- (D);\n\\draw (D) -- (C);\n\\draw (C) -- (B);\n\\draw (B) -- (A);\n\n\n\\draw (A) -- (E);\n\\draw (M) -- (N);\n\\draw (B) -- (F);   \n\\draw (F) -- (N);\n\n\n\\path [name path=AE] (A) -- (E);\n\\path [name path=BF] (B) -- (F);\n\\path [name intersections={of=AE and BF, by=P}];\n\n\n\\draw pic[draw, angle radius=0.250cm] {right angle=A--P--F};\n\n\n\\fontsize{14.5}{17.4}\\selectfont\n\\node[above left] at (A) {$A$};\n\\node[above] at (M) {$M$};\n\\node[above right] at (D) {$D$};\n\\node[right] at (F) {$F$};\n\\node[above right] at (O) {$O$};\n\\node[below left] at (B) {$B$};\n\\node[below] at (E) {$E$};\n\\node[below] at (N) {$N$};\n\\node[below right] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 ff67622cdad8529e0894135e3c5bcd5dd7e8a5100ffb2b675f27a531f8383337\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc,angles,quotes,intersections}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.0pt]\n\\coordinate (A) at (-3.459,2.584);\n\\coordinate (B) at (-3.461,-2.563);\n\\coordinate (C) at (3.405,-2.565);\n\\coordinate (D) at (3.407,2.582);\n\\coordinate (F) at (3.407,0.871);\n\\coordinate (M) at (-1.737,2.584);\n\\coordinate (N) at (0.837,-2.564);\n\\coordinate (O) at (-0.023,-0.844);\n\n\n\n\\coordinate (E) at (-0.885,-2.563);\n\n\n\\draw (A) -- (D);\n\\draw (D) -- (C);\n\\draw (C) -- (B);\n\\draw (B) -- (A);\n\n\n\\draw (A) -- (E);\n\\draw (M) -- (N);\n\\draw (B) -- (F);   \n\\draw (F) -- (N);\n\n\n\\path [name path=AE] (A) -- (E);\n\\path [name path=BF] (B) -- (F);\n\\path [name intersections={of=AE and BF, by=P}];\n\n\n\\draw pic[draw, angle radius=0.250cm] {right angle=A--P--F};\n\n\n\\fontsize{14.5}{17.4}\\selectfont\n\\node[above left] at (A) {$A$};\n\\node[above] at (M) {$M$};\n\\node[above right] at (D) {$D$};\n\\node[right] at (F) {$F$};\n\\node[above right] at (O) {$O$};\n\\node[below left] at (B) {$B$};\n\\node[below] at (E) {$E$};\n\\node[below] at (N) {$N$};\n\\node[below right] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 ff67622cdad8529e0894135e3c5bcd5dd7e8a5100ffb2b675f27a531f8383337\n",
-  "best_version": 1,
-  "best_score": 0.92,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.456,-2.567);\n\\coordinate (C) at (3.401,-2.567);\n\\coordinate (D) at (3.401,2.585);\n\\coordinate (F) at (3.414,0.876);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.025,-0.842);\n\n\n\n\n\\coordinate (E) at (-0.889,-2.567);\n\\coordinate (P) at ($(A)!(B)!(E)$);\n\n\n\\draw (A)--(M)--(D);\n\n\\draw (D)--(F)--(C);\n\n\\draw (C)--(B)--(A);\n\n\n\\draw (A)--(E);\n\\draw (M)--(N);\n\\draw (B)--(F);\n\\draw (F)--(N);\n\n\n\\draw pic[draw, angle radius=0.330cm] {right angle=A--P--F};\n\n\n\\node[above left, font=\\fontsize{14.5}{17.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{14.5}{17.4}\\selectfont] at (M) {$M$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (D) {$D$};\n\\node[right, font=\\fontsize{14.5}{17.4}\\selectfont] at (F) {$F$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (O) {$O$};\n\\node[below right, font=\\fontsize{14.5}{17.4}\\selectfont] at (C) {$C$};\n\\node[below left, font=\\fontsize{14.5}{17.4}\\selectfont] at (B) {$B$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (E) {$E$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (N) {$N$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.456,-2.567);\n\\coordinate (C) at (3.401,-2.567);\n\\coordinate (D) at (3.401,2.585);\n\\coordinate (F) at (3.414,0.876);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.025,-0.842);\n\n\n\n\n\\coordinate (E) at (-0.889,-2.567);\n\\coordinate (P) at ($(A)!(B)!(E)$);\n\n\n\\draw (A)--(M)--(D);\n\n\\draw (D)--(F)--(C);\n\n\\draw (C)--(B)--(A);\n\n\n\\draw (A)--(E);\n\\draw (M)--(N);\n\\draw (B)--(F);\n\\draw (F)--(N);\n\n\n\\draw pic[draw, angle radius=0.330cm] {right angle=A--P--F};\n\n\n\\node[above left, font=\\fontsize{14.5}{17.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{14.5}{17.4}\\selectfont] at (M) {$M$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (D) {$D$};\n\\node[right, font=\\fontsize{14.5}{17.4}\\selectfont] at (F) {$F$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (O) {$O$};\n\\node[below right, font=\\fontsize{14.5}{17.4}\\selectfont] at (C) {$C$};\n\\node[below left, font=\\fontsize{14.5}{17.4}\\selectfont] at (B) {$B$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (E) {$E$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (N) {$N$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_version": 2,
+  "best_score": 0.95,
   "tikz_versions": [
     {
       "topology_check": {
-        "passed": true,
-        "missing_edges": []
+        "passed": false,
+        "missing_edges": [
+          [
+            "A",
+            "M"
+          ],
+          [
+            "D",
+            "F"
+          ]
+        ],
+        "unverified_styles": [
+          {
+            "edge": [
+              "A",
+              "M"
+            ],
+            "style": "solid"
+          },
+          {
+            "edge": [
+              "D",
+              "F"
+            ],
+            "style": "solid"
+          }
+        ]
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc,angles,quotes,intersections}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.0pt]\n\\coordinate (A) at (-3.459,2.584);\n\\coordinate (B) at (-3.461,-2.563);\n\\coordinate (C) at (3.405,-2.565);\n\\coordinate (D) at (3.407,2.582);\n\\coordinate (F) at (3.407,0.871);\n\\coordinate (M) at (-1.737,2.584);\n\\coordinate (N) at (0.837,-2.564);\n\\coordinate (O) at (-0.023,-0.844);\n\n\n\n\\coordinate (E) at (-0.885,-2.563);\n\n\n\\draw (A) -- (D);\n\\draw (D) -- (C);\n\\draw (C) -- (B);\n\\draw (B) -- (A);\n\n\n\\draw (A) -- (E);\n\\draw (M) -- (N);\n\\draw (B) -- (F);   \n\\draw (F) -- (N);\n\n\n\\path [name path=AE] (A) -- (E);\n\\path [name path=BF] (B) -- (F);\n\\path [name intersections={of=AE and BF, by=P}];\n\n\n\\draw pic[draw, angle radius=0.250cm] {right angle=A--P--F};\n\n\n\\fontsize{14.5}{17.4}\\selectfont\n\\node[above left] at (A) {$A$};\n\\node[above] at (M) {$M$};\n\\node[above right] at (D) {$D$};\n\\node[right] at (F) {$F$};\n\\node[above right] at (O) {$O$};\n\\node[below left] at (B) {$B$};\n\\node[below] at (E) {$E$};\n\\node[below] at (N) {$N$};\n\\node[below right] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 ff67622cdad8529e0894135e3c5bcd5dd7e8a5100ffb2b675f27a531f8383337\n",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1618_q_fig1\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1618_q_fig1\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1618_q_fig1\\best.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.0pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.456,-2.567);\n\\coordinate (C) at (3.401,-2.567);\n\\coordinate (D) at (3.401,2.585);\n\\coordinate (F) at (3.414,0.876);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.025,-0.842);\n\n\n\n\\coordinate (E) at (-0.889,-2.567);\n\n\\coordinate (P) at ($(A)!(B)!(E)$);\n\n\n\\draw (A)--(B)--(C)--(D)--cycle;\n\n\n\\draw (A)--(E);\n\\draw (M)--(N);\n\\draw (B)--(F);\n\\draw (F)--(N);\n\n\n\\draw pic[draw, angle radius=0.330cm] {right angle=A--P--F};\n\n\n\\node[above left, font=\\fontsize{14.5}{17.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{14.5}{17.4}\\selectfont] at (M) {$M$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (D) {$D$};\n\\node[right, font=\\fontsize{14.5}{17.4}\\selectfont] at (F) {$F$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (O) {$O$};\n\\node[below right, font=\\fontsize{14.5}{17.4}\\selectfont] at (C) {$C$};\n\\node[below left, font=\\fontsize{14.5}{17.4}\\selectfont] at (B) {$B$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (E) {$E$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (N) {$N$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:25:13",
+      "created_at": "2026-11-09T23:00:18",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used named coordinates from the program block (not redefined). E was not in the program set, so I placed it in the same frame at (-0.889,-2.567) from pixel (209.5,349). The AE/BF crossing is computed by the intersections library as P (about pixel (181.3,292.2), matching the CV point (181.2,292.1)). Right-angle mark is a TikZ right-angle pic on arms P->A and P->F, radius 0.25 cm. Stroke 1.0pt, label font 14.5/17.4pt per STYLE METRICS. No dashed lines. Note: the standalone document will not compile on its own, since the program supplies the A,B,C,D,F,M,N,O definitions.",
-      "compile_seconds": 2.234,
+      "notes": "Used program-owned coordinates A,B,C,D,F,M,N,O unchanged. E is not program-owned, so it was defined in the same source frame from its measured pixel position (209.5,349). point_03 is defined as the projection of B onto AE via calc, so BF is perpendicular to AE there. Right-angle pic uses arms A and F (the source square sits toward A and F). Rectangle drawn as a closed path covering AB, BC, CD, DA; all strokes solid, line width 1.0pt, labels at 14.5/17.4pt.",
+      "compile_seconds": 4.438,
       "critic_report": {
-        "assessment_score": 0.92,
+        "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Render is topologically faithful: rectangle, AE, MN, BF through O, FN, the right-angle mark at the AE/BF crossing, and all nine labels match the original. The only visible difference is that the render strokes are thinner.",
+        "verdict": "The render reproduces the original's topology and labels faithfully: rectangle, the two parallel diagonals AE and MN, BF, FN, the foot-of-perpendicular right angle at E, and all point labels are in the right places. The main difference is stroke weight.",
         "figure_type": {
-          "original": "Rectangle ABCD with points M on AD, E and N on BC, F on DC, and O at the BF/MN crossing; segments AE, MN, BF, FN; right-angle mark at AE/BF",
-          "render": "Same rectangle and construction, with AE, MN, BF, FN and a right-angle mark at the AE/BF intersection"
+          "original": "Rectangle ABCD with interior points E, M, N, F, O; segments AE and MN parallel, BF through O, FN; right-angle mark at the foot on BF.",
+          "render": "Same rectangle and interior segments; right-angle mark sits in the same quadrant near BF/AE; labels match."
         },
         "issues": [
           {
             "type": "wrong_style",
             "severity": "low",
             "object_ids": [
-              "seg_01",
               "seg_02",
               "seg_03",
-              "seg_04",
-              "seg_05",
               "seg_06",
               "seg_07",
-              "seg_08"
+              "seg_05",
+              "seg_04"
             ],
             "bbox": [
-              0.11,
-              0.21,
-              0.88,
-              0.79
+              0.1,
+              0.12,
+              0.92,
+              0.8
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Stroke weight is lighter in the render than in the original. The original rectangle sides and construction lines look noticeably heavier than the render's 1.0pt strokes.",
-            "suggestion": "Optionally raise line width (e.g. to about 1.3pt) on the figure to match the heavier original. Geometry needs no change."
+            "description": "Stroke weight of the rectangle edges and the diagonals is lighter in the render than in the original, which shows bolder lines at the same scale.",
+            "suggestion": "Increase the global line width slightly (e.g. from 1.0pt to about 1.3pt) so the rectangle edges and diagonals match the original's visual weight."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Segment BF is drawn from B through O to F, matching the original."
+            "note": "Segment B to F drawn through O, matching the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Top side AD is correct."
+            "note": "Top edge A to D present."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Bottom side BC is correct."
+            "note": "Bottom edge B to C present."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "MN runs from M on AD to N on BC, matching the original."
+            "note": "Segment M to N drawn with the same extent as the original."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "AE runs from A to E on BC, matching the original."
+            "note": "Segment A to E present, ending at E on BC."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Left side AB is correct."
+            "note": "Left edge A to B present."
           },
           {
             "object_id": "seg_07",
             "status": "present",
-            "note": "Right side DC is correct."
+            "note": "Right edge D to C present."
           },
           {
             "object_id": "seg_08",
             "status": "present",
-            "note": "FN runs from F to N, matching the original."
+            "note": "Segment F to N present."
           },
           {
             "object_id": "seg_09",
+            "status": "unclear",
+            "note": "Short fragment near the right-angle mark; its coordinates do not clearly match a drawn stroke in the original, so it cannot be confirmed separately."
+          },
+          {
+            "object_id": "ra_01",
             "status": "present",
-            "note": "Short mark corresponds to the right-angle square at the AE/BF crossing, drawn in both panels."
+            "note": "Right-angle mark at the foot of the perpendicular from E onto BF is drawn in the same quadrant as the original."
+          },
+          {
+            "object_id": "right_angle_01",
+            "status": "present",
+            "note": "Same right-angle mark as ra_01; the render shows one square at the same location."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label B is at the bottom-left vertex, as in the original."
+            "note": "B is at the bottom-left corner, as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label O sits at the BF/MN crossing with clear separation, as in the original."
+            "note": "O is labelled on the intersection of BF and MN, above-right, as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label F is at the right-edge point, as in the original."
+            "note": "F is labelled to the right of the point on DC, as in the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label M is above the top edge at the MN endpoint, as in the original."
+            "note": "M is labelled above the top edge on MN, as in the original."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "Label A is at the top-left vertex, as in the original."
+            "note": "A is labelled at the top-left corner."
           },
           {
             "object_id": "point_07",
             "status": "present",
-            "note": "Label D is at the top-right vertex, as in the original."
+            "note": "D is labelled at the top-right corner."
           },
           {
             "object_id": "point_08",
             "status": "present",
-            "note": "Label N is below the bottom edge at the MN/FN endpoint, as in the original."
+            "note": "N is labelled below BC, as in the original."
           },
           {
             "object_id": "point_09",
             "status": "present",
-            "note": "Label E is below the bottom edge at the AE endpoint, as in the original."
+            "note": "E is labelled below BC, as in the original."
           },
           {
             "object_id": "point_10",
             "status": "present",
-            "note": "Label C is at the bottom-right vertex, as in the original."
+            "note": "C is labelled at the bottom-right corner."
           }
         ],
         "checklist_score": 1.0,
@@ -1627,14 +1787,11 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Rectangle ABCD with correct vertex placement and aspect ratio",
-          "AE runs from A to E on BC",
-          "MN runs from M on AD to N on BC",
-          "BF runs from B through O to F",
-          "FN runs from F to N",
-          "O is at the BF/MN crossing; the source coordinates confirm this",
-          "Right-angle mark sits at the AE/BF intersection",
-          "All nine labels (A, B, C, D, E, F, M, N, O) are present, correctly spelled, and clear of strokes"
+          "Rectangle ABCD with correct corners and proportions.",
+          "Segments AE and MN are parallel and end at the correct points on BC and the top edge.",
+          "BF passes through O, and FN is drawn.",
+          "The right-angle mark at the foot on BF is in the correct quadrant.",
+          "All point labels A, B, C, D, E, F, M, N, O are present with correct placement and no collisions."
         ],
         "labels": {
           "present": [
@@ -1653,27 +1810,188 @@
         },
         "version": 1,
         "binding_decisions": [],
-        "topology_decisions": [
+        "topology_decisions": [],
+        "raw_meta": "{}"
+      },
+      "critic_score": 0.9
+    },
+    {
+      "topology_check": {
+        "passed": true,
+        "missing_edges": []
+      },
+      "version": 2,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.456,-2.567);\n\\coordinate (C) at (3.401,-2.567);\n\\coordinate (D) at (3.401,2.585);\n\\coordinate (F) at (3.414,0.876);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.025,-0.842);\n\n\n\n\n\\coordinate (E) at (-0.889,-2.567);\n\\coordinate (P) at ($(A)!(B)!(E)$);\n\n\n\\draw (A)--(M)--(D);\n\n\\draw (D)--(F)--(C);\n\n\\draw (C)--(B)--(A);\n\n\n\\draw (A)--(E);\n\\draw (M)--(N);\n\\draw (B)--(F);\n\\draw (F)--(N);\n\n\n\\draw pic[draw, angle radius=0.330cm] {right angle=A--P--F};\n\n\n\\node[above left, font=\\fontsize{14.5}{17.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{14.5}{17.4}\\selectfont] at (M) {$M$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (D) {$D$};\n\\node[right, font=\\fontsize{14.5}{17.4}\\selectfont] at (F) {$F$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (O) {$O$};\n\\node[below right, font=\\fontsize{14.5}{17.4}\\selectfont] at (C) {$C$};\n\\node[below left, font=\\fontsize{14.5}{17.4}\\selectfont] at (B) {$B$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (E) {$E$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (N) {$N$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1618_q_fig1\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1618_q_fig1\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1618_q_fig1\\best.png",
+      "ok": true,
+      "compiled": true,
+      "errors": [],
+      "warnings": [],
+      "created_at": "2026-11-09T23:00:48",
+      "agent": "code_agent",
+      "mode": "repair",
+      "notes": "Repair: top boundary now explicit named path A--M--D and right boundary D--F--C; rectangle sides drawn as named solid paths (A--M, M--D, D--F, F--C, C--B, B--A). Line width set to 1.3pt per the critic/instruction (the metrics block suggested 1.0pt; the explicit request was followed). Program-owned coordinates are no longer redefined. E and P remain unmeasured helpers in the same frame. Right-angle pic, labels, and font are unchanged.",
+      "compile_seconds": 2.222,
+      "critic_report": {
+        "assessment_score": 0.95,
+        "score_kind": "heuristic visual similarity (not a calibrated probability)",
+        "verdict": "Render is faithful: rectangle, interior segments, endpoints, labels and right-angle mark match the original.",
+        "figure_type": {
+          "original": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing.",
+          "render": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing."
+        },
+        "issues": [],
+        "checks": [
           {
-            "case_id": "4bfdc4d1427d1e2e",
-            "edge": [
-              "M",
-              "N"
-            ],
-            "reason": "In the original, the solid stroke runs from M on the top edge to N on the bottom edge, passing through O."
+            "object_id": "seg_01",
+            "status": "present",
+            "note": "Diagonal B–F drawn from B to F as in the original."
           },
+          {
+            "object_id": "seg_02",
+            "status": "present",
+            "note": "Top edge AD drawn, with M on it."
+          },
+          {
+            "object_id": "seg_03",
+            "status": "present",
+            "note": "Bottom edge BC drawn, with E and N on it."
+          },
+          {
+            "object_id": "seg_04",
+            "status": "present",
+            "note": "Segment MN drawn from M on the top edge to N on the bottom edge."
+          },
+          {
+            "object_id": "seg_05",
+            "status": "present",
+            "note": "Segment AE drawn from A to E, both ends matching the original."
+          },
+          {
+            "object_id": "seg_06",
+            "status": "present",
+            "note": "Left edge AB drawn."
+          },
+          {
+            "object_id": "seg_07",
+            "status": "present",
+            "note": "Right edge DC drawn, with F on it."
+          },
+          {
+            "object_id": "seg_08",
+            "status": "present",
+            "note": "Segment FN drawn from F to N as in the original."
+          },
+          {
+            "object_id": "seg_09",
+            "status": "unclear",
+            "note": "Short CV fragment lying on BF near point_03; the original shows no separate stroke there, so it appears to be a detection artifact of BF rather than a distinct element."
+          },
+          {
+            "object_id": "ra_01",
+            "status": "present",
+            "note": "Right-angle mark at the AE/BF foot is drawn on the same side as the original."
+          },
+          {
+            "object_id": "right_angle_01",
+            "status": "present",
+            "note": "Same right-angle mark as ra_01; present in both panels."
+          },
+          {
+            "object_id": "point_01",
+            "status": "present",
+            "note": "B labelled at the bottom-left vertex, below-left as in the original."
+          },
+          {
+            "object_id": "point_02",
+            "status": "present",
+            "note": "O labelled at the MN/BF crossing, above-right as in the original."
+          },
+          {
+            "object_id": "point_04",
+            "status": "present",
+            "note": "F labelled on the right edge, right of the vertex, as in the original."
+          },
+          {
+            "object_id": "point_05",
+            "status": "present",
+            "note": "M labelled above the top edge at the MN endpoint."
+          },
+          {
+            "object_id": "point_06",
+            "status": "present",
+            "note": "A labelled above-left of the top-left vertex."
+          },
+          {
+            "object_id": "point_07",
+            "status": "present",
+            "note": "D labelled above-right of the top-right vertex."
+          },
+          {
+            "object_id": "point_08",
+            "status": "present",
+            "note": "N labelled below the bottom-edge endpoint of MN and FN."
+          },
+          {
+            "object_id": "point_09",
+            "status": "present",
+            "note": "E labelled below the bottom-edge endpoint of AE."
+          },
+          {
+            "object_id": "point_10",
+            "status": "present",
+            "note": "C labelled below-right of the bottom-right vertex."
+          }
+        ],
+        "checklist_score": 1.0,
+        "actionable_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        },
+        "flaky_count": 0,
+        "must_repair": false,
+        "matches": [
+          "Rectangle proportions and aspect ratio match the original.",
+          "E and N sit at the same relative positions along BC (about 0.37 and 0.62 of its length).",
+          "F sits at the same height on DC.",
+          "M sits at the same relative position on AD.",
+          "Segments AE, MN, BF and FN have the same endpoints and crossings as in the original.",
+          "The right-angle mark is at the AE/BF foot on the same side as in the original.",
+          "All nine labels are present, correctly spelled and placed clear of strokes."
+        ],
+        "labels": {
+          "present": [
+            "A",
+            "M",
+            "D",
+            "F",
+            "O",
+            "C",
+            "B",
+            "E",
+            "N"
+          ],
+          "missing": [],
+          "extra": []
+        },
+        "version": 2,
+        "binding_decisions": [],
+        "topology_decisions": [
           {
             "case_id": "3c601fd8894a0c4f",
             "edge": [
               "A",
               "E"
             ],
-            "reason": "In the original, the solid stroke runs from corner A to E on the bottom edge, with the right-angle mark on it where it crosses BF."
+            "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
           }
         ],
         "raw_meta": "{}"
       },
-      "critic_score": 0.92
+      "critic_score": 0.95
     }
   ],
   "compilation_results": [
@@ -1681,14 +1999,27 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.234,
+      "seconds": 4.438,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.8837890625 KiB)\nnote: Writing `figure.pdf` (3.2900390625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1618_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1618_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1618_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:25:15"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.92578125 KiB)\nnote: Writing `figure.pdf` (3.2529296875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T23:00:22"
+    },
+    {
+      "version": 2,
+      "ok": true,
+      "returncode": 0,
+      "seconds": 2.222,
+      "errors": [],
+      "warnings": [],
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.26953125 KiB)\nnote: Writing `figure.log` (11.92578125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-09T23:00:50"
     }
   ],
   "validation_results": [
@@ -1724,17 +2055,74 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1618_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1618_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0433"
+          "detail": "ink_ratio=0.0454"
+        },
+        {
+          "name": "aspect_ratio",
+          "passed": true,
+          "detail": "reference 1.25 vs render 1.28 (delta 0.03)"
+        },
+        {
+          "name": "figure_extent_ratio",
+          "passed": true,
+          "detail": "figure bbox ratio 1.29"
+        }
+      ],
+      "created_at": "2026-11-09T23:00:22"
+    },
+    {
+      "version": 2,
+      "passed": true,
+      "checks": [
+        {
+          "name": "documentclass",
+          "passed": true,
+          "detail": "documentclass present"
+        },
+        {
+          "name": "document_environment",
+          "passed": true,
+          "detail": "begin=1 end=1"
+        },
+        {
+          "name": "tikzpicture",
+          "passed": true,
+          "detail": "one balanced tikzpicture"
+        },
+        {
+          "name": "no_shell_escape",
+          "passed": true,
+          "detail": "no \\write18/\\openout primitives"
+        },
+        {
+          "name": "compiler_ok",
+          "passed": true,
+          "detail": "returncode=0"
+        },
+        {
+          "name": "pdf_created",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf"
+        },
+        {
+          "name": "png_rendered",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png"
+        },
+        {
+          "name": "render_not_blank",
+          "passed": true,
+          "detail": "ink_ratio=0.0547"
         },
         {
           "name": "aspect_ratio",
@@ -1747,134 +2135,142 @@
           "detail": "figure bbox ratio 1.28"
         }
       ],
-      "created_at": "2026-11-09T11:25:15"
+      "created_at": "2026-11-09T23:00:50"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.92,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Render is topologically faithful: rectangle, AE, MN, BF through O, FN, the right-angle mark at the AE/BF crossing, and all nine labels match the original. The only visible difference is that the render strokes are thinner.",
+      "verdict": "The render reproduces the original's topology and labels faithfully: rectangle, the two parallel diagonals AE and MN, BF, FN, the foot-of-perpendicular right angle at E, and all point labels are in the right places. The main difference is stroke weight.",
       "figure_type": {
-        "original": "Rectangle ABCD with points M on AD, E and N on BC, F on DC, and O at the BF/MN crossing; segments AE, MN, BF, FN; right-angle mark at AE/BF",
-        "render": "Same rectangle and construction, with AE, MN, BF, FN and a right-angle mark at the AE/BF intersection"
+        "original": "Rectangle ABCD with interior points E, M, N, F, O; segments AE and MN parallel, BF through O, FN; right-angle mark at the foot on BF.",
+        "render": "Same rectangle and interior segments; right-angle mark sits in the same quadrant near BF/AE; labels match."
       },
       "issues": [
         {
           "type": "wrong_style",
           "severity": "low",
           "object_ids": [
-            "seg_01",
             "seg_02",
             "seg_03",
-            "seg_04",
-            "seg_05",
             "seg_06",
             "seg_07",
-            "seg_08"
+            "seg_05",
+            "seg_04"
           ],
           "bbox": [
-            0.11,
-            0.21,
-            0.88,
-            0.79
+            0.1,
+            0.12,
+            0.92,
+            0.8
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "Stroke weight is lighter in the render than in the original. The original rectangle sides and construction lines look noticeably heavier than the render's 1.0pt strokes.",
-          "suggestion": "Optionally raise line width (e.g. to about 1.3pt) on the figure to match the heavier original. Geometry needs no change."
+          "description": "Stroke weight of the rectangle edges and the diagonals is lighter in the render than in the original, which shows bolder lines at the same scale.",
+          "suggestion": "Increase the global line width slightly (e.g. from 1.0pt to about 1.3pt) so the rectangle edges and diagonals match the original's visual weight."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Segment BF is drawn from B through O to F, matching the original."
+          "note": "Segment B to F drawn through O, matching the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Top side AD is correct."
+          "note": "Top edge A to D present."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Bottom side BC is correct."
+          "note": "Bottom edge B to C present."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "MN runs from M on AD to N on BC, matching the original."
+          "note": "Segment M to N drawn with the same extent as the original."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "AE runs from A to E on BC, matching the original."
+          "note": "Segment A to E present, ending at E on BC."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Left side AB is correct."
+          "note": "Left edge A to B present."
         },
         {
           "object_id": "seg_07",
           "status": "present",
-          "note": "Right side DC is correct."
+          "note": "Right edge D to C present."
         },
         {
           "object_id": "seg_08",
           "status": "present",
-          "note": "FN runs from F to N, matching the original."
+          "note": "Segment F to N present."
         },
         {
           "object_id": "seg_09",
+          "status": "unclear",
+          "note": "Short fragment near the right-angle mark; its coordinates do not clearly match a drawn stroke in the original, so it cannot be confirmed separately."
+        },
+        {
+          "object_id": "ra_01",
           "status": "present",
-          "note": "Short mark corresponds to the right-angle square at the AE/BF crossing, drawn in both panels."
+          "note": "Right-angle mark at the foot of the perpendicular from E onto BF is drawn in the same quadrant as the original."
+        },
+        {
+          "object_id": "right_angle_01",
+          "status": "present",
+          "note": "Same right-angle mark as ra_01; the render shows one square at the same location."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label B is at the bottom-left vertex, as in the original."
+          "note": "B is at the bottom-left corner, as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label O sits at the BF/MN crossing with clear separation, as in the original."
+          "note": "O is labelled on the intersection of BF and MN, above-right, as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label F is at the right-edge point, as in the original."
+          "note": "F is labelled to the right of the point on DC, as in the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label M is above the top edge at the MN endpoint, as in the original."
+          "note": "M is labelled above the top edge on MN, as in the original."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "Label A is at the top-left vertex, as in the original."
+          "note": "A is labelled at the top-left corner."
         },
         {
           "object_id": "point_07",
           "status": "present",
-          "note": "Label D is at the top-right vertex, as in the original."
+          "note": "D is labelled at the top-right corner."
         },
         {
           "object_id": "point_08",
           "status": "present",
-          "note": "Label N is below the bottom edge at the MN/FN endpoint, as in the original."
+          "note": "N is labelled below BC, as in the original."
         },
         {
           "object_id": "point_09",
           "status": "present",
-          "note": "Label E is below the bottom edge at the AE endpoint, as in the original."
+          "note": "E is labelled below BC, as in the original."
         },
         {
           "object_id": "point_10",
           "status": "present",
-          "note": "Label C is at the bottom-right vertex, as in the original."
+          "note": "C is labelled at the bottom-right corner."
         }
       ],
       "checklist_score": 1.0,
@@ -1886,14 +2282,11 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Rectangle ABCD with correct vertex placement and aspect ratio",
-        "AE runs from A to E on BC",
-        "MN runs from M on AD to N on BC",
-        "BF runs from B through O to F",
-        "FN runs from F to N",
-        "O is at the BF/MN crossing; the source coordinates confirm this",
-        "Right-angle mark sits at the AE/BF intersection",
-        "All nine labels (A, B, C, D, E, F, M, N, O) are present, correctly spelled, and clear of strokes"
+        "Rectangle ABCD with correct corners and proportions.",
+        "Segments AE and MN are parallel and end at the correct points on BC and the top edge.",
+        "BF passes through O, and FN is drawn.",
+        "The right-angle mark at the foot on BF is in the correct quadrant.",
+        "All point labels A, B, C, D, E, F, M, N, O are present with correct placement and no collisions."
       ],
       "labels": {
         "present": [
@@ -1912,22 +2305,162 @@
       },
       "version": 1,
       "binding_decisions": [],
-      "topology_decisions": [
+      "topology_decisions": [],
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.95,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Render is faithful: rectangle, interior segments, endpoints, labels and right-angle mark match the original.",
+      "figure_type": {
+        "original": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing.",
+        "render": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing."
+      },
+      "issues": [],
+      "checks": [
         {
-          "case_id": "4bfdc4d1427d1e2e",
-          "edge": [
-            "M",
-            "N"
-          ],
-          "reason": "In the original, the solid stroke runs from M on the top edge to N on the bottom edge, passing through O."
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Diagonal B–F drawn from B to F as in the original."
         },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Top edge AD drawn, with M on it."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Bottom edge BC drawn, with E and N on it."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Segment MN drawn from M on the top edge to N on the bottom edge."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Segment AE drawn from A to E, both ends matching the original."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Left edge AB drawn."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Right edge DC drawn, with F on it."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "Segment FN drawn from F to N as in the original."
+        },
+        {
+          "object_id": "seg_09",
+          "status": "unclear",
+          "note": "Short CV fragment lying on BF near point_03; the original shows no separate stroke there, so it appears to be a detection artifact of BF rather than a distinct element."
+        },
+        {
+          "object_id": "ra_01",
+          "status": "present",
+          "note": "Right-angle mark at the AE/BF foot is drawn on the same side as the original."
+        },
+        {
+          "object_id": "right_angle_01",
+          "status": "present",
+          "note": "Same right-angle mark as ra_01; present in both panels."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "B labelled at the bottom-left vertex, below-left as in the original."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "O labelled at the MN/BF crossing, above-right as in the original."
+        },
+        {
+          "object_id": "point_04",
+          "status": "present",
+          "note": "F labelled on the right edge, right of the vertex, as in the original."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "M labelled above the top edge at the MN endpoint."
+        },
+        {
+          "object_id": "point_06",
+          "status": "present",
+          "note": "A labelled above-left of the top-left vertex."
+        },
+        {
+          "object_id": "point_07",
+          "status": "present",
+          "note": "D labelled above-right of the top-right vertex."
+        },
+        {
+          "object_id": "point_08",
+          "status": "present",
+          "note": "N labelled below the bottom-edge endpoint of MN and FN."
+        },
+        {
+          "object_id": "point_09",
+          "status": "present",
+          "note": "E labelled below the bottom-edge endpoint of AE."
+        },
+        {
+          "object_id": "point_10",
+          "status": "present",
+          "note": "C labelled below-right of the bottom-right vertex."
+        }
+      ],
+      "checklist_score": 1.0,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": false,
+      "matches": [
+        "Rectangle proportions and aspect ratio match the original.",
+        "E and N sit at the same relative positions along BC (about 0.37 and 0.62 of its length).",
+        "F sits at the same height on DC.",
+        "M sits at the same relative position on AD.",
+        "Segments AE, MN, BF and FN have the same endpoints and crossings as in the original.",
+        "The right-angle mark is at the AE/BF foot on the same side as in the original.",
+        "All nine labels are present, correctly spelled and placed clear of strokes."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "M",
+          "D",
+          "F",
+          "O",
+          "C",
+          "B",
+          "E",
+          "N"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 2,
+      "binding_decisions": [],
+      "topology_decisions": [
         {
           "case_id": "3c601fd8894a0c4f",
           "edge": [
             "A",
             "E"
           ],
-          "reason": "In the original, the solid stroke runs from corner A to E on the bottom edge, with the right-angle mark on it where it crosses BF."
+          "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
         }
       ],
       "raw_meta": "{}"
@@ -1935,8 +2468,20 @@
   ],
   "unresolved_issues": [
     {
+      "source": "geometry_agent",
+      "issue": "point_11 (172.86,275.47) and point_03 are near each other; point_11 treated as noise, not a vertex."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "Whether BF extends beyond F or B is not ambiguous; treated as B to F."
+    },
+    {
       "source": "supervisor",
-      "issue": "Stroke weight is lighter than the original (low severity, cosmetic; suggested 1.3pt line width, not applied)."
+      "issue": "point_11 (172.9,275.5) treated as noise and omitted, per the Geometry Agent."
+    },
+    {
+      "source": "supervisor",
+      "issue": "Whether BF extends beyond F or B was not verified; drawn as B to F."
     }
   ],
   "action_history": [
@@ -1965,69 +2510,103 @@
       "error": null
     },
     {
+      "step": 0,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "initial source evidence",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; count=1",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 2, 'relations': 3, 'conflicts': 0, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
       "step": 1,
-      "action": "inspect_image",
-      "purpose": "Describe the figure's structure: which labelled points are connected by which drawn segments (e.g., rectangle corners, lines from A to E, M to N, B to F, F to N), where the intersection O is, and whet",
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 1,
+      "action": "run_code_agent",
+      "purpose": "Build TikZ from the measured geometry. Use a rectangle A(68,65)-D(446,65)-C(446,349)-B(68,349) with image y flipped to TikZ y. Solid edges: AD, DC, CB, BA. Points on the boundary: M on AD at (163,65),",
       "params": {
-        "region": null,
-        "question": "Describe the figure's structure: which labelled points are connected by which drawn segments (e.g., rectangle corners, lines from A to E, M to N, B to F, F to N), where the intersection O is, and whether there are any unlabeled points or short segments near O (around x 165-200, y 260-295). Are there any dashed lines?"
+        "mode": "generate",
+        "use_image": null,
+        "instruction": "Build TikZ from the measured geometry. Use a rectangle A(68,65)-D(446,65)-C(446,349)-B(68,349) with image y flipped to TikZ y. Solid edges: AD, DC, CB, BA. Points on the boundary: M on AD at (163,65), E on BC at (209.5,349), N on BC at (304.4,349), F on DC at (446.7,159.2). Solid segments: A--E (through point_03 at (181.2,292.1)), M--N, F--N, F--B (BF passes through point_03 and is perpendicular to AE; draw a right-angle square mark at point_03 with arms along AE and BF). O is point_02 at (257.1,254) lying on MN; label O there. Keep point_11 (172.9,275.5) out as noise. Label every visible letter A, B, C, D, E, F, M, N, O at its binding point, placed outside the boundary as appropriate. Use named endpoint pairs for every edge."
       },
       "status": "ok",
-      "result_summary": "ok=True",
-      "duration_s": 0.01,
+      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 37.24,
       "token_usage": {
-        "delta": 0
+        "delta": 21123
       },
+      "visual_calls": 2,
+      "error": null
+    },
+    {
+      "step": 2,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.95",
+      "duration_s": 0.0,
+      "token_usage": {},
       "visual_calls": 0,
       "error": null
     },
     {
       "step": 2,
       "action": "run_code_agent",
-      "purpose": "Draw the figure as TikZ using these measured pixel coordinates (origin top-left, y down; flip y for TikZ, e.g. y_tikz = -y_px, scale ~1/100 or similar). Points: A(68,65), M(163,65), D(446,65), B(68,34",
+      "purpose": "Topology check reports missing solid edges A-M and D-F. Draw the top boundary as an explicit named path A--M--D (M lies on AD at (163,65)) and the right boundary as explicit path D--F--C (F lies on DC",
       "params": {
-        "mode": "generate",
+        "mode": "repair",
         "use_image": null,
-        "instruction": "Draw the figure as TikZ using these measured pixel coordinates (origin top-left, y down; flip y for TikZ, e.g. y_tikz = -y_px, scale ~1/100 or similar). Points: A(68,65), M(163,65), D(446,65), B(68,349), E(209.5,349), N(304.4,349), C(446,349), F(446.7,159.2), O(257.1,253.9) (O lies on BF and MN). Edges (all solid, black, thick-ish): rectangle A-D, D-C, C-B, B-A (use named points); segment A-E; segment M-N; segment B-F passing through O (B to F as one named path); segment F-N; segment A-B is the left side. Draw a small right-angle square mark at the foot of the perpendicular where line AE meets line BF (near pixel (185,275)), with the two arms along AE and BF. Labels: A top-left, M above-ish top of segment, D top-right, F right of F, O above-right of O, B bottom-left, E below E, N below N, C bottom-right. Do not draw any dashed lines. Use named coordinates defined once and reuse them so shared vertices are identical."
+        "instruction": "Topology check reports missing solid edges A-M and D-F. Draw the top boundary as an explicit named path A--M--D (M lies on AD at (163,65)) and the right boundary as explicit path D--F--C (F lies on DC at (446.7,159.2)). Keep the rectangle edges as solid named paths: A--M, M--D, D--F, F--C, C--B, B--A. Also use line width about 1.3pt to match the original stroke weight. Keep all other elements unchanged."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 40.65,
+      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
+      "duration_s": 29.64,
       "token_usage": {
-        "delta": 20778
-      },
-      "visual_calls": 2,
-      "error": null
-    },
-    {
-      "step": 3,
-      "action": "run_critic",
-      "purpose": "Compare topology: segments AE, MN, BF through O, FN, rectangle, right-angle mark at AE/BF intersection, label placements.",
-      "params": {
-        "focus": "Compare topology: segments AE, MN, BF through O, FN, rectangle, right-angle mark at AE/BF intersection, label placements."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.92; issues=1",
-      "duration_s": 20.29,
-      "token_usage": {
-        "delta": 11667
+        "delta": 21490
       },
       "visual_calls": 1,
       "error": null
     },
     {
-      "step": 4,
+      "step": 3,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Compiled TikZ (version 1) reconstructs the figure: rectangle ABCD, segments AE, MN, BF through O, FN, right-angle mark at the AE/BF intersection, and all nine labels (A, B, C, D, E, F, M, N, O). Critic score 0.92, topology check passed, must_repair false.",
+        "summary": "TikZ version 2 compiles, passes topology check (no missing edges), and received a critic score of 0.95 with no must-repair issues. It draws rectangle ABCD with M on AD, F on DC, E and N on BC, segments AE, MN, BF, FN, a right-angle mark at the foot of the perpendicular on AE, and labels A–F, M, N, O. Line width is 1.3pt.",
         "unresolved": [
-          "Stroke weight is lighter than the original (low severity, cosmetic; suggested 1.3pt line width, not applied)."
+          "point_11 (172.9,275.5) treated as noise and omitted, per the Geometry Agent.",
+          "Whether BF extends beyond F or B was not verified; drawn as B to F."
         ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=1; status=success",
+      "result_summary": "ok=True; best_version=2; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -2058,51 +2637,74 @@
       "count": null,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "initial source evidence",
+      "ok": true,
+      "count": 1,
+      "visualization": null,
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 7,
-      "visual_calls": 6,
-      "prompt_tokens": 58017,
-      "completion_tokens": 13264,
-      "total_tokens": 71281,
-      "cached_tokens": 32722.0,
-      "cache_write_tokens": 25273.0,
-      "latency_s": 87.72
+      "calls": 8,
+      "visual_calls": 4,
+      "prompt_tokens": 68540,
+      "completion_tokens": 14878,
+      "total_tokens": 83418,
+      "cached_tokens": 18810.0,
+      "cache_write_tokens": 16392.0,
+      "latency_s": 88.87
     },
     "by_agent": {
-      "supervisor": {
-        "calls": 4,
-        "visual_calls": 3,
-        "total_tokens": 38836,
-        "latency_s": 29.76
-      },
-      "code_agent:generate": {
-        "calls": 2,
-        "visual_calls": 2,
-        "total_tokens": 20778,
-        "latency_s": 37.92
-      },
-      "critic_agent": {
+      "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 11667,
-        "latency_s": 20.04
+        "total_tokens": 10141,
+        "latency_s": 14.24
+      },
+      "supervisor": {
+        "calls": 3,
+        "visual_calls": 0,
+        "total_tokens": 30664,
+        "latency_s": 16.18
+      },
+      "code_agent:generate": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 10654,
+        "latency_s": 17.84
+      },
+      "critic_agent": {
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 21888,
+        "latency_s": 33.26
+      },
+      "code_agent:repair": {
+        "calls": 1,
+        "visual_calls": 0,
+        "total_tokens": 10071,
+        "latency_s": 7.34
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 20,
-    "tool_calls_left": 44,
-    "visual_calls_left": 18,
-    "tokens_left": 328719,
+    "steps_left": 21,
+    "tool_calls_left": 40,
+    "visual_calls_left": 20,
+    "tokens_left": 316582,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 71281
+    "total_tokens_used": 83418
   },
   "meta": {
     "topology_plan": {
@@ -2120,6 +2722,10 @@
           "E"
         ],
         [
+          "A",
+          "M"
+        ],
+        [
           "B",
           "C"
         ],
@@ -2130,6 +2736,10 @@
         [
           "C",
           "D"
+        ],
+        [
+          "D",
+          "F"
         ],
         [
           "F",
@@ -2143,22 +2753,149 @@
       "pending": [],
       "adjudicated": [
         {
-          "case_id": "4bfdc4d1427d1e2e",
-          "edge": [
-            "M",
-            "N"
-          ],
-          "reason": "In the original, the solid stroke runs from M on the top edge to N on the bottom edge, passing through O."
-        },
-        {
           "case_id": "3c601fd8894a0c4f",
           "edge": [
             "A",
             "E"
           ],
-          "reason": "In the original, the solid stroke runs from corner A to E on the bottom edge, with the right-angle mark on it where it crosses BF."
+          "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
         }
-      ]
+      ],
+      "ink_confirmed_edges": [
+        [
+          "M",
+          "N"
+        ]
+      ],
+      "required_styles": [
+        {
+          "edge": [
+            "M",
+            "N"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "F"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "F",
+            "N"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "M"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "F"
+          ],
+          "style": "solid"
+        }
+      ],
+      "required_marks": {}
+    },
+    "source_construction": {
+      "summary": "Rectangle ABCD: A(68,65), D(446,65), C(446,349), B(68,349) with solid sides. M on AD (point_05), E on BC (point_09), N on BC (point_08), F on DC (point_04). Solid line AE runs A to E. Solid line MN runs M to N and crosses BF at O (point_02). Solid line BF runs from B through O and the unlabeled crossing point_03 to F. Solid segment FN runs F to N. All strokes are solid; no dashed strokes found. Junction point_03 = AE ∩ BF, unlabeled interior point, and BF is perpendicular to AE there. Right-angle square at point_03 lies between ray toward F and ray toward A. Foot of perpendicular from B onto AE is point_03.",
+      "strokes": [
+        {
+          "edge": [
+            "A",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "M",
+            "N"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "F"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "F",
+            "N"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "M"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "F"
+          ],
+          "style": "solid"
+        }
+      ],
+      "marks": {},
+      "feet": []
     },
     "coordinate_contract": {
       "enabled": true,
@@ -2270,119 +3007,19 @@
       }
     },
     "constraint_repair": {
-      "ok": true,
+      "ok": false,
       "enabled": true,
-      "applied": true,
+      "applied": false,
       "stage": "post_tikz",
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "cb0ea94d353fbf8f3af08603d2ea5ab7aa850c1c73b6424bbc92c1377fa76750",
-      "output_sha256": "df15345f2eef44e59386fc39d772e8063e89afa45628000396177b24099f20e1",
-      "reason": "applied",
-      "accepted": [
-        {
-          "type": "perpendicular",
-          "segments": [
-            "A--B",
-            "A--D"
-          ],
-          "before_error_deg": 0.0,
-          "after_error_deg": 0.005574045210295253,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.02754420929319377
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "A--B",
-            "B--C"
-          ],
-          "before_error_deg": 0.0,
-          "after_error_deg": 0.005574045210295253,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.02754420929319377
-        },
-        {
-          "type": "parallel",
-          "segments": [
-            "A--B",
-            "C--D"
-          ],
-          "before_error_deg": 0.0,
-          "after_error_deg": 4.944927133835851e-15,
-          "solver_after_error_deg": 4.941230884110787e-15,
-          "export_tolerance_deg": 0.031485982715986814
-        },
-        {
-          "type": "parallel",
-          "segments": [
-            "A--D",
-            "B--C"
-          ],
-          "before_error_deg": 0.0,
-          "after_error_deg": 3.70650101974763e-15,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.023602435870400736
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "A--D",
-            "C--D"
-          ],
-          "before_error_deg": 0.0,
-          "after_error_deg": 0.005574045210295253,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.02754420929319377
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "B--C",
-            "C--D"
-          ],
-          "before_error_deg": 0.0,
-          "after_error_deg": 0.005574045210295253,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.02754420929319377
-        },
-        {
-          "type": "parallel",
-          "segments": [
-            "A--E",
-            "M--N"
-          ],
-          "before_error_deg": 0.022297435452793196,
-          "after_error_deg": 0.004452578442468518,
-          "solver_after_error_deg": 3.0725763691799434e-15,
-          "export_tolerance_deg": 0.0281575000319946
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "A--E",
-            "B--F"
-          ],
-          "before_error_deg": 0.13347879408871677,
-          "after_error_deg": 0.004452578442467825,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.024632425263234076
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "B--F",
-            "M--N"
-          ],
-          "before_error_deg": 0.15577622954150172,
-          "after_error_deg": 0.0,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.024632425263234083
-        }
-      ],
+      "input_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
+      "output_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
+      "reason": "unsupported_or_failed",
+      "accepted": [],
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
@@ -2400,31 +3037,7 @@
         ],
         "relaxation": 1.0
       },
-      "angle_glyph_exclusion": {
-        "excluded_paths": [],
-        "excluded_helper_points": [],
-        "excluded_strokes": 0
-      },
-      "input_candidates": 9,
-      "preserved_incidence_count": 6,
-      "max_shift_rel": 0.001001761372474162,
-      "max_length_change_rel": 0.0029741342347596733,
-      "fixed_points": [],
-      "length_weight": 0.01,
-      "length_scope": "all_pairs",
-      "incidence_mode": "snap",
-      "topology_tol_rel": 0.003,
-      "incidence_strength": 1.0,
-      "rms_shift_rel": 0.0006606858655776628,
-      "max_after_error_deg": 0.005574045210295253,
-      "curve_policy": "defer",
-      "candidate_count": 9,
-      "solver_max_shift_rel": 0.0010604782412074914,
-      "coordinate_decimals": 3,
-      "export_verified": true,
-      "max_export_error_deg": 0.005574045210295253,
-      "point_count": 9,
-      "segment_count": 8
+      "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
     },
     "rectification": {
       "applied": false,
@@ -2539,123 +3152,132 @@
           "reference_used": false,
           "coordinate_decimals": 3
         }
+      },
+      "2": {
+        "enabled": true,
+        "schema": "cv-coordinate-contract.v1",
+        "n_points": 8,
+        "reference_used": false,
+        "coordinates": {
+          "schema": "cv-coordinate-contract.v1",
+          "scale": 0.018141,
+          "origin_px": [
+            258.5,
+            207.5
+          ],
+          "points": {
+            "A": {
+              "point_id": "point_06",
+              "px": [
+                68.0,
+                65.0
+              ],
+              "tikz": [
+                -3.456,
+                2.585
+              ]
+            },
+            "B": {
+              "point_id": "point_01",
+              "px": [
+                68.0,
+                349.0
+              ],
+              "tikz": [
+                -3.456,
+                -2.567
+              ]
+            },
+            "C": {
+              "point_id": "point_10",
+              "px": [
+                446.0,
+                349.0
+              ],
+              "tikz": [
+                3.401,
+                -2.567
+              ]
+            },
+            "D": {
+              "point_id": "point_07",
+              "px": [
+                446.0,
+                65.0
+              ],
+              "tikz": [
+                3.401,
+                2.585
+              ]
+            },
+            "F": {
+              "point_id": "point_04",
+              "px": [
+                446.67,
+                159.22
+              ],
+              "tikz": [
+                3.414,
+                0.876
+              ]
+            },
+            "M": {
+              "point_id": "point_05",
+              "px": [
+                163.01,
+                65.0
+              ],
+              "tikz": [
+                -1.732,
+                2.585
+              ]
+            },
+            "N": {
+              "point_id": "point_08",
+              "px": [
+                304.38,
+                348.93
+              ],
+              "tikz": [
+                0.832,
+                -2.566
+              ]
+            },
+            "O": {
+              "point_id": "point_02",
+              "px": [
+                257.14,
+                253.93
+              ],
+              "tikz": [
+                -0.025,
+                -0.842
+              ]
+            }
+          },
+          "skipped": {
+            "E": "missing_or_ambiguous_cv_binding"
+          },
+          "reference_used": false,
+          "coordinate_decimals": 3
+        }
       }
     },
     "tikz_constraint_repairs": {
       "1": {
-        "ok": true,
+        "ok": false,
         "enabled": true,
-        "applied": true,
+        "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "cb0ea94d353fbf8f3af08603d2ea5ab7aa850c1c73b6424bbc92c1377fa76750",
-        "output_sha256": "df15345f2eef44e59386fc39d772e8063e89afa45628000396177b24099f20e1",
-        "reason": "applied",
-        "accepted": [
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--B",
-              "A--D"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.005574045210295253,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.02754420929319377
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--B",
-              "B--C"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.005574045210295253,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.02754420929319377
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--B",
-              "C--D"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 4.944927133835851e-15,
-            "solver_after_error_deg": 4.941230884110787e-15,
-            "export_tolerance_deg": 0.031485982715986814
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--D",
-              "B--C"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 3.70650101974763e-15,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.023602435870400736
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--D",
-              "C--D"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.005574045210295253,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.02754420929319377
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "C--D"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.005574045210295253,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.02754420929319377
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--E",
-              "M--N"
-            ],
-            "before_error_deg": 0.022297435452793196,
-            "after_error_deg": 0.004452578442468518,
-            "solver_after_error_deg": 3.0725763691799434e-15,
-            "export_tolerance_deg": 0.0281575000319946
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--E",
-              "B--F"
-            ],
-            "before_error_deg": 0.13347879408871677,
-            "after_error_deg": 0.004452578442467825,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.024632425263234076
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--F",
-              "M--N"
-            ],
-            "before_error_deg": 0.15577622954150172,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.024632425263234083
-          }
-        ],
+        "input_sha256": "0a86320ff7cb9c5aa990c83a7c3ba1f22d8425f260a0e37d6dfe161c694a3761",
+        "output_sha256": "0a86320ff7cb9c5aa990c83a7c3ba1f22d8425f260a0e37d6dfe161c694a3761",
+        "reason": "unsupported_or_failed",
+        "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
@@ -2673,51 +3295,53 @@
           ],
           "relaxation": 1.0
         },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
+        "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
+      },
+      "2": {
+        "ok": false,
+        "enabled": true,
+        "applied": false,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
+        "output_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
+        "reason": "unsupported_or_failed",
+        "accepted": [],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
+          ],
+          "relaxation": 1.0
         },
-        "input_candidates": 9,
-        "preserved_incidence_count": 6,
-        "max_shift_rel": 0.001001761372474162,
-        "max_length_change_rel": 0.0029741342347596733,
-        "fixed_points": [],
-        "length_weight": 0.01,
-        "length_scope": "all_pairs",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.003,
-        "incidence_strength": 1.0,
-        "rms_shift_rel": 0.0006606858655776628,
-        "max_after_error_deg": 0.005574045210295253,
-        "curve_policy": "defer",
-        "candidate_count": 9,
-        "solver_max_shift_rel": 0.0010604782412074914,
-        "coordinate_decimals": 3,
-        "export_verified": true,
-        "max_export_error_deg": 0.005574045210295253,
-        "point_count": 9,
-        "segment_count": 8
+        "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
       }
     },
     "topology_decisions": {
-      "4bfdc4d1427d1e2e": {
-        "edge": [
-          "M",
-          "N"
-        ],
-        "reason": "In the original, the solid stroke runs from M on the top edge to N on the bottom edge, passing through O."
-      },
       "3c601fd8894a0c4f": {
         "edge": [
           "A",
           "E"
         ],
-        "reason": "In the original, the solid stroke runs from corner A to E on the bottom edge, with the right-angle mark on it where it crosses BF."
+        "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
       }
     },
     "finish": {
-      "summary": "Compiled TikZ (version 1) reconstructs the figure: rectangle ABCD, segments AE, MN, BF through O, FN, right-angle mark at the AE/BF intersection, and all nine labels (A, B, C, D, E, F, M, N, O). Critic score 0.92, topology check passed, must_repair false.",
+      "summary": "TikZ version 2 compiles, passes topology check (no missing edges), and received a critic score of 0.95 with no must-repair issues. It draws rectangle ABCD with M on AD, F on DC, E and N on BC, segments AE, MN, BF, FN, a right-angle mark at the foot of the perpendicular on AE, and labels A–F, M, N, O. Line width is 1.3pt.",
       "status": "success"
     },
     "stop_reason": "finish"

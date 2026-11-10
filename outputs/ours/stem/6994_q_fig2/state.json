@@ -751,43 +751,24 @@
         "ambiguous": false
       }
     },
-    "circle_01": {
-      "id": "circle_01",
-      "type": "circle",
-      "label": null,
+    "point_O": {
+      "id": "point_O",
+      "type": "point",
+      "label": "O",
       "coords": {
-        "center_px": [
-          223.1,
-          222.32
-        ],
-        "radius_px": 157.29,
-        "visible_ranges_deg": [
-          [
-            0.0,
-            360.0
-          ]
-        ],
-        "visible_span_deg": 360.0
+        "px": [
+          223.03,
+          222.19
+        ]
       },
-      "normalized": {
-        "center": [
-          0.5402,
-          0.4985
-        ],
-        "radius": 0.3527
-      },
+      "normalized": {},
       "style": {},
-      "source": "cv:detect_circles",
-      "status": "candidate",
-      "confidence_kind": "heuristic",
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
       "confidence": null,
-      "notes": [
-        "skeleton RANSAC + Kasa refit"
-      ],
-      "attributes": {
-        "ink_coverage": 1.0,
-        "angle_frame": "image pixel frame (x right, y down); flip y for TikZ"
-      }
+      "notes": [],
+      "attributes": {}
     },
     "point_M": {
       "id": "point_M",
@@ -808,37 +789,63 @@
       "notes": [],
       "attributes": {}
     },
-    "point_08_old": {
-      "id": "point_08_old",
+    "point_D": {
+      "id": "point_D",
       "type": "point",
-      "label": "M",
+      "label": "D",
       "coords": {
         "px": [
-          102.56,
-          121.28
+          223.0,
+          324.0
         ]
       },
       "normalized": {},
       "style": {},
       "source": "geometry_agent",
-      "status": "rejected",
+      "status": "confirmed",
       "confidence_kind": "heuristic-evidence (not a calibrated probability)",
       "confidence": null,
       "notes": [],
       "attributes": {}
     },
-    "int_AE_OC": {
-      "id": "int_AE_OC",
-      "type": "point",
+    "circle_01": {
+      "id": "circle_01",
+      "type": "circle",
       "label": null,
       "coords": {
-        "px": [
-          145.7,
-          157.2
-        ]
+        "center_px": [
+          223.03,
+          222.19
+        ],
+        "radius_px": 157.3
       },
       "normalized": {},
       "style": {},
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_AB": {
+      "id": "seg_AB",
+      "type": "segment",
+      "label": "AB",
+      "coords": {
+        "a_px": [
+          223.1,
+          64.98
+        ],
+        "b_px": [
+          223.0,
+          379.61
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
       "source": "geometry_agent",
       "status": "candidate",
       "confidence_kind": "heuristic-evidence (not a calibrated probability)",
@@ -853,11 +860,11 @@
       "coords": {
         "a_px": [
           223.1,
-          65.0
+          64.98
         ],
         "b_px": [
-          68.2,
-          249.5
+          68.18,
+          249.54
         ]
       },
       "normalized": {},
@@ -871,18 +878,68 @@
       "notes": [],
       "attributes": {}
     },
-    "seg_MO_dashed": {
-      "id": "seg_MO_dashed",
+    "seg_AC": {
+      "id": "seg_AC",
       "type": "segment",
-      "label": "MO",
+      "label": "AC",
+      "coords": {
+        "a_px": [
+          223.1,
+          64.98
+        ],
+        "b_px": [
+          343.59,
+          323.7
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_DC": {
+      "id": "seg_DC",
+      "type": "segment",
+      "label": "DC",
+      "coords": {
+        "a_px": [
+          223.0,
+          324.0
+        ],
+        "b_px": [
+          343.59,
+          323.7
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_MC": {
+      "id": "seg_MC",
+      "type": "segment",
+      "label": "MC",
       "coords": {
         "a_px": [
           145.63,
           157.35
         ],
         "b_px": [
-          223.03,
-          222.19
+          343.59,
+          323.7
         ]
       },
       "normalized": {},
@@ -912,8 +969,8 @@
       "subject": "label_M",
       "relation": "labels_point",
       "object": "point_05",
-      "source": "critic_agent",
-      "evidence": "In the original, the dashed line begins where it meets segment AE, and the M label sits just above-left of that crossing. point_05 (≈145.6,157.4) is that crossing. point_08 lies on the circle, not at the crossing.",
+      "source": "geometry_agent",
+      "evidence": "Printed M sits above-left of the junction where dashed MC meets solid chord AE at the midpoint of AE; point_08 is only the glyph centre, not geometry.",
       "status": "confirmed"
     },
     "rel_label_O": {
@@ -964,46 +1021,55 @@
     "rel_008": {
       "id": "rel_008",
       "subject": "point_M",
-      "relation": "on_segment",
+      "relation": "midpoint",
       "object": "seg_AE",
       "source": "geometry_agent",
-      "evidence": "distance about 0.07 px along the A-E parameter",
+      "evidence": "point_05 equals midpoint of A and E within a pixel",
       "status": "candidate"
     },
     "rel_009": {
       "id": "rel_009",
-      "subject": "point_M",
-      "relation": "collinear",
-      "object": "seg_MO_dashed",
+      "subject": "seg_OM",
+      "relation": "perpendicular",
+      "object": "seg_AE",
       "source": "geometry_agent",
-      "evidence": "point_05 lies on dashed seg_05 and on line O-C, about 0.6 px off O-C",
+      "evidence": "dashed slope about 0.84 times chord slope about -1.19 equals -1",
       "status": "candidate"
     },
     "rel_010": {
       "id": "rel_010",
-      "subject": "point_M",
-      "relation": "endpoint_of",
-      "object": "seg_MO_dashed",
+      "subject": "point_O",
+      "relation": "collinear",
+      "object": "seg_MC",
       "source": "geometry_agent",
-      "evidence": "dashed M-O edge should start at point_05",
+      "evidence": "M, O, C collinear within a pixel",
       "status": "candidate"
     },
     "rel_011": {
       "id": "rel_011",
       "subject": "point_O",
-      "relation": "endpoint_of",
-      "object": "seg_MO_dashed",
+      "relation": "on_segment",
+      "object": "seg_AB",
       "source": "geometry_agent",
-      "evidence": "seg_05 passes through O within about 0.1 px",
+      "evidence": "O lies on vertical AB",
       "status": "candidate"
     },
     "rel_012": {
       "id": "rel_012",
-      "subject": "point_08_old",
-      "relation": "on_circle",
-      "object": "circle_01",
+      "subject": "point_D",
+      "relation": "on_segment",
+      "object": "seg_AB",
       "source": "geometry_agent",
-      "evidence": "distance to center about 157.3 vs radius 157.29",
+      "evidence": "D lies on AB",
+      "status": "candidate"
+    },
+    "rel_013": {
+      "id": "rel_013",
+      "subject": "point_D",
+      "relation": "perpendicular",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "DC horizontal and AB vertical",
       "status": "candidate"
     }
   },
@@ -1019,7 +1085,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:22:28"
+      "created_at": "2026-11-09T23:05:41"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -1032,23 +1098,68 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:22:57"
+      "created_at": "2026-11-09T23:05:58"
     },
     "ev_0003": {
       "id": "ev_0003",
       "source": "cv_tool",
-      "method": "detect_circles",
-      "summary": "detect_circles produced 1 result(s)",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
       "payload": {
         "params": {
-          "max_circles": 3
+          "visualize": false
         },
-        "tool": "detect_circles"
+        "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T11:23:06"
+      "created_at": "2026-11-09T23:06:02"
     },
     "ev_0004": {
       "id": "ev_0004",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Circle center O (223.03,222.19), radius about 157.3 px, through A, B, E, C. Chord AB is one solid vertical line through O and D (A top, B bottom, D interior foot). Chord AE is solid; its midpoint is the unlabeled junction point_05 (145.63,157.35), which carries the printed M. Dashed line runs M-O-C (point_05 to O to C). DC is a solid horizontal from D to C, so CD is perpendicular to AB at D. Solid chord AC. No right-angle square marker was verified by CV in this pass.",
+      "payload": {
+        "merged": {
+          "objects": 9,
+          "relations": 6,
+          "conflicts": 1,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_O",
+          "point_M",
+          "point_D",
+          "circle_01",
+          "seg_AB",
+          "seg_AE",
+          "seg_AC",
+          "seg_DC",
+          "seg_MC"
+        ]
+      },
+      "created_at": "2026-11-09T23:06:28"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
+      "source": "geometry_agent",
+      "method": "measured_label_rebinding",
+      "summary": "Corrected 1 source label bindings",
+      "payload": {
+        "M": {
+          "point_id": "point_05",
+          "px": [
+            145.63,
+            157.35
+          ],
+          "previous_point_id": "point_08",
+          "reason": "Printed M sits above-left of the junction where dashed MC meets solid chord AE at the midpoint of AE; point_08 is only the glyph centre, not geometry.",
+          "source": "geometry_agent"
+        }
+      },
+      "created_at": "2026-11-09T23:06:28"
+    },
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v1 canvas matched to source [413, 446] (scale 0.5979)",
@@ -1068,10 +1179,10 @@
           31
         ]
       },
-      "created_at": "2026-11-09T11:23:34"
+      "created_at": "2026-11-09T23:06:56"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: no_candidates",
@@ -1085,8 +1196,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "76a7b816cc0721eabdae0fb2091fa623f332b0cadccea4b8930dbb4e990dfab0",
-        "output_sha256": "76a7b816cc0721eabdae0fb2091fa623f332b0cadccea4b8930dbb4e990dfab0",
+        "input_sha256": "d2a2592daea2d5fcdf7e9f9671056457293cf1ddd3974aea23c8ac0ed4dadd2d",
+        "output_sha256": "d2a2592daea2d5fcdf7e9f9671056457293cf1ddd3974aea23c8ac0ed4dadd2d",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
@@ -1111,7 +1222,7 @@
           "excluded_strokes": 0
         },
         "input_candidates": 0,
-        "preserved_incidence_count": 2,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
@@ -1119,7 +1230,6 @@
           "B",
           "C",
           "E",
-          "M",
           "O"
         ],
         "length_weight": 0.0,
@@ -1134,7 +1244,6 @@
             "B",
             "C",
             "E",
-            "M",
             "O"
           ],
           "dependencies": [
@@ -1167,22 +1276,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T11:23:34"
+      "created_at": "2026-11-09T23:06:56"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used PROGRAM-OWNED coordinates by name (not redefined). Only E was defined here, converted with the same frame (s=0.021448, origin offset x=206.45px, y=223.0px): E=(-2.966,-0.569); checked it lies on the circle (r=3.372 vs 3.374). Required edges A--B and A--C drawn by name; also A--E, D--C solid; M--O--C dashed (collinear within tolerance). Circle drawn at O with r=3.374. Line width 1.7pt, round joins; labels at 17.5/21pt. No right-angle mark added (none verified). Placeholder comment marks where the program inserts the coordinate block, so the standalone file will not compile on its own until that insertion occurs.",
+        "notes": "Used program-owned coordinates A,B,C,D,M,O by name without redefining them; defined E in the same frame from its measured pixel position. Circle drawn as full solid circle at O with radius 3.374 cm (157.3 px * 0.021448). Diameter AB split at O and D using named edges; dashed M-O-C line. No right-angle square at D because CV did not verify one. Line width 1.7pt and 18pt labels per STYLE METRICS.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1212,17 +1321,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0544"
+              "detail": "ink_ratio=0.054"
             },
             {
               "name": "aspect_ratio",
@@ -1237,44 +1346,26 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:23:34"
+      "created_at": "2026-11-09T23:06:56"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "critic_agent",
       "method": "endpoint_review",
-      "summary": "Reviewed 4 CV endpoint case(s)",
+      "summary": "Reviewed 1 CV endpoint case(s)",
       "payload": {
         "5fb0dd5967792acb": {
           "edge": [
             "A",
             "E"
           ],
-          "reason": "The solid stroke runs continuously from A to E in the original."
-        },
-        "53a8dccf00498061": {
-          "edge": [
-            "C",
-            "O"
-          ],
-          "reason": "The dashed stroke runs continuously through O to C in the original."
-        },
-        "94553f7a57f31314": {
-          "edge": null,
-          "reason": "The original dashed stroke starts at the A-E crossing, not at the M point on the circle, so M-O is not a faithful edge. Its endpoint is a true extension in the render."
-        },
-        "5950e1c423469c29": {
-          "edge": [
-            "C",
-            "D"
-          ],
-          "reason": "The horizontal solid stroke runs from D to C in the original."
+          "reason": "In the original, a single solid stroke runs from A through M to E, so the A–E edge is confirmed."
         }
       },
-      "created_at": "2026-11-09T11:24:16"
+      "created_at": "2026-11-09T23:07:12"
     },
-    "ev_0008": {
-      "id": "ev_0008",
+    "ev_0010": {
+      "id": "ev_0010",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v2 canvas matched to source [413, 446] (scale 0.5979)",
@@ -1294,10 +1385,10 @@
           31
         ]
       },
-      "created_at": "2026-11-09T11:25:55"
+      "created_at": "2026-11-09T23:07:26"
     },
-    "ev_0009": {
-      "id": "ev_0009",
+    "ev_0011": {
+      "id": "ev_0011",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v2: no_candidates",
@@ -1311,8 +1402,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "d9d183c3b515cf7782b7b5e44f476b56d1d507c653508b7dcabcb2f4b56fb02d",
-        "output_sha256": "d9d183c3b515cf7782b7b5e44f476b56d1d507c653508b7dcabcb2f4b56fb02d",
+        "input_sha256": "c7ff1cb11a14f253ebd88fad75c2e69ed2aeff759b6da4d994fda330b63a1405",
+        "output_sha256": "c7ff1cb11a14f253ebd88fad75c2e69ed2aeff759b6da4d994fda330b63a1405",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
@@ -1337,7 +1428,7 @@
           "excluded_strokes": 0
         },
         "input_candidates": 0,
-        "preserved_incidence_count": 2,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
@@ -1345,7 +1436,6 @@
           "B",
           "C",
           "E",
-          "M",
           "O"
         ],
         "length_weight": 0.0,
@@ -1360,7 +1450,6 @@
             "B",
             "C",
             "E",
-            "M",
             "O"
           ],
           "dependencies": [
@@ -1393,22 +1482,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T11:25:55"
+      "created_at": "2026-11-09T23:07:26"
     },
-    "ev_0010": {
-      "id": "ev_0010",
+    "ev_0012": {
+      "id": "ev_0012",
       "source": "code_agent",
       "method": "tikz repair",
       "summary": "v2 compiled=True validation=True",
       "payload": {
-        "notes": "Compliant with the program-owned CV block: M is not redefined, and the M label and dashed edge bind to (M). The program's M is at (-2.229,2.182), but the instruction's CV point_05 measurement gives (-1.304,1.408), the intersection of A-E with line O-C. The M position is therefore still wrong and needs remeasurement in the CV block. I did not silently move it. The measured target is (-1.304,1.408) in the same frame; once the program updates M, the dashed edge and label will be correct. Circle, solid edges, label fonts, line width and scale are unchanged.",
+        "notes": "Added filled dot at O (\\fill (O) circle (1.5pt)). Changed the dashed M-O-C polyline to dash pattern=on 6pt off 4pt, same endpoints M to O to C. All coordinates, line width, label font and scale left unchanged. No right-angle marks were requested.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1438,17 +1527,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.png"
+              "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0544"
+              "detail": "ink_ratio=0.0546"
             },
             {
               "name": "aspect_ratio",
@@ -1463,10 +1552,10 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:25:55"
+      "created_at": "2026-11-09T23:07:26"
     },
-    "ev_0011": {
-      "id": "ev_0011",
+    "ev_0013": {
+      "id": "ev_0013",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v3 canvas matched to source [413, 446] (scale 0.5979)",
@@ -1486,10 +1575,10 @@
           31
         ]
       },
-      "created_at": "2026-11-09T11:26:32"
+      "created_at": "2026-11-09T23:08:10"
     },
-    "ev_0012": {
-      "id": "ev_0012",
+    "ev_0014": {
+      "id": "ev_0014",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v3: no_candidates",
@@ -1503,8 +1592,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "847d3629d912636c1a2329ee2ab4643b5a3d4fef51982b5b6f44abdd95aa00c4",
-        "output_sha256": "847d3629d912636c1a2329ee2ab4643b5a3d4fef51982b5b6f44abdd95aa00c4",
+        "input_sha256": "1d97709d8fa1611fdad613c697b3a9d3b7d9bc60219e91216d9e9ecc9dff63a6",
+        "output_sha256": "1d97709d8fa1611fdad613c697b3a9d3b7d9bc60219e91216d9e9ecc9dff63a6",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
@@ -1529,7 +1618,7 @@
           "excluded_strokes": 0
         },
         "input_candidates": 0,
-        "preserved_incidence_count": 2,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
@@ -1537,7 +1626,6 @@
           "B",
           "C",
           "E",
-          "M",
           "O"
         ],
         "length_weight": 0.0,
@@ -1552,7 +1640,6 @@
             "B",
             "C",
             "E",
-            "M",
             "O"
           ],
           "dependencies": [
@@ -1585,22 +1672,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T11:26:32"
+      "created_at": "2026-11-09T23:08:10"
     },
-    "ev_0013": {
-      "id": "ev_0013",
+    "ev_0015": {
+      "id": "ev_0015",
       "source": "code_agent",
       "method": "tikz repair",
       "summary": "v3 compiled=True validation=True",
       "payload": {
-        "notes": "The tool rejected the earlier submission because it redefined M, which the program owns. M is therefore left at the program-owned (-2.229,2.182). The requested move to (-1.304,1.408) needs the program to remeasure and re-insert M; it has not been applied. Other coordinates, line width, label font and the dashed edge M--O--C are unchanged. The M label stays above left, and the label anchor can be changed once the program supplies the new M.",
+        "notes": "Removed the earlier \\fill (O) circle (1.500pt) and added \\fill[black] (O) circle (2pt); as the final drawing command. The requested literal (0.355,0.017) equals the program-owned O, so I bound it to (O) to keep the vertex binding and avoid a literal endpoint. Everything else is unchanged. Circle, paths, labels, line width and font are as before.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v3\\v3.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v3\\v3.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1630,17 +1717,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v3\\v3.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.png"
+              "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v3\\v3.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0544"
+              "detail": "ink_ratio=0.0547"
             },
             {
               "name": "aspect_ratio",
@@ -1655,551 +1742,21 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:26:32"
-    },
-    "ev_0014": {
-      "id": "ev_0014",
-      "source": "geometry_agent",
-      "method": "geometry agent submission",
-      "summary": "point_05 at (145.63,157.35) is verified as the M position. Its distance to segment A-E (point_01 to point_07, seg_03) is about 0.07 px along the line parameter, and its distance to line O-C is about 0.6 px. The analytic intersection of A-E and O-C is (145.7,157.2), within 0.2 px of point_05. Dashed seg_05 (107.25,125.21)-(233.62,231.02) passes through point_05 and through O (about 0.1 px off), so it is the dashed M-O edge. The old M binding point_08 at (102.56,121.28) lies on circle_01 (radius 157.3 from center (223.1,222.3)), so it is not the crossing and should be rejected as M. The dashed edge should start at point_05. seg_05 also overshoots M by about 40 px toward the upper-left, into the M label box, which is unresolved for visual review.",
-      "payload": {
-        "merged": {
-          "objects": 5,
-          "relations": 5,
-          "conflicts": 1,
-          "rejected": []
-        },
-        "object_ids": [
-          "point_M",
-          "point_08_old",
-          "int_AE_OC",
-          "seg_AE",
-          "seg_MO_dashed"
-        ]
-      },
-      "created_at": "2026-11-09T11:26:56"
-    },
-    "ev_0015": {
-      "id": "ev_0015",
-      "source": "renderer",
-      "method": "frame_like_original",
-      "summary": "v4 canvas matched to source [413, 446] (scale 0.5979)",
-      "payload": {
-        "ok": true,
-        "size": [
-          413,
-          446
-        ],
-        "reference_size": [
-          413,
-          446
-        ],
-        "scale": 0.5979,
-        "offset": [
-          33,
-          31
-        ]
-      },
-      "created_at": "2026-11-09T11:27:20"
-    },
-    "ev_0016": {
-      "id": "ev_0016",
-      "source": "tikz_constraint_repair",
-      "method": "post-generation joint coordinate projection",
-      "summary": "v4: no_candidates",
-      "payload": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "05c9a96c65d7b62391f5943045b1892f9b4e80df605386e150435859486ce5e6",
-        "output_sha256": "05c9a96c65d7b62391f5943045b1892f9b4e80df605386e150435859486ce5e6",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 2,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "A",
-          "B",
-          "C",
-          "E",
-          "M",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "A",
-            "B",
-            "C",
-            "E",
-            "M",
-            "O"
-          ],
-          "dependencies": [
-            "O"
-          ],
-          "circles": [
-            {
-              "center": [
-                0.355,
-                0.017
-              ],
-              "radius": 3.374
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "created_at": "2026-11-09T11:27:20"
-    },
-    "ev_0017": {
-      "id": "ev_0017",
-      "source": "code_agent",
-      "method": "tikz repair",
-      "summary": "v4 compiled=True validation=True",
-      "payload": {
-        "notes": "Did not redefine M: the program owns the CV coordinates (M at (-2.229,2.182)), and the requested literal (-1.304,1.408) conflicts with that block. Remeasurement needed: (-1.304,1.408) lies on A-E, but the program M sits about 0.7 units off A-E, so the mismatch should go back to the measurement step. The dashed edge is kept as M--O--C. The M label is anchored north with a downward yshift to sit inside the circle, below the dashed start and clear of A-E. Other coordinates, scale, line width and label font are unchanged.",
-        "compile": {
-          "compile_ok": true,
-          "validation_passed": true,
-          "errors": [],
-          "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.pdf",
-          "checks": [
-            {
-              "name": "documentclass",
-              "passed": true,
-              "detail": "documentclass present"
-            },
-            {
-              "name": "document_environment",
-              "passed": true,
-              "detail": "begin=1 end=1"
-            },
-            {
-              "name": "tikzpicture",
-              "passed": true,
-              "detail": "one balanced tikzpicture"
-            },
-            {
-              "name": "no_shell_escape",
-              "passed": true,
-              "detail": "no \\write18/\\openout primitives"
-            },
-            {
-              "name": "compiler_ok",
-              "passed": true,
-              "detail": "returncode=0"
-            },
-            {
-              "name": "pdf_created",
-              "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.pdf"
-            },
-            {
-              "name": "png_rendered",
-              "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.png"
-            },
-            {
-              "name": "render_not_blank",
-              "passed": true,
-              "detail": "ink_ratio=0.0544"
-            },
-            {
-              "name": "aspect_ratio",
-              "passed": true,
-              "detail": "reference 0.93 vs render 0.93 (delta 0.00)"
-            },
-            {
-              "name": "figure_extent_ratio",
-              "passed": true,
-              "detail": "figure bbox ratio 0.93"
-            }
-          ]
-        }
-      },
-      "created_at": "2026-11-09T11:27:20"
-    },
-    "ev_0018": {
-      "id": "ev_0018",
-      "source": "critic_agent",
-      "method": "measured_label_rebinding",
-      "summary": "Corrected 1 source label bindings",
-      "payload": {
-        "M": {
-          "point_id": "point_05",
-          "px": [
-            145.63,
-            157.35
-          ],
-          "previous_point_id": "point_08",
-          "reason": "In the original, the dashed line begins where it meets segment AE, and the M label sits just above-left of that crossing. point_05 (≈145.6,157.4) is that crossing. point_08 lies on the circle, not at the crossing."
-        }
-      },
-      "created_at": "2026-11-09T11:27:57"
-    },
-    "ev_0019": {
-      "id": "ev_0019",
-      "source": "cv_tool",
-      "method": "bind_point_labels",
-      "summary": "bind_point_labels produced 7 result(s)",
-      "payload": {
-        "params": {
-          "labels": [
-            {
-              "box_px": [
-                214,
-                36,
-                233,
-                56
-              ],
-              "label": "A"
-            },
-            {
-              "box_px": [
-                108,
-                129,
-                136,
-                148
-              ],
-              "label": "M"
-            },
-            {
-              "box_px": [
-                193,
-                232,
-                213,
-                253
-              ],
-              "label": "O"
-            },
-            {
-              "box_px": [
-                38,
-                241,
-                58,
-                260
-              ],
-              "label": "E"
-            },
-            {
-              "box_px": [
-                355,
-                314,
-                375,
-                335
-              ],
-              "label": "C"
-            },
-            {
-              "box_px": [
-                191,
-                315,
-                212,
-                334
-              ],
-              "label": "D"
-            },
-            {
-              "box_px": [
-                214,
-                390,
-                234,
-                409
-              ],
-              "label": "B"
-            }
-          ],
-          "max_distance_px": 40,
-          "points": [
-            [
-              223.1,
-              64.98
-            ],
-            [
-              223.03,
-              222.19
-            ],
-            [
-              223,
-              324
-            ],
-            [
-              343.59,
-              323.7
-            ],
-            [
-              145.63,
-              157.35
-            ],
-            [
-              223,
-              379.61
-            ],
-            [
-              68.18,
-              249.54
-            ]
-          ]
-        },
-        "tool": "bind_point_labels"
-      },
-      "created_at": "2026-11-09T11:28:02"
-    },
-    "ev_0020": {
-      "id": "ev_0020",
-      "source": "renderer",
-      "method": "frame_like_original",
-      "summary": "v5 canvas matched to source [413, 446] (scale 0.5979)",
-      "payload": {
-        "ok": true,
-        "size": [
-          413,
-          446
-        ],
-        "reference_size": [
-          413,
-          446
-        ],
-        "scale": 0.5979,
-        "offset": [
-          33,
-          31
-        ]
-      },
-      "created_at": "2026-11-09T11:28:19"
-    },
-    "ev_0021": {
-      "id": "ev_0021",
-      "source": "tikz_constraint_repair",
-      "method": "post-generation joint coordinate projection",
-      "summary": "v5: no_candidates",
-      "payload": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "ef7de13fa64c87ddbefbff47d9022e168c0157f1063820d44b01d7b8873b25ba",
-        "output_sha256": "ef7de13fa64c87ddbefbff47d9022e168c0157f1063820d44b01d7b8873b25ba",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 3,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "A",
-          "B",
-          "C",
-          "E",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "A",
-            "B",
-            "C",
-            "E",
-            "O"
-          ],
-          "dependencies": [
-            "O"
-          ],
-          "circles": [
-            {
-              "center": [
-                0.355,
-                0.017
-              ],
-              "radius": 3.374
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "created_at": "2026-11-09T11:28:19"
-    },
-    "ev_0022": {
-      "id": "ev_0022",
-      "source": "code_agent",
-      "method": "tikz generate",
-      "summary": "v5 compiled=True validation=True",
-      "payload": {
-        "notes": "Followed the PROGRAM-OWNED CV block: A, B, C, D, M, O are not redefined (program inserts them; M uses the CV value (-1.306,1.408), not the instruction's -1.304). E is defined from the instruction. Circle centred at O radius 3.374. Solid chords A-B, A-C, A-E, C-D; dashed M-O-C with 6pt on/4pt off. Filled dots at O and C. Labels at 17.5/21pt, line width 1.7pt with round joins. No right-angle marks since none were verified. Note: the standalone file will only compile when the program inserts the CV coordinate block.",
-        "compile": {
-          "compile_ok": true,
-          "validation_passed": true,
-          "errors": [],
-          "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v5\\v5.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v5\\v5.pdf",
-          "checks": [
-            {
-              "name": "documentclass",
-              "passed": true,
-              "detail": "documentclass present"
-            },
-            {
-              "name": "document_environment",
-              "passed": true,
-              "detail": "begin=1 end=1"
-            },
-            {
-              "name": "tikzpicture",
-              "passed": true,
-              "detail": "one balanced tikzpicture"
-            },
-            {
-              "name": "no_shell_escape",
-              "passed": true,
-              "detail": "no \\write18/\\openout primitives"
-            },
-            {
-              "name": "compiler_ok",
-              "passed": true,
-              "detail": "returncode=0"
-            },
-            {
-              "name": "pdf_created",
-              "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v5\\v5.pdf"
-            },
-            {
-              "name": "png_rendered",
-              "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v5\\v5.png"
-            },
-            {
-              "name": "render_not_blank",
-              "passed": true,
-              "detail": "ink_ratio=0.0543"
-            },
-            {
-              "name": "aspect_ratio",
-              "passed": true,
-              "detail": "reference 0.93 vs render 0.93 (delta 0.00)"
-            },
-            {
-              "name": "figure_extent_ratio",
-              "passed": true,
-              "detail": "figure bbox ratio 0.93"
-            }
-          ]
-        }
-      },
-      "created_at": "2026-11-09T11:28:19"
+      "created_at": "2026-11-09T23:08:10"
     }
   },
   "conflicts": [
     {
       "id": "conflict_001",
-      "topic": "label M position",
+      "topic": "Location of M",
       "claims": [
         {
           "source": "bind_point_labels",
-          "claim": "M binds to point_08 at (102.56,121.28), on circle_01"
+          "claim": "M bound to point_08 at (102.56,121.28), the glyph centre off all strokes"
         },
         {
-          "source": "supervisor and original figure",
-          "claim": "M is at the crossing of A-E and dashed O-C at about (145.6,157.3), which is point_05"
+          "source": "geometry geometry check",
+          "claim": "M lies at point_05 (145.63,157.35), the midpoint of AE and the dashed-line junction"
         }
       ],
       "status": "unresolved",
@@ -2215,149 +1772,202 @@
     "D": "point_03",
     "B": "point_06"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.166);\n\\coordinate (M) at (-1.306,1.408);\n\\coordinate (O) at (0.355,0.017);\n\n\n\\coordinate (E) at (-2.966,-0.569);\n\n\n\\draw (O) circle (3.374);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (E);\n\\draw (C) -- (D);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (M) -- (O) -- (C);\n\n\n\\fill (O) circle (2.200pt);\n\\fill (C) circle (2.200pt);\n\n\n\\node[above] at (A) {\\fontsize{17.5}{21}\\selectfont $A$};\n\\node[below] at (B) {\\fontsize{17.5}{21}\\selectfont $B$};\n\\node[right] at (C) {\\fontsize{17.5}{21}\\selectfont $C$};\n\\node[left] at (D) {\\fontsize{17.5}{21}\\selectfont $D$};\n\\node[left] at (E) {\\fontsize{17.5}{21}\\selectfont $E$};\n\\node[below left] at (O) {\\fontsize{17.5}{21}\\selectfont $O$};\n\\node[above left] at (M) {\\fontsize{17.5}{21}\\selectfont $M$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.166);\n\\coordinate (M) at (-1.306,1.408);\n\\coordinate (O) at (0.355,0.017);\n\n\n\\coordinate (E) at (-2.966,-0.569);\n\n\n\\draw (O) circle (3.374);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (E);\n\\draw (C) -- (D);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (M) -- (O) -- (C);\n\n\n\\fill (O) circle (2.200pt);\n\\fill (C) circle (2.200pt);\n\n\n\\node[above] at (A) {\\fontsize{17.5}{21}\\selectfont $A$};\n\\node[below] at (B) {\\fontsize{17.5}{21}\\selectfont $B$};\n\\node[right] at (C) {\\fontsize{17.5}{21}\\selectfont $C$};\n\\node[left] at (D) {\\fontsize{17.5}{21}\\selectfont $D$};\n\\node[left] at (E) {\\fontsize{17.5}{21}\\selectfont $E$};\n\\node[below left] at (O) {\\fontsize{17.5}{21}\\selectfont $O$};\n\\node[above left] at (M) {\\fontsize{17.5}{21}\\selectfont $M$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_version": 5,
-  "best_score": 0.93,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round, font=\\fontsize{18}{21.6}\\selectfont]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.159);\n\\coordinate (M) at (-1.306,1.408);\n\\coordinate (O) at (0.355,0.017);\n\n\n\n\n\n\n\n\n\\coordinate (E) at (-2.967,-0.569);\n\n\n\\draw (O) circle (3.374);\n\n\n\\draw (A) -- (O) -- (D) -- (B);\n\\draw (A) -- (M) -- (E);\n\\draw (A) -- (C);\n\\draw (D) -- (C);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (M) -- (O) -- (C);\n\n\n\\node[above] at (A) {$A$};\n\\node[below] at (B) {$B$};\n\\node[left] at (D) {$D$};\n\\node[right] at (C) {$C$};\n\\node[left] at (E) {$E$};\n\\node[above left] at (M) {$M$};\n\\node[below left] at (O) {$O$};\n\n\n\\fill[black] (O) circle (2.000pt);\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round, font=\\fontsize{18}{21.6}\\selectfont]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.159);\n\\coordinate (M) at (-1.306,1.408);\n\\coordinate (O) at (0.355,0.017);\n\n\n\n\n\n\n\n\n\\coordinate (E) at (-2.967,-0.569);\n\n\n\\draw (O) circle (3.374);\n\n\n\\draw (A) -- (O) -- (D) -- (B);\n\\draw (A) -- (M) -- (E);\n\\draw (A) -- (C);\n\\draw (D) -- (C);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (M) -- (O) -- (C);\n\n\n\\node[above] at (A) {$A$};\n\\node[below] at (B) {$B$};\n\\node[left] at (D) {$D$};\n\\node[right] at (C) {$C$};\n\\node[left] at (E) {$E$};\n\\node[above left] at (M) {$M$};\n\\node[below left] at (O) {$O$};\n\n\n\\fill[black] (O) circle (2.000pt);\n\\end{tikzpicture}\n\\end{document}",
+  "best_version": 3,
+  "best_score": 0.92,
   "tikz_versions": [
     {
       "topology_check": {
-        "passed": false,
-        "missing_edges": [],
-        "unverified_bindings": [
-          "M"
-        ]
+        "passed": true,
+        "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.166);\n\\coordinate (M) at (-2.229,2.182);\n\\coordinate (O) at (0.355,0.017);\n\n  \n\n  \n  \\coordinate (E) at (-2.966,-0.569);\n\n  \n  \\draw (O) circle (3.374);\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C);\n  \\draw (A) -- (E);\n  \\draw (D) -- (C);\n\n  \n  \\draw[dashed] (M) -- (O) -- (C);\n\n  \n  \\fill (O) circle (1.800pt);\n  \\fill (C) circle (1.800pt);\n\n  \n  \\node[above, font=\\fontsize{17.5}{21}\\selectfont] at (A) {$A$};\n  \\node[below, font=\\fontsize{17.5}{21}\\selectfont] at (B) {$B$};\n  \\node[right, font=\\fontsize{17.5}{21}\\selectfont] at (C) {$C$};\n  \\node[left, font=\\fontsize{17.5}{21}\\selectfont] at (D) {$D$};\n  \\node[left, font=\\fontsize{17.5}{21}\\selectfont] at (E) {$E$};\n  \\node[above left, font=\\fontsize{17.5}{21}\\selectfont] at (M) {$M$};\n  \\node[below left, font=\\fontsize{17.5}{21}\\selectfont] at (O) {$O$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round, font=\\fontsize{18}{21.6}\\selectfont]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.159);\n\\coordinate (M) at (-1.306,1.408);\n\\coordinate (O) at (0.355,0.017);\n\n\n\n\\coordinate (E) at (-2.967,-0.569);\n\n\n\\draw (O) circle (3.374);\n\n\n\\draw (A) -- (O) -- (D) -- (B);\n\\draw (A) -- (M) -- (E);\n\\draw (A) -- (C);\n\\draw (D) -- (C);\n\n\n\\draw[dashed] (M) -- (O) -- (C);\n\n\n\\node[above] at (A) {$A$};\n\\node[below] at (B) {$B$};\n\\node[left] at (D) {$D$};\n\\node[right] at (C) {$C$};\n\\node[left] at (E) {$E$};\n\\node[above left] at (M) {$M$};\n\\node[below left] at (O) {$O$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:23:32",
+      "created_at": "2026-11-09T23:06:51",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used PROGRAM-OWNED coordinates by name (not redefined). Only E was defined here, converted with the same frame (s=0.021448, origin offset x=206.45px, y=223.0px): E=(-2.966,-0.569); checked it lies on the circle (r=3.372 vs 3.374). Required edges A--B and A--C drawn by name; also A--E, D--C solid; M--O--C dashed (collinear within tolerance). Circle drawn at O with r=3.374. Line width 1.7pt, round joins; labels at 17.5/21pt. No right-angle mark added (none verified). Placeholder comment marks where the program inserts the coordinate block, so the standalone file will not compile on its own until that insertion occurs.",
-      "compile_seconds": 1.915,
+      "notes": "Used program-owned coordinates A,B,C,D,M,O by name without redefining them; defined E in the same frame from its measured pixel position. Circle drawn as full solid circle at O with radius 3.374 cm (157.3 px * 0.021448). Diameter AB split at O and D using named edges; dashed M-O-C line. No right-angle square at D because CV did not verify one. Line width 1.7pt and 18pt labels per STYLE METRICS.",
+      "compile_seconds": 3.409,
       "critic_report": {
-        "assessment_score": 0.8,
+        "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Circle, diameter AB, chords AE and AC, horizontal DC, and the C-O part of the dashed line match the original. The dashed M-O segment starts at the circle instead of at the A-E crossing, and the M label is placed accordingly, so M is misplaced.",
+        "verdict": "The render is geometrically faithful: circle, chords AB, AC, AE, DC, the dashed MC line and all labels match the original. The main differences are a missing centre dot at O and a dotted rather than dashed look on the MC line.",
         "figure_type": {
-          "original": "Circle centred at O with vertical diameter A-B, chords A-E and A-C, horizontal chord D-C, and a dashed line from the A-E crossing through O to C. No right-angle marks.",
-          "render": "Circle centred at O with vertical diameter A-B, chords A-E and A-C, horizontal chord D-C, and a dashed line from a point on the circle through O to C. No right-angle marks."
+          "original": "Circle with chords AE, AC, DC and vertical diameter AB; dashed line from M through O to C; centre O marked with a dot; labels A, B, C, D, E, M, O",
+          "render": "Circle with the same chords and vertical diameter; dashed line from M through O to C; no centre dot; same labels"
         },
         "issues": [
           {
-            "type": "wrong_position",
-            "severity": "medium",
+            "type": "missing_element",
+            "severity": "low",
             "object_ids": [
-              "seg_05",
-              "point_08"
+              "point_02"
             ],
             "bbox": [
-              0.23,
-              0.25,
-              0.38,
-              0.38
+              0.5,
+              0.46,
+              0.57,
+              0.54
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "In the original, the dashed line starts where it crosses segment A-E (about 0.34,0.34 of the panel), and the M label sits just up-left of that crossing, inside the circle. In the render, the dashed line runs past A-E to the circle near the top-left, and the M label sits next to the circle at about (0.12,0.21), well away from the dashed start. The M point is therefore bound to a circle location that does not match the original.",
-            "suggestion": "Place M at the intersection of segment A-E with the line through O and C (the point where the dashed line starts in the original), keeping the M label binding. End the dashed segment at M, and position the label above-left of that point so it clears the A-E stroke. Do not extend the dashed line beyond A-E."
+            "description": "The original marks the centre O with a filled dot. The render has no dot at O; only the label is drawn.",
+            "suggestion": "Add a small filled dot at (O), e.g. \\fill (O) circle (1.5pt);"
+          },
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "seg_MC"
+            ],
+            "bbox": [
+              0.09,
+              0.2,
+              0.92,
+              0.76
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "The MC line is drawn with a fine dotted pattern. In the original it is a dashed line with longer dashes and wider gaps.",
+            "suggestion": "Use a longer dash pattern, e.g. dash pattern=on 6pt off 4pt, or keep [dashed] with a slightly larger dash length."
           }
         ],
         "checks": [
           {
             "object_id": "circle_01",
             "status": "present",
-            "note": "Circle centred at O with matching radius and extent."
+            "note": "Circle centred at O with matching radius."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Vertical diameter A-B matches the original."
+            "note": "Vertical diameter A to B drawn."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Chord A-C matches the original."
+            "note": "Chord A to C drawn."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Chord A-E matches the original, ending at E on the circle."
+            "note": "Chord A to E drawn, passing through M."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Dashed C-O portion matches the original; the stroke is continuous through O."
+            "note": "Dashed part of MC from M through O to C."
           },
           {
             "object_id": "seg_05",
-            "status": "wrong",
-            "note": "Dashed M-O portion starts on the circle, but in the original it starts at the A-E crossing."
+            "status": "present",
+            "note": "Dashed part of the same MC line."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Horizontal chord D-C matches the original."
+            "note": "Horizontal chord D to C drawn."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "AB drawn correctly."
+          },
+          {
+            "object_id": "seg_AC",
+            "status": "present",
+            "note": "AC drawn correctly."
+          },
+          {
+            "object_id": "seg_AE",
+            "status": "present",
+            "note": "AE drawn correctly."
+          },
+          {
+            "object_id": "seg_DC",
+            "status": "present",
+            "note": "DC drawn correctly."
+          },
+          {
+            "object_id": "seg_MC",
+            "status": "present",
+            "note": "Dashed MC drawn, but the dash style is finer than the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label A is correctly placed at the top of the circle."
+            "note": "A is labelled at the top of the circle."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label O is correctly placed below-left of the centre."
+            "note": "O label present; the centre dot is missing."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label D is correctly placed left of D on the diameter."
+            "note": "D labelled on the vertical diameter."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label C is correctly placed right of C."
+            "note": "C labelled at the lower-right circle contact."
+          },
+          {
+            "object_id": "point_05",
+            "status": "present",
+            "note": "M labelled upper-left of its point on AE."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "Label B is correctly placed below the bottom of the circle."
+            "note": "B labelled at the bottom of the circle."
           },
           {
             "object_id": "point_07",
             "status": "present",
-            "note": "Label E is correctly placed left of E."
+            "note": "E labelled left of the circle contact."
           },
           {
-            "object_id": "point_08",
-            "status": "wrong",
-            "note": "M label is present but its binding point lies on the circle, not at the A-E crossing where the original places M."
+            "object_id": "point_D",
+            "status": "present",
+            "note": "D matches point_03."
+          },
+          {
+            "object_id": "point_M",
+            "status": "present",
+            "note": "M matches point_05."
+          },
+          {
+            "object_id": "point_O",
+            "status": "present",
+            "note": "O matches point_02; the centre dot is missing."
           }
         ],
-        "checklist_score": 0.929,
+        "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
-          "medium": 1,
-          "low": 0
+          "medium": 0,
+          "low": 2
         },
         "flaky_count": 0,
         "must_repair": true,
         "matches": [
-          "Circle size and centre",
-          "Diameter A-B with A top and B bottom",
-          "Chords A-E, A-C and D-C",
-          "Dashed style of the C-O portion through O",
-          "Labels A, B, C, D, E, O",
-          "Centre dot at O",
-          "No right-angle marks in either panel"
+          "Circle geometry and placement",
+          "Vertical diameter AB through O and D",
+          "Chords AE, AC and DC",
+          "Dashed MC line from M through O to C",
+          "M lies on AE",
+          "Labels A, B, C, D, E, M, O present with correct vertex association",
+          "No extra labels"
         ],
         "labels": {
           "present": [
@@ -2381,412 +1991,184 @@
               "A",
               "E"
             ],
-            "reason": "The solid stroke runs continuously from A to E in the original."
-          },
-          {
-            "case_id": "53a8dccf00498061",
-            "edge": [
-              "C",
-              "O"
-            ],
-            "reason": "The dashed stroke runs continuously through O to C in the original."
-          },
-          {
-            "case_id": "94553f7a57f31314",
-            "edge": null,
-            "reason": "The original dashed stroke starts at the A-E crossing, not at the M point on the circle, so M-O is not a faithful edge. Its endpoint is a true extension in the render."
-          },
-          {
-            "case_id": "5950e1c423469c29",
-            "edge": [
-              "C",
-              "D"
-            ],
-            "reason": "The horizontal solid stroke runs from D to C in the original."
+            "reason": "In the original, a single solid stroke runs from A through M to E, so the A–E edge is confirmed."
           }
         ],
         "raw_meta": "{}"
       },
-      "critic_score": 0.8
-    },
-    {
-      "topology_check": {
-        "passed": false,
-        "missing_edges": [],
-        "unverified_bindings": [
-          "M"
-        ]
-      },
-      "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.166);\n\\coordinate (M) at (-2.229,2.182);\n\\coordinate (O) at (0.355,0.017);\n\n\n\n\n\n\n\n\n\n  \\coordinate (E) at (-2.966,-0.569);\n\n  \n  \\draw (O) circle (3.374);\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C);\n  \\draw (A) -- (E);\n  \\draw (D) -- (C);\n\n  \n  \\draw[dashed] (M) -- (O) -- (C);\n\n  \\fill (O) circle (1.800pt);\n  \\fill (C) circle (1.800pt);\n\n  \n  \\node[above, font=\\fontsize{17.5}{21}\\selectfont] at (A) {$A$};\n  \\node[below, font=\\fontsize{17.5}{21}\\selectfont] at (B) {$B$};\n  \\node[right, font=\\fontsize{17.5}{21}\\selectfont] at (C) {$C$};\n  \\node[left, font=\\fontsize{17.5}{21}\\selectfont] at (D) {$D$};\n  \\node[left, font=\\fontsize{17.5}{21}\\selectfont] at (E) {$E$};\n  \\node[above left, font=\\fontsize{17.5}{21}\\selectfont] at (M) {$M$};\n  \\node[below left, font=\\fontsize{17.5}{21}\\selectfont] at (O) {$O$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.png",
-      "ok": true,
-      "compiled": true,
-      "errors": [],
-      "warnings": [],
-      "created_at": "2026-11-09T11:25:53",
-      "agent": "code_agent",
-      "mode": "repair",
-      "notes": "Compliant with the program-owned CV block: M is not redefined, and the M label and dashed edge bind to (M). The program's M is at (-2.229,2.182), but the instruction's CV point_05 measurement gives (-1.304,1.408), the intersection of A-E with line O-C. The M position is therefore still wrong and needs remeasurement in the CV block. I did not silently move it. The measured target is (-1.304,1.408) in the same frame; once the program updates M, the dashed edge and label will be correct. Circle, solid edges, label fonts, line width and scale are unchanged.",
-      "compile_seconds": 1.882,
-      "critic_report": null,
-      "critic_score": null
-    },
-    {
-      "topology_check": {
-        "passed": false,
-        "missing_edges": [],
-        "unverified_bindings": [
-          "M"
-        ]
-      },
-      "version": 3,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.166);\n\\coordinate (M) at (-2.229,2.182);\n\\coordinate (O) at (0.355,0.017);\n\n\n  \\coordinate (E) at (-2.966,-0.569);\n\n  \n  \\draw (O) circle (3.374);\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C);\n  \\draw (A) -- (E);\n  \\draw (D) -- (C);\n\n  \n  \\draw[dashed] (M) -- (O) -- (C);\n\n  \\fill (O) circle (1.800pt);\n  \\fill (C) circle (1.800pt);\n\n  \n  \\node[above, font=\\fontsize{17.5}{21}\\selectfont] at (A) {$A$};\n  \\node[below, font=\\fontsize{17.5}{21}\\selectfont] at (B) {$B$};\n  \\node[right, font=\\fontsize{17.5}{21}\\selectfont] at (C) {$C$};\n  \\node[left, font=\\fontsize{17.5}{21}\\selectfont] at (D) {$D$};\n  \\node[left, font=\\fontsize{17.5}{21}\\selectfont] at (E) {$E$};\n  \\node[above left, font=\\fontsize{17.5}{21}\\selectfont] at (M) {$M$};\n  \\node[below left, font=\\fontsize{17.5}{21}\\selectfont] at (O) {$O$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.png",
-      "ok": true,
-      "compiled": true,
-      "errors": [],
-      "warnings": [],
-      "created_at": "2026-11-09T11:26:29",
-      "agent": "code_agent",
-      "mode": "repair",
-      "notes": "The tool rejected the earlier submission because it redefined M, which the program owns. M is therefore left at the program-owned (-2.229,2.182). The requested move to (-1.304,1.408) needs the program to remeasure and re-insert M; it has not been applied. Other coordinates, line width, label font and the dashed edge M--O--C are unchanged. The M label stays above left, and the label anchor can be changed once the program supplies the new M.",
-      "compile_seconds": 2.11,
-      "critic_report": null,
-      "critic_score": null
-    },
-    {
-      "topology_check": {
-        "passed": false,
-        "missing_edges": [],
-        "unverified_bindings": [
-          "M"
-        ]
-      },
-      "version": 4,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.166);\n\\coordinate (M) at (-2.229,2.182);\n\\coordinate (O) at (0.355,0.017);\n\n\n\n\n\n\n\n\n\n  \\coordinate (E) at (-2.966,-0.569);\n\n  \n  \\draw (O) circle (3.374);\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C);\n  \\draw (A) -- (E);\n  \\draw (D) -- (C);\n\n  \n  \\draw[dashed] (M) -- (O) -- (C);\n\n  \\fill (O) circle (1.800pt);\n  \\fill (C) circle (1.800pt);\n\n  \n  \\node[above, font=\\fontsize{17.5}{21}\\selectfont] at (A) {$A$};\n  \\node[below, font=\\fontsize{17.5}{21}\\selectfont] at (B) {$B$};\n  \\node[right, font=\\fontsize{17.5}{21}\\selectfont] at (C) {$C$};\n  \\node[left, font=\\fontsize{17.5}{21}\\selectfont] at (D) {$D$};\n  \\node[left, font=\\fontsize{17.5}{21}\\selectfont] at (E) {$E$};\n  \n  \\node[anchor=north, yshift=-0.15cm, font=\\fontsize{17.5}{21}\\selectfont] at (M) {$M$};\n  \\node[below left, font=\\fontsize{17.5}{21}\\selectfont] at (O) {$O$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.png",
-      "ok": true,
-      "compiled": true,
-      "errors": [],
-      "warnings": [],
-      "created_at": "2026-11-09T11:27:17",
-      "agent": "code_agent",
-      "mode": "repair",
-      "notes": "Did not redefine M: the program owns the CV coordinates (M at (-2.229,2.182)), and the requested literal (-1.304,1.408) conflicts with that block. Remeasurement needed: (-1.304,1.408) lies on A-E, but the program M sits about 0.7 units off A-E, so the mismatch should go back to the measurement step. The dashed edge is kept as M--O--C. The M label is anchored north with a downward yshift to sit inside the circle, below the dashed start and clear of A-E. Other coordinates, scale, line width and label font are unchanged.",
-      "compile_seconds": 2.381,
-      "critic_report": {
-        "assessment_score": 0.72,
-        "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Most of the figure matches, but M is bound to the circle instead of the A-E/O-C crossing, so the dashed line overhangs past AE to the circle.",
-        "figure_type": {
-          "original": "Circle with chord AB as a diameter, chords AC and AE, dashed segment from the A-E crossing through O to C, perpendicular DC from the diameter, labelled points A, B, C, D, E, O, M",
-          "render": "Circle with the same chords and diameter AB, but the dashed line starts at a point on the circle at upper-left (past the A-E line) and M sits there"
-        },
-        "issues": [
-          {
-            "type": "wrong_position",
-            "severity": "high",
-            "object_ids": [
-              "point_08",
-              "point_M",
-              "seg_MO_dashed",
-              "seg_05"
-            ],
-            "bbox": [
-              0.2,
-              0.18,
-              0.4,
-              0.4
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "M is bound to point_08 at (102.6,121.3), which lies on the circle (distance to O ≈ radius). In the original, the dashed line starts where it meets segment AE, at the crossing point_05 (≈145.6,157.4). In the render the dashed line overhangs past AE up to the circle, and the M label sits beside that overhang instead of at the crossing.",
-            "suggestion": "Set M to the AE/OC intersection, computed in TikZ coordinates as (-1.305,1.410) (midpoint of A-E, on line O-C at parameter s≈-0.64). Draw the dashed path as \\draw[dashed] (M) -- (O) -- (C); with \\coordinate (M) at (-1.305,1.410); and remove the overhang. Keep the M label anchored above-left of that point, away from the AE stroke, e.g. \\node[above left, ...] at (M) {$M$};."
-          },
-          {
-            "type": "wrong_style",
-            "severity": "low",
-            "object_ids": [
-              "seg_MO_dashed"
-            ],
-            "bbox": [
-              0.36,
-              0.34,
-              0.92,
-              0.8
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "The dashed segment M-O-C is rendered as a fine dotted line with short gaps. The original has longer dashes with clear gaps, so the render's dash pattern is visibly finer.",
-            "suggestion": "Use a longer dash pattern, e.g. \\draw[dash pattern=on 6pt off 4pt] (M) -- (O) -- (C); or keep dashed with a larger line width for the dash segments."
-          }
-        ],
-        "checks": [
-          {
-            "object_id": "circle_01",
-            "status": "present",
-            "note": "Circle centred near O with matching radius and extent."
-          },
-          {
-            "object_id": "seg_01",
-            "status": "present",
-            "note": "Vertical diameter A-B drawn between A and B."
-          },
-          {
-            "object_id": "seg_02",
-            "status": "present",
-            "note": "Chord A-C drawn from A to C."
-          },
-          {
-            "object_id": "seg_03",
-            "status": "present",
-            "note": "Chord A-E drawn from A to E, matching the original."
-          },
-          {
-            "object_id": "seg_04",
-            "status": "present",
-            "note": "Dashed O-C portion drawn correctly; dash style is finer than the original (see wrong_style issue)."
-          },
-          {
-            "object_id": "seg_05",
-            "status": "wrong",
-            "note": "Dashed M-O portion starts at the circle at upper-left instead of at the A-E crossing, overhanging past AE."
-          },
-          {
-            "object_id": "seg_06",
-            "status": "present",
-            "note": "Horizontal segment D-C drawn correctly."
-          },
-          {
-            "object_id": "seg_AE",
-            "status": "present",
-            "note": "Segment A-E drawn correctly; the dashed line should terminate on it."
-          },
-          {
-            "object_id": "seg_MO_dashed",
-            "status": "wrong",
-            "note": "Dashed MO should start at the A-E crossing (≈145.6,157.4 in image pixels); the render starts at the circle."
-          },
-          {
-            "object_id": "point_01",
-            "status": "present",
-            "note": "A is correctly placed at the top of the circle and labelled."
-          },
-          {
-            "object_id": "point_02",
-            "status": "present",
-            "note": "O is correctly placed at the centre with a dot and label."
-          },
-          {
-            "object_id": "point_03",
-            "status": "present",
-            "note": "D is correctly placed on the diameter and labelled."
-          },
-          {
-            "object_id": "point_04",
-            "status": "present",
-            "note": "C is correctly placed on the circle and labelled."
-          },
-          {
-            "object_id": "point_06",
-            "status": "present",
-            "note": "B is correctly placed at the bottom of the circle and labelled."
-          },
-          {
-            "object_id": "point_07",
-            "status": "present",
-            "note": "E is correctly placed on the circle and labelled."
-          },
-          {
-            "object_id": "point_08",
-            "status": "wrong",
-            "note": "M is bound to a point on the circle, not the A-E crossing."
-          },
-          {
-            "object_id": "point_M",
-            "status": "wrong",
-            "note": "The M vertex at the A-E/OC crossing is not drawn; the render has no vertex there, and the M label is placed at the circle."
-          }
-        ],
-        "checklist_score": 0.882,
-        "actionable_counts": {
-          "high": 1,
-          "medium": 0,
-          "low": 1
-        },
-        "flaky_count": 0,
-        "must_repair": true,
-        "matches": [
-          "Circle centred at O with the correct radius and full extent",
-          "Diameter A-B vertical with O on it",
-          "Chords A-C, A-E and horizontal D-C present with correct endpoints",
-          "A, B, C, D, E, O labels present, correctly bound and clear of strokes",
-          "Dot marking O and C matches the original"
-        ],
-        "labels": {
-          "present": [
-            "A",
-            "B",
-            "C",
-            "D",
-            "E",
-            "O",
-            "M"
-          ],
-          "missing": [],
-          "extra": []
-        },
-        "version": 4,
-        "binding_decisions": [
-          {
-            "label": "M",
-            "point_id": "point_05",
-            "reason": "In the original, the dashed line begins where it meets segment AE, and the M label sits just above-left of that crossing. point_05 (≈145.6,157.4) is that crossing. point_08 lies on the circle, not at the crossing.",
-            "replaces": null
-          }
-        ],
-        "topology_decisions": [],
-        "raw_meta": "{}"
-      },
-      "critic_score": 0.72
+      "critic_score": 0.9
     },
     {
       "topology_check": {
         "passed": true,
         "missing_edges": []
       },
-      "version": 5,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.166);\n\\coordinate (M) at (-1.306,1.408);\n\\coordinate (O) at (0.355,0.017);\n\n\n\\coordinate (E) at (-2.966,-0.569);\n\n\n\\draw (O) circle (3.374);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (E);\n\\draw (C) -- (D);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (M) -- (O) -- (C);\n\n\n\\fill (O) circle (2.200pt);\n\\fill (C) circle (2.200pt);\n\n\n\\node[above] at (A) {\\fontsize{17.5}{21}\\selectfont $A$};\n\\node[below] at (B) {\\fontsize{17.5}{21}\\selectfont $B$};\n\\node[right] at (C) {\\fontsize{17.5}{21}\\selectfont $C$};\n\\node[left] at (D) {\\fontsize{17.5}{21}\\selectfont $D$};\n\\node[left] at (E) {\\fontsize{17.5}{21}\\selectfont $E$};\n\\node[below left] at (O) {\\fontsize{17.5}{21}\\selectfont $O$};\n\\node[above left] at (M) {\\fontsize{17.5}{21}\\selectfont $M$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6994_q_fig2\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6994_q_fig2\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6994_q_fig2\\best.png",
+      "version": 2,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round, font=\\fontsize{18}{21.6}\\selectfont]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.159);\n\\coordinate (M) at (-1.306,1.408);\n\\coordinate (O) at (0.355,0.017);\n\n\n\n\n\n\n\n\n\n\\coordinate (E) at (-2.967,-0.569);\n\n\n\\draw (O) circle (3.374);\n\n\n\\draw (A) -- (O) -- (D) -- (B);\n\\draw (A) -- (M) -- (E);\n\\draw (A) -- (C);\n\\draw (D) -- (C);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (M) -- (O) -- (C);\n\n\n\\fill (O) circle (1.500pt);\n\n\n\\node[above] at (A) {$A$};\n\\node[below] at (B) {$B$};\n\\node[left] at (D) {$D$};\n\\node[right] at (C) {$C$};\n\\node[left] at (E) {$E$};\n\\node[above left] at (M) {$M$};\n\\node[below left] at (O) {$O$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:28:17",
+      "created_at": "2026-11-09T23:07:21",
       "agent": "code_agent",
-      "mode": "generate",
-      "notes": "Followed the PROGRAM-OWNED CV block: A, B, C, D, M, O are not redefined (program inserts them; M uses the CV value (-1.306,1.408), not the instruction's -1.304). E is defined from the instruction. Circle centred at O radius 3.374. Solid chords A-B, A-C, A-E, C-D; dashed M-O-C with 6pt on/4pt off. Filled dots at O and C. Labels at 17.5/21pt, line width 1.7pt with round joins. No right-angle marks since none were verified. Note: the standalone file will only compile when the program inserts the CV coordinate block.",
-      "compile_seconds": 2.112,
+      "mode": "repair",
+      "notes": "Added filled dot at O (\\fill (O) circle (1.5pt)). Changed the dashed M-O-C polyline to dash pattern=on 6pt off 4pt, same endpoints M to O to C. All coordinates, line width, label font and scale left unchanged. No right-angle marks were requested.",
+      "compile_seconds": 5.096,
       "critic_report": {
-        "assessment_score": 0.93,
+        "assessment_score": 0.8,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Render is faithful to the original: M sits on the A-E line at the crossing with the dashed M-O-C line, and labels, dash style and segment ends match.",
+        "verdict": "Geometry, labels and the MC dashed style match the original, but the filled dot at O is missing from the render.",
         "figure_type": {
-          "original": "circle with centre O, chords AB, AC, AE and radius-like dashed line M-O-C, plus right-leg CD; no right-angle marks visible",
-          "render": "circle with centre O, chords AB, AC, AE, segment CD, and dashed M-O-C; matches the original"
+          "original": "circle with chords AE, AC, DC, vertical AB, and dashed MC through O, with a filled dot at O",
+          "render": "same circle and chords with dashed MC through O, but no filled dot at O"
         },
-        "issues": [],
+        "issues": [
+          {
+            "type": "missing_element",
+            "severity": "medium",
+            "object_ids": [
+              "point_02",
+              "point_O"
+            ],
+            "bbox": [
+              0.5,
+              0.46,
+              0.56,
+              0.54
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "The filled dot at O visible in the original (about 1.5pt radius at the centre of the circle, on the dashed MC line) is absent in the render, even though the TikZ contains \\fill (O) circle (1.500pt);. The fill is not appearing, so the dot is not drawn.",
+            "suggestion": "Check that the \\fill (O) circle (1.500pt); command is actually emitted after the paths (for example, move it after \\draw of the dashed line and confirm it is not overdrawn or removed by a conditional). If the dot is still not visible, increase the radius (e.g. 2pt) or use \\fill[black] (O) circle (2pt);."
+          }
+        ],
         "checks": [
           {
             "object_id": "circle_01",
             "status": "present",
-            "note": "Full circle through A, B, C, E, centred at O in both panels."
+            "note": "Circle through A, B, C, E matches the original."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Vertical AB drawn from A to B, passing through O and D as in the original."
+            "note": "Vertical chord A to B drawn."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Chord AC matches the original endpoints at A and C."
+            "note": "Chord A to C drawn."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Chord AE ends at E on the circle, as in the original."
+            "note": "Chord A through M to E drawn."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Dashed O-C portion is drawn with the same dash style and ends at C."
+            "note": "Dashed segment from M-O-C is drawn as dashes in the render."
           },
           {
             "object_id": "seg_05",
-            "status": "unclear",
-            "note": "CV detection overextends the dashed line up-left past M into the M label area; the original dashes start at M and the render correctly starts there, so no render fix is needed."
+            "status": "present",
+            "note": "Dashed M to O part of MC drawn."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Horizontal DC is drawn from D to C, matching the original."
+            "note": "Horizontal D to C drawn."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "A to B vertical line matches."
+          },
+          {
+            "object_id": "seg_AC",
+            "status": "present",
+            "note": "A to C matches."
           },
           {
             "object_id": "seg_AE",
             "status": "present",
-            "note": "Solid AE line runs from A to E and passes through M's crossing point."
+            "note": "A to E through M matches."
           },
           {
-            "object_id": "seg_MO_dashed",
+            "object_id": "seg_DC",
             "status": "present",
-            "note": "Dashed line starts at M on AE, runs through O and ends at C, as in the original."
+            "note": "D to C matches."
+          },
+          {
+            "object_id": "seg_MC",
+            "status": "present",
+            "note": "Dashed M to C through O matches the original dash style and endpoints."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "A is at the top of the circle with its label above, as in the original."
+            "note": "A is labelled at the top vertex."
           },
           {
             "object_id": "point_02",
-            "status": "present",
-            "note": "O is the filled centre dot with its label below-left, as in the original."
+            "status": "missing",
+            "note": "The filled dot at O is not rendered; the O label is present."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "D is on AB with its label to the left, as in the original."
+            "note": "D labelled at the vertical chord."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "C is the filled point on the circle with its label to the right, as in the original."
+            "note": "C labelled at the circle contact."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "M is at the AE/dashed crossing with its label up-left and clear of the strokes."
+            "note": "M labelled near the chord."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "B is at the bottom of the circle with its label below, as in the original."
+            "note": "B labelled below the circle."
           },
           {
             "object_id": "point_07",
             "status": "present",
-            "note": "E is at the left circle intersection with its label to the left, as in the original."
+            "note": "E labelled at the left circle contact."
+          },
+          {
+            "object_id": "point_D",
+            "status": "present",
+            "note": "D point matches."
           },
           {
             "object_id": "point_M",
             "status": "present",
-            "note": "Same point as point_05; M is correctly placed at the crossing."
+            "note": "M point matches."
+          },
+          {
+            "object_id": "point_O",
+            "status": "missing",
+            "note": "The filled dot at O is absent; the O label is present."
           }
         ],
-        "checklist_score": 1.0,
+        "checklist_score": 0.909,
         "actionable_counts": {
           "high": 0,
-          "medium": 0,
+          "medium": 1,
           "low": 0
         },
         "flaky_count": 0,
-        "must_repair": false,
+        "must_repair": true,
         "matches": [
-          "Circle centre, radius and extent match the original.",
-          "AB, AC, AE and DC endpoints match the original.",
-          "Dashed M-O-C line starts at M on AE and ends at C with a similar dash pattern.",
-          "M, O, A, B, C, D and E labels are present, correctly spelled and bound to their points.",
-          "Label clearance is adequate; M does not touch the AE line.",
-          "Stroke weights and label sizes are comparable across the two panels."
+          "Circle, chords AB, AC, AE, DC and the A-M-E line match the original.",
+          "The dashed MC line passes through O and ends at C, with dash length and gap similar to the original.",
+          "Labels A, B, C, D, E, M and O are present and sit near their vertices without crossing strokes."
         ],
         "labels": {
           "present": [
@@ -2801,12 +2183,188 @@
           "missing": [],
           "extra": []
         },
-        "version": 5,
+        "version": 2,
         "binding_decisions": [],
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.93
+      "critic_score": 0.8
+    },
+    {
+      "topology_check": {
+        "passed": true,
+        "missing_edges": []
+      },
+      "version": 3,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round, font=\\fontsize{18}{21.6}\\selectfont]\n\\coordinate (A) at (0.356,3.389);\n\\coordinate (B) at (0.354,-3.359);\n\\coordinate (C) at (2.940,-2.160);\n\\coordinate (D) at (0.354,-2.159);\n\\coordinate (M) at (-1.306,1.408);\n\\coordinate (O) at (0.355,0.017);\n\n\n\n\n\n\n\n\n\\coordinate (E) at (-2.967,-0.569);\n\n\n\\draw (O) circle (3.374);\n\n\n\\draw (A) -- (O) -- (D) -- (B);\n\\draw (A) -- (M) -- (E);\n\\draw (A) -- (C);\n\\draw (D) -- (C);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (M) -- (O) -- (C);\n\n\n\\node[above] at (A) {$A$};\n\\node[below] at (B) {$B$};\n\\node[left] at (D) {$D$};\n\\node[right] at (C) {$C$};\n\\node[left] at (E) {$E$};\n\\node[above left] at (M) {$M$};\n\\node[below left] at (O) {$O$};\n\n\n\\fill[black] (O) circle (2.000pt);\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6994_q_fig2\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6994_q_fig2\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6994_q_fig2\\best.png",
+      "ok": true,
+      "compiled": true,
+      "errors": [],
+      "warnings": [],
+      "created_at": "2026-11-09T23:08:06",
+      "agent": "code_agent",
+      "mode": "repair",
+      "notes": "Removed the earlier \\fill (O) circle (1.500pt) and added \\fill[black] (O) circle (2pt); as the final drawing command. The requested literal (0.355,0.017) equals the program-owned O, so I bound it to (O) to keep the vertex binding and avoid a literal endpoint. Everything else is unchanged. Circle, paths, labels, line width and font are as before.",
+      "compile_seconds": 3.701,
+      "critic_report": {
+        "assessment_score": 0.92,
+        "score_kind": "heuristic visual similarity (not a calibrated probability)",
+        "verdict": "Render is faithful to the original: same circle, chords, dashed M-O-C line, labels and point positions, with no material discrepancies.",
+        "figure_type": {
+          "original": "Full circle with center O, chords AB (through O and D), AE (through M), AC, DC, and dashed MC through O; point dot at O",
+          "render": "Full circle with center O, chords AB (through O and D), AE (through M), AC, DC, and dashed MC through O; point dot at O"
+        },
+        "issues": [],
+        "checks": [
+          {
+            "object_id": "circle_01",
+            "status": "present",
+            "note": "Circle centred at O matches the original extent."
+          },
+          {
+            "object_id": "seg_01",
+            "status": "present",
+            "note": "Vertical A-O-D-B line matches the original."
+          },
+          {
+            "object_id": "seg_02",
+            "status": "present",
+            "note": "Solid chord from A to C matches the original."
+          },
+          {
+            "object_id": "seg_03",
+            "status": "present",
+            "note": "Solid chord A-M-E matches the original."
+          },
+          {
+            "object_id": "seg_04",
+            "status": "present",
+            "note": "Dashed O-C portion of the dashed line matches the original."
+          },
+          {
+            "object_id": "seg_05",
+            "status": "present",
+            "note": "Dashed M-O portion matches the original."
+          },
+          {
+            "object_id": "seg_06",
+            "status": "present",
+            "note": "Solid horizontal D-C matches the original."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "Segment AB is drawn as the vertical line through O and D."
+          },
+          {
+            "object_id": "seg_AC",
+            "status": "present",
+            "note": "Segment AC is drawn correctly."
+          },
+          {
+            "object_id": "seg_AE",
+            "status": "present",
+            "note": "Segment AE is drawn correctly and passes through M."
+          },
+          {
+            "object_id": "seg_DC",
+            "status": "present",
+            "note": "Segment DC is drawn correctly."
+          },
+          {
+            "object_id": "seg_MC",
+            "status": "present",
+            "note": "Dashed MC through O matches the original."
+          },
+          {
+            "object_id": "point_01",
+            "status": "present",
+            "note": "Label A sits above the top vertex in both panels."
+          },
+          {
+            "object_id": "point_02",
+            "status": "present",
+            "note": "Label O sits below-left of the centre dot in both panels."
+          },
+          {
+            "object_id": "point_03",
+            "status": "present",
+            "note": "Label D is left of D on AB in both panels."
+          },
+          {
+            "object_id": "point_04",
+            "status": "present",
+            "note": "Label C is right of the vertex on the circle in both panels."
+          },
+          {
+            "object_id": "point_05",
+            "status": "present",
+            "note": "Label M sits left of AE near the dashed start in both panels."
+          },
+          {
+            "object_id": "point_06",
+            "status": "present",
+            "note": "Label B is below the bottom vertex in both panels."
+          },
+          {
+            "object_id": "point_07",
+            "status": "present",
+            "note": "Label E is left of the circle contact in both panels."
+          },
+          {
+            "object_id": "point_D",
+            "status": "present",
+            "note": "Point D is on AB, where the DC segment starts."
+          },
+          {
+            "object_id": "point_M",
+            "status": "present",
+            "note": "Point M lies on AE, where the dashed line starts."
+          },
+          {
+            "object_id": "point_O",
+            "status": "present",
+            "note": "Centre dot at O matches the original."
+          }
+        ],
+        "checklist_score": 1.0,
+        "actionable_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        },
+        "flaky_count": 0,
+        "must_repair": false,
+        "matches": [
+          "Circle extent and centre",
+          "Vertical chord A-O-D-B",
+          "Solid chords AE (through M), AC and DC",
+          "Dashed M-O-C line with the dashed start on AE",
+          "Point dot at O",
+          "Labels A, B, C, D, E, M, O present with matching placement"
+        ],
+        "labels": {
+          "present": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "M",
+            "O"
+          ],
+          "missing": [],
+          "extra": []
+        },
+        "version": 3,
+        "binding_decisions": [],
+        "topology_decisions": [],
+        "raw_meta": "{}"
+      },
+      "critic_score": 0.92
     }
   ],
   "compilation_results": [
@@ -2814,66 +2372,40 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.915,
+      "seconds": 3.409,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.203125 KiB)\nnote: Writing `figure.log` (10.4912109375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:23:34"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.0556640625 KiB)\nnote: Writing `figure.log` (12.853515625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T23:06:56"
     },
     {
       "version": 2,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.882,
+      "seconds": 5.096,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.4912109375 KiB)\nnote: Writing `figure.pdf` (3.203125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T11:25:55"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.1376953125 KiB)\nnote: Writing `figure.log` (12.853515625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-09T23:07:26"
     },
     {
       "version": 3,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.11,
+      "seconds": 3.701,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.4912109375 KiB)\nnote: Writing `figure.pdf` (3.203125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.png",
-      "created_at": "2026-11-09T11:26:32"
-    },
-    {
-      "version": 4,
-      "ok": true,
-      "returncode": 0,
-      "seconds": 2.381,
-      "errors": [],
-      "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.4912109375 KiB)\nnote: Writing `figure.pdf` (3.2041015625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.png",
-      "created_at": "2026-11-09T11:27:20"
-    },
-    {
-      "version": 5,
-      "ok": true,
-      "returncode": 0,
-      "seconds": 2.112,
-      "errors": [],
-      "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.6630859375 KiB)\nnote: Writing `figure.pdf` (3.2001953125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v5\\v5.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v5\\v5.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v5\\v5.png",
-      "created_at": "2026-11-09T11:28:19"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.140625 KiB)\nnote: Writing `figure.log` (12.853515625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v3\\v3.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v3\\v3.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v3\\v3.png",
+      "created_at": "2026-11-09T23:08:10"
     }
   ],
   "validation_results": [
@@ -2909,17 +2441,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0544"
+          "detail": "ink_ratio=0.054"
         },
         {
           "name": "aspect_ratio",
@@ -2932,7 +2464,7 @@
           "detail": "figure bbox ratio 0.93"
         }
       ],
-      "created_at": "2026-11-09T11:23:34"
+      "created_at": "2026-11-09T23:06:55"
     },
     {
       "version": 2,
@@ -2966,17 +2498,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v2\\v2.png"
+          "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v2\\v2.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0544"
+          "detail": "ink_ratio=0.0546"
         },
         {
           "name": "aspect_ratio",
@@ -2989,7 +2521,7 @@
           "detail": "figure bbox ratio 0.93"
         }
       ],
-      "created_at": "2026-11-09T11:25:55"
+      "created_at": "2026-11-09T23:07:26"
     },
     {
       "version": 3,
@@ -3023,17 +2555,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v3\\v3.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v3\\v3.png"
+          "detail": ".cache\\redesign_150\\batch_work\\6994_q_fig2\\tikz\\v3\\v3.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0544"
+          "detail": "ink_ratio=0.0547"
         },
         {
           "name": "aspect_ratio",
@@ -3046,240 +2578,182 @@
           "detail": "figure bbox ratio 0.93"
         }
       ],
-      "created_at": "2026-11-09T11:26:32"
-    },
-    {
-      "version": 4,
-      "passed": true,
-      "checks": [
-        {
-          "name": "documentclass",
-          "passed": true,
-          "detail": "documentclass present"
-        },
-        {
-          "name": "document_environment",
-          "passed": true,
-          "detail": "begin=1 end=1"
-        },
-        {
-          "name": "tikzpicture",
-          "passed": true,
-          "detail": "one balanced tikzpicture"
-        },
-        {
-          "name": "no_shell_escape",
-          "passed": true,
-          "detail": "no \\write18/\\openout primitives"
-        },
-        {
-          "name": "compiler_ok",
-          "passed": true,
-          "detail": "returncode=0"
-        },
-        {
-          "name": "pdf_created",
-          "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.pdf"
-        },
-        {
-          "name": "png_rendered",
-          "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v4\\v4.png"
-        },
-        {
-          "name": "render_not_blank",
-          "passed": true,
-          "detail": "ink_ratio=0.0544"
-        },
-        {
-          "name": "aspect_ratio",
-          "passed": true,
-          "detail": "reference 0.93 vs render 0.93 (delta 0.00)"
-        },
-        {
-          "name": "figure_extent_ratio",
-          "passed": true,
-          "detail": "figure bbox ratio 0.93"
-        }
-      ],
-      "created_at": "2026-11-09T11:27:20"
-    },
-    {
-      "version": 5,
-      "passed": true,
-      "checks": [
-        {
-          "name": "documentclass",
-          "passed": true,
-          "detail": "documentclass present"
-        },
-        {
-          "name": "document_environment",
-          "passed": true,
-          "detail": "begin=1 end=1"
-        },
-        {
-          "name": "tikzpicture",
-          "passed": true,
-          "detail": "one balanced tikzpicture"
-        },
-        {
-          "name": "no_shell_escape",
-          "passed": true,
-          "detail": "no \\write18/\\openout primitives"
-        },
-        {
-          "name": "compiler_ok",
-          "passed": true,
-          "detail": "returncode=0"
-        },
-        {
-          "name": "pdf_created",
-          "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v5\\v5.pdf"
-        },
-        {
-          "name": "png_rendered",
-          "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\tikz\\v5\\v5.png"
-        },
-        {
-          "name": "render_not_blank",
-          "passed": true,
-          "detail": "ink_ratio=0.0543"
-        },
-        {
-          "name": "aspect_ratio",
-          "passed": true,
-          "detail": "reference 0.93 vs render 0.93 (delta 0.00)"
-        },
-        {
-          "name": "figure_extent_ratio",
-          "passed": true,
-          "detail": "figure bbox ratio 0.93"
-        }
-      ],
-      "created_at": "2026-11-09T11:28:19"
+      "created_at": "2026-11-09T23:08:10"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.8,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Circle, diameter AB, chords AE and AC, horizontal DC, and the C-O part of the dashed line match the original. The dashed M-O segment starts at the circle instead of at the A-E crossing, and the M label is placed accordingly, so M is misplaced.",
+      "verdict": "The render is geometrically faithful: circle, chords AB, AC, AE, DC, the dashed MC line and all labels match the original. The main differences are a missing centre dot at O and a dotted rather than dashed look on the MC line.",
       "figure_type": {
-        "original": "Circle centred at O with vertical diameter A-B, chords A-E and A-C, horizontal chord D-C, and a dashed line from the A-E crossing through O to C. No right-angle marks.",
-        "render": "Circle centred at O with vertical diameter A-B, chords A-E and A-C, horizontal chord D-C, and a dashed line from a point on the circle through O to C. No right-angle marks."
+        "original": "Circle with chords AE, AC, DC and vertical diameter AB; dashed line from M through O to C; centre O marked with a dot; labels A, B, C, D, E, M, O",
+        "render": "Circle with the same chords and vertical diameter; dashed line from M through O to C; no centre dot; same labels"
       },
       "issues": [
         {
-          "type": "wrong_position",
-          "severity": "medium",
+          "type": "missing_element",
+          "severity": "low",
           "object_ids": [
-            "seg_05",
-            "point_08"
+            "point_02"
           ],
           "bbox": [
-            0.23,
-            0.25,
-            0.38,
-            0.38
+            0.5,
+            0.46,
+            0.57,
+            0.54
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "In the original, the dashed line starts where it crosses segment A-E (about 0.34,0.34 of the panel), and the M label sits just up-left of that crossing, inside the circle. In the render, the dashed line runs past A-E to the circle near the top-left, and the M label sits next to the circle at about (0.12,0.21), well away from the dashed start. The M point is therefore bound to a circle location that does not match the original.",
-          "suggestion": "Place M at the intersection of segment A-E with the line through O and C (the point where the dashed line starts in the original), keeping the M label binding. End the dashed segment at M, and position the label above-left of that point so it clears the A-E stroke. Do not extend the dashed line beyond A-E."
+          "description": "The original marks the centre O with a filled dot. The render has no dot at O; only the label is drawn.",
+          "suggestion": "Add a small filled dot at (O), e.g. \\fill (O) circle (1.5pt);"
+        },
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "seg_MC"
+          ],
+          "bbox": [
+            0.09,
+            0.2,
+            0.92,
+            0.76
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The MC line is drawn with a fine dotted pattern. In the original it is a dashed line with longer dashes and wider gaps.",
+          "suggestion": "Use a longer dash pattern, e.g. dash pattern=on 6pt off 4pt, or keep [dashed] with a slightly larger dash length."
         }
       ],
       "checks": [
         {
           "object_id": "circle_01",
           "status": "present",
-          "note": "Circle centred at O with matching radius and extent."
+          "note": "Circle centred at O with matching radius."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Vertical diameter A-B matches the original."
+          "note": "Vertical diameter A to B drawn."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Chord A-C matches the original."
+          "note": "Chord A to C drawn."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Chord A-E matches the original, ending at E on the circle."
+          "note": "Chord A to E drawn, passing through M."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Dashed C-O portion matches the original; the stroke is continuous through O."
+          "note": "Dashed part of MC from M through O to C."
         },
         {
           "object_id": "seg_05",
-          "status": "wrong",
-          "note": "Dashed M-O portion starts on the circle, but in the original it starts at the A-E crossing."
+          "status": "present",
+          "note": "Dashed part of the same MC line."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Horizontal chord D-C matches the original."
+          "note": "Horizontal chord D to C drawn."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "AB drawn correctly."
+        },
+        {
+          "object_id": "seg_AC",
+          "status": "present",
+          "note": "AC drawn correctly."
+        },
+        {
+          "object_id": "seg_AE",
+          "status": "present",
+          "note": "AE drawn correctly."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "DC drawn correctly."
+        },
+        {
+          "object_id": "seg_MC",
+          "status": "present",
+          "note": "Dashed MC drawn, but the dash style is finer than the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label A is correctly placed at the top of the circle."
+          "note": "A is labelled at the top of the circle."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label O is correctly placed below-left of the centre."
+          "note": "O label present; the centre dot is missing."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label D is correctly placed left of D on the diameter."
+          "note": "D labelled on the vertical diameter."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label C is correctly placed right of C."
+          "note": "C labelled at the lower-right circle contact."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "M labelled upper-left of its point on AE."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "Label B is correctly placed below the bottom of the circle."
+          "note": "B labelled at the bottom of the circle."
         },
         {
           "object_id": "point_07",
           "status": "present",
-          "note": "Label E is correctly placed left of E."
+          "note": "E labelled left of the circle contact."
         },
         {
-          "object_id": "point_08",
-          "status": "wrong",
-          "note": "M label is present but its binding point lies on the circle, not at the A-E crossing where the original places M."
+          "object_id": "point_D",
+          "status": "present",
+          "note": "D matches point_03."
+        },
+        {
+          "object_id": "point_M",
+          "status": "present",
+          "note": "M matches point_05."
+        },
+        {
+          "object_id": "point_O",
+          "status": "present",
+          "note": "O matches point_02; the centre dot is missing."
         }
       ],
-      "checklist_score": 0.929,
+      "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
-        "medium": 1,
-        "low": 0
+        "medium": 0,
+        "low": 2
       },
       "flaky_count": 0,
       "must_repair": true,
       "matches": [
-        "Circle size and centre",
-        "Diameter A-B with A top and B bottom",
-        "Chords A-E, A-C and D-C",
-        "Dashed style of the C-O portion through O",
-        "Labels A, B, C, D, E, O",
-        "Centre dot at O",
-        "No right-angle marks in either panel"
+        "Circle geometry and placement",
+        "Vertical diameter AB through O and D",
+        "Chords AE, AC and DC",
+        "Dashed MC line from M through O to C",
+        "M lies on AE",
+        "Labels A, B, C, D, E, M, O present with correct vertex association",
+        "No extra labels"
       ],
       "labels": {
         "present": [
@@ -3303,317 +2777,166 @@
             "A",
             "E"
           ],
-          "reason": "The solid stroke runs continuously from A to E in the original."
-        },
-        {
-          "case_id": "53a8dccf00498061",
-          "edge": [
-            "C",
-            "O"
-          ],
-          "reason": "The dashed stroke runs continuously through O to C in the original."
-        },
-        {
-          "case_id": "94553f7a57f31314",
-          "edge": null,
-          "reason": "The original dashed stroke starts at the A-E crossing, not at the M point on the circle, so M-O is not a faithful edge. Its endpoint is a true extension in the render."
-        },
-        {
-          "case_id": "5950e1c423469c29",
-          "edge": [
-            "C",
-            "D"
-          ],
-          "reason": "The horizontal solid stroke runs from D to C in the original."
+          "reason": "In the original, a single solid stroke runs from A through M to E, so the A–E edge is confirmed."
         }
       ],
       "raw_meta": "{}"
     },
     {
-      "assessment_score": 0.72,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Most of the figure matches, but M is bound to the circle instead of the A-E/O-C crossing, so the dashed line overhangs past AE to the circle.",
+      "verdict": "The render is geometrically faithful: circle, chords, dashed M-O-C line, and labels match the original. The only clear discrepancy is the missing filled dot at O.",
       "figure_type": {
-        "original": "Circle with chord AB as a diameter, chords AC and AE, dashed segment from the A-E crossing through O to C, perpendicular DC from the diameter, labelled points A, B, C, D, E, O, M",
-        "render": "Circle with the same chords and diameter AB, but the dashed line starts at a point on the circle at upper-left (past the A-E line) and M sits there"
+        "original": "circle with center O, chord AB through O and D, chords AE (through M), AC, DC, and dashed MC through O",
+        "render": "circle with center O, chords AB, AE (through M), AC, DC, and dashed MC through O; no visible dot at O"
       },
       "issues": [
         {
-          "type": "wrong_position",
-          "severity": "high",
+          "type": "missing_element",
+          "severity": "medium",
           "object_ids": [
-            "point_08",
-            "point_M",
-            "seg_MO_dashed",
-            "seg_05"
+            "point_02",
+            "point_O"
           ],
           "bbox": [
-            0.2,
-            0.18,
-            0.4,
-            0.4
+            0.5,
+            0.46,
+            0.56,
+            0.54
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "M is bound to point_08 at (102.6,121.3), which lies on the circle (distance to O ≈ radius). In the original, the dashed line starts where it meets segment AE, at the crossing point_05 (≈145.6,157.4). In the render the dashed line overhangs past AE up to the circle, and the M label sits beside that overhang instead of at the crossing.",
-          "suggestion": "Set M to the AE/OC intersection, computed in TikZ coordinates as (-1.305,1.410) (midpoint of A-E, on line O-C at parameter s≈-0.64). Draw the dashed path as \\draw[dashed] (M) -- (O) -- (C); with \\coordinate (M) at (-1.305,1.410); and remove the overhang. Keep the M label anchored above-left of that point, away from the AE stroke, e.g. \\node[above left, ...] at (M) {$M$};."
-        },
-        {
-          "type": "wrong_style",
-          "severity": "low",
-          "object_ids": [
-            "seg_MO_dashed"
-          ],
-          "bbox": [
-            0.36,
-            0.34,
-            0.92,
-            0.8
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "The dashed segment M-O-C is rendered as a fine dotted line with short gaps. The original has longer dashes with clear gaps, so the render's dash pattern is visibly finer.",
-          "suggestion": "Use a longer dash pattern, e.g. \\draw[dash pattern=on 6pt off 4pt] (M) -- (O) -- (C); or keep dashed with a larger line width for the dash segments."
+          "description": "The filled dot marking the centre O is visible in the original but absent in the render, even though the TikZ source contains \\fill (O) circle (1.500pt).",
+          "suggestion": "Check that the \\fill (O) circle (1.500pt) command is rendered (for example, that it is not overdrawn or clipped). Otherwise, redraw it explicitly after the circle and segments so it sits on top."
         }
       ],
       "checks": [
         {
           "object_id": "circle_01",
           "status": "present",
-          "note": "Circle centred near O with matching radius and extent."
+          "note": "Circle centre and radius match the original."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Vertical diameter A-B drawn between A and B."
+          "note": "Vertical A-D-B chord matches."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Chord A-C drawn from A to C."
+          "note": "Chord from A to C matches."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Chord A-E drawn from A to E, matching the original."
+          "note": "Chord A-M-E matches."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Dashed O-C portion drawn correctly; dash style is finer than the original (see wrong_style issue)."
+          "note": "Dashed O-C portion matches."
         },
         {
           "object_id": "seg_05",
-          "status": "wrong",
-          "note": "Dashed M-O portion starts at the circle at upper-left instead of at the A-E crossing, overhanging past AE."
+          "status": "present",
+          "note": "Dashed M-O portion matches."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Horizontal segment D-C drawn correctly."
+          "note": "Horizontal D-C matches."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Segment AB matches."
+        },
+        {
+          "object_id": "seg_AC",
+          "status": "present",
+          "note": "Segment AC matches."
         },
         {
           "object_id": "seg_AE",
           "status": "present",
-          "note": "Segment A-E drawn correctly; the dashed line should terminate on it."
+          "note": "Segment AE through M matches."
         },
         {
-          "object_id": "seg_MO_dashed",
-          "status": "wrong",
-          "note": "Dashed MO should start at the A-E crossing (≈145.6,157.4 in image pixels); the render starts at the circle."
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "Segment DC matches."
+        },
+        {
+          "object_id": "seg_MC",
+          "status": "present",
+          "note": "Dashed MC through O matches."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "A is correctly placed at the top of the circle and labelled."
+          "note": "A is correctly placed and labelled."
         },
         {
           "object_id": "point_02",
-          "status": "present",
-          "note": "O is correctly placed at the centre with a dot and label."
+          "status": "missing",
+          "note": "The dot at O is visible in the original but not drawn in the render."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "D is correctly placed on the diameter and labelled."
+          "note": "D is correctly placed and labelled."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "C is correctly placed on the circle and labelled."
-        },
-        {
-          "object_id": "point_06",
-          "status": "present",
-          "note": "B is correctly placed at the bottom of the circle and labelled."
-        },
-        {
-          "object_id": "point_07",
-          "status": "present",
-          "note": "E is correctly placed on the circle and labelled."
-        },
-        {
-          "object_id": "point_08",
-          "status": "wrong",
-          "note": "M is bound to a point on the circle, not the A-E crossing."
-        },
-        {
-          "object_id": "point_M",
-          "status": "wrong",
-          "note": "The M vertex at the A-E/OC crossing is not drawn; the render has no vertex there, and the M label is placed at the circle."
-        }
-      ],
-      "checklist_score": 0.882,
-      "actionable_counts": {
-        "high": 1,
-        "medium": 0,
-        "low": 1
-      },
-      "flaky_count": 0,
-      "must_repair": true,
-      "matches": [
-        "Circle centred at O with the correct radius and full extent",
-        "Diameter A-B vertical with O on it",
-        "Chords A-C, A-E and horizontal D-C present with correct endpoints",
-        "A, B, C, D, E, O labels present, correctly bound and clear of strokes",
-        "Dot marking O and C matches the original"
-      ],
-      "labels": {
-        "present": [
-          "A",
-          "B",
-          "C",
-          "D",
-          "E",
-          "O",
-          "M"
-        ],
-        "missing": [],
-        "extra": []
-      },
-      "version": 4,
-      "binding_decisions": [
-        {
-          "label": "M",
-          "point_id": "point_05",
-          "reason": "In the original, the dashed line begins where it meets segment AE, and the M label sits just above-left of that crossing. point_05 (≈145.6,157.4) is that crossing. point_08 lies on the circle, not at the crossing.",
-          "replaces": null
-        }
-      ],
-      "topology_decisions": [],
-      "raw_meta": "{}"
-    },
-    {
-      "assessment_score": 0.93,
-      "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Render is faithful to the original: M sits on the A-E line at the crossing with the dashed M-O-C line, and labels, dash style and segment ends match.",
-      "figure_type": {
-        "original": "circle with centre O, chords AB, AC, AE and radius-like dashed line M-O-C, plus right-leg CD; no right-angle marks visible",
-        "render": "circle with centre O, chords AB, AC, AE, segment CD, and dashed M-O-C; matches the original"
-      },
-      "issues": [],
-      "checks": [
-        {
-          "object_id": "circle_01",
-          "status": "present",
-          "note": "Full circle through A, B, C, E, centred at O in both panels."
-        },
-        {
-          "object_id": "seg_01",
-          "status": "present",
-          "note": "Vertical AB drawn from A to B, passing through O and D as in the original."
-        },
-        {
-          "object_id": "seg_02",
-          "status": "present",
-          "note": "Chord AC matches the original endpoints at A and C."
-        },
-        {
-          "object_id": "seg_03",
-          "status": "present",
-          "note": "Chord AE ends at E on the circle, as in the original."
-        },
-        {
-          "object_id": "seg_04",
-          "status": "present",
-          "note": "Dashed O-C portion is drawn with the same dash style and ends at C."
-        },
-        {
-          "object_id": "seg_05",
-          "status": "unclear",
-          "note": "CV detection overextends the dashed line up-left past M into the M label area; the original dashes start at M and the render correctly starts there, so no render fix is needed."
-        },
-        {
-          "object_id": "seg_06",
-          "status": "present",
-          "note": "Horizontal DC is drawn from D to C, matching the original."
-        },
-        {
-          "object_id": "seg_AE",
-          "status": "present",
-          "note": "Solid AE line runs from A to E and passes through M's crossing point."
-        },
-        {
-          "object_id": "seg_MO_dashed",
-          "status": "present",
-          "note": "Dashed line starts at M on AE, runs through O and ends at C, as in the original."
-        },
-        {
-          "object_id": "point_01",
-          "status": "present",
-          "note": "A is at the top of the circle with its label above, as in the original."
-        },
-        {
-          "object_id": "point_02",
-          "status": "present",
-          "note": "O is the filled centre dot with its label below-left, as in the original."
-        },
-        {
-          "object_id": "point_03",
-          "status": "present",
-          "note": "D is on AB with its label to the left, as in the original."
-        },
-        {
-          "object_id": "point_04",
-          "status": "present",
-          "note": "C is the filled point on the circle with its label to the right, as in the original."
+          "note": "C is correctly placed and labelled."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "M is at the AE/dashed crossing with its label up-left and clear of the strokes."
+          "note": "M is correctly placed and labelled."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "B is at the bottom of the circle with its label below, as in the original."
+          "note": "B is correctly placed and labelled."
         },
         {
           "object_id": "point_07",
           "status": "present",
-          "note": "E is at the left circle intersection with its label to the left, as in the original."
+          "note": "E is correctly placed and labelled."
+        },
+        {
+          "object_id": "point_D",
+          "status": "present",
+          "note": "D is correctly placed and labelled."
         },
         {
           "object_id": "point_M",
           "status": "present",
-          "note": "Same point as point_05; M is correctly placed at the crossing."
+          "note": "M is correctly placed and labelled."
+        },
+        {
+          "object_id": "point_O",
+          "status": "missing",
+          "note": "The O point marker (dot) is absent in the render; the O label is present."
         }
       ],
-      "checklist_score": 1.0,
+      "checklist_score": 0.909,
       "actionable_counts": {
         "high": 0,
-        "medium": 0,
+        "medium": 1,
         "low": 0
       },
       "flaky_count": 0,
-      "must_repair": false,
+      "must_repair": true,
       "matches": [
-        "Circle centre, radius and extent match the original.",
-        "AB, AC, AE and DC endpoints match the original.",
-        "Dashed M-O-C line starts at M on AE and ends at C with a similar dash pattern.",
-        "M, O, A, B, C, D and E labels are present, correctly spelled and bound to their points.",
-        "Label clearance is adequate; M does not touch the AE line.",
-        "Stroke weights and label sizes are comparable across the two panels."
+        "Circle size and position match the original.",
+        "Vertical chord A-D-B and the horizontal D-C match.",
+        "Chords A-C and A-M-E match, with M on the chord AE.",
+        "Dashed line from M through O to C matches, with endpoints at M and C.",
+        "Labels A, B, C, D, E, M, O are present and placed close to their vertices without collisions.",
+        "Line weights and overall aspect ratio are comparable."
       ],
       "labels": {
         "present": [
@@ -3628,7 +2951,333 @@
         "missing": [],
         "extra": []
       },
-      "version": 5,
+      "version": 2,
+      "binding_decisions": [],
+      "topology_decisions": [],
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.8,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Geometry, labels and the MC dashed style match the original, but the filled dot at O is missing from the render.",
+      "figure_type": {
+        "original": "circle with chords AE, AC, DC, vertical AB, and dashed MC through O, with a filled dot at O",
+        "render": "same circle and chords with dashed MC through O, but no filled dot at O"
+      },
+      "issues": [
+        {
+          "type": "missing_element",
+          "severity": "medium",
+          "object_ids": [
+            "point_02",
+            "point_O"
+          ],
+          "bbox": [
+            0.5,
+            0.46,
+            0.56,
+            0.54
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The filled dot at O visible in the original (about 1.5pt radius at the centre of the circle, on the dashed MC line) is absent in the render, even though the TikZ contains \\fill (O) circle (1.500pt);. The fill is not appearing, so the dot is not drawn.",
+          "suggestion": "Check that the \\fill (O) circle (1.500pt); command is actually emitted after the paths (for example, move it after \\draw of the dashed line and confirm it is not overdrawn or removed by a conditional). If the dot is still not visible, increase the radius (e.g. 2pt) or use \\fill[black] (O) circle (2pt);."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "circle_01",
+          "status": "present",
+          "note": "Circle through A, B, C, E matches the original."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Vertical chord A to B drawn."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Chord A to C drawn."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Chord A through M to E drawn."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Dashed segment from M-O-C is drawn as dashes in the render."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Dashed M to O part of MC drawn."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Horizontal D to C drawn."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "A to B vertical line matches."
+        },
+        {
+          "object_id": "seg_AC",
+          "status": "present",
+          "note": "A to C matches."
+        },
+        {
+          "object_id": "seg_AE",
+          "status": "present",
+          "note": "A to E through M matches."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "D to C matches."
+        },
+        {
+          "object_id": "seg_MC",
+          "status": "present",
+          "note": "Dashed M to C through O matches the original dash style and endpoints."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "A is labelled at the top vertex."
+        },
+        {
+          "object_id": "point_02",
+          "status": "missing",
+          "note": "The filled dot at O is not rendered; the O label is present."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "D labelled at the vertical chord."
+        },
+        {
+          "object_id": "point_04",
+          "status": "present",
+          "note": "C labelled at the circle contact."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "M labelled near the chord."
+        },
+        {
+          "object_id": "point_06",
+          "status": "present",
+          "note": "B labelled below the circle."
+        },
+        {
+          "object_id": "point_07",
+          "status": "present",
+          "note": "E labelled at the left circle contact."
+        },
+        {
+          "object_id": "point_D",
+          "status": "present",
+          "note": "D point matches."
+        },
+        {
+          "object_id": "point_M",
+          "status": "present",
+          "note": "M point matches."
+        },
+        {
+          "object_id": "point_O",
+          "status": "missing",
+          "note": "The filled dot at O is absent; the O label is present."
+        }
+      ],
+      "checklist_score": 0.909,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 1,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": true,
+      "matches": [
+        "Circle, chords AB, AC, AE, DC and the A-M-E line match the original.",
+        "The dashed MC line passes through O and ends at C, with dash length and gap similar to the original.",
+        "Labels A, B, C, D, E, M and O are present and sit near their vertices without crossing strokes."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "M",
+          "O"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 2,
+      "binding_decisions": [],
+      "topology_decisions": [],
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.92,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "Render is faithful to the original: same circle, chords, dashed M-O-C line, labels and point positions, with no material discrepancies.",
+      "figure_type": {
+        "original": "Full circle with center O, chords AB (through O and D), AE (through M), AC, DC, and dashed MC through O; point dot at O",
+        "render": "Full circle with center O, chords AB (through O and D), AE (through M), AC, DC, and dashed MC through O; point dot at O"
+      },
+      "issues": [],
+      "checks": [
+        {
+          "object_id": "circle_01",
+          "status": "present",
+          "note": "Circle centred at O matches the original extent."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Vertical A-O-D-B line matches the original."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Solid chord from A to C matches the original."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Solid chord A-M-E matches the original."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Dashed O-C portion of the dashed line matches the original."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Dashed M-O portion matches the original."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Solid horizontal D-C matches the original."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Segment AB is drawn as the vertical line through O and D."
+        },
+        {
+          "object_id": "seg_AC",
+          "status": "present",
+          "note": "Segment AC is drawn correctly."
+        },
+        {
+          "object_id": "seg_AE",
+          "status": "present",
+          "note": "Segment AE is drawn correctly and passes through M."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "Segment DC is drawn correctly."
+        },
+        {
+          "object_id": "seg_MC",
+          "status": "present",
+          "note": "Dashed MC through O matches the original."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "Label A sits above the top vertex in both panels."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "Label O sits below-left of the centre dot in both panels."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Label D is left of D on AB in both panels."
+        },
+        {
+          "object_id": "point_04",
+          "status": "present",
+          "note": "Label C is right of the vertex on the circle in both panels."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "Label M sits left of AE near the dashed start in both panels."
+        },
+        {
+          "object_id": "point_06",
+          "status": "present",
+          "note": "Label B is below the bottom vertex in both panels."
+        },
+        {
+          "object_id": "point_07",
+          "status": "present",
+          "note": "Label E is left of the circle contact in both panels."
+        },
+        {
+          "object_id": "point_D",
+          "status": "present",
+          "note": "Point D is on AB, where the DC segment starts."
+        },
+        {
+          "object_id": "point_M",
+          "status": "present",
+          "note": "Point M lies on AE, where the dashed line starts."
+        },
+        {
+          "object_id": "point_O",
+          "status": "present",
+          "note": "Centre dot at O matches the original."
+        }
+      ],
+      "checklist_score": 1.0,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": false,
+      "matches": [
+        "Circle extent and centre",
+        "Vertical chord A-O-D-B",
+        "Solid chords AE (through M), AC and DC",
+        "Dashed M-O-C line with the dashed start on AE",
+        "Point dot at O",
+        "Labels A, B, C, D, E, M, O present with matching placement"
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "M",
+          "O"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 3,
       "binding_decisions": [],
       "topology_decisions": [],
       "raw_meta": "{}"
@@ -3637,23 +3286,27 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "seg_05 extends from (107.25,125.21) to M, about 40 px past M toward the upper-left; the stretch may be the M label box (108-136, 129-148) and needs visual review."
+      "issue": "point_08 should not carry M; it is off the strokes."
     },
     {
       "source": "geometry_agent",
-      "issue": "point_05 has no CV letter binding; M is assigned to it per supervisor instruction, not per CV binding."
+      "issue": "seg_05 detection extends up-left to (107.25,125.21), beyond point_05; the dashed line may start at point_05 rather than the glyph. Critic should verify the dashed start."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "No right-angle square at D was verified; angle mark at D left empty. Critic should check whether a square is printed in the CD/DB or CD/DA quadrant."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "point_05 is unlabeled in OCR; M binding is based on glyph placement."
     },
     {
       "source": "supervisor",
-      "issue": "The M coordinate (-1.306,1.408) was applied by the Code Agent from the CV point_05 value. It is not literally the (-1.304,1.408) I requested, a difference of about 0.002 units. The critic verified the position visually."
+      "issue": "No right-angle square mark at D was verified in the source, so none was drawn."
     },
     {
       "source": "supervisor",
-      "issue": "The critic flagged that the dashed line's rendered dash pattern was finer than the original; v5 uses on 6pt off 4pt, which the critic accepted."
-    },
-    {
-      "source": "supervisor",
-      "issue": "No right-angle mark was added; none was detected or seen."
+      "issue": "The dashed line from M may start at M rather than extend beyond it (CV detection overshoot up-left to about (107,125)); the critic did not flag this."
     }
   ],
   "action_history": [
@@ -3682,38 +3335,85 @@
       "error": null
     },
     {
+      "step": 0,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "initial source evidence",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; count=0",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 9, 'relations': 6, 'conflicts': 1, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
       "step": 1,
-      "action": "call_cv_tool:detect_circles",
-      "purpose": "Check whether any arc or circle is present (figure may contain a semicircle through A, E, B, C).",
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=2",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 1,
+      "action": "run_code_agent",
+      "purpose": "Reconstruct the figure in TikZ (image 413x446, pixel origin top-left; flip y for TikZ). Use these measured pixel points (px,py): A(223.1,65.0), B(223.0,379.6), O(223.0,222.2) = centre of circle radius",
       "params": {
-        "tool_name": "detect_circles",
-        "params": {
-          "max_circles": 3
-        }
+        "mode": "generate",
+        "use_image": null,
+        "instruction": "Reconstruct the figure in TikZ (image 413x446, pixel origin top-left; flip y for TikZ). Use these measured pixel points (px,py): A(223.1,65.0), B(223.0,379.6), O(223.0,222.2) = centre of circle radius 157.3, D(223.0,324.0) on AB, C(343.6,323.7) on the circle, E(68.2,249.5) on the circle, M(145.6,157.4) = midpoint of AE. Edges: solid AB (diameter, vertical), solid AE, solid AC, solid DC (horizontal, D to C, with a square right-angle mark at D between DC and AB if drawn), dashed OC (from O to C), dashed MC, dashed OM/segment through M (the dashed line from O up-left toward M; it may extend slightly beyond M toward (107,125) - verify with critic, do not invent a point name for it). Draw the circle (centre O, radius 157.3) as a full solid circle through A,B,C,E. Right angle at M between OM and AE should be marked only if visible. Labels: A above top, B below bottom, O at lower-left-ish of centre, D left-below of D, C right of C, E left of E, M upper-left of M. Use named coordinates shared across all paths."
       },
       "status": "ok",
-      "result_summary": "ok=True; count=1",
-      "duration_s": 0.78,
+      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 32.02,
       "token_usage": {
-        "delta": 0
+        "delta": 19474
       },
+      "visual_calls": 2,
+      "error": null
+    },
+    {
+      "step": 2,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=2; best_version=1; assessment_score=0.9; issues=1",
+      "duration_s": 0.0,
+      "token_usage": {},
       "visual_calls": 0,
       "error": null
     },
     {
       "step": 2,
       "action": "run_code_agent",
-      "purpose": "Build a TikZ figure (y flipped: y_tikz = -y_px, use a scale of 1/100 cm or similar). Measured points (image px, origin top-left): O=(223.0,222.2) center; circle centered O radius 157.3 drawn solid, fu",
+      "purpose": "Add a small filled dot at O (\\fill (O) circle (1.5pt);). Make the MC dashed line use a longer dash pattern, e.g. dash pattern=on 6pt off 4pt, keeping the same endpoints (M to O to C). Keep all other c",
       "params": {
-        "mode": "generate",
+        "mode": "repair",
         "use_image": null,
-        "instruction": "Build a TikZ figure (y flipped: y_tikz = -y_px, use a scale of 1/100 cm or similar). Measured points (image px, origin top-left): O=(223.0,222.2) center; circle centered O radius 157.3 drawn solid, full circle. A=(223.1,65.0) top of circle, B=(223.0,379.6) bottom of circle, E=(68.2,249.5) on circle, C=(343.6,323.7) on circle, D=(223.0,324.0) on segment OB (between O and B, directly below O), M=(102.6,121.3) inside circle on the upper-left dashed line. Solid edges: A--B (vertical diameter, through O), A--E (chord), A--C (chord, from A to C), D--C (horizontal segment at y=324 from D to C). Dashed edges: O--C (dashed, from O to C), and a dashed line through M and O (M--O, dashed, from M toward O; it continues from M to O). Labels: A above top point, B below bottom point, O near center (left-below of center is fine, place label to the left/below), C right of C, D left of D, E left of E, M upper-left of M. Use named coordinates for each point and draw all edges by name. Right-angle mark is not yet verified; do not add one unless visible. Keep only labels A,B,C,D,E,M,O."
+        "instruction": "Add a small filled dot at O (\\fill (O) circle (1.5pt);). Make the MC dashed line use a longer dash pattern, e.g. dash pattern=on 6pt off 4pt, keeping the same endpoints (M to O to C). Keep all other coordinates unchanged."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 20.48,
+      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 24.21,
       "token_usage": {
-        "delta": 9164
+        "delta": 18441
       },
       "visual_calls": 1,
       "error": null
@@ -3721,286 +3421,63 @@
     {
       "step": 3,
       "action": "run_critic",
-      "purpose": "Check the topology: circle centered O, chords A-E, A-C, vertical diameter A-B, D-C horizontal, dashed M-O-C, label placement and any missing labels or right-angle marks.",
+      "purpose": "Verify the filled dot at O is rendered in v2 and the MC dashed style matches the original.",
       "params": {
-        "focus": "Check the topology: circle centered O, chords A-E, A-C, vertical diameter A-B, D-C horizontal, dashed M-O-C, label placement and any missing labels or right-angle marks."
+        "focus": "Verify the filled dot at O is rendered in v2 and the MC dashed style matches the original."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.8; issues=1",
-      "duration_s": 16.8,
+      "result_summary": "ok=True; version=2; best_version=1; assessment_score=0.8; issues=1",
+      "duration_s": 12.11,
       "token_usage": {
-        "delta": 10836
+        "delta": 9705
       },
       "visual_calls": 1,
       "error": null
     },
     {
       "step": 4,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=3; best_version=3; assessment_score=0.92",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 4,
       "action": "run_code_agent",
-      "purpose": "Repair: move M to the A–E crossing using measured point_05 at image px (145.63,157.35) (origin top-left; convert with the same frame as v1: x_tikz = (145.63-206.45)*0.021448, y_tikz = -(157.35-223.0)*",
+      "purpose": "The filled dot at O still does not appear. Place it as the final drawing command before \\end{tikzpicture}: \\fill[black] (0.355,0.017) circle (2pt); and remove any earlier duplicate fill. Keep everythi",
       "params": {
         "mode": "repair",
         "use_image": null,
-        "instruction": "Repair: move M to the A–E crossing using measured point_05 at image px (145.63,157.35) (origin top-left; convert with the same frame as v1: x_tikz = (145.63-206.45)*0.021448, y_tikz = -(157.35-223.0)*0.021448). Define M at this point (not at the circle point). Dashed edge should be M--O--C only (from the crossing M through O to C), so no dashed line beyond M toward upper-left. Place the M label above-left of M, offset clear of the A–E stroke (e.g. anchor north west or left, with small offset), inside the circle. Keep all other edges as in v1: circle centred O radius 3.374, solid A--B, A--C, A--E, D--C; O, C filled dots. Keep labels A,B,C,D,E,M,O."
+        "instruction": "The filled dot at O still does not appear. Place it as the final drawing command before \\end{tikzpicture}: \\fill[black] (0.355,0.017) circle (2pt); and remove any earlier duplicate fill. Keep everything else unchanged."
       },
-      "status": "error",
-      "result_summary": "ok=False; error=no TikZ submission",
-      "duration_s": 50.59,
+      "status": "ok",
+      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=3",
+      "duration_s": 23.68,
       "token_usage": {
-        "delta": 28817
+        "delta": 19131
       },
-      "visual_calls": 0,
-      "error": "no TikZ submission"
+      "visual_calls": 1,
+      "error": null
     },
     {
       "step": 5,
-      "action": "run_code_agent",
-      "purpose": "Repair the latest TikZ. Move point M to the intersection of segment A–E with the dashed line through O and C. Use measured CV point_05 at image px (145.63,157.35). Convert with the same frame as the c",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Repair the latest TikZ. Move point M to the intersection of segment A–E with the dashed line through O and C. Use measured CV point_05 at image px (145.63,157.35). Convert with the same frame as the current version: x_tikz = (145.63-206.45)*0.021448, y_tikz = -(157.35-223.0)*0.021448. Define M there, and draw the dashed edge as M--O--C only (start at M, not on the circle). Place the M label above-left of M, clear of the A–E stroke, inside the circle. Keep the circle centred O with radius 3.374, solid A--B, A--C, A--E, D--C, and labels A,B,C,D,E,M,O. Return the full compilable TikZ."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 36.99,
-      "token_usage": {
-        "delta": 29527
-      },
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 6,
-      "action": "run_code_agent",
-      "purpose": "Repair: the coordinate of M is still the old circle point (-2.229,2.182). Redefine it: \\coordinate (M) at (-1.304,1.408); this is the CV point_05 (image px 145.63,157.35) converted to TikZ, lying on s",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Repair: the coordinate of M is still the old circle point (-2.229,2.182). Redefine it: \\coordinate (M) at (-1.304,1.408); this is the CV point_05 (image px 145.63,157.35) converted to TikZ, lying on segment A--E and on line O--C. Keep the dashed edge \\draw[dashed] (M) -- (O) -- (C); and put the M label with anchor north west or left, offset so it sits clear of the A–E stroke. Do not change other coordinates. Return the full TikZ."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 31.07,
-      "token_usage": {
-        "delta": 18874
-      },
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 7,
-      "action": "run_geometry_agent",
-      "purpose": "Consolidate point M. The label M currently binds to a point on the circle (image px ~102.56,121.28), but the original shows M at the crossing of segment A-E with the dashed line through O and C. CV po",
-      "params": {
-        "instruction": "Consolidate point M. The label M currently binds to a point on the circle (image px ~102.56,121.28), but the original shows M at the crossing of segment A-E with the dashed line through O and C. CV point_05 is at image px (145.63,157.35). Verify that point_05 lies on segment A-E (from A (223.1,65.0) to E (68.2,249.5)) and on line O-C (O (223.0,222.2), C (343.6,323.7)), and confirm it as the program M position. Return the corrected M pixel coordinate and whether the dashed M-O edge should start there."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 5, 'relations': 5, 'conflicts': 1, 'rejected': []}",
-      "duration_s": 20.72,
-      "token_usage": {
-        "delta": 9547
-      },
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 8,
-      "action": "run_code_agent",
-      "purpose": "Repair: the program-owned M binding is wrong and must be replaced by the verified CV point_05. Geometry consolidation confirmed M = image px (145.63,157.35) = TikZ (-1.304,1.408) using the same frame ",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Repair: the program-owned M binding is wrong and must be replaced by the verified CV point_05. Geometry consolidation confirmed M = image px (145.63,157.35) = TikZ (-1.304,1.408) using the same frame as the other coordinates (x=(px-206.45)*0.021448, y=-(py-223.0)*0.021448). Please change the M coordinate line to \\coordinate (M) at (-1.304,1.408); and the dashed edge stays \\draw[dashed] (M) -- (O) -- (C). Place the M label with anchor north west offset so it is clear of the A-E stroke and inside the circle. Do not change other coordinates. Return full compilable TikZ."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=4; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 19.31,
-      "token_usage": {
-        "delta": 10212
-      },
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 9,
-      "action": "run_critic",
-      "purpose": "Re-check the M position on the latest version: is M now at the A-E crossing with the dashed line start? Also check label clearance.",
-      "params": {
-        "focus": "Re-check the M position on the latest version: is M now at the A-E crossing with the dashed line start? Also check label clearance."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=4; best_version=1; assessment_score=0.72; issues=2",
-      "duration_s": 33.06,
-      "token_usage": {
-        "delta": 13720
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 10,
-      "action": "call_cv_tool:bind_point_labels",
-      "purpose": "Rebind M to the A-E/O-C crossing point_05 which critic verified; point_08 lies on the circle.",
-      "params": {
-        "tool_name": "bind_point_labels",
-        "params": {
-          "labels": [
-            {
-              "box_px": [
-                214,
-                36,
-                233,
-                56
-              ],
-              "label": "A"
-            },
-            {
-              "box_px": [
-                108,
-                129,
-                136,
-                148
-              ],
-              "label": "M"
-            },
-            {
-              "box_px": [
-                193,
-                232,
-                213,
-                253
-              ],
-              "label": "O"
-            },
-            {
-              "box_px": [
-                38,
-                241,
-                58,
-                260
-              ],
-              "label": "E"
-            },
-            {
-              "box_px": [
-                355,
-                314,
-                375,
-                335
-              ],
-              "label": "C"
-            },
-            {
-              "box_px": [
-                191,
-                315,
-                212,
-                334
-              ],
-              "label": "D"
-            },
-            {
-              "box_px": [
-                214,
-                390,
-                234,
-                409
-              ],
-              "label": "B"
-            }
-          ],
-          "max_distance_px": 40,
-          "points": [
-            [
-              223.1,
-              64.98
-            ],
-            [
-              223.03,
-              222.19
-            ],
-            [
-              223,
-              324
-            ],
-            [
-              343.59,
-              323.7
-            ],
-            [
-              145.63,
-              157.35
-            ],
-            [
-              223,
-              379.61
-            ],
-            [
-              68.18,
-              249.54
-            ]
-          ]
-        }
-      },
-      "status": "ok",
-      "result_summary": "ok=True",
-      "duration_s": 0.22,
-      "token_usage": {
-        "delta": 0
-      },
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 11,
-      "action": "run_code_agent",
-      "purpose": "Regenerate the full TikZ from scratch. Use these exact TikZ coordinates (frame: x=(px-206.45)*0.021448, y=-(py-223.0)*0.021448): A=(0.356,3.389), B=(0.354,-3.359), C=(2.940,-2.160), D=(0.354,-2.166), ",
-      "params": {
-        "mode": "generate",
-        "use_image": null,
-        "instruction": "Regenerate the full TikZ from scratch. Use these exact TikZ coordinates (frame: x=(px-206.45)*0.021448, y=-(py-223.0)*0.021448): A=(0.356,3.389), B=(0.354,-3.359), C=(2.940,-2.160), D=(0.354,-2.166), O=(0.355,0.017), E=(-2.966,-0.569), and M=(-1.304,1.408) (this is CV point_05, the crossing of segment A--E with line O--C; do NOT use the circle point (-2.229,2.182)). Draw: circle centred O radius 3.374 (solid); solid A--B, A--C, A--E, D--C; dashed (M)--(O)--(C) with dash pattern on 6pt off 4pt; filled dots at O and C. Labels: A above, B below, C right, D left, E left, O below-left, M above-left of M, placed clear of strokes. Compilable standalone document."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=5; compile_ok=True; validation_passed=True; best_version=5",
-      "duration_s": 10.94,
-      "token_usage": {
-        "delta": 7699
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 12,
-      "action": "run_critic",
-      "purpose": "Confirm M is at the A-E/O-C crossing with the dashed line starting there; check labels and dash style on latest version 5.",
-      "params": {
-        "focus": "Confirm M is at the A-E/O-C crossing with the dashed line starting there; check labels and dash style on latest version 5."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=5; best_version=5; assessment_score=0.93",
-      "duration_s": 23.8,
-      "token_usage": {
-        "delta": 11299
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 13,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Version 5 compiles and passes the critic (score 0.93, checklist 1.0, must_repair false). It draws a solid circle centred at O (radius 3.374 TikZ units) with points A (top), B (bottom), E and C on it. Solid edges are the diameter A–B, chords A–E and A–C, and the horizontal D–C. A dashed M–O–C line starts at M, the crossing of A–E with the O–C line. Labels A, B, C, D, E, M and O are present.",
+        "summary": "Version 3 compiles and was critic-reviewed (score 0.92, must_repair false, no issues). It reconstructs the circle centred at O with diameter AB, chords AE (through midpoint M), AC and DC, the dashed M–O–C polyline with a longer dash pattern, a filled centre dot at O, and labels A, B, C, D, E, M, O. The TikZ is in the best version.",
         "unresolved": [
-          "The M coordinate (-1.306,1.408) was applied by the Code Agent from the CV point_05 value. It is not literally the (-1.304,1.408) I requested, a difference of about 0.002 units. The critic verified the position visually.",
-          "The critic flagged that the dashed line's rendered dash pattern was finer than the original; v5 uses on 6pt off 4pt, which the critic accepted.",
-          "No right-angle mark was added; none was detected or seen."
+          "No right-angle square mark at D was verified in the source, so none was drawn.",
+          "The dashed line from M may start at M rather than extend beyond it (CV detection overshoot up-left to about (107,125)); the critic did not flag this."
         ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=5; status=success",
+      "result_summary": "ok=True; best_version=3; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -4033,178 +3510,72 @@
       "error": null
     },
     {
-      "tool": "detect_circles",
+      "tool": "detect_right_angle_marker",
       "params": {
-        "max_circles": 3
+        "visualize": false
       },
-      "purpose": "Check whether any arc or circle is present (figure may contain a semicircle through A, E, B, C).",
+      "purpose": "initial source evidence",
       "ok": true,
-      "count": 1,
-      "visualization": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\cv\\detect_circles.png",
-      "error": null
-    },
-    {
-      "tool": "bind_point_labels",
-      "params": {
-        "labels": [
-          {
-            "box_px": [
-              214,
-              36,
-              233,
-              56
-            ],
-            "label": "A"
-          },
-          {
-            "box_px": [
-              108,
-              129,
-              136,
-              148
-            ],
-            "label": "M"
-          },
-          {
-            "box_px": [
-              193,
-              232,
-              213,
-              253
-            ],
-            "label": "O"
-          },
-          {
-            "box_px": [
-              38,
-              241,
-              58,
-              260
-            ],
-            "label": "E"
-          },
-          {
-            "box_px": [
-              355,
-              314,
-              375,
-              335
-            ],
-            "label": "C"
-          },
-          {
-            "box_px": [
-              191,
-              315,
-              212,
-              334
-            ],
-            "label": "D"
-          },
-          {
-            "box_px": [
-              214,
-              390,
-              234,
-              409
-            ],
-            "label": "B"
-          }
-        ],
-        "max_distance_px": 40,
-        "points": [
-          [
-            223.1,
-            64.98
-          ],
-          [
-            223.03,
-            222.19
-          ],
-          [
-            223,
-            324
-          ],
-          [
-            343.59,
-            323.7
-          ],
-          [
-            145.63,
-            157.35
-          ],
-          [
-            223,
-            379.61
-          ],
-          [
-            68.18,
-            249.54
-          ]
-        ]
-      },
-      "purpose": "Rebind M to the A-E/O-C crossing point_05 which critic verified; point_08 lies on the circle.",
-      "ok": true,
-      "count": null,
-      "visualization": "outputs\\refresh_20261109_100x2\\work_ours_v2\\6994_q_fig2\\cv\\bind_point_labels.png",
+      "count": 0,
+      "visualization": null,
       "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 28,
-      "visual_calls": 5,
-      "prompt_tokens": 268541,
-      "completion_tokens": 52466,
-      "total_tokens": 321007,
-      "cached_tokens": 183584.0,
-      "cache_write_tokens": 79449.0,
-      "latency_s": 338.01
+      "calls": 13,
+      "visual_calls": 6,
+      "prompt_tokens": 111051,
+      "completion_tokens": 21721,
+      "total_tokens": 132772,
+      "cached_tokens": 38024.0,
+      "cache_write_tokens": 16581.0,
+      "latency_s": 119.72
     },
     "by_agent": {
-      "supervisor": {
-        "calls": 13,
-        "visual_calls": 0,
-        "total_tokens": 171312,
-        "latency_s": 87.4
-      },
-      "code_agent:generate": {
-        "calls": 2,
-        "visual_calls": 2,
-        "total_tokens": 16863,
-        "latency_s": 26.79
-      },
-      "critic_agent": {
-        "calls": 3,
-        "visual_calls": 3,
-        "total_tokens": 35855,
-        "latency_s": 72.53
-      },
-      "code_agent:repair": {
-        "calls": 9,
-        "visual_calls": 0,
-        "total_tokens": 87430,
-        "latency_s": 130.58
-      },
       "geometry_agent": {
         "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 11302,
+        "latency_s": 26.08
+      },
+      "supervisor": {
+        "calls": 5,
         "visual_calls": 0,
-        "total_tokens": 9547,
-        "latency_s": 20.71
+        "total_tokens": 54719,
+        "latency_s": 20.66
+      },
+      "code_agent:generate": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 9120,
+        "latency_s": 10.03
+      },
+      "critic_agent": {
+        "calls": 4,
+        "visual_calls": 4,
+        "total_tokens": 39134,
+        "latency_s": 48.67
+      },
+      "code_agent:repair": {
+        "calls": 2,
+        "visual_calls": 0,
+        "total_tokens": 18497,
+        "latency_s": 14.28
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 11,
-    "tool_calls_left": 34,
-    "visual_calls_left": 19,
-    "tokens_left": 78993,
+    "steps_left": 19,
+    "tool_calls_left": 37,
+    "visual_calls_left": 18,
+    "tokens_left": 267228,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 321007
+    "total_tokens_used": 132772
   },
   "meta": {
     "topology_plan": {
@@ -4222,11 +3593,31 @@
           "E"
         ],
         [
+          "A",
+          "M"
+        ],
+        [
+          "A",
+          "O"
+        ],
+        [
+          "B",
+          "D"
+        ],
+        [
           "C",
           "D"
         ],
         [
           "C",
+          "O"
+        ],
+        [
+          "D",
+          "O"
+        ],
+        [
+          "M",
           "O"
         ]
       ],
@@ -4238,24 +3629,168 @@
             "A",
             "E"
           ],
-          "reason": "The solid stroke runs continuously from A to E in the original."
-        },
+          "reason": "In the original, a single solid stroke runs from A through M to E, so the A–E edge is confirmed."
+        }
+      ],
+      "ink_confirmed_edges": [
+        [
+          "C",
+          "D"
+        ]
+      ],
+      "required_styles": [
         {
-          "case_id": "53a8dccf00498061",
           "edge": [
-            "C",
+            "A",
             "O"
           ],
-          "reason": "The dashed stroke runs continuously through O to C in the original."
+          "style": "solid"
         },
         {
-          "case_id": "5950e1c423469c29",
+          "edge": [
+            "D",
+            "O"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "M"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
           "edge": [
             "C",
             "D"
           ],
-          "reason": "The horizontal solid stroke runs from D to C in the original."
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "M",
+            "O"
+          ],
+          "style": "dashed"
+        },
+        {
+          "edge": [
+            "C",
+            "O"
+          ],
+          "style": "dashed"
         }
+      ],
+      "required_marks": {}
+    },
+    "reviewed_bindings": {
+      "M": {
+        "point_id": "point_05",
+        "px": [
+          145.63,
+          157.35
+        ],
+        "previous_point_id": "point_08",
+        "reason": "Printed M sits above-left of the junction where dashed MC meets solid chord AE at the midpoint of AE; point_08 is only the glyph centre, not geometry.",
+        "source": "geometry_agent"
+      }
+    },
+    "source_construction": {
+      "summary": "Circle center O (223.03,222.19), radius about 157.3 px, through A, B, E, C. Chord AB is one solid vertical line through O and D (A top, B bottom, D interior foot). Chord AE is solid; its midpoint is the unlabeled junction point_05 (145.63,157.35), which carries the printed M. Dashed line runs M-O-C (point_05 to O to C). DC is a solid horizontal from D to C, so CD is perpendicular to AB at D. Solid chord AC. No right-angle square marker was verified by CV in this pass.",
+      "strokes": [
+        {
+          "edge": [
+            "A",
+            "O"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "O"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "M"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "E",
+            "M"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "M",
+            "O"
+          ],
+          "style": "dashed"
+        },
+        {
+          "edge": [
+            "C",
+            "O"
+          ],
+          "style": "dashed"
+        }
+      ],
+      "marks": {},
+      "feet": [
+        [
+          "C",
+          "D",
+          "A",
+          "B"
+        ],
+        [
+          "O",
+          "M",
+          "A",
+          "E"
+        ]
       ]
     },
     "coordinate_contract": {
@@ -4312,7 +3847,12 @@
             ],
             "tikz": [
               0.354,
-              -2.166
+              -2.159
+            ],
+            "projection": [
+              "C",
+              "A",
+              "B"
             ]
           },
           "M": {
@@ -4356,8 +3896,8 @@
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "ef7de13fa64c87ddbefbff47d9022e168c0157f1063820d44b01d7b8873b25ba",
-      "output_sha256": "ef7de13fa64c87ddbefbff47d9022e168c0157f1063820d44b01d7b8873b25ba",
+      "input_sha256": "1d97709d8fa1611fdad613c697b3a9d3b7d9bc60219e91216d9e9ecc9dff63a6",
+      "output_sha256": "1d97709d8fa1611fdad613c697b3a9d3b7d9bc60219e91216d9e9ecc9dff63a6",
       "reason": "no_candidates",
       "accepted": [],
       "rejected": [],
@@ -4382,7 +3922,7 @@
         "excluded_strokes": 0
       },
       "input_candidates": 0,
-      "preserved_incidence_count": 3,
+      "preserved_incidence_count": 0,
       "max_shift_rel": 0.0,
       "max_length_change_rel": 0.0,
       "fixed_points": [
@@ -4495,18 +4035,24 @@
               ],
               "tikz": [
                 0.354,
-                -2.166
+                -2.159
+              ],
+              "projection": [
+                "C",
+                "A",
+                "B"
               ]
             },
             "M": {
-              "point_id": "point_08",
+              "point_id": "point_05",
               "px": [
-                102.56,
-                121.28
+                145.63,
+                157.35
               ],
+              "reviewed": true,
               "tikz": [
-                -2.229,
-                2.182
+                -1.306,
+                1.408
               ]
             },
             "O": {
@@ -4582,18 +4128,24 @@
               ],
               "tikz": [
                 0.354,
-                -2.166
+                -2.159
+              ],
+              "projection": [
+                "C",
+                "A",
+                "B"
               ]
             },
             "M": {
-              "point_id": "point_08",
+              "point_id": "point_05",
               "px": [
-                102.56,
-                121.28
+                145.63,
+                157.35
               ],
+              "reviewed": true,
               "tikz": [
-                -2.229,
-                2.182
+                -1.306,
+                1.408
               ]
             },
             "O": {
@@ -4669,181 +4221,12 @@
               ],
               "tikz": [
                 0.354,
-                -2.166
-              ]
-            },
-            "M": {
-              "point_id": "point_08",
-              "px": [
-                102.56,
-                121.28
+                -2.159
               ],
-              "tikz": [
-                -2.229,
-                2.182
-              ]
-            },
-            "O": {
-              "point_id": "point_02",
-              "px": [
-                223.03,
-                222.19
-              ],
-              "tikz": [
-                0.355,
-                0.017
-              ]
-            }
-          },
-          "skipped": {
-            "E": "missing_or_ambiguous_cv_binding"
-          },
-          "reference_used": false,
-          "coordinate_decimals": 3
-        }
-      },
-      "4": {
-        "enabled": true,
-        "schema": "cv-coordinate-contract.v1",
-        "n_points": 6,
-        "reference_used": false,
-        "coordinates": {
-          "schema": "cv-coordinate-contract.v1",
-          "scale": 0.021448,
-          "origin_px": [
-            206.5,
-            223.0
-          ],
-          "points": {
-            "A": {
-              "point_id": "point_01",
-              "px": [
-                223.1,
-                64.98
-              ],
-              "tikz": [
-                0.356,
-                3.389
-              ]
-            },
-            "B": {
-              "point_id": "point_06",
-              "px": [
-                223.0,
-                379.61
-              ],
-              "tikz": [
-                0.354,
-                -3.359
-              ]
-            },
-            "C": {
-              "point_id": "point_04",
-              "px": [
-                343.59,
-                323.7
-              ],
-              "tikz": [
-                2.94,
-                -2.16
-              ]
-            },
-            "D": {
-              "point_id": "point_03",
-              "px": [
-                223.0,
-                324.0
-              ],
-              "tikz": [
-                0.354,
-                -2.166
-              ]
-            },
-            "M": {
-              "point_id": "point_08",
-              "px": [
-                102.56,
-                121.28
-              ],
-              "tikz": [
-                -2.229,
-                2.182
-              ]
-            },
-            "O": {
-              "point_id": "point_02",
-              "px": [
-                223.03,
-                222.19
-              ],
-              "tikz": [
-                0.355,
-                0.017
-              ]
-            }
-          },
-          "skipped": {
-            "E": "missing_or_ambiguous_cv_binding"
-          },
-          "reference_used": false,
-          "coordinate_decimals": 3
-        }
-      },
-      "5": {
-        "enabled": true,
-        "schema": "cv-coordinate-contract.v1",
-        "n_points": 6,
-        "reference_used": false,
-        "coordinates": {
-          "schema": "cv-coordinate-contract.v1",
-          "scale": 0.021448,
-          "origin_px": [
-            206.5,
-            223.0
-          ],
-          "points": {
-            "A": {
-              "point_id": "point_01",
-              "px": [
-                223.1,
-                64.98
-              ],
-              "tikz": [
-                0.356,
-                3.389
-              ]
-            },
-            "B": {
-              "point_id": "point_06",
-              "px": [
-                223.0,
-                379.61
-              ],
-              "tikz": [
-                0.354,
-                -3.359
-              ]
-            },
-            "C": {
-              "point_id": "point_04",
-              "px": [
-                343.59,
-                323.7
-              ],
-              "tikz": [
-                2.94,
-                -2.16
-              ]
-            },
-            "D": {
-              "point_id": "point_03",
-              "px": [
-                223.0,
-                324.0
-              ],
-              "tikz": [
-                0.354,
-                -2.166
+              "projection": [
+                "C",
+                "A",
+                "B"
               ]
             },
             "M": {
@@ -4889,8 +4272,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "76a7b816cc0721eabdae0fb2091fa623f332b0cadccea4b8930dbb4e990dfab0",
-        "output_sha256": "76a7b816cc0721eabdae0fb2091fa623f332b0cadccea4b8930dbb4e990dfab0",
+        "input_sha256": "d2a2592daea2d5fcdf7e9f9671056457293cf1ddd3974aea23c8ac0ed4dadd2d",
+        "output_sha256": "d2a2592daea2d5fcdf7e9f9671056457293cf1ddd3974aea23c8ac0ed4dadd2d",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
@@ -4915,7 +4298,7 @@
           "excluded_strokes": 0
         },
         "input_candidates": 0,
-        "preserved_incidence_count": 2,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
@@ -4923,7 +4306,6 @@
           "B",
           "C",
           "E",
-          "M",
           "O"
         ],
         "length_weight": 0.0,
@@ -4938,7 +4320,6 @@
             "B",
             "C",
             "E",
-            "M",
             "O"
           ],
           "dependencies": [
@@ -4981,8 +4362,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "d9d183c3b515cf7782b7b5e44f476b56d1d507c653508b7dcabcb2f4b56fb02d",
-        "output_sha256": "d9d183c3b515cf7782b7b5e44f476b56d1d507c653508b7dcabcb2f4b56fb02d",
+        "input_sha256": "c7ff1cb11a14f253ebd88fad75c2e69ed2aeff759b6da4d994fda330b63a1405",
+        "output_sha256": "c7ff1cb11a14f253ebd88fad75c2e69ed2aeff759b6da4d994fda330b63a1405",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
@@ -5007,7 +4388,7 @@
           "excluded_strokes": 0
         },
         "input_candidates": 0,
-        "preserved_incidence_count": 2,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
@@ -5015,7 +4396,6 @@
           "B",
           "C",
           "E",
-          "M",
           "O"
         ],
         "length_weight": 0.0,
@@ -5030,7 +4410,6 @@
             "B",
             "C",
             "E",
-            "M",
             "O"
           ],
           "dependencies": [
@@ -5073,8 +4452,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "847d3629d912636c1a2329ee2ab4643b5a3d4fef51982b5b6f44abdd95aa00c4",
-        "output_sha256": "847d3629d912636c1a2329ee2ab4643b5a3d4fef51982b5b6f44abdd95aa00c4",
+        "input_sha256": "1d97709d8fa1611fdad613c697b3a9d3b7d9bc60219e91216d9e9ecc9dff63a6",
+        "output_sha256": "1d97709d8fa1611fdad613c697b3a9d3b7d9bc60219e91216d9e9ecc9dff63a6",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
@@ -5099,191 +4478,7 @@
           "excluded_strokes": 0
         },
         "input_candidates": 0,
-        "preserved_incidence_count": 2,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "A",
-          "B",
-          "C",
-          "E",
-          "M",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "A",
-            "B",
-            "C",
-            "E",
-            "M",
-            "O"
-          ],
-          "dependencies": [
-            "O"
-          ],
-          "circles": [
-            {
-              "center": [
-                0.355,
-                0.017
-              ],
-              "radius": 3.374
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "4": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "05c9a96c65d7b62391f5943045b1892f9b4e80df605386e150435859486ce5e6",
-        "output_sha256": "05c9a96c65d7b62391f5943045b1892f9b4e80df605386e150435859486ce5e6",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 2,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "A",
-          "B",
-          "C",
-          "E",
-          "M",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "A",
-            "B",
-            "C",
-            "E",
-            "M",
-            "O"
-          ],
-          "dependencies": [
-            "O"
-          ],
-          "circles": [
-            {
-              "center": [
-                0.355,
-                0.017
-              ],
-              "radius": 3.374
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "5": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "ef7de13fa64c87ddbefbff47d9022e168c0157f1063820d44b01d7b8873b25ba",
-        "output_sha256": "ef7de13fa64c87ddbefbff47d9022e168c0157f1063820d44b01d7b8873b25ba",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 3,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
@@ -5344,40 +4539,11 @@
           "A",
           "E"
         ],
-        "reason": "The solid stroke runs continuously from A to E in the original."
-      },
-      "53a8dccf00498061": {
-        "edge": [
-          "C",
-          "O"
-        ],
-        "reason": "The dashed stroke runs continuously through O to C in the original."
-      },
-      "94553f7a57f31314": {
-        "edge": null,
-        "reason": "The original dashed stroke starts at the A-E crossing, not at the M point on the circle, so M-O is not a faithful edge. Its endpoint is a true extension in the render."
-      },
-      "5950e1c423469c29": {
-        "edge": [
-          "C",
-          "D"
-        ],
-        "reason": "The horizontal solid stroke runs from D to C in the original."
-      }
-    },
-    "reviewed_bindings": {
-      "M": {
-        "point_id": "point_05",
-        "px": [
-          145.63,
-          157.35
-        ],
-        "previous_point_id": "point_08",
-        "reason": "In the original, the dashed line begins where it meets segment AE, and the M label sits just above-left of that crossing. point_05 (≈145.6,157.4) is that crossing. point_08 lies on the circle, not at the crossing."
+        "reason": "In the original, a single solid stroke runs from A through M to E, so the A–E edge is confirmed."
       }
     },
     "finish": {
-      "summary": "Version 5 compiles and passes the critic (score 0.93, checklist 1.0, must_repair false). It draws a solid circle centred at O (radius 3.374 TikZ units) with points A (top), B (bottom), E and C on it. Solid edges are the diameter A–B, chords A–E and A–C, and the horizontal D–C. A dashed M–O–C line starts at M, the crossing of A–E with the O–C line. Labels A, B, C, D, E, M and O are present.",
+      "summary": "Version 3 compiles and was critic-reviewed (score 0.92, must_repair false, no issues). It reconstructs the circle centred at O with diameter AB, chords AE (through midpoint M), AC and DC, the dashed M–O–C polyline with a longer dash pattern, a filled centre dot at O, and labels A, B, C, D, E, M, O. The TikZ is in the best version.",
       "status": "success"
     },
     "stop_reason": "finish"

@@ -1,7 +1,8 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usetikzlibrary{angles,quotes}
+\usetikzlibrary{angles}
 \begin{document}
-\begin{tikzpicture}[line width=1.0pt, line join=round, font=\fontsize{14.5}{17.4}\selectfont]
+\begin{tikzpicture}[line join=round, line width=1.0pt,
+  lbl/.style={font=\fontsize{14.5}{17.4}\selectfont}]
 \coordinate (A) at (-3.492,0.009);
 \coordinate (B) at (3.441,0.009);
 \coordinate (C) at (2.206,2.661);
@@ -11,34 +12,40 @@
 \coordinate (O) at (-0.025,0.008);
 
 
-
-
-
 \coordinate (E) at (-1.692,0.847);
 
 
-\draw (O) circle[radius=3.467];
+\draw[line width=1.2pt] (O) circle[radius=3.466];
 
 
-\draw (A) -- (B);
-\draw (A) -- (C);
-\draw (D) -- (G);
+\draw (A) -- (F) -- (B);
+\draw (O) -- (B);
+\draw (F) -- (O);
+
+
+\draw (D) -- (E) -- (F) -- (G);
+\draw (D) -- (F) -- (G);
+
+
+\draw (A) -- (E) -- (C);
 \draw (E) -- (O);
 
 
-\fill (O) circle[radius=1.500pt];
+\draw pic[draw, angle radius=0.264cm] {right angle=D--F--O};
 
 
-\pic[draw, angle radius=0.250cm] {right angle=B--F--D};
+\fill (O) circle (2.000pt);
 
 
-\node[below left]  at (A) {$A$};
-\node[above right] at (B) {$B$};
-\node[above right] at (C) {$C$};
-\node[left]        at (D) {$D$};
-\node[above left]  at (E) {$E$};
-\node[below right] at (F) {$F$};
-\node[left]        at (G) {$G$};
-\node[below right] at (O) {$O$};
+\node[lbl, below left]  at (A) {$A$};
+\node[lbl, below right] at (B) {$B$};
+\node[lbl, above right] at (C) {$C$};
+
+\node[lbl, above left] at (D) {$D$};
+\node[lbl, anchor=south east, xshift=-2pt, yshift=2pt] at (E) {$E$};
+\node[lbl, below right] at (F) {$F$};
+
+\node[lbl, below left] at (G) {$G$};
+\node[lbl, below]       at (O) {$O$};
 \end{tikzpicture}
 \end{document}

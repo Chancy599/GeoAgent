@@ -1,106 +1,168 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original topology. The B-D stroke now passes clear of the E glyph, but E sits tight against the A-C stroke.",
+  "verdict": "Render is faithful to the original: all six points, the segments AB, BD (through E), AC (through E), DC, AD (through F) and FE are present in the right positions, with one tight label clearance at E.",
   "figure_type": {
-    "original": "Triangle-like quadrilateral A, B, C, D with F on AD and E at the AC/BD/FE intersection; straight segments only",
-    "render": "Same straight-segment figure with the same vertices and intersections"
+    "original": "Triangle ADC-like quadrilateral outline A-B-D-C with diagonal lines, point F on AD, and E at the intersection of AC and BD with horizontal FE",
+    "render": "Same configuration: A-B top edge, B-D diagonal through E, A-C through E, D-C base, A-D side with F, and horizontal F-E"
   },
   "issues": [
     {
       "type": "label_error",
-      "severity": "low",
+      "severity": "medium",
       "object_ids": [
-        "point_02",
-        "seg_03"
+        "label_04",
+        "seg_01"
       ],
       "bbox": [
-        0.42,
-        0.54,
-        0.48,
+        0.41,
+        0.53,
+        0.47,
         0.61
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The E label is now clear of the B-D stroke (roughly 15 px gap). It sits below-right of the intersection, however, and its left edge is only about 4 px from the A-C stroke (seg_03). The original places E to the right with about 20 px of clearance from AC.",
-      "suggestion": "Nudge the E node slightly further right or lower (e.g. 'right' or 'below right' with a larger inner sep), keeping it bound to the E coordinate at (-0.968,-0.646). Do not move the vertex itself."
+      "description": "The label E sits to the right of the intersection point, and the rendered BD diagonal (seg_01) runs through the top-left corner of the glyph, so the stroke touches the label. In the original, the E glyph lies clearly below the BD line with a visible gap.",
+      "suggestion": "Move the E node slightly down-right (e.g. use 'below right' instead of 'right' or add a small yshift of about -2pt) while keeping it bound to the E coordinate, so the glyph clears the BD stroke."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "B-D stroke runs through the E intersection and ends at B and D as in the original."
+      "note": "Long diagonal from B to D through E is drawn in the correct place."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge A-B matches the original."
+      "note": "Top edge AB matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "A-C stroke matches the original; E lies on it."
+      "note": "Segment through E from A toward C is correct."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "A-D stroke matches; F lies on it."
+      "note": "Left side AD with F on it is correct."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Base D-C matches the original."
+      "note": "Base DC matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "F-E stroke matches and ends at E as in the original."
+      "note": "Horizontal FE ends at E in both panels."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Matches the top edge in the original."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Matches the A-to-C line through E."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Matches the left side through F."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Matches the diagonal through E."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Matches the base."
+    },
+    {
+      "object_id": "seg_FE",
+      "status": "present",
+      "note": "Matches the horizontal segment."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B is bound to the top-right vertex with its label placed above-right, as in the original."
+      "note": "B is bound to the top-right vertex."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "E is bound to the intersection. The label is clear of the B-D stroke; it is close to A-C but readable and associated with E."
+      "note": "E is bound to the intersection point."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "D is bound to the bottom-left vertex with its label below-left, as in the original."
+      "note": "D is bound to the bottom-left vertex."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "A is bound to the top-left vertex with its label above-left, as in the original."
+      "note": "A is bound to the top-left vertex."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "C is bound to the bottom-right vertex with its label below-right, as in the original."
+      "note": "C is bound to the bottom-right vertex."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "F is bound to the left-side point on AD with its label above-left, as in the original."
+      "note": "F is bound to the point on AD."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is in the correct position."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is in the correct position."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is in the correct position."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is in the correct position."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Vertex E is in the correct position."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Vertex F is in the correct position."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
-    "medium": 0,
-    "low": 1
+    "medium": 1,
+    "low": 0
   },
   "flaky_count": 0,
-  "must_repair": false,
+  "must_repair": true,
   "matches": [
-    "All six segments and their endpoints match the original.",
-    "The B-D line passes through E, and the F-E segment ends at E on AC.",
-    "Vertex bindings A, B, C, D, E, F are correct.",
-    "The E label no longer touches the B-D stroke, which was the focus of this version."
+    "Overall shape and proportions of the quadrilateral match the original.",
+    "AB is horizontal along the top, and BD passes through E to D.",
+    "AC passes through E down to C, and DC is a horizontal base.",
+    "F lies on AD and FE is horizontal, ending at E.",
+    "All six point labels A-F are present and correctly placed.",
+    "Stroke weights are comparable between panels."
   ],
   "labels": {
     "present": [

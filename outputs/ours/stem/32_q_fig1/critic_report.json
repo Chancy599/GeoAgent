@@ -1,89 +1,88 @@
 {
   "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render faithfully reproduces triangle ABC with cevian AD landing on BC at D, with correct labels and endpoints.",
+  "verdict": "The render reproduces the original triangle ABC with cevian AD (D on BC) and matching A, B, C, D labels; no geometric discrepancies were found.",
   "figure_type": {
-    "original": "triangle ABC with cevian AD to base BC, D on BC",
-    "render": "triangle ABC with cevian AD to base BC, D on BC"
+    "original": "Triangle ABC with segment AD from A to point D on side BC; four labelled points, no right-angle marker",
+    "render": "Triangle ABC with segment AD from A to point D on side BC; four labelled points, no right-angle marker"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "point_01",
-        "point_02",
-        "point_03",
-        "point_04"
-      ],
-      "bbox": [
-        0.1,
-        0.1,
-        0.9,
-        0.9
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Vertex dots are visibly smaller and fainter in the render than in the original, where they read as clear black dots at A, B, C and D.",
-      "suggestion": "Optionally increase the vertex dot radius (e.g. from 0.040 to about 0.05-0.06) so the marked points match the original's visual weight."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Segment AC runs from A to C, ending at C as in the original."
+      "note": "CV-detected segment matches side AC in the original and is drawn in the render."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Base BC runs from B to C, matching the original's endpoints."
+      "note": "CV-detected segment matches base BC in the original and is drawn in the render."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment AB runs from A to B, matching the original."
+      "note": "CV-detected segment matches side AB in the original and is drawn in the render."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Cevian AD runs from A to D on the base, ending at D as in the original."
+      "note": "CV-detected segment matches cevian AD in the original and is drawn in the render."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Side AB runs from A to B in both panels."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Side AC runs from A to C in both panels."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Cevian AD runs from A to D in both panels."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Base BC runs from B to C with D on it, in both panels."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Point C is at the bottom-right vertex, labelled C, as in the original."
+      "note": "Point C is at the lower-right vertex in both panels and is labelled C."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Point A is at the apex, labelled A above the vertex, as in the original."
+      "note": "Point A is at the apex in both panels and is labelled A."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Point B is at the bottom-left vertex, labelled B, as in the original."
+      "note": "Point B is at the lower-left vertex in both panels and is labelled B."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Point D is on the base, labelled D below it, as in the original."
+      "note": "Point D sits on BC in both panels and is labelled D."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle ABC has the same shape and proportions as the original, with A at the top, B bottom-left and C bottom-right.",
-    "Cevian AD lands on base BC at D, with its endpoint at D as in the original.",
-    "Labels A, B, C and D are present, correctly spelled and bound to the right vertices with clear separation from strokes.",
-    "All segments are straight with no shallow bends, consistent with the original.",
-    "The base BC is horizontal and the overall aspect ratio matches the original."
+    "Triangle vertices A, B, C and the foot D on BC are in the same relative positions.",
+    "Segments AB, AC, AD and BC are all present with the same endpoints.",
+    "D lies on BC, as in the original.",
+    "Labels A, B, C, D are present, correctly spelled, and bound to their vertices with clear separation from strokes.",
+    "No right-angle marker is drawn in either panel, so the figure is consistent."
   ],
   "labels": {
     "present": [

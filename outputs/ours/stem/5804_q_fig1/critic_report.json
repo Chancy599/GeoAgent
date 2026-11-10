@@ -1,93 +1,166 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's chords AB and AC through M and N, the radii AO, MO and ON, and the O dot. Base BC is correctly absent, and all six labels are present and clear of strokes.",
+  "verdict": "The render is a close match to the original: the circle, the chords AB and AC, the radii AO, OM and ON, and all six labels are in the right places. The only visible difference is the size of the dot at O.",
   "figure_type": {
-    "original": "circle with centre O, chords AB and AC from apex A, interior points M on AB and N on AC, radii OA, OM, ON, filled dot at O",
-    "render": "same configuration: circle centre O, chords AB and AC, segments AO, MO and ON, filled dot at O, no BC"
+    "original": "Circle with centre O, chords AB and AC from apex A, radius AO, and segments OM (M on AB) and ON (N on AC).",
+    "render": "Same construction: circle centred at O, chords AB and AC, segments AO, OM and ON, with M on AB and N on AC."
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "circle_01"
+      ],
+      "bbox": [
+        0.46,
+        0.45,
+        0.54,
+        0.56
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The filled dot at centre O is noticeably smaller in the render than in the original (the original dot is roughly 1.5 times the diameter).",
+      "suggestion": "Increase the radius of the \\fill (O) circle from 0.070 to about 0.10 to match the original dot size."
+    }
+  ],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Full circle centred at O through A, B and C, matching the original."
+      "note": "Circle centred at O through A, B and C matches the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Chord A to C drawn, passing through N and ending at C as in the original."
+      "note": "Chord from A down-right to C, matching the original AC line."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Chord A to B drawn, passing through M and ending at B as in the original."
+      "note": "Chord from A down-left to B, matching the original AB line."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Vertical radius A to O present, matching the original."
+      "note": "Vertical radius AO, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment M to O present, ending at M on AB."
+      "note": "Segment from M to O, matching the original OM."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Radius O to N present, ending at N on AC."
+      "note": "Horizontal radius from O to N, matching the original ON."
     },
     {
       "object_id": "seg_06",
+      "status": "unclear",
+      "note": "Short CV fragment at the end of ON near N; the original shows a single continuous ON stroke, so this is not a separate element."
+    },
+    {
+      "object_id": "seg_AB",
       "status": "present",
-      "note": "Short horizontal piece at N is the continuation of the O to N radius, which ends at N on AC as in the original."
+      "note": "Chord AB with M on it, matching the original."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Chord AC with N on it, matching the original."
+    },
+    {
+      "object_id": "seg_AO",
+      "status": "present",
+      "note": "Radius AO, matching the original."
+    },
+    {
+      "object_id": "seg_OM",
+      "status": "present",
+      "note": "Segment OM, matching the original."
+    },
+    {
+      "object_id": "seg_ON",
+      "status": "present",
+      "note": "Segment ON, matching the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label A sits above the apex, clear of strokes."
+      "note": "Point A at the top of the circle, correctly bound to label A."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label N sits upper-right of N, clear of AC."
+      "note": "Point N on AC, correctly bound to label N."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label M sits left of M, clear of AB and MO."
+      "note": "Point M on AB, correctly bound to label M."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label O sits below-right of the dot, as in the original."
+      "note": "Point O at the centre, correctly bound to label O."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label C sits below-right of C, as in the original."
+      "note": "Point C at the lower right of the circle, correctly bound to label C."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label B sits below-left of B, as in the original."
+      "note": "Point B at the lower left of the circle, correctly bound to label B."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Same as point_01."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Same as point_06."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Same as point_05."
+    },
+    {
+      "object_id": "point_M",
+      "status": "present",
+      "note": "Same as point_03."
+    },
+    {
+      "object_id": "point_N",
+      "status": "present",
+      "note": "Same as point_02."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Same as point_04."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Chords AB and AC run through M and N with the same endpoints as the original.",
-    "Base BC is absent in both panels.",
-    "Radii AO, MO and ON match the original's positions and endpoints.",
-    "All six labels A, B, C, M, N, O are present with correct vertex association and no overlap.",
-    "Stroke weights and the O dot size are comparable between panels."
+    "Circle size and position match the original.",
+    "Chords AB and AC run from A to B and C, with M on AB and N on AC.",
+    "Radii AO and ON and segment OM match the original.",
+    "All six labels A, B, C, M, N and O are present and placed like the original.",
+    "The line weights are visually comparable."
   ],
   "labels": {
     "present": [
@@ -103,23 +176,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "e352bb2ddb3fafec",
-      "edge": [
-        "A",
-        "C"
-      ],
-      "reason": "The original stroke runs continuously from A to C, passing through N where the radius from O meets it."
-    },
-    {
-      "case_id": "d17843bacb6f004d",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "The original stroke runs continuously from A to B, passing through M."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

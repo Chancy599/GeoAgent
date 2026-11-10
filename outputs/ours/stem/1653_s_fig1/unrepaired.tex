@@ -1,5 +1,5 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usetikzlibrary{intersections}
+\usepackage{amsmath}
 \begin{document}
 \begin{tikzpicture}[line width=1.1pt, line join=round]
 \coordinate (A) at (-3.542,2.215);
@@ -8,42 +8,36 @@
 \coordinate (D) at (3.517,2.212);
 \coordinate (E) at (-1.430,-2.202);
 \coordinate (F) at (3.511,-0.754);
+\coordinate (M) at (2.220,-1.129);
 \coordinate (P) at (-0.011,0.727);
 
 
 
 
-
-
-
-
-
-
-
-\draw (A) -- (D) -- (C) -- (B) -- cycle;
-
-
+\draw (A) -- (B) -- (E) -- (C) -- (D) -- cycle;
 \draw (A) -- (E);
+
+\draw (D) -- (F) -- (C);
+
+\draw (A) -- (P) -- (M) -- (F);
+\draw (P) -- (F);
+
+\draw (E) -- (M);
 \draw (E) -- (F);
-\draw (A) -- (P) -- (F);
 
-
-\path [name path=EF] (E) -- (F);
-\path [name path=PC] (P) -- (C);
-\path [name intersections={of=EF and PC, by=M}];
 \draw (P) -- (M) -- (C);
 
 
-\draw[dashed] (P) -- (E);
+\draw[dashed, line width=0.6pt, dash pattern=on 4pt off 3pt] (P) -- (E);
 
 
 \node[above left] at (A) {\fontsize{11.5}{13.8}\selectfont $A$};
-\node[above right] at (D) {\fontsize{11.5}{13.8}\selectfont $D$};
 \node[below left] at (B) {\fontsize{11.5}{13.8}\selectfont $B$};
 \node[below right] at (C) {\fontsize{11.5}{13.8}\selectfont $C$};
+\node[above right] at (D) {\fontsize{11.5}{13.8}\selectfont $D$};
 \node[below] at (E) {\fontsize{11.5}{13.8}\selectfont $E$};
 \node[right] at (F) {\fontsize{11.5}{13.8}\selectfont $F$};
-\node[above right] at (P) {\fontsize{11.5}{13.8}\selectfont $P$};
-\node[below left] at (M) {\fontsize{11.5}{13.8}\selectfont $M$};
+\node[above] at (P) {\fontsize{11.5}{13.8}\selectfont $P$};
+\node[below] at (M) {\fontsize{11.5}{13.8}\selectfont $M$};
 \end{tikzpicture}
 \end{document}

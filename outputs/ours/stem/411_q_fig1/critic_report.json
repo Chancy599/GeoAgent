@@ -1,68 +1,126 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render matches the original topology: trapezoid ABCD with apex E, dashed ED and EC, and all five labels correctly placed and bound.",
+  "verdict": "Geometry matches the original: trapezoid ABCD with solid base and sides and dashed extensions DE and CE meeting at apex E. The only visible difference is the label font style.",
   "figure_type": {
-    "original": "trapezoid ABCD (AB base, DC top) with apex E above, sides DE and CE dashed",
-    "render": "trapezoid ABCD (AB base, DC top) with apex E above, sides DE and CE dashed"
+    "original": "Trapezoid ABCD (AB base, DC top, AD and BC legs) with dashed segments DE and CE meeting at apex E above the top side",
+    "render": "Same trapezoid with solid AB, DC, AD, BC and dashed DE, CE meeting at E"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_01",
+        "point_02",
+        "point_03",
+        "point_04",
+        "point_E_inferred"
+      ],
+      "bbox": [
+        0.03,
+        0.28,
+        0.97,
+        0.7
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Point labels differ in font shape: the render uses bold upright letters (\\mathbf), while the original uses italic math letters (A, B, C, D, E) with normal weight. Positions and binding are correct.",
+      "suggestion": "Change the label text from \\mathbf{X} to an italic math letter, e.g. $X$ (no \\mathbf), keeping the same below/above node anchors."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base AB is solid and spans A to B in both panels."
+      "note": "Base AB drawn solid between A and B, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top side DC is solid and runs from D to C in both panels."
+      "note": "Top side DC drawn solid between D and C, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right side BC is solid and meets B and C in both panels."
+      "note": "Right leg BC is drawn solid from B to C, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left side AD is solid and meets A and D in both panels."
+      "note": "Left leg AD is drawn solid from A to D, matching the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "AB present and in the correct position."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "AD present, solid, ending at D."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "BC present, solid, ending at C."
+    },
+    {
+      "object_id": "seg_CE",
+      "status": "present",
+      "note": "Dashed CE from C to apex E matches the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "DC present, solid, between D and C."
+    },
+    {
+      "object_id": "seg_DE",
+      "status": "present",
+      "note": "Dashed DE from D to apex E matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B sits below-right of the vertex at the bottom-right corner in both panels."
+      "note": "Vertex B at bottom right with its label, correctly bound."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label A sits below-left of the vertex at the bottom-left corner in both panels."
+      "note": "Vertex A at bottom left with its label, correctly bound."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label C sits above-right of the vertex on the top-right corner in both panels."
+      "note": "Vertex C on the upper right with its label, correctly bound."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label D sits above-left of the vertex on the top-left corner in both panels."
+      "note": "Vertex D on the upper left with its label, correctly bound."
+    },
+    {
+      "object_id": "point_E_inferred",
+      "status": "present",
+      "note": "Apex E is drawn where the original places it, with its label above."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Solid base AB and solid sides AD and BC meet at the expected vertices.",
-    "Solid top DC is horizontal and ends at D and C.",
-    "Dashed DE and CE both start at D and C respectively and meet at apex E, matching the original.",
-    "Labels A, B, C, D, E are present with correct spelling and clear separation from strokes.",
-    "Label E sits above the apex and does not touch the dashed strokes."
+    "Trapezoid vertex positions and proportions match the original",
+    "Solid base AB and top DC",
+    "Solid legs AD and BC",
+    "Dashed extensions DE and CE meeting at E",
+    "Label presence and placement for A, B, C, D, E",
+    "Label bindings to A, B, C, D and E are correct"
   ],
   "labels": {
     "present": [
@@ -75,33 +133,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 3,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "e579c05f9b96f032",
-      "edge": [
-        "C",
-        "D"
-      ],
-      "reason": "In the original, the horizontal top stroke is solid and runs directly from D to C."
-    },
-    {
-      "case_id": "9faa53221a283282",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "In the original, the right slanted side is a continuous solid stroke from B up to C."
-    },
-    {
-      "case_id": "d41955c13c4db8c3",
-      "edge": [
-        "A",
-        "D"
-      ],
-      "reason": "In the original, the left slanted side is a continuous solid stroke from A up to D."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

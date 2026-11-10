@@ -1,52 +1,72 @@
 {
-  "assessment_score": 0.95,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the quadrilateral ABCD with matching vertices, edges and label placement; no discrepancies found.",
+  "verdict": "The render reproduces the quadrilateral ABCD with the same vertex positions, side connectivity and label placement as the original; no material discrepancies found.",
   "figure_type": {
-    "original": "quadrilateral ABCD (solid polygon outline, no arcs or markers)",
-    "render": "quadrilateral ABCD (solid polygon outline, no arcs or markers)"
+    "original": "Closed quadrilateral ABCD (four straight sides, no arcs) with vertex labels A (top), D (right), B (left), C (bottom).",
+    "render": "Closed quadrilateral ABCD (four straight sides, no arcs) with vertex labels A (top), D (right), B (left), C (bottom)."
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Edge B-C is drawn and meets B and C in the same places as the original."
+      "note": "Detected segment from near C to near B matches side BC in both panels."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Edge C-D is drawn and meets C and D in the same places as the original."
+      "note": "Detected segment from D to C matches side CD in both panels."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Edge A-D is drawn and meets A and D in the same places as the original."
+      "note": "Detected segment from D to A matches side DA in both panels."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Edge A-B is drawn and meets A and B in the same places as the original."
+      "note": "Detected segment from A to B matches side AB in both panels."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Side AB runs from A to B in both panels."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Side BC runs from B to C in both panels."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Side CD runs from C to D in both panels."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Side DA runs from D to A in both panels."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label C sits below vertex C with clear separation, as in the original."
+      "note": "Vertex C is at the lower corner in both panels, labelled C below it."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label B sits left of vertex B, as in the original."
+      "note": "Vertex B is at the left corner in both panels, labelled B to its left."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label D sits right of vertex D, as in the original."
+      "note": "Vertex D is at the right corner in both panels, labelled D to its right."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label A sits above-right of vertex A, as in the original."
+      "note": "Vertex A is at the top corner in both panels, labelled A above it."
     }
   ],
   "checklist_score": 1.0,
@@ -58,10 +78,10 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Four vertices A, B, C, D are at the same relative positions and the outline is a closed quadrilateral in both panels.",
-    "Each edge (AB, BC, CD, DA) joins the correct vertices with no overhang or stub.",
-    "Label positions and letter forms match the original with no stroke crossing a glyph.",
-    "Overall aspect ratio and orientation match the original."
+    "Four vertices A, B, C, D are at matching relative positions and the quadrilateral shape/aspect is preserved.",
+    "All four sides are straight, solid and connected at the vertices; no extra or missing sides.",
+    "Vertex labels A, B, C, D are present, correctly spelled, bound to their vertices and clear of the strokes.",
+    "Stroke weight and label size look comparable between panels."
   ],
   "labels": {
     "present": [
@@ -75,31 +95,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "592a1a0891cceba1",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "In the original the lower-left stroke runs continuously from B to C and meets both vertices."
-    },
-    {
-      "case_id": "a084c6c7f99539f9",
-      "edge": [
-        "C",
-        "D"
-      ],
-      "reason": "In the original the right stroke runs continuously from C up to D and meets both vertices."
-    },
-    {
-      "case_id": "9ebd9d1b0d866d0e",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "In the original the upper-left stroke runs continuously from B up to A and meets both vertices."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

@@ -1,8 +1,8 @@
 \documentclass[tikz,border=10pt]{standalone}
 \usepackage{amsmath}
-\usetikzlibrary{angles,quotes}
+\usetikzlibrary{calc,angles,quotes}
 \begin{document}
-\begin{tikzpicture}[line join=round, line width=1.2pt]
+\begin{tikzpicture}[line width=1.2pt, line join=round]
 \coordinate (A) at (2.251,0.605);
 \coordinate (B) at (-3.549,-2.103);
 \coordinate (C) at (0.447,2.115);
@@ -11,32 +11,33 @@
 
 
 
-
-\coordinate (E) at (-0.202,1.432);
-
-
-\draw (B) arc[start angle=180.000, delta angle=-180, radius=3.530];
+\coordinate (E) at (-0.201,1.432);
 
 
-\draw (B) -- (D);
+\draw (B) -- (O) -- (D);
+
+
+\draw (B) arc[start angle=180.000, end angle=0.000, radius=3.529];
+
+
 \draw (B) -- (E) -- (C);
 \draw (C) -- (A);
-\draw (A) -- (B);
-\draw (A) -- (O);
+\draw (B) -- (A);
+\draw (O) -- (A);
+
+
+\draw pic[draw, angle radius=0.194cm] {right angle=A--C--B};
+\draw pic[draw, angle radius=0.164cm] {right angle=C--A--O};
 
 
 \fill (O) circle (1.500pt);
 
 
-\pic[draw, angle radius=0.300cm, angle eccentricity=1.25] {right angle=B--C--A};
-\pic[draw, angle radius=0.300cm, angle eccentricity=1.25] {right angle=C--A--O};
-
-
-\node[above, font=\fontsize{12.5}{15}\selectfont] at (C) {$C$};
-\node[above left, font=\fontsize{12.5}{15}\selectfont] at (E) {$E$};
-\node[above right, font=\fontsize{12.5}{15}\selectfont] at (A) {$A$};
-\node[below left, font=\fontsize{12.5}{15}\selectfont] at (B) {$B$};
-\node[below right, font=\fontsize{12.5}{15}\selectfont] at (D) {$D$};
-\node[below, font=\fontsize{12.5}{15}\selectfont] at (O) {$O$};
+\node[left=1pt, below left] at (B) {\fontsize{12.5}{15}\selectfont $B$};
+\node[right=1pt, below right] at (D) {\fontsize{12.5}{15}\selectfont $D$};
+\node[below] at (O) {\fontsize{12.5}{15}\selectfont $O$};
+\node[right] at (A) {\fontsize{12.5}{15}\selectfont $A$};
+\node[above] at (C) {\fontsize{12.5}{15}\selectfont $C$};
+\node[left] at (E) {\fontsize{12.5}{15}\selectfont $E$};
 \end{tikzpicture}
 \end{document}

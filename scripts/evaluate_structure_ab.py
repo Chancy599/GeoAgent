@@ -18,6 +18,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from geoagent.evaluation.structure import CORE_POLICY, PROTOCOL, backend, prediction, score, load_reference
+from geoagent.evaluation.geometry_quality import QUALITY_POLICY, score_geometry_quality, summarize_geometry_quality
 import hashlib
 
 def _mean_of(values: list) -> float | None:
@@ -53,6 +54,7 @@ def _evaluate_group(programs: dict[str, Path], references: dict[str, tuple], sha
                 "coverage": 0. if items['edges'] else None,
                 "matched": 0,
                 "program_sha256": program_sha256,
+                "geometry_quality": score_geometry_quality(gt, items['edges'], None),
                 "angle_checks": [dict(i, error=None, available=False, unavailable_reasons=['program_missing_or_unparseable']) for i in items['angles']],
                 "ratio_checks": [dict(i, error=None, available=False, unavailable_reasons=['program_missing_or_unparseable']) for i in items['ratios']],
             }
@@ -76,6 +78,7 @@ def _evaluate_group(programs: dict[str, Path], references: dict[str, tuple], sha
             "missing_labels": result['missing_labels'],
             "missing_edges": result['missing_edges'],
             "program_sha256": program_sha256,
+            "geometry_quality": score_geometry_quality(gt, items['edges'], pred),
         }
     with ThreadPoolExecutor(max_workers=workers) as pool:
         return dict(pool.map(evaluate, shared))
@@ -83,7 +86,7 @@ def _evaluate_group(programs: dict[str, Path], references: dict[str, tuple], sha
 
 def _group_summary(per_stem: dict[str, dict]) -> dict:
     compiled = {stem: row for stem, row in per_stem.items() if row["compiled"]}
-    return {
+    summary = {
         "n_images": len(compiled),
         "n_unparseable": len(per_stem) - len(compiled),
         "coverage": _mean_of([row["coverage"] for row in per_stem.values()]),
@@ -98,6 +101,9 @@ def _group_summary(per_stem: dict[str, dict]) -> dict:
         "angle_coverage": sum(r['angle_available'] for r in per_stem.values()) / max(1, sum(r['angle_reference'] for r in per_stem.values())),
         "ratio_coverage": sum(r['ratio_available'] for r in per_stem.values()) / max(1, sum(r['ratio_reference'] for r in per_stem.values())),
     }
+    if per_stem and all('geometry_quality' in row for row in per_stem.values()):
+        summary['geometry_quality'] = summarize_geometry_quality(per_stem)
+    return summary
 
 
 def _paired_geometry(per_group: dict[str, dict[str, dict]], names: list[str], shared: list[str]) -> dict:
@@ -251,6 +257,7 @@ def main() -> int:
         "schema": PROTOCOL,
         "geometry_protocol": PROTOCOL,
         "protocol_details": CORE_POLICY,
+        "geometry_quality_protocol": QUALITY_POLICY,
         "workers": args.workers,
         "prediction_source": "generated_tikz",
         "reference_source": "frozen_labelled_reference_json",

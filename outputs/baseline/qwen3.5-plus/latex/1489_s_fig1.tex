@@ -1,0 +1,93 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (R) at (0,0);
+    \coordinate (J) at (0,3);
+    \coordinate (C) at (0,6);
+    \coordinate (A) at (-2,3);
+    \coordinate (B) at (2,3);
+    \coordinate (F) at (-2,0);
+    \coordinate (G) at (2,0);
+    
+    % Left Square ACDE
+    % Vector AC = (2, 3). Rotate 90 CCW: (-3, 2).
+    \coordinate (D) at (-3,8);
+    \coordinate (E) at (-5,5);
+    
+    % Right Square BCIH (Vertices C, I, H, B) -- wait, standard is C, B, H, I?
+    % Let's use the calculated points: I(3,8), H(5,5).
+    \coordinate (I) at (3,8);
+    \coordinate (H) at (5,5);
+    
+    % Points P and Q
+    % P is on DE such that PC is horizontal (y=6).
+    % D(-3,8), E(-5,5). Line: y - 5 = 1.5(x + 5). 6 - 5 = 1.5(x+5) => 2/3 = x+5 => x = -4.333
+    \coordinate (P) at (-4.333, 6);
+    
+    % Q is on IH such that QC is horizontal (y=6).
+    % I(3,8), H(5,5). Line: y - 5 = -1.5(x - 5). 6 - 5 = -1.5(x-5) => -2/3 = x-5 => x = 4.333
+    \coordinate (Q) at (4.333, 6);
+
+    % Draw Bottom Rectangle ABGF
+    \draw (A) -- (B) -- (G) -- (F) -- cycle;
+    \draw (J) -- (R); % Vertical line JR
+    
+    % Draw Triangle ABC
+    \draw (A) -- (C) -- (B);
+    
+    % Draw Left Square parts
+    \draw (A) -- (C);
+    \draw (C) -- (D);
+    \draw (D) -- (P); % Solid part
+    \draw[dashed] (P) -- (E); % Dashed part
+    \draw (E) -- (A);
+    
+    % Draw Right Square parts
+    \draw (B) -- (C);
+    \draw (C) -- (I);
+    \draw (I) -- (H);
+    \draw (H) -- (B); % Wait, H to B is a side?
+    % My coords: H(5,5), B(2,3). Vector (-3, -2).
+    % C(0,6), I(3,8). Vector (3, 2).
+    % So HB is parallel to CI. Yes.
+    % But in the image, Q is on the side.
+    % My Q is on IH.
+    % Let's check the image again.
+    % The side from I goes to H. Q is on it.
+    % Then H connects to... B?
+    % In my coords, H(5,5) to B(2,3) is a side.
+    % But Q(4.33, 6) is on IH (from (3,8) to (5,5)).
+    % So the perimeter is C-I-H-B.
+    % This matches.
+    
+    % Draw Horizontal Line PCQ
+    \draw (P) -- (C) -- (Q);
+    
+    % Draw Dashed Diagonal CH
+    \draw[dashed] (C) -- (H);
+    
+    % Labels
+    \node[left] at (A) {$A$};
+    \node[right] at (B) {$B$};
+    \node[above] at (C) {$C$};
+    \node[above] at (D) {$D$};
+    \node[left] at (E) {$E$};
+    \node[left] at (F) {$F$};
+    \node[right] at (G) {$G$};
+    \node[right] at (H) {$H$};
+    \node[above] at (I) {$I$};
+    \node[below] at (J) {$J$};
+    \node[left] at (P) {$P$};
+    \node[right] at (Q) {$Q$};
+    \node[below] at (R) {$R$};
+    
+    % Right angle marks (if any visible)
+    % At J: Angle AJR and BJR are 90.
+    \draw (-0.2, 2.8) -- (-0.2, 3.2) -- (0.2, 3.2); % Mark at J (left side) - actually J is on line AB
+    % Let's put marks at F, G, R?
+    % The image doesn't explicitly show square marks, but implies rectangle.
+    % I will skip explicit right angle marks unless clearly visible as small squares.
+    % Looking at the image, there are no explicit right-angle squares drawn.
+\end{tikzpicture}
+\end{document}

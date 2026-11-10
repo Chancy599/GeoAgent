@@ -1,0 +1,70 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+  % Define coordinates
+  \coordinate (O) at (0,0);
+  \coordinate (E) at (6,0);
+  \coordinate (F) at (3, {3*sqrt(3)});
+  \coordinate (A) at (-3, {3*sqrt(3)});
+  \coordinate (B) at (-6,0);
+  \coordinate (C) at (-3, {-3*sqrt(3)});
+  \coordinate (D) at (3, {-3*sqrt(3)});
+
+  % Derived points
+  % N is intersection of AC and BE. AC is x=-3, BE is y=0.
+  \coordinate (N) at (-3, 0);
+
+  % H is on CE. Let's pick x=3.
+  % Line CE: y = sqrt(3)/3 * (x - 6)
+  % at x=3, y = sqrt(3)/3 * (-3) = -sqrt(3).
+  \coordinate (H) at (3, {-sqrt(3)});
+
+  % M is on AC (x=-3) with same y as H.
+  \coordinate (M) at (-3, {-sqrt(3)});
+
+  % G is intersection of BH and AC.
+  % Line BH: B(-6,0) to H(3, -sqrt(3)).
+  % Slope = -sqrt(3)/9.
+  % y = -sqrt(3)/9 * (x + 6).
+  % at x=-3, y = -sqrt(3)/9 * 3 = -sqrt(3)/3.
+  \coordinate (G) at (-3, {-sqrt(3)/3});
+
+  % Draw Hexagon
+  \draw (A) -- (B) -- (C) -- (D) -- (E) -- (F) -- (A);
+
+  % Draw internal solid lines
+  \draw (A) -- (C);
+  \draw (C) -- (E);
+  \draw (B) -- (H);
+
+  % Draw dashed lines
+  \draw[dashed] (O) -- (A);
+  \draw[dashed] (O) -- (F);
+  \draw[dashed] (B) -- (E);
+  \draw[dashed] (M) -- (H);
+
+  % Right angle at M
+  % Corner is at M. Lines are MC (down) and MH (right).
+  % Draw small square mark in the bottom-right quadrant relative to M.
+  \draw (M) ++(0.2, 0) -- ++(0, -0.2) -- ++(-0.2, 0);
+
+  % Labels
+  \node[above] at (A) {$A$};
+  \node[left] at (B) {$B$};
+  \node[below] at (C) {$C$};
+  \node[below] at (D) {$D$};
+  \node[right] at (E) {$E$};
+  \node[above] at (F) {$F$};
+  \node[below] at (O) {$O$};
+  
+  % Positioning N, G, M, H
+  \node[above left] at (N) {$N$};
+  \node[below right] at (G) {$G$};
+  \node[left] at (M) {$M$};
+  \node[below] at (H) {$H$};
+
+  % Dot at O
+  \fill (O) circle (2pt);
+
+\end{tikzpicture}
+\end{document}

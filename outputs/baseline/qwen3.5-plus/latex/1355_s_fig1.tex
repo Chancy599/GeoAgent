@@ -1,0 +1,57 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (B) at (0, 0);
+    \coordinate (C) at (10, 0);
+    \coordinate (A) at (2, 6);
+    \coordinate (D) at (12, 6);
+    \coordinate (E) at (1, 3); % On AB, such that CE perp AB
+    \coordinate (F) at (7, 6); % On AD
+    \coordinate (M) at (13, 9); % Intersection of EF and CD extended
+
+    % Draw solid lines
+    \draw (A) -- (B) -- (C) -- (D) -- (A); % Parallelogram ABCD
+    \draw (E) -- (C);
+    \draw (E) -- (F);
+    \draw (F) -- (C);
+
+    % Draw dashed lines
+    \draw[dashed] (F) -- (M);
+    \draw[dashed] (D) -- (M);
+
+    % Draw right angle mark at E
+    % Vector EA is (1, 3). Vector EC is (9, -3).
+    % We draw a small square.
+    \draw (E) -- ++(0.3, 0.9) -- ++(0.9, -0.3) -- ++(-0.3, -0.9); 
+    % Wait, the square should be aligned with EA and EC.
+    % Let's compute unit vectors or just use small steps.
+    % Step along EA: (1, 3) -> scale by 0.1 -> (0.1, 0.3)
+    % Step along EC: (9, -3) -> scale by 0.1 -> (0.9, -0.3)
+    % The mark is usually drawn inside.
+    \draw (E) -- ++(0.2, 0.6) -- ++(0.6, -0.2) -- ++(-0.2, -0.6); % This is not quite a square corner visually, let's adjust.
+    % Better: draw perpendicular lines of length 0.3
+    \draw (E) -- ++(0.15, 0.45) coordinate (aux1);
+    \draw (E) -- ++(0.45, -0.15) coordinate (aux2);
+    \draw (aux1) -- (aux2); % This closes the square? No.
+    % Standard right angle:
+    \draw (E) ++(0.15, 0.45) -- ++(0.45, -0.15) -- (E) ++(0.45, -0.15); 
+    % Let's just draw two short segments from E
+    \draw (E) -- ++(0.2, 0.6); % Along EA
+    \draw (E) -- ++(0.6, -0.2); % Along EC (approx perp)
+    % And connect them to make a square corner
+    \draw (E) ++(0.2, 0.6) -- ++(0.6, -0.2) -- (E) ++(0.6, -0.2);
+    % Actually, the image shows a small square symbol.
+    \draw (E) -- ++(0.2, 0.6) -- ++(0.6, -0.2) -- ++(-0.2, -0.6);
+
+    % Labels
+    \node[left] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[right] at (D) {$D$};
+    \node[left] at (E) {$E$};
+    \node[above] at (F) {$F$};
+    \node[above right] at (M) {$M$};
+
+\end{tikzpicture}
+\end{document}

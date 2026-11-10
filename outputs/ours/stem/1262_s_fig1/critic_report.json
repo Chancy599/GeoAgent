@@ -1,0 +1,177 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render is faithful: E sits on the solid AB side, and the solid ED and dashed EG strokes meet at E as in the original.",
+  "figure_type": {
+    "original": "triangle ABC with interior cevian-like segments, dashed AD and dashed EG, points E, F, G on the figure",
+    "render": "same triangle ABC with the same segments, dashed AD and dashed EG, labels E, F, G"
+  },
+  "issues": [
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "point_07"
+      ],
+      "bbox": [
+        0.45,
+        0.2,
+        0.55,
+        0.4
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Point_07 (px 258,136) is labelled F in the geometry state, but it lies on segment AB near E, not on the F position on AC. The rendered F label is correctly at point_10 on the right side, so this is a stray binding and does not appear in the render.",
+      "suggestion": "Keep F bound to point_10 and remove the F binding from point_07 in the topology state. The TikZ source is unaffected."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Base BC is drawn horizontally at the same height in both panels."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Segment from B up to A along the solid side AB, with E on it, matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Solid segment from A down to G matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Dashed vertical AD from A to D on BC matches the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Solid segment from E to D matches the original; it meets D."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Solid segment from A to F along AC region matches the original."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Dashed chain from E down to G matches the original, with the same bend."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Solid segment from G up-right through D to F matches the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Dashed AD is drawn from A to D as in the original."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "B is labelled at the left base vertex."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "D is labelled at the base intersection, below right."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "C is labelled at the right base vertex."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "A is labelled at the top vertex."
+    },
+    {
+      "object_id": "point_07",
+      "status": "wrong",
+      "note": "Labelled F but located on AB, not at the F position on the right side."
+    },
+    {
+      "object_id": "point_09",
+      "status": "present",
+      "note": "G is labelled below the base at the lower vertex of the dashed EG."
+    },
+    {
+      "object_id": "point_10",
+      "status": "present",
+      "note": "F is labelled on the right at the end of the solid G-D-F line, matching the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A matches the original top vertex."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B matches the original left base vertex."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C matches the original right base vertex."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "D lies on the base where AD, ED and GF meet, matching the original."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "E lies on the solid AB side and is the junction of the solid ED and dashed EG, as in the original."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "F matches the original position on the right side of the figure."
+    },
+    {
+      "object_id": "point_G",
+      "status": "present",
+      "note": "G matches the original lower position below the baseline."
+    }
+  ],
+  "checklist_score": 0.978,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "E is on the solid AB side, at the same relative position as in the original.",
+    "E is the junction of the solid ED segment and the dashed EG segment, as in the original.",
+    "Dashed AD and dashed EG styles and endpoints match the original.",
+    "The solid line from G through D to F is present and passes through D as in the original.",
+    "Labels A, B, C, D, E, F, G are present and placed near their vertices."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 5,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

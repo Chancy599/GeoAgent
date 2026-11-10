@@ -26,6 +26,7 @@ from ..config import Settings, load_settings
 from ..cv_tools.registry import call_cv_tool
 from ..llm.client import LLMClient
 from ..state.constraint_repair import repair_geometry_constraints
+from ..state.construction import add_construction_candidates, merge_construction_plan
 from ..state.coordinate_contract import apply_reviewed_bindings
 from ..state.evidence_store import EvidenceStore
 from ..state.rectify import rectify_right_angles
@@ -104,6 +105,7 @@ class GeoAgentRunner:
         budget = self.settings.budget
         try:
             self._initial_measurements()
+            self._plan_source_construction()
             messages = initial_messages(self.state)
             for step in range(1, int(budget.max_steps) + 1):
                 self._step = step
@@ -231,6 +233,17 @@ class GeoAgentRunner:
                 params = {"mode": args.get("mode"), "use_image": args.get("use_image"), "instruction": args.get("instruction")}
                 self.counters["tool_calls"] += 1
                 payload = self._do_code_agent(args)
+                if payload.get('ok') and payload.get('png_path') and self._visual_left() > 0 and not self._budget_stop():
+                    try:
+                        self.counters['tool_calls'] += 1
+                        review = self._do_critic({})
+                    except Exception as exc:
+                        review = {'ok':False,'error':f'{type(exc).__name__}: {exc}'}
+                    payload['critic'] = review
+                    payload['best_version'] = self.state.best_version
+                    self.state.record_action(ActionRecord(step=self._step, action='run_critic',
+                        purpose='review newly compiled version', status='ok' if review.get('ok') else 'error',
+                        result_summary=_summarise_payload(review)))
             elif name == "run_critic":
                 purpose = str(args.get("focus", "critique render"))[:200]
                 params = {"focus": args.get("focus")}
@@ -316,6 +329,24 @@ class GeoAgentRunner:
                         "ok": bool(reply.get("ok")), "summary": summary})
         self._checkpoint()
 
+    def _plan_source_construction(self) -> None:
+        if (self._visual_left() <= 0 or self._budget_stop()
+                or self.counters['tool_calls'] >= int(self.settings.budget.max_tool_calls)):
+            return
+        self.counters['tool_calls'] += 1
+        try:
+            add_construction_candidates(self.state)
+            result = self._do_geometry_agent({'instruction':
+                'Build the source construction before any TikZ is written. Inspect the original, '
+                'verify junction identities, dashed endpoints and right-angle quadrants, and submit '
+                'a concise inventory of drawn geometry using the measured candidates.'})
+        except Exception as exc:
+            result = {'ok':False,'error':f'{type(exc).__name__}: {exc}'}
+        self.state.record_action(ActionRecord(step=0, action='run_geometry_agent', purpose='source construction',
+            status='ok' if result.get('ok') else 'error', result_summary=_summarise_payload(result)))
+        self._emit({'event':'action','step':0,'action':'run_geometry_agent','ok':bool(result.get('ok'))})
+        self._checkpoint()
+
     def _do_cv_tool(self, tool_name: str, params: dict[str, Any], purpose: str) -> dict[str, Any]:
         params = {k: v for k, v in (params or {}).items() if k not in ("image_path", "out_dir")}
         result = call_cv_tool(tool_name, params, image_path=self.image_path, out_dir=self.run_dir / "cv")
@@ -390,6 +421,7 @@ class GeoAgentRunner:
         result = self.geometry_agent.run(
             str(args.get("instruction", "Consolidate the CV geometry.")),
             cv_calls_left=max(0, int(self.settings.budget.max_tool_calls) - self.counters["tool_calls"]),
+            image_path=self.ctx.original() if self._visual_left() > 0 else None,
         )
         self.counters["tool_calls"] += int(result.get("cv_calls", 0))
         self._refresh_topology()
@@ -644,6 +676,8 @@ class GeoAgentRunner:
             _file_digest(target.png_path),
             hashlib.sha256(target.tex.encode("utf-8")).hexdigest(),
             json.dumps(plan["required_edges"]),
+            json.dumps(plan.get("required_styles", []), sort_keys=True),
+            json.dumps(plan.get("required_marks", {}), sort_keys=True),
             focus,
         )
         cached = None if plan["pending"] else self._critic_cache.get(cache_key)
@@ -665,6 +699,8 @@ class GeoAgentRunner:
                 self._critic_cache[cache_key] = report
         decisions = validate_endpoint_decisions(plan, report.get("topology_decisions"))
         rebindings = apply_reviewed_bindings(self.state, report.get("binding_decisions"))
+        if rebindings and self.state.meta.get('source_construction'):
+            merge_construction_plan(self.state, {})
         if decisions:
             self.state.meta.setdefault("topology_decisions", {}).update(decisions)
             self.state.add_evidence(
@@ -772,6 +808,10 @@ class GeoAgentRunner:
         if not self.final_summary:
             self.final_summary = self._auto_summary()
         best = self.state.get_version(self.state.best_version)
+        if self.final_status == 'success' and best and (best.critic_score is None or (best.critic_report or {}).get('must_repair')):
+            self.final_status = 'partial'
+            if 'finish' in self.state.meta:
+                self.state.meta['finish']['status'] = self.final_status
         if best and best.topology_check and not best.topology_check["passed"]:
             if self.final_status == "success":
                 self.final_status = "partial"
@@ -822,7 +862,9 @@ def _stops_run(name: str, payload: Any) -> bool:
 
 def _unverified_geometry(report: dict) -> str:
     return (f"Unverified named edges: {report['missing_edges']}. "
-            f"Unverified corrected bindings: {report.get('unverified_bindings', [])}.")
+            f"Unverified corrected bindings: {report.get('unverified_bindings', [])}. "
+            f"Unverified stroke styles: {report.get('unverified_styles', [])}. "
+            f"Unverified right-angle rays: {report.get('unverified_marks', [])}.")
 
 
 def _file_digest(path: str | Path) -> str:

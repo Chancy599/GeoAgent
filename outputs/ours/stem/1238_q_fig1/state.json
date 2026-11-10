@@ -452,6 +452,106 @@
         ],
         "ambiguous": false
       }
+    },
+    "seg_AB": {
+      "id": "seg_AB",
+      "type": "segment",
+      "label": "AB",
+      "coords": {
+        "a_px": [
+          67.4,
+          243.0
+        ],
+        "b_px": [
+          460.4,
+          243.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_BC": {
+      "id": "seg_BC",
+      "type": "segment",
+      "label": "BC",
+      "coords": {
+        "a_px": [
+          460.4,
+          243.0
+        ],
+        "b_px": [
+          381.6,
+          46.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_CD": {
+      "id": "seg_CD",
+      "type": "segment",
+      "label": "CD",
+      "coords": {
+        "a_px": [
+          381.6,
+          46.0
+        ],
+        "b_px": [
+          146.4,
+          46.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_DA": {
+      "id": "seg_DA",
+      "type": "segment",
+      "label": "DA",
+      "coords": {
+        "a_px": [
+          146.4,
+          46.0
+        ],
+        "b_px": [
+          67.4,
+          243.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -490,6 +590,15 @@
       "source": "bind_point_labels",
       "evidence": "Hungarian assignment distance=23.05px",
       "status": "candidate"
+    },
+    "rel_005": {
+      "id": "rel_005",
+      "subject": "seg_CD",
+      "relation": "parallel",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "both horizontal at y=46 and y=243 (cv detect_lines angle 0.0)",
+      "status": "candidate"
     }
   },
   "evidence": {
@@ -504,7 +613,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:22:29"
+      "created_at": "2026-11-09T22:52:10"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -517,10 +626,48 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:22:58"
+      "created_at": "2026-11-09T22:52:27"
     },
     "ev_0003": {
       "id": "ev_0003",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T22:52:31"
+    },
+    "ev_0004": {
+      "id": "ev_0004",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Plain trapezoid ABCD, all solid black strokes, no dashed segments, no arcs/circles, no right-angle marks visible. Paths: A-B-C-D-A closed quadrilateral. AB bottom horizontal; DC top horizontal (parallel to AB); BC and AD slanted legs meeting the base at A and B. Labels A (bottom-left), B (bottom-right), C (top-right), D (top-left) each sit beside the corresponding vertex and are correctly bound.",
+      "payload": {
+        "merged": {
+          "objects": 8,
+          "relations": 1,
+          "conflicts": 0,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_01",
+          "point_02",
+          "point_03",
+          "point_04",
+          "seg_AB",
+          "seg_BC",
+          "seg_CD",
+          "seg_DA"
+        ]
+      },
+      "created_at": "2026-11-09T22:52:37"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v1 canvas matched to source [531, 290] (scale 0.6236)",
@@ -540,10 +687,10 @@
           30
         ]
       },
-      "created_at": "2026-11-09T11:23:20"
+      "created_at": "2026-11-09T22:52:49"
     },
-    "ev_0004": {
-      "id": "ev_0004",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: already_satisfied",
@@ -557,8 +704,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "ae57d235f42bda301cd0942e908b8875bec8d990d88d9dc52386ce6c3db69867",
-        "output_sha256": "ae57d235f42bda301cd0942e908b8875bec8d990d88d9dc52386ce6c3db69867",
+        "input_sha256": "c4ee27051004cc05571234f9b8171780cfd9c2af3f3dd586df1920e20738ed05",
+        "output_sha256": "c4ee27051004cc05571234f9b8171780cfd9c2af3f3dd586df1920e20738ed05",
         "reason": "already_satisfied",
         "accepted": [
           {
@@ -608,22 +755,22 @@
         "curve_policy": "defer",
         "candidate_count": 1
       },
-      "created_at": "2026-11-09T11:23:20"
+      "created_at": "2026-11-09T22:52:49"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Drew the trapezoid as one closed named path (A)--(B)--(C)--(D)--cycle, which covers the required named edges AB, BC, DA and the top edge CD. Labels bound to the named vertices, placed outside each corner (A lower-left, B lower-right, C upper-right, D upper-left), at the CV-calibrated 14.5/17.4 pt font. Line width 1.4 pt with round joins from STYLE METRICS. The program-owned coordinate definitions are not emitted; the measurements look consistent with the source image. No right-angle marks, construction lines or extra objects were added.",
+        "notes": "Drew the trapezoid as one closed solid path A--B--C--D--cycle using the program-owned named coordinates (not redefined). Line width 1.4pt with round joins and label font 14.5/17.4pt come from STYLE METRICS. Labels placed at the source corners: A below-left, B below-right, C above-right, D above-left. No extra marks, no right-angle pics, no dashed styles. The program-owned coordinates match the supplied pixel frame (checked A=(-3.483,-1.723), B=(3.427,-1.723), C=(2.041,1.741), D=(-2.094,1.741)).",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1238_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1238_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\1238_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\1238_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -653,12 +800,12 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1238_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\1238_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1238_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\1238_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
@@ -678,23 +825,7 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:23:20"
-    },
-    "ev_0006": {
-      "id": "ev_0006",
-      "source": "critic_agent",
-      "method": "endpoint_review",
-      "summary": "Reviewed 1 CV endpoint case(s)",
-      "payload": {
-        "be4241a1a0f0cd1a": {
-          "edge": [
-            "C",
-            "D"
-          ],
-          "reason": "In the original, the top stroke runs continuously from D to C and terminates at both labelled vertices. The render's top side also joins D and C, so the case matches."
-        }
-      },
-      "created_at": "2026-11-09T11:23:56"
+      "created_at": "2026-11-09T22:52:49"
     }
   },
   "conflicts": [],
@@ -704,10 +835,10 @@
     "A": "point_02",
     "B": "point_01"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}\n\\coordinate (A) at (-3.483,-1.723);\n\\coordinate (B) at (3.427,-1.723);\n\\coordinate (C) at (2.041,1.741);\n\\coordinate (D) at (-2.094,1.741);\n\n  \n  \n  \\draw[line width=1.4pt, line join=round] (A) -- (B) -- (C) -- (D) -- cycle;\n  \n  \\node[below left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n  \\node[below right] at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n  \\node[above left]  at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}\n\\coordinate (A) at (-3.483,-1.723);\n\\coordinate (B) at (3.427,-1.723);\n\\coordinate (C) at (2.041,1.741);\n\\coordinate (D) at (-2.094,1.741);\n\n  \n  \n  \\draw[line width=1.4pt, line join=round] (A) -- (B) -- (C) -- (D) -- cycle;\n  \n  \\node[below left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n  \\node[below right] at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n  \\node[above left]  at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}\n\\coordinate (A) at (-3.483,-1.723);\n\\coordinate (B) at (3.427,-1.723);\n\\coordinate (C) at (2.041,1.741);\n\\coordinate (D) at (-2.094,1.741);\n\n  \n  \\draw[solid, line width=1.4pt, line join=round] (A) -- (B) -- (C) -- (D) -- cycle;\n\n  \n  \\node[below left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n  \\node[below right] at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n  \\node[above left]  at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}\n\\coordinate (A) at (-3.483,-1.723);\n\\coordinate (B) at (3.427,-1.723);\n\\coordinate (C) at (2.041,1.741);\n\\coordinate (D) at (-2.094,1.741);\n\n  \n  \\draw[solid, line width=1.4pt, line join=round] (A) -- (B) -- (C) -- (D) -- cycle;\n\n  \n  \\node[below left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n  \\node[below right] at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n  \\node[above left]  at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}",
   "best_version": 1,
-  "best_score": 0.93,
+  "best_score": 0.9,
   "tikz_versions": [
     {
       "topology_check": {
@@ -715,7 +846,7 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}\n\\coordinate (A) at (-3.483,-1.723);\n\\coordinate (B) at (3.427,-1.723);\n\\coordinate (C) at (2.041,1.741);\n\\coordinate (D) at (-2.094,1.741);\n\n  \n  \n  \\draw[line width=1.4pt, line join=round] (A) -- (B) -- (C) -- (D) -- cycle;\n  \n  \\node[below left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n  \\node[below right] at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n  \\node[above left]  at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}\n\\coordinate (A) at (-3.483,-1.723);\n\\coordinate (B) at (3.427,-1.723);\n\\coordinate (C) at (2.041,1.741);\n\\coordinate (D) at (-2.094,1.741);\n\n  \n  \\draw[solid, line width=1.4pt, line join=round] (A) -- (B) -- (C) -- (D) -- cycle;\n\n  \n  \\node[below left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n  \\node[below right] at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n  \\node[above left]  at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1238_q_fig1\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1238_q_fig1\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1238_q_fig1\\best.png",
@@ -723,79 +854,101 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:23:18",
+      "created_at": "2026-11-09T22:52:47",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Drew the trapezoid as one closed named path (A)--(B)--(C)--(D)--cycle, which covers the required named edges AB, BC, DA and the top edge CD. Labels bound to the named vertices, placed outside each corner (A lower-left, B lower-right, C upper-right, D upper-left), at the CV-calibrated 14.5/17.4 pt font. Line width 1.4 pt with round joins from STYLE METRICS. The program-owned coordinate definitions are not emitted; the measurements look consistent with the source image. No right-angle marks, construction lines or extra objects were added.",
-      "compile_seconds": 1.87,
+      "notes": "Drew the trapezoid as one closed solid path A--B--C--D--cycle using the program-owned named coordinates (not redefined). Line width 1.4pt with round joins and label font 14.5/17.4pt come from STYLE METRICS. Labels placed at the source corners: A below-left, B below-right, C above-right, D above-left. No extra marks, no right-angle pics, no dashed styles. The program-owned coordinates match the supplied pixel frame (checked A=(-3.483,-1.723), B=(3.427,-1.723), C=(2.041,1.741), D=(-2.094,1.741)).",
+      "compile_seconds": 1.316,
       "critic_report": {
-        "assessment_score": 0.93,
+        "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Render reproduces the trapezoid ABCD with correct vertex letters and positions; no extra segments, and only a minor vertical offset on the A and B labels.",
+        "verdict": "The render reproduces the trapezoid ABCD faithfully: four segments, correct vertex positions, parallel AB and CD, and all four labels bound to the correct vertices. The only difference is label placement, which is low severity.",
         "figure_type": {
-          "original": "closed quadrilateral ABCD drawn as a trapezoid, base AB longer than top CD, with A and B at the bottom and C and D at the top",
-          "render": "closed quadrilateral ABCD drawn as a trapezoid, base AB longer than top CD, with A and B at the bottom and C and D at the top"
+          "original": "Quadrilateral ABCD drawn as a trapezoid with horizontal parallel sides AB (longer, bottom) and CD (shorter, top), with no interior construction lines.",
+          "render": "Quadrilateral ABCD drawn as a trapezoid with horizontal parallel sides AB (bottom) and CD (top), with no interior construction lines."
         },
         "issues": [
           {
             "type": "label_error",
             "severity": "low",
             "object_ids": [
+              "point_01",
               "point_02",
-              "point_01"
+              "point_03",
+              "point_04"
             ],
             "bbox": [
-              0.07,
-              0.8,
-              0.11,
-              0.87
+              0.03,
+              0.15,
+              0.97,
+              0.78
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "The A and B labels sit noticeably lower than their vertices (about 20 px below the baseline in the render), while the original places them level with the baseline beside each vertex. The offset is small and the association with each vertex is clear, so this is cosmetic.",
-            "suggestion": "Optionally change the A and B node anchors from below left / below right to left / right (or a smaller inner sep offset) so the labels sit beside the vertices. Keep the coordinate bindings unchanged."
+            "description": "Vertex labels are placed differently from the original. In the original, A and B sit beside their vertices at roughly the vertex's height (A to the left, B to the right), and D and C sit beside their vertices (D to the left, C to the right). In the render, all four labels are pushed diagonally outward and further from the vertices, with A and B below and D and C above. The association with each vertex stays clear.",
+            "suggestion": "Optionally tighten the label anchors to match the original, e.g. \\node[left] at (A), \\node[right] at (B), \\node[left] at (D), \\node[right] at (C), keeping the same vertex bindings and font size."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Bottom base AB is drawn from A to B, matching the original in position and extent."
+            "note": "Bottom side AB is drawn as a solid horizontal segment in the render, matching the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Top side CD is drawn from D to C, matching the original."
+            "note": "Top side CD is drawn as a solid horizontal segment in the render, matching the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Right leg BC is drawn from B to C, matching the original."
+            "note": "Right side BC is drawn as a solid segment from B up to C, matching the original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Left leg DA is drawn from D to A, matching the original."
+            "note": "Left side DA is drawn as a solid segment from D down to A, matching the original."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "Base AB is correctly drawn between A and B."
+          },
+          {
+            "object_id": "seg_BC",
+            "status": "present",
+            "note": "Side BC is correctly drawn between B and C."
+          },
+          {
+            "object_id": "seg_CD",
+            "status": "present",
+            "note": "Top CD is correctly drawn between C and D."
+          },
+          {
+            "object_id": "seg_DA",
+            "status": "present",
+            "note": "Side DA is correctly drawn between D and A."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Vertex B is at the bottom-right corner in both panels, labelled B."
+            "note": "Label B is present at vertex B; its position is offset below-right, which is acceptable."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Vertex A is at the bottom-left corner in both panels, labelled A."
+            "note": "Label A is present at vertex A; its position is offset below-left rather than beside the vertex."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Vertex C is at the top-right corner in both panels, labelled C."
+            "note": "Label C is present at vertex C; its position is offset above-right."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Vertex D is at the top-left corner in both panels, labelled D."
+            "note": "Label D is present at vertex D; its position is offset above-left."
           }
         ],
         "checklist_score": 1.0,
@@ -807,12 +960,12 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Trapezoid shape and vertex positions match the original; top width is about 290 px and bottom width about 484 px in both panels.",
-          "Four sides AB, BC, CD, DA are present and join at the vertices with no gaps or overhangs.",
-          "No extra segments or chords are present in the render.",
-          "Vertex letters A, B, C, D are present, correctly spelled, and bound to the correct corners.",
-          "Stroke weight and line style (solid) are visually consistent with the original.",
-          "Aspect ratio is close to the original (height about 242 px in the original vs about 246 px in the render)."
+          "Four vertices A, B, C, D are in the correct relative positions, forming the same trapezoid.",
+          "AB and CD are horizontal and parallel, with AB longer than CD.",
+          "Sides BC and DA slope inward at similar angles, so the overall proportions match.",
+          "All four sides are solid and connected at the vertices with no gaps or overhangs.",
+          "Labels A, B, C and D are present, correctly spelled and bound to the correct vertices.",
+          "Line weight and label font style are visually comparable to the original."
         ],
         "labels": {
           "present": [
@@ -826,19 +979,10 @@
         },
         "version": 1,
         "binding_decisions": [],
-        "topology_decisions": [
-          {
-            "case_id": "be4241a1a0f0cd1a",
-            "edge": [
-              "C",
-              "D"
-            ],
-            "reason": "In the original, the top stroke runs continuously from D to C and terminates at both labelled vertices. The render's top side also joins D and C, so the case matches."
-          }
-        ],
+        "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.93
+      "critic_score": 0.9
     }
   ],
   "compilation_results": [
@@ -846,14 +990,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.87,
+      "seconds": 1.316,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.4912109375 KiB)\nnote: Writing `figure.pdf` (2.369140625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1238_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1238_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1238_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:23:20"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.376953125 KiB)\nnote: Writing `figure.log` (10.4912109375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1238_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1238_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1238_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T22:52:49"
     }
   ],
   "validation_results": [
@@ -889,12 +1033,12 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1238_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\1238_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1238_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\1238_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
@@ -912,78 +1056,100 @@
           "detail": "figure bbox ratio 1.79"
         }
       ],
-      "created_at": "2026-11-09T11:23:20"
+      "created_at": "2026-11-09T22:52:49"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.93,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Render reproduces the trapezoid ABCD with correct vertex letters and positions; no extra segments, and only a minor vertical offset on the A and B labels.",
+      "verdict": "The render reproduces the trapezoid ABCD faithfully: four segments, correct vertex positions, parallel AB and CD, and all four labels bound to the correct vertices. The only difference is label placement, which is low severity.",
       "figure_type": {
-        "original": "closed quadrilateral ABCD drawn as a trapezoid, base AB longer than top CD, with A and B at the bottom and C and D at the top",
-        "render": "closed quadrilateral ABCD drawn as a trapezoid, base AB longer than top CD, with A and B at the bottom and C and D at the top"
+        "original": "Quadrilateral ABCD drawn as a trapezoid with horizontal parallel sides AB (longer, bottom) and CD (shorter, top), with no interior construction lines.",
+        "render": "Quadrilateral ABCD drawn as a trapezoid with horizontal parallel sides AB (bottom) and CD (top), with no interior construction lines."
       },
       "issues": [
         {
           "type": "label_error",
           "severity": "low",
           "object_ids": [
+            "point_01",
             "point_02",
-            "point_01"
+            "point_03",
+            "point_04"
           ],
           "bbox": [
-            0.07,
-            0.8,
-            0.11,
-            0.87
+            0.03,
+            0.15,
+            0.97,
+            0.78
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "The A and B labels sit noticeably lower than their vertices (about 20 px below the baseline in the render), while the original places them level with the baseline beside each vertex. The offset is small and the association with each vertex is clear, so this is cosmetic.",
-          "suggestion": "Optionally change the A and B node anchors from below left / below right to left / right (or a smaller inner sep offset) so the labels sit beside the vertices. Keep the coordinate bindings unchanged."
+          "description": "Vertex labels are placed differently from the original. In the original, A and B sit beside their vertices at roughly the vertex's height (A to the left, B to the right), and D and C sit beside their vertices (D to the left, C to the right). In the render, all four labels are pushed diagonally outward and further from the vertices, with A and B below and D and C above. The association with each vertex stays clear.",
+          "suggestion": "Optionally tighten the label anchors to match the original, e.g. \\node[left] at (A), \\node[right] at (B), \\node[left] at (D), \\node[right] at (C), keeping the same vertex bindings and font size."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Bottom base AB is drawn from A to B, matching the original in position and extent."
+          "note": "Bottom side AB is drawn as a solid horizontal segment in the render, matching the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Top side CD is drawn from D to C, matching the original."
+          "note": "Top side CD is drawn as a solid horizontal segment in the render, matching the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Right leg BC is drawn from B to C, matching the original."
+          "note": "Right side BC is drawn as a solid segment from B up to C, matching the original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Left leg DA is drawn from D to A, matching the original."
+          "note": "Left side DA is drawn as a solid segment from D down to A, matching the original."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Base AB is correctly drawn between A and B."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Side BC is correctly drawn between B and C."
+        },
+        {
+          "object_id": "seg_CD",
+          "status": "present",
+          "note": "Top CD is correctly drawn between C and D."
+        },
+        {
+          "object_id": "seg_DA",
+          "status": "present",
+          "note": "Side DA is correctly drawn between D and A."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Vertex B is at the bottom-right corner in both panels, labelled B."
+          "note": "Label B is present at vertex B; its position is offset below-right, which is acceptable."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Vertex A is at the bottom-left corner in both panels, labelled A."
+          "note": "Label A is present at vertex A; its position is offset below-left rather than beside the vertex."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Vertex C is at the top-right corner in both panels, labelled C."
+          "note": "Label C is present at vertex C; its position is offset above-right."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Vertex D is at the top-left corner in both panels, labelled D."
+          "note": "Label D is present at vertex D; its position is offset above-left."
         }
       ],
       "checklist_score": 1.0,
@@ -995,12 +1161,12 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Trapezoid shape and vertex positions match the original; top width is about 290 px and bottom width about 484 px in both panels.",
-        "Four sides AB, BC, CD, DA are present and join at the vertices with no gaps or overhangs.",
-        "No extra segments or chords are present in the render.",
-        "Vertex letters A, B, C, D are present, correctly spelled, and bound to the correct corners.",
-        "Stroke weight and line style (solid) are visually consistent with the original.",
-        "Aspect ratio is close to the original (height about 242 px in the original vs about 246 px in the render)."
+        "Four vertices A, B, C, D are in the correct relative positions, forming the same trapezoid.",
+        "AB and CD are horizontal and parallel, with AB longer than CD.",
+        "Sides BC and DA slope inward at similar angles, so the overall proportions match.",
+        "All four sides are solid and connected at the vertices with no gaps or overhangs.",
+        "Labels A, B, C and D are present, correctly spelled and bound to the correct vertices.",
+        "Line weight and label font style are visually comparable to the original."
       ],
       "labels": {
         "present": [
@@ -1014,23 +1180,14 @@
       },
       "version": 1,
       "binding_decisions": [],
-      "topology_decisions": [
-        {
-          "case_id": "be4241a1a0f0cd1a",
-          "edge": [
-            "C",
-            "D"
-          ],
-          "reason": "In the original, the top stroke runs continuously from D to C and terminates at both labelled vertices. The render's top side also joins D and C, so the case matches."
-        }
-      ],
+      "topology_decisions": [],
       "raw_meta": "{}"
     }
   ],
   "unresolved_issues": [
     {
       "source": "supervisor",
-      "issue": "Low-severity cosmetic: the A and B labels sit about 20 px lower than in the original (anchors below left/below right). Left unchanged because it is not required."
+      "issue": "Label anchors are placed diagonally outward rather than beside vertices as in the original (low severity, cosmetic)."
     }
   ],
   "action_history": [
@@ -1059,47 +1216,67 @@
       "error": null
     },
     {
+      "step": 0,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "initial source evidence",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; count=0",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 8, 'relations': 1, 'conflicts': 0, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 1,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Reconstruct the figure as a trapezoid ABCD with labelled vertices. Use CV-measured pixel points (origin top-left, y down; flip y for TikZ). Points: A=(67.4,243.0), B=(460.4,243.0), C=(381.6,46.0), D=(",
+      "purpose": "Draw a quadrilateral ABCD (trapezoid, AB parallel to CD) with solid edges AB, BC, CD, DA. Use these measured vertices in image pixels (origin top-left, y down); convert to TikZ by y_tikz = 290 - y_px,",
       "params": {
         "mode": "generate",
-        "use_image": null,
-        "instruction": "Reconstruct the figure as a trapezoid ABCD with labelled vertices. Use CV-measured pixel points (origin top-left, y down; flip y for TikZ). Points: A=(67.4,243.0), B=(460.4,243.0), C=(381.6,46.0), D=(146.4,46.0). Draw solid edges as named paths: AB (bottom, A to B), BC (B to C, right leg), CD (top, C to D), DA (D to A, left leg). Label the vertices A, B, C, D with their visible letters placed outside each corner (A and D at lower-left/upper-left, B lower-right, C upper-right). Use a scale so the figure fits in roughly the original 531x290 proportions (e.g. 0.01cm per pixel with y flipped). No extra construction lines."
+        "use_image": false,
+        "instruction": "Draw a quadrilateral ABCD (trapezoid, AB parallel to CD) with solid edges AB, BC, CD, DA. Use these measured vertices in image pixels (origin top-left, y down); convert to TikZ by y_tikz = 290 - y_px, i.e. use coordinates with x = px and y = 290 - py, or scale by 1/100 consistently. Vertices: A=(67.4,243.0), B=(460.4,243.0), C=(381.6,46.0), D=(146.4,46.0). Define each vertex once and draw the path A--B--C--D--cycle from those named coordinates. Labels: A at lower-left of A (below-left), B at lower-right of B, C at upper-right of C, D at upper-left of D. No other lines, no extra marks. Keep the figure compact with no axes."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 11.64,
+      "duration_s": 23.58,
       "token_usage": {
-        "delta": 6073
+        "delta": 15091
       },
       "visual_calls": 1,
       "error": null
     },
     {
       "step": 2,
-      "action": "run_critic",
-      "purpose": "Verify trapezoid topology, vertex letter identities and placement, and that no extra segments exist.",
-      "params": {
-        "focus": "Verify trapezoid topology, vertex letter identities and placement, and that no extra segments exist."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.93; issues=1",
-      "duration_s": 16.01,
-      "token_usage": {
-        "delta": 8704
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 3,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Reconstructed the figure as a TikZ trapezoid ABCD (version 1, compiled, topology check passed). Vertices come from CV-measured points: A bottom-left, B bottom-right, C top-right, D top-left, with letters bound one-to-one to the points. The Critic scored it 0.93 with checklist score 1.0, must_repair=false, and no extra segments.",
+        "summary": "Produced compilable TikZ for trapezoid ABCD (AB parallel to CD, solid edges AB, BC, CD, DA) using measured vertex coordinates. Compiled and passed topology check; critic score 0.9 with no must-repair issues. All four labels A, B, C, D are bound to the correct vertices.",
         "unresolved": [
-          "Low-severity cosmetic: the A and B labels sit about 20 px lower than in the original (anchors below left/below right). Left unchanged because it is not required."
+          "Label anchors are placed diagonally outward rather than beside vertices as in the original (low severity, cosmetic)."
         ],
         "status": "success"
       },
@@ -1135,6 +1312,17 @@
       "count": null,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "initial source evidence",
+      "ok": true,
+      "count": 0,
+      "visualization": null,
+      "error": null
     }
   ],
   "regions": {},
@@ -1142,44 +1330,50 @@
     "totals": {
       "calls": 5,
       "visual_calls": 2,
-      "prompt_tokens": 32721,
-      "completion_tokens": 5145,
-      "total_tokens": 37866,
-      "cached_tokens": 13746.0,
-      "cache_write_tokens": 18959.0,
-      "latency_s": 63.45
+      "prompt_tokens": 30803,
+      "completion_tokens": 5409,
+      "total_tokens": 36212,
+      "cached_tokens": 9918.0,
+      "cache_write_tokens": 12373.0,
+      "latency_s": 34.45
     },
     "by_agent": {
+      "geometry_agent": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 6278,
+        "latency_s": 6.29
+      },
       "supervisor": {
-        "calls": 3,
+        "calls": 2,
         "visual_calls": 0,
-        "total_tokens": 23089,
-        "latency_s": 37.99
+        "total_tokens": 14843,
+        "latency_s": 6.16
       },
       "code_agent:generate": {
         "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 6073,
-        "latency_s": 9.58
+        "visual_calls": 0,
+        "total_tokens": 6470,
+        "latency_s": 5.64
       },
       "critic_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8704,
-        "latency_s": 15.88
+        "total_tokens": 8621,
+        "latency_s": 16.36
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 21,
-    "tool_calls_left": 44,
+    "steps_left": 22,
+    "tool_calls_left": 42,
     "visual_calls_left": 22,
-    "tokens_left": 362134,
+    "tokens_left": 363788,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 37866
+    "total_tokens_used": 36212
   },
   "meta": {
     "topology_plan": {
@@ -1202,16 +1396,21 @@
         ]
       ],
       "pending": [],
-      "adjudicated": [
-        {
-          "case_id": "be4241a1a0f0cd1a",
-          "edge": [
-            "C",
-            "D"
-          ],
-          "reason": "In the original, the top stroke runs continuously from D to C and terminates at both labelled vertices. The render's top side also joins D and C, so the case matches."
-        }
-      ]
+      "adjudicated": [],
+      "ink_confirmed_edges": [
+        [
+          "C",
+          "D"
+        ]
+      ],
+      "required_styles": [],
+      "required_marks": {}
+    },
+    "source_construction": {
+      "summary": "Plain trapezoid ABCD, all solid black strokes, no dashed segments, no arcs/circles, no right-angle marks visible. Paths: A-B-C-D-A closed quadrilateral. AB bottom horizontal; DC top horizontal (parallel to AB); BC and AD slanted legs meeting the base at A and B. Labels A (bottom-left), B (bottom-right), C (top-right), D (top-left) each sit beside the corresponding vertex and are correctly bound.",
+      "strokes": [],
+      "marks": {},
+      "feet": []
     },
     "coordinate_contract": {
       "enabled": true,
@@ -1286,8 +1485,8 @@
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "ae57d235f42bda301cd0942e908b8875bec8d990d88d9dc52386ce6c3db69867",
-      "output_sha256": "ae57d235f42bda301cd0942e908b8875bec8d990d88d9dc52386ce6c3db69867",
+      "input_sha256": "c4ee27051004cc05571234f9b8171780cfd9c2af3f3dd586df1920e20738ed05",
+      "output_sha256": "c4ee27051004cc05571234f9b8171780cfd9c2af3f3dd586df1920e20738ed05",
       "reason": "already_satisfied",
       "accepted": [
         {
@@ -1417,8 +1616,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "ae57d235f42bda301cd0942e908b8875bec8d990d88d9dc52386ce6c3db69867",
-        "output_sha256": "ae57d235f42bda301cd0942e908b8875bec8d990d88d9dc52386ce6c3db69867",
+        "input_sha256": "c4ee27051004cc05571234f9b8171780cfd9c2af3f3dd586df1920e20738ed05",
+        "output_sha256": "c4ee27051004cc05571234f9b8171780cfd9c2af3f3dd586df1920e20738ed05",
         "reason": "already_satisfied",
         "accepted": [
           {
@@ -1469,17 +1668,8 @@
         "candidate_count": 1
       }
     },
-    "topology_decisions": {
-      "be4241a1a0f0cd1a": {
-        "edge": [
-          "C",
-          "D"
-        ],
-        "reason": "In the original, the top stroke runs continuously from D to C and terminates at both labelled vertices. The render's top side also joins D and C, so the case matches."
-      }
-    },
     "finish": {
-      "summary": "Reconstructed the figure as a TikZ trapezoid ABCD (version 1, compiled, topology check passed). Vertices come from CV-measured points: A bottom-left, B bottom-right, C top-right, D top-left, with letters bound one-to-one to the points. The Critic scored it 0.93 with checklist score 1.0, must_repair=false, and no extra segments.",
+      "summary": "Produced compilable TikZ for trapezoid ABCD (AB parallel to CD, solid edges AB, BC, CD, DA) using measured vertex coordinates. Compiled and passed topology check; critic score 0.9 with no must-repair issues. All four labels A, B, C, D are bound to the correct vertices.",
       "status": "success"
     },
     "stop_reason": "finish"

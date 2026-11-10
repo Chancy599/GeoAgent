@@ -1,67 +1,117 @@
 {
-  "assessment_score": 0.96,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render matches the original: triangle DAC with cevian AB ending on DC at B, right angle marker at C, and labels A, B, C, D correctly placed.",
+  "verdict": "The render is faithful: all four vertices, the segments DA, AB, DC, AC, the B-on-baseline placement, the right angle at C and the labels A, B, C, D match the original.",
   "figure_type": {
-    "original": "Triangle DAC with right angle at C and cevian AB, B on segment DC",
-    "render": "Triangle DAC with right angle at C and cevian AB, B on segment DC"
+    "original": "Triangle DAC with point B on side DC, joined to A, with a right-angle mark at C",
+    "render": "Triangle DAC with point B on side DC, joined to A, with a right-angle mark at C"
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Long line A-D matches the original, endpoints at A and D."
+      "note": "CV line for the long side DA, drawn as \\draw (D) -- (A)"
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Baseline D-C matches the original, solid, ends at C."
+      "note": "CV line for the baseline DC, drawn through B to C"
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Cevian A-B ends on the baseline at B, as in the original."
+      "note": "CV line for AB, drawn as \\draw (A) -- (B)"
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Vertical side A-C matches the original and meets C at the right angle."
+      "note": "CV line for the vertical side AC, drawn as \\draw (A) -- (C)"
     },
     {
       "object_id": "seg_05",
       "status": "unclear",
-      "note": "Short fragment near D lies on the A-D line. The original shows no separate stub, so this looks like a detection artifact of seg_01, not a missing element."
+      "note": "Short CV fragment lying on the DA line near D; not a separate stroke in either panel and is covered by DA in the render"
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Left edge of the right-angle marker at C, present in both panels."
+      "note": "Vertical side of the right-angle square at C, rendered by the right angle pic"
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Top edge of the right-angle marker at C, present in both panels."
+      "note": "Horizontal side of the right-angle square at C, rendered by the right angle pic"
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "AB drawn from A to B in both panels"
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "AC drawn vertically from A down to C in both panels"
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "DA drawn from D to A in both panels"
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "DC drawn through B in both panels"
+    },
+    {
+      "object_id": "ra_C",
+      "status": "present",
+      "note": "Right-angle mark at C is in the same quadrant (up-left of C) in both panels"
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle mark at C in the same quadrant in both panels"
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex D is at the left end of the baseline with label D below-left, as in the original."
+      "note": "D at the left end of the baseline, labelled below left in both"
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex A is at the top with label A above-right, as in the original."
+      "note": "A at the top vertex, labelled above right in both"
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex B is on the baseline with label B below, as in the original."
+      "note": "B on the baseline, labelled below in both"
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Vertex C is at the bottom right with label C below-right, as in the original."
+      "note": "C at the bottom right, labelled below right in both"
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Same vertex as point_02"
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Same vertex as point_03"
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Same vertex as point_04"
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Same vertex as point_01"
     }
   ],
   "checklist_score": 1.0,
@@ -73,11 +123,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle vertices A, D, C and the cevian endpoint B on DC match the original.",
-    "Side AC is vertical and meets DC at a right angle, marked by a small square at C.",
-    "Cevian AB runs from A to B and stops at the baseline, with no overhang.",
-    "Labels A, B, C, D are present, spelled correctly, and bound to the correct vertices with clear separation from strokes.",
-    "Overall aspect ratio and relative proportions are consistent with the original."
+    "Vertices D, A, B, C in the same positions relative to each other",
+    "B lies on the baseline between D and C",
+    "Segments DA, AB, DC, AC all present",
+    "Right-angle square at C in the upper-left quadrant of C in both",
+    "Labels A, B, C, D present with correct binding and no collisions with strokes"
   ],
   "labels": {
     "present": [
@@ -91,31 +141,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "fb7d033ccb090201",
-      "edge": [
-        "A",
-        "D"
-      ],
-      "reason": "The original's long stroke runs from the top vertex A to the left vertex D."
-    },
-    {
-      "case_id": "0c3a54f00ceb052f",
-      "edge": [
-        "C",
-        "D"
-      ],
-      "reason": "The original's baseline is a single continuous stroke from D to C."
-    },
-    {
-      "case_id": "ec9a6852a45de938",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "The original's cevian runs from A and terminates at B on the baseline."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

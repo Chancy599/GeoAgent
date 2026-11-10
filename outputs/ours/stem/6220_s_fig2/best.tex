@@ -1,12 +1,15 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usepackage{amsmath}
-\usetikzlibrary{angles,quotes}
+\usepackage{tikz}
+\usetikzlibrary{angles,quotes,calc}
 \begin{document}
-\begin{tikzpicture}[line width=0.9pt, line join=round]
+
+\begin{tikzpicture}[line width=0.9pt, line join=round,
+  lbl/.style={font=\fontsize{9}{10.8}\selectfont, inner sep=2pt}]
 \coordinate (A) at (-0.009,3.640);
 \coordinate (B) at (-3.638,0.004);
 \coordinate (C) at (3.633,0.006);
 \coordinate (D) at (-2.734,2.405);
+\coordinate (E) at (-1.647,1.999);
 \coordinate (F) at (1.985,1.650);
 \coordinate (G) at (1.649,0.757);
 \coordinate (H) at (-0.001,-3.631);
@@ -14,41 +17,40 @@
 
 
 
+  \draw (O) circle[radius=3.680];
 
-\coordinate (E) at (-1.640,1.994);
-\coordinate (P) at (1.371,0.000);
+  
+  \draw (A) -- (B);
+  \draw (A) -- (C);
+  \draw (B) -- (C);
 
+  \draw (A) -- (E) -- (B);
+  \draw (A) -- (D);
+  \draw (B) -- (D);
+  \draw (D) -- (E) -- (G) -- (C);
+  \draw (D) -- (G);
+  \draw (A) -- (F) -- (C);
+  \draw (F) -- (G) -- (H);
+  \draw (B) -- (H) -- (C);
+  \draw (B) -- (O) -- (C);
+  \draw (G) -- (O);
 
-\draw (O) circle (3.635);
+  
+  \draw pic[draw, angle radius=0.127cm] {right angle=D--G--F};
 
+  \foreach \P in {A,B,C,D,E,F,G,H,O} \fill (\P) circle (1.200pt);
 
-\draw (A) -- (B);
-\draw (A) -- (F) -- (C);
-\draw (B) -- (C);
-\draw (D) -- (B);
-\draw (A) -- (D);
-\draw (D) -- (E) -- (G) -- (C);
-\draw (H) -- (B);
-\draw (H) -- (C);
-\draw (F) -- (G) -- (P) -- (H);
-\draw (O) -- (G);
-
-
-\pic[draw, angle radius=0.220cm] {right angle=D--G--F};
-
-
-\foreach \p in {A,B,C,D,E,F,G,H,O,P}
-  \fill (\p) circle (1.600pt);
-
-
-\node[above, font=\fontsize{9}{10.8}\selectfont] at (A) {$A$};
-\node[left, font=\fontsize{9}{10.8}\selectfont] at (B) {$B$};
-\node[right, font=\fontsize{9}{10.8}\selectfont] at (C) {$C$};
-\node[above left, font=\fontsize{9}{10.8}\selectfont] at (D) {$D$};
-\node[above left, font=\fontsize{9}{10.8}\selectfont] at (E) {$E$};
-\node[above right, font=\fontsize{9}{10.8}\selectfont] at (F) {$F$};
-\node[below right, font=\fontsize{9}{10.8}\selectfont] at (G) {$G$};
-\node[below, font=\fontsize{9}{10.8}\selectfont] at (H) {$H$};
-\node[below, font=\fontsize{9}{10.8}\selectfont] at (O) {$O$};
+  
+  \node[lbl, above] at (A) {$A$};
+  \node[lbl, left] at (B) {$B$};
+  \node[lbl, right] at (C) {$C$};
+  \node[lbl, below] at (O) {$O$};
+  \node[lbl, below] at (H) {$H$};
+  \node[lbl, above left] at (D) {$D$};
+  
+  \node[lbl, above left] at (E) {$E$};
+  \node[lbl, above right] at (F) {$F$};
+  
+  \node[lbl, below right, inner sep=0pt, xshift=2pt, yshift=-2pt] at (G) {$G$};
 \end{tikzpicture}
 \end{document}

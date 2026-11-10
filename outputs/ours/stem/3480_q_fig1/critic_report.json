@@ -1,78 +1,97 @@
 {
-  "assessment_score": 0.95,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's topology: AB, AC, BC, AO, BO and CO are all present, O lies on the vertical from A, and the four labels sit on the correct vertices.",
+  "verdict": "The render reproduces the original triangle-with-interior-point figure: all six segments and the four labelled vertices match, with only a small difference in the O label offset.",
   "figure_type": {
-    "original": "Triangle ABC with an interior point O on the vertical from A, joined to A, B and C (non-metric sketch)",
-    "render": "Triangle ABC with an interior point O on the vertical from A, joined to A, B and C"
+    "original": "Triangle ABC with an interior point O joined to A, B and C (six straight segments, no arcs, no right-angle marker)",
+    "render": "Same: triangle ABC with interior point O joined to A, B and C, no arcs, no right-angle marker"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_04"
+      ],
+      "bbox": [
+        0.32,
+        0.6,
+        0.37,
+        0.67
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "In the original, the O label sits lower-left of the vertex, where the B-O stroke runs through or touches its glyph. In the render the O label is placed above-left of the vertex with clear space from all strokes, so the association with O is clear. The offset differs from the original but is not a defect.",
+      "suggestion": "Optional: keep the current \\node[above left] placement, or move it to lower-left if matching the original placement exactly is required. The vertex binding for O should stay as it is."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "AB drawn from A to B, matching the original."
+      "note": "Segment A-B drawn from A to B, matching the original's left outer edge."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "BC drawn as the horizontal base, matching the original."
+      "note": "Segment B-C drawn as the horizontal base, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "AC drawn from A to C, matching the original."
+      "note": "Segment C-A drawn as the right outer edge, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "BO drawn from B to O, ending at O as in the original."
+      "note": "Segment B-O drawn from B to O, ending at the O vertex as in the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "AO drawn as the vertical from A down to O, matching the original."
+      "note": "Segment A-O drawn as the vertical segment, matching the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "CO drawn from C to O, matching the original."
+      "note": "Segment C-O drawn from C to O, ending at the O vertex, consistent with the original where the stroke terminates at O."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B label is placed below-left of B, as in the original."
+      "note": "Vertex B at the lower-left corner, labelled B and bound correctly."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "A label is placed above-right of A, as in the original."
+      "note": "Vertex A at the apex, labelled A and bound correctly."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "C label is placed below-right of C, as in the original."
+      "note": "Vertex C at the lower-right corner, labelled C and bound correctly."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "O label is placed above-left of O. It is clear of the BO stroke, which in the original touches the glyph's lower edge."
+      "note": "Interior vertex O at the junction of the three inner segments, labelled O. Its label placement differs slightly from the original (see low-severity issue)."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Vertices A, B, C and O are in the same relative positions, and the width/height ratio matches the original.",
-    "All six edges AB, AC, BC, AO, BO and CO are present with matching endpoints.",
-    "O sits exactly on the vertical from A, and the vertical from A ends at O as in the original.",
-    "Label placements and bindings (A, B, C, O) match the original.",
-    "Stroke weight and label size are comparable between panels."
+    "Triangle outline A-B, B-C, C-A matches the original.",
+    "Interior segments A-O, B-O and C-O meet at O with the same topology as the original.",
+    "Vertex positions for A, B, C and O match the original proportions and aspect ratio.",
+    "Labels A, B, C and O are present with correct spelling and binding.",
+    "No right-angle marker is drawn at O, consistent with the original.",
+    "Line weights are visually comparable between panels."
   ],
   "labels": {
     "present": [
@@ -86,39 +105,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "80a923a7968d569c",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "The original shows a continuous stroke from A down-left to B."
-    },
-    {
-      "case_id": "8592239ee566d89a",
-      "edge": [
-        "A",
-        "C"
-      ],
-      "reason": "The original shows a continuous stroke from A down-right to C."
-    },
-    {
-      "case_id": "3e8d2954389ec955",
-      "edge": [
-        "B",
-        "O"
-      ],
-      "reason": "The original shows a stroke from B up-right ending at O."
-    },
-    {
-      "case_id": "15072857b9a3cfb4",
-      "edge": [
-        "A",
-        "O"
-      ],
-      "reason": "The original shows a vertical stroke from A down to O."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

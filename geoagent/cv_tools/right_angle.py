@@ -59,6 +59,33 @@ def _seg_cov(dil: np.ndarray, p: Any, q: Any, lo: float = 0.12, hi: float = 0.88
     return float(dil[ys, xs].mean())
 
 
+def locate_foot_square(mask, source, foot, a, b):
+    """Read a square's side and size at an independently located perpendicular foot."""
+    along = _unit(b - a)
+    toward_source = _unit(source - foot)
+    if along is None or toward_source is None:
+        return None
+    ink = cv2.dilate((mask > 0).astype(np.uint8), np.ones((3, 3), np.uint8))
+    best = []
+    for endpoint, direction in ((a, -along), (b, along)):
+        limit = min(36, 0.075 * min(mask.shape), np.linalg.norm(endpoint - foot), np.linalg.norm(source - foot))
+        candidates = []
+        for side in range(6, int(limit) + 1):
+            for offset in (0, -1, 1, -2, 2):
+                vertex = foot + offset * along
+                edge_a = vertex + side * direction
+                edge_b = vertex + side * toward_source
+                corner = edge_a + edge_b - vertex
+                score = min(_seg_cov(ink, edge_a, corner, .25, .9), _seg_cov(ink, edge_b, corner, .25, .9))
+                candidates.append((score, -abs(offset), side))
+        best.append(max(candidates, default=(0., 0, 0)))
+    winner = int(best[1] > best[0])
+    score, _, size = best[winner]
+    if score >= .9 and score - best[1 - winner][0] >= .25:
+        return winner, size
+    return None
+
+
 def _estimate_cap_height(mask: np.ndarray, stroke_w: float) -> float:
     """Glyph cap-height proxy.
 

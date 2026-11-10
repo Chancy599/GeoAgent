@@ -513,6 +513,147 @@
         ],
         "ambiguous": false
       }
+    },
+    "right_angle_01": {
+      "id": "right_angle_01",
+      "type": "right_angle",
+      "label": null,
+      "coords": {
+        "vertex_px": [
+          68.0,
+          262.0
+        ],
+        "mark_points_px": [
+          [
+            89.52,
+            262.0
+          ],
+          [
+            89.52,
+            240.47
+          ],
+          [
+            68.0,
+            240.47
+          ]
+        ],
+        "side_length_px": 21.52
+      },
+      "normalized": {},
+      "style": {},
+      "source": "cv:detect_right_angle_marker",
+      "status": "confirmed",
+      "confidence_kind": "heuristic",
+      "confidence": null,
+      "notes": [
+        "mark presence is verified from local ink, not from perpendicularity alone"
+      ],
+      "attributes": {
+        "evidence": {
+          "side1_ink_coverage": 1.0,
+          "side2_ink_coverage": 1.0,
+          "interior_ink_coverage": 0.0,
+          "independent_side_coverage": [
+            1.0,
+            1.0
+          ],
+          "coverage_kind": "pixel-ink fraction (heuristic, not probability)"
+        }
+      }
+    },
+    "seg_AB": {
+      "id": "seg_AB",
+      "type": "segment",
+      "label": "AB",
+      "coords": {
+        "a_px": [
+          386.78,
+          265.24
+        ],
+        "b_px": [
+          64.91,
+          63.82
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_BC": {
+      "id": "seg_BC",
+      "type": "segment",
+      "label": "BC",
+      "coords": {
+        "a_px": [
+          68.0,
+          62.0
+        ],
+        "b_px": [
+          68.0,
+          262.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_CA": {
+      "id": "seg_CA",
+      "type": "segment",
+      "label": "CA",
+      "coords": {
+        "a_px": [
+          65.0,
+          262.0
+        ],
+        "b_px": [
+          387.0,
+          262.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "ra_C": {
+      "id": "ra_C",
+      "type": "right_angle",
+      "label": null,
+      "coords": {
+        "vertex_px": [
+          68.0,
+          262.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -542,6 +683,42 @@
       "source": "bind_point_labels",
       "evidence": "Hungarian assignment distance=32.86px",
       "status": "candidate"
+    },
+    "rel_004": {
+      "id": "rel_004",
+      "subject": "point_02",
+      "relation": "endpoint_of",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "vertical stroke ends at B glyph junction",
+      "status": "candidate"
+    },
+    "rel_005": {
+      "id": "rel_005",
+      "subject": "point_03",
+      "relation": "endpoint_of",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "vertical stroke meets horizontal at C",
+      "status": "candidate"
+    },
+    "rel_006": {
+      "id": "rel_006",
+      "subject": "point_01",
+      "relation": "endpoint_of",
+      "object": "seg_CA",
+      "source": "geometry_agent",
+      "evidence": "horizontal stroke ends at A",
+      "status": "candidate"
+    },
+    "rel_007": {
+      "id": "rel_007",
+      "subject": "point_03",
+      "relation": "perpendicular",
+      "object": "seg_CA",
+      "source": "geometry_agent",
+      "evidence": "square marker at C verified by detect_right_angle_marker",
+      "status": "candidate"
     }
   },
   "evidence": {
@@ -556,7 +733,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:23:25"
+      "created_at": "2026-11-09T22:56:29"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -569,13 +746,50 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:23:25"
+      "created_at": "2026-11-09T22:56:31"
     },
     "ev_0003": {
       "id": "ev_0003",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 1 result(s)",
+      "payload": {
+        "params": {
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T22:56:32"
+    },
+    "ev_0004": {
+      "id": "ev_0004",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Right triangle ABC with right angle at C. Points: B top-left (68,65.75), C bottom-left (68,262), A bottom-right (381.6,262). Three solid straight edges: BC (vertical), CA (horizontal), AB (hypotenuse). Right-angle square marker at C between rays CB and CA. No dashed strokes, no feet, no interior construction lines. Square-marker strokes excluded from segments.",
+      "payload": {
+        "merged": {
+          "objects": 7,
+          "relations": 4,
+          "conflicts": 0,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_01",
+          "point_02",
+          "point_03",
+          "seg_AB",
+          "seg_BC",
+          "seg_CA",
+          "ra_C"
+        ]
+      },
+      "created_at": "2026-11-09T22:56:39"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [452, 329] (scale 0.6104)",
+      "summary": "v1 canvas matched to source [452, 329] (scale 0.6094)",
       "payload": {
         "ok": true,
         "size": [
@@ -586,16 +800,16 @@
           452,
           329
         ],
-        "scale": 0.6104,
+        "scale": 0.6094,
         "offset": [
           33,
           33
         ]
       },
-      "created_at": "2026-11-09T11:23:56"
+      "created_at": "2026-11-09T22:56:59"
     },
-    "ev_0004": {
-      "id": "ev_0004",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: already_satisfied",
@@ -609,8 +823,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "99017a5926b84bd5483b9a4b06137ab6b4d8e3a7b4f8d745f733a10fc9b8d172",
-        "output_sha256": "99017a5926b84bd5483b9a4b06137ab6b4d8e3a7b4f8d745f733a10fc9b8d172",
+        "input_sha256": "e4f13e2474843448c07b74e5fe6211026f2d87b64dbbad66fc5745e19295072c",
+        "output_sha256": "e4f13e2474843448c07b74e5fe6211026f2d87b64dbbad66fc5745e19295072c",
         "reason": "already_satisfied",
         "accepted": [
           {
@@ -641,24 +855,9 @@
           "relaxation": 1.0
         },
         "angle_glyph_exclusion": {
-          "excluded_paths": [
-            {
-              "paths": [
-                " (M1) -- (M2) -- (M3)"
-              ],
-              "anchor": [
-                -3.3619999999999997,
-                -2.075
-              ],
-              "strokes": 2
-            }
-          ],
-          "excluded_helper_points": [
-            "M1",
-            "M2",
-            "M3"
-          ],
-          "excluded_strokes": 2
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
         },
         "input_candidates": 1,
         "preserved_incidence_count": 0,
@@ -675,22 +874,22 @@
         "curve_policy": "defer",
         "candidate_count": 1
       },
-      "created_at": "2026-11-09T11:23:56"
+      "created_at": "2026-11-09T22:56:59"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Triangle ABC with right angle at C, drawn with the program-owned A, B, C coordinates (not redefined). Right-angle mark uses named corners M1, M2, M3 derived from the pixel corners (68,239), (92,239), (92,262), converted with the program frame scale (x ~0.02092, y ~0.02128 units/px, from the A-C and B-C spans). Labels use the STYLE METRICS font, placed below right (A), above (B), below left (C). Edges are drawn with the required named vertices. Note: the program's A-C span (6.673 units over 319 px) implies a slightly different scale than the stated s=0.021277, so the mark side is set from the frame measurement; remeasurement may be worth checking. Also, the program-defined coordinates are not emitted here, so this file compiles only when the program inserts them.",
+        "notes": "Used program-owned coordinates A, B, C without redefining them. Edges AB, BC, CA drawn solid as one closed path using those names. Right-angle pic at C with rays toward A and B, radius 0.458 cm (21.52 px at s=0.021277). Labels bound to vertices with corner offsets (A lower-right, B upper-left, C lower-left), font 17.5pt/21pt per style metrics. Line width 1.2pt with round joins.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1530_q_fig3\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1530_q_fig3\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\1530_q_fig3\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\1530_q_fig3\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -720,17 +919,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1530_q_fig3\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\1530_q_fig3\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1530_q_fig3\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\1530_q_fig3\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0253"
+              "detail": "ink_ratio=0.0251"
             },
             {
               "name": "aspect_ratio",
@@ -745,7 +944,7 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:23:56"
+      "created_at": "2026-11-09T22:56:59"
     }
   },
   "conflicts": [],
@@ -754,10 +953,10 @@
     "C": "point_03",
     "A": "point_01"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.311,-2.075);\n\\coordinate (B) at (-3.362,2.101);\n\\coordinate (C) at (-3.362,-2.075);\n\n  \n  \n  \\coordinate (M1) at (-3.362,-1.564);\n  \\coordinate (M2) at (-2.860,-1.564);\n  \\coordinate (M3) at (-2.860,-2.075);\n\n  \n  \\draw (A) -- (B) -- (C) -- cycle;\n\n  \n  \\draw (M1) -- (M2) -- (M3);\n\n  \n  \\node[below right] at (A) {\\fontsize{17.5}{21}\\selectfont $A$};\n  \\node[above] at (B) {\\fontsize{17.5}{21}\\selectfont $B$};\n  \\node[below left] at (C) {\\fontsize{17.5}{21}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.311,-2.075);\n\\coordinate (B) at (-3.362,2.101);\n\\coordinate (C) at (-3.362,-2.075);\n\n  \n  \n  \\coordinate (M1) at (-3.362,-1.564);\n  \\coordinate (M2) at (-2.860,-1.564);\n  \\coordinate (M3) at (-2.860,-2.075);\n\n  \n  \\draw (A) -- (B) -- (C) -- cycle;\n\n  \n  \\draw (M1) -- (M2) -- (M3);\n\n  \n  \\node[below right] at (A) {\\fontsize{17.5}{21}\\selectfont $A$};\n  \\node[above] at (B) {\\fontsize{17.5}{21}\\selectfont $B$};\n  \\node[below left] at (C) {\\fontsize{17.5}{21}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{angles}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.311,-2.075);\n\\coordinate (B) at (-3.362,2.101);\n\\coordinate (C) at (-3.362,-2.075);\n\n\n\n\\draw (A) -- (B) -- (C) -- cycle;\n\\draw pic[draw, angle radius=0.458cm] {right angle=A--C--B};\n\\node[below right] at (A) {\\fontsize{17.5}{21}\\selectfont $A$};\n\\node[above left] at (B) {\\fontsize{17.5}{21}\\selectfont $B$};\n\\node[below left] at (C) {\\fontsize{17.5}{21}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{angles}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.311,-2.075);\n\\coordinate (B) at (-3.362,2.101);\n\\coordinate (C) at (-3.362,-2.075);\n\n\n\n\\draw (A) -- (B) -- (C) -- cycle;\n\\draw pic[draw, angle radius=0.458cm] {right angle=A--C--B};\n\\node[below right] at (A) {\\fontsize{17.5}{21}\\selectfont $A$};\n\\node[above left] at (B) {\\fontsize{17.5}{21}\\selectfont $B$};\n\\node[below left] at (C) {\\fontsize{17.5}{21}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}",
   "best_version": 1,
-  "best_score": 0.9,
+  "best_score": 0.82,
   "tikz_versions": [
     {
       "topology_check": {
@@ -765,7 +964,7 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.311,-2.075);\n\\coordinate (B) at (-3.362,2.101);\n\\coordinate (C) at (-3.362,-2.075);\n\n  \n  \n  \\coordinate (M1) at (-3.362,-1.564);\n  \\coordinate (M2) at (-2.860,-1.564);\n  \\coordinate (M3) at (-2.860,-2.075);\n\n  \n  \\draw (A) -- (B) -- (C) -- cycle;\n\n  \n  \\draw (M1) -- (M2) -- (M3);\n\n  \n  \\node[below right] at (A) {\\fontsize{17.5}{21}\\selectfont $A$};\n  \\node[above] at (B) {\\fontsize{17.5}{21}\\selectfont $B$};\n  \\node[below left] at (C) {\\fontsize{17.5}{21}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{angles}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.311,-2.075);\n\\coordinate (B) at (-3.362,2.101);\n\\coordinate (C) at (-3.362,-2.075);\n\n\n\n\\draw (A) -- (B) -- (C) -- cycle;\n\\draw pic[draw, angle radius=0.458cm] {right angle=A--C--B};\n\\node[below right] at (A) {\\fontsize{17.5}{21}\\selectfont $A$};\n\\node[above left] at (B) {\\fontsize{17.5}{21}\\selectfont $B$};\n\\node[below left] at (C) {\\fontsize{17.5}{21}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1530_q_fig3\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1530_q_fig3\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1530_q_fig3\\best.png",
@@ -773,80 +972,105 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:23:53",
+      "created_at": "2026-11-09T22:56:53",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Triangle ABC with right angle at C, drawn with the program-owned A, B, C coordinates (not redefined). Right-angle mark uses named corners M1, M2, M3 derived from the pixel corners (68,239), (92,239), (92,262), converted with the program frame scale (x ~0.02092, y ~0.02128 units/px, from the A-C and B-C spans). Labels use the STYLE METRICS font, placed below right (A), above (B), below left (C). Edges are drawn with the required named vertices. Note: the program's A-C span (6.673 units over 319 px) implies a slightly different scale than the stated s=0.021277, so the mark side is set from the frame measurement; remeasurement may be worth checking. Also, the program-defined coordinates are not emitted here, so this file compiles only when the program inserts them.",
-      "compile_seconds": 2.669,
+      "notes": "Used program-owned coordinates A, B, C without redefining them. Edges AB, BC, CA drawn solid as one closed path using those names. Right-angle pic at C with rays toward A and B, radius 0.458 cm (21.52 px at s=0.021277). Labels bound to vertices with corner offsets (A lower-right, B upper-left, C lower-left), font 17.5pt/21pt per style metrics. Line width 1.2pt with round joins.",
+      "compile_seconds": 4.869,
       "critic_report": {
-        "assessment_score": 0.9,
+        "assessment_score": 0.82,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render reproduces the right triangle ABC with the right-angle mark at C and correctly bound A, B, C labels. The only clear difference is stroke weight, with the render's lines thinner than the original.",
+        "verdict": "The render reproduces the right triangle with the correct right angle at C, the same vertex labels and placement, and matching proportions. The main discrepancy is that the render's strokes are noticeably thinner than the original's.",
         "figure_type": {
-          "original": "Right triangle ABC (right angle at C) with a small square right-angle mark at C; A is at lower right, B at top left, C at bottom left",
-          "render": "Right triangle ABC (right angle at C) with a small square right-angle mark at C; A is at lower right, B at top left, C at bottom left"
+          "original": "Right triangle ABC with right angle at C, thick solid strokes, right-angle square marker at C, labels B (upper-left), C (lower-left), A (lower-right)",
+          "render": "Right triangle ABC with right angle at C, thin solid strokes, right-angle square marker at C, labels B (upper-left), C (lower-left), A (lower-right)"
         },
         "issues": [
           {
             "type": "wrong_style",
             "severity": "low",
             "object_ids": [
-              "seg_01",
-              "seg_02",
-              "seg_03"
+              "seg_AB",
+              "seg_BC",
+              "seg_CA"
             ],
             "bbox": [
-              0.05,
-              0.2,
-              0.92,
-              0.95
+              0.1,
+              0.25,
+              0.9,
+              0.75
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Triangle strokes (hypotenuse AB, leg CA, leg CB) are thinner in the render than in the original, which shows bolder lines at the same scale.",
-            "suggestion": "Increase the triangle line width, e.g. from line width=1.2pt to about 1.6pt to 2pt, or set it on the \\draw commands for the triangle only. Keep the coordinates unchanged."
+            "description": "Triangle side strokes are thinner in the render than in the original; the original lines look roughly twice as heavy at the same panel scale.",
+            "suggestion": "Increase the stroke width for the triangle, for example \\draw[line width=2.2pt] for the triangle path, or raise the global line width from 1.2pt."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Hypotenuse from B to A is drawn at the correct angle and endpoints; stroke is thinner than the original."
+            "note": "Hypotenuse AB, detected as a single segment, matches the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Horizontal leg CA runs from C to A at the same height as in the original; stroke is thinner."
+            "note": "Bottom side CA matches the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Vertical leg CB runs from C up to B; endpoints match the original; stroke is thinner."
+            "note": "Vertical side BC matches the original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Horizontal arm of the right-angle square at C is visible in both panels and sits on the CA side."
+            "note": "Horizontal edge of the right-angle square at C, visible in both panels."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Vertical arm of the right-angle square at C is visible in both panels and sits on the CB side."
+            "note": "Vertical edge of the right-angle square at C, visible in both panels."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "Hypotenuse from B to A is drawn correctly."
+          },
+          {
+            "object_id": "seg_BC",
+            "status": "present",
+            "note": "Leg from C up to B is drawn correctly."
+          },
+          {
+            "object_id": "seg_CA",
+            "status": "present",
+            "note": "Leg from C to A is drawn correctly."
+          },
+          {
+            "object_id": "ra_C",
+            "status": "present",
+            "note": "Right-angle marker at C is present and in the correct quadrant (above CA, right of BC)."
+          },
+          {
+            "object_id": "right_angle_01",
+            "status": "present",
+            "note": "Right-angle square at C is visible in both panels in the same quadrant."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label A is at the correct vertex (lower right) with clear separation from the strokes."
+            "note": "Vertex A is at the lower-right end of CA and is labelled A there."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label B sits above the top vertex with clear separation."
+            "note": "Vertex B is at the top of BC and is labelled B at the upper-left."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label C sits below-left of the bottom-left vertex, matching the original; no stroke crosses the glyph."
+            "note": "Vertex C is at the lower-left corner and is labelled C below-left."
           }
         ],
         "checklist_score": 1.0,
@@ -858,12 +1082,10 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Triangle vertices A, B, C and their positions match the original.",
-          "The right angle is at C, with legs CA horizontal and CB vertical.",
-          "The right-angle square mark at C is present, on the correct sides, and about the same size.",
-          "Labels A, B, C are present, correctly spelled, and bound to their vertices.",
-          "Label placement is similar: A below-right, B above, C below-left, with clear separation from strokes.",
-          "Overall aspect ratio and proportions match."
+          "Triangle vertex positions and proportions match the original.",
+          "Right angle at C is marked with a square in the same quadrant.",
+          "Labels A, B, C are present, correctly spelled and placed on their vertices with no collisions.",
+          "Segment connectivity: AB, BC and CA meet at the correct vertices and the leg CA is horizontal."
         ],
         "labels": {
           "present": [
@@ -879,7 +1101,7 @@
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.9
+      "critic_score": 0.82
     }
   ],
   "compilation_results": [
@@ -887,14 +1109,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.669,
+      "seconds": 4.869,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.4912109375 KiB)\nnote: Writing `figure.pdf` (2.287109375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1530_q_fig3\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1530_q_fig3\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1530_q_fig3\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:23:56"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.2880859375 KiB)\nnote: Writing `figure.log` (11.751953125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1530_q_fig3\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1530_q_fig3\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1530_q_fig3\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T22:56:59"
     }
   ],
   "validation_results": [
@@ -930,17 +1152,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1530_q_fig3\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\1530_q_fig3\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1530_q_fig3\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\1530_q_fig3\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0253"
+          "detail": "ink_ratio=0.0251"
         },
         {
           "name": "aspect_ratio",
@@ -953,79 +1175,104 @@
           "detail": "figure bbox ratio 1.48"
         }
       ],
-      "created_at": "2026-11-09T11:23:56"
+      "created_at": "2026-11-09T22:56:59"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.9,
+      "assessment_score": 0.82,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render reproduces the right triangle ABC with the right-angle mark at C and correctly bound A, B, C labels. The only clear difference is stroke weight, with the render's lines thinner than the original.",
+      "verdict": "The render reproduces the right triangle with the correct right angle at C, the same vertex labels and placement, and matching proportions. The main discrepancy is that the render's strokes are noticeably thinner than the original's.",
       "figure_type": {
-        "original": "Right triangle ABC (right angle at C) with a small square right-angle mark at C; A is at lower right, B at top left, C at bottom left",
-        "render": "Right triangle ABC (right angle at C) with a small square right-angle mark at C; A is at lower right, B at top left, C at bottom left"
+        "original": "Right triangle ABC with right angle at C, thick solid strokes, right-angle square marker at C, labels B (upper-left), C (lower-left), A (lower-right)",
+        "render": "Right triangle ABC with right angle at C, thin solid strokes, right-angle square marker at C, labels B (upper-left), C (lower-left), A (lower-right)"
       },
       "issues": [
         {
           "type": "wrong_style",
           "severity": "low",
           "object_ids": [
-            "seg_01",
-            "seg_02",
-            "seg_03"
+            "seg_AB",
+            "seg_BC",
+            "seg_CA"
           ],
           "bbox": [
-            0.05,
-            0.2,
-            0.92,
-            0.95
+            0.1,
+            0.25,
+            0.9,
+            0.75
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "Triangle strokes (hypotenuse AB, leg CA, leg CB) are thinner in the render than in the original, which shows bolder lines at the same scale.",
-          "suggestion": "Increase the triangle line width, e.g. from line width=1.2pt to about 1.6pt to 2pt, or set it on the \\draw commands for the triangle only. Keep the coordinates unchanged."
+          "description": "Triangle side strokes are thinner in the render than in the original; the original lines look roughly twice as heavy at the same panel scale.",
+          "suggestion": "Increase the stroke width for the triangle, for example \\draw[line width=2.2pt] for the triangle path, or raise the global line width from 1.2pt."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Hypotenuse from B to A is drawn at the correct angle and endpoints; stroke is thinner than the original."
+          "note": "Hypotenuse AB, detected as a single segment, matches the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Horizontal leg CA runs from C to A at the same height as in the original; stroke is thinner."
+          "note": "Bottom side CA matches the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Vertical leg CB runs from C up to B; endpoints match the original; stroke is thinner."
+          "note": "Vertical side BC matches the original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Horizontal arm of the right-angle square at C is visible in both panels and sits on the CA side."
+          "note": "Horizontal edge of the right-angle square at C, visible in both panels."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Vertical arm of the right-angle square at C is visible in both panels and sits on the CB side."
+          "note": "Vertical edge of the right-angle square at C, visible in both panels."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Hypotenuse from B to A is drawn correctly."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Leg from C up to B is drawn correctly."
+        },
+        {
+          "object_id": "seg_CA",
+          "status": "present",
+          "note": "Leg from C to A is drawn correctly."
+        },
+        {
+          "object_id": "ra_C",
+          "status": "present",
+          "note": "Right-angle marker at C is present and in the correct quadrant (above CA, right of BC)."
+        },
+        {
+          "object_id": "right_angle_01",
+          "status": "present",
+          "note": "Right-angle square at C is visible in both panels in the same quadrant."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label A is at the correct vertex (lower right) with clear separation from the strokes."
+          "note": "Vertex A is at the lower-right end of CA and is labelled A there."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label B sits above the top vertex with clear separation."
+          "note": "Vertex B is at the top of BC and is labelled B at the upper-left."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label C sits below-left of the bottom-left vertex, matching the original; no stroke crosses the glyph."
+          "note": "Vertex C is at the lower-left corner and is labelled C below-left."
         }
       ],
       "checklist_score": 1.0,
@@ -1037,12 +1284,10 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Triangle vertices A, B, C and their positions match the original.",
-        "The right angle is at C, with legs CA horizontal and CB vertical.",
-        "The right-angle square mark at C is present, on the correct sides, and about the same size.",
-        "Labels A, B, C are present, correctly spelled, and bound to their vertices.",
-        "Label placement is similar: A below-right, B above, C below-left, with clear separation from strokes.",
-        "Overall aspect ratio and proportions match."
+        "Triangle vertex positions and proportions match the original.",
+        "Right angle at C is marked with a square in the same quadrant.",
+        "Labels A, B, C are present, correctly spelled and placed on their vertices with no collisions.",
+        "Segment connectivity: AB, BC and CA meet at the correct vertices and the leg CA is horizontal."
       ],
       "labels": {
         "present": [
@@ -1062,7 +1307,7 @@
   "unresolved_issues": [
     {
       "source": "supervisor",
-      "issue": "Triangle strokes are slightly thinner than in the original (low severity); line width was not increased."
+      "issue": "Triangle strokes render thinner than the original (low severity); suggested raising line width to about 2.2pt but not applied."
     }
   ],
   "action_history": [
@@ -1091,47 +1336,67 @@
       "error": null
     },
     {
+      "step": 0,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "initial source evidence",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; count=1",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 7, 'relations': 4, 'conflicts': 0, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 1,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.82; issues=1",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw right triangle ABC with right angle at C. Measured pixel vertices (origin top-left, y down; flip y for TikZ): A=(387,262) (label A at bottom-right), B=(68,65.75) (label B above-left), C=(68,262) ",
+      "purpose": "Draw right triangle ABC in TikZ with solid edges AB, BC, CA. Pixel coordinates (origin top-left, y down; flip y for TikZ, use y_tikz = -y_px): A=(386.8,263) approx (use A=(387,262)), B=(65,64), C=(68,",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Draw right triangle ABC with right angle at C. Measured pixel vertices (origin top-left, y down; flip y for TikZ): A=(387,262) (label A at bottom-right), B=(68,65.75) (label B above-left), C=(68,262) (label C at bottom-left). Edges: AB (hypotenuse, solid), BC (vertical solid, x=68), CA (horizontal solid, y=262). Add a small right-angle square mark at C with side about 24 px, drawn inside the triangle: corners at (68,239), (92,239), (92,262) in pixels (point_05, point_06, point_04). Use named coordinates for vertices A, B, C and the mark corners, one coordinate definition each. Use a tikzpicture with scale so the figure fits about 4 cm wide; labels A, B, C placed outside the vertices."
+        "instruction": "Draw right triangle ABC in TikZ with solid edges AB, BC, CA. Pixel coordinates (origin top-left, y down; flip y for TikZ, use y_tikz = -y_px): A=(386.8,263) approx (use A=(387,262)), B=(65,64), C=(68,262). Right angle at C: draw a small square mark of side ~21.5 px with corners at C=(68,262), (89.5,262), (89.5,240.5), (68,240.5) as a solid thin square (only the two arms CB and CA, the square lies inside the triangle). Labels: A to the lower-right of A (label box around (404,282) px), B to the upper-left of B (around (69,46) px), C to the lower-left of C (around (45,281) px). Scale so that 1 unit = 1 px/100 or similar; keep aspect ratio true to pixels. Use \\draw with named coordinates A, B, C."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 20.72,
+      "duration_s": 24.73,
       "token_usage": {
-        "delta": 7189
+        "delta": 15638
       },
-      "visual_calls": 1,
+      "visual_calls": 2,
       "error": null
     },
     {
       "step": 2,
-      "action": "run_critic",
-      "purpose": "triangle topology, right-angle mark at C, label placement",
-      "params": {
-        "focus": "triangle topology, right-angle mark at C, label placement"
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
-      "duration_s": 10.2,
-      "token_usage": {
-        "delta": 7795
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 3,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Compiled TikZ reconstruction of right triangle ABC (right angle at C) with the square mark at C and labels A, B, C. Critic score 0.9, checklist 1.0, topology check passed, no must-repair issues. Coordinates come from CV-measured vertices, with y flipped for TikZ.",
+        "summary": "Produced compilable TikZ (v1) reconstructing right triangle ABC with solid edges AB, BC, CA, a right-angle mark at C between arms CA and CB, and labels A, B, C at their vertices. Topology check passed; critic score 0.82, must_repair=false.",
         "unresolved": [
-          "Triangle strokes are slightly thinner than in the original (low severity); line width was not increased."
+          "Triangle strokes render thinner than the original (low severity); suggested raising line width to about 2.2pt but not applied."
         ],
         "status": "success"
       },
@@ -1167,51 +1432,68 @@
       "count": null,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "initial source evidence",
+      "ok": true,
+      "count": 1,
+      "visualization": null,
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
       "calls": 5,
-      "visual_calls": 2,
-      "prompt_tokens": 32352,
-      "completion_tokens": 5332,
-      "total_tokens": 37684,
-      "cached_tokens": 4262.0,
-      "cache_write_tokens": 21532.0,
-      "latency_s": 41.06
+      "visual_calls": 3,
+      "prompt_tokens": 32974,
+      "completion_tokens": 5313,
+      "total_tokens": 38287,
+      "cached_tokens": 16390.0,
+      "cache_write_tokens": 2328.0,
+      "latency_s": 35.72
     },
     "by_agent": {
+      "geometry_agent": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 6847,
+        "latency_s": 6.76
+      },
       "supervisor": {
-        "calls": 3,
+        "calls": 2,
         "visual_calls": 0,
-        "total_tokens": 22700,
-        "latency_s": 13.21
+        "total_tokens": 15802,
+        "latency_s": 10.43
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 7189,
-        "latency_s": 17.86
+        "total_tokens": 7154,
+        "latency_s": 7.84
       },
       "critic_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 7795,
-        "latency_s": 9.99
+        "total_tokens": 8484,
+        "latency_s": 10.69
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 21,
-    "tool_calls_left": 44,
-    "visual_calls_left": 22,
-    "tokens_left": 362316,
+    "steps_left": 22,
+    "tool_calls_left": 42,
+    "visual_calls_left": 21,
+    "tokens_left": 361713,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 37684
+    "total_tokens_used": 38287
   },
   "meta": {
     "topology_plan": {
@@ -1230,7 +1512,76 @@
         ]
       ],
       "pending": [],
-      "adjudicated": []
+      "adjudicated": [],
+      "ink_confirmed_edges": [],
+      "required_styles": [
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        }
+      ],
+      "required_marks": {
+        "C": {
+          "arms": [
+            "A",
+            "B"
+          ],
+          "side_px": 21.52
+        }
+      }
+    },
+    "source_construction": {
+      "summary": "Right triangle ABC with right angle at C. Points: B top-left (68,65.75), C bottom-left (68,262), A bottom-right (381.6,262). Three solid straight edges: BC (vertical), CA (horizontal), AB (hypotenuse). Right-angle square marker at C between rays CB and CA. No dashed strokes, no feet, no interior construction lines. Square-marker strokes excluded from segments.",
+      "strokes": [
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        }
+      ],
+      "marks": {
+        "C": {
+          "arms": [
+            "A",
+            "B"
+          ],
+          "side_px": 21.52
+        }
+      },
+      "feet": []
     },
     "coordinate_contract": {
       "enabled": true,
@@ -1294,8 +1645,8 @@
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "99017a5926b84bd5483b9a4b06137ab6b4d8e3a7b4f8d745f733a10fc9b8d172",
-      "output_sha256": "99017a5926b84bd5483b9a4b06137ab6b4d8e3a7b4f8d745f733a10fc9b8d172",
+      "input_sha256": "e4f13e2474843448c07b74e5fe6211026f2d87b64dbbad66fc5745e19295072c",
+      "output_sha256": "e4f13e2474843448c07b74e5fe6211026f2d87b64dbbad66fc5745e19295072c",
       "reason": "already_satisfied",
       "accepted": [
         {
@@ -1326,24 +1677,9 @@
         "relaxation": 1.0
       },
       "angle_glyph_exclusion": {
-        "excluded_paths": [
-          {
-            "paths": [
-              " (M1) -- (M2) -- (M3)"
-            ],
-            "anchor": [
-              -3.3619999999999997,
-              -2.075
-            ],
-            "strokes": 2
-          }
-        ],
-        "excluded_helper_points": [
-          "M1",
-          "M2",
-          "M3"
-        ],
-        "excluded_strokes": 2
+        "excluded_paths": [],
+        "excluded_helper_points": [],
+        "excluded_strokes": 0
       },
       "input_candidates": 1,
       "preserved_incidence_count": 0,
@@ -1429,8 +1765,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "99017a5926b84bd5483b9a4b06137ab6b4d8e3a7b4f8d745f733a10fc9b8d172",
-        "output_sha256": "99017a5926b84bd5483b9a4b06137ab6b4d8e3a7b4f8d745f733a10fc9b8d172",
+        "input_sha256": "e4f13e2474843448c07b74e5fe6211026f2d87b64dbbad66fc5745e19295072c",
+        "output_sha256": "e4f13e2474843448c07b74e5fe6211026f2d87b64dbbad66fc5745e19295072c",
         "reason": "already_satisfied",
         "accepted": [
           {
@@ -1461,24 +1797,9 @@
           "relaxation": 1.0
         },
         "angle_glyph_exclusion": {
-          "excluded_paths": [
-            {
-              "paths": [
-                " (M1) -- (M2) -- (M3)"
-              ],
-              "anchor": [
-                -3.3619999999999997,
-                -2.075
-              ],
-              "strokes": 2
-            }
-          ],
-          "excluded_helper_points": [
-            "M1",
-            "M2",
-            "M3"
-          ],
-          "excluded_strokes": 2
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
         },
         "input_candidates": 1,
         "preserved_incidence_count": 0,
@@ -1497,7 +1818,7 @@
       }
     },
     "finish": {
-      "summary": "Compiled TikZ reconstruction of right triangle ABC (right angle at C) with the square mark at C and labels A, B, C. Critic score 0.9, checklist 1.0, topology check passed, no must-repair issues. Coordinates come from CV-measured vertices, with y flipped for TikZ.",
+      "summary": "Produced compilable TikZ (v1) reconstructing right triangle ABC with solid edges AB, BC, CA, a right-angle mark at C between arms CA and CB, and labels A, B, C at their vertices. Topology check passed; critic score 0.82, must_repair=false.",
       "status": "success"
     },
     "stop_reason": "finish"

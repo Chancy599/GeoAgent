@@ -1,114 +1,148 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render faithfully reproduces the semicircle MN with its arc through P and B, the radius OP, segments AB and OB, and all six labels; the only discrepancy is heavier stroke weight in the original.",
+  "verdict": "The render is faithful: the semicircle, diameter MN, radius OP, and segments AB and OB match the original, and all six labels are present and bound to the correct vertices.",
   "figure_type": {
-    "original": "semicircle on diameter MN with centre O, arc through P and B, radius OP, with segments AB and OB",
-    "render": "semicircle on diameter MN with centre O, arc through P and B, radius OP, with segments AB and OB"
+    "original": "Semicircle with diameter MN, centre O, top point P on the arc, interior point A on OP, and point B on the arc joined to A and to O.",
+    "render": "Semicircle with diameter MN, centre O, top point P on the arc, interior point A on OP, and point B on the arc joined to A and to O."
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_04"
-      ],
-      "bbox": [
-        0.02,
-        0.25,
-        0.95,
-        0.75
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Stroke weight is noticeably lighter in the render than in the original; the original's lines, including the arc, diameter and OP, look roughly twice as thick.",
-      "suggestion": "Increase the global line width (e.g. line width=1.6pt or 1.8pt) so the strokes match the original's heavier weight."
-    }
-  ],
+  "issues": [],
   "checks": [
+    {
+      "object_id": "arc_MPN",
+      "status": "present",
+      "note": "Semicircular arc from M through P to N is drawn and meets the diameter ends."
+    },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diameter MN is drawn horizontally from M to N and matches the original."
+      "note": "Diameter MN is drawn full length between M and N on the baseline."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment OB runs from O to B, matching the original."
+      "note": "Segment from O to B is drawn and ends at B on the arc."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Radius OP is vertical from O to P, matching the original."
+      "note": "Radius OP is drawn vertically from O to P on the arc."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment AB runs from A on OP to B on the arc, matching the original."
+      "note": "Segment from A to B is drawn and ends at B on the arc."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment AB matches the original, from A on OP to B on the arc."
+    },
+    {
+      "object_id": "seg_MN",
+      "status": "present",
+      "note": "Diameter MN matches the original."
+    },
+    {
+      "object_id": "seg_OB",
+      "status": "present",
+      "note": "Segment OB matches the original."
+    },
+    {
+      "object_id": "seg_OP",
+      "status": "present",
+      "note": "Radius OP matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "O is labelled below the centre, matching the original."
+      "note": "Point O is the centre at the bottom of OP, with its label directly below."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "B is labelled above-right of the point on the arc, matching the original."
+      "note": "Point B is on the arc at the end of AB and OB, labelled upper right."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "A is labelled to the left of its point on OP, matching the original."
+      "note": "Point A lies on OP with its label to the left, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "N is labelled below-right of the right end of the diameter, matching the original."
+      "note": "Point N is at the right end of the diameter with its label at lower right."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "P is labelled above the top of the arc, matching the original."
+      "note": "Point P is at the top of the arc on OP, labelled above."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "M is labelled below-left of the left end of the diameter, matching the original."
+      "note": "Point M is at the left end of the diameter, labelled at lower left."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Point A matches the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Point B matches the original."
+    },
+    {
+      "object_id": "point_M",
+      "status": "present",
+      "note": "Point M matches the original."
+    },
+    {
+      "object_id": "point_N",
+      "status": "present",
+      "note": "Point N matches the original."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Point O matches the original."
+    },
+    {
+      "object_id": "point_P",
+      "status": "present",
+      "note": "Point P matches the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Semicircular arc from M to N passes through P and B, as in the original.",
-    "Diameter MN is horizontal with O at its midpoint.",
-    "Radius OP is vertical and ends at P on the arc.",
-    "Segment AB joins A on OP to B on the arc.",
-    "Segment OB joins O to B on the arc.",
-    "All six labels (P, B, A, M, O, N) are present, correctly spelled and bound to their vertices with clear separation from strokes."
+    "Semicircle arc from M through P to N with the same extent.",
+    "Diameter MN on the baseline.",
+    "Radius OP vertical from O to P.",
+    "Point A on OP.",
+    "Segments AB and OB meeting at B on the arc.",
+    "Labels M, N, P, O, A, B are present and sit near their vertices without touching strokes."
   ],
   "labels": {
     "present": [
-      "P",
-      "B",
-      "A",
       "M",
+      "N",
+      "P",
       "O",
-      "N"
+      "A",
+      "B"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 3,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

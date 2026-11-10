@@ -7,6 +7,8 @@ from typing import Any
 
 from ..cv_tools.registry import call_cv_tool
 from ..llm.client import LLMClient, parse_json_object
+from ..state.construction import merge_construction_plan
+from ..state.coordinate_contract import binding_review_points
 from ..state.schemas import EvidenceRecord, GeometricEvidenceState, GeometryObject, Relation
 from .base import (
     compact_cv_result,
@@ -89,6 +91,8 @@ def merge_geometry_submission(
         summary=str(submission.get("summary", ""))[:1000],
         payload={"merged": merged, "object_ids": [str(o.get("id")) for o in objects[:40]]},
     )
+    if any(key in submission for key in ('bindings', 'strokes', 'angle_marks', 'feet')):
+        merge_construction_plan(state, submission)
     return merged
 
 
@@ -109,6 +113,8 @@ class GeometryAgent:
         state_summary = self.state.summary(max_objects=60, max_chars=9000)
         user_text = (
             f"TASK FROM SUPERVISOR:\n{instruction}\n\n"
+            "MEASURED BINDING CANDIDATES (point ID, pixel coordinates, OCR assignment):\n"
+            f"{compact_json(binding_review_points(self.state), 4800)}\n\n"
             f"CURRENT STATE:\n{state_summary}\n\n"
             "You may run up to "
             f"{min(self.max_calls, max(0, cv_calls_left))} CV tool call(s), then call submit_geometry."
@@ -151,7 +157,7 @@ class GeometryAgent:
                 # A length-stopped reply may contain a half-written JSON object; never
                 # treat it as a valid submission even if a prefix happens to parse.
                 parsed, err = (None, "response truncated") if truncated else parse_json_object(text)
-                if parsed and "objects" in parsed:
+                if parsed and ("objects" in parsed or "strokes" in parsed):
                     merged = merge_geometry_submission(self.state, parsed)
                     return {
                         "ok": True,
@@ -200,7 +206,7 @@ class GeometryAgent:
                             tool_reply(call.id, name, {"ok": False, "error": "json must be a string object"})
                         )
                         continue
-                    if not (parsed.get("objects") or parsed.get("relations")):
+                    if not any(parsed.get(key) for key in ('objects','relations','bindings','strokes','angle_marks','feet')):
                         empty_submissions += 1
                         submit_error = "empty submission (no objects or relations)"
                         messages.append(

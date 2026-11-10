@@ -1,72 +1,97 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.82,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the right triangle ABC with the right-angle mark at C and correctly bound A, B, C labels. The only clear difference is stroke weight, with the render's lines thinner than the original.",
+  "verdict": "The render reproduces the right triangle with the correct right angle at C, the same vertex labels and placement, and matching proportions. The main discrepancy is that the render's strokes are noticeably thinner than the original's.",
   "figure_type": {
-    "original": "Right triangle ABC (right angle at C) with a small square right-angle mark at C; A is at lower right, B at top left, C at bottom left",
-    "render": "Right triangle ABC (right angle at C) with a small square right-angle mark at C; A is at lower right, B at top left, C at bottom left"
+    "original": "Right triangle ABC with right angle at C, thick solid strokes, right-angle square marker at C, labels B (upper-left), C (lower-left), A (lower-right)",
+    "render": "Right triangle ABC with right angle at C, thin solid strokes, right-angle square marker at C, labels B (upper-left), C (lower-left), A (lower-right)"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03"
+        "seg_AB",
+        "seg_BC",
+        "seg_CA"
       ],
       "bbox": [
-        0.05,
-        0.2,
-        0.92,
-        0.95
+        0.1,
+        0.25,
+        0.9,
+        0.75
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Triangle strokes (hypotenuse AB, leg CA, leg CB) are thinner in the render than in the original, which shows bolder lines at the same scale.",
-      "suggestion": "Increase the triangle line width, e.g. from line width=1.2pt to about 1.6pt to 2pt, or set it on the \\draw commands for the triangle only. Keep the coordinates unchanged."
+      "description": "Triangle side strokes are thinner in the render than in the original; the original lines look roughly twice as heavy at the same panel scale.",
+      "suggestion": "Increase the stroke width for the triangle, for example \\draw[line width=2.2pt] for the triangle path, or raise the global line width from 1.2pt."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Hypotenuse from B to A is drawn at the correct angle and endpoints; stroke is thinner than the original."
+      "note": "Hypotenuse AB, detected as a single segment, matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Horizontal leg CA runs from C to A at the same height as in the original; stroke is thinner."
+      "note": "Bottom side CA matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Vertical leg CB runs from C up to B; endpoints match the original; stroke is thinner."
+      "note": "Vertical side BC matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Horizontal arm of the right-angle square at C is visible in both panels and sits on the CA side."
+      "note": "Horizontal edge of the right-angle square at C, visible in both panels."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Vertical arm of the right-angle square at C is visible in both panels and sits on the CB side."
+      "note": "Vertical edge of the right-angle square at C, visible in both panels."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Hypotenuse from B to A is drawn correctly."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Leg from C up to B is drawn correctly."
+    },
+    {
+      "object_id": "seg_CA",
+      "status": "present",
+      "note": "Leg from C to A is drawn correctly."
+    },
+    {
+      "object_id": "ra_C",
+      "status": "present",
+      "note": "Right-angle marker at C is present and in the correct quadrant (above CA, right of BC)."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle square at C is visible in both panels in the same quadrant."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label A is at the correct vertex (lower right) with clear separation from the strokes."
+      "note": "Vertex A is at the lower-right end of CA and is labelled A there."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label B sits above the top vertex with clear separation."
+      "note": "Vertex B is at the top of BC and is labelled B at the upper-left."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label C sits below-left of the bottom-left vertex, matching the original; no stroke crosses the glyph."
+      "note": "Vertex C is at the lower-left corner and is labelled C below-left."
     }
   ],
   "checklist_score": 1.0,
@@ -78,12 +103,10 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle vertices A, B, C and their positions match the original.",
-    "The right angle is at C, with legs CA horizontal and CB vertical.",
-    "The right-angle square mark at C is present, on the correct sides, and about the same size.",
-    "Labels A, B, C are present, correctly spelled, and bound to their vertices.",
-    "Label placement is similar: A below-right, B above, C below-left, with clear separation from strokes.",
-    "Overall aspect ratio and proportions match."
+    "Triangle vertex positions and proportions match the original.",
+    "Right angle at C is marked with a square in the same quadrant.",
+    "Labels A, B, C are present, correctly spelled and placed on their vertices with no collisions.",
+    "Segment connectivity: AB, BC and CA meet at the correct vertices and the leg CA is horizontal."
   ],
   "labels": {
     "present": [

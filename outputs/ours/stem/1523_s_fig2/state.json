@@ -672,7 +672,7 @@
     "point_09": {
       "id": "point_09",
       "type": "point",
-      "label": null,
+      "label": "G",
       "coords": {
         "px": [
           315.47,
@@ -1000,6 +1000,56 @@
         ],
         "ambiguous": false
       }
+    },
+    "seg_AH": {
+      "id": "seg_AH",
+      "type": "segment",
+      "label": "AH",
+      "coords": {
+        "a_px": [
+          445.5,
+          106.7
+        ],
+        "b_px": [
+          445.5,
+          687.3
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "dashed"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_BG": {
+      "id": "seg_BG",
+      "type": "segment",
+      "label": "BG",
+      "coords": {
+        "a_px": [
+          120.63,
+          681.15
+        ],
+        "b_px": [
+          315.47,
+          624.14
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -1065,6 +1115,69 @@
       "source": "bind_point_labels",
       "evidence": "Hungarian assignment distance=27.25px",
       "status": "candidate"
+    },
+    "rel_008": {
+      "id": "rel_008",
+      "subject": "point_03",
+      "relation": "on_segment",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "H on baseline BC at x=445.5",
+      "status": "candidate"
+    },
+    "rel_009": {
+      "id": "rel_009",
+      "subject": "seg_AH",
+      "relation": "perpendicular",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "vertical dashed altitude vs horizontal base",
+      "status": "candidate"
+    },
+    "rel_010": {
+      "id": "rel_010",
+      "subject": "point_08",
+      "relation": "on_segment",
+      "object": "seg_AH",
+      "source": "geometry_agent",
+      "evidence": "AH crosses DE at (445.5,341)",
+      "status": "candidate"
+    },
+    "rel_011": {
+      "id": "rel_011",
+      "subject": "point_07",
+      "relation": "on_segment",
+      "object": "seg_AH",
+      "source": "geometry_agent",
+      "evidence": "AH crosses FG at (445.5,624)",
+      "status": "candidate"
+    },
+    "rel_012": {
+      "id": "rel_012",
+      "subject": "point_06",
+      "relation": "on_segment",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "D on side AB",
+      "status": "candidate"
+    },
+    "rel_013": {
+      "id": "rel_013",
+      "subject": "point_05",
+      "relation": "on_segment",
+      "object": "seg_AC",
+      "source": "geometry_agent",
+      "evidence": "E on side AC",
+      "status": "candidate"
+    },
+    "rel_label_G": {
+      "id": "rel_label_G",
+      "subject": "label_G",
+      "relation": "labels_point",
+      "object": "point_09",
+      "source": "geometry_agent",
+      "evidence": "Unlabelled corner at (315.5,624.1) where vertical DG (seg_07) meets horizontal GF (seg_06) and solid BG (seg_10) ends; glyph G sits up-left of this corner.",
+      "status": "confirmed"
     }
   },
   "evidence": {
@@ -1079,7 +1192,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:23:22"
+      "created_at": "2026-11-09T22:56:29"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -1092,13 +1205,87 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:23:25"
+      "created_at": "2026-11-09T22:56:36"
     },
     "ev_0003": {
       "id": "ev_0003",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T22:56:39"
+    },
+    "ev_0004": {
+      "id": "ev_0004",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Triangle ABC (A apex, B bottom-left, C bottom-right, BC horizontal). Square-like quadrilateral DEFG with D on AB, E on AC, F bottom-right, G bottom-left interior foot on BC-parallel line; edges DE, EF, FG, GD all solid. Dashed altitude AH from A to H on BC (H is the foot, perpendicular to BC), crossing DE at point_08 and FG at point_07. Solid segment BG from B to G (G is the interior corner at point_09, labelled by the glyph left of it). No right-angle markers were visible on the square or the altitude, so no right_angle objects are submitted. Curve extent: none.",
+      "payload": {
+        "merged": {
+          "objects": 12,
+          "relations": 6,
+          "conflicts": 2,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_04",
+          "point_02",
+          "point_01",
+          "point_06",
+          "point_05",
+          "point_10",
+          "point_09",
+          "point_03",
+          "point_08",
+          "point_07",
+          "seg_AH",
+          "seg_BG"
+        ]
+      },
+      "created_at": "2026-11-09T22:57:00"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
+      "source": "geometry_agent",
+      "method": "measured_label_rebinding",
+      "summary": "Corrected 1 source label bindings",
+      "payload": {
+        "G": {
+          "point_id": "point_09",
+          "px": [
+            315.47,
+            624.14
+          ],
+          "previous_point_id": null,
+          "reason": "Unlabelled corner at (315.5,624.1) where vertical DG (seg_07) meets horizontal GF (seg_06) and solid BG (seg_10) ends; glyph G sits up-left of this corner.",
+          "source": "geometry_agent"
+        }
+      },
+      "created_at": "2026-11-09T22:57:00"
+    },
+    "ev_0006": {
+      "id": "ev_0006",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T22:57:22"
+    },
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [949, 797] (scale 1.2695)",
+      "summary": "v1 canvas matched to source [949, 797] (scale 1.2671)",
       "payload": {
         "ok": true,
         "size": [
@@ -1109,16 +1296,16 @@
           949,
           797
         ],
-        "scale": 1.2695,
+        "scale": 1.2671,
         "offset": [
-          67,
+          68,
           62
         ]
       },
-      "created_at": "2026-11-09T11:23:58"
+      "created_at": "2026-11-09T22:57:45"
     },
-    "ev_0004": {
-      "id": "ev_0004",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: applied",
@@ -1132,75 +1319,31 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "201718d9e57fee36af1e064437d70aacc5fe873aea03199dfbb0a73cf33dcb0b",
-        "output_sha256": "781b706c113331896fd4db560418804e1499ddd5f8f312e5324ec9cf116a6d27",
+        "input_sha256": "29213aa206d16396520ccaebff6b92cd23ffe27835713a1fff8bbc1533882a52",
+        "output_sha256": "406319da1f87ca8444a2534bc4030a0a6ef02bd464e3e0f4cf9bf7b352a76151",
         "reason": "applied",
         "accepted": [
           {
             "type": "perpendicular",
             "segments": [
-              "A--M",
+              "A--H",
               "F--G"
             ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.02512972624523968,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.06404475123331434
+            "before_error_deg": 1.0634976419510167e-05,
+            "after_error_deg": 1.417747560594762e-05,
+            "solver_after_error_deg": 8.526512829121202e-14,
+            "export_tolerance_deg": 0.04275815758485493
           },
           {
             "type": "perpendicular",
             "segments": [
-              "F--G",
-              "H--N"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.16999346461000656
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "F--G",
-              "M--N"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218786
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--M",
+              "A--H",
               "B--C"
             ],
-            "before_error_deg": 0.01617382582672633,
-            "after_error_deg": 0.017045095353054762,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.046962503817404744
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "H--N"
-            ],
-            "before_error_deg": 0.01617382582672633,
-            "after_error_deg": 0.008084630892170708,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.15291121719409698
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "M--N"
-            ],
-            "before_error_deg": 0.01617382582672633,
-            "after_error_deg": 0.008084630892170708,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.04002158534627827
+            "before_error_deg": 0.003975911170272184,
+            "after_error_deg": 0.0041111196807435135,
+            "solver_after_error_deg": 1.1368683772161603e-13,
+            "export_tolerance_deg": 0.025681415241124272
           },
           {
             "type": "parallel",
@@ -1208,54 +1351,32 @@
               "B--C",
               "F--G"
             ],
-            "before_error_deg": 0.01617382582673378,
-            "after_error_deg": 0.008084630892175121,
-            "solver_after_error_deg": 4.2081276153829325e-15,
-            "export_tolerance_deg": 0.03995133761988899
+            "before_error_deg": 0.003986546146700572,
+            "after_error_deg": 0.004096942205147953,
+            "solver_after_error_deg": 2.961654928912186e-14,
+            "export_tolerance_deg": 0.03994719875448453
           },
           {
             "type": "perpendicular",
             "segments": [
-              "A--M",
-              "D--E"
+              "E--F",
+              "F--G"
             ],
-            "before_error_deg": 0.020146194497826286,
-            "after_error_deg": 0.004969354271793236,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.06404475123331434
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "D--E",
-              "H--N"
-            ],
-            "before_error_deg": 0.020146194497826286,
-            "after_error_deg": 0.020160371973432234,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.16999346461000656
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "D--E",
-              "M--N"
-            ],
-            "before_error_deg": 0.020146194497826286,
-            "after_error_deg": 0.020160371973432234,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218786
+            "before_error_deg": 0.020259924328513534,
+            "after_error_deg": 4.977869210165409e-05,
+            "solver_after_error_deg": 1.2789769243681803e-13,
+            "export_tolerance_deg": 0.057090354605773
           },
           {
             "type": "parallel",
             "segments": [
-              "D--E",
-              "F--G"
+              "A--H",
+              "E--F"
             ],
-            "before_error_deg": 0.02014619449783099,
-            "after_error_deg": 0.020160371973436595,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.057033585035798584
+            "before_error_deg": 0.020270559304940927,
+            "after_error_deg": 6.395616771014424e-05,
+            "solver_after_error_deg": 3.2859507116209554e-14,
+            "export_tolerance_deg": 0.04282457109241275
           },
           {
             "type": "perpendicular",
@@ -1264,9 +1385,9 @@
               "E--F"
             ],
             "before_error_deg": 0.02424647047521944,
-            "after_error_deg": 0.008084630892170708,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.04002158534627826
+            "after_error_deg": 0.004047163513035912,
+            "solver_after_error_deg": 1.5631940186722204e-13,
+            "export_tolerance_deg": 0.04001361226204234
           },
           {
             "type": "parallel",
@@ -1275,9 +1396,31 @@
               "D--E"
             ],
             "before_error_deg": 0.03632002032456477,
-            "after_error_deg": 0.012075741081261472,
-            "solver_after_error_deg": 4.2081276153829325e-15,
-            "export_tolerance_deg": 0.03995133761988899
+            "after_error_deg": 0.004096942205145715,
+            "solver_after_error_deg": 1.3513818466022418e-12,
+            "export_tolerance_deg": 0.03994719875448144
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "D--E"
+            ],
+            "before_error_deg": 0.04029593149483901,
+            "after_error_deg": 1.417747560594762e-05,
+            "solver_after_error_deg": 1.4779288903810084e-12,
+            "export_tolerance_deg": 0.042758157584851846
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "D--E",
+              "F--G"
+            ],
+            "before_error_deg": 0.04030656647126534,
+            "after_error_deg": 2.236552550045075e-15,
+            "solver_after_error_deg": 1.38100111108282e-12,
+            "export_tolerance_deg": 0.0570239410982121
           },
           {
             "type": "parallel",
@@ -1285,54 +1428,10 @@
               "D--G",
               "E--F"
             ],
-            "before_error_deg": 0.04039175097542792,
-            "after_error_deg": 0.020217281981345044,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05717408048857712
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--M",
-              "E--F"
-            ],
-            "before_error_deg": 0.04042029630195195,
-            "after_error_deg": 0.025129726245239462,
-            "solver_after_error_deg": 1.7373771411014267e-15,
-            "export_tolerance_deg": 0.0641149989597036
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "E--F",
-              "H--N"
-            ],
-            "before_error_deg": 0.04042029630195196,
+            "before_error_deg": 0.04036326597713414,
             "after_error_deg": 0.0,
-            "solver_after_error_deg": 8.227137602665619e-17,
-            "export_tolerance_deg": 0.17006371233639583
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "E--F",
-              "M--N"
-            ],
-            "before_error_deg": 0.04042029630195196,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 1.11960038165026e-15,
-            "export_tolerance_deg": 0.057174080488577125
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "E--F",
-              "F--G"
-            ],
-            "before_error_deg": 0.04042029630195998,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218785
+            "solver_after_error_deg": 6.214090377209443e-12,
+            "export_tolerance_deg": 0.05715676811333013
           },
           {
             "type": "perpendicular",
@@ -1341,20 +1440,9 @@
               "E--F"
             ],
             "before_error_deg": 0.060566490799786266,
-            "after_error_deg": 0.020160371973432234,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218785
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "D--G"
-            ],
-            "before_error_deg": 0.06463822145063602,
-            "after_error_deg": 0.012132651089174828,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.04002158534627826
+            "after_error_deg": 4.977869210165409e-05,
+            "solver_after_error_deg": 1.5063505998114124e-12,
+            "export_tolerance_deg": 0.057090354605769916
           },
           {
             "type": "perpendicular",
@@ -1362,43 +1450,32 @@
               "D--G",
               "F--G"
             ],
-            "before_error_deg": 0.08081204727737656,
-            "after_error_deg": 0.020217281981345536,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218785
+            "before_error_deg": 0.06062319030564822,
+            "after_error_deg": 4.977869210165409e-05,
+            "solver_after_error_deg": 6.338041202980094e-12,
+            "export_tolerance_deg": 0.05709035460577232
           },
           {
             "type": "parallel",
             "segments": [
-              "A--M",
+              "A--H",
               "D--G"
             ],
-            "before_error_deg": 0.08081204727737988,
-            "after_error_deg": 0.004912444263894418,
-            "solver_after_error_deg": 1.7373771411014267e-15,
-            "export_tolerance_deg": 0.0641149989597036
+            "before_error_deg": 0.06063382528207507,
+            "after_error_deg": 6.395616771014424e-05,
+            "solver_after_error_deg": 6.2469519299581675e-12,
+            "export_tolerance_deg": 0.04282457109241206
           },
           {
-            "type": "parallel",
+            "type": "perpendicular",
             "segments": [
-              "D--G",
-              "H--N"
+              "B--C",
+              "D--G"
             ],
-            "before_error_deg": 0.08081204727737988,
-            "after_error_deg": 0.020217281981345044,
-            "solver_after_error_deg": 8.227137602665619e-17,
-            "export_tolerance_deg": 0.17006371233639583
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "D--G",
-              "M--N"
-            ],
-            "before_error_deg": 0.08081204727737988,
-            "after_error_deg": 0.020217281981345044,
-            "solver_after_error_deg": 1.11960038165026e-15,
-            "export_tolerance_deg": 0.057174080488577125
+            "before_error_deg": 0.06460973645235413,
+            "after_error_deg": 0.004047163513035912,
+            "solver_after_error_deg": 6.366462912410498e-12,
+            "export_tolerance_deg": 0.040013612262041656
           },
           {
             "type": "perpendicular",
@@ -1406,10 +1483,10 @@
               "D--E",
               "D--G"
             ],
-            "before_error_deg": 0.10095824177521706,
-            "after_error_deg": 5.691000791330225e-05,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218785
+            "before_error_deg": 0.10092975677690674,
+            "after_error_deg": 4.977869210165409e-05,
+            "solver_after_error_deg": 7.716494110354688e-12,
+            "export_tolerance_deg": 0.05709035460576922
           }
         ],
         "rejected": [],
@@ -1434,43 +1511,43 @@
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 25,
-        "preserved_incidence_count": 5,
-        "max_shift_rel": 0.00034804865872131474,
-        "max_length_change_rel": 0.001742160278744631,
+        "input_candidates": 15,
+        "preserved_incidence_count": 3,
+        "max_shift_rel": 0.00024610756676472957,
+        "max_length_change_rel": 0.0009427163277027084,
         "fixed_points": [],
         "length_weight": 0.01,
         "length_scope": "all_pairs",
         "incidence_mode": "snap",
         "topology_tol_rel": 0.003,
         "incidence_strength": 1.0,
-        "rms_shift_rel": 0.0002142504225518264,
-        "max_after_error_deg": 0.02512972624523968,
+        "rms_shift_rel": 0.00015131596821342833,
+        "max_after_error_deg": 0.0041111196807435135,
         "curve_policy": "defer",
-        "candidate_count": 25,
-        "solver_max_shift_rel": 0.00034452641360477315,
+        "candidate_count": 15,
+        "solver_max_shift_rel": 0.00023859403640893485,
         "coordinate_decimals": 3,
         "export_verified": true,
-        "max_export_error_deg": 0.02512972624523968,
-        "point_count": 10,
-        "segment_count": 11
+        "max_export_error_deg": 0.0041111196807435135,
+        "point_count": 8,
+        "segment_count": 9
       },
-      "created_at": "2026-11-09T11:23:58"
+      "created_at": "2026-11-09T22:57:45"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used program-owned coordinates A,B,C,D,E,F,H without redefining them. Helpers G, M, N are defined in the same frame (s=0.010025, origin from D/E/B/A measurements). Included a solid B–G edge because the CV segment and the source image both show it; the instruction omitted it, so this is a deliberate addition. Included a label G because the source image shows one at the upper-left of the corner, even though the instruction called it unlabeled. Line width 1.1pt and label font 11/13.2pt come from STYLE METRICS. Dashed altitude is drawn as one path A–M–N–H. No right-angle marks (none verified). Standalone compilation requires the program to insert the A–H coordinate definitions as stated.",
+        "notes": "Used the program-owned CV coordinates (not redefined). Triangle drawn as A-B-C cycle, with D on AB and E on AC handled by the outline. Rectangle DEFG solid, BG solid, altitude AH dashed. Labels at font 11/13.2 per STYLE METRICS; G label placed above-left to avoid the BG stroke. No right-angle marks since none were verified. Line width 1.1pt with round joins.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1523_s_fig2\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1523_s_fig2\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1500,22 +1577,22 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1523_s_fig2\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1523_s_fig2\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0343"
+              "detail": "ink_ratio=0.0353"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.19 vs render 1.22 (delta 0.02)"
+              "detail": "reference 1.19 vs render 1.21 (delta 0.02)"
             },
             {
               "name": "figure_extent_ratio",
@@ -1525,54 +1602,421 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:23:58"
+      "created_at": "2026-11-09T22:57:45"
     },
-    "ev_0006": {
-      "id": "ev_0006",
-      "source": "critic_agent",
-      "method": "endpoint_review",
-      "summary": "Reviewed 5 CV endpoint case(s)",
+    "ev_0010": {
+      "id": "ev_0010",
+      "source": "renderer",
+      "method": "frame_like_original",
+      "summary": "v2 canvas matched to source [949, 797] (scale 1.2671)",
       "payload": {
-        "6ae664dc1581d5f7": {
-          "edge": [
-            "B",
-            "C"
+        "ok": true,
+        "size": [
+          949,
+          797
+        ],
+        "reference_size": [
+          949,
+          797
+        ],
+        "scale": 1.2671,
+        "offset": [
+          68,
+          62
+        ]
+      },
+      "created_at": "2026-11-09T22:58:26"
+    },
+    "ev_0011": {
+      "id": "ev_0011",
+      "source": "tikz_constraint_repair",
+      "method": "post-generation joint coordinate projection",
+      "summary": "v2: applied",
+      "payload": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "3d9664fc29bcd7cac21ac541603c52aa19584ef8489019bf6b34be6769e758c0",
+        "output_sha256": "ba57f84a92ad51bc3543a1967b32ccf877375df49d6803543b14c582edbe499b",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "F--G"
+            ],
+            "before_error_deg": 1.0634976419510167e-05,
+            "after_error_deg": 3.5437452226005917e-06,
+            "solver_after_error_deg": 1.8474111129762605e-13,
+            "export_tolerance_deg": 0.042749679029445486
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "B--H"
+            ],
+            "before_error_deg": 0.002568952181135842,
+            "after_error_deg": 0.002568952181135842,
+            "solver_after_error_deg": 5.826450433232822e-13,
+            "export_tolerance_deg": 0.03911066196161519
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--H",
+              "F--G"
+            ],
+            "before_error_deg": 0.002579587157571143,
+            "after_error_deg": 0.002572495926368088,
+            "solver_after_error_deg": 4.1028569067502166e-13,
+            "export_tolerance_deg": 0.05336455379351879
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "C--H"
+            ],
+            "before_error_deg": 0.005174363706785812,
+            "after_error_deg": 0.005174363706785812,
+            "solver_after_error_deg": 9.663381206337363e-13,
+            "export_tolerance_deg": 0.035426271806796576
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "C--H",
+              "F--G"
+            ],
+            "before_error_deg": 0.0051849986832098,
+            "after_error_deg": 0.005177907452006744,
+            "solver_after_error_deg": 1.1540784532014868e-12,
+            "export_tolerance_deg": 0.049680163638700175
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "E--F",
+              "F--G"
+            ],
+            "before_error_deg": 0.020259924328513534,
+            "after_error_deg": 0.020252762991702866,
+            "solver_after_error_deg": 1.2505552149377763e-12,
+            "export_tolerance_deg": 0.05707310674981593
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--H",
+              "E--F"
+            ],
+            "before_error_deg": 0.020270559304940927,
+            "after_error_deg": 0.02025630673692328,
+            "solver_after_error_deg": 1.0699409601439632e-12,
+            "export_tolerance_deg": 0.042819214917912324
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--H",
+              "E--F"
+            ],
+            "before_error_deg": 0.022839511486083097,
+            "after_error_deg": 0.02282525891806131,
+            "solver_after_error_deg": 1.6484591469634324e-12,
+            "export_tolerance_deg": 0.053434089681985625
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "C--H",
+              "E--F"
+            ],
+            "before_error_deg": 0.025444923011718856,
+            "after_error_deg": 0.02543067044371128,
+            "solver_after_error_deg": 8.526512829121202e-14,
+            "export_tolerance_deg": 0.04974969952716701
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "C--H",
+              "D--E"
+            ],
+            "before_error_deg": 0.03512156778805554,
+            "after_error_deg": 0.005184998683212038,
+            "solver_after_error_deg": 2.6537476512714257e-13,
+            "export_tolerance_deg": 0.049680163638695346
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--H",
+              "D--E"
+            ],
+            "before_error_deg": 0.0377269793136942,
+            "after_error_deg": 0.0025795871575733805,
+            "solver_after_error_deg": 1.829742500654675e-12,
+            "export_tolerance_deg": 0.05336455379351396
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "D--E"
+            ],
+            "before_error_deg": 0.04029593149483901,
+            "after_error_deg": 1.0634976419510167e-05,
+            "solver_after_error_deg": 1.2363443602225743e-12,
+            "export_tolerance_deg": 0.04274967902944065
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "D--E",
+              "F--G"
+            ],
+            "before_error_deg": 0.04030656647126534,
+            "after_error_deg": 7.091231205294161e-06,
+            "solver_after_error_deg": 1.4194560991039542e-12,
+            "export_tolerance_deg": 0.05700357086134425
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "D--G",
+              "E--F"
+            ],
+            "before_error_deg": 0.04036326597713414,
+            "after_error_deg": 0.020203019355056553,
+            "solver_after_error_deg": 9.735047836425282e-12,
+            "export_tolerance_deg": 0.05714264263828347
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "D--E",
+              "E--F"
+            ],
+            "before_error_deg": 0.060566490799786266,
+            "after_error_deg": 0.020245671760491746,
+            "solver_after_error_deg": 1.7053025658242404e-13,
+            "export_tolerance_deg": 0.057073106749811094
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "D--G",
+              "F--G"
+            ],
+            "before_error_deg": 0.06062319030564822,
+            "after_error_deg": 4.9743636637344935e-05,
+            "solver_after_error_deg": 1.0984990694851149e-11,
+            "export_tolerance_deg": 0.057073106749816624
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--H",
+              "D--G"
+            ],
+            "before_error_deg": 0.06063382528207507,
+            "after_error_deg": 5.328738186673097e-05,
+            "solver_after_error_deg": 1.0804991562603388e-11,
+            "export_tolerance_deg": 0.042819214917913025
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--H",
+              "D--G"
+            ],
+            "before_error_deg": 0.06320277746321779,
+            "after_error_deg": 0.002622239563009998,
+            "solver_after_error_deg": 1.1397105481592007e-11,
+            "export_tolerance_deg": 0.05343408968198633
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "C--H",
+              "D--G"
+            ],
+            "before_error_deg": 0.06580818898886776,
+            "after_error_deg": 0.005227651088645757,
+            "solver_after_error_deg": 9.833911462919787e-12,
+            "export_tolerance_deg": 0.04974969952716772
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "D--E",
+              "D--G"
+            ],
+            "before_error_deg": 0.10092975677690674,
+            "after_error_deg": 4.265240544043536e-05,
+            "solver_after_error_deg": 9.563905223330949e-12,
+            "export_tolerance_deg": 0.057073106749811794
+          }
+        ],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
           ],
-          "reason": "The original base is one continuous solid stroke from B to C at the bottom of the triangle."
+          "relaxation": 1.0
         },
-        "266e82ab775cf265": {
-          "edge": [
-            "A",
-            "C"
-          ],
-          "reason": "The original right side is one continuous solid stroke from apex A down to C."
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
         },
-        "0a2c766c90c44aa1": {
-          "edge": [
-            "A",
-            "B"
-          ],
-          "reason": "The original left side is one continuous solid stroke from apex A down to B."
-        },
-        "6c80d2de14c27307": {
-          "edge": [
-            "E",
-            "F"
-          ],
-          "reason": "The original right edge of the square is a solid vertical stroke from E down to F."
-        },
-        "9e4185840cec3824": {
-          "edge": [
-            "D",
-            "E"
-          ],
-          "reason": "The original top edge of the square is a solid horizontal stroke from D to E."
+        "input_candidates": 20,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.0002461075667647241,
+        "max_length_change_rel": 0.000703234793475338,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00010407488601179463,
+        "max_after_error_deg": 0.02543067044371128,
+        "curve_policy": "defer",
+        "candidate_count": 20,
+        "solver_max_shift_rel": 0.000206459229573007,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.02543067044371128,
+        "point_count": 8,
+        "segment_count": 12
+      },
+      "created_at": "2026-11-09T22:58:26"
+    },
+    "ev_0012": {
+      "id": "ev_0012",
+      "source": "code_agent",
+      "method": "tikz repair",
+      "summary": "v2 compiled=True validation=True",
+      "payload": {
+        "notes": "Triangle outline replaced by explicit named paths A--D--B, A--E--C, B--H--C. Rectangle D--E--F--G--cycle and solid B--G kept. Dashed A--H now 0.6pt with the same dash pattern. Label F moved from below right to right. Coordinate definitions were omitted because the program owns the CV coordinate block (it overrides the listed values, which differ by about 0.001 units). Line width 1.1pt, label font 11/13.2 and scale unchanged. No square marks added.",
+        "compile": {
+          "compile_ok": true,
+          "validation_passed": true,
+          "errors": [],
+          "warnings": [],
+          "png_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v2\\v2.pdf",
+          "checks": [
+            {
+              "name": "documentclass",
+              "passed": true,
+              "detail": "documentclass present"
+            },
+            {
+              "name": "document_environment",
+              "passed": true,
+              "detail": "begin=1 end=1"
+            },
+            {
+              "name": "tikzpicture",
+              "passed": true,
+              "detail": "one balanced tikzpicture"
+            },
+            {
+              "name": "no_shell_escape",
+              "passed": true,
+              "detail": "no \\write18/\\openout primitives"
+            },
+            {
+              "name": "compiler_ok",
+              "passed": true,
+              "detail": "returncode=0"
+            },
+            {
+              "name": "pdf_created",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v2\\v2.pdf"
+            },
+            {
+              "name": "png_rendered",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v2\\v2.png"
+            },
+            {
+              "name": "render_not_blank",
+              "passed": true,
+              "detail": "ink_ratio=0.0345"
+            },
+            {
+              "name": "aspect_ratio",
+              "passed": true,
+              "detail": "reference 1.19 vs render 1.21 (delta 0.02)"
+            },
+            {
+              "name": "figure_extent_ratio",
+              "passed": true,
+              "detail": "figure bbox ratio 1.22"
+            }
+          ]
         }
       },
-      "created_at": "2026-11-09T11:24:20"
+      "created_at": "2026-11-09T22:58:26"
     }
   },
-  "conflicts": [],
+  "conflicts": [
+    {
+      "id": "conflict_001",
+      "topic": "Segment BG overshoot",
+      "claims": [
+        {
+          "source": "cv:detect_lines seg_10",
+          "claim": "extends to (337.95,617.7), past G at x=315"
+        },
+        {
+          "source": "image",
+          "claim": "BG ends at G corner"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
+    },
+    {
+      "id": "conflict_002",
+      "topic": "Segment GF extent",
+      "claims": [
+        {
+          "source": "cv:detect_lines seg_06",
+          "claim": "spans x=267 to 605 at y=624, extending left of G"
+        },
+        {
+          "source": "image",
+          "claim": "edge runs from G (315) to F (599); left overhang is glyph G contact"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
+    }
+  ],
   "label_bindings": {
     "A": "point_04",
     "D": "point_06",
@@ -1580,142 +2024,252 @@
     "F": "point_10",
     "B": "point_02",
     "C": "point_01",
-    "H": "point_03"
+    "H": "point_03",
+    "G": "point_09"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.1pt]\n\\coordinate (A) at (-0.291,2.855);\n\\coordinate (B) at (-3.548,-2.833);\n\\coordinate (C) at (3.539,-2.832);\n\\coordinate (D) at (-1.597,0.574);\n\\coordinate (E) at (1.245,0.575);\n\\coordinate (F) at (1.245,-2.260);\n\\coordinate (H) at (-0.290,-2.833);\n\n  \n  \\coordinate (G) at (-1.596,-2.260);  \n  \\coordinate (M) at (-0.290,0.575);   \n  \\coordinate (N) at (-0.290,-2.260);  \n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C);\n  \\draw (B) -- (C);\n\n  \n  \\draw[dashed] (A) -- (M) -- (N) -- (H);\n\n  \n  \\draw (D) -- (E);\n  \\draw (E) -- (F);\n  \\draw (F) -- (G);\n  \\draw (G) -- (D);\n\n  \n  \\draw (B) -- (G);\n\n  \n  \\node[above, font=\\fontsize{11}{13.2}\\selectfont] at (A) {$A$};\n  \\node[left, font=\\fontsize{11}{13.2}\\selectfont] at (B) {$B$};\n  \\node[right, font=\\fontsize{11}{13.2}\\selectfont] at (C) {$C$};\n  \\node[above left, font=\\fontsize{11}{13.2}\\selectfont] at (D) {$D$};\n  \\node[above right, font=\\fontsize{11}{13.2}\\selectfont] at (E) {$E$};\n  \\node[right, font=\\fontsize{11}{13.2}\\selectfont] at (F) {$F$};\n  \\node[above left, font=\\fontsize{11}{13.2}\\selectfont] at (G) {$G$};\n  \\node[below, font=\\fontsize{11}{13.2}\\selectfont] at (H) {$H$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 a3e601537efea053b56ec9bbe174db7d72afc571017e07bb29e5e6d89c710863\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.1pt]\n\\coordinate (A) at (-0.291,2.855);\n\\coordinate (B) at (-3.548,-2.833);\n\\coordinate (C) at (3.539,-2.832);\n\\coordinate (D) at (-1.597,0.574);\n\\coordinate (E) at (1.245,0.575);\n\\coordinate (F) at (1.245,-2.260);\n\\coordinate (H) at (-0.290,-2.833);\n\n  \n  \\coordinate (G) at (-1.596,-2.260);  \n  \\coordinate (M) at (-0.290,0.575);   \n  \\coordinate (N) at (-0.290,-2.260);  \n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C);\n  \\draw (B) -- (C);\n\n  \n  \\draw[dashed] (A) -- (M) -- (N) -- (H);\n\n  \n  \\draw (D) -- (E);\n  \\draw (E) -- (F);\n  \\draw (F) -- (G);\n  \\draw (G) -- (D);\n\n  \n  \\draw (B) -- (G);\n\n  \n  \\node[above, font=\\fontsize{11}{13.2}\\selectfont] at (A) {$A$};\n  \\node[left, font=\\fontsize{11}{13.2}\\selectfont] at (B) {$B$};\n  \\node[right, font=\\fontsize{11}{13.2}\\selectfont] at (C) {$C$};\n  \\node[above left, font=\\fontsize{11}{13.2}\\selectfont] at (D) {$D$};\n  \\node[above right, font=\\fontsize{11}{13.2}\\selectfont] at (E) {$E$};\n  \\node[right, font=\\fontsize{11}{13.2}\\selectfont] at (F) {$F$};\n  \\node[above left, font=\\fontsize{11}{13.2}\\selectfont] at (G) {$G$};\n  \\node[below, font=\\fontsize{11}{13.2}\\selectfont] at (H) {$H$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 a3e601537efea053b56ec9bbe174db7d72afc571017e07bb29e5e6d89c710863\n",
-  "best_version": 1,
-  "best_score": 0.94,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.1pt,\n  every node/.style={font=\\fontsize{11}{13.2}\\selectfont}]\n\\coordinate (A) at (-0.291,2.854);\n\\coordinate (B) at (-3.548,-2.834);\n\\coordinate (C) at (3.537,-2.832);\n\\coordinate (D) at (-1.596,0.574);\n\\coordinate (E) at (1.246,0.575);\n\\coordinate (F) at (1.248,-2.261);\n\\coordinate (G) at (-1.595,-2.262);\n\\coordinate (H) at (-0.289,-2.833);\n\n  \n\n  \n  \\draw (A) -- (D) -- (B);\n  \\draw (A) -- (E) -- (C);\n  \\draw (B) -- (H) -- (C);\n\n  \n  \\draw (D) -- (E) -- (F) -- (G) -- cycle;\n\n  \n  \\draw (B) -- (G);\n\n  \n  \\draw[line width=0.6pt, dash pattern=on 3pt off 2pt] (A) -- (H);\n\n  \n  \\node[above] at (A) {$A$};\n  \\node[below left] at (B) {$B$};\n  \\node[below right] at (C) {$C$};\n  \\node[below] at (H) {$H$};\n  \\node[left] at (D) {$D$};\n  \\node[right] at (E) {$E$};\n  \\node[right] at (F) {$F$};\n  \\node[above left] at (G) {$G$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 7f45cf44b326a0b0bd8f93dcd84931f3235c1a5bc9cd398d7794cec152d3750d\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.1pt,\n  every node/.style={font=\\fontsize{11}{13.2}\\selectfont}]\n\\coordinate (A) at (-0.291,2.854);\n\\coordinate (B) at (-3.548,-2.834);\n\\coordinate (C) at (3.537,-2.832);\n\\coordinate (D) at (-1.596,0.574);\n\\coordinate (E) at (1.246,0.575);\n\\coordinate (F) at (1.248,-2.261);\n\\coordinate (G) at (-1.595,-2.262);\n\\coordinate (H) at (-0.289,-2.833);\n\n  \n\n  \n  \\draw (A) -- (D) -- (B);\n  \\draw (A) -- (E) -- (C);\n  \\draw (B) -- (H) -- (C);\n\n  \n  \\draw (D) -- (E) -- (F) -- (G) -- cycle;\n\n  \n  \\draw (B) -- (G);\n\n  \n  \\draw[line width=0.6pt, dash pattern=on 3pt off 2pt] (A) -- (H);\n\n  \n  \\node[above] at (A) {$A$};\n  \\node[below left] at (B) {$B$};\n  \\node[below right] at (C) {$C$};\n  \\node[below] at (H) {$H$};\n  \\node[left] at (D) {$D$};\n  \\node[right] at (E) {$E$};\n  \\node[right] at (F) {$F$};\n  \\node[above left] at (G) {$G$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 7f45cf44b326a0b0bd8f93dcd84931f3235c1a5bc9cd398d7794cec152d3750d\n",
+  "best_version": 2,
+  "best_score": 0.93,
   "tikz_versions": [
     {
       "topology_check": {
-        "passed": true,
-        "missing_edges": []
+        "passed": false,
+        "missing_edges": [
+          [
+            "A",
+            "D"
+          ],
+          [
+            "B",
+            "D"
+          ],
+          [
+            "B",
+            "H"
+          ],
+          [
+            "C",
+            "E"
+          ],
+          [
+            "C",
+            "H"
+          ]
+        ],
+        "unverified_styles": [
+          {
+            "edge": [
+              "A",
+              "D"
+            ],
+            "style": "solid"
+          },
+          {
+            "edge": [
+              "B",
+              "D"
+            ],
+            "style": "solid"
+          },
+          {
+            "edge": [
+              "C",
+              "E"
+            ],
+            "style": "solid"
+          },
+          {
+            "edge": [
+              "C",
+              "H"
+            ],
+            "style": "solid"
+          },
+          {
+            "edge": [
+              "B",
+              "H"
+            ],
+            "style": "solid"
+          }
+        ]
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.1pt]\n\\coordinate (A) at (-0.291,2.855);\n\\coordinate (B) at (-3.548,-2.833);\n\\coordinate (C) at (3.539,-2.832);\n\\coordinate (D) at (-1.597,0.574);\n\\coordinate (E) at (1.245,0.575);\n\\coordinate (F) at (1.245,-2.260);\n\\coordinate (H) at (-0.290,-2.833);\n\n  \n  \\coordinate (G) at (-1.596,-2.260);  \n  \\coordinate (M) at (-0.290,0.575);   \n  \\coordinate (N) at (-0.290,-2.260);  \n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C);\n  \\draw (B) -- (C);\n\n  \n  \\draw[dashed] (A) -- (M) -- (N) -- (H);\n\n  \n  \\draw (D) -- (E);\n  \\draw (E) -- (F);\n  \\draw (F) -- (G);\n  \\draw (G) -- (D);\n\n  \n  \\draw (B) -- (G);\n\n  \n  \\node[above, font=\\fontsize{11}{13.2}\\selectfont] at (A) {$A$};\n  \\node[left, font=\\fontsize{11}{13.2}\\selectfont] at (B) {$B$};\n  \\node[right, font=\\fontsize{11}{13.2}\\selectfont] at (C) {$C$};\n  \\node[above left, font=\\fontsize{11}{13.2}\\selectfont] at (D) {$D$};\n  \\node[above right, font=\\fontsize{11}{13.2}\\selectfont] at (E) {$E$};\n  \\node[right, font=\\fontsize{11}{13.2}\\selectfont] at (F) {$F$};\n  \\node[above left, font=\\fontsize{11}{13.2}\\selectfont] at (G) {$G$};\n  \\node[below, font=\\fontsize{11}{13.2}\\selectfont] at (H) {$H$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 a3e601537efea053b56ec9bbe174db7d72afc571017e07bb29e5e6d89c710863\n",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1523_s_fig2\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1523_s_fig2\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1523_s_fig2\\best.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.1pt,\n  every node/.style={font=\\fontsize{11}{13.2}\\selectfont}]\n\\coordinate (A) at (-0.290,2.855);\n\\coordinate (B) at (-3.548,-2.834);\n\\coordinate (C) at (3.538,-2.831);\n\\coordinate (D) at (-1.597,0.573);\n\\coordinate (E) at (1.245,0.574);\n\\coordinate (F) at (1.246,-2.261);\n\\coordinate (G) at (-1.596,-2.262);\n\\coordinate (H) at (-0.288,-2.833);\n\n  \n  \\draw (A) -- (B) -- (C) -- cycle;\n  \n  \\draw (D) -- (E) -- (F) -- (G) -- cycle;\n  \n  \\draw (B) -- (G);\n  \n  \\draw[dash pattern=on 3pt off 2pt] (A) -- (H);\n  \n  \\node[above] at (A) {$A$};\n  \\node[below left] at (B) {$B$};\n  \\node[below right] at (C) {$C$};\n  \\node[below] at (H) {$H$};\n  \\node[left] at (D) {$D$};\n  \\node[right] at (E) {$E$};\n  \\node[below right] at (F) {$F$};\n  \\node[above left] at (G) {$G$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 6c1aaa0932e372111e1031b6229106d8ae087702cb7078c9b5c8404f029387f0\n",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:23:56",
+      "created_at": "2026-11-09T22:57:41",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used program-owned coordinates A,B,C,D,E,F,H without redefining them. Helpers G, M, N are defined in the same frame (s=0.010025, origin from D/E/B/A measurements). Included a solid B–G edge because the CV segment and the source image both show it; the instruction omitted it, so this is a deliberate addition. Included a label G because the source image shows one at the upper-left of the corner, even though the instruction called it unlabeled. Line width 1.1pt and label font 11/13.2pt come from STYLE METRICS. Dashed altitude is drawn as one path A–M–N–H. No right-angle marks (none verified). Standalone compilation requires the program to insert the A–H coordinate definitions as stated.",
-      "compile_seconds": 1.88,
+      "notes": "Used the program-owned CV coordinates (not redefined). Triangle drawn as A-B-C cycle, with D on AB and E on AC handled by the outline. Rectangle DEFG solid, BG solid, altitude AH dashed. Labels at font 11/13.2 per STYLE METRICS; G label placed above-left to avoid the BG stroke. No right-angle marks since none were verified. Line width 1.1pt with round joins.",
+      "compile_seconds": 2.572,
       "critic_report": {
-        "assessment_score": 0.94,
+        "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render matches the original closely: all five triangle, square and dashed-altitude segments, the B-G stub and all eight labels are present and placed where the original has them.",
+        "verdict": "Render is geometrically faithful: triangle ABC, square DEFG, segment BG, and dashed altitude AH all match the original in position and topology, with only minor style and label-offset differences.",
         "figure_type": {
-          "original": "Isosceles triangle ABC with an inscribed square DEFG (D and E on AB and AC), a dashed altitude A-H to base point H, and a stub B-G joining B to the square's lower-left corner",
-          "render": "Same configuration: triangle ABC, square DEFG, dashed altitude A-H, and stub B-G"
+          "original": "Isosceles triangle ABC with inscribed square DEFG (base on BC), segment BG to B, and dashed altitude AH with foot H on BC",
+          "render": "Isosceles triangle ABC with inscribed square DEFG (base on BC), segment BG to B, and dashed altitude AH with foot H on BC"
         },
-        "issues": [],
+        "issues": [
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "seg_04",
+              "seg_05"
+            ],
+            "bbox": [
+              0.45,
+              0.18,
+              0.49,
+              0.82
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "The dashed altitude AH is drawn heavier in the render than the thin dashes of the original (render dashes look bold, original dashes look fine).",
+            "suggestion": "Reduce the line width of the dashed AH path (e.g. draw it with a thinner width such as 0.6pt or a local \\draw[line width=0.6pt, dash pattern=on 3pt off 2pt]) while keeping the dash pattern."
+          },
+          {
+            "type": "label_error",
+            "severity": "low",
+            "object_ids": [
+              "point_10"
+            ],
+            "bbox": [
+              0.66,
+              0.74,
+              0.7,
+              0.8
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "Label F sits noticeably further below-right of corner F than in the original, where it sits just to the right of the corner. Clearance from strokes is fine, so this is only an offset difference.",
+            "suggestion": "Change the F node placement from 'below right' to 'right' (or a smaller offset) so the label sits just right of corner F, keeping the binding to (F)."
+          }
+        ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Base B-C is solid and spans the same extent as the original."
+            "note": "Base BC drawn along y of B and C, matches original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Right side A-C is solid and ends at C as in the original."
+            "note": "Right side AC matches original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Left side A-B is solid and ends at B as in the original."
+            "note": "Left side AB matches original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Lower dashed part of the altitude, from the square's top edge to H, is drawn and ends at H."
+            "note": "Lower dashed segment of AH matches original; dashes heavier than original."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Upper dashed part of the altitude, from A down to the square's top edge, is drawn."
+            "note": "Upper dashed segment of AH matches original; dashes heavier than original."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Bottom edge F-G of the square is solid and matches the original."
+            "note": "Bottom square edge GF matches original."
           },
           {
             "object_id": "seg_07",
             "status": "present",
-            "note": "Left edge D-G of the square is solid and matches the original."
+            "note": "Left square edge DG matches original."
           },
           {
             "object_id": "seg_08",
             "status": "present",
-            "note": "Right edge E-F of the square is solid and matches the original."
+            "note": "Right square edge EF matches original."
           },
           {
             "object_id": "seg_09",
             "status": "present",
-            "note": "Top edge D-E of the square is solid and matches the original."
+            "note": "Top square edge DE matches original."
           },
           {
             "object_id": "seg_10",
             "status": "present",
-            "note": "Stub B-G runs from B to the square corner G as in the original."
+            "note": "Segment BG to G matches original and ends at the square corner."
+          },
+          {
+            "object_id": "seg_AH",
+            "status": "present",
+            "note": "Dashed altitude from A to H is present with the same extent as the original."
+          },
+          {
+            "object_id": "seg_BG",
+            "status": "present",
+            "note": "Segment from B to G is present and ends at G as in the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "C label sits right of the vertex, clear of strokes, as in the original."
+            "note": "Vertex C present at the lower right of BC, label C correct."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "B label sits left of the vertex, as in the original."
+            "note": "Vertex B present at the lower left of BC, label B correct."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "H label sits below the base point, as in the original."
+            "note": "Foot H present on BC under the dashed altitude, label H correct."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "A label sits above the apex, as in the original."
+            "note": "Apex A present at the top, label A correct."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "E label sits upper-right of the vertex, as in the original."
+            "note": "Vertex E present on AC at the square's upper right, label E correct."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "D label sits upper-left of the vertex, as in the original."
+            "note": "Vertex D present on AB at the square's upper left, label D correct."
+          },
+          {
+            "object_id": "point_09",
+            "status": "present",
+            "note": "Vertex G present at the square's lower left, label G correct."
           },
           {
             "object_id": "point_10",
             "status": "present",
-            "note": "F label sits right of the vertex, as in the original."
+            "note": "Vertex F present at the square's lower right, label F correct; offset slightly larger than original."
           }
         ],
         "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
           "medium": 0,
-          "low": 0
+          "low": 2
         },
         "flaky_count": 0,
-        "must_repair": false,
+        "must_repair": true,
         "matches": [
-          "Triangle apex, base and side proportions match the original; B, C and A sit at the same relative positions.",
-          "Square DEFG has the same size and position inside the triangle, with D and E on the sides AB and AC.",
-          "Dashed altitude runs from A to H through the square interior, as in the original.",
-          "Stub B-G ends at the square's lower-left corner G.",
-          "All eight labels A, B, C, D, E, F, G, H are present, correctly spelled and clear of strokes."
+          "Triangle ABC proportions and vertex positions match the original.",
+          "Square DEFG sits on the same region with D and E on AB and AC, and its base on the same horizontal level as G and F.",
+          "Segment BG joins B to the square's lower-left corner G, as in the original.",
+          "Dashed altitude AH runs from apex A to foot H on BC, matching the original's extent.",
+          "Labels A, B, C, D, E, F, G, H are all present with correct spelling and are bound to the right vertices."
         ],
         "labels": {
           "present": [
@@ -1733,51 +2287,177 @@
         },
         "version": 1,
         "binding_decisions": [],
-        "topology_decisions": [
-          {
-            "case_id": "6ae664dc1581d5f7",
-            "edge": [
-              "B",
-              "C"
-            ],
-            "reason": "The original base is one continuous solid stroke from B to C at the bottom of the triangle."
-          },
-          {
-            "case_id": "266e82ab775cf265",
-            "edge": [
-              "A",
-              "C"
-            ],
-            "reason": "The original right side is one continuous solid stroke from apex A down to C."
-          },
-          {
-            "case_id": "0a2c766c90c44aa1",
-            "edge": [
-              "A",
-              "B"
-            ],
-            "reason": "The original left side is one continuous solid stroke from apex A down to B."
-          },
-          {
-            "case_id": "6c80d2de14c27307",
-            "edge": [
-              "E",
-              "F"
-            ],
-            "reason": "The original right edge of the square is a solid vertical stroke from E down to F."
-          },
-          {
-            "case_id": "9e4185840cec3824",
-            "edge": [
-              "D",
-              "E"
-            ],
-            "reason": "The original top edge of the square is a solid horizontal stroke from D to E."
-          }
-        ],
+        "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.94
+      "critic_score": 0.9
+    },
+    {
+      "topology_check": {
+        "passed": true,
+        "missing_edges": []
+      },
+      "version": 2,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.1pt,\n  every node/.style={font=\\fontsize{11}{13.2}\\selectfont}]\n\\coordinate (A) at (-0.291,2.854);\n\\coordinate (B) at (-3.548,-2.834);\n\\coordinate (C) at (3.537,-2.832);\n\\coordinate (D) at (-1.596,0.574);\n\\coordinate (E) at (1.246,0.575);\n\\coordinate (F) at (1.248,-2.261);\n\\coordinate (G) at (-1.595,-2.262);\n\\coordinate (H) at (-0.289,-2.833);\n\n  \n\n  \n  \\draw (A) -- (D) -- (B);\n  \\draw (A) -- (E) -- (C);\n  \\draw (B) -- (H) -- (C);\n\n  \n  \\draw (D) -- (E) -- (F) -- (G) -- cycle;\n\n  \n  \\draw (B) -- (G);\n\n  \n  \\draw[line width=0.6pt, dash pattern=on 3pt off 2pt] (A) -- (H);\n\n  \n  \\node[above] at (A) {$A$};\n  \\node[below left] at (B) {$B$};\n  \\node[below right] at (C) {$C$};\n  \\node[below] at (H) {$H$};\n  \\node[left] at (D) {$D$};\n  \\node[right] at (E) {$E$};\n  \\node[right] at (F) {$F$};\n  \\node[above left] at (G) {$G$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 7f45cf44b326a0b0bd8f93dcd84931f3235c1a5bc9cd398d7794cec152d3750d\n",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1523_s_fig2\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1523_s_fig2\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1523_s_fig2\\best.png",
+      "ok": true,
+      "compiled": true,
+      "errors": [],
+      "warnings": [],
+      "created_at": "2026-11-09T22:58:22",
+      "agent": "code_agent",
+      "mode": "repair",
+      "notes": "Triangle outline replaced by explicit named paths A--D--B, A--E--C, B--H--C. Rectangle D--E--F--G--cycle and solid B--G kept. Dashed A--H now 0.6pt with the same dash pattern. Label F moved from below right to right. Coordinate definitions were omitted because the program owns the CV coordinate block (it overrides the listed values, which differ by about 0.001 units). Line width 1.1pt, label font 11/13.2 and scale unchanged. No square marks added.",
+      "compile_seconds": 2.653,
+      "critic_report": {
+        "assessment_score": 0.93,
+        "score_kind": "heuristic visual similarity (not a calibrated probability)",
+        "verdict": "The render is a faithful match to the original: same triangle, inscribed square DEFG, dashed altitude AH, segment BG, and all eight labels in matching positions.",
+        "figure_type": {
+          "original": "triangle ABC with inscribed square DEFG, dashed altitude from A to H on BC, and segment BG",
+          "render": "same triangle ABC with inscribed square DEFG, dashed altitude AH, and segment BG"
+        },
+        "issues": [],
+        "checks": [
+          {
+            "object_id": "seg_01",
+            "status": "present",
+            "note": "Base BC drawn along the same baseline, from B to C."
+          },
+          {
+            "object_id": "seg_02",
+            "status": "present",
+            "note": "Right side AC matches the original."
+          },
+          {
+            "object_id": "seg_03",
+            "status": "present",
+            "note": "Left side AB matches the original."
+          },
+          {
+            "object_id": "seg_04",
+            "status": "present",
+            "note": "Lower dashed part of altitude AH, from the square top down to H, matches."
+          },
+          {
+            "object_id": "seg_05",
+            "status": "present",
+            "note": "Upper dashed part of altitude AH, from A to the square top, matches."
+          },
+          {
+            "object_id": "seg_06",
+            "status": "present",
+            "note": "Bottom edge GF of the square is drawn and matches the original."
+          },
+          {
+            "object_id": "seg_07",
+            "status": "present",
+            "note": "Left edge DG of the square matches."
+          },
+          {
+            "object_id": "seg_08",
+            "status": "present",
+            "note": "Right edge EF of the square matches."
+          },
+          {
+            "object_id": "seg_09",
+            "status": "present",
+            "note": "Top edge DE of the square matches."
+          },
+          {
+            "object_id": "seg_10",
+            "status": "present",
+            "note": "Segment BG from B to the square corner G matches the original."
+          },
+          {
+            "object_id": "seg_AH",
+            "status": "present",
+            "note": "Dashed altitude from A to H is drawn as a dashed line, as in the original."
+          },
+          {
+            "object_id": "seg_BG",
+            "status": "present",
+            "note": "Segment from B to G is drawn and matches the original."
+          },
+          {
+            "object_id": "point_01",
+            "status": "present",
+            "note": "Label C sits at the lower right of vertex C, as in the original."
+          },
+          {
+            "object_id": "point_02",
+            "status": "present",
+            "note": "Label B sits at the lower left of vertex B, as in the original."
+          },
+          {
+            "object_id": "point_03",
+            "status": "present",
+            "note": "Label H sits below the foot H on the baseline, as in the original."
+          },
+          {
+            "object_id": "point_04",
+            "status": "present",
+            "note": "Label A sits above apex A, as in the original."
+          },
+          {
+            "object_id": "point_05",
+            "status": "present",
+            "note": "Label E sits at the upper right of the square corner E, as in the original."
+          },
+          {
+            "object_id": "point_06",
+            "status": "present",
+            "note": "Label D sits at the upper left of the square corner D, as in the original."
+          },
+          {
+            "object_id": "point_09",
+            "status": "present",
+            "note": "Label G sits at the upper left of corner G, clear of the strokes."
+          },
+          {
+            "object_id": "point_10",
+            "status": "present",
+            "note": "Label F sits at the lower right of corner F, as in the original."
+          }
+        ],
+        "checklist_score": 1.0,
+        "actionable_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        },
+        "flaky_count": 0,
+        "must_repair": false,
+        "matches": [
+          "Triangle ABC outline with apex A and base BC matches the original proportions.",
+          "Inscribed square DEFG has the same position and size, with D and E on the sides AB and AC.",
+          "Dashed altitude AH runs from A to H, with the dash pattern visually matching the original.",
+          "Segment BG joins B to the lower-left corner G of the square.",
+          "All eight point labels A through H are present, correctly spelled, and bound to their vertices.",
+          "Stroke weights and label sizes are visually comparable between the two panels."
+        ],
+        "labels": {
+          "present": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H"
+          ],
+          "missing": [],
+          "extra": []
+        },
+        "version": 2,
+        "binding_decisions": [],
+        "topology_decisions": [],
+        "raw_meta": "{}"
+      },
+      "critic_score": 0.93
     }
   ],
   "compilation_results": [
@@ -1785,14 +2465,27 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.88,
+      "seconds": 2.572,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.9833984375 KiB)\nnote: Writing `figure.pdf` (3.115234375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1523_s_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1523_s_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1523_s_fig2\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:23:58"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.9833984375 KiB)\nnote: Writing `figure.pdf` (3.107421875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T22:57:45"
+    },
+    {
+      "version": 2,
+      "ok": true,
+      "returncode": 0,
+      "seconds": 2.653,
+      "errors": [],
+      "warnings": [],
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.9833984375 KiB)\nnote: Writing `figure.pdf` (3.1240234375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-09T22:58:26"
     }
   ],
   "validation_results": [
@@ -1828,22 +2521,22 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1523_s_fig2\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\1523_s_fig2\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0343"
+          "detail": "ink_ratio=0.0353"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.19 vs render 1.22 (delta 0.02)"
+          "detail": "reference 1.19 vs render 1.21 (delta 0.02)"
         },
         {
           "name": "figure_extent_ratio",
@@ -1851,120 +2544,228 @@
           "detail": "figure bbox ratio 1.22"
         }
       ],
-      "created_at": "2026-11-09T11:23:58"
+      "created_at": "2026-11-09T22:57:44"
+    },
+    {
+      "version": 2,
+      "passed": true,
+      "checks": [
+        {
+          "name": "documentclass",
+          "passed": true,
+          "detail": "documentclass present"
+        },
+        {
+          "name": "document_environment",
+          "passed": true,
+          "detail": "begin=1 end=1"
+        },
+        {
+          "name": "tikzpicture",
+          "passed": true,
+          "detail": "one balanced tikzpicture"
+        },
+        {
+          "name": "no_shell_escape",
+          "passed": true,
+          "detail": "no \\write18/\\openout primitives"
+        },
+        {
+          "name": "compiler_ok",
+          "passed": true,
+          "detail": "returncode=0"
+        },
+        {
+          "name": "pdf_created",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v2\\v2.pdf"
+        },
+        {
+          "name": "png_rendered",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\1523_s_fig2\\tikz\\v2\\v2.png"
+        },
+        {
+          "name": "render_not_blank",
+          "passed": true,
+          "detail": "ink_ratio=0.0345"
+        },
+        {
+          "name": "aspect_ratio",
+          "passed": true,
+          "detail": "reference 1.19 vs render 1.21 (delta 0.02)"
+        },
+        {
+          "name": "figure_extent_ratio",
+          "passed": true,
+          "detail": "figure bbox ratio 1.22"
+        }
+      ],
+      "created_at": "2026-11-09T22:58:25"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.94,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render matches the original closely: all five triangle, square and dashed-altitude segments, the B-G stub and all eight labels are present and placed where the original has them.",
+      "verdict": "Render is geometrically faithful: triangle ABC, square DEFG, segment BG, and dashed altitude AH all match the original in position and topology, with only minor style and label-offset differences.",
       "figure_type": {
-        "original": "Isosceles triangle ABC with an inscribed square DEFG (D and E on AB and AC), a dashed altitude A-H to base point H, and a stub B-G joining B to the square's lower-left corner",
-        "render": "Same configuration: triangle ABC, square DEFG, dashed altitude A-H, and stub B-G"
+        "original": "Isosceles triangle ABC with inscribed square DEFG (base on BC), segment BG to B, and dashed altitude AH with foot H on BC",
+        "render": "Isosceles triangle ABC with inscribed square DEFG (base on BC), segment BG to B, and dashed altitude AH with foot H on BC"
       },
-      "issues": [],
+      "issues": [
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "seg_04",
+            "seg_05"
+          ],
+          "bbox": [
+            0.45,
+            0.18,
+            0.49,
+            0.82
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The dashed altitude AH is drawn heavier in the render than the thin dashes of the original (render dashes look bold, original dashes look fine).",
+          "suggestion": "Reduce the line width of the dashed AH path (e.g. draw it with a thinner width such as 0.6pt or a local \\draw[line width=0.6pt, dash pattern=on 3pt off 2pt]) while keeping the dash pattern."
+        },
+        {
+          "type": "label_error",
+          "severity": "low",
+          "object_ids": [
+            "point_10"
+          ],
+          "bbox": [
+            0.66,
+            0.74,
+            0.7,
+            0.8
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "Label F sits noticeably further below-right of corner F than in the original, where it sits just to the right of the corner. Clearance from strokes is fine, so this is only an offset difference.",
+          "suggestion": "Change the F node placement from 'below right' to 'right' (or a smaller offset) so the label sits just right of corner F, keeping the binding to (F)."
+        }
+      ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Base B-C is solid and spans the same extent as the original."
+          "note": "Base BC drawn along y of B and C, matches original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Right side A-C is solid and ends at C as in the original."
+          "note": "Right side AC matches original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Left side A-B is solid and ends at B as in the original."
+          "note": "Left side AB matches original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Lower dashed part of the altitude, from the square's top edge to H, is drawn and ends at H."
+          "note": "Lower dashed segment of AH matches original; dashes heavier than original."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Upper dashed part of the altitude, from A down to the square's top edge, is drawn."
+          "note": "Upper dashed segment of AH matches original; dashes heavier than original."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Bottom edge F-G of the square is solid and matches the original."
+          "note": "Bottom square edge GF matches original."
         },
         {
           "object_id": "seg_07",
           "status": "present",
-          "note": "Left edge D-G of the square is solid and matches the original."
+          "note": "Left square edge DG matches original."
         },
         {
           "object_id": "seg_08",
           "status": "present",
-          "note": "Right edge E-F of the square is solid and matches the original."
+          "note": "Right square edge EF matches original."
         },
         {
           "object_id": "seg_09",
           "status": "present",
-          "note": "Top edge D-E of the square is solid and matches the original."
+          "note": "Top square edge DE matches original."
         },
         {
           "object_id": "seg_10",
           "status": "present",
-          "note": "Stub B-G runs from B to the square corner G as in the original."
+          "note": "Segment BG to G matches original and ends at the square corner."
+        },
+        {
+          "object_id": "seg_AH",
+          "status": "present",
+          "note": "Dashed altitude from A to H is present with the same extent as the original."
+        },
+        {
+          "object_id": "seg_BG",
+          "status": "present",
+          "note": "Segment from B to G is present and ends at G as in the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "C label sits right of the vertex, clear of strokes, as in the original."
+          "note": "Vertex C present at the lower right of BC, label C correct."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "B label sits left of the vertex, as in the original."
+          "note": "Vertex B present at the lower left of BC, label B correct."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "H label sits below the base point, as in the original."
+          "note": "Foot H present on BC under the dashed altitude, label H correct."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "A label sits above the apex, as in the original."
+          "note": "Apex A present at the top, label A correct."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "E label sits upper-right of the vertex, as in the original."
+          "note": "Vertex E present on AC at the square's upper right, label E correct."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "D label sits upper-left of the vertex, as in the original."
+          "note": "Vertex D present on AB at the square's upper left, label D correct."
+        },
+        {
+          "object_id": "point_09",
+          "status": "present",
+          "note": "Vertex G present at the square's lower left, label G correct."
         },
         {
           "object_id": "point_10",
           "status": "present",
-          "note": "F label sits right of the vertex, as in the original."
+          "note": "Vertex F present at the square's lower right, label F correct; offset slightly larger than original."
         }
       ],
       "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
         "medium": 0,
-        "low": 0
+        "low": 2
       },
       "flaky_count": 0,
-      "must_repair": false,
+      "must_repair": true,
       "matches": [
-        "Triangle apex, base and side proportions match the original; B, C and A sit at the same relative positions.",
-        "Square DEFG has the same size and position inside the triangle, with D and E on the sides AB and AC.",
-        "Dashed altitude runs from A to H through the square interior, as in the original.",
-        "Stub B-G ends at the square's lower-left corner G.",
-        "All eight labels A, B, C, D, E, F, G, H are present, correctly spelled and clear of strokes."
+        "Triangle ABC proportions and vertex positions match the original.",
+        "Square DEFG sits on the same region with D and E on AB and AC, and its base on the same horizontal level as G and F.",
+        "Segment BG joins B to the square's lower-left corner G, as in the original.",
+        "Dashed altitude AH runs from apex A to foot H on BC, matching the original's extent.",
+        "Labels A, B, C, D, E, F, G, H are all present with correct spelling and are bound to the right vertices."
       ],
       "labels": {
         "present": [
@@ -1982,59 +2783,172 @@
       },
       "version": 1,
       "binding_decisions": [],
-      "topology_decisions": [
+      "topology_decisions": [],
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.93,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "The render is a faithful match to the original: same triangle, inscribed square DEFG, dashed altitude AH, segment BG, and all eight labels in matching positions.",
+      "figure_type": {
+        "original": "triangle ABC with inscribed square DEFG, dashed altitude from A to H on BC, and segment BG",
+        "render": "same triangle ABC with inscribed square DEFG, dashed altitude AH, and segment BG"
+      },
+      "issues": [],
+      "checks": [
         {
-          "case_id": "6ae664dc1581d5f7",
-          "edge": [
-            "B",
-            "C"
-          ],
-          "reason": "The original base is one continuous solid stroke from B to C at the bottom of the triangle."
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Base BC drawn along the same baseline, from B to C."
         },
         {
-          "case_id": "266e82ab775cf265",
-          "edge": [
-            "A",
-            "C"
-          ],
-          "reason": "The original right side is one continuous solid stroke from apex A down to C."
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Right side AC matches the original."
         },
         {
-          "case_id": "0a2c766c90c44aa1",
-          "edge": [
-            "A",
-            "B"
-          ],
-          "reason": "The original left side is one continuous solid stroke from apex A down to B."
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Left side AB matches the original."
         },
         {
-          "case_id": "6c80d2de14c27307",
-          "edge": [
-            "E",
-            "F"
-          ],
-          "reason": "The original right edge of the square is a solid vertical stroke from E down to F."
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Lower dashed part of altitude AH, from the square top down to H, matches."
         },
         {
-          "case_id": "9e4185840cec3824",
-          "edge": [
-            "D",
-            "E"
-          ],
-          "reason": "The original top edge of the square is a solid horizontal stroke from D to E."
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Upper dashed part of altitude AH, from A to the square top, matches."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Bottom edge GF of the square is drawn and matches the original."
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "Left edge DG of the square matches."
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "Right edge EF of the square matches."
+        },
+        {
+          "object_id": "seg_09",
+          "status": "present",
+          "note": "Top edge DE of the square matches."
+        },
+        {
+          "object_id": "seg_10",
+          "status": "present",
+          "note": "Segment BG from B to the square corner G matches the original."
+        },
+        {
+          "object_id": "seg_AH",
+          "status": "present",
+          "note": "Dashed altitude from A to H is drawn as a dashed line, as in the original."
+        },
+        {
+          "object_id": "seg_BG",
+          "status": "present",
+          "note": "Segment from B to G is drawn and matches the original."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "Label C sits at the lower right of vertex C, as in the original."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "Label B sits at the lower left of vertex B, as in the original."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Label H sits below the foot H on the baseline, as in the original."
+        },
+        {
+          "object_id": "point_04",
+          "status": "present",
+          "note": "Label A sits above apex A, as in the original."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "Label E sits at the upper right of the square corner E, as in the original."
+        },
+        {
+          "object_id": "point_06",
+          "status": "present",
+          "note": "Label D sits at the upper left of the square corner D, as in the original."
+        },
+        {
+          "object_id": "point_09",
+          "status": "present",
+          "note": "Label G sits at the upper left of corner G, clear of the strokes."
+        },
+        {
+          "object_id": "point_10",
+          "status": "present",
+          "note": "Label F sits at the lower right of corner F, as in the original."
         }
       ],
+      "checklist_score": 1.0,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": false,
+      "matches": [
+        "Triangle ABC outline with apex A and base BC matches the original proportions.",
+        "Inscribed square DEFG has the same position and size, with D and E on the sides AB and AC.",
+        "Dashed altitude AH runs from A to H, with the dash pattern visually matching the original.",
+        "Segment BG joins B to the lower-left corner G of the square.",
+        "All eight point labels A through H are present, correctly spelled, and bound to their vertices.",
+        "Stroke weights and label sizes are visually comparable between the two panels."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 2,
+      "binding_decisions": [],
+      "topology_decisions": [],
       "raw_meta": "{}"
     }
   ],
   "unresolved_issues": [
     {
-      "source": "supervisor",
-      "issue": "Point G and the stub B–G were added by the Code Agent from the CV segment and the source image; they were not in the original instruction."
+      "source": "geometry_agent",
+      "issue": "Right-angle markers: detect_right_angle_marker was not run; none seen visually at square corners or at H. Critic should confirm."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "point_07 and point_08 are unlabelled junctions of AH with the square edges; no letters printed."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "Dashed AH is a single dashed line from A to H; the two CV chains (seg_04, seg_05) are overlapping pieces of the same line."
     },
     {
       "source": "supervisor",
-      "issue": "The dashed altitude segment from N to M to H is treated as dashed, but the dashed/solid status of the short segment M–N was inferred from the CV output, not confirmed separately."
+      "issue": "No right-angle square marks drawn; detect_right_angle_marker verified none."
     }
   ],
   "action_history": [
@@ -2063,53 +2977,121 @@
       "error": null
     },
     {
+      "step": 0,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "initial source evidence",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; count=0",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 12, 'relations': 6, 'conflicts': 2, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
       "step": 1,
-      "action": "run_code_agent",
-      "purpose": "Reconstruct the figure as TikZ using the CV evidence. Image pixels have origin top-left with y down; flip y for TikZ (use y_tikz = -y_px, scaled consistently, e.g. scale 0.01 so 1 unit = 100 px, or pi",
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "Verify right-angle square marks at H and square corners before generating TikZ.",
       "params": {
-        "mode": "generate",
-        "use_image": null,
-        "instruction": "Reconstruct the figure as TikZ using the CV evidence. Image pixels have origin top-left with y down; flip y for TikZ (use y_tikz = -y_px, scaled consistently, e.g. scale 0.01 so 1 unit = 100 px, or pixel coordinates with a yscale transform). Points: A=(445.5,113.9), B=(120.6,681.2), C=(827.3,681.0), H=(445.5,681.0) on segment BC, D=(315.1,341.2), E=(598.8,341.3), F=(599.0,624.0), G=(315.5,624.1) unlabeled corner, M=(445.5,341.0) unlabeled point on the vertical through A, N=(445.5,624.0) unlabeled point. Draw solid edges: B-C baseline (y=681), A-B and A-C (solid, from A to B and A to C; the lines A-B and A-C extend to approximately the baseline ends), D-E horizontal at y=341, E-F vertical at x=599, D-G vertical at x=315 from y=341 to 624, G-F horizontal at y=624 (segment ~ x 315 to 599). Draw dashed vertical from A down through M to H (x=445.5, from y=106 to 687; dashed), and dashed vertical from N to M segment (x=445.5, y 341 to 624) if it is dashed. Keep labels A,B,C,D,E,F,H visible at their box positions (labels placed just outside each point). Do not add extra edges. Use named coordinates for every edge endpoint."
+        "tool_name": "detect_right_angle_marker",
+        "params": {
+          "visualize": false
+        }
       },
       "status": "ok",
-      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 22.1,
+      "result_summary": "ok=True; count=0",
+      "duration_s": 16.26,
       "token_usage": {
-        "delta": 10383
+        "delta": 0
       },
-      "visual_calls": 1,
+      "visual_calls": 0,
       "error": null
     },
     {
       "step": 2,
       "action": "run_critic",
-      "purpose": "Check all edges: D-E, E-F, D-G, G-F, B-G, A-B, A-C, B-C, dashed A-H; label positions and any missing labels.",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=2",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 2,
+      "action": "run_code_agent",
+      "purpose": "Draw a TikZ figure with pixel-derived coordinates (scale 1 unit = 100 px, x = px/100, y = (681 - py)/100). Points: A(4.455,5.672) top apex; B(1.206,0); C(8.273,0); H(4.455,0) foot of altitude; D(3.151",
       "params": {
-        "focus": "Check all edges: D-E, E-F, D-G, G-F, B-G, A-B, A-C, B-C, dashed A-H; label positions and any missing labels."
+        "mode": "generate",
+        "use_image": null,
+        "instruction": "Draw a TikZ figure with pixel-derived coordinates (scale 1 unit = 100 px, x = px/100, y = (681 - py)/100). Points: A(4.455,5.672) top apex; B(1.206,0); C(8.273,0); H(4.455,0) foot of altitude; D(3.151,3.398) on AB; E(5.988,3.397) on AC; F(5.990,0.570); G(3.155,0.569). Draw solid edges: triangle AB, BC, CA (A-B, B-C, C-A); altitude dashed from A to H (A--H dashed, passing through unlabeled junctions (4.455,3.410) and (4.455,0.570)). Solid rectangle D-E-F-G: D--E, E--F, F--G, G--D (D-G and E-F vertical solid). Solid segment B--G. Solid segment G--F horizontal at y=0.570. Labels: A above apex, B below-left, C below-right, H below, D left of D, E right of E, F below-right of F, G below-left of G. Do not draw square marks unless verified. Keep the altitude A-H dashed and BC horizontal baseline solid. Use standard tikz, no external libraries beyond calc if needed."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.94",
-      "duration_s": 18.28,
+      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 36.08,
       "token_usage": {
-        "delta": 11385
+        "delta": 21000
+      },
+      "visual_calls": 2,
+      "error": null
+    },
+    {
+      "step": 3,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.93",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 3,
+      "action": "run_code_agent",
+      "purpose": "Replace the triangle outline with explicit named paths so topology is verified: draw solid path A--D--B (D lies on AB), solid path A--E--C (E lies on AC), and solid path B--H--C (H lies on BC, the bas",
+      "params": {
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Replace the triangle outline with explicit named paths so topology is verified: draw solid path A--D--B (D lies on AB), solid path A--E--C (E lies on AC), and solid path B--H--C (H lies on BC, the baseline). Keep the rectangle D--E--F--G--cycle solid, solid B--G, and dashed A--H with thinner line width (0.6pt dashes) as the critic suggested. Move label F to 'right' of corner F instead of below-right. Keep the coordinates unchanged: A(4.455,5.672), B(1.206,0), C(8.273,0), H(4.455,0), D(3.151,3.398), E(5.988,3.397), F(5.990,0.570), G(3.155,0.569). Do not add square marks (none verified)."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
+      "duration_s": 30.47,
+      "token_usage": {
+        "delta": 19842
       },
       "visual_calls": 1,
       "error": null
     },
     {
-      "step": 3,
+      "step": 4,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "TikZ version 1 compiles, passes topology check, and the critic scored it 0.94 with checklist 1.0 and no must-repair issues. It draws the triangle ABC with base BC, the square D-E-F-G with its sides, the dashed altitude from A through M to H, and the labels A–H.",
+        "summary": "Version 2 compiles, passes topology check (A–D–B, A–E–C, B–H–C named paths, rectangle DEFG, segment BG, dashed altitude AH), and was critic-reviewed with score 0.93 and no remaining issues. All eight labels A–H are present. Right-angle square marks were not drawn because the CV detector found none and the critic did not see any.",
         "unresolved": [
-          "Point G and the stub B–G were added by the Code Agent from the CV segment and the source image; they were not in the original instruction.",
-          "The dashed altitude segment from N to M to H is treated as dashed, but the dashed/solid status of the short segment M–N was inferred from the CV output, not confirmed separately."
+          "No right-angle square marks drawn; detect_right_angle_marker verified none."
         ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=1; status=success",
+      "result_summary": "ok=True; best_version=2; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -2140,51 +3122,85 @@
       "count": null,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "initial source evidence",
+      "ok": true,
+      "count": 0,
+      "visualization": null,
+      "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "Verify right-angle square marks at H and square corners before generating TikZ.",
+      "ok": true,
+      "count": 0,
+      "visualization": null,
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 5,
-      "visual_calls": 2,
-      "prompt_tokens": 42653,
-      "completion_tokens": 7632,
-      "total_tokens": 50285,
-      "cached_tokens": 17044.0,
-      "cache_write_tokens": 25593.0,
-      "latency_s": 54.72
+      "calls": 9,
+      "visual_calls": 4,
+      "prompt_tokens": 79840,
+      "completion_tokens": 14867,
+      "total_tokens": 94707,
+      "cached_tokens": 19690.0,
+      "cache_write_tokens": 28757.0,
+      "latency_s": 86.37
     },
     "by_agent": {
+      "geometry_agent": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 11695,
+        "latency_s": 20.76
+      },
       "supervisor": {
-        "calls": 3,
+        "calls": 4,
         "visual_calls": 0,
-        "total_tokens": 28517,
-        "latency_s": 17.0
+        "total_tokens": 42170,
+        "latency_s": 20.37
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 10383,
-        "latency_s": 19.89
+        "total_tokens": 9982,
+        "latency_s": 6.92
       },
       "critic_agent": {
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 20583,
+        "latency_s": 31.07
+      },
+      "code_agent:repair": {
         "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 11385,
-        "latency_s": 17.83
+        "visual_calls": 0,
+        "total_tokens": 10277,
+        "latency_s": 7.25
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 21,
-    "tool_calls_left": 44,
-    "visual_calls_left": 22,
-    "tokens_left": 349715,
+    "steps_left": 20,
+    "tool_calls_left": 39,
+    "visual_calls_left": 20,
+    "tokens_left": 305293,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 50285
+    "total_tokens_used": 94707
   },
   "meta": {
     "topology_plan": {
@@ -2198,66 +3214,316 @@
           "C"
         ],
         [
+          "A",
+          "D"
+        ],
+        [
+          "A",
+          "H"
+        ],
+        [
           "B",
           "C"
+        ],
+        [
+          "B",
+          "D"
+        ],
+        [
+          "B",
+          "G"
+        ],
+        [
+          "B",
+          "H"
+        ],
+        [
+          "C",
+          "E"
+        ],
+        [
+          "C",
+          "H"
         ],
         [
           "D",
           "E"
         ],
         [
+          "D",
+          "G"
+        ],
+        [
+          "E",
+          "F"
+        ],
+        [
+          "F",
+          "G"
+        ]
+      ],
+      "pending": [],
+      "adjudicated": [],
+      "ink_confirmed_edges": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "C"
+        ],
+        [
+          "B",
+          "C"
+        ],
+        [
+          "B",
+          "G"
+        ],
+        [
+          "D",
+          "E"
+        ],
+        [
+          "D",
+          "G"
+        ],
+        [
           "E",
           "F"
         ]
       ],
-      "pending": [],
-      "adjudicated": [
+      "required_styles": [
         {
-          "case_id": "6ae664dc1581d5f7",
-          "edge": [
-            "B",
-            "C"
-          ],
-          "reason": "The original base is one continuous solid stroke from B to C at the bottom of the triangle."
-        },
-        {
-          "case_id": "266e82ab775cf265",
-          "edge": [
-            "A",
-            "C"
-          ],
-          "reason": "The original right side is one continuous solid stroke from apex A down to C."
-        },
-        {
-          "case_id": "0a2c766c90c44aa1",
           "edge": [
             "A",
             "B"
           ],
-          "reason": "The original left side is one continuous solid stroke from apex A down to B."
+          "style": "solid"
         },
         {
-          "case_id": "6c80d2de14c27307",
           "edge": [
-            "E",
-            "F"
+            "A",
+            "C"
           ],
-          "reason": "The original right edge of the square is a solid vertical stroke from E down to F."
+          "style": "solid"
         },
         {
-          "case_id": "9e4185840cec3824",
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
           "edge": [
             "D",
             "E"
           ],
-          "reason": "The original top edge of the square is a solid horizontal stroke from D to E."
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "E",
+            "F"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "F",
+            "G"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "G"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "G"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "H"
+          ],
+          "style": "dashed"
+        },
+        {
+          "edge": [
+            "C",
+            "H"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "H"
+          ],
+          "style": "solid"
         }
+      ],
+      "required_marks": {}
+    },
+    "reviewed_bindings": {
+      "G": {
+        "point_id": "point_09",
+        "px": [
+          315.47,
+          624.14
+        ],
+        "previous_point_id": null,
+        "reason": "Unlabelled corner at (315.5,624.1) where vertical DG (seg_07) meets horizontal GF (seg_06) and solid BG (seg_10) ends; glyph G sits up-left of this corner.",
+        "source": "geometry_agent"
+      }
+    },
+    "source_construction": {
+      "summary": "Triangle ABC (A apex, B bottom-left, C bottom-right, BC horizontal). Square-like quadrilateral DEFG with D on AB, E on AC, F bottom-right, G bottom-left interior foot on BC-parallel line; edges DE, EF, FG, GD all solid. Dashed altitude AH from A to H on BC (H is the foot, perpendicular to BC), crossing DE at point_08 and FG at point_07. Solid segment BG from B to G (G is the interior corner at point_09, labelled by the glyph left of it). No right-angle markers were visible on the square or the altitude, so no right_angle objects are submitted. Curve extent: none.",
+      "strokes": [
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "E",
+            "F"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "F",
+            "G"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "G"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "G"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "H"
+          ],
+          "style": "dashed"
+        },
+        {
+          "edge": [
+            "C",
+            "H"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "H"
+          ],
+          "style": "solid"
+        }
+      ],
+      "marks": {},
+      "feet": [
+        [
+          "A",
+          "H",
+          "B",
+          "C"
+        ]
       ]
     },
     "coordinate_contract": {
       "enabled": true,
       "schema": "cv-coordinate-contract.v1",
-      "n_points": 7,
+      "n_points": 8,
       "reference_used": false,
       "coordinates": {
         "schema": "cv-coordinate-contract.v1",
@@ -2333,6 +3599,18 @@
               -2.261
             ]
           },
+          "G": {
+            "point_id": "point_09",
+            "px": [
+              315.47,
+              624.14
+            ],
+            "reviewed": true,
+            "tikz": [
+              -1.594,
+              -2.262
+            ]
+          },
           "H": {
             "point_id": "point_03",
             "px": [
@@ -2340,8 +3618,13 @@
               681.0
             ],
             "tikz": [
-              -0.291,
-              -2.832
+              -0.289,
+              -2.833
+            ],
+            "projection": [
+              "A",
+              "B",
+              "C"
             ]
           }
         },
@@ -2360,152 +3643,152 @@
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "201718d9e57fee36af1e064437d70aacc5fe873aea03199dfbb0a73cf33dcb0b",
-      "output_sha256": "781b706c113331896fd4db560418804e1499ddd5f8f312e5324ec9cf116a6d27",
+      "input_sha256": "3d9664fc29bcd7cac21ac541603c52aa19584ef8489019bf6b34be6769e758c0",
+      "output_sha256": "ba57f84a92ad51bc3543a1967b32ccf877375df49d6803543b14c582edbe499b",
       "reason": "applied",
       "accepted": [
         {
           "type": "perpendicular",
           "segments": [
-            "A--M",
+            "A--H",
             "F--G"
           ],
-          "before_error_deg": 0.0,
-          "after_error_deg": 0.02512972624523968,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.06404475123331434
+          "before_error_deg": 1.0634976419510167e-05,
+          "after_error_deg": 3.5437452226005917e-06,
+          "solver_after_error_deg": 1.8474111129762605e-13,
+          "export_tolerance_deg": 0.042749679029445486
         },
         {
           "type": "perpendicular",
           "segments": [
-            "F--G",
-            "H--N"
+            "A--H",
+            "B--H"
           ],
-          "before_error_deg": 0.0,
-          "after_error_deg": 0.0,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.16999346461000656
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "F--G",
-            "M--N"
-          ],
-          "before_error_deg": 0.0,
-          "after_error_deg": 0.0,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.05710383276218786
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "A--M",
-            "B--C"
-          ],
-          "before_error_deg": 0.01617382582672633,
-          "after_error_deg": 0.017045095353054762,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.046962503817404744
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "B--C",
-            "H--N"
-          ],
-          "before_error_deg": 0.01617382582672633,
-          "after_error_deg": 0.008084630892170708,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.15291121719409698
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "B--C",
-            "M--N"
-          ],
-          "before_error_deg": 0.01617382582672633,
-          "after_error_deg": 0.008084630892170708,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.04002158534627827
+          "before_error_deg": 0.002568952181135842,
+          "after_error_deg": 0.002568952181135842,
+          "solver_after_error_deg": 5.826450433232822e-13,
+          "export_tolerance_deg": 0.03911066196161519
         },
         {
           "type": "parallel",
           "segments": [
-            "B--C",
+            "B--H",
             "F--G"
           ],
-          "before_error_deg": 0.01617382582673378,
-          "after_error_deg": 0.008084630892175121,
-          "solver_after_error_deg": 4.2081276153829325e-15,
-          "export_tolerance_deg": 0.03995133761988899
+          "before_error_deg": 0.002579587157571143,
+          "after_error_deg": 0.002572495926368088,
+          "solver_after_error_deg": 4.1028569067502166e-13,
+          "export_tolerance_deg": 0.05336455379351879
         },
         {
           "type": "perpendicular",
           "segments": [
-            "A--M",
-            "D--E"
+            "A--H",
+            "C--H"
           ],
-          "before_error_deg": 0.020146194497826286,
-          "after_error_deg": 0.004969354271793236,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.06404475123331434
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "D--E",
-            "H--N"
-          ],
-          "before_error_deg": 0.020146194497826286,
-          "after_error_deg": 0.020160371973432234,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.16999346461000656
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "D--E",
-            "M--N"
-          ],
-          "before_error_deg": 0.020146194497826286,
-          "after_error_deg": 0.020160371973432234,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.05710383276218786
+          "before_error_deg": 0.005174363706785812,
+          "after_error_deg": 0.005174363706785812,
+          "solver_after_error_deg": 9.663381206337363e-13,
+          "export_tolerance_deg": 0.035426271806796576
         },
         {
           "type": "parallel",
           "segments": [
-            "D--E",
+            "C--H",
             "F--G"
           ],
-          "before_error_deg": 0.02014619449783099,
-          "after_error_deg": 0.020160371973436595,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.057033585035798584
+          "before_error_deg": 0.0051849986832098,
+          "after_error_deg": 0.005177907452006744,
+          "solver_after_error_deg": 1.1540784532014868e-12,
+          "export_tolerance_deg": 0.049680163638700175
         },
         {
           "type": "perpendicular",
           "segments": [
-            "B--C",
+            "E--F",
+            "F--G"
+          ],
+          "before_error_deg": 0.020259924328513534,
+          "after_error_deg": 0.020252762991702866,
+          "solver_after_error_deg": 1.2505552149377763e-12,
+          "export_tolerance_deg": 0.05707310674981593
+        },
+        {
+          "type": "parallel",
+          "segments": [
+            "A--H",
             "E--F"
           ],
-          "before_error_deg": 0.02424647047521944,
-          "after_error_deg": 0.008084630892170708,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.04002158534627826
+          "before_error_deg": 0.020270559304940927,
+          "after_error_deg": 0.02025630673692328,
+          "solver_after_error_deg": 1.0699409601439632e-12,
+          "export_tolerance_deg": 0.042819214917912324
+        },
+        {
+          "type": "perpendicular",
+          "segments": [
+            "B--H",
+            "E--F"
+          ],
+          "before_error_deg": 0.022839511486083097,
+          "after_error_deg": 0.02282525891806131,
+          "solver_after_error_deg": 1.6484591469634324e-12,
+          "export_tolerance_deg": 0.053434089681985625
+        },
+        {
+          "type": "perpendicular",
+          "segments": [
+            "C--H",
+            "E--F"
+          ],
+          "before_error_deg": 0.025444923011718856,
+          "after_error_deg": 0.02543067044371128,
+          "solver_after_error_deg": 8.526512829121202e-14,
+          "export_tolerance_deg": 0.04974969952716701
         },
         {
           "type": "parallel",
           "segments": [
-            "B--C",
+            "C--H",
             "D--E"
           ],
-          "before_error_deg": 0.03632002032456477,
-          "after_error_deg": 0.012075741081261472,
-          "solver_after_error_deg": 4.2081276153829325e-15,
-          "export_tolerance_deg": 0.03995133761988899
+          "before_error_deg": 0.03512156778805554,
+          "after_error_deg": 0.005184998683212038,
+          "solver_after_error_deg": 2.6537476512714257e-13,
+          "export_tolerance_deg": 0.049680163638695346
+        },
+        {
+          "type": "parallel",
+          "segments": [
+            "B--H",
+            "D--E"
+          ],
+          "before_error_deg": 0.0377269793136942,
+          "after_error_deg": 0.0025795871575733805,
+          "solver_after_error_deg": 1.829742500654675e-12,
+          "export_tolerance_deg": 0.05336455379351396
+        },
+        {
+          "type": "perpendicular",
+          "segments": [
+            "A--H",
+            "D--E"
+          ],
+          "before_error_deg": 0.04029593149483901,
+          "after_error_deg": 1.0634976419510167e-05,
+          "solver_after_error_deg": 1.2363443602225743e-12,
+          "export_tolerance_deg": 0.04274967902944065
+        },
+        {
+          "type": "parallel",
+          "segments": [
+            "D--E",
+            "F--G"
+          ],
+          "before_error_deg": 0.04030656647126534,
+          "after_error_deg": 7.091231205294161e-06,
+          "solver_after_error_deg": 1.4194560991039542e-12,
+          "export_tolerance_deg": 0.05700357086134425
         },
         {
           "type": "parallel",
@@ -2513,54 +3796,10 @@
             "D--G",
             "E--F"
           ],
-          "before_error_deg": 0.04039175097542792,
-          "after_error_deg": 0.020217281981345044,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.05717408048857712
-        },
-        {
-          "type": "parallel",
-          "segments": [
-            "A--M",
-            "E--F"
-          ],
-          "before_error_deg": 0.04042029630195195,
-          "after_error_deg": 0.025129726245239462,
-          "solver_after_error_deg": 1.7373771411014267e-15,
-          "export_tolerance_deg": 0.0641149989597036
-        },
-        {
-          "type": "parallel",
-          "segments": [
-            "E--F",
-            "H--N"
-          ],
-          "before_error_deg": 0.04042029630195196,
-          "after_error_deg": 0.0,
-          "solver_after_error_deg": 8.227137602665619e-17,
-          "export_tolerance_deg": 0.17006371233639583
-        },
-        {
-          "type": "parallel",
-          "segments": [
-            "E--F",
-            "M--N"
-          ],
-          "before_error_deg": 0.04042029630195196,
-          "after_error_deg": 0.0,
-          "solver_after_error_deg": 1.11960038165026e-15,
-          "export_tolerance_deg": 0.057174080488577125
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "E--F",
-            "F--G"
-          ],
-          "before_error_deg": 0.04042029630195998,
-          "after_error_deg": 0.0,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.05710383276218785
+          "before_error_deg": 0.04036326597713414,
+          "after_error_deg": 0.020203019355056553,
+          "solver_after_error_deg": 9.735047836425282e-12,
+          "export_tolerance_deg": 0.05714264263828347
         },
         {
           "type": "perpendicular",
@@ -2569,20 +3808,9 @@
             "E--F"
           ],
           "before_error_deg": 0.060566490799786266,
-          "after_error_deg": 0.020160371973432234,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.05710383276218785
-        },
-        {
-          "type": "perpendicular",
-          "segments": [
-            "B--C",
-            "D--G"
-          ],
-          "before_error_deg": 0.06463822145063602,
-          "after_error_deg": 0.012132651089174828,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.04002158534627826
+          "after_error_deg": 0.020245671760491746,
+          "solver_after_error_deg": 1.7053025658242404e-13,
+          "export_tolerance_deg": 0.057073106749811094
         },
         {
           "type": "perpendicular",
@@ -2590,43 +3818,43 @@
             "D--G",
             "F--G"
           ],
-          "before_error_deg": 0.08081204727737656,
-          "after_error_deg": 0.020217281981345536,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.05710383276218785
+          "before_error_deg": 0.06062319030564822,
+          "after_error_deg": 4.9743636637344935e-05,
+          "solver_after_error_deg": 1.0984990694851149e-11,
+          "export_tolerance_deg": 0.057073106749816624
         },
         {
           "type": "parallel",
           "segments": [
-            "A--M",
+            "A--H",
             "D--G"
           ],
-          "before_error_deg": 0.08081204727737988,
-          "after_error_deg": 0.004912444263894418,
-          "solver_after_error_deg": 1.7373771411014267e-15,
-          "export_tolerance_deg": 0.0641149989597036
+          "before_error_deg": 0.06063382528207507,
+          "after_error_deg": 5.328738186673097e-05,
+          "solver_after_error_deg": 1.0804991562603388e-11,
+          "export_tolerance_deg": 0.042819214917913025
         },
         {
-          "type": "parallel",
+          "type": "perpendicular",
           "segments": [
-            "D--G",
-            "H--N"
+            "B--H",
+            "D--G"
           ],
-          "before_error_deg": 0.08081204727737988,
-          "after_error_deg": 0.020217281981345044,
-          "solver_after_error_deg": 8.227137602665619e-17,
-          "export_tolerance_deg": 0.17006371233639583
+          "before_error_deg": 0.06320277746321779,
+          "after_error_deg": 0.002622239563009998,
+          "solver_after_error_deg": 1.1397105481592007e-11,
+          "export_tolerance_deg": 0.05343408968198633
         },
         {
-          "type": "parallel",
+          "type": "perpendicular",
           "segments": [
-            "D--G",
-            "M--N"
+            "C--H",
+            "D--G"
           ],
-          "before_error_deg": 0.08081204727737988,
-          "after_error_deg": 0.020217281981345044,
-          "solver_after_error_deg": 1.11960038165026e-15,
-          "export_tolerance_deg": 0.057174080488577125
+          "before_error_deg": 0.06580818898886776,
+          "after_error_deg": 0.005227651088645757,
+          "solver_after_error_deg": 9.833911462919787e-12,
+          "export_tolerance_deg": 0.04974969952716772
         },
         {
           "type": "perpendicular",
@@ -2634,10 +3862,10 @@
             "D--E",
             "D--G"
           ],
-          "before_error_deg": 0.10095824177521706,
-          "after_error_deg": 5.691000791330225e-05,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.05710383276218785
+          "before_error_deg": 0.10092975677690674,
+          "after_error_deg": 4.265240544043536e-05,
+          "solver_after_error_deg": 9.563905223330949e-12,
+          "export_tolerance_deg": 0.057073106749811794
         }
       ],
       "rejected": [],
@@ -2662,26 +3890,26 @@
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
-      "input_candidates": 25,
-      "preserved_incidence_count": 5,
-      "max_shift_rel": 0.00034804865872131474,
-      "max_length_change_rel": 0.001742160278744631,
+      "input_candidates": 20,
+      "preserved_incidence_count": 0,
+      "max_shift_rel": 0.0002461075667647241,
+      "max_length_change_rel": 0.000703234793475338,
       "fixed_points": [],
       "length_weight": 0.01,
       "length_scope": "all_pairs",
       "incidence_mode": "snap",
       "topology_tol_rel": 0.003,
       "incidence_strength": 1.0,
-      "rms_shift_rel": 0.0002142504225518264,
-      "max_after_error_deg": 0.02512972624523968,
+      "rms_shift_rel": 0.00010407488601179463,
+      "max_after_error_deg": 0.02543067044371128,
       "curve_policy": "defer",
-      "candidate_count": 25,
-      "solver_max_shift_rel": 0.00034452641360477315,
+      "candidate_count": 20,
+      "solver_max_shift_rel": 0.000206459229573007,
       "coordinate_decimals": 3,
       "export_verified": true,
-      "max_export_error_deg": 0.02512972624523968,
-      "point_count": 10,
-      "segment_count": 11
+      "max_export_error_deg": 0.02543067044371128,
+      "point_count": 8,
+      "segment_count": 12
     },
     "rectification": {
       "applied": false,
@@ -2691,7 +3919,7 @@
       "1": {
         "enabled": true,
         "schema": "cv-coordinate-contract.v1",
-        "n_points": 7,
+        "n_points": 8,
         "reference_used": false,
         "coordinates": {
           "schema": "cv-coordinate-contract.v1",
@@ -2767,6 +3995,18 @@
                 -2.261
               ]
             },
+            "G": {
+              "point_id": "point_09",
+              "px": [
+                315.47,
+                624.14
+              ],
+              "reviewed": true,
+              "tikz": [
+                -1.594,
+                -2.262
+              ]
+            },
             "H": {
               "point_id": "point_03",
               "px": [
@@ -2774,8 +4014,126 @@
                 681.0
               ],
               "tikz": [
+                -0.289,
+                -2.833
+              ],
+              "projection": [
+                "A",
+                "B",
+                "C"
+              ]
+            }
+          },
+          "skipped": {},
+          "reference_used": false,
+          "coordinate_decimals": 3
+        }
+      },
+      "2": {
+        "enabled": true,
+        "schema": "cv-coordinate-contract.v1",
+        "n_points": 8,
+        "reference_used": false,
+        "coordinates": {
+          "schema": "cv-coordinate-contract.v1",
+          "scale": 0.010025,
+          "origin_px": [
+            474.5,
+            398.5
+          ],
+          "points": {
+            "A": {
+              "point_id": "point_04",
+              "px": [
+                445.51,
+                113.85
+              ],
+              "tikz": [
                 -0.291,
+                2.854
+              ]
+            },
+            "B": {
+              "point_id": "point_02",
+              "px": [
+                120.63,
+                681.15
+              ],
+              "tikz": [
+                -3.548,
+                -2.834
+              ]
+            },
+            "C": {
+              "point_id": "point_01",
+              "px": [
+                827.34,
+                681.0
+              ],
+              "tikz": [
+                3.537,
                 -2.832
+              ]
+            },
+            "D": {
+              "point_id": "point_06",
+              "px": [
+                315.09,
+                341.15
+              ],
+              "tikz": [
+                -1.598,
+                0.575
+              ]
+            },
+            "E": {
+              "point_id": "point_05",
+              "px": [
+                598.82,
+                341.27
+              ],
+              "tikz": [
+                1.246,
+                0.574
+              ]
+            },
+            "F": {
+              "point_id": "point_10",
+              "px": [
+                599.0,
+                624.0
+              ],
+              "tikz": [
+                1.248,
+                -2.261
+              ]
+            },
+            "G": {
+              "point_id": "point_09",
+              "px": [
+                315.47,
+                624.14
+              ],
+              "reviewed": true,
+              "tikz": [
+                -1.594,
+                -2.262
+              ]
+            },
+            "H": {
+              "point_id": "point_03",
+              "px": [
+                445.5,
+                681.0
+              ],
+              "tikz": [
+                -0.289,
+                -2.833
+              ],
+              "projection": [
+                "A",
+                "B",
+                "C"
               ]
             }
           },
@@ -2796,75 +4154,31 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "201718d9e57fee36af1e064437d70aacc5fe873aea03199dfbb0a73cf33dcb0b",
-        "output_sha256": "781b706c113331896fd4db560418804e1499ddd5f8f312e5324ec9cf116a6d27",
+        "input_sha256": "29213aa206d16396520ccaebff6b92cd23ffe27835713a1fff8bbc1533882a52",
+        "output_sha256": "406319da1f87ca8444a2534bc4030a0a6ef02bd464e3e0f4cf9bf7b352a76151",
         "reason": "applied",
         "accepted": [
           {
             "type": "perpendicular",
             "segments": [
-              "A--M",
+              "A--H",
               "F--G"
             ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.02512972624523968,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.06404475123331434
+            "before_error_deg": 1.0634976419510167e-05,
+            "after_error_deg": 1.417747560594762e-05,
+            "solver_after_error_deg": 8.526512829121202e-14,
+            "export_tolerance_deg": 0.04275815758485493
           },
           {
             "type": "perpendicular",
             "segments": [
-              "F--G",
-              "H--N"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.16999346461000656
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "F--G",
-              "M--N"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218786
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--M",
+              "A--H",
               "B--C"
             ],
-            "before_error_deg": 0.01617382582672633,
-            "after_error_deg": 0.017045095353054762,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.046962503817404744
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "H--N"
-            ],
-            "before_error_deg": 0.01617382582672633,
-            "after_error_deg": 0.008084630892170708,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.15291121719409698
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "M--N"
-            ],
-            "before_error_deg": 0.01617382582672633,
-            "after_error_deg": 0.008084630892170708,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.04002158534627827
+            "before_error_deg": 0.003975911170272184,
+            "after_error_deg": 0.0041111196807435135,
+            "solver_after_error_deg": 1.1368683772161603e-13,
+            "export_tolerance_deg": 0.025681415241124272
           },
           {
             "type": "parallel",
@@ -2872,54 +4186,32 @@
               "B--C",
               "F--G"
             ],
-            "before_error_deg": 0.01617382582673378,
-            "after_error_deg": 0.008084630892175121,
-            "solver_after_error_deg": 4.2081276153829325e-15,
-            "export_tolerance_deg": 0.03995133761988899
+            "before_error_deg": 0.003986546146700572,
+            "after_error_deg": 0.004096942205147953,
+            "solver_after_error_deg": 2.961654928912186e-14,
+            "export_tolerance_deg": 0.03994719875448453
           },
           {
             "type": "perpendicular",
             "segments": [
-              "A--M",
-              "D--E"
+              "E--F",
+              "F--G"
             ],
-            "before_error_deg": 0.020146194497826286,
-            "after_error_deg": 0.004969354271793236,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.06404475123331434
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "D--E",
-              "H--N"
-            ],
-            "before_error_deg": 0.020146194497826286,
-            "after_error_deg": 0.020160371973432234,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.16999346461000656
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "D--E",
-              "M--N"
-            ],
-            "before_error_deg": 0.020146194497826286,
-            "after_error_deg": 0.020160371973432234,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218786
+            "before_error_deg": 0.020259924328513534,
+            "after_error_deg": 4.977869210165409e-05,
+            "solver_after_error_deg": 1.2789769243681803e-13,
+            "export_tolerance_deg": 0.057090354605773
           },
           {
             "type": "parallel",
             "segments": [
-              "D--E",
-              "F--G"
+              "A--H",
+              "E--F"
             ],
-            "before_error_deg": 0.02014619449783099,
-            "after_error_deg": 0.020160371973436595,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.057033585035798584
+            "before_error_deg": 0.020270559304940927,
+            "after_error_deg": 6.395616771014424e-05,
+            "solver_after_error_deg": 3.2859507116209554e-14,
+            "export_tolerance_deg": 0.04282457109241275
           },
           {
             "type": "perpendicular",
@@ -2928,9 +4220,9 @@
               "E--F"
             ],
             "before_error_deg": 0.02424647047521944,
-            "after_error_deg": 0.008084630892170708,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.04002158534627826
+            "after_error_deg": 0.004047163513035912,
+            "solver_after_error_deg": 1.5631940186722204e-13,
+            "export_tolerance_deg": 0.04001361226204234
           },
           {
             "type": "parallel",
@@ -2939,9 +4231,31 @@
               "D--E"
             ],
             "before_error_deg": 0.03632002032456477,
-            "after_error_deg": 0.012075741081261472,
-            "solver_after_error_deg": 4.2081276153829325e-15,
-            "export_tolerance_deg": 0.03995133761988899
+            "after_error_deg": 0.004096942205145715,
+            "solver_after_error_deg": 1.3513818466022418e-12,
+            "export_tolerance_deg": 0.03994719875448144
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "D--E"
+            ],
+            "before_error_deg": 0.04029593149483901,
+            "after_error_deg": 1.417747560594762e-05,
+            "solver_after_error_deg": 1.4779288903810084e-12,
+            "export_tolerance_deg": 0.042758157584851846
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "D--E",
+              "F--G"
+            ],
+            "before_error_deg": 0.04030656647126534,
+            "after_error_deg": 2.236552550045075e-15,
+            "solver_after_error_deg": 1.38100111108282e-12,
+            "export_tolerance_deg": 0.0570239410982121
           },
           {
             "type": "parallel",
@@ -2949,54 +4263,10 @@
               "D--G",
               "E--F"
             ],
-            "before_error_deg": 0.04039175097542792,
-            "after_error_deg": 0.020217281981345044,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05717408048857712
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--M",
-              "E--F"
-            ],
-            "before_error_deg": 0.04042029630195195,
-            "after_error_deg": 0.025129726245239462,
-            "solver_after_error_deg": 1.7373771411014267e-15,
-            "export_tolerance_deg": 0.0641149989597036
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "E--F",
-              "H--N"
-            ],
-            "before_error_deg": 0.04042029630195196,
+            "before_error_deg": 0.04036326597713414,
             "after_error_deg": 0.0,
-            "solver_after_error_deg": 8.227137602665619e-17,
-            "export_tolerance_deg": 0.17006371233639583
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "E--F",
-              "M--N"
-            ],
-            "before_error_deg": 0.04042029630195196,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 1.11960038165026e-15,
-            "export_tolerance_deg": 0.057174080488577125
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "E--F",
-              "F--G"
-            ],
-            "before_error_deg": 0.04042029630195998,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218785
+            "solver_after_error_deg": 6.214090377209443e-12,
+            "export_tolerance_deg": 0.05715676811333013
           },
           {
             "type": "perpendicular",
@@ -3005,20 +4275,9 @@
               "E--F"
             ],
             "before_error_deg": 0.060566490799786266,
-            "after_error_deg": 0.020160371973432234,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218785
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "D--G"
-            ],
-            "before_error_deg": 0.06463822145063602,
-            "after_error_deg": 0.012132651089174828,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.04002158534627826
+            "after_error_deg": 4.977869210165409e-05,
+            "solver_after_error_deg": 1.5063505998114124e-12,
+            "export_tolerance_deg": 0.057090354605769916
           },
           {
             "type": "perpendicular",
@@ -3026,43 +4285,32 @@
               "D--G",
               "F--G"
             ],
-            "before_error_deg": 0.08081204727737656,
-            "after_error_deg": 0.020217281981345536,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218785
+            "before_error_deg": 0.06062319030564822,
+            "after_error_deg": 4.977869210165409e-05,
+            "solver_after_error_deg": 6.338041202980094e-12,
+            "export_tolerance_deg": 0.05709035460577232
           },
           {
             "type": "parallel",
             "segments": [
-              "A--M",
+              "A--H",
               "D--G"
             ],
-            "before_error_deg": 0.08081204727737988,
-            "after_error_deg": 0.004912444263894418,
-            "solver_after_error_deg": 1.7373771411014267e-15,
-            "export_tolerance_deg": 0.0641149989597036
+            "before_error_deg": 0.06063382528207507,
+            "after_error_deg": 6.395616771014424e-05,
+            "solver_after_error_deg": 6.2469519299581675e-12,
+            "export_tolerance_deg": 0.04282457109241206
           },
           {
-            "type": "parallel",
+            "type": "perpendicular",
             "segments": [
-              "D--G",
-              "H--N"
+              "B--C",
+              "D--G"
             ],
-            "before_error_deg": 0.08081204727737988,
-            "after_error_deg": 0.020217281981345044,
-            "solver_after_error_deg": 8.227137602665619e-17,
-            "export_tolerance_deg": 0.17006371233639583
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "D--G",
-              "M--N"
-            ],
-            "before_error_deg": 0.08081204727737988,
-            "after_error_deg": 0.020217281981345044,
-            "solver_after_error_deg": 1.11960038165026e-15,
-            "export_tolerance_deg": 0.057174080488577125
+            "before_error_deg": 0.06460973645235413,
+            "after_error_deg": 0.004047163513035912,
+            "solver_after_error_deg": 6.366462912410498e-12,
+            "export_tolerance_deg": 0.040013612262041656
           },
           {
             "type": "perpendicular",
@@ -3070,10 +4318,10 @@
               "D--E",
               "D--G"
             ],
-            "before_error_deg": 0.10095824177521706,
-            "after_error_deg": 5.691000791330225e-05,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05710383276218785
+            "before_error_deg": 0.10092975677690674,
+            "after_error_deg": 4.977869210165409e-05,
+            "solver_after_error_deg": 7.716494110354688e-12,
+            "export_tolerance_deg": 0.05709035460576922
           }
         ],
         "rejected": [],
@@ -3098,67 +4346,308 @@
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 25,
-        "preserved_incidence_count": 5,
-        "max_shift_rel": 0.00034804865872131474,
-        "max_length_change_rel": 0.001742160278744631,
+        "input_candidates": 15,
+        "preserved_incidence_count": 3,
+        "max_shift_rel": 0.00024610756676472957,
+        "max_length_change_rel": 0.0009427163277027084,
         "fixed_points": [],
         "length_weight": 0.01,
         "length_scope": "all_pairs",
         "incidence_mode": "snap",
         "topology_tol_rel": 0.003,
         "incidence_strength": 1.0,
-        "rms_shift_rel": 0.0002142504225518264,
-        "max_after_error_deg": 0.02512972624523968,
+        "rms_shift_rel": 0.00015131596821342833,
+        "max_after_error_deg": 0.0041111196807435135,
         "curve_policy": "defer",
-        "candidate_count": 25,
-        "solver_max_shift_rel": 0.00034452641360477315,
+        "candidate_count": 15,
+        "solver_max_shift_rel": 0.00023859403640893485,
         "coordinate_decimals": 3,
         "export_verified": true,
-        "max_export_error_deg": 0.02512972624523968,
-        "point_count": 10,
-        "segment_count": 11
-      }
-    },
-    "topology_decisions": {
-      "6ae664dc1581d5f7": {
-        "edge": [
-          "B",
-          "C"
-        ],
-        "reason": "The original base is one continuous solid stroke from B to C at the bottom of the triangle."
+        "max_export_error_deg": 0.0041111196807435135,
+        "point_count": 8,
+        "segment_count": 9
       },
-      "266e82ab775cf265": {
-        "edge": [
-          "A",
-          "C"
+      "2": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "3d9664fc29bcd7cac21ac541603c52aa19584ef8489019bf6b34be6769e758c0",
+        "output_sha256": "ba57f84a92ad51bc3543a1967b32ccf877375df49d6803543b14c582edbe499b",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "F--G"
+            ],
+            "before_error_deg": 1.0634976419510167e-05,
+            "after_error_deg": 3.5437452226005917e-06,
+            "solver_after_error_deg": 1.8474111129762605e-13,
+            "export_tolerance_deg": 0.042749679029445486
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "B--H"
+            ],
+            "before_error_deg": 0.002568952181135842,
+            "after_error_deg": 0.002568952181135842,
+            "solver_after_error_deg": 5.826450433232822e-13,
+            "export_tolerance_deg": 0.03911066196161519
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--H",
+              "F--G"
+            ],
+            "before_error_deg": 0.002579587157571143,
+            "after_error_deg": 0.002572495926368088,
+            "solver_after_error_deg": 4.1028569067502166e-13,
+            "export_tolerance_deg": 0.05336455379351879
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "C--H"
+            ],
+            "before_error_deg": 0.005174363706785812,
+            "after_error_deg": 0.005174363706785812,
+            "solver_after_error_deg": 9.663381206337363e-13,
+            "export_tolerance_deg": 0.035426271806796576
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "C--H",
+              "F--G"
+            ],
+            "before_error_deg": 0.0051849986832098,
+            "after_error_deg": 0.005177907452006744,
+            "solver_after_error_deg": 1.1540784532014868e-12,
+            "export_tolerance_deg": 0.049680163638700175
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "E--F",
+              "F--G"
+            ],
+            "before_error_deg": 0.020259924328513534,
+            "after_error_deg": 0.020252762991702866,
+            "solver_after_error_deg": 1.2505552149377763e-12,
+            "export_tolerance_deg": 0.05707310674981593
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--H",
+              "E--F"
+            ],
+            "before_error_deg": 0.020270559304940927,
+            "after_error_deg": 0.02025630673692328,
+            "solver_after_error_deg": 1.0699409601439632e-12,
+            "export_tolerance_deg": 0.042819214917912324
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--H",
+              "E--F"
+            ],
+            "before_error_deg": 0.022839511486083097,
+            "after_error_deg": 0.02282525891806131,
+            "solver_after_error_deg": 1.6484591469634324e-12,
+            "export_tolerance_deg": 0.053434089681985625
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "C--H",
+              "E--F"
+            ],
+            "before_error_deg": 0.025444923011718856,
+            "after_error_deg": 0.02543067044371128,
+            "solver_after_error_deg": 8.526512829121202e-14,
+            "export_tolerance_deg": 0.04974969952716701
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "C--H",
+              "D--E"
+            ],
+            "before_error_deg": 0.03512156778805554,
+            "after_error_deg": 0.005184998683212038,
+            "solver_after_error_deg": 2.6537476512714257e-13,
+            "export_tolerance_deg": 0.049680163638695346
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--H",
+              "D--E"
+            ],
+            "before_error_deg": 0.0377269793136942,
+            "after_error_deg": 0.0025795871575733805,
+            "solver_after_error_deg": 1.829742500654675e-12,
+            "export_tolerance_deg": 0.05336455379351396
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--H",
+              "D--E"
+            ],
+            "before_error_deg": 0.04029593149483901,
+            "after_error_deg": 1.0634976419510167e-05,
+            "solver_after_error_deg": 1.2363443602225743e-12,
+            "export_tolerance_deg": 0.04274967902944065
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "D--E",
+              "F--G"
+            ],
+            "before_error_deg": 0.04030656647126534,
+            "after_error_deg": 7.091231205294161e-06,
+            "solver_after_error_deg": 1.4194560991039542e-12,
+            "export_tolerance_deg": 0.05700357086134425
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "D--G",
+              "E--F"
+            ],
+            "before_error_deg": 0.04036326597713414,
+            "after_error_deg": 0.020203019355056553,
+            "solver_after_error_deg": 9.735047836425282e-12,
+            "export_tolerance_deg": 0.05714264263828347
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "D--E",
+              "E--F"
+            ],
+            "before_error_deg": 0.060566490799786266,
+            "after_error_deg": 0.020245671760491746,
+            "solver_after_error_deg": 1.7053025658242404e-13,
+            "export_tolerance_deg": 0.057073106749811094
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "D--G",
+              "F--G"
+            ],
+            "before_error_deg": 0.06062319030564822,
+            "after_error_deg": 4.9743636637344935e-05,
+            "solver_after_error_deg": 1.0984990694851149e-11,
+            "export_tolerance_deg": 0.057073106749816624
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--H",
+              "D--G"
+            ],
+            "before_error_deg": 0.06063382528207507,
+            "after_error_deg": 5.328738186673097e-05,
+            "solver_after_error_deg": 1.0804991562603388e-11,
+            "export_tolerance_deg": 0.042819214917913025
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--H",
+              "D--G"
+            ],
+            "before_error_deg": 0.06320277746321779,
+            "after_error_deg": 0.002622239563009998,
+            "solver_after_error_deg": 1.1397105481592007e-11,
+            "export_tolerance_deg": 0.05343408968198633
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "C--H",
+              "D--G"
+            ],
+            "before_error_deg": 0.06580818898886776,
+            "after_error_deg": 0.005227651088645757,
+            "solver_after_error_deg": 9.833911462919787e-12,
+            "export_tolerance_deg": 0.04974969952716772
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "D--E",
+              "D--G"
+            ],
+            "before_error_deg": 0.10092975677690674,
+            "after_error_deg": 4.265240544043536e-05,
+            "solver_after_error_deg": 9.563905223330949e-12,
+            "export_tolerance_deg": 0.057073106749811794
+          }
         ],
-        "reason": "The original right side is one continuous solid stroke from apex A down to C."
-      },
-      "0a2c766c90c44aa1": {
-        "edge": [
-          "A",
-          "B"
-        ],
-        "reason": "The original left side is one continuous solid stroke from apex A down to B."
-      },
-      "6c80d2de14c27307": {
-        "edge": [
-          "E",
-          "F"
-        ],
-        "reason": "The original right edge of the square is a solid vertical stroke from E down to F."
-      },
-      "9e4185840cec3824": {
-        "edge": [
-          "D",
-          "E"
-        ],
-        "reason": "The original top edge of the square is a solid horizontal stroke from D to E."
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
+          ],
+          "relaxation": 1.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "input_candidates": 20,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.0002461075667647241,
+        "max_length_change_rel": 0.000703234793475338,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00010407488601179463,
+        "max_after_error_deg": 0.02543067044371128,
+        "curve_policy": "defer",
+        "candidate_count": 20,
+        "solver_max_shift_rel": 0.000206459229573007,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.02543067044371128,
+        "point_count": 8,
+        "segment_count": 12
       }
     },
     "finish": {
-      "summary": "TikZ version 1 compiles, passes topology check, and the critic scored it 0.94 with checklist 1.0 and no must-repair issues. It draws the triangle ABC with base BC, the square D-E-F-G with its sides, the dashed altitude from A through M to H, and the labels A–H.",
+      "summary": "Version 2 compiles, passes topology check (A–D–B, A–E–C, B–H–C named paths, rectangle DEFG, segment BG, dashed altitude AH), and was critic-reviewed with score 0.93 and no remaining issues. All eight labels A–H are present. Right-angle square marks were not drawn because the CV detector found none and the critic did not see any.",
       "status": "success"
     },
     "stop_reason": "finish"

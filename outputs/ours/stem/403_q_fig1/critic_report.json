@@ -1,127 +1,166 @@
 {
-  "assessment_score": 0.86,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Faithful overall: same triangle/quadrilateral topology, dashed E-C and D-E segments, overhang above E, and right-angle mark at A. The main discrepancy is D sitting about 51% of the way from E to A instead of about 42%.",
+  "verdict": "The render is faithful: the triangle ABC with D on AB, the dashed E-D-C construction, the right angle at A and all five labels match the original.",
   "figure_type": {
-    "original": "Right-angled quadrilateral-like figure with vertical line A-E, horizontal base A-B, apex C, point D on AE, dashed auxiliary lines E-C and D-E, right-angle mark at A",
-    "render": "Same figure type: vertical AE line with dashed D-E section, dashed E-C horizontal, base AB, apex C, right-angle mark at A"
+    "original": "Quadrilateral-like figure ABCD with dashed construction to E on the extension of AD, right angle at A, and a dashed tail above E",
+    "render": "Same figure: A-B-C-D outline, dashed D-E and E-C, right angle at A, extension of AD below A and dashed tail above E"
   },
   "issues": [
     {
       "type": "wrong_position",
-      "severity": "medium",
+      "severity": "low",
       "object_ids": [
-        "point_13"
+        "seg_03"
       ],
       "bbox": [
+        0.05,
+        0.05,
         0.12,
-        0.45,
-        0.22,
-        0.56
+        0.15
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "D is too low on the AE line. In the original it lies about 42% of the way from E down to A (around y≈205 px in the original, with E≈66 and A≈341). In the render, D is at about 51% (TikZ y≈-0.010 against E y≈3.106 and A y≈-3.037), so the D-E dashed section is too long and the D-C and A-D solid segments are shifted.",
-      "suggestion": "Move D to about 42% of E-to-A. With E=(-3.276,3.106) and A=(-3.280,-3.037), set \\coordinate (D) at (-3.278,0.526). Keep the x-coordinate as is."
+      "description": "The dashed tail above E reaches slightly lower in the render than in the original, where it extends almost to the top of the panel.",
+      "suggestion": "Optionally lengthen the Etop point, e.g. Etop at about (-3.274, 3.95), to match the original's upward extension."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal from C down-left to D is drawn and matches the original."
+      "note": "Solid C-B side, drawn in the render."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Vertical solid A-D section is present; its upper end is the D position that is slightly off."
+      "note": "Solid A-B base, drawn in the render."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Dashed horizontal E-C is present and correctly joins E to C."
+      "note": "Dashed vertical E-D line with the tail above E; the tail is slightly shorter (low issue)."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid segment of CB near C is present."
+      "note": "Solid A-D segment on the vertical line through A."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Solid CD diagonal is present; its lower end is slightly off because D is low."
+      "note": "Solid D-C side."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Same dashed E-C horizontal as seg_03."
+      "note": "Dashed horizontal E-C line, matching the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Top edge of right-angle mark at A is present."
+      "note": "Right-angle arm along AB at A."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Right edge of right-angle mark at A is present."
+      "note": "Right-angle arm along AD at A."
     },
     {
-      "object_id": "seg_CD_arm",
+      "object_id": "seg_AB",
       "status": "present",
-      "note": "Segment CD is drawn from C to D and matches the original, apart from D's vertical position."
+      "note": "Solid A-B side is drawn."
     },
     {
-      "object_id": "seg_dashed_vert",
+      "object_id": "seg_AD",
       "status": "present",
-      "note": "Dashed vertical D-E is present with a short overhang above E, as in the original."
+      "note": "Solid A-D side is drawn."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Solid C-B side is drawn."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Solid C-D side is drawn."
+    },
+    {
+      "object_id": "seg_DE",
+      "status": "present",
+      "note": "Dashed D-E segment is drawn."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "Dashed E-C segment is drawn."
+    },
+    {
+      "object_id": "ra_A",
+      "status": "present",
+      "note": "Right-angle square at A sits in the same quadrant (above-right of A) as in the original."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Same right-angle mark at A, in the correct quadrant."
+    },
+    {
+      "object_id": "junction_seg_03_seg_05",
+      "status": "present",
+      "note": "D is the junction of the vertical line and the D-C side; label D is left of it, as in the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B is correctly bound and placed at the right end of the base."
+      "note": "B label sits at the lower right of B."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label C is correctly bound at the apex."
+      "note": "C label sits above C."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label A is correctly bound at the bottom of the vertical line."
+      "note": "A label sits at the lower left of A."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label E is correctly bound at the left end of the dashed horizontal."
+      "note": "E label sits above-left of E, clear of the strokes."
     },
     {
-      "object_id": "point_13",
-      "status": "wrong",
-      "note": "D is at about 51% of E-to-A in the render, versus about 42% in the original."
+      "object_id": "point_A",
+      "status": "present",
+      "note": "A label is present."
     },
     {
-      "object_id": "point_D_refined",
-      "status": "unclear",
-      "note": "No separate refined D point appears in the source point list or the CV evidence; point_13 is the only D point."
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B label is present."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "C label is present."
     }
   ],
-  "checklist_score": 0.967,
+  "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
-    "medium": 1,
-    "low": 0
+    "medium": 0,
+    "low": 1
   },
   "flaky_count": 0,
-  "must_repair": true,
+  "must_repair": false,
   "matches": [
-    "Dashed E-C horizontal matches the original and is correctly bound to E and C.",
-    "Dashed D-E section and short overhang above E are present, as in the original.",
-    "Solid A-D base of the vertical line and the solid base A-B are present.",
-    "Right-angle mark at A sits between AB and AD, as in the original.",
-    "Labels A, B, C, D, E are present, correctly spelled and clear of strokes.",
-    "Dashed styling matches the original: dash pattern and solid/dashed split are correct."
+    "Triangle-like outline A-B-C-D with the same vertex positions relative to the frame.",
+    "Right-angle square at A in the correct quadrant, on both arms.",
+    "Dashed D-E and E-C construction lines with E at the upper left.",
+    "Labels A, B, C, D and E are present, correctly spelled and bound to their vertices.",
+    "Extension of AD below A is present."
   ],
   "labels": {
     "present": [
@@ -134,16 +173,16 @@
     "missing": [],
     "extra": []
   },
-  "version": 4,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [
     {
-      "case_id": "83fb3bbc9fea6d4a",
+      "case_id": "e8aa53d39e813ccf",
       "edge": [
         "C",
         "E"
       ],
-      "reason": "In the original, the dashed horizontal runs from E at the left to C at the apex, so the endpoints are C and E."
+      "reason": "In the original, the dashed horizontal stroke runs from E at the left to C at the top, so C-E is joined."
     }
   ],
   "raw_meta": "{}"

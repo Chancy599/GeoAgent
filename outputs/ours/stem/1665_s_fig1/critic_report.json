@@ -1,85 +1,135 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the figure faithfully: circle through A, B, D, the chord and segment topology, dashed/solid styles, and all five labels match the original.",
+  "verdict": "The render is faithful in geometry, topology, labels and point positions; the only discrepancy is the heavier stroke on segment CB in the original.",
   "figure_type": {
-    "original": "Circle with centre O; chords A-B, A-C, A-D and collinear diameter-segment C-B through O with D-C dashed on the same baseline",
-    "render": "Circle with centre O; chords A-B, A-C, A-D and collinear segment C-B through O with D-C dashed on the same baseline"
+    "original": "Circle with centre O, diameter DB, chord AB, and segments AC, AD (dashed) and DC (dashed) with C on the diameter",
+    "render": "Circle with centre O, diameter DB, chord AB, and segments AC, AD (dashed) and DC (dashed) with C on the diameter"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "point_05"
+        "seg_CB"
       ],
       "bbox": [
+        0.28,
         0.48,
-        0.48,
-        0.52,
-        0.54
+        0.9,
+        0.52
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The centre dot at O is visibly smaller in the render than in the original, where it reads as a solid dot about twice the diameter.",
-      "suggestion": "Increase the fill radius for O (for example from 0.030 to about 0.05 in the TikZ source) so the centre mark matches the original."
+      "description": "In the original, the solid stroke from C to B along the diameter is drawn noticeably heavier than the other solid strokes (AB, AC). In the render, CB has the same uniform 1.2pt weight as the other solid lines, so it looks lighter than the original.",
+      "suggestion": "Optionally draw (C) -- (B) with a heavier line width (for example, a thicker \\draw option on that single segment) to match the original's emphasis. Geometry should not change."
     }
   ],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Circle through A, B, D with centre O matches the original in position and radius."
+      "note": "Circle centred at O through A, B and D matches the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid chord A-B runs from A to B in both panels."
+      "note": "Solid chord AB matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid segment C-B runs along the baseline from C to B through O, as in the original."
+      "note": "Diameter line D to B is present: dashed from D to C, solid from C to B, as in the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Dashed chord A-D matches the original in endpoints and dash style."
+      "note": "Dashed AD matches the original from A to D."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid chord A-C ends at C in both panels."
+      "note": "Solid AC matches the original and ends at C on the diameter."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed segment D-C lies on the baseline from D to C in both panels."
+      "note": "Dashed DC matches the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Solid chord from A to B is correct."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Solid segment from A to C is correct."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Dashed segment from A to D is correct."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Segment C to B is correctly placed; the original stroke is heavier (see issue)."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Dashed segment from D to C is correct."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B is labelled at the right circle intersection in both panels."
+      "note": "Point B is at the right end of the diameter, labelled B."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "A is labelled at the top circle point in both panels."
+      "note": "Point A is on the circle at the top-left, labelled A."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "C is labelled below the baseline in both panels."
+      "note": "Point C is on the diameter, labelled C."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "D is labelled left of the circle point in both panels."
+      "note": "Point D is on the left of the circle, labelled D."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "O is present with a centre dot; the dot is smaller in the render (see low-severity issue)."
+      "note": "Point O is the centre, labelled O."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Point A matches the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Point B matches the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Point C matches the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Point D matches the original."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Point O matches the original; the centre dot is present."
     }
   ],
   "checklist_score": 1.0,
@@ -91,14 +141,15 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle centre and radius match the original.",
-    "Chord A-B is solid and ends at A and B.",
-    "Solid segment C-B runs from C through O to B.",
-    "Dashed chord A-D ends at D on the circle.",
-    "Dashed segment D-C lies on the baseline and ends at C.",
-    "Solid chord A-C ends at C.",
-    "No extra or stray strokes appear in the render.",
-    "Labels A, B, C, D and O are present, correctly spelled and bound to their vertices, with clear separation from strokes."
+    "Circle is centred at O and passes through A, B and D.",
+    "Chord AB runs from A on the circle to B at the right end of the diameter.",
+    "Segment AC is solid and ends on the diameter at C.",
+    "Segment AD is dashed from A to D on the circle.",
+    "Segment DC is dashed along the diameter from D to C.",
+    "Segment CB is solid along the diameter from C to B.",
+    "Labels A, B, C, D and O are present, correctly spelled and placed next to their vertices.",
+    "No right-angle marker is present in either panel, so none is missing.",
+    "Aspect ratio and overall scale are consistent."
   ],
   "labels": {
     "present": [
@@ -111,41 +162,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "de4e391f9097c4bc",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "The original shows a single solid stroke joining A and B."
-    },
-    {
-      "case_id": "fed60c9bd670051a",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "The original shows a continuous solid stroke from C along the baseline to B."
-    },
-    {
-      "case_id": "b04b6d3beb69b37d",
-      "edge": [
-        "A",
-        "D"
-      ],
-      "reason": "The original shows a dashed stroke from A down to D."
-    },
-    {
-      "case_id": "f7c29b32f510050c",
-      "edge": [
-        "A",
-        "C"
-      ],
-      "reason": "The original shows a solid stroke from A down to C, ending at C."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

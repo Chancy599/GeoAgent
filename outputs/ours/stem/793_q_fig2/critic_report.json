@@ -1,62 +1,112 @@
 {
-  "assessment_score": 0.94,
+  "assessment_score": 0.95,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render faithfully reproduces the quadrilateral ABCD with all six edges, the same crossing diagonals, and the four vertex labels in matching positions.",
+  "verdict": "Render is faithful: all six segments, the crossing of AD and BC, the vertex positions, and the four labels match the original.",
   "figure_type": {
-    "original": "Quadrilateral ABCD with all six segments drawn (sides AB, AC, BD, DC plus diagonals AD and BC), no arcs",
-    "render": "Quadrilateral ABCD with all six segments drawn, no arcs"
+    "original": "Quadrilateral-like figure with straight segments only: A top-left, C top-right, B bottom-left, D on the bottom edge right of centre; sides AC, AB, BD, DC and diagonals AD and BC crossing near the centre.",
+    "render": "Same figure: straight segments AC, AB, BD, DC, AD, BC with matching vertex layout and crossing point."
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal B-C runs from B to C in both panels, with matching endpoints and crossing position."
+      "note": "Diagonal from C to B (BC) is drawn in the render at the same place as the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge A-C is drawn between the same two vertices in both panels."
+      "note": "Top edge AC is drawn in the render, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Diagonal A-D runs from A to D and crosses B-C at the same interior point."
+      "note": "Diagonal from A to D is drawn in the render, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Edge D-C runs from D up to C in both panels."
+      "note": "Segment from D to C is drawn in the render, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Bottom edge B-D is drawn between the same two vertices in both panels."
+      "note": "Bottom edge BD is drawn in the render, matching the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Left edge A-B is vertical and connects the same two vertices in both panels."
+      "note": "Left edge AB is drawn in the render, matching the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Left edge from A down to B is correct in the render."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Top edge from A to C is correct in the render."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Diagonal from A to D is correct in the render."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Diagonal from B to C is correct in the render."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Bottom edge from B to D is correct in the render."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Segment from D to C is correct in the render."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label C sits to the upper right of vertex C, clear of strokes, as in the original."
+      "note": "Label C sits at the top-right vertex in both panels."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label B sits below-left of vertex B, clear of strokes, as in the original."
+      "note": "Label B sits at the bottom-left vertex in both panels."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label A sits above-left of vertex A, clear of strokes, as in the original."
+      "note": "Label A sits at the top-left vertex in both panels."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label D sits below-right of vertex D, clear of strokes, as in the original."
+      "note": "Label D sits at the bottom vertex in both panels."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is correctly placed and labelled."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is correctly placed and labelled."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is correctly placed and labelled."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is correctly placed and labelled."
     }
   ],
   "checklist_score": 1.0,
@@ -68,12 +118,10 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "All six edges AB, AC, BD, DC, AD, BC are present with correct endpoints.",
-    "Vertex A is top-left, C top-right, B bottom-left, D bottom-right-of-centre, matching the original layout.",
-    "The diagonals AD and BC cross at the same interior point with no extra marks near the crossing.",
-    "Labels A, B, C, D are present, correctly spelled, and bound to their vertices with clear separation from strokes.",
-    "Stroke weight and overall aspect ratio are visually consistent with the original.",
-    "Endpoint case seg_01 (B-C) and seg_05 (B-D) match the original connections."
+    "Top edge AC, left edge AB, bottom edge BD, and segments DC, AD, BC all match the original's endpoints.",
+    "Relative vertex positions match: D sits at about 60% of the width in both panels, and the aspect ratio is the same.",
+    "All four labels A, B, C, D are present, correctly spelled, and bound to their vertices with clear clearance.",
+    "The crossing of AD and BC sits near the centre in both panels; no spurious dot or extra stroke is drawn."
   ],
   "labels": {
     "present": [
@@ -87,23 +135,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "82de6c113e1a21d3",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "In the original, the long diagonal starts at B (bottom-left) and ends at C (top-right) with no break or extension."
-    },
-    {
-      "case_id": "b4bf3ceb9b0a5a38",
-      "edge": [
-        "B",
-        "D"
-      ],
-      "reason": "In the original, the bottom horizontal stroke joins B and D and ends at D without overhang."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

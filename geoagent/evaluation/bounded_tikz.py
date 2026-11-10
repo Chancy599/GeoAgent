@@ -63,18 +63,24 @@ def _balanced(s, start, opening="(", closing=")"):
 
 def _number(s, env):
     # TikZ trigonometry uses degrees, as does the existing bounded GT parser.
+    s = s.strip()
+    if s.startswith('{') and _balanced(s, 0, '{', '}')[1] == len(s):
+        s = s[1:-1]
     for _ in range(8):
         old = s
         for name, value in env.items():
             s = re.sub(r"\\" + re.escape(name) + r"\b", lambda m: "(" + str(value) + ")", s)
         if old == s:
             break
-    for m in list(re.finditer(r"atan2\(([^()]*)\)", s)):
-        args = cv._split_top(m[1])
+    while m := re.search(r"atan2\(", s):
+        inside, end = _balanced(s, m.end()-1)
+        args = cv._split_top(inside)
         if len(args) == 2:
             y, x = (cv._eval_expr(v, {}) for v in args)
             if y is not None and x is not None:
-                s = s.replace(m[0], str(math.degrees(math.atan2(y, x))))
+                s = s[:m.start()]+str(math.degrees(math.atan2(y, x)))+s[end:]
+                continue
+        return None
     while m := re.search(r"veclen\(", s):
         inside, end = _balanced(s, m.end()-1)
         args = cv._split_top(inside)
@@ -98,6 +104,11 @@ def _point(token, points, env):
         token = token[1:-1].strip()
     if token.startswith("$") and token.endswith("$"):
         token = token[1:-1].strip()
+    if token.startswith('['):
+        options, end = _balanced(token, 0, '[', ']')
+        p = _point(token[end:], points, env)
+        if p is not None:
+            return _apply(_matrix(options, points, env), p)
     cartesian = cv._split_top(token, ',')
     if len(cartesian) == 2:
         xy = [_number(value, env) for value in cartesian]
@@ -361,6 +372,15 @@ def _resolve_named_paths(text, points, env):
             if center is not None and radius is not None:
                 paths[name[1]] = ("circle", center, radius)
             continue
+        arc = re.fullmatch(r"\s*(\([^;]*?\))\s*arc\s*\(([^:]+):([^:]+):([^:)]+)\)\s*", body, re.S)
+        if arc:
+            start = _point(arc[1], points, env)
+            first, last, radius = (_number(v, env) for v in arc.groups()[1:])
+            if start is not None and None not in (first, last, radius) and radius > 0:
+                theta = math.radians(first)
+                center = start - radius*np.array([math.cos(theta), math.sin(theta)])
+                paths[name[1]] = ('arc', center, radius, first, last)
+            continue
         ends = cv._split_dashes(body)
         if len(ends) == 2:
             a, b = (_point(t, points, env) for t in ends)
@@ -372,7 +392,16 @@ def _resolve_named_paths(text, points, env):
         if a not in paths or b not in paths or (sort_by and sort_by not in (a, b)):
             continue
         ga, gb = paths[a], paths[b]
-        if ga[0] == gb[0] == "line":
+        if {ga[0], gb[0]} == {'line', 'arc'}:
+            line, arc = (ga, gb) if ga[0] == 'line' else (gb, ga)
+            start, end = line[1:]
+            center, radius, first, last = arc[1:]
+            solutions = [p for p in cv._isect_line_circle(start, end, center, radius)
+                         if float((np.asarray(p)-start) @ (np.asarray(p)-end)) <= 1e-9
+                         and _arc_progress(p, arc) <= abs(last-first)+1e-7]
+        elif 'arc' in (ga[0], gb[0]):
+            continue
+        elif ga[0] == gb[0] == "line":
             solutions = cv._isect_lines(ga[1], ga[2], gb[1], gb[2])
         elif ga[0] == gb[0] == "circle":
             solutions = cv._isect_circles(ga[1], ga[2], gb[1], gb[2])
@@ -381,12 +410,21 @@ def _resolve_named_paths(text, points, env):
         else:
             solutions = cv._isect_line_circle(gb[1], gb[2], ga[1], ga[2])
         order = paths[sort_by] if sort_by else ga
-        if order[0] == "circle":
+        if order[0] == 'arc':
+            solutions.sort(key=lambda p: _arc_progress(p, order))
+        elif order[0] == "circle":
             solutions.sort(key=lambda p: math.atan2(p[1] - order[1][1], p[0] - order[1][0]) % (2 * math.pi))
         else:
             solutions.sort(key=lambda p: float((np.asarray(p) - order[1]) @ (order[2] - order[1])))
         for name, value in zip((n.strip() for n in (group or single).split(",")), solutions):
             points[name] = np.asarray(value, float)
+
+
+def _arc_progress(point, arc):
+    _, center, _, first, last = arc
+    x, y = np.asarray(point) - center
+    delta = math.degrees(math.atan2(y, x)) - first
+    return (math.copysign(1., last-first)*delta+1e-8) % 360
 
 
 def canonical_label(text):
@@ -459,9 +497,11 @@ def capture_curve(result, body, points, env, matrix):
     token, end = _balanced(body, first)
     local = {k: _apply(np.linalg.inv(matrix), v) for k, v in points.items()}
     center = _point(token, local, env)
-    circle = re.search(r'\bcircle\s*\(([^)]*)\)', body[end:])
+    tail = body[end:]
+    circle = re.search(r'\bcircle\s*\(', tail)
     if center is not None and circle:
-        radius = _number(circle[1], env)
+        expression, _ = _balanced(tail, circle.end()-1)
+        radius = _number(expression, env)
         if radius is not None:
             result.curves.append({'center': _apply(matrix, center),
                                   'radius': radius*float(np.linalg.norm(matrix[:2, 0])),
@@ -470,6 +510,9 @@ def capture_curve(result, body, points, env, matrix):
 
 def prepare_source(text):
     """Expand bounded foreach/let syntax generically, without modifying input TeX."""
+    text = re.sub(r"\\tkzDefPointBy\s*\[\s*projection\s*=\s*onto\s+([\w']+)\s*--\s*([\w']+)\s*\]"
+                  r"\s*\(([\w']+)\)\s*\\tkzGetPoint\s*\{([\w']+)\}",
+                  lambda m: rf'\coordinate ({m[4]}) at ($({m[1]})!({m[3]})!({m[2]})$);', text)
     pattern = re.compile(r'\\foreach\s+(\\\w+(?:\s*/\s*\\\w+)*)\s*'
                          r'(?:\[count\s*=\s*\\(\w+)\])?\s+in\s*\{')
     search_from = 0
@@ -481,9 +524,13 @@ def prepare_source(text):
         values, after = _balanced(text, match.end()-1, '{', '}')
         start_body = re.match(r'\s*\{', text[after:])
         if start_body is None:
-            search_from = after
-            continue  # the seed parser handles the existing unbraced form
-        body, end = _balanced(text, after+start_body.end()-1, '{', '}')
+            command = re.match(r'\s*\\(?:fill|filldraw|draw|node|path)\b[^;]*;', text[after:])
+            if len(variables) == 1 or command is None:
+                search_from = after
+                continue  # the seed parser handles the existing unbraced form
+            body, end = command[0], after+command.end()
+        else:
+            body, end = _balanced(text, after+start_body.end()-1, '{', '}')
         tokens = [x.strip() for x in cv._split_top(values)]
         if '...' in tokens:
             start, step, stop = float(tokens[0]), float(tokens[1])-float(tokens[0]), float(tokens[-1])
@@ -561,8 +608,8 @@ def prepare_source(text):
     return text
 
 
-def parse_drawing(tex_path):
-    text = Path(tex_path).read_text(encoding="utf-8", errors="replace")
+def parse_drawing(tex_path, *, source_text=None):
+    text = source_text if source_text is not None else Path(tex_path).read_text(encoding="utf-8", errors="replace")
     text = re.sub(r"(?<!\\)%[^\n]*", "", text)
     text = prepare_source(text)
     result = Drawing()
@@ -702,6 +749,27 @@ def parse_drawing(tex_path):
                 if body.startswith("--", i):
                     pending, i = "line", i + 2
                     continue
+                bezier = re.match(r'\.\.\s*controls\s*\+{0,2}\s*', body[i:])
+                if bezier:
+                    _, j = _balanced(body, i + bezier.end())
+                    second = re.match(r'\s*and\s*\+{0,2}\s*', body[j:])
+                    if second:
+                        _, j = _balanced(body, j + second.end())
+                    ending = re.match(r'\s*\.\.\s*', body[j:])
+                    if not ending:
+                        raise ValueError('unsupported Bézier path')
+                    pending, i = 'curve', j + ending.end()
+                    continue
+                to = re.match(r'to\b\s*', body[i:])
+                if to:
+                    i += to.end()
+                    options = ''
+                    if i < len(body) and body[i] == '[':
+                        options, i = _balanced(body, i, '[', ']')
+                    if options and not re.search(r'(?:^|,)\s*(?:in\s*=|out\s*=|bend\s+(?:left|right)\b|looseness\s*=)', options):
+                        raise ValueError('unsupported to path options')
+                    pending = 'curve' if options else 'line'
+                    continue
                 if body[i:i+2] in ("|-", "-|"):
                     pending, i = body[i:i+2], i + 2
                     continue
@@ -773,6 +841,8 @@ def parse_drawing(tex_path):
                         elbow = _apply(matrix, np.asarray(corner))
                         strokes.extend((Stroke(current.copy(), elbow, style, body),
                                         Stroke(elbow, target.copy(), style, body)))
+                    elif pending == 'curve':
+                        result.excluded.append({'reason': 'curve segment', 'path': body})
                     else:
                         strokes.append(Stroke(current.copy(), target.copy(), style, body))
                 current, pending = target, None

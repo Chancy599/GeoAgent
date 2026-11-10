@@ -1,57 +1,82 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.94,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original: same five edges, same vertex positions, and labels A/B/C/D are correctly bound with clear separation. No right-angle marks or extra edges appear in either panel.",
+  "verdict": "The render is faithful: all five edges (AB, BD, DA, DC, CB) and all four labels match the original in position and binding, with no meaningful geometric discrepancy.",
   "figure_type": {
-    "original": "parallelogram-like quadrilateral A-B-C-D with diagonal A-D and B-C, plus horizontal D-B and verticals A-B and D-C (no right-angle marks)",
-    "render": "same as original: edges A-B, B-D, D-C, A-D, B-C; no right-angle marks"
+    "original": "Parallelogram-like quadrilateral A-B-C-D with interior diagonal BD and edge DC, drawn as line segments with italic point labels",
+    "render": "Same five-segment figure with A, B, C, D labels placed at the same relative positions"
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal from B to C, drawn as B -- C in the render, matching the original."
+      "note": "CV segment from about (311,219) to (65,383) matches the CB edge drawn in both panels."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Diagonal from A to D, drawn as A -- D in the render, matching the original."
+      "note": "CV segment from about (311,63) to (65,225) matches the DA edge drawn in both panels."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Horizontal segment D to B, matching the original."
+      "note": "Horizontal segment matches the BD edge at the shared height of B and D in both panels."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Vertical segment D to C on the left, matching the original."
+      "note": "Vertical segment at the left matches the DC edge in both panels."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Vertical segment A to B on the right, matching the original."
+      "note": "Vertical segment at the right matches the AB edge in both panels."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Vertical edge from A down to B is drawn in both panels."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Horizontal edge from B to D is drawn in both panels."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Lower diagonal edge from C up to B is drawn in both panels."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Upper diagonal edge from D up to A is drawn in both panels."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Vertical edge from D down to C is drawn in both panels."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B is at the right end of the horizontal edge, labelled B to the right, as in the original."
+      "note": "Point B sits at the right end of the horizontal edge in both panels, with its label to the right."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "C is at the bottom-left vertex, labelled below, as in the original."
+      "note": "Point C sits at the bottom-left vertex in both panels, with its label below-left."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "D is at the left vertex, labelled left, as in the original."
+      "note": "Point D sits at the left vertex in both panels, with its label to the left."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "A is at the top-right vertex, labelled above-right, as in the original."
+      "note": "Point A sits at the top-right vertex in both panels, with its label above-right."
     }
   ],
   "checklist_score": 1.0,
@@ -63,11 +88,10 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Five edges A-B, B-D, D-C, A-D, B-C present with correct endpoints",
-    "Vertex positions and aspect ratio match the original",
-    "Labels A, B, C, D present, correctly spelled, and bound to the matching vertices (CV bindings agree with the TikZ coordinates)",
-    "No right-angle markers or extra edges in either panel",
-    "No label crosses any stroke"
+    "All five edges AB, BD, DA, DC, CB are present with matching endpoints.",
+    "The vertices A, B, C, D are at the same relative positions and the aspect ratio matches.",
+    "Each label is bound to its correct vertex and sits clear of the strokes.",
+    "Stroke weight and label size look comparable in both panels."
   ],
   "labels": {
     "present": [
@@ -81,23 +105,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "bc2255a157d05462",
-      "edge": [
-        "C",
-        "D"
-      ],
-      "reason": "In the original, a vertical stroke runs from D straight down to C; the render matches this."
-    },
-    {
-      "case_id": "6499773361799904",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "In the original, a vertical stroke runs from A straight down to B; the render matches this."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

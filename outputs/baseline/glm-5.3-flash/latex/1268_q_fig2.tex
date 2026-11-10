@@ -1,0 +1,38 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
+\begin{document}
+\begin{tikzpicture}[scale=1.2]
+\coordinate (O) at (0,0);
+\coordinate (A) at (-3,0);
+\coordinate (B) at (3,0);
+\coordinate (C) at (130:3);
+\coordinate (D) at (72:3);
+\coordinate (P) at (80:5.2);
+\coordinate (E) at ($(O)!(C)!(P)$);
+
+% semicircle
+\draw (B) arc[start angle=0, end angle=180, radius=3];
+
+% solid lines
+\draw (A) -- (O) -- (B);
+\draw (A) -- (P);
+\draw (P) -- (O);
+
+% dashed lines
+\draw[dashed] (O) -- (C);
+\draw[dashed] (O) -- (E);
+
+% right angle mark at E
+\draw ($(E)!0.25!(O)$) -- ($($(E)!0.25!(O)$)!0.25!90:(E)$) -- ($(E)!0.25!(P)$);
+
+% points and labels
+\fill (O) circle (1.5pt);
+\node[below] at (O) {$O$};
+\node[below left] at (A) {$A$};
+\node[below right] at (B) {$B$};
+\node[above left] at (C) {$C$};
+\node[above right] at (D) {$D$};
+\node[above] at (P) {$P$};
+\node[left] at (E) {$E$};
+\end{tikzpicture}
+\end{document}

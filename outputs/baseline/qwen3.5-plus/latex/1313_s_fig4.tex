@@ -1,0 +1,56 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+    % Define coordinates
+    \coordinate (O) at (0,0);
+    \coordinate (B) at (-4,0);
+    \coordinate (E) at (4,0);
+    % A and F at 120 and 60 degrees
+    \coordinate (A) at (-2, 3.464);
+    \coordinate (F) at (2, 3.464);
+    % C and D at 210 and 330 degrees
+    \coordinate (C) at (-3.464, -2);
+    \coordinate (D) at (3.464, -2);
+    % H is intersection of BA and EF extended. 
+    % Line BA: y = sqrt(3)(x+4). Line EF: y = -sqrt(3)(x-4).
+    % Intersection at x=0, y=4*sqrt(3) approx 6.928
+    \coordinate (H) at (0, 6.928);
+    % G is intersection of CD extended and vertical line from E
+    % Line CD is y = -2. Vertical line at E is x = 4.
+    \coordinate (G) at (4, -2);
+
+    % Draw Circle
+    \draw (O) circle (4);
+
+    % Draw Lines
+    \draw (H) -- (B); % Passes through A
+    \draw (H) -- (E); % Passes through F
+    \draw (A) -- (F);
+    \draw (B) -- (F);
+    \draw (B) -- (D);
+    \draw (B) -- (C);
+    \draw (B) -- (E); % Diameter
+    \draw (C) -- (G); % Passes through D
+    \draw (D) -- (E);
+    \draw (E) -- (G);
+
+    % Right angle mark at G
+    \draw (G) ++(0, 0.3) -- ++(-0.3, 0) -- ++(0, -0.3);
+
+    % Draw Points (small circles if needed, but labels are enough usually. 
+    % The image has a dot for O. Others are intersections.)
+    \fill (O) circle (2pt);
+
+    % Labels
+    \node[above] at (H) {$H$};
+    \node[above left] at (A) {$A$};
+    \node[above right] at (F) {$F$};
+    \node[left] at (B) {$B$};
+    \node[right] at (E) {$E$};
+    \node[below] at (O) {$O$};
+    \node[below left] at (C) {$C$};
+    \node[below] at (D) {$D$};
+    \node[below right] at (G) {$G$};
+
+\end{tikzpicture}
+\end{document}

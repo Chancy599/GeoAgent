@@ -1,62 +1,112 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render faithfully reproduces the triangle ABC with altitude AD, right-angle mark at D, and correctly bound labels A, B, C, D.",
+  "verdict": "The render faithfully reproduces the original: triangle ABC with altitude AD, right-angle mark at D, and all four labels correctly placed and bound.",
   "figure_type": {
-    "original": "Triangle ABC with altitude AD from apex A to base BC, foot D between B and C, right-angle mark at D",
-    "render": "Triangle ABC with altitude AD from apex A to base BC, foot D between B and C, right-angle mark at D"
+    "original": "triangle ABC with altitude AD from A to base BC, right angle at D, labels A, B, C, D",
+    "render": "triangle ABC with altitude AD from A to base BC, right angle at D, labels A, B, C, D"
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base BC drawn solid from B to C, matching the original baseline."
+      "note": "Baseline BC, drawn from B to C along y=254, matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Side AB drawn solid from A to B, matching the original."
+      "note": "Segment AB from A to B matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Side AC drawn solid from A to C, matching the original."
+      "note": "Segment AC from A to C matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Altitude AD drawn vertically from A to the base at D, matching the original."
+      "note": "Altitude AD, vertical from A down to D on BC, matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Vertical arm of the right-angle mark at D is visible, on the left of the altitude as in the original."
+      "note": "CV-detected arm of the right-angle mark at D, drawn by the TikZ right-angle pic; the mark sits in the same upper-left quadrant as the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Horizontal arm of the right-angle mark at D is visible, sitting on the base as in the original."
+      "note": "CV-detected arm of the right-angle mark along DB, part of the same square mark, matching the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment AB is drawn and joins A and B as in the original."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Segment AC is drawn and joins A and C as in the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Altitude AD is drawn and meets BC at D as in the original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Segment BC is drawn and joins B and C as in the original."
+    },
+    {
+      "object_id": "ra_D",
+      "status": "present",
+      "note": "Right-angle pic at D with arms along DA and DB, in the same quadrant as the original."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle mark at D is visible in both panels in the same position and quadrant."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B is at the left base vertex, below-left, matching the original."
+      "note": "Point B is at the left end of the baseline with the label B below-left, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label C is at the right base vertex, below-right, matching the original."
+      "note": "Point C is at the right end of the baseline with the label C below-right, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label D is below the foot of the altitude, matching the original."
+      "note": "Point D is on the baseline below A with the label D below, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label A is above-right of the apex, matching the original."
+      "note": "Point A is at the apex with the label A above-right, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Point A is at the apex and labelled A in both panels."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Point B is at the left end of the baseline and labelled B in both panels."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Point C is at the right end of the baseline and labelled C in both panels."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Point D is the foot of the altitude and labelled D in both panels."
     }
   ],
   "checklist_score": 1.0,
@@ -68,12 +118,10 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle vertices A, B, C are in the same relative positions in both panels.",
-    "Altitude AD meets base BC at D, with D at about 75% of the way from B to C in both panels.",
-    "Right-angle mark at D is on the correct side of the altitude and sits on the base.",
-    "Label letters A, B, C, D are correct and placed in the same relative positions as the original.",
-    "Side AB, AC, base BC and altitude AD all terminate at the correct vertices with no overhangs or gaps.",
-    "Label bindings A->point_05, B->point_01, C->point_02, D->point_03 are correct."
+    "Triangle vertices A, B, C and the foot D are in the same relative positions as the original.",
+    "Altitude AD is vertical and meets BC at D, with the right angle mark drawn in the same quadrant (upper-left of D).",
+    "All four labels A, B, C, D are present, correctly spelled, bound to their vertices and clear of the strokes.",
+    "Overall aspect ratio and proportions match the original; the render is a uniform scale-down of the original."
   ],
   "labels": {
     "present": [
@@ -85,17 +133,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "118fd08699f2e531",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "In the original, the stroke runs continuously from the apex A down to the left base vertex B, with no bend or break."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

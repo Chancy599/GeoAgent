@@ -1,0 +1,48 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (-3,0);
+    \coordinate (B) at (3,0);
+    \coordinate (P) at (1, 6);
+    \coordinate (C) at (-1.1538, 2.7692);
+    \coordinate (D) at (0.4932, 2.9592);
+    \coordinate (E) at (-2.0769, 1.3846);
+    
+    % Draw Semicircle
+    \draw (A) arc (180:0:3);
+    
+    % Draw Line AB
+    \draw (A) -- (B);
+    
+    % Draw Line AP
+    \draw (A) -- (P);
+    
+    % Draw Line OP
+    \draw (O) -- (P);
+    
+    % Draw Dashed OC
+    \draw[dashed] (O) -- (C);
+    
+    % Draw Dashed OE
+    \draw[dashed] (O) -- (E);
+    
+    % Right angle at E
+    \coordinate (E1) at ($(E)!0.25cm!(A)$);
+    \coordinate (E2) at ($(E)!0.25cm!(O)$);
+    \draw (E1) -- ($(E1) + (E2) - (E)$) -- (E2);
+    
+    % Labels
+    \node[below left] at (A) {$A$};
+    \node[below right] at (B) {$B$};
+    \node[below] at (O) {$O$};
+    \node[above] at (P) {$P$};
+    \node[above left] at (C) {$C$};
+    \node[above right] at (D) {$D$};
+    \node[left] at (E) {$E$};
+\end{tikzpicture}
+\end{document}

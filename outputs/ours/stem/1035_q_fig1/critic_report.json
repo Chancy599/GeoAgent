@@ -1,85 +1,159 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Version 2 matches the original geometry: the semicircle, the vertical radius OP with A on it, and segments OB and AB all sit where they do in the original. Only the render's overall scale and the label/dot sizing differ, and neither is a geometry error.",
+  "verdict": "The render matches the original's geometry and labels: a semicircle MN with centre O, P at the top, A on OP, and B on the arc joined to O and A. The only visible difference is that the small point dots are absent.",
   "figure_type": {
-    "original": "Semicircle on diameter MN with centre O and top point P; A lies on radius OP; B lies on the arc; segments OB and AB drawn; no right-angle markers.",
-    "render": "Semicircle on diameter MN with centre O and top point P; A lies on radius OP; B lies on the arc; segments OB and AB drawn; no right-angle markers."
+    "original": "semicircle MN with centre O, top point P, interior point A on OP, and B on the arc, with segments OB and AB",
+    "render": "semicircle MN with centre O, top point P, interior point A on OP, and B on the arc, with segments OB and AB"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_01",
+        "point_02",
+        "point_03",
+        "point_06"
+      ],
+      "bbox": [
+        0.46,
+        0.22,
+        0.95,
+        0.86
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The original shows small filled dots at O, A, B and P. The render shows no visible dots at these vertices, so the points are less emphasised than in the original.",
+      "suggestion": "Increase the radius of the \\fill circles (for example to about 0.04-0.05) or draw them with a visible size so the vertex dots appear as in the original."
+    }
+  ],
   "checks": [
     {
-      "object_id": "circle_01",
+      "object_id": "arc_MPN",
       "status": "present",
-      "note": "Arc runs from M through P to N and meets the baseline at both ends, as in the original."
+      "note": "Upper semicircle from M through P to N matches the original."
+    },
+    {
+      "object_id": "circle_O",
+      "status": "unclear",
+      "note": "The original shows only the upper semicircle, not a full circle. The arc is present, so the full-circle object is not separately visible in the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diameter MN is drawn full width, from M to N, matching the original."
+      "note": "Diameter MN is drawn as a horizontal line from M to N, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment OB runs from O to B on the arc, matching the original."
+      "note": "Segment OB runs from O to B, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Radius OP is vertical from O through A to P, matching the original."
+      "note": "Segment OP runs vertically from O through A to P, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment AB runs from A to B on the arc, matching the original."
+      "note": "Segment AB runs from A to B, matching the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment AB is drawn from A to B as in the original."
+    },
+    {
+      "object_id": "seg_MN",
+      "status": "present",
+      "note": "Segment MN is drawn and labelled correctly."
+    },
+    {
+      "object_id": "seg_OB",
+      "status": "present",
+      "note": "Segment OB is drawn and labelled correctly."
+    },
+    {
+      "object_id": "seg_OP",
+      "status": "present",
+      "note": "Segment OP is drawn and labelled correctly."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "O sits at the centre of the diameter with its label below, as in the original."
+      "note": "Label O is placed below the vertex at the centre, as in the original. The vertex dot is not visible in the render."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "B sits on the arc at the same relative position (about 0.77, -0.63 of the radius) as in the original."
+      "note": "Label B sits above-right of the arc point, as in the original. The vertex dot is not visible in the render."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "A sits on OP at about half the radius, with its label to the left, as in the original."
+      "note": "Label A sits left of the point on OP, as in the original. The vertex dot is not visible in the render."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "N sits at the right end of the diameter with its label below right, as in the original."
+      "note": "Label N is placed below the right endpoint, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "M sits at the left end of the diameter with its label below left, as in the original."
+      "note": "Label M is placed below the left endpoint, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "P sits at the top of the arc with its label above, as in the original."
+      "note": "Label P sits above the top point of the arc, as in the original. The vertex dot is not visible in the render."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "A is on segment OP at the position shown in the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B is on the arc at the position shown in the original."
+    },
+    {
+      "object_id": "point_M",
+      "status": "present",
+      "note": "M is the left end of the diameter, as in the original."
+    },
+    {
+      "object_id": "point_N",
+      "status": "present",
+      "note": "N is the right end of the diameter, as in the original."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "O is the centre on the diameter, as in the original."
+    },
+    {
+      "object_id": "point_P",
+      "status": "present",
+      "note": "P is the top of the arc on the vertical through O, as in the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Semicircle arc, with ends on the diameter and apex at P, matches the original.",
-    "Radius OP is vertical and passes through A, which lies at about half the radius in both panels.",
-    "B lies on the arc at the same angle in both panels (both about 40 degrees above the horizontal from O).",
-    "Segments OB and AB terminate at B and meet at A/O as in the original.",
-    "Aspect ratio of the semicircle (height/width about 0.50) is preserved; the render is a uniform scale-down of the original.",
-    "Point labels M, N, O, P, A, B are present, correctly spelled, bound to their vertices, and clear of strokes.",
-    "No right-angle markers are present in either panel, so none are missing."
+    "Semicircle arc from M through P to N with the same extent and aspect ratio.",
+    "Diameter MN is horizontal with O at its midpoint.",
+    "Vertical segment OP passes through A, and A is at the same relative height.",
+    "Segments OB and AB meet at B on the arc, matching the original.",
+    "All six labels M, N, O, P, A, B are present with correct spelling and placement."
   ],
   "labels": {
     "present": [

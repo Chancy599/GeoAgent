@@ -1,85 +1,135 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render matches the original topology: all four chords (AB, AE, BD, CE) join the same labelled vertices on the circle, and the labels are correctly bound. The only visible difference is the smaller centre dot at O.",
+  "verdict": "The render is a faithful reproduction: the circle, the four chords AB, AE, BD and EC, the centre O and all six labels match the original, with only a minor difference in the size of the centre dot.",
   "figure_type": {
-    "original": "full circle with centre O marked by a dot; four chords AB, AE, BD and CE joining labelled points on the circle; C and D sit on the lower arc, and CE crosses BD",
-    "render": "full circle with centre O marked by a small dot; chords AB, AE, BD and CE joining the same labelled points; CE crosses BD as in the original"
+    "original": "circle with centre O, inscribed quadrilateral ABED-like figure with chords AB, AE, BD, EC and point C on the arc near D",
+    "render": "circle with centre O and chords AB, AE, BD, EC, labels A, B, C, D, E, O"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "point_05"
+        "point_O"
       ],
       "bbox": [
-        0.47,
+        0.66,
         0.46,
-        0.53,
-        0.54
+        0.7,
+        0.52
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The centre dot at O is visibly smaller in the render than in the original. The original dot is a bold filled disc of roughly twice the render's diameter.",
-      "suggestion": "Increase the radius of the \\fill (O) circle from 1.500pt to about 2.5pt–3pt. Leave the vertex coordinate and the O label binding unchanged."
+      "description": "The filled centre dot at O is visibly smaller in the render than in the original.",
+      "suggestion": "Increase the radius of the \\fill (O) circle from 0.070 to roughly 0.09-0.10 to match the original dot size."
     }
   ],
   "checks": [
     {
-      "object_id": "circle_01",
+      "object_id": "circle_O",
       "status": "present",
-      "note": "Circle centred at O with matching radius and extent; the arc passes through A, B, C, D and E as in the original."
+      "note": "Circle matches the original extent and position."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Chord CE runs from C on the lower-left arc up to E, crossing BD, as in the original."
+      "note": "Corresponds to chord EC, drawn correctly from E to C on the arc."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Chord AE runs from A to E as in the original; both ends sit on the circle."
+      "note": "Corresponds to chord AE, drawn correctly."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Chord BD runs from B to D on the lower arc, matching the original."
+      "note": "Corresponds to chord BD, drawn correctly from B to D on the arc."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Chord AB runs from A to B as in the original."
+      "note": "Corresponds to chord AB, drawn correctly."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Chord AB matches the original."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "Chord AE matches the original."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Chord BD matches the original; it ends on the arc at D."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "Chord EC matches the original; it ends at C on the arc."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "E label is at the right vertex and clears the circle and chord strokes."
+      "note": "Label E is placed right of the vertex, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "A label sits above the top vertex, as in the original."
+      "note": "Label A is placed above the vertex, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "B label sits left of the left vertex, as in the original."
+      "note": "Label B is placed left of the vertex, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "O label sits left of the centre and is correctly bound. The centre dot is smaller than in the original (see issue)."
+      "note": "Label O is left of the centre dot, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "C label sits below-left of the lower-left vertex, as in the original."
+      "note": "Label C is below-left of the vertex, as in the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "D label sits below the lower vertex, as in the original."
+      "note": "Label D is below the vertex, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A lies on the circle at the top, as in the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B lies on the circle at the left, as in the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C lies on the circle at the lower left, as in the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D lies on the circle at the bottom, as in the original."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Vertex E lies on the circle at the right, as in the original."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Centre O is at the correct position; the dot is slightly small."
     }
   ],
   "checklist_score": 1.0,
@@ -91,11 +141,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle size and position relative to the labels match the original.",
-    "Chords AB, AE, BD and CE have the correct endpoints; none is trimmed or overhangs a vertex.",
-    "The crossing of CE and BD lies in the same place as in the original.",
-    "All six point labels A, B, C, D, E, O are present, spelled correctly, bound to their vertices, and clear of strokes.",
-    "Line weights of the circle and chords are comparable across the two panels."
+    "Circle centre and radius match the original.",
+    "Chords AB, AE, BD and EC are present with the same endpoints on the circle.",
+    "Vertices A, B, C, D, E lie on the circle at the correct positions.",
+    "All six labels A, B, C, D, E, O are present, correctly spelled and placed with clear space from the strokes.",
+    "Line weights and overall aspect ratio are comparable to the original."
   ],
   "labels": {
     "present": [
@@ -109,41 +159,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "87e90f362be9d544",
-      "edge": [
-        "C",
-        "E"
-      ],
-      "reason": "In the original, the solid stroke runs from C on the lower-left arc to E on the right, so the pair is correct."
-    },
-    {
-      "case_id": "7cbf612569ade198",
-      "edge": [
-        "A",
-        "E"
-      ],
-      "reason": "In the original, the solid stroke runs from the top vertex A to the right vertex E."
-    },
-    {
-      "case_id": "03b8a2d3d1b94dfe",
-      "edge": [
-        "B",
-        "D"
-      ],
-      "reason": "In the original, the solid stroke runs from B on the left arc to D on the lower arc."
-    },
-    {
-      "case_id": "ca3b22cf97533eb9",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "In the original, the solid stroke runs from A at the top to B on the left."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

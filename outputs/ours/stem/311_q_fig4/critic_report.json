@@ -1,44 +1,45 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Version 2 reproduces the original topology (rectangle ABCD with E on DC, and diagonals AE and AC) with correct vertex bindings. The only visible difference is label typography: the original uses italic math letters and the render uses bold upright letters.",
+  "verdict": "The render is a faithful reproduction of the rectangle ABCD with interior segments AE and AC; the only discrepancy is a slightly lighter stroke and label weight.",
   "figure_type": {
-    "original": "Rectangle ABCD with point E on top edge DC; segments AE and AC drawn from A",
-    "render": "Rectangle ABCD with point E on top edge DC; segments AE and AC drawn from A"
+    "original": "Rectangle ABCD (drawn as a rectangle, not a diagonal) with point E on top edge DC, and segments AE and AC drawn from corner A.",
+    "render": "Rectangle ABCD with point E on top edge DC, and segments AE and AC drawn from corner A."
   },
   "issues": [
     {
-      "type": "label_error",
+      "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "point_01",
-        "point_02",
-        "point_03",
-        "point_04",
-        "point_05"
+        "seg_02",
+        "seg_03",
+        "seg_05",
+        "seg_06",
+        "seg_AE",
+        "seg_AC"
       ],
       "bbox": [
-        0.02,
-        0.22,
-        0.98,
-        0.76
+        0.04,
+        0.24,
+        0.96,
+        0.74
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Vertex labels use a bold upright font (\\mathbf). The original labels are italic serif math letters (A, B, C, D, E). Positions and clearances are otherwise correct.",
-      "suggestion": "Replace \\mathbf{X} with \\mathit{X} or $X$ in each node so the labels match the original italic style. Keep the node anchors unchanged."
+      "description": "Stroke weight of the rectangle edges and the AE/AC segments looks slightly lighter in the render than in the original; label glyphs are also lighter and less bold.",
+      "suggestion": "Optionally raise the line width slightly (e.g. from 1.2pt toward 1.4pt) and use a heavier label font weight; this is cosmetic and not a geometry error."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal AC is drawn from A to C with matching slope and extent."
+      "note": "Diagonal AC from A to C is drawn correctly as the long diagonal."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge DC is drawn from D to C and E lies on it."
+      "note": "Top edge DC is drawn between D and C."
     },
     {
       "object_id": "seg_03",
@@ -48,7 +49,7 @@
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Diagonal AE ends at E on the top edge, matching the original."
+      "note": "Segment from A up to E on the top edge matches the original."
     },
     {
       "object_id": "seg_05",
@@ -58,32 +59,67 @@
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Left edge AD is drawn correctly."
+      "note": "Left edge DA is drawn correctly."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Bottom edge AB is correct."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Diagonal AC ends at C as in the original."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "AE ends at E on the top edge as in the original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Right edge BC is correct."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Left edge DA is correct."
+    },
+    {
+      "object_id": "seg_DE",
+      "status": "present",
+      "note": "Top segment DE is drawn between D and E, part of the top edge."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "Top segment EC is drawn between E and C, part of the top edge."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label C sits at the top-right corner, correctly placed."
+      "note": "C is at the top-right corner, bound correctly."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label A sits at the bottom-left corner, correctly placed."
+      "note": "A is at the bottom-left corner, bound correctly."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label E sits above the top edge at the AE endpoint, correctly placed."
+      "note": "E is on the top edge where AE meets it, bound correctly."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label D sits at the top-left corner, correctly placed."
+      "note": "D is at the top-left corner, bound correctly."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label B sits at the bottom-right corner, correctly placed."
+      "note": "B is at the bottom-right corner, bound correctly."
     }
   ],
   "checklist_score": 1.0,
@@ -95,12 +131,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle ABCD with correct corner positions",
-    "E lies on DC and AE ends at E",
-    "Diagonal AC runs from A to C",
-    "Vertex bindings for A, B, C, D, E",
-    "Line weights are comparable to the original; no clear style discrepancy",
-    "No extra or missing segments"
+    "Rectangle ABCD outline with correct corner positions",
+    "Point E on top edge DC where AE terminates",
+    "Diagonal AC from A to C",
+    "Labels D, E, C, A, B present in correct positions with correct vertex binding",
+    "Overall aspect ratio and layout"
   ],
   "labels": {
     "present": [
@@ -113,8 +148,17 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "c59ca332f44c80df",
+      "edge": [
+        "A",
+        "E"
+      ],
+      "reason": "In the original, the stroke runs continuously from A up to E on the top edge DC and stops there, so A-E is the correct connection."
+    }
+  ],
   "raw_meta": "{}"
 }

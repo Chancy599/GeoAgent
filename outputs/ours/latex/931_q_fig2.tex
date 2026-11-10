@@ -1,6 +1,7 @@
 \documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
 \begin{document}
-\begin{tikzpicture}[line join=round, line width=1.3pt]
+\begin{tikzpicture}[line width=1.3pt, line join=round]
 \coordinate (A) at (3.428,-1.863);
 \coordinate (B) at (-0.325,1.887);
 \coordinate (C) at (-0.325,-0.857);
@@ -9,22 +10,28 @@
 
 
 
-\coordinate (L) at (-4.067,-1.860);
 
 
-\draw (L) -- (V) -- (A);
 
 
-\draw (V) ++(180.000:3.744) arc[start angle=180.000, end angle=0.000, radius=3.744];
+\draw ($(V)+(180.000:3.750)$) arc[start angle=180.000, end angle=0.000, radius=3.750];
 
 
-\draw (B) -- (V);
-\draw (A) -- (C);
+\draw ($(V)+(180.000:3.750)$) -- (V);
 
 
-\node[right, font=\fontsize{13}{15.6}\selectfont] at (A) {$A$};
-\node[above, font=\fontsize{13}{15.6}\selectfont] at (B) {$B$};
-\node[left, font=\fontsize{13}{15.6}\selectfont] at (C) {$C$};
-\node[below, font=\fontsize{13}{15.6}\selectfont] at (V) {$V$};
+\draw (V) -- (A);
+
+
+\draw (V) -- (C) -- (B);
+
+
+\draw (C) -- (A);
+
+
+\node[above] at (B) {\fontsize{13}{15.6}\selectfont $B$};
+\node[left] at (C) {\fontsize{13}{15.6}\selectfont $C$};
+\node[below right] at (A) {\fontsize{13}{15.6}\selectfont $A$};
+\node[below] at (V) {\fontsize{13}{15.6}\selectfont $V$};
 \end{tikzpicture}
 \end{document}

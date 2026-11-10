@@ -124,6 +124,12 @@ class CodeAgent:
         required_edges = self.state.meta.get("topology_plan", {}).get("required_edges", [])
         if required_edges:
             parts.append("REQUIRED NAMED EDGES: " + json.dumps(required_edges))
+        construction = self.state.meta.get('source_construction', {})
+        if construction:
+            plan = self.state.meta.get('topology_plan', {})
+            parts.append('SOURCE CONSTRUCTION VERIFIED BEFORE GENERATION:\n'
+                         + construction['summary'] + '\nREQUIRED STYLES: ' + json.dumps(plan.get('required_styles', []))
+                         + '\nREQUIRED RIGHT-ANGLE PIC RAYS: ' + json.dumps(plan.get('required_marks', {})))
         if metrics:
             parts.append(self._style_block(metrics))
         if preserve_cv_coordinates:

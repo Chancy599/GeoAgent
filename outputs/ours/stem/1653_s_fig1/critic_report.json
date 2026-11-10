@@ -1,110 +1,153 @@
 {
   "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's geometry, topology, and labels closely; the only visible difference is that the dashed P-E segment is drawn heavier than in the original.",
+  "verdict": "The render is a faithful reproduction of the original: same rectangle, same interior segments, same dashed PE, and all eight labels are correctly placed and bound. The only visible difference is slightly heavier stroke weight.",
   "figure_type": {
-    "original": "Rectangle ABCD with E on BC, P on AD-diagonal segment A-F, dashed P-E, and M as intersection of E-F and P-C",
-    "render": "Rectangle ABCD with E on BC, P on AF, dashed P-E, and M as intersection of E-F and P-C"
+    "original": "rectangle ABCD with interior segments AE, AF through P, PE (dashed), PC, EF and M at the PC/EF crossing",
+    "render": "same rectangle and interior segments, same dashed PE and point labels"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_09"
+        "seg_02",
+        "seg_03",
+        "seg_07",
+        "seg_08"
       ],
       "bbox": [
-        0.3,
-        0.37,
-        0.47,
-        0.86
+        0.05,
+        0.2,
+        0.97,
+        0.75
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The dashed P-E stroke is drawn noticeably heavier, with bolder dashes, than the fine dashed line in the original. Endpoints at P and E are correct.",
-      "suggestion": "Draw the dashed segment with a thinner width, e.g. \\draw[dashed, line width=0.6pt] (P) -- (E);"
+      "description": "Solid strokes in the render (rectangle sides and the interior lines) look somewhat heavier than the thinner strokes in the original.",
+      "suggestion": "Optionally reduce the global line width from 1.1pt to about 0.8-0.9pt to match the original's lighter stroke."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Segment A-F passes through P, matching the original's continuous A-P-F stroke."
+      "note": "Segment A to P to F diagonal drawn correctly."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge A-D matches the original."
+      "note": "Top edge A to D present."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Bottom edge B-C matches the original, with E on it."
+      "note": "Bottom edge B to C present."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment E-F ends at F as in the original."
+      "note": "Segment F to E region present; rendered as F-E line through M."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment A-E matches the original."
+      "note": "Segment A to E present."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment P-C continues through M to C, matching the original."
+      "note": "Segment C to P present, passing through M."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Left edge A-B matches the original."
+      "note": "Left edge A to B present."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Right edge D-C matches the original."
+      "note": "Right edge D to C present, with F on it."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Dashed P-E is correctly placed with endpoints at P and E; dash weight is heavier than the original (see issue)."
+      "note": "Dashed P to E present."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "AE drawn from A to E as in the original."
+    },
+    {
+      "object_id": "seg_AP_PF",
+      "status": "present",
+      "note": "A-P-F line drawn; P lies on it and it ends at F."
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "E to F line present and passes through M."
+    },
+    {
+      "object_id": "seg_PC",
+      "status": "present",
+      "note": "P to M to C line present."
+    },
+    {
+      "object_id": "seg_PE",
+      "status": "present",
+      "note": "Dashed PE present with correct endpoints."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label A is bound to the top-left corner and placed correctly."
+      "note": "Label A at top-left corner, correctly placed."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label F is bound to the right-edge point and placed correctly."
+      "note": "Label F on right edge, correctly placed."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label P is bound to the point on A-F and placed above-right as in the original."
+      "note": "Label P above its vertex, clear of strokes."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label D is bound to the top-right corner and placed correctly."
+      "note": "Label D at top-right corner."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label E is bound to the point on BC and placed below as in the original."
+      "note": "Label E below bottom edge, correctly placed."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label C is bound to the bottom-right corner and placed correctly."
+      "note": "Label C at bottom-right corner."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label B is bound to the bottom-left corner and placed correctly."
+      "note": "Label B at bottom-left corner."
+    },
+    {
+      "object_id": "point_08",
+      "status": "present",
+      "note": "Label M below the crossing point."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Label A matches the corner vertex."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Label B matches the corner vertex."
     }
   ],
   "checklist_score": 1.0,
@@ -116,13 +159,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle ABCD with correct corner positions and aspect ratio",
-    "Solid segment A-E from A to a point on BC",
-    "Solid segment A-P-F with P on the line to F",
-    "Solid segment E-F",
-    "Solid segment P-M-C with M at the intersection of E-F and P-C",
-    "Dashed segment P-E with correct endpoints",
-    "Labels A, B, C, D, E, F, P and M are present, correctly spelled, and clear of strokes"
+    "Rectangle ABCD with the correct corner labels and proportions",
+    "E lies on BC and is joined to A, P (dashed) and F",
+    "P lies on segment AF and joins to M and C",
+    "F lies on the right edge DC and is joined to D, A-P, E and C",
+    "M sits at the crossing of PC and EF",
+    "All eight point labels are present, correctly bound and clear of strokes"
   ],
   "labels": {
     "present": [
@@ -132,39 +174,14 @@
       "D",
       "E",
       "F",
-      "P",
-      "M"
+      "M",
+      "P"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 3,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "399cef61053ea363",
-      "edge": [
-        "A",
-        "F"
-      ],
-      "reason": "In the original, a continuous stroke runs from A through P to F, so the A-F edge is confirmed."
-    },
-    {
-      "case_id": "7acb5d78945aec66",
-      "edge": [
-        "E",
-        "F"
-      ],
-      "reason": "In the original, the solid stroke runs from E up to F, ending at the labelled F vertex."
-    },
-    {
-      "case_id": "ccc765d46e277afc",
-      "edge": [
-        "E",
-        "P"
-      ],
-      "reason": "In the original, the dashed stroke runs from E to P, ending at the labelled P point."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

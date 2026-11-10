@@ -564,6 +564,131 @@
         ],
         "ambiguous": false
       }
+    },
+    "seg_BC": {
+      "id": "seg_BC",
+      "type": "segment",
+      "label": "BC",
+      "coords": {
+        "a_px": [
+          68.0,
+          65.0
+        ],
+        "b_px": [
+          462.0,
+          65.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_CQ": {
+      "id": "seg_CQ",
+      "type": "segment",
+      "label": "CQ",
+      "coords": {
+        "a_px": [
+          462.0,
+          65.0
+        ],
+        "b_px": [
+          461.66,
+          301.1
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_AQ": {
+      "id": "seg_AQ",
+      "type": "segment",
+      "label": "AQ",
+      "coords": {
+        "a_px": [
+          68.0,
+          301.0
+        ],
+        "b_px": [
+          461.66,
+          301.1
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_BA": {
+      "id": "seg_BA",
+      "type": "segment",
+      "label": "BA",
+      "coords": {
+        "a_px": [
+          68.0,
+          65.0
+        ],
+        "b_px": [
+          68.0,
+          301.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_PQ": {
+      "id": "seg_PQ",
+      "type": "segment",
+      "label": "PQ",
+      "coords": {
+        "a_px": [
+          68.0,
+          182.7
+        ],
+        "b_px": [
+          461.66,
+          301.1
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -611,6 +736,24 @@
       "source": "bind_point_labels",
       "evidence": "Hungarian assignment distance=31.75px",
       "status": "candidate"
+    },
+    "rel_006": {
+      "id": "rel_006",
+      "subject": "point_02",
+      "relation": "on_segment",
+      "object": "seg_BA",
+      "source": "geometry_agent",
+      "evidence": "P printed beside left side between B and A; CV seg_04 spans B-A through P",
+      "status": "candidate"
+    },
+    "rel_007": {
+      "id": "rel_007",
+      "subject": "point_01",
+      "relation": "endpoint_of",
+      "object": "seg_PQ",
+      "source": "geometry_agent",
+      "evidence": "diagonal from P ends at Q corner",
+      "status": "candidate"
     }
   },
   "evidence": {
@@ -625,7 +768,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:30:36"
+      "created_at": "2026-11-09T23:07:01"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -638,13 +781,53 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:30:36"
+      "created_at": "2026-11-09T23:07:06"
     },
     "ev_0003": {
       "id": "ev_0003",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T23:07:09"
+    },
+    "ev_0004": {
+      "id": "ev_0004",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Rectangle-like figure: B top-left, C top-right, Q bottom-right, A bottom-left. P lies on left side AB at (68,182.7). Drawn strokes: top BC (y=65), right CQ (x=462), bottom AQ (y=301), left side BA through P (split into BP and PA), and diagonal PQ. All strokes solid (CV style check). No right-angle markers detected; no dashed strokes; no feet; no curves or circles.",
+      "payload": {
+        "merged": {
+          "objects": 10,
+          "relations": 2,
+          "conflicts": 0,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_01",
+          "point_02",
+          "point_03",
+          "point_04",
+          "point_05",
+          "seg_BC",
+          "seg_CQ",
+          "seg_AQ",
+          "seg_BA",
+          "seg_PQ"
+        ]
+      },
+      "created_at": "2026-11-09T23:07:18"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [531, 373] (scale 0.7296)",
+      "summary": "v1 canvas matched to source [531, 373] (scale 0.7319)",
       "payload": {
         "ok": true,
         "size": [
@@ -655,16 +838,16 @@
           531,
           373
         ],
-        "scale": 0.7296,
+        "scale": 0.7319,
         "offset": [
           31,
           30
         ]
       },
-      "created_at": "2026-11-09T11:31:05"
+      "created_at": "2026-11-09T23:07:38"
     },
-    "ev_0004": {
-      "id": "ev_0004",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: applied",
@@ -678,20 +861,31 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "56db6069e697c660d6e81ae6b1bfb79e6c7331f95ecd738b0fc71b45e951633f",
-        "output_sha256": "fb88776bb33280370a3896b22ae6b22eeec6416934ef90793f1c1c786e000b93",
+        "input_sha256": "7ade27d1ab1b30ae0e567b36094f8d3ea1fc94b92e00f15f619e5bf110b5be16",
+        "output_sha256": "1eef076334bb7bc95345e150b0d96af72a9f58ffa8f818000d0bb14ce6da2b56",
         "reason": "applied",
         "accepted": [
           {
             "type": "perpendicular",
             "segments": [
-              "A--B",
+              "A--P",
               "B--C"
             ],
             "before_error_deg": 0.0,
-            "after_error_deg": 0.01107991513156037,
-            "solver_after_error_deg": 3.410605131648481e-13,
-            "export_tolerance_deg": 0.03129086113868192
+            "after_error_deg": 0.011013282788098877,
+            "solver_after_error_deg": 6.252776074688882e-13,
+            "export_tolerance_deg": 0.05075839691794441
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--C",
+              "B--P"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.011146869993538644,
+            "solver_after_error_deg": 4.263256414560601e-14,
+            "export_tolerance_deg": 0.05094940739858039
           },
           {
             "type": "parallel",
@@ -701,19 +895,30 @@
             ],
             "before_error_deg": 0.016593043125192317,
             "after_error_deg": 2.0822001166611148e-18,
-            "solver_after_error_deg": 5.826596758978495e-13,
-            "export_tolerance_deg": 0.023456011051370598
+            "solver_after_error_deg": 5.789741835924038e-13,
+            "export_tolerance_deg": 0.0234560110513705
           },
           {
             "type": "perpendicular",
             "segments": [
-              "A--B",
+              "A--P",
               "A--Q"
             ],
             "before_error_deg": 0.016593043125197937,
-            "after_error_deg": 0.01107991513156037,
-            "solver_after_error_deg": 9.094947017729282e-13,
-            "export_tolerance_deg": 0.031290861138682464
+            "after_error_deg": 0.011013282788098877,
+            "solver_after_error_deg": 1.1937117960769683e-12,
+            "export_tolerance_deg": 0.05075839691794495
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--Q",
+              "B--P"
+            ],
+            "before_error_deg": 0.016593043125197937,
+            "after_error_deg": 0.011146869993538644,
+            "solver_after_error_deg": 6.252776074688882e-13,
+            "export_tolerance_deg": 0.05094940739858093
           },
           {
             "type": "perpendicular",
@@ -723,8 +928,8 @@
             ],
             "before_error_deg": 0.0663841320472045,
             "after_error_deg": 0.011079915131546159,
-            "solver_after_error_deg": 3.481659405224491e-12,
-            "export_tolerance_deg": 0.03129086113868214
+            "solver_after_error_deg": 3.467448550509289e-12,
+            "export_tolerance_deg": 0.0312908611386824
           },
           {
             "type": "perpendicular",
@@ -734,19 +939,30 @@
             ],
             "before_error_deg": 0.08297717517238823,
             "after_error_deg": 0.011079915131546159,
-            "solver_after_error_deg": 4.078515303262975e-12,
-            "export_tolerance_deg": 0.0312908611386816
+            "solver_after_error_deg": 4.064304448547773e-12,
+            "export_tolerance_deg": 0.03129086113868187
           },
           {
             "type": "parallel",
             "segments": [
-              "A--B",
+              "A--P",
               "C--Q"
             ],
             "before_error_deg": 0.082977175172399,
-            "after_error_deg": 6.140991031533324e-15,
-            "solver_after_error_deg": 4.4104469120503085e-12,
-            "export_tolerance_deg": 0.039125711225993454
+            "after_error_deg": 6.663234344550941e-05,
+            "solver_after_error_deg": 4.681047442662154e-12,
+            "export_tolerance_deg": 0.05859324700525631
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--P",
+              "C--Q"
+            ],
+            "before_error_deg": 0.082977175172399,
+            "after_error_deg": 6.695486198575514e-05,
+            "solver_after_error_deg": 4.101582460118023e-12,
+            "export_tolerance_deg": 0.05878425748589229
           }
         ],
         "rejected": [],
@@ -771,43 +987,43 @@
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 6,
-        "preserved_incidence_count": 1,
+        "input_candidates": 9,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0002774777822111259,
-        "max_length_change_rel": 0.0004344048289088853,
+        "max_length_change_rel": 0.0004843786990500476,
         "fixed_points": [],
         "length_weight": 0.01,
         "length_scope": "all_pairs",
         "incidence_mode": "snap",
         "topology_tol_rel": 0.003,
         "incidence_strength": 1.0,
-        "rms_shift_rel": 0.00020945498903322303,
-        "max_after_error_deg": 0.01107991513156037,
+        "rms_shift_rel": 0.00020945498903281282,
+        "max_after_error_deg": 0.011146869993538644,
         "curve_policy": "defer",
-        "candidate_count": 6,
-        "solver_max_shift_rel": 0.0003238089403429769,
+        "candidate_count": 9,
+        "solver_max_shift_rel": 0.0003238089403364338,
         "coordinate_decimals": 3,
         "export_verified": true,
-        "max_export_error_deg": 0.01107991513156037,
+        "max_export_error_deg": 0.011146869993538644,
         "point_count": 5,
-        "segment_count": 5
+        "segment_count": 6
       },
-      "created_at": "2026-11-09T11:31:05"
+      "created_at": "2026-11-09T23:07:38"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used the PROGRAM-OWNED CV coordinates (A, B, C, P, Q) by name and did not redefine them; they override the instruction's pixel values (they match the same frame with cy≈186.5, s=0.017544). Edges: rectangle A-B, B-C, C-Q, Q-A plus P-Q; A-B is drawn directly since P lies on it. Stroke 1.0pt with round joins and 14.5/17.4pt labels from STYLE METRICS. Labels placed outside corners. No right-angle marks (none verified). The standalone file will compile once the program inserts the coordinate block at the start of the tikzpicture.",
+        "notes": "Rectangle ABCQ with P on side BA and diagonal PQ, all strokes solid, line width 1.0pt with round joins per STYLE METRICS. Vertex coordinates are not defined in this document because the program owns them (A, B, C, P, Q). The file will only compile standalone after the program inserts those definitions. Labels are bound to their vertices with the placements from the source: B above-left, C above-right, A below-left, Q below-right, P left. Label font is \\fontsize{14.5}{17.4}\\selectfont. No right-angle marks were drawn since none were verified. Small vertex dots were added to match the source image. No measurement issues were found in the supplied CV coordinates.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\918_q_fig2\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\918_q_fig2\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -837,22 +1053,22 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\918_q_fig2\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\918_q_fig2\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0353"
+              "detail": "ink_ratio=0.0336"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.42 vs render 1.50 (delta 0.05)"
+              "detail": "reference 1.42 vs render 1.50 (delta 0.06)"
             },
             {
               "name": "figure_extent_ratio",
@@ -862,254 +1078,7 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:31:05"
-    },
-    "ev_0006": {
-      "id": "ev_0006",
-      "source": "critic_agent",
-      "method": "endpoint_review",
-      "summary": "Reviewed 2 CV endpoint case(s)",
-      "payload": {
-        "eb54848f7688f6ef": {
-          "edge": [
-            "P",
-            "Q"
-          ],
-          "reason": "In the original, the diagonal stroke runs from the point P on the left edge to corner Q, so it joins P and Q."
-        },
-        "c4254d6b1bc64253": {
-          "edge": [
-            "A",
-            "Q"
-          ],
-          "reason": "In the original, the bottom stroke runs continuously from corner A to corner Q."
-        }
-      },
-      "created_at": "2026-11-09T11:31:24"
-    },
-    "ev_0007": {
-      "id": "ev_0007",
-      "source": "renderer",
-      "method": "frame_like_original",
-      "summary": "v2 canvas matched to source [531, 373] (scale 0.7273)",
-      "payload": {
-        "ok": true,
-        "size": [
-          531,
-          373
-        ],
-        "reference_size": [
-          531,
-          373
-        ],
-        "scale": 0.7273,
-        "offset": [
-          31,
-          30
-        ]
-      },
-      "created_at": "2026-11-09T11:31:39"
-    },
-    "ev_0008": {
-      "id": "ev_0008",
-      "source": "tikz_constraint_repair",
-      "method": "post-generation joint coordinate projection",
-      "summary": "v2: applied",
-      "payload": {
-        "ok": true,
-        "enabled": true,
-        "applied": true,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "cacb85243fb754fea2feee347e0b06c8f0acc09211cb8c075d3b819c971e8c09",
-        "output_sha256": "3a9752da5a402211297eb74e30edd193107ab0757678235213ebfc7d825c6f87",
-        "reason": "applied",
-        "accepted": [
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--B",
-              "B--C"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.01107991513156037,
-            "solver_after_error_deg": 3.410605131648481e-13,
-            "export_tolerance_deg": 0.03129086113868192
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--Q",
-              "B--C"
-            ],
-            "before_error_deg": 0.016593043125192317,
-            "after_error_deg": 2.0822001166611148e-18,
-            "solver_after_error_deg": 5.826596758978495e-13,
-            "export_tolerance_deg": 0.023456011051370598
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--B",
-              "A--Q"
-            ],
-            "before_error_deg": 0.016593043125197937,
-            "after_error_deg": 0.01107991513156037,
-            "solver_after_error_deg": 9.094947017729282e-13,
-            "export_tolerance_deg": 0.031290861138682464
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--Q",
-              "C--Q"
-            ],
-            "before_error_deg": 0.0663841320472045,
-            "after_error_deg": 0.011079915131546159,
-            "solver_after_error_deg": 3.481659405224491e-12,
-            "export_tolerance_deg": 0.03129086113868214
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "C--Q"
-            ],
-            "before_error_deg": 0.08297717517238823,
-            "after_error_deg": 0.011079915131546159,
-            "solver_after_error_deg": 4.078515303262975e-12,
-            "export_tolerance_deg": 0.0312908611386816
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--B",
-              "C--Q"
-            ],
-            "before_error_deg": 0.082977175172399,
-            "after_error_deg": 6.140991031533324e-15,
-            "solver_after_error_deg": 4.4104469120503085e-12,
-            "export_tolerance_deg": 0.039125711225993454
-          }
-        ],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.003,
-          "incidence_mode": "snap",
-          "length_weight": 0.01,
-          "length_scope": "all_pairs",
-          "curve_policy": "defer",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel",
-            "perpendicular"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 6,
-        "preserved_incidence_count": 1,
-        "max_shift_rel": 0.0002774777822111259,
-        "max_length_change_rel": 0.0004344048289088853,
-        "fixed_points": [],
-        "length_weight": 0.01,
-        "length_scope": "all_pairs",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.003,
-        "incidence_strength": 1.0,
-        "rms_shift_rel": 0.00020945498903322303,
-        "max_after_error_deg": 0.01107991513156037,
-        "curve_policy": "defer",
-        "candidate_count": 6,
-        "solver_max_shift_rel": 0.0003238089403429769,
-        "coordinate_decimals": 3,
-        "export_verified": true,
-        "max_export_error_deg": 0.01107991513156037,
-        "point_count": 5,
-        "segment_count": 5
-      },
-      "created_at": "2026-11-09T11:31:39"
-    },
-    "ev_0009": {
-      "id": "ev_0009",
-      "source": "code_agent",
-      "method": "tikz repair",
-      "summary": "v2 compiled=True validation=True",
-      "payload": {
-        "notes": "Repair for the critic's wrong_style issue: global line width raised from 1.0pt to 1.6pt with line join=round, and vertex dots enlarged from 1.6pt to 2.2pt. Coordinates, the named edges (A-B, B-C, C-Q, Q-A, P-Q), label bindings, label placements and label font are unchanged. The \\coordinate definitions were removed because the program owns the A, B, C, P, Q coordinates and inserts them at the start of the tikzpicture. Note: the 1.6pt width is a deliberate departure from the STYLE METRICS value of 1.0pt, since the instruction and critic explicitly target stroke weight.",
-        "compile": {
-          "compile_ok": true,
-          "validation_passed": true,
-          "errors": [],
-          "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v2\\v2.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v2\\v2.pdf",
-          "checks": [
-            {
-              "name": "documentclass",
-              "passed": true,
-              "detail": "documentclass present"
-            },
-            {
-              "name": "document_environment",
-              "passed": true,
-              "detail": "begin=1 end=1"
-            },
-            {
-              "name": "tikzpicture",
-              "passed": true,
-              "detail": "one balanced tikzpicture"
-            },
-            {
-              "name": "no_shell_escape",
-              "passed": true,
-              "detail": "no \\write18/\\openout primitives"
-            },
-            {
-              "name": "compiler_ok",
-              "passed": true,
-              "detail": "returncode=0"
-            },
-            {
-              "name": "pdf_created",
-              "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v2\\v2.pdf"
-            },
-            {
-              "name": "png_rendered",
-              "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v2\\v2.png"
-            },
-            {
-              "name": "render_not_blank",
-              "passed": true,
-              "detail": "ink_ratio=0.0464"
-            },
-            {
-              "name": "aspect_ratio",
-              "passed": true,
-              "detail": "reference 1.42 vs render 1.50 (delta 0.05)"
-            },
-            {
-              "name": "figure_extent_ratio",
-              "passed": true,
-              "detail": "figure bbox ratio 1.52"
-            }
-          ]
-        }
-      },
-      "created_at": "2026-11-09T11:31:39"
+      "created_at": "2026-11-09T23:07:38"
     }
   },
   "conflicts": [],
@@ -1120,10 +1089,10 @@
     "A": "point_03",
     "Q": "point_01"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc}\n\\begin{document}\n\n\n\\begin{tikzpicture}[line width=1.6pt, line join=round]\n\\coordinate (A) at (-3.466,-2.009);\n\\coordinate (B) at (-3.464,2.133);\n\\coordinate (C) at (3.445,2.131);\n\\coordinate (P) at (-3.465,0.067);\n\\coordinate (Q) at (3.443,-2.011);\n\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \\draw (C) -- (Q);\n  \\draw (Q) -- (A);\n  \\draw (P) -- (Q);\n\n  \n  \\foreach \\v in {A,B,C,P,Q} \\fill (\\v) circle (2.200pt);\n\n  \n  \\node[above left] at (B) {\\fontsize{14.5}{17.4}\\selectfont$B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont$C$};\n  \\node[below left] at (A) {\\fontsize{14.5}{17.4}\\selectfont$A$};\n  \\node[below right] at (Q) {\\fontsize{14.5}{17.4}\\selectfont$Q$};\n  \\node[left] at (P) {\\fontsize{14.5}{17.4}\\selectfont$P$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 1199b9c6c0e0c3007d79338560c21138cae88809fde07fbd6c40aa0b42f25879\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc}\n\\begin{document}\n\n\n\\begin{tikzpicture}[line width=1.6pt, line join=round]\n\\coordinate (A) at (-3.466,-2.009);\n\\coordinate (B) at (-3.464,2.133);\n\\coordinate (C) at (3.445,2.131);\n\\coordinate (P) at (-3.465,0.067);\n\\coordinate (Q) at (3.443,-2.011);\n\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \\draw (C) -- (Q);\n  \\draw (Q) -- (A);\n  \\draw (P) -- (Q);\n\n  \n  \\foreach \\v in {A,B,C,P,Q} \\fill (\\v) circle (2.200pt);\n\n  \n  \\node[above left] at (B) {\\fontsize{14.5}{17.4}\\selectfont$B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont$C$};\n  \\node[below left] at (A) {\\fontsize{14.5}{17.4}\\selectfont$A$};\n  \\node[below right] at (Q) {\\fontsize{14.5}{17.4}\\selectfont$Q$};\n  \\node[left] at (P) {\\fontsize{14.5}{17.4}\\selectfont$P$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 1199b9c6c0e0c3007d79338560c21138cae88809fde07fbd6c40aa0b42f25879\n",
-  "best_version": 2,
-  "best_score": 0.93,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line join=round]\n\\coordinate (A) at (-3.466,-2.009);\n\\coordinate (B) at (-3.464,2.133);\n\\coordinate (C) at (3.445,2.131);\n\\coordinate (P) at (-3.465,0.067);\n\\coordinate (Q) at (3.443,-2.011);\n\n  \n\n  \n  \\draw[solid, line width=1.0pt] (B) -- (C);   \n  \\draw[solid, line width=1.0pt] (C) -- (Q);   \n  \\draw[solid, line width=1.0pt] (A) -- (Q);   \n  \\draw[solid, line width=1.0pt] (B) -- (P);   \n  \\draw[solid, line width=1.0pt] (P) -- (A);   \n  \\draw[solid, line width=1.0pt] (P) -- (Q);   \n\n  \n  \\foreach \\v in {A,B,C,P,Q} \\fill (\\v) circle (1.500pt);\n\n  \n  \\node[above left]  at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n  \\node[below left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n  \\node[below right] at (Q) {\\fontsize{14.5}{17.4}\\selectfont $Q$};\n  \\node[left]        at (P) {\\fontsize{14.5}{17.4}\\selectfont $P$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 6aa4a03736e6b751b26b73e2587f7452224eb673d8e82349c0e3415d0cf9c422\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line join=round]\n\\coordinate (A) at (-3.466,-2.009);\n\\coordinate (B) at (-3.464,2.133);\n\\coordinate (C) at (3.445,2.131);\n\\coordinate (P) at (-3.465,0.067);\n\\coordinate (Q) at (3.443,-2.011);\n\n  \n\n  \n  \\draw[solid, line width=1.0pt] (B) -- (C);   \n  \\draw[solid, line width=1.0pt] (C) -- (Q);   \n  \\draw[solid, line width=1.0pt] (A) -- (Q);   \n  \\draw[solid, line width=1.0pt] (B) -- (P);   \n  \\draw[solid, line width=1.0pt] (P) -- (A);   \n  \\draw[solid, line width=1.0pt] (P) -- (Q);   \n\n  \n  \\foreach \\v in {A,B,C,P,Q} \\fill (\\v) circle (1.500pt);\n\n  \n  \\node[above left]  at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n  \\node[below left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n  \\node[below right] at (Q) {\\fontsize{14.5}{17.4}\\selectfont $Q$};\n  \\node[left]        at (P) {\\fontsize{14.5}{17.4}\\selectfont $P$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 6aa4a03736e6b751b26b73e2587f7452224eb673d8e82349c0e3415d0cf9c422\n",
+  "best_version": 1,
+  "best_score": 0.9,
   "tikz_versions": [
     {
       "topology_check": {
@@ -1131,100 +1100,125 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc}\n\\begin{document}\n\n\\begin{tikzpicture}[line width=1.0pt, line join=round]\n\\coordinate (A) at (-3.466,-2.009);\n\\coordinate (B) at (-3.464,2.133);\n\\coordinate (C) at (3.445,2.131);\n\\coordinate (P) at (-3.465,0.067);\n\\coordinate (Q) at (3.443,-2.011);\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \\draw (C) -- (Q);\n  \\draw (Q) -- (A);\n  \n  \\draw (P) -- (Q);\n  \n  \\foreach \\v in {A,B,C,P,Q} \\fill (\\v) circle (1.600pt);\n  \n  \\node[above left] at (B) {\\fontsize{14.5}{17.4}\\selectfont$B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont$C$};\n  \\node[below left] at (A) {\\fontsize{14.5}{17.4}\\selectfont$A$};\n  \\node[below right] at (Q) {\\fontsize{14.5}{17.4}\\selectfont$Q$};\n  \\node[left] at (P) {\\fontsize{14.5}{17.4}\\selectfont$P$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 b0daa95e277727cbbeb3ff508b8f231fe98b4d43dab790b626cd122cc25dcb65\n",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line join=round]\n\\coordinate (A) at (-3.466,-2.009);\n\\coordinate (B) at (-3.464,2.133);\n\\coordinate (C) at (3.445,2.131);\n\\coordinate (P) at (-3.465,0.067);\n\\coordinate (Q) at (3.443,-2.011);\n\n  \n\n  \n  \\draw[solid, line width=1.0pt] (B) -- (C);   \n  \\draw[solid, line width=1.0pt] (C) -- (Q);   \n  \\draw[solid, line width=1.0pt] (A) -- (Q);   \n  \\draw[solid, line width=1.0pt] (B) -- (P);   \n  \\draw[solid, line width=1.0pt] (P) -- (A);   \n  \\draw[solid, line width=1.0pt] (P) -- (Q);   \n\n  \n  \\foreach \\v in {A,B,C,P,Q} \\fill (\\v) circle (1.500pt);\n\n  \n  \\node[above left]  at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n  \\node[below left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n  \\node[below right] at (Q) {\\fontsize{14.5}{17.4}\\selectfont $Q$};\n  \\node[left]        at (P) {\\fontsize{14.5}{17.4}\\selectfont $P$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 6aa4a03736e6b751b26b73e2587f7452224eb673d8e82349c0e3415d0cf9c422\n",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\918_q_fig2\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\918_q_fig2\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\918_q_fig2\\best.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:31:03",
+      "created_at": "2026-11-09T23:07:34",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used the PROGRAM-OWNED CV coordinates (A, B, C, P, Q) by name and did not redefine them; they override the instruction's pixel values (they match the same frame with cy≈186.5, s=0.017544). Edges: rectangle A-B, B-C, C-Q, Q-A plus P-Q; A-B is drawn directly since P lies on it. Stroke 1.0pt with round joins and 14.5/17.4pt labels from STYLE METRICS. Labels placed outside corners. No right-angle marks (none verified). The standalone file will compile once the program inserts the coordinate block at the start of the tikzpicture.",
-      "compile_seconds": 2.578,
+      "notes": "Rectangle ABCQ with P on side BA and diagonal PQ, all strokes solid, line width 1.0pt with round joins per STYLE METRICS. Vertex coordinates are not defined in this document because the program owns them (A, B, C, P, Q). The file will only compile standalone after the program inserts those definitions. Labels are bound to their vertices with the placements from the source: B above-left, C above-right, A below-left, Q below-right, P left. Label font is \\fontsize{14.5}{17.4}\\selectfont. No right-angle marks were drawn since none were verified. Small vertex dots were added to match the source image. No measurement issues were found in the supplied CV coordinates.",
+      "compile_seconds": 3.798,
       "critic_report": {
         "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Geometry matches the original: rectangle corners, P on the left edge, diagonal P-Q and labels are all correct. The only visible difference is that the render strokes are thinner.",
+        "verdict": "The render reproduces the rectangle ABCQ, the point P on edge BA, and the diagonal PQ with correct topology and labels; the only visible difference is stroke weight.",
         "figure_type": {
-          "original": "Rectangle ABCQ with point P on edge AB and diagonal PQ, drawn with bold strokes",
-          "render": "Rectangle ABCQ with point P on edge AB and diagonal PQ, drawn with thin strokes"
+          "original": "Rectangle ABCQ with P on the left side BA and diagonal PQ, bold strokes",
+          "render": "Rectangle ABCQ with P on the left side BA and diagonal PQ, thin strokes"
         },
         "issues": [
           {
             "type": "wrong_style",
             "severity": "low",
             "object_ids": [
-              "seg_01",
-              "seg_02",
-              "seg_03",
-              "seg_04",
-              "seg_05"
+              "seg_AQ",
+              "seg_BA",
+              "seg_BC",
+              "seg_CQ",
+              "seg_PQ"
             ],
             "bbox": [
-              0.05,
+              0.03,
               0.2,
-              0.45,
-              0.78
+              0.46,
+              0.8
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Rectangle edges and diagonal PQ are thinner in the render than in the original (render stroke is roughly 1px against about 2.5px in the original, at the same scale). The point markers are also smaller.",
-            "suggestion": "Increase the global line width, e.g. \\begin{tikzpicture}[line width=1.6pt, ...], and optionally enlarge the vertex dots from 1.6pt to about 2.2pt."
+            "description": "Stroke weight: the rendered edges and diagonal are noticeably thinner than the original's bold lines, and the vertex dots are smaller.",
+            "suggestion": "Increase the line width for the segments (for example from 1.0pt to about 1.5-2.0pt) and increase the point dot radius from 1.5pt if the original's heavier look should be matched."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Diagonal from P on the left edge to Q at bottom-right is correct and ends at P and Q."
+            "note": "Diagonal PQ is drawn from P to Q, matching the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Bottom edge A-Q is drawn correctly between the two corners."
+            "note": "Bottom edge AQ is drawn and spans A to Q."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Top edge B-C is drawn correctly between the two corners."
+            "note": "Top edge BC is drawn and spans B to C."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Left edge A-B is drawn correctly, with P lying on it."
+            "note": "Left edge BA is drawn and passes through P."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Right edge C-Q is drawn correctly."
+            "note": "Right edge CQ is drawn and spans C to Q."
+          },
+          {
+            "object_id": "seg_AQ",
+            "status": "present",
+            "note": "Bottom edge from A to Q matches the original."
+          },
+          {
+            "object_id": "seg_BA",
+            "status": "present",
+            "note": "Left edge from B to A matches the original, with P on it."
+          },
+          {
+            "object_id": "seg_BC",
+            "status": "present",
+            "note": "Top edge from B to C matches the original."
+          },
+          {
+            "object_id": "seg_CQ",
+            "status": "present",
+            "note": "Right edge from C to Q matches the original."
+          },
+          {
+            "object_id": "seg_PQ",
+            "status": "present",
+            "note": "Diagonal from P to Q matches the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label Q sits at bottom-right of the corner, as in the original."
+            "note": "Point Q is at the bottom-right corner, labelled Q."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label P sits to the left of the point on the left edge, as in the original."
+            "note": "Point P is on the left edge, labelled P."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label A sits at bottom-left of the corner, as in the original."
+            "note": "Point A is at the bottom-left corner, labelled A."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label B sits at top-left of the corner, as in the original."
+            "note": "Point B is at the top-left corner, labelled B."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label C sits at top-right of the corner, as in the original."
+            "note": "Point C is at the top-right corner, labelled C."
           }
         ],
         "checklist_score": 1.0,
@@ -1236,11 +1230,11 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Rectangle corners A, B, C, Q are in the correct positions and the outline is closed.",
-          "P lies on the left edge AB at the correct height.",
-          "Diagonal PQ joins P to Q.",
-          "Label placement and letters B, C, A, Q, P are correct, with no collisions between labels or strokes.",
-          "Aspect ratio of the rectangle matches the original."
+          "Rectangle ABCQ with corners in the correct positions",
+          "P lies on the left edge between B and A",
+          "Diagonal PQ joins P to Q and ends at Q",
+          "All five labels A, B, C, P, Q are present, correctly placed and clear of strokes",
+          "No extra or missing segments"
         ],
         "labels": {
           "present": [
@@ -1255,141 +1249,10 @@
         },
         "version": 1,
         "binding_decisions": [],
-        "topology_decisions": [
-          {
-            "case_id": "eb54848f7688f6ef",
-            "edge": [
-              "P",
-              "Q"
-            ],
-            "reason": "In the original, the diagonal stroke runs from the point P on the left edge to corner Q, so it joins P and Q."
-          },
-          {
-            "case_id": "c4254d6b1bc64253",
-            "edge": [
-              "A",
-              "Q"
-            ],
-            "reason": "In the original, the bottom stroke runs continuously from corner A to corner Q."
-          }
-        ],
-        "raw_meta": "{}"
-      },
-      "critic_score": 0.9
-    },
-    {
-      "topology_check": {
-        "passed": true,
-        "missing_edges": []
-      },
-      "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc}\n\\begin{document}\n\n\n\\begin{tikzpicture}[line width=1.6pt, line join=round]\n\\coordinate (A) at (-3.466,-2.009);\n\\coordinate (B) at (-3.464,2.133);\n\\coordinate (C) at (3.445,2.131);\n\\coordinate (P) at (-3.465,0.067);\n\\coordinate (Q) at (3.443,-2.011);\n\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \\draw (C) -- (Q);\n  \\draw (Q) -- (A);\n  \\draw (P) -- (Q);\n\n  \n  \\foreach \\v in {A,B,C,P,Q} \\fill (\\v) circle (2.200pt);\n\n  \n  \\node[above left] at (B) {\\fontsize{14.5}{17.4}\\selectfont$B$};\n  \\node[above right] at (C) {\\fontsize{14.5}{17.4}\\selectfont$C$};\n  \\node[below left] at (A) {\\fontsize{14.5}{17.4}\\selectfont$A$};\n  \\node[below right] at (Q) {\\fontsize{14.5}{17.4}\\selectfont$Q$};\n  \\node[left] at (P) {\\fontsize{14.5}{17.4}\\selectfont$P$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 1199b9c6c0e0c3007d79338560c21138cae88809fde07fbd6c40aa0b42f25879\n",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\918_q_fig2\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\918_q_fig2\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\918_q_fig2\\best.png",
-      "ok": true,
-      "compiled": true,
-      "errors": [],
-      "warnings": [],
-      "created_at": "2026-11-09T11:31:36",
-      "agent": "code_agent",
-      "mode": "repair",
-      "notes": "Repair for the critic's wrong_style issue: global line width raised from 1.0pt to 1.6pt with line join=round, and vertex dots enlarged from 1.6pt to 2.2pt. Coordinates, the named edges (A-B, B-C, C-Q, Q-A, P-Q), label bindings, label placements and label font are unchanged. The \\coordinate definitions were removed because the program owns the A, B, C, P, Q coordinates and inserts them at the start of the tikzpicture. Note: the 1.6pt width is a deliberate departure from the STYLE METRICS value of 1.0pt, since the instruction and critic explicitly target stroke weight.",
-      "compile_seconds": 2.42,
-      "critic_report": {
-        "assessment_score": 0.93,
-        "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Render faithfully reproduces the rectangle ABCQ with P on AB and diagonal PQ; stroke weight now looks comparable to the original and geometry and labels are unchanged.",
-        "figure_type": {
-          "original": "rectangle ABCQ with point P on side AB joined to Q by a diagonal segment",
-          "render": "rectangle ABCQ with point P on side AB joined to Q by a diagonal segment"
-        },
-        "issues": [],
-        "checks": [
-          {
-            "object_id": "seg_01",
-            "status": "present",
-            "note": "Diagonal PQ runs from P on AB to Q at the bottom-right corner, matching the original; stroke weight is comparable."
-          },
-          {
-            "object_id": "seg_02",
-            "status": "present",
-            "note": "Bottom side AQ is drawn between A and Q, matching the original."
-          },
-          {
-            "object_id": "seg_03",
-            "status": "present",
-            "note": "Top side BC is drawn between B and C, matching the original."
-          },
-          {
-            "object_id": "seg_04",
-            "status": "present",
-            "note": "Left side AB is drawn with P on it, matching the original."
-          },
-          {
-            "object_id": "seg_05",
-            "status": "present",
-            "note": "Right side CQ is drawn between C and Q, matching the original."
-          },
-          {
-            "object_id": "point_01",
-            "status": "present",
-            "note": "Point Q is at the bottom-right corner with its label below-right, as in the original."
-          },
-          {
-            "object_id": "point_02",
-            "status": "present",
-            "note": "Point P is on the left side with its label to the left, as in the original."
-          },
-          {
-            "object_id": "point_03",
-            "status": "present",
-            "note": "Point A is at the bottom-left corner with its label below-left, as in the original."
-          },
-          {
-            "object_id": "point_04",
-            "status": "present",
-            "note": "Point B is at the top-left corner with its label above-left, as in the original."
-          },
-          {
-            "object_id": "point_05",
-            "status": "present",
-            "note": "Point C is at the top-right corner with its label above-right, as in the original."
-          }
-        ],
-        "checklist_score": 1.0,
-        "actionable_counts": {
-          "high": 0,
-          "medium": 0,
-          "low": 0
-        },
-        "flaky_count": 0,
-        "must_repair": false,
-        "matches": [
-          "Rectangle outline ABCQ with the correct corner order and proportions",
-          "P lies on side AB at the same relative height as in the original",
-          "Diagonal PQ starts at P and ends exactly at corner Q",
-          "All five point labels (A, B, C, P, Q) are present, correctly placed and clear of strokes",
-          "Stroke weight of the sides and diagonal is now visually comparable to the original; the previous thin-stroke issue is resolved",
-          "No extra elements are drawn"
-        ],
-        "labels": {
-          "present": [
-            "A",
-            "B",
-            "C",
-            "P",
-            "Q"
-          ],
-          "missing": [],
-          "extra": []
-        },
-        "version": 2,
-        "binding_decisions": [],
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.93
+      "critic_score": 0.9
     }
   ],
   "compilation_results": [
@@ -1397,27 +1260,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.578,
+      "seconds": 3.798,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.748046875 KiB)\nnote: Writing `figure.pdf` (3.0537109375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:31:05"
-    },
-    {
-      "version": 2,
-      "ok": true,
-      "returncode": 0,
-      "seconds": 2.42,
-      "errors": [],
-      "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.0576171875 KiB)\nnote: Writing `figure.log` (11.748046875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v2\\v2.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v2\\v2.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T11:31:39"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.4912109375 KiB)\nnote: Writing `figure.pdf` (3.0693359375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\918_q_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\918_q_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\918_q_fig2\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T23:07:38"
     }
   ],
   "validation_results": [
@@ -1453,22 +1303,22 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\918_q_fig2\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\918_q_fig2\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0353"
+          "detail": "ink_ratio=0.0336"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.42 vs render 1.50 (delta 0.05)"
+          "detail": "reference 1.42 vs render 1.50 (delta 0.06)"
         },
         {
           "name": "figure_extent_ratio",
@@ -1476,148 +1326,116 @@
           "detail": "figure bbox ratio 1.52"
         }
       ],
-      "created_at": "2026-11-09T11:31:05"
-    },
-    {
-      "version": 2,
-      "passed": true,
-      "checks": [
-        {
-          "name": "documentclass",
-          "passed": true,
-          "detail": "documentclass present"
-        },
-        {
-          "name": "document_environment",
-          "passed": true,
-          "detail": "begin=1 end=1"
-        },
-        {
-          "name": "tikzpicture",
-          "passed": true,
-          "detail": "one balanced tikzpicture"
-        },
-        {
-          "name": "no_shell_escape",
-          "passed": true,
-          "detail": "no \\write18/\\openout primitives"
-        },
-        {
-          "name": "compiler_ok",
-          "passed": true,
-          "detail": "returncode=0"
-        },
-        {
-          "name": "pdf_created",
-          "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v2\\v2.pdf"
-        },
-        {
-          "name": "png_rendered",
-          "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\918_q_fig2\\tikz\\v2\\v2.png"
-        },
-        {
-          "name": "render_not_blank",
-          "passed": true,
-          "detail": "ink_ratio=0.0464"
-        },
-        {
-          "name": "aspect_ratio",
-          "passed": true,
-          "detail": "reference 1.42 vs render 1.50 (delta 0.05)"
-        },
-        {
-          "name": "figure_extent_ratio",
-          "passed": true,
-          "detail": "figure bbox ratio 1.52"
-        }
-      ],
-      "created_at": "2026-11-09T11:31:38"
+      "created_at": "2026-11-09T23:07:38"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Geometry matches the original: rectangle corners, P on the left edge, diagonal P-Q and labels are all correct. The only visible difference is that the render strokes are thinner.",
+      "verdict": "The render reproduces the rectangle ABCQ, the point P on edge BA, and the diagonal PQ with correct topology and labels; the only visible difference is stroke weight.",
       "figure_type": {
-        "original": "Rectangle ABCQ with point P on edge AB and diagonal PQ, drawn with bold strokes",
-        "render": "Rectangle ABCQ with point P on edge AB and diagonal PQ, drawn with thin strokes"
+        "original": "Rectangle ABCQ with P on the left side BA and diagonal PQ, bold strokes",
+        "render": "Rectangle ABCQ with P on the left side BA and diagonal PQ, thin strokes"
       },
       "issues": [
         {
           "type": "wrong_style",
           "severity": "low",
           "object_ids": [
-            "seg_01",
-            "seg_02",
-            "seg_03",
-            "seg_04",
-            "seg_05"
+            "seg_AQ",
+            "seg_BA",
+            "seg_BC",
+            "seg_CQ",
+            "seg_PQ"
           ],
           "bbox": [
-            0.05,
+            0.03,
             0.2,
-            0.45,
-            0.78
+            0.46,
+            0.8
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "Rectangle edges and diagonal PQ are thinner in the render than in the original (render stroke is roughly 1px against about 2.5px in the original, at the same scale). The point markers are also smaller.",
-          "suggestion": "Increase the global line width, e.g. \\begin{tikzpicture}[line width=1.6pt, ...], and optionally enlarge the vertex dots from 1.6pt to about 2.2pt."
+          "description": "Stroke weight: the rendered edges and diagonal are noticeably thinner than the original's bold lines, and the vertex dots are smaller.",
+          "suggestion": "Increase the line width for the segments (for example from 1.0pt to about 1.5-2.0pt) and increase the point dot radius from 1.5pt if the original's heavier look should be matched."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Diagonal from P on the left edge to Q at bottom-right is correct and ends at P and Q."
+          "note": "Diagonal PQ is drawn from P to Q, matching the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Bottom edge A-Q is drawn correctly between the two corners."
+          "note": "Bottom edge AQ is drawn and spans A to Q."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Top edge B-C is drawn correctly between the two corners."
+          "note": "Top edge BC is drawn and spans B to C."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Left edge A-B is drawn correctly, with P lying on it."
+          "note": "Left edge BA is drawn and passes through P."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Right edge C-Q is drawn correctly."
+          "note": "Right edge CQ is drawn and spans C to Q."
+        },
+        {
+          "object_id": "seg_AQ",
+          "status": "present",
+          "note": "Bottom edge from A to Q matches the original."
+        },
+        {
+          "object_id": "seg_BA",
+          "status": "present",
+          "note": "Left edge from B to A matches the original, with P on it."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Top edge from B to C matches the original."
+        },
+        {
+          "object_id": "seg_CQ",
+          "status": "present",
+          "note": "Right edge from C to Q matches the original."
+        },
+        {
+          "object_id": "seg_PQ",
+          "status": "present",
+          "note": "Diagonal from P to Q matches the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label Q sits at bottom-right of the corner, as in the original."
+          "note": "Point Q is at the bottom-right corner, labelled Q."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label P sits to the left of the point on the left edge, as in the original."
+          "note": "Point P is on the left edge, labelled P."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label A sits at bottom-left of the corner, as in the original."
+          "note": "Point A is at the bottom-left corner, labelled A."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label B sits at top-left of the corner, as in the original."
+          "note": "Point B is at the top-left corner, labelled B."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label C sits at top-right of the corner, as in the original."
+          "note": "Point C is at the top-right corner, labelled C."
         }
       ],
       "checklist_score": 1.0,
@@ -1629,11 +1447,11 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Rectangle corners A, B, C, Q are in the correct positions and the outline is closed.",
-        "P lies on the left edge AB at the correct height.",
-        "Diagonal PQ joins P to Q.",
-        "Label placement and letters B, C, A, Q, P are correct, with no collisions between labels or strokes.",
-        "Aspect ratio of the rectangle matches the original."
+        "Rectangle ABCQ with corners in the correct positions",
+        "P lies on the left edge between B and A",
+        "Diagonal PQ joins P to Q and ends at Q",
+        "All five labels A, B, C, P, Q are present, correctly placed and clear of strokes",
+        "No extra or missing segments"
       ],
       "labels": {
         "present": [
@@ -1648,121 +1466,20 @@
       },
       "version": 1,
       "binding_decisions": [],
-      "topology_decisions": [
-        {
-          "case_id": "eb54848f7688f6ef",
-          "edge": [
-            "P",
-            "Q"
-          ],
-          "reason": "In the original, the diagonal stroke runs from the point P on the left edge to corner Q, so it joins P and Q."
-        },
-        {
-          "case_id": "c4254d6b1bc64253",
-          "edge": [
-            "A",
-            "Q"
-          ],
-          "reason": "In the original, the bottom stroke runs continuously from corner A to corner Q."
-        }
-      ],
-      "raw_meta": "{}"
-    },
-    {
-      "assessment_score": 0.93,
-      "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Render faithfully reproduces the rectangle ABCQ with P on AB and diagonal PQ; stroke weight now looks comparable to the original and geometry and labels are unchanged.",
-      "figure_type": {
-        "original": "rectangle ABCQ with point P on side AB joined to Q by a diagonal segment",
-        "render": "rectangle ABCQ with point P on side AB joined to Q by a diagonal segment"
-      },
-      "issues": [],
-      "checks": [
-        {
-          "object_id": "seg_01",
-          "status": "present",
-          "note": "Diagonal PQ runs from P on AB to Q at the bottom-right corner, matching the original; stroke weight is comparable."
-        },
-        {
-          "object_id": "seg_02",
-          "status": "present",
-          "note": "Bottom side AQ is drawn between A and Q, matching the original."
-        },
-        {
-          "object_id": "seg_03",
-          "status": "present",
-          "note": "Top side BC is drawn between B and C, matching the original."
-        },
-        {
-          "object_id": "seg_04",
-          "status": "present",
-          "note": "Left side AB is drawn with P on it, matching the original."
-        },
-        {
-          "object_id": "seg_05",
-          "status": "present",
-          "note": "Right side CQ is drawn between C and Q, matching the original."
-        },
-        {
-          "object_id": "point_01",
-          "status": "present",
-          "note": "Point Q is at the bottom-right corner with its label below-right, as in the original."
-        },
-        {
-          "object_id": "point_02",
-          "status": "present",
-          "note": "Point P is on the left side with its label to the left, as in the original."
-        },
-        {
-          "object_id": "point_03",
-          "status": "present",
-          "note": "Point A is at the bottom-left corner with its label below-left, as in the original."
-        },
-        {
-          "object_id": "point_04",
-          "status": "present",
-          "note": "Point B is at the top-left corner with its label above-left, as in the original."
-        },
-        {
-          "object_id": "point_05",
-          "status": "present",
-          "note": "Point C is at the top-right corner with its label above-right, as in the original."
-        }
-      ],
-      "checklist_score": 1.0,
-      "actionable_counts": {
-        "high": 0,
-        "medium": 0,
-        "low": 0
-      },
-      "flaky_count": 0,
-      "must_repair": false,
-      "matches": [
-        "Rectangle outline ABCQ with the correct corner order and proportions",
-        "P lies on side AB at the same relative height as in the original",
-        "Diagonal PQ starts at P and ends exactly at corner Q",
-        "All five point labels (A, B, C, P, Q) are present, correctly placed and clear of strokes",
-        "Stroke weight of the sides and diagonal is now visually comparable to the original; the previous thin-stroke issue is resolved",
-        "No extra elements are drawn"
-      ],
-      "labels": {
-        "present": [
-          "A",
-          "B",
-          "C",
-          "P",
-          "Q"
-        ],
-        "missing": [],
-        "extra": []
-      },
-      "version": 2,
-      "binding_decisions": [],
       "topology_decisions": [],
       "raw_meta": "{}"
     }
   ],
-  "unresolved_issues": [],
+  "unresolved_issues": [
+    {
+      "source": "geometry_agent",
+      "issue": "No right-angle markers found in this pass; figure appears to be a rectangle with a diagonal PQ, so no right_angle objects submitted."
+    },
+    {
+      "source": "supervisor",
+      "issue": "Stroke weight is slightly thinner than the original (low severity); not repaired."
+    }
+  ],
   "action_history": [
     {
       "step": 0,
@@ -1789,84 +1506,72 @@
       "error": null
     },
     {
-      "step": 1,
-      "action": "run_code_agent",
-      "purpose": "Reconstruct the figure as TikZ with a y-flip (TikZ y = 373 - y_px, or equivalent using the image height 373). Use these measured points: B=(68,65) top-left corner, C=(462,65) top-right corner, A=(68,3",
-      "params": {
-        "mode": "generate",
-        "use_image": null,
-        "instruction": "Reconstruct the figure as TikZ with a y-flip (TikZ y = 373 - y_px, or equivalent using the image height 373). Use these measured points: B=(68,65) top-left corner, C=(462,65) top-right corner, A=(68,301) bottom-left corner, Q=(462,301) bottom-right corner, P=(68,182.7) on the left edge between B and A. Draw solid rectangle edges B-C, C-Q, Q-A, A-B (the left edge A-B passes through P, so draw it as A--P--B). Draw solid segment P--Q (it runs from P to Q, slightly overshooting at Q is not evidence of extension; end it at Q). Label points with the given letters A, B, C, P, Q placed outside the figure near each corner (B top-left, C top-right, A bottom-left, Q bottom-right, P just left of the left edge). Use a single coordinate definition for shared vertices. No right-angle marks are detected. Keep it compilable standalone with tikz."
-      },
+      "step": 0,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "initial source evidence",
+      "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 14.69,
-      "token_usage": {
-        "delta": 7077
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 2,
-      "action": "run_critic",
-      "purpose": "Verify the rectangle corners, that P lies on the left edge, the diagonal P-Q, and label letters/positions (B top-left, C top-right, A bottom-left, Q bottom-right, P left edge).",
-      "params": {
-        "focus": "Verify the rectangle corners, that P lies on the left edge, the diagonal P-Q, and label letters/positions (B top-left, C top-right, A bottom-left, Q bottom-right, P left edge)."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
-      "duration_s": 13.58,
-      "token_usage": {
-        "delta": 8835
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 3,
-      "action": "run_code_agent",
-      "purpose": "Increase global line width to 1.6pt in the tikzpicture options (line width=1.6pt, line join=round) and enlarge vertex dots from 1.6pt to about 2.2pt. Keep all coordinates, edges (A-B, B-C, C-Q, Q-A, P",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Increase global line width to 1.6pt in the tikzpicture options (line width=1.6pt, line join=round) and enlarge vertex dots from 1.6pt to about 2.2pt. Keep all coordinates, edges (A-B, B-C, C-Q, Q-A, P-Q) and labels unchanged."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 11.39,
-      "token_usage": {
-        "delta": 7000
-      },
+      "result_summary": "ok=True; count=0",
+      "duration_s": 0.0,
+      "token_usage": {},
       "visual_calls": 0,
       "error": null
     },
     {
-      "step": 4,
-      "action": "run_critic",
-      "purpose": "Confirm version 2 stroke width now matches the original and geometry/labels are unchanged.",
-      "params": {
-        "focus": "Confirm version 2 stroke width now matches the original and geometry/labels are unchanged."
-      },
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.93",
-      "duration_s": 11.03,
-      "token_usage": {
-        "delta": 8009
-      },
-      "visual_calls": 1,
+      "result_summary": "ok=True; merged={'objects': 10, 'relations': 2, 'conflicts': 0, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
       "error": null
     },
     {
-      "step": 5,
+      "step": 1,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 1,
+      "action": "run_code_agent",
+      "purpose": "Draw a rectangle with named vertices from the measured pixel coordinates (y flipped; use TikZ coordinates, e.g. scale so width 394px ~ fits). Use these image pixel coordinates (origin top-left, y down",
+      "params": {
+        "mode": "generate",
+        "use_image": null,
+        "instruction": "Draw a rectangle with named vertices from the measured pixel coordinates (y flipped; use TikZ coordinates, e.g. scale so width 394px ~ fits). Use these image pixel coordinates (origin top-left, y down): B=(68,65) top-left, C=(462,65) top-right, Q=(462,301) bottom-right, A=(68,301) bottom-left, P=(68,182.7) on left side BA. Edges (solid): BC, CQ, QA (i.e. AQ), BA (through P), and diagonal PQ (solid, from P to Q). Labels: B at top-left outside (label above-left), C at top-right outside (above-right), A bottom-left outside (below-left), Q bottom-right outside (below-right), P just left of P on side BA. No right-angle marks needed unless the Critic sees them. Use a single shared coordinate definition for each vertex."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 30.25,
+      "token_usage": {
+        "delta": 17469
+      },
+      "visual_calls": 2,
+      "error": null
+    },
+    {
+      "step": 2,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Reconstructed the figure as compilable standalone TikZ. Version 2 is the best version (Critic score 0.93, no open issues, checklist 1.0, topology check passed). The figure is a rectangle with corners B (top-left), C (top-right), Q (bottom-right), A (bottom-left), a point P on the left edge AB, and a solid diagonal segment P–Q. Labels A, B, C, P, Q are all present and placed outside their points.",
-        "unresolved": [],
+        "summary": "Compiled TikZ (v1) reconstructs the figure: rectangle with vertices B (top-left), C (top-right), Q (bottom-right), A (bottom-left), point P on side BA, and diagonal PQ. Labels A, B, C, P, Q bound correctly. Critic score 0.9, topology check passed, must_repair false.",
+        "unresolved": [
+          "Stroke weight is slightly thinner than the original (low severity); not repaired."
+        ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=2; status=success",
+      "result_summary": "ok=True; best_version=1; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -1897,57 +1602,68 @@
       "count": null,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "initial source evidence",
+      "ok": true,
+      "count": 0,
+      "visualization": null,
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 9,
+      "calls": 5,
       "visual_calls": 3,
-      "prompt_tokens": 67078,
-      "completion_tokens": 8158,
-      "total_tokens": 75236,
-      "cached_tokens": 32744.0,
-      "cache_write_tokens": 34306.0,
-      "latency_s": 71.93
+      "prompt_tokens": 34149,
+      "completion_tokens": 6098,
+      "total_tokens": 40247,
+      "cached_tokens": 11715.0,
+      "cache_write_tokens": 16015.0,
+      "latency_s": 43.39
     },
     "by_agent": {
+      "geometry_agent": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 6996,
+        "latency_s": 8.8
+      },
       "supervisor": {
-        "calls": 5,
+        "calls": 2,
         "visual_calls": 0,
-        "total_tokens": 44315,
-        "latency_s": 26.98
+        "total_tokens": 15782,
+        "latency_s": 8.96
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 7077,
-        "latency_s": 11.86
+        "total_tokens": 8128,
+        "latency_s": 11.91
       },
       "critic_agent": {
-        "calls": 2,
-        "visual_calls": 2,
-        "total_tokens": 16844,
-        "latency_s": 24.27
-      },
-      "code_agent:repair": {
         "calls": 1,
-        "visual_calls": 0,
-        "total_tokens": 7000,
-        "latency_s": 8.81
+        "visual_calls": 1,
+        "total_tokens": 9341,
+        "latency_s": 13.71
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 19,
+    "steps_left": 22,
     "tool_calls_left": 42,
     "visual_calls_left": 21,
-    "tokens_left": 324764,
+    "tokens_left": 359753,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 75236
+    "total_tokens_used": 40247
   },
   "meta": {
     "topology_plan": {
@@ -1958,11 +1674,19 @@
         ],
         [
           "A",
+          "P"
+        ],
+        [
+          "A",
           "Q"
         ],
         [
           "B",
           "C"
+        ],
+        [
+          "B",
+          "P"
         ],
         [
           "C",
@@ -1974,24 +1698,111 @@
         ]
       ],
       "pending": [],
-      "adjudicated": [
+      "adjudicated": [],
+      "ink_confirmed_edges": [
+        [
+          "A",
+          "Q"
+        ],
+        [
+          "P",
+          "Q"
+        ]
+      ],
+      "required_styles": [
         {
-          "case_id": "eb54848f7688f6ef",
           "edge": [
-            "P",
-            "Q"
+            "B",
+            "C"
           ],
-          "reason": "In the original, the diagonal stroke runs from the point P on the left edge to corner Q, so it joins P and Q."
+          "style": "solid"
         },
         {
-          "case_id": "c4254d6b1bc64253",
+          "edge": [
+            "C",
+            "Q"
+          ],
+          "style": "solid"
+        },
+        {
           "edge": [
             "A",
             "Q"
           ],
-          "reason": "In the original, the bottom stroke runs continuously from corner A to corner Q."
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "P"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "P"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "P",
+            "Q"
+          ],
+          "style": "solid"
         }
-      ]
+      ],
+      "required_marks": {}
+    },
+    "source_construction": {
+      "summary": "Rectangle-like figure: B top-left, C top-right, Q bottom-right, A bottom-left. P lies on left side AB at (68,182.7). Drawn strokes: top BC (y=65), right CQ (x=462), bottom AQ (y=301), left side BA through P (split into BP and PA), and diagonal PQ. All strokes solid (CV style check). No right-angle markers detected; no dashed strokes; no feet; no curves or circles.",
+      "strokes": [
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "Q"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "Q"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "P"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "P"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "P",
+            "Q"
+          ],
+          "style": "solid"
+        }
+      ],
+      "marks": {},
+      "feet": []
     },
     "coordinate_contract": {
       "enabled": true,
@@ -2077,20 +1888,31 @@
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "cacb85243fb754fea2feee347e0b06c8f0acc09211cb8c075d3b819c971e8c09",
-      "output_sha256": "3a9752da5a402211297eb74e30edd193107ab0757678235213ebfc7d825c6f87",
+      "input_sha256": "7ade27d1ab1b30ae0e567b36094f8d3ea1fc94b92e00f15f619e5bf110b5be16",
+      "output_sha256": "1eef076334bb7bc95345e150b0d96af72a9f58ffa8f818000d0bb14ce6da2b56",
       "reason": "applied",
       "accepted": [
         {
           "type": "perpendicular",
           "segments": [
-            "A--B",
+            "A--P",
             "B--C"
           ],
           "before_error_deg": 0.0,
-          "after_error_deg": 0.01107991513156037,
-          "solver_after_error_deg": 3.410605131648481e-13,
-          "export_tolerance_deg": 0.03129086113868192
+          "after_error_deg": 0.011013282788098877,
+          "solver_after_error_deg": 6.252776074688882e-13,
+          "export_tolerance_deg": 0.05075839691794441
+        },
+        {
+          "type": "perpendicular",
+          "segments": [
+            "B--C",
+            "B--P"
+          ],
+          "before_error_deg": 0.0,
+          "after_error_deg": 0.011146869993538644,
+          "solver_after_error_deg": 4.263256414560601e-14,
+          "export_tolerance_deg": 0.05094940739858039
         },
         {
           "type": "parallel",
@@ -2100,19 +1922,30 @@
           ],
           "before_error_deg": 0.016593043125192317,
           "after_error_deg": 2.0822001166611148e-18,
-          "solver_after_error_deg": 5.826596758978495e-13,
-          "export_tolerance_deg": 0.023456011051370598
+          "solver_after_error_deg": 5.789741835924038e-13,
+          "export_tolerance_deg": 0.0234560110513705
         },
         {
           "type": "perpendicular",
           "segments": [
-            "A--B",
+            "A--P",
             "A--Q"
           ],
           "before_error_deg": 0.016593043125197937,
-          "after_error_deg": 0.01107991513156037,
-          "solver_after_error_deg": 9.094947017729282e-13,
-          "export_tolerance_deg": 0.031290861138682464
+          "after_error_deg": 0.011013282788098877,
+          "solver_after_error_deg": 1.1937117960769683e-12,
+          "export_tolerance_deg": 0.05075839691794495
+        },
+        {
+          "type": "perpendicular",
+          "segments": [
+            "A--Q",
+            "B--P"
+          ],
+          "before_error_deg": 0.016593043125197937,
+          "after_error_deg": 0.011146869993538644,
+          "solver_after_error_deg": 6.252776074688882e-13,
+          "export_tolerance_deg": 0.05094940739858093
         },
         {
           "type": "perpendicular",
@@ -2122,8 +1955,8 @@
           ],
           "before_error_deg": 0.0663841320472045,
           "after_error_deg": 0.011079915131546159,
-          "solver_after_error_deg": 3.481659405224491e-12,
-          "export_tolerance_deg": 0.03129086113868214
+          "solver_after_error_deg": 3.467448550509289e-12,
+          "export_tolerance_deg": 0.0312908611386824
         },
         {
           "type": "perpendicular",
@@ -2133,19 +1966,30 @@
           ],
           "before_error_deg": 0.08297717517238823,
           "after_error_deg": 0.011079915131546159,
-          "solver_after_error_deg": 4.078515303262975e-12,
-          "export_tolerance_deg": 0.0312908611386816
+          "solver_after_error_deg": 4.064304448547773e-12,
+          "export_tolerance_deg": 0.03129086113868187
         },
         {
           "type": "parallel",
           "segments": [
-            "A--B",
+            "A--P",
             "C--Q"
           ],
           "before_error_deg": 0.082977175172399,
-          "after_error_deg": 6.140991031533324e-15,
-          "solver_after_error_deg": 4.4104469120503085e-12,
-          "export_tolerance_deg": 0.039125711225993454
+          "after_error_deg": 6.663234344550941e-05,
+          "solver_after_error_deg": 4.681047442662154e-12,
+          "export_tolerance_deg": 0.05859324700525631
+        },
+        {
+          "type": "parallel",
+          "segments": [
+            "B--P",
+            "C--Q"
+          ],
+          "before_error_deg": 0.082977175172399,
+          "after_error_deg": 6.695486198575514e-05,
+          "solver_after_error_deg": 4.101582460118023e-12,
+          "export_tolerance_deg": 0.05878425748589229
         }
       ],
       "rejected": [],
@@ -2170,26 +2014,26 @@
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
-      "input_candidates": 6,
-      "preserved_incidence_count": 1,
+      "input_candidates": 9,
+      "preserved_incidence_count": 0,
       "max_shift_rel": 0.0002774777822111259,
-      "max_length_change_rel": 0.0004344048289088853,
+      "max_length_change_rel": 0.0004843786990500476,
       "fixed_points": [],
       "length_weight": 0.01,
       "length_scope": "all_pairs",
       "incidence_mode": "snap",
       "topology_tol_rel": 0.003,
       "incidence_strength": 1.0,
-      "rms_shift_rel": 0.00020945498903322303,
-      "max_after_error_deg": 0.01107991513156037,
+      "rms_shift_rel": 0.00020945498903281282,
+      "max_after_error_deg": 0.011146869993538644,
       "curve_policy": "defer",
-      "candidate_count": 6,
-      "solver_max_shift_rel": 0.0003238089403429769,
+      "candidate_count": 9,
+      "solver_max_shift_rel": 0.0003238089403364338,
       "coordinate_decimals": 3,
       "export_verified": true,
-      "max_export_error_deg": 0.01107991513156037,
+      "max_export_error_deg": 0.011146869993538644,
       "point_count": 5,
-      "segment_count": 5
+      "segment_count": 6
     },
     "rectification": {
       "applied": false,
@@ -2197,80 +2041,6 @@
     },
     "tikz_coordinate_contracts": {
       "1": {
-        "enabled": true,
-        "schema": "cv-coordinate-contract.v1",
-        "n_points": 5,
-        "reference_used": false,
-        "coordinates": {
-          "schema": "cv-coordinate-contract.v1",
-          "scale": 0.017544,
-          "origin_px": [
-            265.5,
-            186.5
-          ],
-          "points": {
-            "A": {
-              "point_id": "point_03",
-              "px": [
-                68.0,
-                301.0
-              ],
-              "tikz": [
-                -3.465,
-                -2.009
-              ]
-            },
-            "B": {
-              "point_id": "point_04",
-              "px": [
-                68.0,
-                65.0
-              ],
-              "tikz": [
-                -3.465,
-                2.132
-              ]
-            },
-            "C": {
-              "point_id": "point_05",
-              "px": [
-                462.0,
-                65.0
-              ],
-              "tikz": [
-                3.447,
-                2.132
-              ]
-            },
-            "P": {
-              "point_id": "point_02",
-              "px": [
-                68.0,
-                182.7
-              ],
-              "tikz": [
-                -3.465,
-                0.067
-              ]
-            },
-            "Q": {
-              "point_id": "point_01",
-              "px": [
-                461.66,
-                301.1
-              ],
-              "tikz": [
-                3.441,
-                -2.011
-              ]
-            }
-          },
-          "skipped": {},
-          "reference_used": false,
-          "coordinate_decimals": 3
-        }
-      },
-      "2": {
         "enabled": true,
         "schema": "cv-coordinate-contract.v1",
         "n_points": 5,
@@ -2356,20 +2126,31 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "56db6069e697c660d6e81ae6b1bfb79e6c7331f95ecd738b0fc71b45e951633f",
-        "output_sha256": "fb88776bb33280370a3896b22ae6b22eeec6416934ef90793f1c1c786e000b93",
+        "input_sha256": "7ade27d1ab1b30ae0e567b36094f8d3ea1fc94b92e00f15f619e5bf110b5be16",
+        "output_sha256": "1eef076334bb7bc95345e150b0d96af72a9f58ffa8f818000d0bb14ce6da2b56",
         "reason": "applied",
         "accepted": [
           {
             "type": "perpendicular",
             "segments": [
-              "A--B",
+              "A--P",
               "B--C"
             ],
             "before_error_deg": 0.0,
-            "after_error_deg": 0.01107991513156037,
-            "solver_after_error_deg": 3.410605131648481e-13,
-            "export_tolerance_deg": 0.03129086113868192
+            "after_error_deg": 0.011013282788098877,
+            "solver_after_error_deg": 6.252776074688882e-13,
+            "export_tolerance_deg": 0.05075839691794441
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--C",
+              "B--P"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.011146869993538644,
+            "solver_after_error_deg": 4.263256414560601e-14,
+            "export_tolerance_deg": 0.05094940739858039
           },
           {
             "type": "parallel",
@@ -2379,19 +2160,30 @@
             ],
             "before_error_deg": 0.016593043125192317,
             "after_error_deg": 2.0822001166611148e-18,
-            "solver_after_error_deg": 5.826596758978495e-13,
-            "export_tolerance_deg": 0.023456011051370598
+            "solver_after_error_deg": 5.789741835924038e-13,
+            "export_tolerance_deg": 0.0234560110513705
           },
           {
             "type": "perpendicular",
             "segments": [
-              "A--B",
+              "A--P",
               "A--Q"
             ],
             "before_error_deg": 0.016593043125197937,
-            "after_error_deg": 0.01107991513156037,
-            "solver_after_error_deg": 9.094947017729282e-13,
-            "export_tolerance_deg": 0.031290861138682464
+            "after_error_deg": 0.011013282788098877,
+            "solver_after_error_deg": 1.1937117960769683e-12,
+            "export_tolerance_deg": 0.05075839691794495
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--Q",
+              "B--P"
+            ],
+            "before_error_deg": 0.016593043125197937,
+            "after_error_deg": 0.011146869993538644,
+            "solver_after_error_deg": 6.252776074688882e-13,
+            "export_tolerance_deg": 0.05094940739858093
           },
           {
             "type": "perpendicular",
@@ -2401,8 +2193,8 @@
             ],
             "before_error_deg": 0.0663841320472045,
             "after_error_deg": 0.011079915131546159,
-            "solver_after_error_deg": 3.481659405224491e-12,
-            "export_tolerance_deg": 0.03129086113868214
+            "solver_after_error_deg": 3.467448550509289e-12,
+            "export_tolerance_deg": 0.0312908611386824
           },
           {
             "type": "perpendicular",
@@ -2412,19 +2204,30 @@
             ],
             "before_error_deg": 0.08297717517238823,
             "after_error_deg": 0.011079915131546159,
-            "solver_after_error_deg": 4.078515303262975e-12,
-            "export_tolerance_deg": 0.0312908611386816
+            "solver_after_error_deg": 4.064304448547773e-12,
+            "export_tolerance_deg": 0.03129086113868187
           },
           {
             "type": "parallel",
             "segments": [
-              "A--B",
+              "A--P",
               "C--Q"
             ],
             "before_error_deg": 0.082977175172399,
-            "after_error_deg": 6.140991031533324e-15,
-            "solver_after_error_deg": 4.4104469120503085e-12,
-            "export_tolerance_deg": 0.039125711225993454
+            "after_error_deg": 6.663234344550941e-05,
+            "solver_after_error_deg": 4.681047442662154e-12,
+            "export_tolerance_deg": 0.05859324700525631
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--P",
+              "C--Q"
+            ],
+            "before_error_deg": 0.082977175172399,
+            "after_error_deg": 6.695486198575514e-05,
+            "solver_after_error_deg": 4.101582460118023e-12,
+            "export_tolerance_deg": 0.05878425748589229
           }
         ],
         "rejected": [],
@@ -2449,170 +2252,30 @@
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 6,
-        "preserved_incidence_count": 1,
+        "input_candidates": 9,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0002774777822111259,
-        "max_length_change_rel": 0.0004344048289088853,
+        "max_length_change_rel": 0.0004843786990500476,
         "fixed_points": [],
         "length_weight": 0.01,
         "length_scope": "all_pairs",
         "incidence_mode": "snap",
         "topology_tol_rel": 0.003,
         "incidence_strength": 1.0,
-        "rms_shift_rel": 0.00020945498903322303,
-        "max_after_error_deg": 0.01107991513156037,
+        "rms_shift_rel": 0.00020945498903281282,
+        "max_after_error_deg": 0.011146869993538644,
         "curve_policy": "defer",
-        "candidate_count": 6,
-        "solver_max_shift_rel": 0.0003238089403429769,
+        "candidate_count": 9,
+        "solver_max_shift_rel": 0.0003238089403364338,
         "coordinate_decimals": 3,
         "export_verified": true,
-        "max_export_error_deg": 0.01107991513156037,
+        "max_export_error_deg": 0.011146869993538644,
         "point_count": 5,
-        "segment_count": 5
-      },
-      "2": {
-        "ok": true,
-        "enabled": true,
-        "applied": true,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "cacb85243fb754fea2feee347e0b06c8f0acc09211cb8c075d3b819c971e8c09",
-        "output_sha256": "3a9752da5a402211297eb74e30edd193107ab0757678235213ebfc7d825c6f87",
-        "reason": "applied",
-        "accepted": [
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--B",
-              "B--C"
-            ],
-            "before_error_deg": 0.0,
-            "after_error_deg": 0.01107991513156037,
-            "solver_after_error_deg": 3.410605131648481e-13,
-            "export_tolerance_deg": 0.03129086113868192
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--Q",
-              "B--C"
-            ],
-            "before_error_deg": 0.016593043125192317,
-            "after_error_deg": 2.0822001166611148e-18,
-            "solver_after_error_deg": 5.826596758978495e-13,
-            "export_tolerance_deg": 0.023456011051370598
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--B",
-              "A--Q"
-            ],
-            "before_error_deg": 0.016593043125197937,
-            "after_error_deg": 0.01107991513156037,
-            "solver_after_error_deg": 9.094947017729282e-13,
-            "export_tolerance_deg": 0.031290861138682464
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "A--Q",
-              "C--Q"
-            ],
-            "before_error_deg": 0.0663841320472045,
-            "after_error_deg": 0.011079915131546159,
-            "solver_after_error_deg": 3.481659405224491e-12,
-            "export_tolerance_deg": 0.03129086113868214
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "C--Q"
-            ],
-            "before_error_deg": 0.08297717517238823,
-            "after_error_deg": 0.011079915131546159,
-            "solver_after_error_deg": 4.078515303262975e-12,
-            "export_tolerance_deg": 0.0312908611386816
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "A--B",
-              "C--Q"
-            ],
-            "before_error_deg": 0.082977175172399,
-            "after_error_deg": 6.140991031533324e-15,
-            "solver_after_error_deg": 4.4104469120503085e-12,
-            "export_tolerance_deg": 0.039125711225993454
-          }
-        ],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.003,
-          "incidence_mode": "snap",
-          "length_weight": 0.01,
-          "length_scope": "all_pairs",
-          "curve_policy": "defer",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel",
-            "perpendicular"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 6,
-        "preserved_incidence_count": 1,
-        "max_shift_rel": 0.0002774777822111259,
-        "max_length_change_rel": 0.0004344048289088853,
-        "fixed_points": [],
-        "length_weight": 0.01,
-        "length_scope": "all_pairs",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.003,
-        "incidence_strength": 1.0,
-        "rms_shift_rel": 0.00020945498903322303,
-        "max_after_error_deg": 0.01107991513156037,
-        "curve_policy": "defer",
-        "candidate_count": 6,
-        "solver_max_shift_rel": 0.0003238089403429769,
-        "coordinate_decimals": 3,
-        "export_verified": true,
-        "max_export_error_deg": 0.01107991513156037,
-        "point_count": 5,
-        "segment_count": 5
-      }
-    },
-    "topology_decisions": {
-      "eb54848f7688f6ef": {
-        "edge": [
-          "P",
-          "Q"
-        ],
-        "reason": "In the original, the diagonal stroke runs from the point P on the left edge to corner Q, so it joins P and Q."
-      },
-      "c4254d6b1bc64253": {
-        "edge": [
-          "A",
-          "Q"
-        ],
-        "reason": "In the original, the bottom stroke runs continuously from corner A to corner Q."
+        "segment_count": 6
       }
     },
     "finish": {
-      "summary": "Reconstructed the figure as compilable standalone TikZ. Version 2 is the best version (Critic score 0.93, no open issues, checklist 1.0, topology check passed). The figure is a rectangle with corners B (top-left), C (top-right), Q (bottom-right), A (bottom-left), a point P on the left edge AB, and a solid diagonal segment P–Q. Labels A, B, C, P, Q are all present and placed outside their points.",
+      "summary": "Compiled TikZ (v1) reconstructs the figure: rectangle with vertices B (top-left), C (top-right), Q (bottom-right), A (bottom-left), point P on side BA, and diagonal PQ. Labels A, B, C, P, Q bound correctly. Critic score 0.9, topology check passed, must_repair false.",
       "status": "success"
     },
     "stop_reason": "finish"

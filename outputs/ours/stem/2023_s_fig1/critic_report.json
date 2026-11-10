@@ -1,90 +1,150 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's topology and line styles: solid triangle sides, solid GD and GC, and dashed A-G-E and B-G-H cevians. The only discrepancy is that the point labels are rendered much smaller than in the original.",
+  "verdict": "The render faithfully reproduces the triangle ABC with dashed cevians AE and BH through G, solid CG and GD, and all seven labels correctly bound.",
   "figure_type": {
-    "original": "triangle ABC with cevians A-G-E and B-G-H meeting at G, plus solid segments GD and GC; D and E lie on BC, H lies on AC",
-    "render": "same triangle and construction; dashed A-G-E and B-G-H, solid GD and GC; labels set at about 6pt"
+    "original": "Triangle ABC with dashed cevians A-G-E and B-G-H, solid segments C-G and G-D to base BC, labelled points A, B, C, D, E, G, H",
+    "render": "Same configuration: triangle ABC, dashed A-G-E and B-G-H, solid C-G and G-D, labels A, B, C, D, E, G, H"
   },
-  "issues": [
-    {
-      "type": "label_error",
-      "severity": "low",
-      "object_ids": [],
-      "bbox": [
-        0.04,
-        0.15,
-        0.96,
-        0.85
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Point labels A, B, C, D, E, G, H are all present and bound to the correct vertices, but they are rendered at roughly 6pt, much smaller than the original's math-mode letters. The difference is obvious and makes the labels look disproportionate to the figure.",
-      "suggestion": "Increase the label font size (for example \\fontsize{11}{13}\\selectfont or a \\large-equivalent) or drop the explicit \\fontsize call and use the default math size, keeping each node's anchor and vertex binding unchanged."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid side AB from B to A; correct in the render."
+      "note": "Side AB (solid) matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid side BC along the base; correct in the render."
+      "note": "Base BC (solid) matches the original, with E and D on it."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid side AC from A to C; H sits on it as in the original."
+      "note": "Side AC (solid) matches the original, with H on it."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Dashed B-to-G portion of the B-G-H cevian; matches the original."
+      "note": "Dashed B-G segment matches the original dashed line from B through G."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Solid GC from G to C; matches the original."
+      "note": "Solid C-G segment matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed A-to-G portion of the A-G-E cevian; matches the original."
+      "note": "Dashed A-G portion of the cevian matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Dashed G-to-H portion of the B-G-H cevian; ends at H on AC as in the original."
+      "note": "Dashed G-H portion matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Dashed G-to-E portion of the A-G-E cevian; ends at E on BC as in the original."
+      "note": "Dashed G-E portion matches the original."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Solid GD from G to D on BC; matches the original."
+      "note": "Solid G-D segment matches the original, ending at D on BC."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "Dashed cevian from A through G to E is drawn in both panels."
+    },
+    {
+      "object_id": "seg_BH",
+      "status": "present",
+      "note": "Dashed cevian from B through G to H is drawn in both panels."
+    },
+    {
+      "object_id": "seg_CG",
+      "status": "present",
+      "note": "Solid segment from C to G is drawn in both panels."
+    },
+    {
+      "object_id": "seg_GD",
+      "status": "present",
+      "note": "Solid segment from G down to D is drawn in both panels."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "B is bound at the bottom-left vertex in both panels."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "A is bound at the top vertex in both panels."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "C is bound at the bottom-right vertex in both panels."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "E is bound on BC where the dashed cevian lands, in both panels."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "D is bound on BC at the foot of GD, in both panels."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "H is bound on AC where the dashed BG line exits, in both panels."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "G is the intersection of the dashed cevians, in both panels."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Same vertex as point_02 (A), correctly drawn."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Same vertex as point_01 (B), correctly drawn."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Same vertex as point_03 (C), correctly drawn."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Same vertex as point_05 (D), correctly drawn."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle ABC with the correct vertex positions and aspect ratio",
-    "Dashed A-G-E cevian: passes through G and ends at E on BC",
-    "Dashed B-G-H cevian: passes through G and ends at H on AC",
-    "Solid GD and GC, with the correct endpoints",
-    "Labels A, B, C, D, E, G, H are all present and placed on the correct vertices, with clear separation from the strokes",
-    "Stroke weights of the triangle sides and inner segments are comparable to the original"
+    "Triangle ABC outline with A at top, B bottom-left, C bottom-right.",
+    "Dashed cevian from A through G to E on BC.",
+    "Dashed cevian from B through G to H on AC.",
+    "Solid segments C-G and G-D, with D on BC.",
+    "Labels A, B, C, D, E, G, H are present, correctly spelled and bound to their vertices.",
+    "Label clearances are comparable to the original, with no strokes touching glyphs.",
+    "Aspect ratio and overall proportions match the original."
   ],
   "labels": {
     "present": [

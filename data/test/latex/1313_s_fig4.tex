@@ -1,0 +1,62 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{calc}
+\usetikzlibrary{intersections}
+\begin{document}
+\begin{tikzpicture}[scale=2, thick, >=stealth]
+    % 1. 定义圆心 O 和半径
+    \coordinate (O) at (0,0);
+    \def\R{1.5}
+    
+    % 2. 绘制外接圆
+    \draw (O) circle (\R);
+    \fill (O) circle (1pt) node[below] {$O$};
+
+    % 3. 定义正六边形的顶点 (根据图示，B和E在水平直径上)
+    % A(120), B(180), C(240), D(300), E(0/360), F(60)
+    \coordinate (A) at (120:\R);
+    \coordinate (B) at (180:\R);
+    \coordinate (C) at (240:\R);
+    \coordinate (D) at (300:\R);
+    \coordinate (E) at (0:\R);
+    \coordinate (F) at (60:\R);
+
+    % 4. 绘制正六边形的边
+    \draw (A) -- (B) -- (C) -- (D) -- (E) -- (F) -- cycle;
+    
+    % 5. 绘制内部连线
+    \draw (B) -- (E); % 直径 BE
+    \draw (B) -- (F); % 弦 BF
+    \draw (B) -- (D); % 弦 BD
+    
+    % 6. 计算并绘制外部延伸点 G 和 H
+    % 根据图示：G 是延长 CD 与 BE 某种关联产生的点，或者是 EF 与 CD 延长线的交点
+    % 观察得：G点通过延长 CD 与 过E点的垂线或特定倾角直线相交
+    % 这里根据几何直观，G点设定为 CD 延长线与过 E、F 相关直线的交点
+    \coordinate (G) at ($(C)!1.5!(D)$); 
+    \draw (D) -- (G);
+    \draw (E) -- (G);
+    \draw (B) -- (G); % 连线 BG
+
+    % H点：EF 延长线与 BA 延长线的交点（或类似构型）
+    % 这里使用 intersection 自动计算 A-B 延长线与 F-E 延长线的交点（假设）
+    % 或者根据图示直接定义：
+    \coordinate (H) at ($(F)!0.6!(A) + (0.2,0.5)$); % 调整 H 点位置以匹配原图
+    \draw (F) -- (H);
+    \draw (A) -- (H);
+    \draw (B) -- (H); % 连线 BH
+
+    % 7. 标注顶点标签
+    \node[above left] at (A) {$A$};
+    \node[left] at (B) {$B$};
+    \node[below left] at (C) {$C$};
+    \node[below] at (D) {$D$};
+    \node[right] at (E) {$E$};
+    \node[above right] at (F) {$F$};
+    \node[below] at (G) {$G$};
+    \node[above] at (H) {$H$};
+
+    % 8. 标注图题（可选）
+    \node at (0, -2.2) {图④};
+
+\end{tikzpicture}
+\end{document}

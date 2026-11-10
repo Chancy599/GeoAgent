@@ -1,72 +1,92 @@
 {
   "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful to the original: all six labels are bound and placed clear of strokes, the dashed A-H and both right-angle marks are present, and the topology (B-D-C, A-D, D-E, A-C-E) matches.",
+  "verdict": "Render is faithful to the original: all segments, the dashed AH, both right-angle markers, and all six labels match in position and binding.",
   "figure_type": {
-    "original": "triangle-like figure with vertices A, B, E, with D on segment BC, C on AE, and dashed altitude A-H to line BC; right angles at D and H",
-    "render": "same configuration: B-D-C line, A-D, D-E, A-C-E, dashed A-H, right-angle marks at D and H"
+    "original": "Plane diagram: triangle-like outline A-B-E with interior points D and H on segment BC, dashed altitude AH, right angles at H and D.",
+    "render": "Same diagram: segments AB, BDHC, AC, CE, AD, DE, dashed AH, right-angle markers at H and D, labels A, B, C, D, E, H."
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "A-B stroke drawn and ends at A and B as in the original."
+      "note": "Segment AB drawn from B to A, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "B-C is drawn as B-D-C; the stroke runs continuously through D to C as in the original."
+      "note": "Segment B to C through D and H matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Vertical A-C-E stroke is drawn as two collinear segments; the original is one continuous vertical line through C."
+      "note": "Vertical A-C-E edge matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "D-E stroke present and ends at E."
+      "note": "Segment DE matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "A-D stroke present and ends at D."
+      "note": "Segment AD matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed A-H present, ending at H, with dash pattern comparable to the original."
+      "note": "Dashed altitude from A to H matches the original."
     },
     {
       "object_id": "seg_07",
-      "status": "unclear",
-      "note": "Short CV fragment collinear with A-D (about 135 deg vs 133 deg for seg_05); it is a detection duplicate, not a separate element in the original."
+      "status": "present",
+      "note": "Short piece of AD near A is present in the render."
+    },
+    {
+      "object_id": "seg_AH",
+      "status": "present",
+      "note": "Dashed AH ends at H on line BC, as in the original."
+    },
+    {
+      "object_id": "ra_H",
+      "status": "present",
+      "note": "Right-angle square at H is drawn between HA and HC, as in the original."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle marker at H is correctly placed."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B is labelled on the left of its vertex, clear of strokes, as in the original."
+      "note": "Label B sits left of B, matching the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "A is labelled above-right of its vertex, as in the original."
+      "note": "Label A sits upper-right of A, matching the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "C is labelled right of its vertex, as in the original."
+      "note": "Label C sits right of C, matching the original."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label D sits left of D; the B-C line crosses the glyph in both the original and the render."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "H is labelled below its vertex, clear of the B-C stroke, as in the original."
+      "note": "Label H sits below H, matching the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "E is labelled below its vertex, as in the original."
+      "note": "Label E sits below E, matching the original."
     }
   ],
   "checklist_score": 1.0,
@@ -78,12 +98,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Labels A, B, C, D, E, H are all present with correct spelling.",
-    "Label D sits below-left of its vertex and clears the B-D stroke; the original's D label crowds that stroke, but the render's placement is the cleaner one.",
-    "Dashed A-H runs from A to H with the right-angle mark at H on the C side.",
-    "Right-angle mark at D is present on the A-D / B-C corner.",
-    "Stroke topology: B-D-C is continuous, A-D and D-E meet at D, A-C-E is collinear through C.",
-    "Overall aspect ratio and relative placement of A, B, C, D, E, H match the original."
+    "Outline A-B, A-C, C-E and the B-D-H-C line match the original.",
+    "Segments AD and DE meet at D as in the original.",
+    "Dashed altitude AH ends at H on line BC.",
+    "Right-angle markers at H and at D are both present and oriented as in the original.",
+    "All six point labels (A, B, C, D, E, H) are present, correctly bound and clear of the strokes except the D glyph, which the original also crosses.",
+    "Stroke weights and overall aspect ratio are consistent between panels."
   ],
   "labels": {
     "present": [
@@ -97,33 +117,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "41977e81d15db953",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "Single solid stroke from A to B in the original with no break."
-    },
-    {
-      "case_id": "9448ecbf7b2f1c52",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "Solid stroke from B passes through D and ends at C; the B-C line is one continuous stroke in the original."
-    },
-    {
-      "case_id": "81c08606161c4869",
-      "edge": [
-        "A",
-        "E"
-      ],
-      "reason": "Vertical stroke runs from A through C to E in the original; E is the bottom endpoint."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

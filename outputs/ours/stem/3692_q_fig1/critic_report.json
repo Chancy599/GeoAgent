@@ -1,52 +1,92 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render faithfully reproduces triangle ABC with cevian AD from A to D on BC; vertices, labels and segment endpoints match, with no extra segments or right-angle marks in either panel.",
+  "verdict": "Render is a faithful match: triangle ABC with cevian AD, D on BC at the same relative position, same labels, and consistent line weight, at a uniform scale of about 0.93.",
   "figure_type": {
-    "original": "triangle ABC with cevian AD (A to a point D on BC); no arcs, no right-angle marks",
-    "render": "triangle ABC with cevian AD (A to a point D on BC); no arcs, no right-angle marks"
+    "original": "Triangle ABC with a cevian AD from apex A to interior point D on base BC; base is horizontal, apex above",
+    "render": "Triangle ABC with a cevian AD from apex A to interior point D on base BC; base is horizontal, apex above"
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base BC is drawn solid from B to C, matching the original."
+      "note": "Base BC (CV segment) drawn as the horizontal baseline from B to C, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Side AC runs from apex A to C, matching the original."
+      "note": "Segment AC drawn from apex A to C, matching the original's long right edge."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Cevian AD runs from A to D on BC, matching the original."
+      "note": "Segment AD drawn from A to D on the base, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Side AB runs from A to B, matching the original."
+      "note": "Segment AB drawn from apex A to B, matching the original's left edge."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Solid segment A to B is drawn and ends at both vertices."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Solid segment A to C is drawn and ends at both vertices."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Solid segment A to D is drawn and ends at D on the base."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Base B to C is drawn; D lies on it at the same relative position as in the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label C sits at the right end of the base, bound to the correct vertex, with clear separation from the strokes."
+      "note": "Label C sits at the right end of the base, below and right of the vertex, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label D sits below the base at the foot of the cevian, bound correctly."
+      "note": "Label D sits below the base at the foot of AD, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label B sits at the left end of the base, bound correctly."
+      "note": "Label B sits below-left of the left base vertex, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label A sits above the apex, bound correctly."
+      "note": "Label A sits above the apex, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Apex A is drawn and labelled."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is drawn and labelled."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is drawn and labelled."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "D lies on base BC at about 78% of its length, matching the original (about 78%)."
     }
   ],
   "checklist_score": 1.0,
@@ -58,13 +98,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Apex A is at the top with AB and AC meeting there, as in the original.",
-    "Base BC is a single horizontal segment from B to C.",
-    "Cevian AD lands on BC at D, which sits at about the same relative position (roughly 22% of the base from C) as in the original.",
-    "Labels A, B, C and D are present, correctly spelled and correctly placed.",
-    "The aspect ratio of the triangle matches the original; the render is only uniformly smaller.",
-    "No extra segments or right-angle markers appear in either panel.",
-    "Line weights are visually comparable between the panels."
+    "Triangle ABC edges AB, AC and base BC are present and meet at the correct vertices.",
+    "Cevian AD ends on base BC at the same relative position as in the original (about 0.78 of BC).",
+    "Apex A sits at about 36% of the base width in both panels.",
+    "Labels A, B, C, D are present with correct spelling and clear of the strokes.",
+    "Label bindings A->point_05, B->point_03, D->point_02, C->point_01 match the printed letters, so no binding decisions are needed.",
+    "Stroke weight and label size are comparable across panels."
   ],
   "labels": {
     "present": [
@@ -78,39 +117,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "3da118786b4d219d",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "The original base is a single straight stroke joining B and C."
-    },
-    {
-      "case_id": "2e797ee125254870",
-      "edge": [
-        "A",
-        "C"
-      ],
-      "reason": "The original stroke runs from apex A straight down to C."
-    },
-    {
-      "case_id": "7ce719cffac17c9b",
-      "edge": [
-        "A",
-        "D"
-      ],
-      "reason": "The original cevian runs from apex A to the point D on the base."
-    },
-    {
-      "case_id": "a9763e10cf8172a2",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "The original left side runs from apex A down to B."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

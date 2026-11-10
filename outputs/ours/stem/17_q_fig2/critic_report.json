@@ -1,10 +1,10 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Version 2 matches the original: M-C is dashed, C-E is solid, and the other edges and labels are unchanged.",
+  "verdict": "Geometry matches the original: trapezoid-like outline A-B-D-F-E-C, dashed altitude M-C with right-angle mark at M, and all seven labels in the correct places. The only visible difference is that the render's strokes are thinner.",
   "figure_type": {
-    "original": "Closed funnel-shaped polygon A-B-D-F-E-C with top edge A-B, a dashed perpendicular from M to C, and a right-angle marker at M",
-    "render": "Closed funnel-shaped polygon A-B-D-F-E-C with top edge A-B, a dashed perpendicular from M to C, and a right-angle marker at M"
+    "original": "Closed polygon outline A-B-D-F-E-C with top edge AB, dashed perpendicular MC from M on AB to C, and right-angle marker at M",
+    "render": "Same polygon outline with dashed MC, solid C-E, and right-angle marker at M"
   },
   "issues": [
     {
@@ -15,85 +15,96 @@
         "seg_03",
         "seg_04",
         "seg_05",
-        "seg_06"
+        "seg_06",
+        "seg_02"
       ],
       "bbox": [
-        0.03,
-        0.18,
-        0.97,
-        0.82
+        0.05,
+        0.15,
+        0.95,
+        0.85
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Solid outline strokes look slightly thinner in the render than in the original. This is the same direction as the v1 critique, and the difference is small.",
-      "suggestion": "Optionally raise the global line width slightly (for example from 1.2pt to about 1.4pt). Leave the dash pattern and geometry unchanged."
+      "description": "Stroke weight: in the render the outline strokes are thinner than in the original, which uses bolder lines. Both panels are at the same scale, so the difference is visible.",
+      "suggestion": "Increase the global line width (e.g. line width=1.5pt or 2.0pt) on the tikzpicture so the outline strokes match the original's weight."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Top edge A-B is horizontal and solid in both panels, with the same extent."
+      "note": "Top edge A-B drawn correctly, ends at A and B."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Dashed M-C portion matches the original and ends at C. The C-E portion is solid in both panels, as the v2 change requires."
+      "note": "Vertical dashed M-C drawn between M on AB and C; the solid C-E continuation is also correct."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right vertical D-F is solid and matches the original."
+      "note": "Right vertical D-F drawn correctly."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Bottom edge E-F is solid and matches the original."
+      "note": "Bottom edge E-F drawn correctly."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Diagonal B-D is solid and matches the original."
+      "note": "Diagonal B-D drawn correctly, ends at D."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Diagonal A-C is solid and matches the original."
+      "note": "Diagonal A-C drawn correctly, ends at C."
+    },
+    {
+      "object_id": "ra_01",
+      "status": "present",
+      "note": "Right-angle mark at M, in the quadrant right of M and below AB, matches the original."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Same right-angle mark as ra_01; position and orientation match the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "M label sits above M with the right-angle marker below it, as in the original."
+      "note": "Label M present above the vertex on AB."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "B label is at the top-right end of A-B, as in the original."
+      "note": "Label B present at the upper-right corner."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "A label is at the top-left end of A-B, as in the original."
+      "note": "Label A present at the upper-left corner."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "E label is below-left of E, clear of the strokes."
+      "note": "Label E present at the lower-left corner."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "C label is below-left of C, clear of the strokes."
+      "note": "Label C present to the left of C, clear of strokes."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "F label is below-right of F, clear of the strokes."
+      "note": "Label F present at the lower-right corner."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "D label is below-right of D, clear of the strokes."
+      "note": "Label D present to the right of D."
     }
   ],
   "checklist_score": 1.0,
@@ -105,28 +116,37 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Dashed M-C with solid C-E, as required by v2.",
-    "Top edge A-B and its endpoints.",
-    "Diagonals A-C and B-D meeting the vertices C and D.",
-    "Verticals C-E and D-F, and bottom edge E-F.",
-    "Right-angle marker at M on the correct side of the dashed line.",
-    "All seven point labels A, B, C, D, E, F, M are present and bound to their vertices, with clear separation from strokes."
+    "Top edge A-B spans the full width with correct endpoints.",
+    "Diagonals A-C and B-D end at C and D as in the original.",
+    "Verticals C-E and D-F and bottom edge E-F form the same closed outline.",
+    "Dashed altitude MC runs from M on AB down to C, with the dashed-to-solid transition at C.",
+    "Right-angle mark at M is in the same quadrant as the original.",
+    "All seven point labels (A, B, C, D, E, F, M) are present, correctly spelled, and bound to the right vertices with no collisions."
   ],
   "labels": {
     "present": [
+      "M",
       "A",
       "B",
       "C",
       "D",
       "E",
-      "F",
-      "M"
+      "F"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "bae3cb3518776704",
+      "edge": [
+        "E",
+        "F"
+      ],
+      "reason": "In the original, the bottom stroke runs continuously from E to F, with no extension past either vertex."
+    }
+  ],
   "raw_meta": "{}"
 }

@@ -1,0 +1,53 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+  % Define coordinates
+  \coordinate (O) at (0,0);
+  \def\R{5}
+  
+  % C at 135 deg, D at 225 deg -> CD vertical, angle COD = 90
+  \coordinate (C) at (135:\R);
+  \coordinate (D) at (225:\R);
+  
+  % G on CD. Let's say y=2.
+  % x coordinate of C and D is -R/sqrt(2) approx -3.535
+  \coordinate (G) at (-3.535, 2);
+  
+  % A and B on circle, same y as G.
+  % x^2 + 2^2 = 25 -> x^2 = 21 -> x = +/- 4.583
+  \coordinate (A) at (-4.583, 2);
+  \coordinate (B) at (4.583, 2);
+
+  % Draw Circle
+  \draw (O) circle (\R);
+
+  % Draw Chords
+  \draw (A) -- (B);
+  \draw (C) -- (D);
+
+  % Draw Radii
+  \draw (O) -- (A);
+  \draw (O) -- (B);
+  \draw (O) -- (C);
+  \draw (O) -- (D);
+
+  % Dashed Arc AC
+  % Angle of A: acos(-4.583/5) approx 156.4 deg
+  % Angle of C: 135 deg
+  \draw[dashed] (A) arc (156.4:135:\R);
+
+  % Right Angle at O (between OC and OD)
+  % OC is 135, OD is 225.
+  % Draw a small square
+  \draw (O) ++(135:0.5) -- ++(225:0.5) -- ++(315:0.5);
+
+  % Labels
+  \node[above left] at (C) {$C$};
+  \node[left] at (A) {$A$};
+  \node[right] at (B) {$B$};
+  \node[below] at (D) {$D$};
+  \node[above right] at (G) {$G$};
+  \node[below right] at (O) {$O$};
+
+\end{tikzpicture}
+\end{document}

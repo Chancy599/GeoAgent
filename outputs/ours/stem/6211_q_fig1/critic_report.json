@@ -1,95 +1,125 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's topology: quadrilateral ABCD, the four segments from O to the vertices, the incircle around O, and all five labels are present and correctly bound. The only notable issue is tight clearance between the O label and the O–C segment.",
+  "verdict": "The render matches the original: quadrilateral ABCD, incircle centred at O, and the O-to-vertex segments all line up closely with correct labels.",
   "figure_type": {
-    "original": "Tangential quadrilateral ABCD with incircle centred at O, plus segments OA, OB, OC, OD",
-    "render": "Tangential quadrilateral ABCD with incircle centred at O, plus segments OA, OB, OC, OD"
+    "original": "Quadrilateral ABCD with incircle centred at O and radii/segments from O to A, B, C, D",
+    "render": "Quadrilateral ABCD with incircle centred at O and segments from O to A, B, C, D"
   },
   "issues": [
     {
       "type": "label_error",
       "severity": "low",
       "object_ids": [
-        "point_05"
+        "point_O"
       ],
       "bbox": [
-        0.449,
-        0.652,
-        0.496,
-        0.703
+        0.72,
+        0.56,
+        0.8,
+        0.68
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The 'O' label sits just below-right of the centre dot, and the O–C segment passes close to its upper-left corner in the render. The original has similar proximity, so this is a minor clearance concern rather than a binding error.",
-      "suggestion": "Optionally move the O label to 'below' or add a small extra offset (e.g. below right with a larger inset) so the O–C stroke clears the glyph. Keep the node bound to coordinate (O)."
+      "description": "The O label sits just below the O-to-C segment, and in the render the segment passes very close to the top of the glyph, so the label looks crowded. The original has a little more clearance.",
+      "suggestion": "Nudge the O label slightly further down-right (for example, increase yshift from -1pt to about -3pt), keeping it bound to (O)."
     }
   ],
   "checks": [
     {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Incircle centred at O with matching radius and tangency to the sides."
+    },
+    {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Side CD is drawn from C to D as in the original."
+      "note": "Segment D to O matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Side BC is a horizontal base, matching the original."
+      "note": "Base BC matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Side AD runs from A up to D, matching the original outline."
+      "note": "Side DA matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment OC runs from O to C, matching the original."
+      "note": "Segment O to C matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment OD runs from O up to D, matching the original."
+      "note": "Segment D to O matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Horizontal segment OA runs from O to A, matching the original."
+      "note": "Segment A to O is horizontal in both panels."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Side AB runs from A down to B, matching the original."
+      "note": "Segment B to A matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Segment OB runs from O to B, matching the original."
+      "note": "Segment O to B matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label C is at the lower-right vertex, correctly bound and placed right of the vertex."
+      "note": "C label is correctly placed at the lower-right vertex."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label D is at the top vertex, correctly bound and placed above it."
+      "note": "D label is correctly placed at the top vertex."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label B is at the lower-left vertex, correctly bound and placed below it."
+      "note": "B label is correctly placed at the bottom-left vertex."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label A is at the left vertex, correctly bound and placed left of it."
+      "note": "A label is correctly placed at the left vertex."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label O is present and bound to the centre, with tight clearance to the O–C segment noted under issues."
+      "note": "O label is present near the centre, slightly crowded by the O-C segment."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is at the same location in both panels."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is at the same location in both panels."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is at the same location in both panels."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is at the same location in both panels."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Centre dot at O matches the original."
     }
   ],
   "checklist_score": 1.0,
@@ -101,11 +131,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Quadrilateral ABCD: all four sides present with matching vertex positions and overall proportions.",
-    "Segments OA (horizontal), OB, OC and OD all terminate at the correct vertices and at the centre dot.",
-    "Incircle centred at O is present, with tangency to the sides visually consistent with the original.",
-    "Centre dot at O is present at the correct location.",
-    "All five vertex labels A, B, C, D, O are present, spelled correctly and bound to the correct vertices."
+    "Quadrilateral ABCD with the correct vertex positions and sides.",
+    "Incircle centred at O, tangent to all four sides.",
+    "Segments OA, OB, OC, OD drawn from O to the correct vertices.",
+    "Labels A, B, C, D, O present and bound to the correct vertices.",
+    "Aspect ratio and overall layout are consistent with the original."
   ],
   "labels": {
     "present": [
@@ -118,17 +148,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 3,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "5884cef3afc8c472",
-      "edge": [
-        "A",
-        "D"
-      ],
-      "reason": "In the original, a single continuous stroke runs from A up and to the right to D, forming the upper-left side of the quadrilateral. The endpoints are A and D."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

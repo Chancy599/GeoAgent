@@ -1,4 +1,4 @@
-"""Validate and report the model comparison on the frozen 100-image set."""
+"""Validate and report the model comparison on the frozen reference set."""
 import argparse
 import hashlib
 import json
@@ -9,6 +9,8 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from geoagent.evaluation.geometry_quality import QUALITY_POLICY, summarize_geometry_quality
+
 FULL_COHORT_ERROR_CAPS = {'angle': 180., 'ratio': 1.}
 
 
@@ -100,51 +102,62 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--results', type=Path, default=ROOT/'results/latest')
     parser.add_argument('--ours', type=Path, default=ROOT/'outputs/ours')
+    parser.add_argument('--haiku', type=Path, default=ROOT/'outputs/baseline/haiku-5.5')
+    parser.add_argument('--gpt', type=Path, default=ROOT/'outputs/baseline/gpt-5.4')
     parser.add_argument('--qwen', type=Path, default=ROOT/'outputs/baseline/qwen3.5-plus')
     parser.add_argument('--glm', type=Path, default=ROOT/'outputs/baseline/glm-5.3-flash')
     parser.add_argument('--reference-dir', type=Path, default=ROOT/'data/test/geometry_reference')
+    parser.add_argument('--geometry-only', action='store_true', help='report geometry without running or reusing visual metrics')
     parser.add_argument('--no-readme', action='store_true', help='stage reports without editing README')
     args = parser.parse_args()
     out = args.results
-    paths = {name: out/f'{name}.json' for name in ('structure', 'visual')}
-    structure, visual = (read(paths[name]) for name in paths)
+    paths = {'structure': out/'structure.json'}
+    structure = read(paths['structure'])
+    visual = None
+    if not args.geometry_only:
+        paths['visual'] = out/'visual.json'
+        visual = read(paths['visual'])
     manifest_path = args.reference_dir/'manifest.json'
     manifest = read(manifest_path)
     stems = sorted(manifest['files'])
-    if len(stems) != 100 or structure['reference_manifest_sha256'] != sha(manifest_path):
-        raise ValueError('Expected the current frozen 100-image reference manifest')
-    if any(data['shared_stems'] != stems for data in (structure, visual)):
-        raise ValueError('Geometry and visual results must cover the complete manifest in order')
+    if not stems or manifest['count'] != len(stems) or structure['reference_manifest_sha256'] != sha(manifest_path):
+        raise ValueError('Expected the current frozen reference manifest')
+    if structure['shared_stems'] != stems or (visual is not None and visual['shared_stems'] != stems):
+        raise ValueError('Evaluated results must cover the complete manifest in order')
 
     archives = {
-        'haiku-5.5': ROOT/'outputs/baseline/haiku-5.5',
-        'gpt-5.4': ROOT/'outputs/baseline/gpt-5.4',
+        'haiku-5.5': args.haiku,
+        'gpt-5.4': args.gpt,
         'qwen3.5-plus': args.qwen,
     }
     if 'glm-5.3-flash' in structure['groups']:
         archives['glm-5.3-flash'] = args.glm
     baseline_count = len(archives)
     archives['ours'] = args.ours
-    if any(set(data['groups']) != set(archives) for data in (structure, visual)):
-        raise ValueError('Geometry and visual results must contain the same supported methods')
+    if set(structure['groups']) != set(archives) or (visual is not None and set(visual['groups']) != set(archives)):
+        raise ValueError('Evaluated results must contain the same supported methods')
     per_group = {name: group['per_stem'] for name, group in structure['groups'].items()}
     geometry = full_cohort_geometry(per_group, stems)
-    visual_hashes = visual['evaluated_image_sha256']
+    quality_policy = structure.get('geometry_quality_protocol')
+    if quality_policy is not None and quality_policy != QUALITY_POLICY:
+        raise ValueError('Geometry quality protocol changed; re-run structural evaluation')
+    visual_hashes = visual['evaluated_image_sha256'] if visual is not None else None
     protected = {}
     for stem in stems:
         image = ROOT/'data/test/image'/f'{stem}.png'
         tex = ROOT/'data/test/latex'/f'{stem}.tex'
         image_hash, tex_hash = sha(image), sha(tex)
-        if visual_hashes['reference'][stem] != image_hash or manifest['source_hashes'][stem] != tex_hash:
+        if ((visual_hashes is not None and visual_hashes['reference'][stem] != image_hash)
+                or manifest['source_hashes'][stem] != tex_hash):
             raise ValueError(f'Reference input changed: {stem}')
         protected[image.relative_to(ROOT).as_posix()] = image_hash
         protected[tex.relative_to(ROOT).as_posix()] = tex_hash
 
     values = {}
     for name, archive in archives.items():
-        visual_group = visual['groups'][name]
-        visual_stems = [row['stem'] for row in visual_group['per_stem']]
-        if visual_stems != stems or set(per_group[name]) != set(stems):
+        visual_group = visual['groups'][name] if visual is not None else None
+        if (set(per_group[name]) != set(stems)
+                or (visual_group is not None and [row['stem'] for row in visual_group['per_stem']] != stems)):
             raise ValueError(f'Incomplete per-image results: {name}')
         coverage = structure['groups'][name]['summary']
         published = Path('outputs/ours') if name == 'ours' else Path('outputs/baseline')/name
@@ -152,7 +165,7 @@ def main():
         for stem in stems:
             image_hash = sha(archive/'image'/f'{stem}.png')
             tex_hash = sha(archive/'latex'/f'{stem}.tex')
-            if (visual_hashes[name][stem] != image_hash
+            if ((visual_hashes is not None and visual_hashes[name][stem] != image_hash)
                     or per_group[name][stem]['program_sha256'] != tex_hash):
                 raise ValueError(f'Evaluated output changed: {name}/{stem}')
             hashes['images'][stem] = image_hash
@@ -160,34 +173,45 @@ def main():
             protected[(published/'image'/f'{stem}.png').as_posix()] = image_hash
             protected[(published/'latex'/f'{stem}.tex').as_posix()] = tex_hash
         values[name] = {
-            **visual_group['summary'],
+            **(visual_group['summary'] if visual_group is not None else {}),
             'angle_mae_with_missing_deg': geometry['angle']['means'][name],
             'ratio_mre_capped_with_missing': geometry['ratio']['means'][name],
             'coverage': {key: coverage[key] for key in ('coverage', 'angle_coverage', 'ratio_coverage')},
             'n_unparseable': coverage['n_unparseable'],
             'input_sha256': hashes,
         }
+        if quality_policy is not None:
+            quality = summarize_geometry_quality(per_group[name])
+            if quality['point_images'] != len(stems):
+                raise ValueError(f'Expected point error on the complete cohort: {name}')
+            values[name]['geometry_quality'] = quality
 
     result = {
-        'schema': 'model-comparison-five-metrics.v4',
+        'schema': 'model-comparison-geometry.v1' if args.geometry_only else 'model-comparison-five-metrics.v4',
+        'visual_evaluated': visual is not None,
         'count': len(stems),
         'shared_stems': stems,
         'reference_manifest_sha256': sha(manifest_path),
         'geometry_full_cohort': geometry,
         'groups': values,
         'source_sha256': {name: sha(path) for name, path in paths.items()},
-        'geometry_aggregation': 'All reference items on the fixed 100 images. Unavailable items receive the error cap; errors are averaged within each image, then across all images.',
+        'geometry_aggregation': f'All reference items on the fixed {len(stems)} images. Unavailable items receive the error cap; errors are averaged within each image, then across images.',
     }
+    if quality_policy is not None:
+        result['geometry_quality_protocol'] = quality_policy
     (out/'comparison.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     (out/'protected_inputs.json').write_text(json.dumps(protected, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
 
     def metric(value, scale, digits):
         return '—' if value is None else f'{value*scale:.{digits}f}'
 
-    lines = ['| 方法 | SSIM ×100 ↑ | CLIP ×100 ↑ | DINO ×100 ↑ | 角度 MAE（含缺测，°）↓ | 比例 MRE（含缺测及封顶，%）↓ |',
-             '|---|---:|---:|---:|---:|---:|']
+    headers = ['方法', '角度 MAE（含缺测，°）↓', '比例 MRE（含缺测及封顶，%）↓']
+    visual_keys = ('ssim', 'clip', 'dino') if visual is not None else ()
+    if visual_keys:
+        headers[1:1] = ['SSIM ×100 ↑', 'CLIP ×100 ↑', 'DINO ×100 ↑']
+    lines = ['| ' + ' | '.join(headers) + ' |', '|---|' + '---:|' * (len(headers) - 1)]
     for name, row in values.items():
-        fields = [metric(row[key], 100, 4) for key in ('ssim', 'clip', 'dino')]
+        fields = [metric(row[key], 100, 4) for key in visual_keys]
         fields.extend((metric(row['angle_mae_with_missing_deg'], 1, 6),
                        metric(row['ratio_mre_capped_with_missing'], 100, 6)))
         lines.append('| ' + ' | '.join([name, *fields]) + ' |')
@@ -195,12 +219,20 @@ def main():
     lines += ['', f"几何指标纳入全部 {angle['n_images']} 张图、{angle['n_items']} 个参考角度和 "
               f"{ratio['n_items']} 个参考比例。缺测角度计 {angle['missing_error']:g}°，缺测比例计 "
               f"{ratio['missing_error']*100:g}%，可测比例误差同样封顶 {ratio['error_cap']*100:g}%。"
-              "先在各图内平均，再等权平均 100 张图。", '',
+              f"先在各图内平均，再等权平均 {len(stems)} 张图。", '',
               '| 方法 | 线段覆盖率（%）↑ | 角度覆盖率（%）↑ | 比例覆盖率（%）↑ |',
               '|---|---:|---:|---:|']
     for name, row in values.items():
         fields = [metric(row['coverage'][key], 100, 4) for key in ('coverage', 'angle_coverage', 'ratio_coverage')]
         lines.append('| ' + ' | '.join([name, *fields]) + ' |')
+    if quality_policy is not None:
+        lines += ['', f'线段和点位指标同样对全部 {len(stems)} 张图等权平均。点位误差以参考标签点集的直径为单位，表中显示百分比。', '',
+                  '| 方法 | 线段精确率（%）↑ | 线段 F1（%）↑ | 对齐后点位误差（%）↓ |',
+                  '|---|---:|---:|---:|']
+        for name, row in values.items():
+            quality = row['geometry_quality']
+            fields = [metric(quality[key], 100, 4) for key in ('edge_precision', 'edge_f1', 'point_error')]
+            lines.append('| ' + ' | '.join([name, *fields]) + ' |')
     (out/'comparison.md').write_text('\n'.join(lines)+'\n', encoding='utf-8')
     generation_path = out/'input_manifest.json'
     generation = read(generation_path).get('groups', {}) if generation_path.is_file() else {}
@@ -223,12 +255,14 @@ def main():
             ])
         generation_lines.append('')
     report = [
-        '# GeoAgent 100图实验结果', '',
-        f'当前 GeoAgent 与 {baseline_count} 个图像到 TikZ 的端到端模型在同一100图上评测。视觉采用固定的 SSIM、CLIP 和 DINO；'
+        f'# GeoAgent {len(stems)} 图实验结果', '',
+        f'当前 GeoAgent 与 {baseline_count} 个图像到 TikZ 的端到端模型在同一批 {len(stems)} 张图上评测。'
+        + ('视觉采用固定的 SSIM、CLIP 和 DINO。' if visual is not None else '本轮仅汇总几何指标。') +
         '几何按可见标签绑定计算角度和线段长度比。覆盖率以完整参考清单为分母，无法测量的项保留为缺失。', '',
         *generation_lines,
         *lines, '',
-        '逐图几何见 [structure.json](structure.json)，逐图视觉见 [visual.json](visual.json)，'
+        '逐图几何见 [structure.json](structure.json)，'
+        + ('逐图视觉见 [visual.json](visual.json)，' if visual is not None else '') +
         '输出和输入哈希见 [comparison.json](comparison.json)。这批图已用于项目开发。', '',
     ]
     (out/'report.md').write_text('\n'.join(report), encoding='utf-8')

@@ -1,73 +1,93 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render matches the original parallelogram ABCD: all four sides meet at the correct vertices, labels are bound to the right corners and sit clear of strokes. The only discrepancy is heavier stroke weight.",
+  "verdict": "The render reproduces the parallelogram ABCD with the same vertex layout and label placement; the only clear difference is heavier stroke weight.",
   "figure_type": {
-    "original": "parallelogram ABCD (quadrilateral with AD parallel to BC)",
-    "render": "parallelogram ABCD (quadrilateral with AD parallel to BC)"
+    "original": "Parallelogram ABCD drawn as four straight sides with vertex labels A, B, C, D (A top-left, D top-right, B bottom-left, C bottom-right).",
+    "render": "Parallelogram ABCD drawn as four straight sides with vertex labels A, B, C, D in the same arrangement."
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_04"
+        "seg_AD",
+        "seg_DC",
+        "seg_CB",
+        "seg_BA"
       ],
       "bbox": [
-        0.03,
-        0.33,
+        0.06,
+        0.35,
         0.95,
-        0.66
+        0.65
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "All four solid sides are drawn noticeably heavier than in the original (render strokes look roughly 1.5 to 2 times the original width relative to figure size). Overall the render looks bolder.",
-      "suggestion": "Reduce the global line width, e.g. change \\begin{tikzpicture}[line width=2.2pt, ...] to about line width=1.2pt or 1.4pt, and re-check against the original stroke weight."
+      "description": "Side strokes of the parallelogram are heavier in the render than in the original (render stroke is roughly 2.2pt, original looks like a thin line); the render looks bolder at equal scale.",
+      "suggestion": "Reduce the global line width (e.g. from line width=2.2pt to about 1.0-1.2pt) if matching the original weight is desired."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom side BC is drawn from B to C, solid, with matching extent and endpoints."
+      "note": "Bottom side CB, horizontal, drawn correctly from B to C."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top side AD is drawn from A to D, solid, with matching extent and endpoints."
+      "note": "Top side AD, horizontal, drawn correctly from A to D."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right side DC is present and joins D and C as in the original."
+      "note": "Right slanted side DC, drawn correctly from D down to C."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left side AB is present and joins A and B as in the original."
+      "note": "Left slanted side BA, drawn correctly from B up to A."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Top side present and spans A to D as in the original."
+    },
+    {
+      "object_id": "seg_BA",
+      "status": "present",
+      "note": "Left side present and spans B to A as in the original."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Bottom side present and spans C to B as in the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Right side present and spans D to C as in the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex C is at the bottom-right corner, with its label bound correctly."
+      "note": "Vertex C at bottom-right, label C placed below-right of the vertex as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex B is at the bottom-left corner, with its label bound correctly."
+      "note": "Vertex B at bottom-left, label B placed below-left as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex D is at the top-right corner, with its label bound correctly."
+      "note": "Vertex D at top-right, label D placed above-right as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Vertex A is at the top-left corner, with its label bound correctly."
+      "note": "Vertex A at top-left, label A placed above-left as in the original."
     }
   ],
   "checklist_score": 1.0,
@@ -79,13 +99,10 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Four-vertex parallelogram shape, with top and bottom sides horizontal and the slant sides matching the original angle.",
-    "Vertex positions A (top-left), D (top-right), B (bottom-left), C (bottom-right) match the original.",
-    "Side AD and side BC both end exactly at their corners with no overhangs or stubs.",
-    "All four labels are present, spelled correctly, and placed on the same side of their vertices as in the original (A above-left, D above-right, B below-left, C below-right).",
-    "Labels have clear separation from the strokes and from each other.",
-    "No dashed styles are involved; all strokes are solid in both panels.",
-    "Aspect ratio and overall layout are consistent with the original."
+    "Four-sided parallelogram shape and proportions match the original.",
+    "Vertex positions A, B, C, D match the original.",
+    "Label letters and their placement relative to vertices match the original.",
+    "Top and bottom sides are horizontal and the slanted sides have the same slant."
   ],
   "labels": {
     "present": [
@@ -99,23 +116,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "39f0b2a1904fff0c",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "The original bottom stroke runs continuously from the B label corner to the C label corner, so it joins B and C."
-    },
-    {
-      "case_id": "d354d1f36b0d5b6f",
-      "edge": [
-        "A",
-        "D"
-      ],
-      "reason": "The original top stroke runs continuously from the A corner to the D corner, so it joins A and D."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

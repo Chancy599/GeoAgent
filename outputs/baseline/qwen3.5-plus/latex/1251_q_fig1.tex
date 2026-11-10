@@ -1,0 +1,46 @@
+\documentclass[tikz,border=10pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+    \coordinate (A) at (0,0);
+    \coordinate (P) at (3,0);
+    \coordinate (B) at (9,0);
+    \coordinate (D) at (6,3);
+    \coordinate (C) at (15,3);
+    \coordinate (Q) at (10.5,3);
+    \coordinate (E) at (3.5, 6);
+
+    % Intersection O of DB and PQ
+    \coordinate (O) at (intersection of D--B and P--Q);
+
+    % Draw lines
+    \draw (A) -- (B);
+    \draw (B) -- (C);
+    \draw (C) -- (D);
+    \draw (D) -- (A);
+    
+    \draw (D) -- (P);
+    \draw (D) -- (B);
+    \draw (P) -- (Q);
+    
+    \draw (E) -- (D);
+    \draw (E) -- (Q);
+
+    % Right angle mark at D between DP and DB
+    % D=(6,3). Direction DP is (-1,-1). Direction DB is (1,-1).
+    % Points for the mark:
+    \coordinate (D1) at (5.5, 2.5); % On DP
+    \coordinate (D2) at (6.5, 2.5); % On DB
+    \coordinate (D3) at (6, 2);     % Corner of the square mark
+    \draw (D1) -- (D3) -- (D2);
+
+    % Labels
+    \node[below left] at (A) {$A$};
+    \node[below] at (P) {$P$};
+    \node[below right] at (B) {$B$};
+    \node[above right] at (C) {$C$};
+    \node[above left] at (D) {$D$};
+    \node[above] at (E) {$E$};
+    \node[above] at (Q) {$Q$};
+    \node[below right] at (O) {$O$};
+\end{tikzpicture}
+\end{document}

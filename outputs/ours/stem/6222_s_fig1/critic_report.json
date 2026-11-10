@@ -1,52 +1,75 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Version 2 fixes the dashed B-D and B-I strokes: they now read as thin dashed lines with longer dashes, and the remaining geometry and labels still match the original.",
+  "verdict": "Render is a faithful match to the original: the circle, chords, the A-O-B diameter, the AD line through I, OI, the vertical AC and the dashed BI and BD all agree with the source, with only a minor dash-weight difference.",
   "figure_type": {
-    "original": "Circle with inscribed triangle-like chord network: A-B, B-C, A-D, A-C solid; O-I solid; dashed B-D and B-I; points O (filled), I; labels A, B, C, D, O, I",
-    "render": "Same circle and chord network with the same solid segments, O-I, filled O, and dashed B-D and B-I; labels A, B, C, D, O, I"
+    "original": "Circle with inscribed triangle ABC, chord AD through I with OI perpendicular to AD, centre O, dashed chords BI and BD, labels A, B, C, D, I, O",
+    "render": "Same configuration: circle centred at O, chords AB, BC, AC, AD through I, OI, AO, BO, dashed BI and BD, labels A, B, C, D, I, O"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_05"
+      ],
+      "bbox": [
+        0.05,
+        0.55,
+        0.55,
+        0.9
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The dashed chords (B to D and B to I) look slightly finer and lighter in the render than in the original, where the dashes read a little heavier.",
+      "suggestion": "Optionally raise the dashed line width slightly (e.g. from 1.0pt toward 1.2pt) or lengthen the dash pattern. This is cosmetic and not a geometric error."
+    }
+  ],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centre and radius match the original."
+      "note": "Circle centred at O passes through A, B, C, D as in the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Line A-B passes through O as in the original, with matching endpoints at B and A."
+      "note": "Line from B through O to A is drawn in both panels."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Horizontal B-C matches the original, ending at C."
+      "note": "Horizontal chord BC matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "A-D chord crosses B-C and O-I as in the original, ending at D on the circle."
+      "note": "Chord A to D through I matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Vertical A-C matches the original."
+      "note": "Vertical chord AC matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed B-D is now thinner with longer dashes, matching the original's style and endpoints."
+      "note": "Dashed chord B to D matches the original; the dash style is slightly lighter (see issue)."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "O-I solid segment matches the original's endpoints and weight."
+      "note": "Segment O to I matches the perpendicular from O to AD."
+    },
+    {
+      "object_id": "ra_C",
+      "status": "unclear",
+      "note": "No right-angle square is visible at C in the original, and the TikZ source draws none. Cannot confirm the marker exists."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B label sits left of the vertex on the circle, as in the original."
+      "note": "B label sits to the left of the vertex, as in the original."
     },
     {
       "object_id": "point_02",
@@ -56,33 +79,68 @@
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "O label sits above-left of the filled centre dot, as in the original."
+      "note": "O label sits above-left of the centre, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "C label sits right of the vertex, as in the original."
+      "note": "C label sits below-right of the vertex, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
       "note": "D label sits below the vertex, as in the original."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "I label sits below-right of the point on AD, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is at the correct place on the circle."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is at the correct place on the circle."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is at the correct place on the circle."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is at the correct place on the circle."
+    },
+    {
+      "object_id": "point_I",
+      "status": "present",
+      "note": "Vertex I lies on AD at the foot of the perpendicular from O."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Centre O is marked with a dot, as in the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle position and radius",
-    "All solid chords A-B, B-C, A-D, A-C and O-I with correct endpoints",
-    "Dashed B-D and B-I now use a thinner stroke and longer dashes, matching the original",
-    "Filled O dot",
-    "Labels A, B, C, D, O, I present with correct placement"
+    "Circle geometry and the positions of A, B, C, D, O and I match the original.",
+    "All chords (AB through O, BC, AC, AD through I) end at the correct vertices.",
+    "OI is perpendicular to AD at I.",
+    "Dashed BI and BD are placed correctly.",
+    "Labels A, B, C, D, I, O are present, correctly spelled, and clear of strokes."
   ],
   "labels": {
     "present": [
@@ -90,14 +148,16 @@
       "B",
       "C",
       "D",
-      "O",
-      "I"
+      "I",
+      "O"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 4,
   "binding_decisions": [],
   "topology_decisions": [],
-  "raw_meta": "{}"
+  "raw_meta": "{}",
+  "cached": true,
+  "cached_from_version": 3
 }

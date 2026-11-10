@@ -1,0 +1,188 @@
+{
+  "assessment_score": 0.9,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render is geometrically faithful: all lines, vertices and labels match the original, with only a dash-style difference on the dashed segments.",
+  "figure_type": {
+    "original": "Triangle ABD with interior points C, E, F, G; solid and dashed segments, straight lines only, no arcs",
+    "render": "Same triangle and interior points with the same straight-line construction"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_07",
+        "seg_08",
+        "seg_06"
+      ],
+      "bbox": [
+        0.15,
+        0.1,
+        0.27,
+        0.9
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The dashed segments G-C, G-E and C-E are drawn with a finer, dotted-looking pattern and thinner dashes than the original's longer, heavier dashes.",
+      "suggestion": "Use a longer dash pattern, e.g. dash pattern=on 4pt off 3pt, or dashed with a slightly thicker line width, so the dashes read like the original."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Solid D-A line matches the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Solid D-E line matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Solid D-B line matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Solid base A-B matches the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Solid B-C line through F matches the original."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Dashed vertical C-E matches the original."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Dashed G-C matches the original; dash style is finer."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Dashed G-E matches the original; dash style is finer."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Base A-B is drawn."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "A-C-D line is drawn and C lies on it, as in the original."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "C-F-B line is drawn."
+    },
+    {
+      "object_id": "seg_CE",
+      "status": "present",
+      "note": "Dashed vertical C-E is drawn."
+    },
+    {
+      "object_id": "seg_DB",
+      "status": "present",
+      "note": "D-B is drawn."
+    },
+    {
+      "object_id": "seg_DE",
+      "status": "present",
+      "note": "D-E is drawn."
+    },
+    {
+      "object_id": "seg_GC",
+      "status": "present",
+      "note": "Dashed G-C is drawn."
+    },
+    {
+      "object_id": "seg_GE",
+      "status": "present",
+      "note": "Dashed G-E is drawn."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "D label is at the top vertex, as in the original."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "A label is at the bottom-left vertex."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "C label is near the intersection, as in the original."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "E label is below the base vertex."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "F label is to the upper right of the intersection."
+    },
+    {
+      "object_id": "point_08",
+      "status": "present",
+      "note": "B label is at the bottom-right vertex."
+    },
+    {
+      "object_id": "point_11",
+      "status": "present",
+      "note": "G label is at the upper-left dashed endpoint."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Triangle outline A-D-B with base A-B.",
+    "Interior segments D-E, B-C (through F), and C-F-E-D lines match the original.",
+    "The collinear chain A-C-D is preserved.",
+    "Dashed G-C, G-E and vertical C-E are present with the correct endpoints.",
+    "All seven labels A, B, C, D, E, F, G are present and sit at the correct vertices without collisions."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 1,
+  "binding_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "5984cc9cd0b6c683",
+      "edge": [
+        "D",
+        "E"
+      ],
+      "reason": "In the original the solid stroke runs from D down to E on the base, and the render matches this."
+    }
+  ],
+  "raw_meta": "{}"
+}

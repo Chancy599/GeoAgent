@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 
 from ..cv_tools.common import load_ink
-from .coordinate_contract import build_coordinate_contract
+from .coordinate_contract import MEASURED_POINT_SOURCES, build_coordinate_contract
 from .measured_topology import measured_topology
 from .schemas import GeometricEvidenceState
 from .tikz_geometry import NAME, clean
@@ -49,19 +49,23 @@ def _continuous_source_ink(mask, a, b) -> bool:
 def build_topology_plan(state: GeometricEvidenceState) -> dict:
     """Keep strong CV evidence and expose competing endpoint interpretations."""
     contract = build_coordinate_contract(state) or {}
+    construction = state.meta.get('source_construction', {})
     reliable = set(contract.get("points", {}))
     points, point_ids = {}, set()
     for label, key in state.label_bindings.items():
         obj = state.objects.get(key)
         if (not re.fullmatch("[A-Z]", label) or obj is None or obj.type != "point"
-                or obj.label != label or obj.source != "cv:bind_point_labels"
+                or obj.label != label or obj.source not in MEASURED_POINT_SOURCES
                 or obj.status in ("rejected", "conflict")):
             continue
         point = _xy(obj.coords.get("px"))
         if point is not None:
             points[label] = point
             point_ids.add(key)
-    required = set()
+    requirements = [row for row in construction.get('strokes',[]) if all(n in reliable for n in row['edge'])]
+    marks = {v: mark for v, mark in construction.get('marks',{}).items()
+             if all(n in reliable for n in (v,*mark['arms']))}
+    required = {tuple(row['edge']) for row in requirements}
     ink_confirmed = set()
     cases = []
     if len(points) < 2:
@@ -91,6 +95,11 @@ def build_topology_plan(state: GeometricEvidenceState) -> dict:
             and all(_xy(p) is not None for p in obj.coords["mark_points_px"])))
     }
     evidence = measured_topology(state.model_copy(update={"objects": cv_objects}))
+    if construction:
+        for item in evidence['verified_right_angle_arms']:
+            a, v, b = item['labels']
+            if {a, v, b} <= reliable and item['marker_side_px']:
+                marks.setdefault(v, {'arms': sorted((a, b)), 'side_px': item['marker_side_px']})
     uncertain_edges = {}
     for kind in ("supported_shallow_bends", "verified_right_angle_arms"):
         for item in evidence[kind]:
@@ -172,7 +181,8 @@ def build_topology_plan(state: GeometricEvidenceState) -> dict:
             if decision["edge"] is not None:
                 required.add(tuple(decision["edge"]))
     return {"required_edges": [list(edge) for edge in sorted(required)], "pending": pending,
-            "adjudicated": adjudicated, "ink_confirmed_edges": [list(edge) for edge in sorted(ink_confirmed)]}
+            "adjudicated": adjudicated, "ink_confirmed_edges": [list(edge) for edge in sorted(ink_confirmed)],
+            "required_styles": requirements, "required_marks": marks}
 
 
 def validate_endpoint_decisions(plan: dict, rows) -> dict:
@@ -243,9 +253,10 @@ def _has_collinear_chain(start, end, edges, points):
 def check_topology(tex: str, plan: dict) -> dict:
     """Check explicit named edges, including shared vertices and closed chains."""
     required = plan["required_edges"]
-    if not required:
+    if not required and not plan.get('required_marks'):
         return {"passed": True, "missing_edges": []}
     edges = set()
+    styled = {'solid':set(), 'dashed':set()}
     text = clean(tex)
     definitions = re.findall(rf"\\coordinate\s*{_VERTEX}\s*at\b([^;]*);", text)
     counts = Counter(name for name, _ in definitions)
@@ -261,9 +272,22 @@ def check_topology(tex: str, plan: dict) -> dict:
         names = re.findall(_VERTEX, path)
         if path.rstrip().endswith("cycle"):
             names.append(names[0])
-        edges.update(tuple(sorted((a, b))) for a, b in zip(names, names[1:])
-                     if a in defined and b in defined and a != b
-                     and not (a in points and b in points and np.array_equal(points[a], points[b])))
+        chain = {tuple(sorted((a,b))) for a,b in zip(names,names[1:])
+                 if a in defined and b in defined and a != b
+                 and not (a in points and b in points and np.array_equal(points[a], points[b]))}
+        edges.update(chain)
+        if not re.search(r'\bdotted\b', options):
+            style = 'dashed' if re.search(r'\bdashed\b|\bdash pattern\s*=', options) else 'solid'
+            styled[style].update(chain)
     missing = [[a, b] for a, b in required
                if tuple(sorted((a, b))) not in edges and not _has_collinear_chain(a, b, edges, points)]
-    return {"passed": not missing, "missing_edges": missing}
+    styles = [row for row in plan.get('required_styles', [])
+              if tuple(row['edge']) not in styled[row['style']]
+              and not _has_collinear_chain(*row['edge'],styled[row['style']],points)]
+    seen_marks = {(v,tuple(sorted((a,b)))) for a,v,b in re.findall(
+        rf'\bright angle\s*=\s*({NAME})\s*--\s*({NAME})\s*--\s*({NAME})',text)}
+    marks = [v for v,mark in plan.get('required_marks',{}).items() if (v,tuple(mark['arms'])) not in seen_marks]
+    result = {"passed": not (missing or styles or marks), "missing_edges": missing}
+    if styles: result['unverified_styles'] = styles
+    if marks: result['unverified_marks'] = marks
+    return result

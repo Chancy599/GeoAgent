@@ -1,6 +1,9 @@
 \documentclass[tikz,border=10pt]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{calc}
 \begin{document}
-\begin{tikzpicture}[line width=0.9pt, line join=round]
+\begin{tikzpicture}[line width=1.1pt, line join=round,
+  every node/.style={font=\fontsize{9.5}{11.4}\selectfont}]
 \coordinate (A) at (-3.586,-0.054);
 \coordinate (B) at (-1.903,2.753);
 \coordinate (D) at (0.915,-0.056);
@@ -8,30 +11,25 @@
 
 
 
-\coordinate (E) at (-1.903,1.292);   
-\coordinate (F) at (-2.208,-0.060);  
-\coordinate (G) at (-1.295,2.149);   
+
+\coordinate (E) at (-1.904,1.293);
 
 
-\draw (D) circle (3.122);
+\draw[solid] (A) -- (B);
+\draw[solid] (B) -- (D);
+\draw[solid] (A) -- (H) -- (D);   
+\draw[solid] (B) -- (H);
+\draw[solid] (A) -- (E);
+\draw[solid] (E) -- (D);
 
 
-\draw (A) -- (B) -- (D) -- (A);
+\draw[solid] (D) circle (3.122);
 
 
-\draw (A) -- (H) -- (D);
-
-
-\draw (B) -- (E) -- (H);
-
-
-\draw (A) -- (E) -- (D);
-
-
-\node[below left, font=\fontsize{9.5}{11.4}\selectfont] at (A) {$A$};
-\node[above, font=\fontsize{9.5}{11.4}\selectfont] at (B) {$B$};
-\node[right, font=\fontsize{9.5}{11.4}\selectfont] at (D) {$D$};
-\node[below, font=\fontsize{9.5}{11.4}\selectfont] at (H) {$H$};
-\node[left, font=\fontsize{9.5}{11.4}\selectfont] at (E) {$E$};
+\node[above] at (B) {$B$};
+\node[left] at (A) {$A$};
+\node[right] at (D) {$D$};
+\node[below] at (H) {$H$};
+\node[left] at (E) {$E$};
 \end{tikzpicture}
 \end{document}

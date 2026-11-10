@@ -1,0 +1,43 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}[
+    line join=round, 
+    line cap=round, 
+    >=stealth, 
+    thick,
+    dot/.style={circle, fill=black, inner sep=1pt}
+]
+
+    % --- 1. 定义坐标点 ---
+    % 设定 A 为原点，B 为水平轴上一点，C 位于上方，P 为 AC 的延长线上
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (4,0);
+    \coordinate (C) at (5,2);
+    
+    % 使用 calc 库计算 P 点，使 P 在 AC 的延长线上
+    % 这里设定 P 的长度为 AC 长度的 1.5 倍
+    \coordinate (P) at ($(A)!1.5!(C)$);
+
+    % --- 2. 绘制图形 ---
+    % 绘制三角形 ABC
+    \draw (A) -- (B) -- (C) -- cycle;
+    
+    % 绘制射线 CP (实际上是绘出直线段 AP)
+    \draw (C) -- (P);
+
+    % --- 3. 标注顶点标签 ---
+    % 根据图像位置调整标签方向
+    \node[left] at (A) {$A$};
+    \node[below] at (B) {$B$};
+    \node[right] at (C) {$C$};
+    \node[right] at (P) {$P$};
+
+    % --- (可选) 标注点 ---
+    % 如果需要显示点的小圆黑点，可以取消下面代码注释
+    %\foreach \p in {A,B,C,P} \node[dot] at (\p) {};
+
+\end{tikzpicture}
+\end{document}

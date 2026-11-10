@@ -1,73 +1,93 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces quadrilateral ABCD with correct vertices, all four edges and all four labels; the only visible difference is that the render's strokes are lighter than the original's.",
+  "verdict": "The render reproduces the quadrilateral ABCD with matching vertices, edges, and label placement; the only visible difference is that the original strokes look heavier.",
   "figure_type": {
-    "original": "quadrilateral ABCD: vertical side AB, horizontal sides AD and BC, diagonal side CD",
-    "render": "quadrilateral ABCD: vertical side AB, horizontal sides AD and BC, diagonal side CD"
+    "original": "Quadrilateral ABCD (A top-left, B bottom-left, C bottom-right, D on top edge) drawn with solid straight segments, labels A, B, C, D",
+    "render": "Same quadrilateral ABCD with solid straight segments and labels A, B, C, D"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_04"
+        "seg_AB",
+        "seg_BC",
+        "seg_CD",
+        "seg_DA"
       ],
       "bbox": [
-        0.08,
-        0.34,
-        0.92,
+        0.02,
+        0.33,
+        0.48,
         0.65
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Outline strokes in the render are thinner than in the original; the original edges look roughly twice as heavy at the same scale. Render strokes are too thin.",
-      "suggestion": "Increase the draw line width from 1.0pt to about 1.3-1.5pt on the \\draw command for the quadrilateral. Keep the vertex coordinates unchanged."
+      "description": "Edge strokes in the render look thinner than in the original; the original outline reads as a heavier line (roughly 2 px vs about 1 px at this scale).",
+      "suggestion": "Optionally raise the line width in the TikZ picture (e.g. line width=1.5pt or 2.0pt) and re-compare; this is cosmetic and not required for geometric fidelity."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom edge BC is drawn from B to C, ending at both vertices as in the original."
+      "note": "Bottom edge B to C is drawn at the correct height and extent."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Diagonal CD runs from C to D and ends at D as in the original."
+      "note": "Diagonal from D to C is drawn; the CV endpoint overshoot is a measurement artefact, not visible in the render."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Top edge AD runs from A to D and ends at D as in the original."
+      "note": "Top edge A to D is drawn horizontally at the correct height."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left edge AB is vertical and joins A and B as in the original."
+      "note": "Left vertical edge A to B is drawn correctly."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Edge AB matches the original's left vertical side."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Edge BC matches the original's bottom side."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Edge CD matches the original's diagonal from D down to C."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Edge DA matches the original's top side."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label C sits below-right of vertex C, matching the original."
+      "note": "Vertex C is at the correct bottom-right corner, with its label below-right as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label B sits below-left of vertex B, matching the original."
+      "note": "Vertex B is at the correct bottom-left corner, with its label below-left as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label D sits above vertex D, matching the original."
+      "note": "Vertex D is at the correct top-edge position, with its label above as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label A sits above-left of vertex A, matching the original."
+      "note": "Vertex A is at the correct top-left corner, with its label left as in the original."
     }
   ],
   "checklist_score": 1.0,
@@ -79,12 +99,10 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Four vertices A, B, C, D are in the same relative positions as the original.",
-    "Edges AB, BC, CD and DA are all present and join the correct vertices.",
-    "Edge endpoints meet exactly at the labelled vertices, with no overhangs or stubs.",
-    "The diagonal CD keeps its slope and meets the top edge at D.",
-    "All four labels are present, correctly spelled and bound to their vertices without collisions.",
-    "Figure aspect ratio and overall layout match the original."
+    "Overall quadrilateral shape and proportions match the original",
+    "Vertex positions of A, B, C, D match the original",
+    "Label text and placement for A, B, C, D match the original",
+    "No extra elements are drawn in the render"
   ],
   "labels": {
     "present": [
@@ -98,31 +116,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "2e6e31d90fad22b7",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "The original bottom stroke runs continuously from B to C."
-    },
-    {
-      "case_id": "3e4132506c2047f9",
-      "edge": [
-        "C",
-        "D"
-      ],
-      "reason": "The original diagonal stroke runs from C up to D."
-    },
-    {
-      "case_id": "cf21166fcc49bbf5",
-      "edge": [
-        "A",
-        "D"
-      ],
-      "reason": "The original top stroke runs horizontally from A to D."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

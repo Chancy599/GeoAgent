@@ -1,180 +1,156 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.95,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is topologically faithful: rectangle, AE, MN, BF through O, FN, the right-angle mark at the AE/BF crossing, and all nine labels match the original. The only visible difference is that the render strokes are thinner.",
+  "verdict": "Render is faithful: rectangle, interior segments, endpoints, labels and right-angle mark match the original.",
   "figure_type": {
-    "original": "Rectangle ABCD with points M on AD, E and N on BC, F on DC, and O at the BF/MN crossing; segments AE, MN, BF, FN; right-angle mark at AE/BF",
-    "render": "Same rectangle and construction, with AE, MN, BF, FN and a right-angle mark at the AE/BF intersection"
+    "original": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing.",
+    "render": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing."
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_04",
-        "seg_05",
-        "seg_06",
-        "seg_07",
-        "seg_08"
-      ],
-      "bbox": [
-        0.11,
-        0.21,
-        0.88,
-        0.79
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Stroke weight is lighter in the render than in the original. The original rectangle sides and construction lines look noticeably heavier than the render's 1.0pt strokes.",
-      "suggestion": "Optionally raise line width (e.g. to about 1.3pt) on the figure to match the heavier original. Geometry needs no change."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Segment BF is drawn from B through O to F, matching the original."
+      "note": "Diagonal B–F drawn from B to F as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top side AD is correct."
+      "note": "Top edge AD drawn, with M on it."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Bottom side BC is correct."
+      "note": "Bottom edge BC drawn, with E and N on it."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "MN runs from M on AD to N on BC, matching the original."
+      "note": "Segment MN drawn from M on the top edge to N on the bottom edge."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "AE runs from A to E on BC, matching the original."
+      "note": "Segment AE drawn from A to E, both ends matching the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Left side AB is correct."
+      "note": "Left edge AB drawn."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Right side DC is correct."
+      "note": "Right edge DC drawn, with F on it."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "FN runs from F to N, matching the original."
+      "note": "Segment FN drawn from F to N as in the original."
     },
     {
       "object_id": "seg_09",
+      "status": "unclear",
+      "note": "Short CV fragment lying on BF near point_03; the original shows no separate stroke there, so it appears to be a detection artifact of BF rather than a distinct element."
+    },
+    {
+      "object_id": "ra_01",
       "status": "present",
-      "note": "Short mark corresponds to the right-angle square at the AE/BF crossing, drawn in both panels."
+      "note": "Right-angle mark at the AE/BF foot is drawn on the same side as the original."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Same right-angle mark as ra_01; present in both panels."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B is at the bottom-left vertex, as in the original."
+      "note": "B labelled at the bottom-left vertex, below-left as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label O sits at the BF/MN crossing with clear separation, as in the original."
+      "note": "O labelled at the MN/BF crossing, above-right as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label F is at the right-edge point, as in the original."
+      "note": "F labelled on the right edge, right of the vertex, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label M is above the top edge at the MN endpoint, as in the original."
+      "note": "M labelled above the top edge at the MN endpoint."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label A is at the top-left vertex, as in the original."
+      "note": "A labelled above-left of the top-left vertex."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label D is at the top-right vertex, as in the original."
+      "note": "D labelled above-right of the top-right vertex."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "Label N is below the bottom edge at the MN/FN endpoint, as in the original."
+      "note": "N labelled below the bottom-edge endpoint of MN and FN."
     },
     {
       "object_id": "point_09",
       "status": "present",
-      "note": "Label E is below the bottom edge at the AE endpoint, as in the original."
+      "note": "E labelled below the bottom-edge endpoint of AE."
     },
     {
       "object_id": "point_10",
       "status": "present",
-      "note": "Label C is at the bottom-right vertex, as in the original."
+      "note": "C labelled below-right of the bottom-right vertex."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle ABCD with correct vertex placement and aspect ratio",
-    "AE runs from A to E on BC",
-    "MN runs from M on AD to N on BC",
-    "BF runs from B through O to F",
-    "FN runs from F to N",
-    "O is at the BF/MN crossing; the source coordinates confirm this",
-    "Right-angle mark sits at the AE/BF intersection",
-    "All nine labels (A, B, C, D, E, F, M, N, O) are present, correctly spelled, and clear of strokes"
+    "Rectangle proportions and aspect ratio match the original.",
+    "E and N sit at the same relative positions along BC (about 0.37 and 0.62 of its length).",
+    "F sits at the same height on DC.",
+    "M sits at the same relative position on AD.",
+    "Segments AE, MN, BF and FN have the same endpoints and crossings as in the original.",
+    "The right-angle mark is at the AE/BF foot on the same side as in the original.",
+    "All nine labels are present, correctly spelled and placed clear of strokes."
   ],
   "labels": {
     "present": [
       "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
       "M",
-      "N",
-      "O"
+      "D",
+      "F",
+      "O",
+      "C",
+      "B",
+      "E",
+      "N"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [
-    {
-      "case_id": "4bfdc4d1427d1e2e",
-      "edge": [
-        "M",
-        "N"
-      ],
-      "reason": "In the original, the solid stroke runs from M on the top edge to N on the bottom edge, passing through O."
-    },
     {
       "case_id": "3c601fd8894a0c4f",
       "edge": [
         "A",
         "E"
       ],
-      "reason": "In the original, the solid stroke runs from corner A to E on the bottom edge, with the right-angle mark on it where it crosses BF."
+      "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
     }
   ],
   "raw_meta": "{}"

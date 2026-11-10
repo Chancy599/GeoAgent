@@ -1,10 +1,10 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render matches the original topology: rectangle ABCD, E on AD, F on BC, and the quadrilateral B-E-F-G with edges E-B, B-G, G-F, F-E. Labels are present and correctly bound. Only a modest stroke-weight difference remains.",
+  "verdict": "The render reproduces the original's rectangle ABCD, the interior segments BE, EF, FG and GB, and all seven labels at the correct vertices. The only visible difference is stroke weight.",
   "figure_type": {
-    "original": "Rectangle ABCD with interior point E on top edge AD and F on bottom edge BC, joined to B and G to form a quadrilateral BEFG hanging below BC",
-    "render": "Rectangle ABCD with interior point E on top edge AD and F on bottom edge BC, joined to B and G to form a quadrilateral BEFG hanging below BC"
+    "original": "Rectangle ABCD with interior triangle-like path B-E-F and quadrilateral kite to G, drawn as straight line segments with labelled vertices",
+    "render": "Same rectangle ABCD with segments BE, EF, FG, GB and BF drawn as straight lines with labelled vertices"
   },
   "issues": [
     {
@@ -14,99 +14,138 @@
         "seg_01",
         "seg_02",
         "seg_03",
-        "seg_04",
         "seg_05",
         "seg_06",
         "seg_07",
         "seg_08"
       ],
       "bbox": [
-        0.04,
-        0.24,
-        0.92,
-        0.76
+        0.03,
+        0.22,
+        0.97,
+        0.92
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Rendered strokes are visibly thinner than the original. The original rectangle and interior segments read as heavier lines (about 2 px), while the render strokes look closer to 1 px at the same scale.",
-      "suggestion": "Increase the global line width from line width=0.6pt to roughly 0.8–0.9pt, or set a heavier width only on the rectangle and the BEFG edges, then re-compare stroke weight."
+      "description": "Stroke weight of the render is visibly lighter than the original; the original lines look heavier, roughly 0.6pt versus a bolder weight in the source.",
+      "suggestion": "Increase the global line width (for example from 0.6pt to about 0.8-1.0pt) and re-check against the original."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom edge BC at y≈301 from B to C is drawn in the render and matches the original."
+      "note": "Horizontal base line B-F-C at y≈301 drawn across the figure as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge AD at y≈65 is drawn and matches the original."
+      "note": "Top edge A-D matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Diagonal from B to E is drawn; endpoints match the original."
+      "note": "Segment B-E matches the original diagonal."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment G-B is drawn and joins at B and G as in the original."
+      "note": "Segment G-B matches the lower-left arm to G."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment E-F is drawn and joins at E and F as in the original."
+      "note": "Segment E-F matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Left edge AB is drawn and matches the original."
+      "note": "Left edge A-B matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Right edge DC is drawn and matches the original."
+      "note": "Right edge D-C matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Segment F-G is drawn and joins at F and G as in the original."
+      "note": "Segment F-G matches the lower-right arm to G."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Left edge labelled AB is correct."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Top edge labelled AD is correct."
+    },
+    {
+      "object_id": "seg_BE",
+      "status": "present",
+      "note": "Diagonal from B to E is correct."
+    },
+    {
+      "object_id": "seg_BF",
+      "status": "present",
+      "note": "Base from B to F is correct."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Right edge labelled DC is correct."
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "Segment E-F is correct."
+    },
+    {
+      "object_id": "seg_FG",
+      "status": "present",
+      "note": "Segment F-G is correct."
+    },
+    {
+      "object_id": "seg_GB",
+      "status": "present",
+      "note": "Segment G-B is correct."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B sits below-left of B, as in the original, and is bound to the correct vertex."
+      "note": "B is at the bottom-left corner, matching the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label F is placed below F, clear of strokes, and bound to the correct vertex. Original offset is slightly right-shifted, which is minor."
+      "note": "F is on the base line, matching the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label C is below-right of C, as in the original."
+      "note": "C is at the bottom-right corner, matching the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label E is above E and clear of strokes, as in the original."
+      "note": "E is on the top edge, matching the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label A is above-left of A, as in the original."
+      "note": "A is at the top-left corner, matching the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label D is above-right of D, as in the original."
+      "note": "D is at the top-right corner, matching the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label G is below G, as in the original."
+      "note": "G is at the lower vertex, matching the original."
     }
   ],
   "checklist_score": 1.0,
@@ -118,14 +157,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle ABCD: all four edges present and at the same positions and aspect ratio.",
-    "E lies on the top edge AD at the same x-position as in the original.",
-    "F lies on the bottom edge BC at the same x-position as in the original.",
-    "Quadrilateral edges E-B, B-G, G-F and F-E are all present with the correct endpoints.",
-    "G is below BC at the same relative position.",
-    "Labels A, B, C, D, E, F, G are all present, correctly spelled and bound to their vertices.",
-    "No right-angle marks are visible in either panel, so none are missing.",
-    "No dashed strokes are present in either panel."
+    "Rectangle ABCD with A top-left, D top-right, C bottom-right, B bottom-left.",
+    "Diagonal B-E and segment E-F meet at E on the top edge, as in the original.",
+    "Base line through F and C, with F on the base and the lower kite arms F-G and G-B.",
+    "All seven labels A-G are present, correctly placed beside their vertices, and do not collide with strokes.",
+    "Aspect ratio and overall layout match the original."
   ],
   "labels": {
     "present": [
@@ -149,7 +185,7 @@
         "B",
         "E"
       ],
-      "reason": "The original shows a single continuous stroke from B up to E on the top edge, with no break or bend at E."
+      "reason": "In the original, a single straight stroke runs from B up to E on the top edge."
     },
     {
       "case_id": "8401bae6d4ba3a99",
@@ -157,7 +193,7 @@
         "E",
         "F"
       ],
-      "reason": "The original shows a single stroke from E down to F on the bottom edge, meeting both vertices."
+      "reason": "In the original, a single straight stroke runs from E down to F on the base line."
     }
   ],
   "raw_meta": "{}"

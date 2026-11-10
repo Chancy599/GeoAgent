@@ -1,95 +1,160 @@
 {
-  "assessment_score": 0.94,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the original topology: the top P-D edge through A, verticals A-B and D-C, the bottom B-F-C, diagonals P-F, A-F and P-B, and all labels including E. No material discrepancies found.",
+  "verdict": "The render matches the original's topology: all seven drawn strokes (top P-A-D, right D-C, bottom B-F-C, vertical A-B, P-B, P-E-F and A-F) are present, with the same crossings and the same labels.",
   "figure_type": {
-    "original": "Straight-line geometry: rectangle-like outline P-D-C-B with A on top edge and F on bottom edge, plus interior diagonals and vertical A-B. No arcs or right-angle markers visible.",
-    "render": "Same straight-line geometry: rectangle-like outline P-D-C-B with A on top edge and F on bottom edge, plus interior diagonals and vertical A-B. No arcs or right-angle markers."
+    "original": "Rectangle-like outline BCD with top edge extended left to P, with interior segments P-B, P-F through E on AB, and A-F; no circles or arcs.",
+    "render": "Same: rectangle outline with P extension, interior segments P-B, P-E-F, A-F and vertical A-B; no circles or arcs."
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "layout_error",
+      "severity": "low",
+      "object_ids": [],
+      "bbox": [
+        0.03,
+        0.31,
+        0.95,
+        0.68
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The render is slightly smaller than the original in the side-by-side crop (outline about 505 px wide and 184 px tall versus about 525 by 190 px), so the scale differs marginally.",
+      "suggestion": "Optional: match the overall figure scale to the original if exact size matters; the geometry itself is faithful."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Top edge P-D runs through A in both panels, same extent."
+      "note": "Top edge P-A-D is drawn in both panels."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Bottom edge B-F-C is continuous in both panels; no overhang past B or C."
+      "note": "Bottom edge B-F-C is drawn in both panels."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Diagonal P-F passes through E and ends at P and F in both panels."
+      "note": "Diagonal P-B is drawn in both panels."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Diagonal A-F ends at A and F in both panels."
+      "note": "Diagonal A-F is drawn in both panels."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Diagonal P-B ends at P and B in both panels."
+      "note": "Diagonal P-B (lower-left stroke) is drawn in both panels."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Right vertical D-C matches the original."
+      "note": "Right edge D-C is drawn in both panels."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Vertical A-B matches the original, with the top at A and bottom at B."
+      "note": "Vertical A-B is drawn in both panels."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Vertical A-B segment exists in both; the AB name is an internal id, not a printed label."
+    },
+    {
+      "object_id": "seg_PF",
+      "status": "present",
+      "note": "Segment P-E-F is drawn in both; the PF name is an internal id, not a printed label."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "P label is at the upper-left vertex, as in the original."
+      "note": "P is labelled at the top-left corner in both panels."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "A label sits above the A vertex on the top edge."
+      "note": "A is labelled above the top edge in both panels."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "D label sits above the top-right vertex."
+      "note": "D is labelled at the top-right corner in both panels."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "F label sits below the bottom-edge vertex, as in the original."
+      "note": "F is labelled below the bottom edge in both panels."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "B label sits below the bottom-left vertex."
+      "note": "B is labelled below the bottom-left corner in both panels."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "C label sits below the bottom-right vertex."
+      "note": "C is labelled below the bottom-right corner in both panels."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "E is labelled beside the crossing on AB in both panels."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Point A is at the top of the vertical segment in both panels."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Point B is at the bottom of the vertical segment in both panels."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Point C is at the bottom-right corner in both panels."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Point D is at the top-right corner in both panels."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Point E is on AB where P-F crosses it, in both panels."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Point F is on the bottom edge where P-F and A-F meet it, in both panels."
+    },
+    {
+      "object_id": "point_P",
+      "status": "present",
+      "note": "Point P is at the top-left end of the top edge in both panels."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle outline P-D-C-B with A on top edge and F on bottom edge",
-    "Vertical A-B and D-C",
-    "Bottom edge B-F-C continuous through F",
-    "Diagonals P-F, A-F and P-B with correct endpoints",
-    "Point label E near the P-F / A-B intersection, upper-right of it as in the original",
-    "Labels P, A, D, B, F, C present with correct vertex binding",
-    "No overhangs or stubs past labelled vertices"
+    "Top edge P-A-D with P extended left of A.",
+    "Right edge D-C and bottom edge B-F-C.",
+    "Vertical segment A-B.",
+    "Diagonals P-B, A-F and the line P-E-F crossing AB at E.",
+    "All seven point labels P, A, D, B, F, C, E are present with correct vertex association.",
+    "No spurious labels or strokes."
   ],
   "labels": {
     "present": [
@@ -104,25 +169,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "9d92f6a8607e76b1",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "In the original the bottom stroke runs continuously from B through F to C, so the B-C stroke joins B and C through F, matching the render's B-F-C path."
-    },
-    {
-      "case_id": "270e9e2700311457",
-      "edge": [
-        "F",
-        "P"
-      ],
-      "reason": "In the original a single straight stroke runs from P through E to F, so the segment joins P and F, matching the render's P-E-F path."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

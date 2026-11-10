@@ -1,52 +1,97 @@
 {
-  "assessment_score": 0.95,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Version 2 matches the original: the circle and the four edges are correct, and the A and B labels now sit at vertex height on the outer sides, which fixes the v1 placement issue.",
+  "verdict": "The render is faithful: a circle with an inscribed isosceles trapezoid ABCD, with AB as the base, DC as the top, and labels A, B, C, D in the correct places.",
   "figure_type": {
-    "original": "full circle with inscribed quadrilateral ABCD (AB horizontal base, CD horizontal top chord)",
-    "render": "full circle with inscribed quadrilateral ABCD (AB horizontal base, CD horizontal top chord)"
+    "original": "Circle with inscribed isosceles trapezoid ABCD (AB base, DC top), all four vertices on the circle, labelled A, B, C, D",
+    "render": "Circle with inscribed quadrilateral A-B-C-D drawn as a closed polygon, labelled A, B, C, D"
   },
   "issues": [],
   "checks": [
     {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Full circle visible in both panels, passing through A, B, C and D."
+    },
+    {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Horizontal base AB runs between A and B at the same height as the original, ending at both vertices."
+      "note": "Horizontal base AB is drawn solid and matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Right edge BC leaves B and meets C at the top chord, matching the original slope and endpoints."
+      "note": "Diagonal from B to C matches the original; it ends at B."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Top chord CD is horizontal between D and C, matching the original."
+      "note": "Top side CD is horizontal and matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left edge DA leaves A and meets D, matching the original slope and endpoints."
+      "note": "Diagonal from D to A matches the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Base AB is correct."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Side BC is correct."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Side CD is correct."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Side DA is correct."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex B is the right endpoint of AB and BC; its label sits to the right at mid-height as in the original."
+      "note": "Label B sits at the lower-right vertex on the circle, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex A is the left endpoint of AB and DA; its label sits to the left at the same height as in the original."
+      "note": "Label A sits at the lower-left vertex, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex C is the right end of CD and start of BC, with label above-right as in the original."
+      "note": "Label C sits at the upper-right vertex, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Vertex D is the left end of CD and start of DA, with label above-left as in the original."
+      "note": "Label D sits at the upper-left vertex, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is on the circle and is labelled correctly."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is on the circle and is labelled correctly."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is on the circle and is labelled correctly."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is on the circle and is labelled correctly."
     }
   ],
   "checklist_score": 1.0,
@@ -58,13 +103,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle is centred and sized like the original, touching the same top and bottom extents.",
-    "Base AB is horizontal at the original height and runs between the circle's left and right intersections.",
-    "Top chord CD is horizontal and lies at the same height as in the original.",
-    "Edges BC and DA have the same slopes and terminate at the correct vertices.",
-    "Label A is left of vertex A at the same height, and label B is right of vertex B at the same height, as in the original (the v1 label_error is resolved).",
-    "Labels C and D sit above their vertices with correct spelling and clear separation from the strokes.",
-    "Label bindings A→point_02, B→point_01, C→point_03, D→point_04 agree with the printed letters."
+    "Circle passes through all four vertices A, B, C, D.",
+    "Trapezoid is inscribed with AB at the bottom and DC at the top, parallel as in the original.",
+    "Labels A, B, C, D are present, correctly spelled and placed outside the vertices with clear separation from strokes.",
+    "Line weights and label sizes are visually comparable between panels.",
+    "Aspect ratio and overall proportions match."
   ],
   "labels": {
     "present": [
@@ -76,7 +119,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

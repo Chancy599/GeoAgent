@@ -1,100 +1,103 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Version 3 fixes the horizontal line, removes the intersection dot, and places A right and O below; only the B label placement differs (above-left instead of directly above).",
+  "verdict": "The render matches the original's geometry: circle centred at O through B, horizontal OA, the chords BA, CA, CO and CB with their crossing on the circle, and the vertical OB. Labels A, B, C and O are present and bound to the correct points.",
   "figure_type": {
-    "original": "Circle centred at O with radius OB; diameter-line O-A through the circle's left point, with B on the circle top, C above-right, triangle ABC-like chords and the BA/OC crossing inside the circle",
-    "render": "Circle centred at O with radius OB; horizontal line from circle left through O to A, with the same chords (OB, OC, BA, BC, CA) and the same crossing point, with no dot"
+    "original": "Circle centred at O with radius OB, a horizontal diameter-line OA extended to A, and triangle-like chords from C to A, B and O plus chord BA",
+    "render": "Same circle and line set as the original, with the same crossing near the arc and the same label set"
   },
-  "issues": [
-    {
-      "type": "label_error",
-      "severity": "low",
-      "object_ids": [
-        "point_04"
-      ],
-      "bbox": [
-        0.285,
-        0.255,
-        0.325,
-        0.3
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Label B sits above-left of its vertex in the render. In the original, B is printed almost directly above the vertex, centred on it. The offset is small and the label is still clearly bound to B, so this is a minor placement difference.",
-      "suggestion": "Change the B node from `above left` to `above` (keeping it at (B)) to match the original's directly-above placement."
-    }
-  ],
+  "issues": [],
   "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circle centred at O passing through B, matching the original extent."
+    },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Horizontal line runs from the circle's left edge through O to A, matching the original; the render no longer trims it at O."
+      "note": "Horizontal line from the circle's left edge to A, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Chord B-A is drawn and crosses OC at the same interior point as in the original; no intersection dot."
+      "note": "Chord BA is drawn through the interior crossing, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Radius O-C is drawn from O to C, matching the original."
+      "note": "Chord CO is drawn through the same interior crossing, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Chord B-C is drawn and meets C at the same position as the original."
+      "note": "Chord CB ends at B, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment C-A is drawn and joins at A and C as in the original."
+      "note": "Chord CA is drawn, matching the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Vertical radius O-B is drawn from O up to B, matching the original."
+      "note": "Vertical radius OB is drawn, matching the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "A is labelled to the right of its vertex at roughly the same height, as in the original."
+      "note": "Label A sits at the right end of the horizontal line, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "O is labelled directly below the centre, as in the original."
+      "note": "Label O sits below-left of the centre, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "B is labelled and bound to the correct vertex; placement is above-left rather than directly above (low-severity issue listed)."
+      "note": "Label B sits at the top of the vertical radius, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "C is labelled directly above its vertex, as in the original."
+      "note": "Label C sits above the top vertex, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "A is the right vertex of the horizontal line and the end of chords AB and AC."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B is on the circle at the top of the vertical radius, with chords BA and BC meeting there."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "C is the upper-right vertex, with chords CA, CB and CO meeting there."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "O is the centre, with the vertical radius, the horizontal line and chord CO meeting there."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Horizontal line spans from circle-left through O to A",
-    "No dot at the BA/OC intersection",
-    "Circle geometry and radius match the original",
-    "Vertical radius OB matches",
-    "Chords BA, BC, CA and radius OC match in position and endpoints",
-    "Label A is right of its vertex at the same height",
-    "Label O is directly below the centre",
-    "Label C is directly above its vertex",
-    "Stroke weight and label size are comparable"
+    "Circle centred at O with radius to B and matching extent",
+    "Horizontal OA line from the circle's left edge to A",
+    "Chords BA, CA, CO and CB with the interior crossing on the circle",
+    "Vertical radius OB",
+    "Labels A, B, C and O present, correctly spelled and bound to their vertices"
   ],
   "labels": {
     "present": [
@@ -106,7 +109,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 3,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

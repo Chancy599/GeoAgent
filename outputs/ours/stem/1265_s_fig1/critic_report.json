@@ -1,94 +1,168 @@
 {
   "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Geometry, topology, dashed styles and all six labels match the original; stroke weights are now broadly consistent with no obvious mismatch.",
+  "verdict": "The render is geometrically faithful: all six points, the chords, the dashed radii and the diameter are present and bound to the correct vertices. The only visible difference is that the circle is drawn thinner than in the original.",
   "figure_type": {
-    "original": "circle with inscribed triangle AEF, chord AB through centre O and foot D, dashed radii EO and FO, filled centre dot at O",
-    "render": "circle with inscribed triangle AEF, chord AB through centre O and foot D, dashed radii EO and FO, centre O marked"
+    "original": "Circle with centre O, chords AE, AF, EF and diameter AB, with D as the foot of AB on EF and dashed radii OE and OF",
+    "render": "Circle with centre O, chords AE, AF, EF and diameter AB, with D as the foot of AB on EF and dashed radii OE and OF"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "circle_01"
+      ],
+      "bbox": [
+        0.09,
+        0.09,
+        0.91,
+        0.91
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The circle stroke is visibly thinner in the render (thin black line) than in the original, where it reads as a heavier stroke. The chords and diameter are comparable in weight.",
+      "suggestion": "Change \\draw[thin, black] (O) circle (3.557); to a heavier width such as \\draw[line width=1.2pt, black] (O) circle (3.557); if the original weight should be matched."
+    }
+  ],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at O with matching radius; stroke weight now close to the original's, with no obvious difference."
+      "note": "Circle centred at O passes through A, B, E and F; stroke is thinner than the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Vertical chord A to B through O and D matches the original's extent and position."
+      "note": "Vertical diameter A to B is drawn through O and D."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid chord A to E matches the original."
+      "note": "Chord A to E is drawn and ends at E."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid chord A to F matches the original."
+      "note": "Chord A to F is drawn and ends at F."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Horizontal chord E to F through D matches the original's extent."
+      "note": "Horizontal chord E to F is drawn."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed radius E to O matches the original's dash style and endpoints at O."
+      "note": "Dashed radius O to E is drawn and ends at E."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed radius F to O matches the original's dash style and endpoints at O."
+      "note": "Dashed radius O to F is drawn and ends at F."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment AB is drawn from A to B."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "Segment AE is drawn."
+    },
+    {
+      "object_id": "seg_AF",
+      "status": "present",
+      "note": "Segment AF is drawn."
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "Segment EF is drawn."
+    },
+    {
+      "object_id": "seg_OE",
+      "status": "present",
+      "note": "Dashed segment OE is drawn."
+    },
+    {
+      "object_id": "seg_OF",
+      "status": "present",
+      "note": "Dashed segment OF is drawn."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "A is labelled above the top of the circle, as in the original."
+      "note": "Point A is at the top of the circle, labelled A."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "D is labelled below-right of the foot point, as in the original, with clear separation from the strokes."
+      "note": "Point D is the foot on EF, labelled D."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "O is labelled upper-right of the centre, as in the original."
+      "note": "Point O is the centre, labelled O."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "E is labelled left of the vertex, as in the original."
+      "note": "Point E is on the left of the circle, labelled E."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "F is labelled right of the vertex, as in the original."
+      "note": "Point F is on the right of the circle, labelled F."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "B is labelled below the bottom of the circle, as in the original."
+      "note": "Point B is at the bottom of the circle, labelled B."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Point A is drawn and labelled."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Point B is drawn and labelled."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Point D is drawn and labelled."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Point E is drawn and labelled."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Point F is drawn and labelled."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle centre and radius match the original.",
-    "Chords AB, AE, AF and EF are in the correct positions and extents.",
-    "Dashed radii EO and FO start and end at the intended vertices with a matching dash pattern.",
-    "Centre O is marked.",
-    "All six point labels are present, correctly spelled and clear of the strokes.",
-    "Stroke weights for the circle, chords and dashed radii are broadly consistent with the original, with no obvious style discrepancy."
+    "Circle passes through A, B, E and F with the same centre O.",
+    "Chords AE, AF and EF end at the same vertices as in the original.",
+    "Diameter AB runs through O and D, and D lies on EF.",
+    "Dashed radii OE and OF are dashed and end at E and F.",
+    "Labels A, B, D, E, F and O are present, correctly spelled and placed clear of the strokes.",
+    "The centre dot at O is present.",
+    "No right-angle markers are present in either panel, and none are expected."
   ],
   "labels": {
     "present": [
@@ -102,8 +176,33 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "61650af03e00914f",
+      "edge": [
+        "A",
+        "E"
+      ],
+      "reason": "In the original, the solid stroke runs from A to E and joins at E, matching the render."
+    },
+    {
+      "case_id": "ffffb9b53250f91b",
+      "edge": [
+        "E",
+        "F"
+      ],
+      "reason": "In the original, the horizontal stroke runs from E to F and joins at both ends, matching the render."
+    },
+    {
+      "case_id": "ce54f1d2b6d5bd5b",
+      "edge": [
+        "E",
+        "O"
+      ],
+      "reason": "In the original, the dashed stroke runs from E to O, matching the render."
+    }
+  ],
   "raw_meta": "{}"
 }

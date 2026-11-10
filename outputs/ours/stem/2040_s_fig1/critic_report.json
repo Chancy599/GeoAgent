@@ -1,100 +1,103 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render matches the original's vertices, segments, edge topology and labels (A–F). The only visible difference is the dash style of FE, which looks denser and dotted in the render.",
+  "verdict": "The render is faithful: the trapezoid, diagonal AE, dashed FE, and point E on DC all match the original, with only minor style differences.",
   "figure_type": {
-    "original": "quadrilateral ABCD with interior point E on DC, line AE, and dashed FE, with F on AB",
-    "render": "same quadrilateral ABCD with E, AE, dashed FE and F on AB"
+    "original": "Trapezoid ABCD with AD parallel to BC, point E on DC, segment AE solid, dashed segment FE from F on AB to E",
+    "render": "Same trapezoid ABCD with point E on DC, segment AE solid, dashed FE from F on AB to E"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_04"
-      ],
-      "bbox": [
-        0.03,
-        0.48,
-        0.37,
-        0.52
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Dashed segment FE (seg_04) renders with short, dense dashes that read as dotted, and looks heavier than the original's longer, lighter dashes.",
-      "suggestion": "Use a dash pattern with longer dashes and wider gaps (e.g. dash 4pt gap 3pt) and consider a thinner line width for this dashed stroke."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom edge BC is drawn from B to C, matching the original."
+      "note": "Base BC is drawn horizontally from B to C, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment DC runs through E to C, matching the original's continuous line."
+      "note": "Segment DC runs from D through E to C, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment AE is drawn from A to E, matching the original."
+      "note": "Solid diagonal AE runs from A to E, ending at E on DC as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Dashed FE is in the correct position from F to E; only the dash style differs (see issue)."
+      "note": "Dashed horizontal FE runs from F to E at the same height as in the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Left side A–F–B is drawn with the correct bend at F."
+      "note": "Left side AB runs from A down to B, with F on it."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Top edge AD is drawn from A to D, matching the original."
+      "note": "Top side AD is drawn horizontally from A to D."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "AB is drawn from A to B and is continuous through F."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "DC is drawn from D through E to C."
+    },
+    {
+      "object_id": "seg_FE",
+      "status": "present",
+      "note": "Dashed FE is drawn from F to E at the correct height."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "C is labelled at the bottom-right vertex, as in the original."
+      "note": "C is at the bottom-right corner of the trapezoid, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "B is labelled at the bottom-left vertex, as in the original."
+      "note": "B is at the bottom-left corner, as in the original."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "E sits on DC where AE and FE meet, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "D is labelled above the top-right vertex, as in the original."
+      "note": "D is at the top-right corner of the top side, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "A is labelled above-left of the top-left vertex, as in the original."
+      "note": "A is at the top-left corner, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "F is labelled left of the point on AB, as in the original."
+      "note": "F lies on AB at the height of the dashed line, as in the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Vertices A, B, C, D, F and interior point E are in the correct positions.",
-    "Edge topology matches: AD, DE–C, CB, BF–A, AE, and dashed FE.",
-    "The D–E–C line is continuous through E, as in the original.",
-    "All six labels (A, B, C, D, E, F) are present, correctly spelled and bound to their vertices, with no collisions with strokes."
+    "Trapezoid outline A-D-C-B with AD parallel to BC matches the original.",
+    "Solid diagonal AE ends at E on DC, as in the original.",
+    "Dashed FE is horizontal at the same height and ends at E.",
+    "Labels A, B, C, D, E and F are present, correctly placed and bound to their vertices.",
+    "Overall aspect ratio and proportions match the original."
   ],
   "labels": {
     "present": [
@@ -108,7 +111,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

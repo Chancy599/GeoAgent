@@ -659,6 +659,121 @@
         ],
         "ambiguous": false
       }
+    },
+    "point_A": {
+      "id": "point_A",
+      "type": "point",
+      "label": "A",
+      "coords": {
+        "px": [
+          79.18,
+          312.51
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "point_B": {
+      "id": "point_B",
+      "type": "point",
+      "label": "B",
+      "coords": {
+        "px": [
+          220.12,
+          77.45
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "point_D": {
+      "id": "point_D",
+      "type": "point",
+      "label": "D",
+      "coords": {
+        "px": [
+          456.1,
+          312.69
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "point_H": {
+      "id": "point_H",
+      "type": "point",
+      "label": "H",
+      "coords": {
+        "px": [
+          220.0,
+          313.0
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "point_E": {
+      "id": "point_E",
+      "type": "point",
+      "label": "E",
+      "coords": {
+        "px": [
+          220.04,
+          199.76
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "circle_D": {
+      "id": "circle_D",
+      "type": "circle",
+      "label": null,
+      "coords": {
+        "center_px": [
+          456.1,
+          312.69
+        ],
+        "radius_px": 261.5
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -706,6 +821,33 @@
       "source": "bind_point_labels",
       "evidence": "Hungarian assignment distance=19.25px",
       "status": "candidate"
+    },
+    "rel_006": {
+      "id": "rel_006",
+      "subject": "point_E",
+      "relation": "on_circle",
+      "object": "circle_D",
+      "source": "geometry_agent",
+      "evidence": "distance from D to E about 261.6 px matches radius",
+      "status": "candidate"
+    },
+    "rel_007": {
+      "id": "rel_007",
+      "subject": "point_H",
+      "relation": "on_segment",
+      "object": "seg_AD",
+      "source": "geometry_agent",
+      "evidence": "H is the foot of the vertical from B onto AD",
+      "status": "candidate"
+    },
+    "rel_008": {
+      "id": "rel_008",
+      "subject": "point_E",
+      "relation": "on_segment",
+      "object": "seg_BH",
+      "source": "geometry_agent",
+      "evidence": "E lies on the vertical B-H stroke",
+      "status": "candidate"
     }
   },
   "evidence": {
@@ -720,7 +862,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:25:48"
+      "created_at": "2026-11-09T23:01:21"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -733,7 +875,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:25:50"
+      "created_at": "2026-11-09T23:01:31"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -741,13 +883,56 @@
       "method": "detect_right_angle_marker",
       "summary": "detect_right_angle_marker produced 0 result(s)",
       "payload": {
-        "params": {},
+        "params": {
+          "visualize": false
+        },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T11:26:06"
+      "created_at": "2026-11-09T23:01:38"
     },
     "ev_0004": {
       "id": "ev_0004",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "roi": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T23:01:47"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Labelled points A(79,312), B(220,77), D(456,312), H(220,313), E(220,200). Straight strokes: A-B, B-D, A-D (through H), B-H-E (vertical, B to H passing E), A-E, E-D. Circle centered at D (approx 456,313) radius approx 261 passes through E (220,200), unlabeled point_06 (194.5,313) on AD, and point_07 (271,128) on BD. No right-angle square marks detected. Perpendicular foot: BH from B onto AD at H. All strokes solid; no dashed segments found.",
+      "payload": {
+        "merged": {
+          "objects": 6,
+          "relations": 3,
+          "conflicts": 0,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_A",
+          "point_B",
+          "point_D",
+          "point_H",
+          "point_E",
+          "circle_D"
+        ]
+      },
+      "created_at": "2026-11-09T23:01:56"
+    },
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v1 canvas matched to source [759, 616] (scale 1.0645)",
@@ -767,10 +952,10 @@
           39
         ]
       },
-      "created_at": "2026-11-09T11:26:41"
+      "created_at": "2026-11-09T23:02:54"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: no_candidates",
@@ -784,8 +969,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "9ede81dd1332605ee93a9679106483796f991c3322389d211c2b9459a1bb5875",
-        "output_sha256": "9ede81dd1332605ee93a9679106483796f991c3322389d211c2b9459a1bb5875",
+        "input_sha256": "cbeee795972ab53cf955f851a5d4efe407aa671c273b84eb847a3fc6fff96fdb",
+        "output_sha256": "cbeee795972ab53cf955f851a5d4efe407aa671c273b84eb847a3fc6fff96fdb",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
@@ -810,14 +995,12 @@
           "excluded_strokes": 0
         },
         "input_candidates": 0,
-        "preserved_incidence_count": 4,
+        "preserved_incidence_count": 2,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
           "D",
-          "E",
-          "F",
-          "G"
+          "E"
         ],
         "length_weight": 0.0,
         "length_scope": "edges",
@@ -828,9 +1011,7 @@
         "curve_anchors": {
           "fixed_points": [
             "D",
-            "E",
-            "F",
-            "G"
+            "E"
           ],
           "dependencies": [
             "D"
@@ -862,22 +1043,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T11:26:41"
+      "created_at": "2026-11-09T23:02:54"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used the PROGRAM-OWNED coordinates A, B, D, H by name without redefining them. Added E, F, G as helpers in the same frame (s=0.01194, y flipped relative to H). Circle is centred at D with radius 3.122 units (261.5 px), which checks out against D-G distance. Line width 0.9pt, label font 9.5/11.4 from STYLE METRICS. F and G are unlabelled and drawn only as points on the lines and circle, with no dots. No right-angle marks since none were verified. Note: the standalone file will not compile on its own, because A, B, D and H must be supplied by the program at the start of the tikzpicture.",
+        "notes": "Used program-owned coordinates A, B, D, H verbatim. E was not in the program block, so it was defined in the same frame from its measured pixel position (220.04,199.76) -> (-1.904,1.293). Circle is centred at D with radius 261.5 px*0.01194 = 3.122 cm (E lies on it within rounding). Stroke width 0.9pt and label font 9.5/11.4pt from STYLE METRICS; line join round. Border set to 10pt per the system requirement, overriding the instruction's border=5pt. The instruction's pt-based coordinates were not used because the program frame (cm) must be kept. A--D is drawn as one stroke through H; B--H as one stroke through E, which satisfies the named edges A-H, D-H and B-H.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -907,17 +1088,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0295"
+              "detail": "ink_ratio=0.0296"
             },
             {
               "name": "aspect_ratio",
@@ -932,58 +1113,214 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:26:41"
+      "created_at": "2026-11-09T23:02:54"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "critic_agent",
       "method": "endpoint_review",
-      "summary": "Reviewed 6 CV endpoint case(s)",
+      "summary": "Reviewed 2 CV endpoint case(s)",
       "payload": {
-        "abe3048f3b3eab88": {
-          "edge": [
-            "A",
-            "D"
-          ],
-          "reason": "Original shows a continuous horizontal stroke joining A and D."
-        },
-        "f04fa84babd04b9d": {
-          "edge": [
-            "B",
-            "D"
-          ],
-          "reason": "Original shows the diagonal from B to D ending at D."
-        },
         "8b7417b02f4512cd": {
           "edge": [
             "D",
             "E"
           ],
-          "reason": "Original shows a stroke from E to D; E is the upper end and does not continue past it."
-        },
-        "920dc71c4130c586": {
-          "edge": [
-            "A",
-            "B"
-          ],
-          "reason": "Original shows the left side of the triangle joining A and B."
-        },
-        "ca4ac8a4a163c39f": {
-          "edge": [
-            "B",
-            "H"
-          ],
-          "reason": "Original shows a single vertical stroke from B down to H passing through E."
+          "reason": "In the original, a straight stroke runs from D up to E and ends at the E junction; the render draws segment ED the same way."
         },
         "cd0a7793573739ad": {
           "edge": [
             "A",
             "E"
           ],
-          "reason": "Original shows the stroke from A ending at E, with no visible continuation beyond E."
+          "reason": "In the original, a straight stroke runs from A up to E and ends at the E junction; the render draws segment AE the same way."
         }
       },
-      "created_at": "2026-11-09T11:26:59"
+      "created_at": "2026-11-09T23:03:05"
+    },
+    "ev_0010": {
+      "id": "ev_0010",
+      "source": "renderer",
+      "method": "frame_like_original",
+      "summary": "v2 canvas matched to source [759, 616] (scale 1.0624)",
+      "payload": {
+        "ok": true,
+        "size": [
+          759,
+          616
+        ],
+        "reference_size": [
+          759,
+          616
+        ],
+        "scale": 1.0624,
+        "offset": [
+          41,
+          39
+        ]
+      },
+      "created_at": "2026-11-09T23:03:20"
+    },
+    "ev_0011": {
+      "id": "ev_0011",
+      "source": "tikz_constraint_repair",
+      "method": "post-generation joint coordinate projection",
+      "summary": "v2: no_candidates",
+      "payload": {
+        "ok": true,
+        "enabled": true,
+        "applied": false,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "7c914a53aab2d6f1fc5a44afda08c9718f0cc235274a705b5e81e52c4cb6fad5",
+        "output_sha256": "7c914a53aab2d6f1fc5a44afda08c9718f0cc235274a705b5e81e52c4cb6fad5",
+        "reason": "no_candidates",
+        "accepted": [],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.002,
+          "incidence_mode": "snap",
+          "length_weight": 0.0,
+          "length_scope": "edges",
+          "curve_policy": "freeze",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel"
+          ],
+          "relaxation": 1.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "input_candidates": 0,
+        "preserved_incidence_count": 1,
+        "max_shift_rel": 0.0,
+        "max_length_change_rel": 0.0,
+        "fixed_points": [
+          "D",
+          "E"
+        ],
+        "length_weight": 0.0,
+        "length_scope": "edges",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.002,
+        "incidence_strength": 1.0,
+        "curve_policy": "freeze",
+        "curve_anchors": {
+          "fixed_points": [
+            "D",
+            "E"
+          ],
+          "dependencies": [
+            "D"
+          ],
+          "circles": [
+            {
+              "center": [
+                0.915,
+                -0.056
+              ],
+              "radius": 3.122
+            }
+          ]
+        },
+        "candidate_count": 0,
+        "curve_options_applied": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.002,
+          "incidence_mode": "snap",
+          "length_weight": 0.0,
+          "length_scope": "edges",
+          "curve_policy": "freeze",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel"
+          ],
+          "relaxation": 1.0
+        }
+      },
+      "created_at": "2026-11-09T23:03:20"
+    },
+    "ev_0012": {
+      "id": "ev_0012",
+      "source": "code_agent",
+      "method": "tikz repair",
+      "summary": "v2 compiled=True validation=True",
+      "payload": {
+        "notes": "Replaced the single A--D stroke with the explicit named path (A) -- (H) -- (D), so edges A-H and H-D are explicit. Global line width raised from 0.9pt to 1.1pt per the instruction and critic suggestion. Label font, circle, and other edges are unchanged. The four program-owned coordinates (A, B, D, H) are not emitted here because the program inserts them at the start of the tikzpicture; the previous source had redefined them. Only the unmeasured helper E is defined in this document. Note for remeasurement: none raised, since H lies on the A-D line within the measured frame.",
+        "compile": {
+          "compile_ok": true,
+          "validation_passed": true,
+          "errors": [],
+          "warnings": [],
+          "png_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v2\\v2.pdf",
+          "checks": [
+            {
+              "name": "documentclass",
+              "passed": true,
+              "detail": "documentclass present"
+            },
+            {
+              "name": "document_environment",
+              "passed": true,
+              "detail": "begin=1 end=1"
+            },
+            {
+              "name": "tikzpicture",
+              "passed": true,
+              "detail": "one balanced tikzpicture"
+            },
+            {
+              "name": "no_shell_escape",
+              "passed": true,
+              "detail": "no \\write18/\\openout primitives"
+            },
+            {
+              "name": "compiler_ok",
+              "passed": true,
+              "detail": "returncode=0"
+            },
+            {
+              "name": "pdf_created",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v2\\v2.pdf"
+            },
+            {
+              "name": "png_rendered",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v2\\v2.png"
+            },
+            {
+              "name": "render_not_blank",
+              "passed": true,
+              "detail": "ink_ratio=0.0348"
+            },
+            {
+              "name": "aspect_ratio",
+              "passed": true,
+              "detail": "reference 1.23 vs render 1.26 (delta 0.02)"
+            },
+            {
+              "name": "figure_extent_ratio",
+              "passed": true,
+              "detail": "figure bbox ratio 1.27"
+            }
+          ]
+        }
+      },
+      "created_at": "2026-11-09T23:03:20"
     }
   },
   "conflicts": [],
@@ -994,117 +1331,171 @@
     "D": "point_01",
     "H": "point_03"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=0.9pt, line join=round]\n\\coordinate (A) at (-3.586,-0.054);\n\\coordinate (B) at (-1.903,2.753);\n\\coordinate (D) at (0.915,-0.056);\n\\coordinate (H) at (-1.904,-0.060);\n\n\n\n\\coordinate (E) at (-1.903,1.292);   \n\\coordinate (F) at (-2.208,-0.060);  \n\\coordinate (G) at (-1.295,2.149);   \n\n\n\\draw (D) circle (3.122);\n\n\n\\draw (A) -- (B) -- (D) -- (A);\n\n\n\\draw (A) -- (H) -- (D);\n\n\n\\draw (B) -- (E) -- (H);\n\n\n\\draw (A) -- (E) -- (D);\n\n\n\\node[below left, font=\\fontsize{9.5}{11.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{9.5}{11.4}\\selectfont] at (B) {$B$};\n\\node[right, font=\\fontsize{9.5}{11.4}\\selectfont] at (D) {$D$};\n\\node[below, font=\\fontsize{9.5}{11.4}\\selectfont] at (H) {$H$};\n\\node[left, font=\\fontsize{9.5}{11.4}\\selectfont] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=0.9pt, line join=round]\n\\coordinate (A) at (-3.586,-0.054);\n\\coordinate (B) at (-1.903,2.753);\n\\coordinate (D) at (0.915,-0.056);\n\\coordinate (H) at (-1.904,-0.060);\n\n\n\n\\coordinate (E) at (-1.903,1.292);   \n\\coordinate (F) at (-2.208,-0.060);  \n\\coordinate (G) at (-1.295,2.149);   \n\n\n\\draw (D) circle (3.122);\n\n\n\\draw (A) -- (B) -- (D) -- (A);\n\n\n\\draw (A) -- (H) -- (D);\n\n\n\\draw (B) -- (E) -- (H);\n\n\n\\draw (A) -- (E) -- (D);\n\n\n\\node[below left, font=\\fontsize{9.5}{11.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{9.5}{11.4}\\selectfont] at (B) {$B$};\n\\node[right, font=\\fontsize{9.5}{11.4}\\selectfont] at (D) {$D$};\n\\node[below, font=\\fontsize{9.5}{11.4}\\selectfont] at (H) {$H$};\n\\node[left, font=\\fontsize{9.5}{11.4}\\selectfont] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_version": 1,
-  "best_score": 0.9,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.1pt, line join=round,\n  every node/.style={font=\\fontsize{9.5}{11.4}\\selectfont}]\n\\coordinate (A) at (-3.586,-0.054);\n\\coordinate (B) at (-1.903,2.753);\n\\coordinate (D) at (0.915,-0.056);\n\\coordinate (H) at (-1.904,-0.060);\n\n\n\n\n\\coordinate (E) at (-1.904,1.293);\n\n\n\\draw[solid] (A) -- (B);\n\\draw[solid] (B) -- (D);\n\\draw[solid] (A) -- (H) -- (D);   \n\\draw[solid] (B) -- (H);\n\\draw[solid] (A) -- (E);\n\\draw[solid] (E) -- (D);\n\n\n\\draw[solid] (D) circle (3.122);\n\n\n\\node[above] at (B) {$B$};\n\\node[left] at (A) {$A$};\n\\node[right] at (D) {$D$};\n\\node[below] at (H) {$H$};\n\\node[left] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.1pt, line join=round,\n  every node/.style={font=\\fontsize{9.5}{11.4}\\selectfont}]\n\\coordinate (A) at (-3.586,-0.054);\n\\coordinate (B) at (-1.903,2.753);\n\\coordinate (D) at (0.915,-0.056);\n\\coordinate (H) at (-1.904,-0.060);\n\n\n\n\n\\coordinate (E) at (-1.904,1.293);\n\n\n\\draw[solid] (A) -- (B);\n\\draw[solid] (B) -- (D);\n\\draw[solid] (A) -- (H) -- (D);   \n\\draw[solid] (B) -- (H);\n\\draw[solid] (A) -- (E);\n\\draw[solid] (E) -- (D);\n\n\n\\draw[solid] (D) circle (3.122);\n\n\n\\node[above] at (B) {$B$};\n\\node[left] at (A) {$A$};\n\\node[right] at (D) {$D$};\n\\node[below] at (H) {$H$};\n\\node[left] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_version": 2,
+  "best_score": 0.93,
   "tikz_versions": [
     {
       "topology_check": {
-        "passed": true,
-        "missing_edges": []
+        "passed": false,
+        "missing_edges": [
+          [
+            "A",
+            "H"
+          ],
+          [
+            "D",
+            "H"
+          ]
+        ],
+        "unverified_styles": [
+          {
+            "edge": [
+              "A",
+              "H"
+            ],
+            "style": "solid"
+          },
+          {
+            "edge": [
+              "D",
+              "H"
+            ],
+            "style": "solid"
+          }
+        ]
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=0.9pt, line join=round]\n\\coordinate (A) at (-3.586,-0.054);\n\\coordinate (B) at (-1.903,2.753);\n\\coordinate (D) at (0.915,-0.056);\n\\coordinate (H) at (-1.904,-0.060);\n\n\n\n\\coordinate (E) at (-1.903,1.292);   \n\\coordinate (F) at (-2.208,-0.060);  \n\\coordinate (G) at (-1.295,2.149);   \n\n\n\\draw (D) circle (3.122);\n\n\n\\draw (A) -- (B) -- (D) -- (A);\n\n\n\\draw (A) -- (H) -- (D);\n\n\n\\draw (B) -- (E) -- (H);\n\n\n\\draw (A) -- (E) -- (D);\n\n\n\\node[below left, font=\\fontsize{9.5}{11.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{9.5}{11.4}\\selectfont] at (B) {$B$};\n\\node[right, font=\\fontsize{9.5}{11.4}\\selectfont] at (D) {$D$};\n\\node[below, font=\\fontsize{9.5}{11.4}\\selectfont] at (H) {$H$};\n\\node[left, font=\\fontsize{9.5}{11.4}\\selectfont] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2181_q_fig1\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2181_q_fig1\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2181_q_fig1\\best.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=0.9pt, line join=round,\n  every node/.style={font=\\fontsize{9.5}{11.4}\\selectfont}]\n\\coordinate (A) at (-3.586,-0.054);\n\\coordinate (B) at (-1.903,2.753);\n\\coordinate (D) at (0.915,-0.056);\n\\coordinate (H) at (-1.904,-0.060);\n\n\n\n\n\n\n\n\\coordinate (E) at (-1.904,1.293);\n\n\n\\draw[solid] (A) -- (B);\n\\draw[solid] (B) -- (D);\n\\draw[solid] (A) -- (D);   \n\\draw[solid] (B) -- (H);   \n\\draw[solid] (A) -- (E);\n\\draw[solid] (E) -- (D);\n\n\n\\draw[solid] (D) circle (3.122);\n\n\n\\node[above] at (B) {$B$};\n\\node[left] at (A) {$A$};\n\\node[right] at (D) {$D$};\n\\node[below] at (H) {$H$};\n\\node[left] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:26:38",
+      "created_at": "2026-11-09T23:02:52",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used the PROGRAM-OWNED coordinates A, B, D, H by name without redefining them. Added E, F, G as helpers in the same frame (s=0.01194, y flipped relative to H). Circle is centred at D with radius 3.122 units (261.5 px), which checks out against D-G distance. Line width 0.9pt, label font 9.5/11.4 from STYLE METRICS. F and G are unlabelled and drawn only as points on the lines and circle, with no dots. No right-angle marks since none were verified. Note: the standalone file will not compile on its own, because A, B, D and H must be supplied by the program at the start of the tikzpicture.",
-      "compile_seconds": 2.235,
+      "notes": "Used program-owned coordinates A, B, D, H verbatim. E was not in the program block, so it was defined in the same frame from its measured pixel position (220.04,199.76) -> (-1.904,1.293). Circle is centred at D with radius 261.5 px*0.01194 = 3.122 cm (E lies on it within rounding). Stroke width 0.9pt and label font 9.5/11.4pt from STYLE METRICS; line join round. Border set to 10pt per the system requirement, overriding the instruction's border=5pt. The instruction's pt-based coordinates were not used because the program frame (cm) must be kept. A--D is drawn as one stroke through H; B--H as one stroke through E, which satisfies the named edges A-H, D-H and B-H.",
+      "compile_seconds": 2.009,
       "critic_report": {
         "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Render is geometrically faithful: circle centred at D with the same radius and crossing of AD near H, all five segments end at the same vertices, and all five labels are present and bound correctly. The only visible difference is heavier stroke weight in the original.",
+        "verdict": "The render is geometrically faithful: the triangle ABD, the vertical BH, the E junction, and the circle centred at D all match the original, with only a minor stroke-weight difference.",
         "figure_type": {
-          "original": "full circle centred at D (radius through H) with triangle ABD, cevians through H and E, and segments A-E, E-D",
-          "render": "full circle centred at D (radius through H) with triangle ABD, cevians through H and E, and segments A-E, E-D"
+          "original": "Triangle ABD with altitude BH to AD, interior point E on BH, and a circle centred at D passing through H-region points on AD and near E",
+          "render": "Same configuration: triangle ABD, vertical BH, segments AE and ED, and a circle centred at D"
         },
         "issues": [
           {
             "type": "wrong_style",
             "severity": "low",
             "object_ids": [
+              "circle_D",
               "seg_01",
               "seg_02",
-              "seg_03",
               "seg_04",
-              "seg_05",
-              "seg_06"
+              "seg_05"
             ],
             "bbox": [
-              0.02,
+              0.05,
               0.12,
-              0.98,
-              0.88
+              0.8,
+              0.86
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Stroke weight in the render is lighter than the original. The original lines and circle are visibly bolder, while the render uses line width 0.9pt.",
-            "suggestion": "Increase line width (e.g. line width=1.2pt) for the segments and the circle to match the original's heavier stroke. Optional, since the figure is otherwise faithful."
+            "description": "Line weight in the render looks slightly thinner than the original; the original circle and triangle edges read as heavier strokes.",
+            "suggestion": "Increase the global line width from 0.9pt to about 1.1–1.2pt, or set the circle and segments to a slightly heavier width, then recheck against the original."
           }
         ],
         "checks": [
           {
+            "object_id": "circle_D",
+            "status": "present",
+            "note": "Circle centred at D with radius matching the original; crosses AD at the unlabelled point and passes near E in both panels."
+          },
+          {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Horizontal A-D line matches the original, ending at A and D."
+            "note": "Segment AD is drawn between A and D, matching the original horizontal base."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "B-D diagonal matches the original and ends at D."
+            "note": "Segment BD matches the original diagonal from B to D."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "E-D segment matches the original and ends at E and D."
+            "note": "Segment ED matches the original line from E to D."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "A-B side matches the original and ends at A and B."
+            "note": "Segment AB matches the original left side of the triangle."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Vertical B-H line through E matches the original, ending at B and H."
+            "note": "Vertical segment BH matches the original altitude through E to H."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "A-E segment matches the original and terminates at E without overhang."
+            "note": "Segment AE matches the original line from A to E."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label D is at the correct vertex, to the right of D as in the original."
+            "note": "D label sits at the right endpoint of the base, as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label A is at the correct vertex, lower-left as in the original."
+            "note": "A label sits at the left endpoint, as in the original."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label H is below H, matching the original."
+            "note": "H label is placed below the foot of the altitude, as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label B is above B, matching the original."
+            "note": "B label is at the top vertex, as in the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label E is left of E, matching the original, with clear separation from the strokes."
+            "note": "E label is to the left of the junction, as in the original."
+          },
+          {
+            "object_id": "point_A",
+            "status": "present",
+            "note": "A vertex matches the original."
+          },
+          {
+            "object_id": "point_B",
+            "status": "present",
+            "note": "B vertex matches the original."
+          },
+          {
+            "object_id": "point_D",
+            "status": "present",
+            "note": "D vertex matches the original."
+          },
+          {
+            "object_id": "point_E",
+            "status": "present",
+            "note": "E junction matches the original, where AE, ED and BH meet."
+          },
+          {
+            "object_id": "point_H",
+            "status": "present",
+            "note": "H foot on AD matches the original."
           }
         ],
         "checklist_score": 1.0,
@@ -1116,11 +1507,11 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Circle centred at D passes through H and crosses AD to the left of H, matching the original extent.",
-          "Edge topology A-B, B-D, A-D, B-H through E, A-E, E-D matches the original.",
-          "E lies on the vertical BH line and is the common endpoint of A-E and E-D.",
-          "Labels A, B, D, E, H are present, correctly spelled and bound to their vertices.",
-          "Aspect ratio and overall layout match the original."
+          "Triangle ABD with correct vertex positions",
+          "Altitude BH is vertical and meets AD at H",
+          "E is the junction of AE, ED and BH",
+          "Circle centred at D with matching radius and crossing points on AD and near E",
+          "All five point labels A, B, D, E, H are present, correctly spelled and bound to their vertices"
         ],
         "labels": {
           "present": [
@@ -1137,44 +1528,12 @@
         "binding_decisions": [],
         "topology_decisions": [
           {
-            "case_id": "abe3048f3b3eab88",
-            "edge": [
-              "A",
-              "D"
-            ],
-            "reason": "Original shows a continuous horizontal stroke joining A and D."
-          },
-          {
-            "case_id": "f04fa84babd04b9d",
-            "edge": [
-              "B",
-              "D"
-            ],
-            "reason": "Original shows the diagonal from B to D ending at D."
-          },
-          {
             "case_id": "8b7417b02f4512cd",
             "edge": [
               "D",
               "E"
             ],
-            "reason": "Original shows a stroke from E to D; E is the upper end and does not continue past it."
-          },
-          {
-            "case_id": "920dc71c4130c586",
-            "edge": [
-              "A",
-              "B"
-            ],
-            "reason": "Original shows the left side of the triangle joining A and B."
-          },
-          {
-            "case_id": "ca4ac8a4a163c39f",
-            "edge": [
-              "B",
-              "H"
-            ],
-            "reason": "Original shows a single vertical stroke from B down to H passing through E."
+            "reason": "In the original, a straight stroke runs from D up to E and ends at the E junction; the render draws segment ED the same way."
           },
           {
             "case_id": "cd0a7793573739ad",
@@ -1182,12 +1541,161 @@
               "A",
               "E"
             ],
-            "reason": "Original shows the stroke from A ending at E, with no visible continuation beyond E."
+            "reason": "In the original, a straight stroke runs from A up to E and ends at the E junction; the render draws segment AE the same way."
           }
         ],
         "raw_meta": "{}"
       },
       "critic_score": 0.9
+    },
+    {
+      "topology_check": {
+        "passed": true,
+        "missing_edges": []
+      },
+      "version": 2,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.1pt, line join=round,\n  every node/.style={font=\\fontsize{9.5}{11.4}\\selectfont}]\n\\coordinate (A) at (-3.586,-0.054);\n\\coordinate (B) at (-1.903,2.753);\n\\coordinate (D) at (0.915,-0.056);\n\\coordinate (H) at (-1.904,-0.060);\n\n\n\n\n\\coordinate (E) at (-1.904,1.293);\n\n\n\\draw[solid] (A) -- (B);\n\\draw[solid] (B) -- (D);\n\\draw[solid] (A) -- (H) -- (D);   \n\\draw[solid] (B) -- (H);\n\\draw[solid] (A) -- (E);\n\\draw[solid] (E) -- (D);\n\n\n\\draw[solid] (D) circle (3.122);\n\n\n\\node[above] at (B) {$B$};\n\\node[left] at (A) {$A$};\n\\node[right] at (D) {$D$};\n\\node[below] at (H) {$H$};\n\\node[left] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2181_q_fig1\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2181_q_fig1\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2181_q_fig1\\best.png",
+      "ok": true,
+      "compiled": true,
+      "errors": [],
+      "warnings": [],
+      "created_at": "2026-11-09T23:03:18",
+      "agent": "code_agent",
+      "mode": "repair",
+      "notes": "Replaced the single A--D stroke with the explicit named path (A) -- (H) -- (D), so edges A-H and H-D are explicit. Global line width raised from 0.9pt to 1.1pt per the instruction and critic suggestion. Label font, circle, and other edges are unchanged. The four program-owned coordinates (A, B, D, H) are not emitted here because the program inserts them at the start of the tikzpicture; the previous source had redefined them. Only the unmeasured helper E is defined in this document. Note for remeasurement: none raised, since H lies on the A-D line within the measured frame.",
+      "compile_seconds": 1.834,
+      "critic_report": {
+        "assessment_score": 0.93,
+        "score_kind": "heuristic visual similarity (not a calibrated probability)",
+        "verdict": "The render is faithful: the circle centred at D, the triangle ABD, the altitude BH through E, and the segments AE and ED all match the original, with labels in matching positions.",
+        "figure_type": {
+          "original": "Circle centred at D with triangle ABD, altitude BH meeting AD at H, and point E on BH joined to A and D",
+          "render": "Same: circle centred at D, triangle ABD, altitude BH through E, segments AE and ED"
+        },
+        "issues": [],
+        "checks": [
+          {
+            "object_id": "circle_D",
+            "status": "present",
+            "note": "Centre at D and radius match the original; the circle crosses the baseline just left of H in both panels."
+          },
+          {
+            "object_id": "seg_01",
+            "status": "present",
+            "note": "Baseline AD is drawn from A to D and matches the original."
+          },
+          {
+            "object_id": "seg_02",
+            "status": "present",
+            "note": "Segment BD matches the original, running from B down to D."
+          },
+          {
+            "object_id": "seg_03",
+            "status": "present",
+            "note": "Segment ED matches the original, running from E to D."
+          },
+          {
+            "object_id": "seg_04",
+            "status": "present",
+            "note": "Segment AB matches the original, running from A up to B."
+          },
+          {
+            "object_id": "seg_05",
+            "status": "present",
+            "note": "Altitude BH matches the original, running from B through E to H."
+          },
+          {
+            "object_id": "seg_06",
+            "status": "present",
+            "note": "Segment AE matches the original and ends at E."
+          },
+          {
+            "object_id": "point_01",
+            "status": "present",
+            "note": "D is labelled at the correct vertex, to the right of D."
+          },
+          {
+            "object_id": "point_02",
+            "status": "present",
+            "note": "A is labelled at the correct vertex, to the left of A."
+          },
+          {
+            "object_id": "point_03",
+            "status": "present",
+            "note": "H is labelled below H in both panels."
+          },
+          {
+            "object_id": "point_04",
+            "status": "present",
+            "note": "B is labelled above B in both panels."
+          },
+          {
+            "object_id": "point_05",
+            "status": "present",
+            "note": "E is labelled to the left of E, with clear separation from the strokes."
+          },
+          {
+            "object_id": "point_A",
+            "status": "present",
+            "note": "Vertex A is at the matching position."
+          },
+          {
+            "object_id": "point_B",
+            "status": "present",
+            "note": "Vertex B is at the matching position."
+          },
+          {
+            "object_id": "point_D",
+            "status": "present",
+            "note": "Vertex D is at the matching position."
+          },
+          {
+            "object_id": "point_E",
+            "status": "present",
+            "note": "E lies on both BH and the circle, as in the original."
+          },
+          {
+            "object_id": "point_H",
+            "status": "present",
+            "note": "H lies on AD directly below E, as in the original."
+          }
+        ],
+        "checklist_score": 1.0,
+        "actionable_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        },
+        "flaky_count": 0,
+        "must_repair": false,
+        "matches": [
+          "Circle centred at D with radius matching the original; it passes left of H and meets BA and BD in the same places.",
+          "Triangle ABD: AB, BD and AD are present with the same vertices.",
+          "Altitude BH is vertical and passes through E.",
+          "AE and ED meet at E as in the original.",
+          "Labels A, B, D, E and H are present, correctly bound and clear of strokes.",
+          "Overall aspect ratio and placement match the original."
+        ],
+        "labels": {
+          "present": [
+            "A",
+            "B",
+            "D",
+            "E",
+            "H"
+          ],
+          "missing": [],
+          "extra": []
+        },
+        "version": 2,
+        "binding_decisions": [],
+        "topology_decisions": [],
+        "raw_meta": "{}"
+      },
+      "critic_score": 0.93
     }
   ],
   "compilation_results": [
@@ -1195,14 +1703,27 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.235,
+      "seconds": 2.009,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.7568359375 KiB)\nnote: Writing `figure.log` (10.986328125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:26:41"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.7744140625 KiB)\nnote: Writing `figure.log` (12.376953125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T23:02:54"
+    },
+    {
+      "version": 2,
+      "ok": true,
+      "returncode": 0,
+      "seconds": 1.834,
+      "errors": [],
+      "warnings": [],
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.7666015625 KiB)\nnote: Writing `figure.log` (12.376953125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-09T23:03:20"
     }
   ],
   "validation_results": [
@@ -1238,17 +1759,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0295"
+          "detail": "ink_ratio=0.0296"
         },
         {
           "name": "aspect_ratio",
@@ -1261,97 +1782,183 @@
           "detail": "figure bbox ratio 1.27"
         }
       ],
-      "created_at": "2026-11-09T11:26:41"
+      "created_at": "2026-11-09T23:02:54"
+    },
+    {
+      "version": 2,
+      "passed": true,
+      "checks": [
+        {
+          "name": "documentclass",
+          "passed": true,
+          "detail": "documentclass present"
+        },
+        {
+          "name": "document_environment",
+          "passed": true,
+          "detail": "begin=1 end=1"
+        },
+        {
+          "name": "tikzpicture",
+          "passed": true,
+          "detail": "one balanced tikzpicture"
+        },
+        {
+          "name": "no_shell_escape",
+          "passed": true,
+          "detail": "no \\write18/\\openout primitives"
+        },
+        {
+          "name": "compiler_ok",
+          "passed": true,
+          "detail": "returncode=0"
+        },
+        {
+          "name": "pdf_created",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v2\\v2.pdf"
+        },
+        {
+          "name": "png_rendered",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\tikz\\v2\\v2.png"
+        },
+        {
+          "name": "render_not_blank",
+          "passed": true,
+          "detail": "ink_ratio=0.0348"
+        },
+        {
+          "name": "aspect_ratio",
+          "passed": true,
+          "detail": "reference 1.23 vs render 1.26 (delta 0.02)"
+        },
+        {
+          "name": "figure_extent_ratio",
+          "passed": true,
+          "detail": "figure bbox ratio 1.27"
+        }
+      ],
+      "created_at": "2026-11-09T23:03:20"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Render is geometrically faithful: circle centred at D with the same radius and crossing of AD near H, all five segments end at the same vertices, and all five labels are present and bound correctly. The only visible difference is heavier stroke weight in the original.",
+      "verdict": "The render is geometrically faithful: the triangle ABD, the vertical BH, the E junction, and the circle centred at D all match the original, with only a minor stroke-weight difference.",
       "figure_type": {
-        "original": "full circle centred at D (radius through H) with triangle ABD, cevians through H and E, and segments A-E, E-D",
-        "render": "full circle centred at D (radius through H) with triangle ABD, cevians through H and E, and segments A-E, E-D"
+        "original": "Triangle ABD with altitude BH to AD, interior point E on BH, and a circle centred at D passing through H-region points on AD and near E",
+        "render": "Same configuration: triangle ABD, vertical BH, segments AE and ED, and a circle centred at D"
       },
       "issues": [
         {
           "type": "wrong_style",
           "severity": "low",
           "object_ids": [
+            "circle_D",
             "seg_01",
             "seg_02",
-            "seg_03",
             "seg_04",
-            "seg_05",
-            "seg_06"
+            "seg_05"
           ],
           "bbox": [
-            0.02,
+            0.05,
             0.12,
-            0.98,
-            0.88
+            0.8,
+            0.86
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "Stroke weight in the render is lighter than the original. The original lines and circle are visibly bolder, while the render uses line width 0.9pt.",
-          "suggestion": "Increase line width (e.g. line width=1.2pt) for the segments and the circle to match the original's heavier stroke. Optional, since the figure is otherwise faithful."
+          "description": "Line weight in the render looks slightly thinner than the original; the original circle and triangle edges read as heavier strokes.",
+          "suggestion": "Increase the global line width from 0.9pt to about 1.1–1.2pt, or set the circle and segments to a slightly heavier width, then recheck against the original."
         }
       ],
       "checks": [
         {
+          "object_id": "circle_D",
+          "status": "present",
+          "note": "Circle centred at D with radius matching the original; crosses AD at the unlabelled point and passes near E in both panels."
+        },
+        {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Horizontal A-D line matches the original, ending at A and D."
+          "note": "Segment AD is drawn between A and D, matching the original horizontal base."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "B-D diagonal matches the original and ends at D."
+          "note": "Segment BD matches the original diagonal from B to D."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "E-D segment matches the original and ends at E and D."
+          "note": "Segment ED matches the original line from E to D."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "A-B side matches the original and ends at A and B."
+          "note": "Segment AB matches the original left side of the triangle."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Vertical B-H line through E matches the original, ending at B and H."
+          "note": "Vertical segment BH matches the original altitude through E to H."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "A-E segment matches the original and terminates at E without overhang."
+          "note": "Segment AE matches the original line from A to E."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label D is at the correct vertex, to the right of D as in the original."
+          "note": "D label sits at the right endpoint of the base, as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label A is at the correct vertex, lower-left as in the original."
+          "note": "A label sits at the left endpoint, as in the original."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label H is below H, matching the original."
+          "note": "H label is placed below the foot of the altitude, as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label B is above B, matching the original."
+          "note": "B label is at the top vertex, as in the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label E is left of E, matching the original, with clear separation from the strokes."
+          "note": "E label is to the left of the junction, as in the original."
+        },
+        {
+          "object_id": "point_A",
+          "status": "present",
+          "note": "A vertex matches the original."
+        },
+        {
+          "object_id": "point_B",
+          "status": "present",
+          "note": "B vertex matches the original."
+        },
+        {
+          "object_id": "point_D",
+          "status": "present",
+          "note": "D vertex matches the original."
+        },
+        {
+          "object_id": "point_E",
+          "status": "present",
+          "note": "E junction matches the original, where AE, ED and BH meet."
+        },
+        {
+          "object_id": "point_H",
+          "status": "present",
+          "note": "H foot on AD matches the original."
         }
       ],
       "checklist_score": 1.0,
@@ -1363,11 +1970,11 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Circle centred at D passes through H and crosses AD to the left of H, matching the original extent.",
-        "Edge topology A-B, B-D, A-D, B-H through E, A-E, E-D matches the original.",
-        "E lies on the vertical BH line and is the common endpoint of A-E and E-D.",
-        "Labels A, B, D, E, H are present, correctly spelled and bound to their vertices.",
-        "Aspect ratio and overall layout match the original."
+        "Triangle ABD with correct vertex positions",
+        "Altitude BH is vertical and meets AD at H",
+        "E is the junction of AE, ED and BH",
+        "Circle centred at D with matching radius and crossing points on AD and near E",
+        "All five point labels A, B, D, E, H are present, correctly spelled and bound to their vertices"
       ],
       "labels": {
         "present": [
@@ -1384,44 +1991,12 @@
       "binding_decisions": [],
       "topology_decisions": [
         {
-          "case_id": "abe3048f3b3eab88",
-          "edge": [
-            "A",
-            "D"
-          ],
-          "reason": "Original shows a continuous horizontal stroke joining A and D."
-        },
-        {
-          "case_id": "f04fa84babd04b9d",
-          "edge": [
-            "B",
-            "D"
-          ],
-          "reason": "Original shows the diagonal from B to D ending at D."
-        },
-        {
           "case_id": "8b7417b02f4512cd",
           "edge": [
             "D",
             "E"
           ],
-          "reason": "Original shows a stroke from E to D; E is the upper end and does not continue past it."
-        },
-        {
-          "case_id": "920dc71c4130c586",
-          "edge": [
-            "A",
-            "B"
-          ],
-          "reason": "Original shows the left side of the triangle joining A and B."
-        },
-        {
-          "case_id": "ca4ac8a4a163c39f",
-          "edge": [
-            "B",
-            "H"
-          ],
-          "reason": "Original shows a single vertical stroke from B down to H passing through E."
+          "reason": "In the original, a straight stroke runs from D up to E and ends at the E junction; the render draws segment ED the same way."
         },
         {
           "case_id": "cd0a7793573739ad",
@@ -1429,13 +2004,158 @@
             "A",
             "E"
           ],
-          "reason": "Original shows the stroke from A ending at E, with no visible continuation beyond E."
+          "reason": "In the original, a straight stroke runs from A up to E and ends at the E junction; the render draws segment AE the same way."
         }
       ],
       "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.93,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "The render is faithful: the circle centred at D, the triangle ABD, the altitude BH through E, and the segments AE and ED all match the original, with labels in matching positions.",
+      "figure_type": {
+        "original": "Circle centred at D with triangle ABD, altitude BH meeting AD at H, and point E on BH joined to A and D",
+        "render": "Same: circle centred at D, triangle ABD, altitude BH through E, segments AE and ED"
+      },
+      "issues": [],
+      "checks": [
+        {
+          "object_id": "circle_D",
+          "status": "present",
+          "note": "Centre at D and radius match the original; the circle crosses the baseline just left of H in both panels."
+        },
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Baseline AD is drawn from A to D and matches the original."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Segment BD matches the original, running from B down to D."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Segment ED matches the original, running from E to D."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Segment AB matches the original, running from A up to B."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Altitude BH matches the original, running from B through E to H."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Segment AE matches the original and ends at E."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "D is labelled at the correct vertex, to the right of D."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "A is labelled at the correct vertex, to the left of A."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "H is labelled below H in both panels."
+        },
+        {
+          "object_id": "point_04",
+          "status": "present",
+          "note": "B is labelled above B in both panels."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "E is labelled to the left of E, with clear separation from the strokes."
+        },
+        {
+          "object_id": "point_A",
+          "status": "present",
+          "note": "Vertex A is at the matching position."
+        },
+        {
+          "object_id": "point_B",
+          "status": "present",
+          "note": "Vertex B is at the matching position."
+        },
+        {
+          "object_id": "point_D",
+          "status": "present",
+          "note": "Vertex D is at the matching position."
+        },
+        {
+          "object_id": "point_E",
+          "status": "present",
+          "note": "E lies on both BH and the circle, as in the original."
+        },
+        {
+          "object_id": "point_H",
+          "status": "present",
+          "note": "H lies on AD directly below E, as in the original."
+        }
+      ],
+      "checklist_score": 1.0,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": false,
+      "matches": [
+        "Circle centred at D with radius matching the original; it passes left of H and meets BA and BD in the same places.",
+        "Triangle ABD: AB, BD and AD are present with the same vertices.",
+        "Altitude BH is vertical and passes through E.",
+        "AE and ED meet at E as in the original.",
+        "Labels A, B, D, E and H are present, correctly bound and clear of strokes.",
+        "Overall aspect ratio and placement match the original."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "H"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 2,
+      "binding_decisions": [],
+      "topology_decisions": [],
+      "raw_meta": "{}"
     }
   ],
-  "unresolved_issues": [],
+  "unresolved_issues": [
+    {
+      "source": "geometry_agent",
+      "issue": "point_06 (194.5,313) is an unlabeled circle/AD crossing with no printed letter; left unbound"
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "point_07 (271,128) is an unlabeled circle/BD crossing; left unbound"
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "No right-angle marks detected; the BH-AD perpendicularity is shown by the foot but has no printed square"
+    },
+    {
+      "source": "supervisor",
+      "issue": "No right-angle square mark drawn at H; the BH-AD perpendicularity is not annotated (the source shows none was detected)."
+    }
+  ],
   "action_history": [
     {
       "step": 0,
@@ -1462,16 +2182,40 @@
       "error": null
     },
     {
-      "step": 1,
+      "step": 0,
       "action": "call_cv_tool:detect_right_angle_marker",
-      "purpose": "Check for right-angle marks at H (B-H vertical meets baseline) before generating the figure.",
-      "params": {
-        "tool_name": "detect_right_angle_marker",
-        "params": {}
-      },
+      "purpose": "initial source evidence",
+      "params": {},
       "status": "ok",
       "result_summary": "ok=True; count=0",
-      "duration_s": 1.55,
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 6, 'relations': 3, 'conflicts': 0, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 1,
+      "action": "inspect_image",
+      "purpose": "Describe the figure: which arcs/circle are drawn (center D?), which segments exist (A-D line, B-H vertical, B-D, A-B, A-E?), and the extent of the circular arc near E and the unlabeled crossings at ab",
+      "params": {
+        "region": null,
+        "question": "Describe the figure: which arcs/circle are drawn (center D?), which segments exist (A-D line, B-H vertical, B-D, A-B, A-E?), and the extent of the circular arc near E and the unlabeled crossings at about (194,313) and (271,128)."
+      },
+      "status": "ok",
+      "result_summary": "ok=True",
+      "duration_s": 0.02,
       "token_usage": {
         "delta": 0
       },
@@ -1480,51 +2224,78 @@
     },
     {
       "step": 2,
-      "action": "inspect_image",
-      "purpose": "Read all visible point labels and describe the segments connecting them (which labels are endpoints of which lines, any dashed lines, any right-angle marks). Note any unlabeled points, e.g. near (194,",
+      "action": "run_code_agent",
+      "purpose": "Draw in TikZ using absolute pt coordinates equal to image pixels with y flipped (y_tikz = -y_px). Points: A=(79.2,-312.5), D=(456.1,-312.7), H=(220,-313), B=(220.1,-77.5), E=(220,-199.8). Segments (so",
       "params": {
-        "region": null,
-        "question": "Read all visible point labels and describe the segments connecting them (which labels are endpoints of which lines, any dashed lines, any right-angle marks). Note any unlabeled points, e.g. near (194,313) and (271,128) in pixels."
+        "mode": "generate",
+        "use_image": null,
+        "instruction": "Draw in TikZ using absolute pt coordinates equal to image pixels with y flipped (y_tikz = -y_px). Points: A=(79.2,-312.5), D=(456.1,-312.7), H=(220,-313), B=(220.1,-77.5), E=(220,-199.8). Segments (solid, black, thick-ish ~0.8pt): A--B, B--D, A--D (through H), B--H (vertical through E, ending at H), A--E, E--D. Circle centered at D=(456.1,-312.7) with radius 261.5 pt, full circle, solid black. Do not add extra points or labels beyond these. Labels in math italic: B above, A left, D right, H below, E left-above. Unlabeled crossings are NOT to be labeled. No right-angle marks needed unless the critic sees them. Use \\documentclass[tikz,border=5pt]{standalone}, and keep the figure compilable."
       },
-      "status": "ok",
-      "result_summary": "ok=True",
-      "duration_s": 0.01,
+      "status": "error",
+      "result_summary": "ok=False; error=RuntimeError: LLM request failed after 4 attempts: RateLimitError: Error code: 429 - {'error': {'message': '当前分组 claude_max 上游模型 claude-haiku-5-5 负载已饱和，请稍后再试！ (request id: 2026110923024295794532594917064)', 'type': 'rate_limit_error', 'param': None, 'code': None}}",
+      "duration_s": 10.79,
       "token_usage": {
         "delta": 0
       },
+      "visual_calls": 0,
+      "error": "RuntimeError: LLM request failed after 4 attempts: RateLimitError: Error code: 429 - {'error': {'message': '当前分组 claude_max 上游模型 claude-haiku-5-5 负载已饱和，请稍后再试！ (request id: 2026110923024295794532594917064)', 'type': 'rate_limit_error', 'param': None, 'code': None}}"
+    },
+    {
+      "step": 3,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
+      "duration_s": 0.0,
+      "token_usage": {},
       "visual_calls": 0,
       "error": null
     },
     {
       "step": 3,
       "action": "run_code_agent",
-      "purpose": "Reconstruct the figure as TikZ (pixel origin top-left, flip y). Use these measured points (px): A(79.2,312.5), D(456.1,312.7), B(220.1,77.5), H(220.0,313.0), E(220.0,199.8). Unlabeled CV points to kee",
+      "purpose": "Draw in TikZ using absolute pt coordinates equal to image pixels with y flipped (y_tikz = -y_px). Points: A=(79.2,-312.5), D=(456.1,-312.7), H=(220,-313), B=(220.1,-77.5), E=(220,-199.8). Segments (so",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Reconstruct the figure as TikZ (pixel origin top-left, flip y). Use these measured points (px): A(79.2,312.5), D(456.1,312.7), B(220.1,77.5), H(220.0,313.0), E(220.0,199.8). Unlabeled CV points to keep as unlabeled small dots or omit labels: F(194.5,313.0) where the circle meets line AD, G(271.0,128.0) where the circle meets segment BD. Draw a full circle centered at D with radius about 261.5 px (it passes through E, F and G). Solid straight edges: A--B, B--D, A--D (through H, so A--H--D on the same baseline), vertical segment B--H passing through E (B--E--H), segment A--E, segment E--D. Labels: A at lower-left of A, B above B, D right of D, H below H, E left of E. Keep the line widths thin/black, no fill, no right-angle marks detected. Use a single consistent scale for all coordinates."
+        "instruction": "Draw in TikZ using absolute pt coordinates equal to image pixels with y flipped (y_tikz = -y_px). Points: A=(79.2,-312.5), D=(456.1,-312.7), H=(220,-313), B=(220.1,-77.5), E=(220,-199.8). Segments (solid, black): A--B, B--D, A--D (through H), B--H (vertical through E, ending at H), A--E, E--D. Circle centered at D=(456.1,-312.7) radius 261.5 pt, full circle, solid black. Labels in math italic: B above, A left, D right, H below, E left. Do not label unlabeled crossings. Use \\documentclass[tikz,border=5pt]{standalone}, compilable."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 20.03,
+      "duration_s": 21.32,
       "token_usage": {
-        "delta": 8549
+        "delta": 18123
       },
-      "visual_calls": 1,
+      "visual_calls": 2,
       "error": null
     },
     {
       "step": 4,
       "action": "run_critic",
-      "purpose": "Compare geometry, circle extent, labels A B D E H, and edge topology (A-B, B-D, A-D through H, B-H through E, A-E, E-D) against the original.",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.93",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 4,
+      "action": "run_code_agent",
+      "purpose": "Replace the single A--D segment with an explicit named path through H: \\draw (A) -- (H) -- (D); so that edges A-H and H-D are explicit. Keep everything else. Increase line width to 1.1pt globally to m",
       "params": {
-        "focus": "Compare geometry, circle extent, labels A B D E H, and edge topology (A-B, B-D, A-D through H, B-H through E, A-E, E-D) against the original."
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Replace the single A--D segment with an explicit named path through H: \\draw (A) -- (H) -- (D); so that edges A-H and H-D are explicit. Keep everything else. Increase line width to 1.1pt globally to match the original's heavier strokes."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
-      "duration_s": 16.16,
+      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
+      "duration_s": 22.65,
       "token_usage": {
-        "delta": 10280
+        "delta": 17549
       },
       "visual_calls": 1,
       "error": null
@@ -1534,12 +2305,14 @@
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Generated TikZ (version 1) compiles and passes the topology check. The Critic scored it 0.9 and found the geometry faithful: circle centred at D, A-B-D triangle, A-H-D baseline, B-E-H vertical, A-E and E-D segments, and labels A, B, D, E, H all present and correctly bound. No must-repair issues.</summary>\n<parameter name=\"unresolved\">[\"Stroke weight is lighter than the original (0.9pt vs. heavier). Optional low-severity fix: raise line width to about 1.2pt.\", \"Unlabeled CV points F (194.5,313) and G (271,128) were drawn as plain intersection points without a dot or label, as intended.\"]",
-        "unresolved": null,
+        "summary": "Version 2 compiles and passed automatic critic review (score 0.93, must_repair=false, topology check passed). It draws triangle A-B-D, altitude B-H through E, segments A-E and E-D, a full circle centred at D with radius 261.5 px, and labels A, B, D, E, H. Coordinates come from CV points, with y flipped. Unlabeled crossings (194,313) and (271,128) are left unlabeled, as the source shows no letters there.",
+        "unresolved": [
+          "No right-angle square mark drawn at H; the BH-AD perpendicularity is not annotated (the source shows none was detected)."
+        ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=1; status=success",
+      "result_summary": "ok=True; best_version=2; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -1573,57 +2346,87 @@
     },
     {
       "tool": "detect_right_angle_marker",
-      "params": {},
-      "purpose": "Check for right-angle marks at H (B-H vertical meets baseline) before generating the figure.",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "initial source evidence",
       "ok": true,
       "count": 0,
-      "visualization": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2181_q_fig1\\cv\\detect_right_angle_marker.png",
+      "visualization": null,
+      "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "roi": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "purpose": null,
+      "ok": true,
+      "count": 0,
+      "visualization": ".cache\\redesign_150\\batch_work\\2181_q_fig1\\cv\\detect_right_angle_marker.png",
       "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 7,
-      "visual_calls": 5,
-      "prompt_tokens": 55420,
-      "completion_tokens": 8819,
-      "total_tokens": 64239,
-      "cached_tokens": 31780.0,
-      "cache_write_tokens": 23618.0,
-      "latency_s": 67.27
+      "calls": 11,
+      "visual_calls": 9,
+      "prompt_tokens": 84804,
+      "completion_tokens": 14045,
+      "total_tokens": 98849,
+      "cached_tokens": 31296.0,
+      "cache_write_tokens": 13597.0,
+      "latency_s": 94.25
     },
     "by_agent": {
+      "geometry_agent": {
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 15809,
+        "latency_s": 16.15
+      },
       "supervisor": {
         "calls": 5,
-        "visual_calls": 3,
-        "total_tokens": 45410,
-        "latency_s": 34.42
+        "visual_calls": 4,
+        "total_tokens": 47368,
+        "latency_s": 39.24
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8549,
-        "latency_s": 17.08
+        "total_tokens": 8438,
+        "latency_s": 8.18
       },
       "critic_agent": {
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 18704,
+        "latency_s": 20.02
+      },
+      "code_agent:repair": {
         "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 10280,
-        "latency_s": 15.77
+        "visual_calls": 0,
+        "total_tokens": 8530,
+        "latency_s": 10.66
       }
     }
   },
   "remaining_budget": {
     "steps_left": 19,
-    "tool_calls_left": 43,
-    "visual_calls_left": 19,
-    "tokens_left": 335761,
+    "tool_calls_left": 38,
+    "visual_calls_left": 15,
+    "tokens_left": 301151,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 64239
+    "total_tokens_used": 98849
   },
   "meta": {
     "topology_plan": {
@@ -1641,6 +2444,10 @@
           "E"
         ],
         [
+          "A",
+          "H"
+        ],
+        [
           "B",
           "D"
         ],
@@ -1651,49 +2458,21 @@
         [
           "D",
           "E"
+        ],
+        [
+          "D",
+          "H"
         ]
       ],
       "pending": [],
       "adjudicated": [
-        {
-          "case_id": "abe3048f3b3eab88",
-          "edge": [
-            "A",
-            "D"
-          ],
-          "reason": "Original shows a continuous horizontal stroke joining A and D."
-        },
-        {
-          "case_id": "f04fa84babd04b9d",
-          "edge": [
-            "B",
-            "D"
-          ],
-          "reason": "Original shows the diagonal from B to D ending at D."
-        },
         {
           "case_id": "8b7417b02f4512cd",
           "edge": [
             "D",
             "E"
           ],
-          "reason": "Original shows a stroke from E to D; E is the upper end and does not continue past it."
-        },
-        {
-          "case_id": "920dc71c4130c586",
-          "edge": [
-            "A",
-            "B"
-          ],
-          "reason": "Original shows the left side of the triangle joining A and B."
-        },
-        {
-          "case_id": "ca4ac8a4a163c39f",
-          "edge": [
-            "B",
-            "H"
-          ],
-          "reason": "Original shows a single vertical stroke from B down to H passing through E."
+          "reason": "In the original, a straight stroke runs from D up to E and ends at the E junction; the render draws segment ED the same way."
         },
         {
           "case_id": "cd0a7793573739ad",
@@ -1701,9 +2480,121 @@
             "A",
             "E"
           ],
-          "reason": "Original shows the stroke from A ending at E, with no visible continuation beyond E."
+          "reason": "In the original, a straight stroke runs from A up to E and ends at the E junction; the render draws segment AE the same way."
         }
-      ]
+      ],
+      "ink_confirmed_edges": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "D"
+        ],
+        [
+          "B",
+          "D"
+        ],
+        [
+          "B",
+          "H"
+        ]
+      ],
+      "required_styles": [
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "H"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "H"
+          ],
+          "style": "solid"
+        }
+      ],
+      "required_marks": {}
+    },
+    "source_construction": {
+      "summary": "Labelled points A(79,312), B(220,77), D(456,312), H(220,313), E(220,200). Straight strokes: A-B, B-D, A-D (through H), B-H-E (vertical, B to H passing E), A-E, E-D. Circle centered at D (approx 456,313) radius approx 261 passes through E (220,200), unlabeled point_06 (194.5,313) on AD, and point_07 (271,128) on BD. No right-angle square marks detected. Perpendicular foot: BH from B onto AD at H. All strokes solid; no dashed segments found.",
+      "strokes": [
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "H"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "H"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "E",
+            "H"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "E"
+          ],
+          "style": "solid"
+        }
+      ],
+      "marks": {},
+      "feet": []
     },
     "coordinate_contract": {
       "enabled": true,
@@ -1780,8 +2671,8 @@
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "9ede81dd1332605ee93a9679106483796f991c3322389d211c2b9459a1bb5875",
-      "output_sha256": "9ede81dd1332605ee93a9679106483796f991c3322389d211c2b9459a1bb5875",
+      "input_sha256": "7c914a53aab2d6f1fc5a44afda08c9718f0cc235274a705b5e81e52c4cb6fad5",
+      "output_sha256": "7c914a53aab2d6f1fc5a44afda08c9718f0cc235274a705b5e81e52c4cb6fad5",
       "reason": "no_candidates",
       "accepted": [],
       "rejected": [],
@@ -1806,14 +2697,12 @@
         "excluded_strokes": 0
       },
       "input_candidates": 0,
-      "preserved_incidence_count": 4,
+      "preserved_incidence_count": 1,
       "max_shift_rel": 0.0,
       "max_length_change_rel": 0.0,
       "fixed_points": [
         "D",
-        "E",
-        "F",
-        "G"
+        "E"
       ],
       "length_weight": 0.0,
       "length_scope": "edges",
@@ -1824,9 +2713,7 @@
       "curve_anchors": {
         "fixed_points": [
           "D",
-          "E",
-          "F",
-          "G"
+          "E"
         ],
         "dependencies": [
           "D"
@@ -1927,6 +2814,71 @@
           "reference_used": false,
           "coordinate_decimals": 3
         }
+      },
+      "2": {
+        "enabled": true,
+        "schema": "cv-coordinate-contract.v1",
+        "n_points": 4,
+        "reference_used": false,
+        "coordinates": {
+          "schema": "cv-coordinate-contract.v1",
+          "scale": 0.01194,
+          "origin_px": [
+            379.5,
+            308.0
+          ],
+          "points": {
+            "A": {
+              "point_id": "point_02",
+              "px": [
+                79.18,
+                312.51
+              ],
+              "tikz": [
+                -3.586,
+                -0.054
+              ]
+            },
+            "B": {
+              "point_id": "point_04",
+              "px": [
+                220.12,
+                77.45
+              ],
+              "tikz": [
+                -1.903,
+                2.753
+              ]
+            },
+            "D": {
+              "point_id": "point_01",
+              "px": [
+                456.1,
+                312.69
+              ],
+              "tikz": [
+                0.915,
+                -0.056
+              ]
+            },
+            "H": {
+              "point_id": "point_03",
+              "px": [
+                220.0,
+                313.0
+              ],
+              "tikz": [
+                -1.904,
+                -0.06
+              ]
+            }
+          },
+          "skipped": {
+            "E": "missing_or_ambiguous_cv_binding"
+          },
+          "reference_used": false,
+          "coordinate_decimals": 3
+        }
       }
     },
     "tikz_constraint_repairs": {
@@ -1940,8 +2892,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "9ede81dd1332605ee93a9679106483796f991c3322389d211c2b9459a1bb5875",
-        "output_sha256": "9ede81dd1332605ee93a9679106483796f991c3322389d211c2b9459a1bb5875",
+        "input_sha256": "cbeee795972ab53cf955f851a5d4efe407aa671c273b84eb847a3fc6fff96fdb",
+        "output_sha256": "cbeee795972ab53cf955f851a5d4efe407aa671c273b84eb847a3fc6fff96fdb",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
@@ -1966,14 +2918,12 @@
           "excluded_strokes": 0
         },
         "input_candidates": 0,
-        "preserved_incidence_count": 4,
+        "preserved_incidence_count": 2,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
           "D",
-          "E",
-          "F",
-          "G"
+          "E"
         ],
         "length_weight": 0.0,
         "length_scope": "edges",
@@ -1984,9 +2934,91 @@
         "curve_anchors": {
           "fixed_points": [
             "D",
-            "E",
-            "F",
-            "G"
+            "E"
+          ],
+          "dependencies": [
+            "D"
+          ],
+          "circles": [
+            {
+              "center": [
+                0.915,
+                -0.056
+              ],
+              "radius": 3.122
+            }
+          ]
+        },
+        "candidate_count": 0,
+        "curve_options_applied": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.002,
+          "incidence_mode": "snap",
+          "length_weight": 0.0,
+          "length_scope": "edges",
+          "curve_policy": "freeze",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel"
+          ],
+          "relaxation": 1.0
+        }
+      },
+      "2": {
+        "ok": true,
+        "enabled": true,
+        "applied": false,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "7c914a53aab2d6f1fc5a44afda08c9718f0cc235274a705b5e81e52c4cb6fad5",
+        "output_sha256": "7c914a53aab2d6f1fc5a44afda08c9718f0cc235274a705b5e81e52c4cb6fad5",
+        "reason": "no_candidates",
+        "accepted": [],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.002,
+          "incidence_mode": "snap",
+          "length_weight": 0.0,
+          "length_scope": "edges",
+          "curve_policy": "freeze",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel"
+          ],
+          "relaxation": 1.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "input_candidates": 0,
+        "preserved_incidence_count": 1,
+        "max_shift_rel": 0.0,
+        "max_length_change_rel": 0.0,
+        "fixed_points": [
+          "D",
+          "E"
+        ],
+        "length_weight": 0.0,
+        "length_scope": "edges",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.002,
+        "incidence_strength": 1.0,
+        "curve_policy": "freeze",
+        "curve_anchors": {
+          "fixed_points": [
+            "D",
+            "E"
           ],
           "dependencies": [
             "D"
@@ -2020,51 +3052,23 @@
       }
     },
     "topology_decisions": {
-      "abe3048f3b3eab88": {
-        "edge": [
-          "A",
-          "D"
-        ],
-        "reason": "Original shows a continuous horizontal stroke joining A and D."
-      },
-      "f04fa84babd04b9d": {
-        "edge": [
-          "B",
-          "D"
-        ],
-        "reason": "Original shows the diagonal from B to D ending at D."
-      },
       "8b7417b02f4512cd": {
         "edge": [
           "D",
           "E"
         ],
-        "reason": "Original shows a stroke from E to D; E is the upper end and does not continue past it."
-      },
-      "920dc71c4130c586": {
-        "edge": [
-          "A",
-          "B"
-        ],
-        "reason": "Original shows the left side of the triangle joining A and B."
-      },
-      "ca4ac8a4a163c39f": {
-        "edge": [
-          "B",
-          "H"
-        ],
-        "reason": "Original shows a single vertical stroke from B down to H passing through E."
+        "reason": "In the original, a straight stroke runs from D up to E and ends at the E junction; the render draws segment ED the same way."
       },
       "cd0a7793573739ad": {
         "edge": [
           "A",
           "E"
         ],
-        "reason": "Original shows the stroke from A ending at E, with no visible continuation beyond E."
+        "reason": "In the original, a straight stroke runs from A up to E and ends at the E junction; the render draws segment AE the same way."
       }
     },
     "finish": {
-      "summary": "Generated TikZ (version 1) compiles and passes the topology check. The Critic scored it 0.9 and found the geometry faithful: circle centred at D, A-B-D triangle, A-H-D baseline, B-E-H vertical, A-E and E-D segments, and labels A, B, D, E, H all present and correctly bound. No must-repair issues.",
+      "summary": "Version 2 compiles and passed automatic critic review (score 0.93, must_repair=false, topology check passed). It draws triangle A-B-D, altitude B-H through E, segments A-E and E-D, a full circle centred at D with radius 261.5 px, and labels A, B, D, E, H. Coordinates come from CV points, with y flipped. Unlabeled crossings (194,313) and (271,128) are left unlabeled, as the source shows no letters there.",
       "status": "success"
     },
     "stop_reason": "finish"

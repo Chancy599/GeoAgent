@@ -1,0 +1,190 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "The render is faithful to the original: rectangle ABCD, the B-E-C triangle, dashed H-F-G and F-C, and both right-angle marks match. The only discrepancy is a CV binding error on point_01, which is the top vertex printed as E, not F.",
+  "figure_type": {
+    "original": "Rectangle ABCD with triangle BEC inside, H and G on the base and top edges, F on BE with a perpendicular dashed segment FC, and right-angle marks at F and G.",
+    "render": "Same configuration: rectangle ABCD, triangle BEC, dashed H-F-G and F-C, right-angle marks at F and G."
+  },
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "medium",
+      "object_ids": [
+        "point_01"
+      ],
+      "bbox": [
+        0.6,
+        0.05,
+        0.7,
+        0.14
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The source-image binding assigns the letter F to the top-edge vertex at about x=265.6, y=75 (point_01). The printed letter there is E, which the render correctly labels. F is printed on the diagonal near (x≈127, y≈352), which is point_03.",
+      "suggestion": "Keep the TikZ as it is: E is at the top vertex and F is the diagonal foot. Correct the OCR/binding so point_01 is labelled E and not F; the render needs no change."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Diagonal B-E is drawn in both panels, ending at E on the top edge."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Segment E-C is drawn in both panels."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Right edge D-C is drawn in both panels."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Left edge A-B is drawn in both panels."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Dashed vertical H-F-G is drawn in both panels."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Bottom edge B-C is drawn in both panels."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Top edge A-D is drawn in both panels."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "present",
+      "note": "Dashed F-C is drawn in both panels."
+    },
+    {
+      "object_id": "seg_09",
+      "status": "present",
+      "note": "Dashed lower part of the vertical from F to G is drawn in both panels."
+    },
+    {
+      "object_id": "seg_BE",
+      "status": "present",
+      "note": "B-E line is drawn and ends at E in both panels."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "E-C line is drawn in both panels."
+    },
+    {
+      "object_id": "seg_FC",
+      "status": "present",
+      "note": "Dashed F-C is drawn in both panels."
+    },
+    {
+      "object_id": "seg_HG",
+      "status": "present",
+      "note": "Dashed H-F-G vertical is drawn in both panels."
+    },
+    {
+      "object_id": "ra_F",
+      "status": "present",
+      "note": "Right-angle mark at F between FE/FB and FC is drawn in both panels."
+    },
+    {
+      "object_id": "ra_G",
+      "status": "present",
+      "note": "Right-angle mark at G is drawn above BC on the right side of G in both panels."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle mark at F is drawn in both panels."
+    },
+    {
+      "object_id": "right_angle_02",
+      "status": "present",
+      "note": "Right-angle mark at G is drawn in both panels."
+    },
+    {
+      "object_id": "point_01",
+      "status": "wrong",
+      "note": "Labelled F in the CV binding, but the printed letter at this top vertex is E. The render labels it E correctly."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "B is at the bottom-left corner and is correctly bound."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "F is on the diagonal B-E and is correctly bound."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "C is at the bottom-right corner and is correctly bound."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "D is at the top-right corner and is correctly bound."
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "A is at the top-left corner and is correctly bound."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "H is on the top edge above G and is correctly bound."
+    }
+  ],
+  "checklist_score": 0.979,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+  },
+  "flaky_count": 0,
+  "must_repair": true,
+  "matches": [
+    "Rectangle ABCD with the correct proportions and corner placement.",
+    "Triangle BEC with E on the top edge, matching the original.",
+    "Dashed H-F-G vertical and dashed F-C with F on BE.",
+    "Right-angle marks at F and at G, on the same sides as the original.",
+    "Labels A, B, C, D, E, F, G, H are present and placed close to their vertices without collisions."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 3,
+  "binding_decisions": [
+    {
+      "label": "E",
+      "point_id": "point_01",
+      "reason": "The printed letter at the top-edge vertex (x≈265.6, y≈75) is E, shown above the apex in the original and in the render.",
+      "replaces": "F"
+    }
+  ],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

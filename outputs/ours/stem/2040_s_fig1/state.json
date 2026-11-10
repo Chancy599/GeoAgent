@@ -349,7 +349,7 @@
     "point_03": {
       "id": "point_03",
       "type": "point",
-      "label": null,
+      "label": "E",
       "coords": {
         "px": [
           510.92,
@@ -631,6 +631,81 @@
         ],
         "ambiguous": false
       }
+    },
+    "seg_AB": {
+      "id": "seg_AB",
+      "type": "segment",
+      "label": "AB",
+      "coords": {
+        "a_px": [
+          121.85,
+          78.14
+        ],
+        "b_px": [
+          50.8,
+          432.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_FE": {
+      "id": "seg_FE",
+      "type": "segment",
+      "label": "FE",
+      "coords": {
+        "a_px": [
+          86.5,
+          255.0
+        ],
+        "b_px": [
+          510.92,
+          255.39
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "dashed"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_DC": {
+      "id": "seg_DC",
+      "type": "segment",
+      "label": "DC",
+      "coords": {
+        "a_px": [
+          334.0,
+          78.0
+        ],
+        "b_px": [
+          688.0,
+          432.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -678,6 +753,33 @@
       "source": "bind_point_labels",
       "evidence": "Hungarian assignment distance=28.63px",
       "status": "candidate"
+    },
+    "rel_006": {
+      "id": "rel_006",
+      "subject": "point_06",
+      "relation": "on_segment",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "F lies on AB at y=255 (x≈86.3 on line AB)",
+      "status": "candidate"
+    },
+    "rel_007": {
+      "id": "rel_007",
+      "subject": "point_03",
+      "relation": "on_segment",
+      "object": "seg_DC",
+      "source": "geometry_agent",
+      "evidence": "E on DC line: x=334+(255-78) ≈ 511",
+      "status": "candidate"
+    },
+    "rel_label_E": {
+      "id": "rel_label_E",
+      "subject": "label_E",
+      "relation": "labels_point",
+      "object": "point_03",
+      "source": "geometry_agent",
+      "evidence": "Unlabeled junction at (511,255) where solid AE, dashed FE and solid DC meet; printed E glyph sits just right of this junction",
+      "status": "confirmed"
     }
   },
   "evidence": {
@@ -692,7 +794,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:25:32"
+      "created_at": "2026-11-09T23:00:16"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -705,13 +807,71 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:25:35"
+      "created_at": "2026-11-09T23:00:23"
     },
     "ev_0003": {
       "id": "ev_0003",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T23:00:27"
+    },
+    "ev_0004": {
+      "id": "ev_0004",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Quadrilateral ABCD-type figure: A top-left (point_05), D top-right (point_04), C bottom-right (point_01), B bottom-left (point_02). Side AB is solid and passes through F (point_06) on its left side; F is the start of a dashed horizontal segment F-E at y=255. Line DC is solid and passes through E (point_03, unlabeled in OCR, printed letter E sits just right of it). Segment AE is solid from A to E. Segments AD, BC are solid. No right-angle marks are visible in the figure. Junction E is where AE, dashed FE and DC meet.",
+      "payload": {
+        "merged": {
+          "objects": 9,
+          "relations": 2,
+          "conflicts": 0,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_05",
+          "point_04",
+          "point_01",
+          "point_02",
+          "point_06",
+          "point_03",
+          "seg_AB",
+          "seg_FE",
+          "seg_DC"
+        ]
+      },
+      "created_at": "2026-11-09T23:00:38"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
+      "source": "geometry_agent",
+      "method": "measured_label_rebinding",
+      "summary": "Corrected 1 source label bindings",
+      "payload": {
+        "E": {
+          "point_id": "point_03",
+          "px": [
+            510.92,
+            255.39
+          ],
+          "previous_point_id": null,
+          "reason": "Unlabeled junction at (511,255) where solid AE, dashed FE and solid DC meet; printed E glyph sits just right of this junction",
+          "source": "geometry_agent"
+        }
+      },
+      "created_at": "2026-11-09T23:00:38"
+    },
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [741, 512] (scale 0.9795)",
+      "summary": "v1 canvas matched to source [741, 512] (scale 1.0636)",
       "payload": {
         "ok": true,
         "size": [
@@ -722,16 +882,16 @@
           741,
           512
         ],
-        "scale": 0.9795,
+        "scale": 1.0636,
         "offset": [
-          27,
-          44
+          26,
+          26
         ]
       },
-      "created_at": "2026-11-09T11:26:06"
+      "created_at": "2026-11-09T23:00:55"
     },
-    "ev_0004": {
-      "id": "ev_0004",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: applied",
@@ -745,8 +905,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "ad8a1d74682bd7777e2895bb90776d1eb7684555dbd009b3356d3311124af561",
-        "output_sha256": "419b4faba60384eda9213bca39ba7e26ed39abd17741577074325dcbfb40ca78",
+        "input_sha256": "b89123254dfc9ab1afff833cfffac74c5ed2d6579d45e8d272e6ba69e15c4564",
+        "output_sha256": "9d2a36f2fe4216a1a8d7f5ad61b50531a2cf898fc6e59049b6b51a6cb5427be6",
         "reason": "applied",
         "accepted": [
           {
@@ -826,22 +986,22 @@
         "point_count": 6,
         "segment_count": 8
       },
-      "created_at": "2026-11-09T11:26:06"
+      "created_at": "2026-11-09T23:00:55"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used program-owned coordinates A, B, C, D, F without redefining them. Defined E as a helper in the same frame, derived from pixel (510.92,255.39) with the program's implied transform (cx≈370.5, cy≈256.0, s≈0.011977), giving (1.682,0.007). Drew D--E--C as a polyline since E sits on the right side, B--F--A through F, solid A--E, dashed F--E. Line width 1.4pt and label font 14/16.8 per STYLE METRICS. Labels placed per source: A above-left, D above, B below-left, C below-right, F left, E right. Required edge A--B is covered by B--F--A. Snapping of the source's 0.8pt stroke was not applied since metrics specify 1.4pt.",
+        "notes": "Used the program-owned coordinate frame (A,B,C,D,E,F names only; definitions not emitted). Stroke 1.4pt with round joins, labels at 14/16.8pt per STYLE METRICS. Edges: AD, DEC, CB, BFA (F on AB), AE solid, FE dashed. Label placements follow the source: A and D above, B and C below, F left, E right. No right-angle marks since none were verified.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2040_s_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2040_s_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -871,32 +1031,223 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2040_s_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2040_s_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0353"
+              "detail": "ink_ratio=0.0383"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.45 vs render 1.63 (delta 0.12)"
+              "detail": "reference 1.45 vs render 1.50 (delta 0.04)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.65"
+              "detail": "figure bbox ratio 1.52"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T11:26:06"
+      "created_at": "2026-11-09T23:00:55"
+    },
+    "ev_0009": {
+      "id": "ev_0009",
+      "source": "renderer",
+      "method": "frame_like_original",
+      "summary": "v2 canvas matched to source [741, 512] (scale 1.0636)",
+      "payload": {
+        "ok": true,
+        "size": [
+          741,
+          512
+        ],
+        "reference_size": [
+          741,
+          512
+        ],
+        "scale": 1.0636,
+        "offset": [
+          26,
+          27
+        ]
+      },
+      "created_at": "2026-11-09T23:01:33"
+    },
+    "ev_0010": {
+      "id": "ev_0010",
+      "source": "tikz_constraint_repair",
+      "method": "post-generation joint coordinate projection",
+      "summary": "v2: applied",
+      "payload": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "e17ef1168558f3c7f03a0b1d68ef64ae82078e451a594be449055231025dc284",
+        "output_sha256": "68e9e8c121ada40c7a98f420486d78d0100203edd8b908b60b74c0b17679bd05",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "parallel",
+            "segments": [
+              "A--D",
+              "B--C"
+            ],
+            "before_error_deg": 0.04509702296832736,
+            "after_error_deg": 0.01501658451085911,
+            "solver_after_error_deg": 1.037736710824001e-13,
+            "export_tolerance_deg": 0.04250700939282885
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--C",
+              "E--F"
+            ],
+            "before_error_deg": 0.05636018201173233,
+            "after_error_deg": 0.003744544618298858,
+            "solver_after_error_deg": 2.4993794969503273e-14,
+            "export_tolerance_deg": 0.02655942444211522
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--D",
+              "E--F"
+            ],
+            "before_error_deg": 0.10145720498005971,
+            "after_error_deg": 0.01127203989256025,
+            "solver_after_error_deg": 7.877907613445099e-14,
+            "export_tolerance_deg": 0.04782964407231277
+          }
+        ],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
+          ],
+          "relaxation": 1.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "input_candidates": 3,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.00022909979250004722,
+        "max_length_change_rel": 0.0013621377503152399,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00016391158720702146,
+        "max_after_error_deg": 0.01501658451085911,
+        "curve_policy": "defer",
+        "candidate_count": 3,
+        "solver_max_shift_rel": 0.00023537701519125382,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.01501658451085911,
+        "point_count": 6,
+        "segment_count": 8
+      },
+      "created_at": "2026-11-09T23:01:33"
+    },
+    "ev_0011": {
+      "id": "ev_0011",
+      "source": "code_agent",
+      "method": "tikz repair",
+      "summary": "v2 compiled=True validation=True",
+      "payload": {
+        "notes": "Low-severity style repair only. Global line width 1.4pt -> 0.9pt. Dashed F--E now uses a thinner 0.6pt stroke with dash pattern on 6pt off 4pt. All other edges remain solid. Geometry, topology, labels and label font are unchanged. Vertex coordinates A-F are not defined in this document because the program inserts them; the previous hand-typed definitions (e.g. A at 2.131) were dropped in favour of the program-owned values (A at 2.130), which is a minor difference to be aware of when compiling standalone.",
+        "compile": {
+          "compile_ok": true,
+          "validation_passed": true,
+          "errors": [],
+          "warnings": [],
+          "png_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v2\\v2.pdf",
+          "checks": [
+            {
+              "name": "documentclass",
+              "passed": true,
+              "detail": "documentclass present"
+            },
+            {
+              "name": "document_environment",
+              "passed": true,
+              "detail": "begin=1 end=1"
+            },
+            {
+              "name": "tikzpicture",
+              "passed": true,
+              "detail": "one balanced tikzpicture"
+            },
+            {
+              "name": "no_shell_escape",
+              "passed": true,
+              "detail": "no \\write18/\\openout primitives"
+            },
+            {
+              "name": "compiler_ok",
+              "passed": true,
+              "detail": "returncode=0"
+            },
+            {
+              "name": "pdf_created",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v2\\v2.pdf"
+            },
+            {
+              "name": "png_rendered",
+              "passed": true,
+              "detail": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v2\\v2.png"
+            },
+            {
+              "name": "render_not_blank",
+              "passed": true,
+              "detail": "ink_ratio=0.0289"
+            },
+            {
+              "name": "aspect_ratio",
+              "passed": true,
+              "detail": "reference 1.45 vs render 1.51 (delta 0.04)"
+            },
+            {
+              "name": "figure_extent_ratio",
+              "passed": true,
+              "detail": "figure bbox ratio 1.53"
+            }
+          ]
+        }
+      },
+      "created_at": "2026-11-09T23:01:33"
     }
   },
   "conflicts": [],
@@ -905,12 +1256,13 @@
     "D": "point_04",
     "F": "point_06",
     "B": "point_02",
-    "C": "point_01"
+    "C": "point_01",
+    "E": "point_03"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.4pt]\n\\coordinate (A) at (-2.978,2.131);\n\\coordinate (B) at (-3.829,-2.107);\n\\coordinate (C) at (3.802,-2.109);\n\\coordinate (D) at (-0.437,2.131);\n\\coordinate (F) at (-3.401,0.010);\n\n\n\n\\coordinate (E) at (1.682,0.009);\n\n\n\\draw (A) -- (D);\n\\draw (D) -- (E) -- (C);\n\\draw (C) -- (B);\n\\draw (B) -- (F) -- (A);\n\n\n\\draw (A) -- (E);\n\n\n\\draw[dashed] (F) -- (E);\n\n\n\\node[above left] at (A) {\\fontsize{14}{16.8}\\selectfont $A$};\n\\node[above] at (D) {\\fontsize{14}{16.8}\\selectfont $D$};\n\\node[below left] at (B) {\\fontsize{14}{16.8}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{14}{16.8}\\selectfont $C$};\n\\node[left] at (F) {\\fontsize{14}{16.8}\\selectfont $F$};\n\\node[right] at (E) {\\fontsize{14}{16.8}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 4bf02481c54d1bbe93c1bf6d6b96bf4933e691abfd7c70fe5f5e952c554d9670\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.4pt]\n\\coordinate (A) at (-2.978,2.131);\n\\coordinate (B) at (-3.829,-2.107);\n\\coordinate (C) at (3.802,-2.109);\n\\coordinate (D) at (-0.437,2.131);\n\\coordinate (F) at (-3.401,0.010);\n\n\n\n\\coordinate (E) at (1.682,0.009);\n\n\n\\draw (A) -- (D);\n\\draw (D) -- (E) -- (C);\n\\draw (C) -- (B);\n\\draw (B) -- (F) -- (A);\n\n\n\\draw (A) -- (E);\n\n\n\\draw[dashed] (F) -- (E);\n\n\n\\node[above left] at (A) {\\fontsize{14}{16.8}\\selectfont $A$};\n\\node[above] at (D) {\\fontsize{14}{16.8}\\selectfont $D$};\n\\node[below left] at (B) {\\fontsize{14}{16.8}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{14}{16.8}\\selectfont $C$};\n\\node[left] at (F) {\\fontsize{14}{16.8}\\selectfont $F$};\n\\node[right] at (E) {\\fontsize{14}{16.8}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 4bf02481c54d1bbe93c1bf6d6b96bf4933e691abfd7c70fe5f5e952c554d9670\n",
-  "best_version": 1,
-  "best_score": 0.9,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\n\\begin{tikzpicture}[line join=round, line width=0.9pt,\n  every node/.style={font=\\fontsize{14}{16.8}\\selectfont}]\n\\coordinate (A) at (-2.978,2.131);\n\\coordinate (B) at (-3.829,-2.107);\n\\coordinate (C) at (3.802,-2.109);\n\\coordinate (D) at (-0.437,2.131);\n\\coordinate (E) at (1.682,0.009);\n\\coordinate (F) at (-3.401,0.010);\n\n\n  \n  \\draw (A) -- (D);\n  \\draw (D) -- (E) -- (C);\n  \\draw (C) -- (B);\n  \\draw (B) -- (F) -- (A);\n  \\draw (A) -- (E);\n\n  \n  \\draw[line width=0.6pt, dashed, dash pattern=on 6pt off 4pt] (F) -- (E);\n\n  \n  \\node[above] at (A) {$A$};\n  \\node[above] at (D) {$D$};\n  \\node[below] at (B) {$B$};\n  \\node[below] at (C) {$C$};\n  \\node[left] at (F) {$F$};\n  \\node[right] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 85cb13fd1ad9d002bb8c98f1f3eccd74abcdf8fe3bd7b91e5a3f72efc32a6411\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\n\\begin{tikzpicture}[line join=round, line width=0.9pt,\n  every node/.style={font=\\fontsize{14}{16.8}\\selectfont}]\n\\coordinate (A) at (-2.978,2.131);\n\\coordinate (B) at (-3.829,-2.107);\n\\coordinate (C) at (3.802,-2.109);\n\\coordinate (D) at (-0.437,2.131);\n\\coordinate (E) at (1.682,0.009);\n\\coordinate (F) at (-3.401,0.010);\n\n\n  \n  \\draw (A) -- (D);\n  \\draw (D) -- (E) -- (C);\n  \\draw (C) -- (B);\n  \\draw (B) -- (F) -- (A);\n  \\draw (A) -- (E);\n\n  \n  \\draw[line width=0.6pt, dashed, dash pattern=on 6pt off 4pt] (F) -- (E);\n\n  \n  \\node[above] at (A) {$A$};\n  \\node[above] at (D) {$D$};\n  \\node[below] at (B) {$B$};\n  \\node[below] at (C) {$C$};\n  \\node[left] at (F) {$F$};\n  \\node[right] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 85cb13fd1ad9d002bb8c98f1f3eccd74abcdf8fe3bd7b91e5a3f72efc32a6411\n",
+  "best_version": 2,
+  "best_score": 0.92,
   "tikz_versions": [
     {
       "topology_check": {
@@ -918,116 +1270,161 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.4pt]\n\\coordinate (A) at (-2.978,2.131);\n\\coordinate (B) at (-3.829,-2.107);\n\\coordinate (C) at (3.802,-2.109);\n\\coordinate (D) at (-0.437,2.131);\n\\coordinate (F) at (-3.401,0.010);\n\n\n\n\\coordinate (E) at (1.682,0.009);\n\n\n\\draw (A) -- (D);\n\\draw (D) -- (E) -- (C);\n\\draw (C) -- (B);\n\\draw (B) -- (F) -- (A);\n\n\n\\draw (A) -- (E);\n\n\n\\draw[dashed] (F) -- (E);\n\n\n\\node[above left] at (A) {\\fontsize{14}{16.8}\\selectfont $A$};\n\\node[above] at (D) {\\fontsize{14}{16.8}\\selectfont $D$};\n\\node[below left] at (B) {\\fontsize{14}{16.8}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{14}{16.8}\\selectfont $C$};\n\\node[left] at (F) {\\fontsize{14}{16.8}\\selectfont $F$};\n\\node[right] at (E) {\\fontsize{14}{16.8}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 4bf02481c54d1bbe93c1bf6d6b96bf4933e691abfd7c70fe5f5e952c554d9670\n",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2040_s_fig1\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2040_s_fig1\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2040_s_fig1\\best.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.4pt,\n  every node/.style={font=\\fontsize{14}{16.8}\\selectfont}]\n\\coordinate (A) at (-2.978,2.131);\n\\coordinate (B) at (-3.829,-2.107);\n\\coordinate (C) at (3.802,-2.109);\n\\coordinate (D) at (-0.437,2.131);\n\\coordinate (E) at (1.682,0.009);\n\\coordinate (F) at (-3.401,0.010);\n\n  \n  \\draw (A) -- (D);\n  \\draw (D) -- (E) -- (C);\n  \\draw (C) -- (B);\n  \\draw (B) -- (F) -- (A);\n  \n  \\draw (A) -- (E);\n  \n  \\draw[dashed] (F) -- (E);\n  \n  \\node[above] at (A) {$A$};\n  \\node[above] at (D) {$D$};\n  \\node[below] at (B) {$B$};\n  \\node[below] at (C) {$C$};\n  \\node[left] at (F) {$F$};\n  \\node[right] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 08fcb950f241b702934d03f9d8bcd64eb69c9c0a5e7b473a0f60e1e2a529723b\n",
+      "tex_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:26:03",
+      "created_at": "2026-11-09T23:00:53",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used program-owned coordinates A, B, C, D, F without redefining them. Defined E as a helper in the same frame, derived from pixel (510.92,255.39) with the program's implied transform (cx≈370.5, cy≈256.0, s≈0.011977), giving (1.682,0.007). Drew D--E--C as a polyline since E sits on the right side, B--F--A through F, solid A--E, dashed F--E. Line width 1.4pt and label font 14/16.8 per STYLE METRICS. Labels placed per source: A above-left, D above, B below-left, C below-right, F left, E right. Required edge A--B is covered by B--F--A. Snapping of the source's 0.8pt stroke was not applied since metrics specify 1.4pt.",
-      "compile_seconds": 3.27,
+      "notes": "Used the program-owned coordinate frame (A,B,C,D,E,F names only; definitions not emitted). Stroke 1.4pt with round joins, labels at 14/16.8pt per STYLE METRICS. Edges: AD, DEC, CB, BFA (F on AB), AE solid, FE dashed. Label placements follow the source: A and D above, B and C below, F left, E right. No right-angle marks since none were verified.",
+      "compile_seconds": 1.58,
       "critic_report": {
         "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Render matches the original's vertices, segments, edge topology and labels (A–F). The only visible difference is the dash style of FE, which looks denser and dotted in the render.",
+        "verdict": "Render is geometrically faithful: all six points, the trapezoid, diagonals AE and DC, and dashed FE match the original. Only stroke weight and dash style differ.",
         "figure_type": {
-          "original": "quadrilateral ABCD with interior point E on DC, line AE, and dashed FE, with F on AB",
-          "render": "same quadrilateral ABCD with E, AE, dashed FE and F on AB"
+          "original": "Quadrilateral ABCD-like trapezoid with point F on AB, E on DC, dashed segment FE and solid segment AE",
+          "render": "Same quadrilateral with point F on AB, E on DC, dashed FE and solid AE"
         },
         "issues": [
           {
             "type": "wrong_style",
             "severity": "low",
             "object_ids": [
-              "seg_04"
+              "seg_04",
+              "seg_FE"
             ],
             "bbox": [
-              0.03,
-              0.48,
-              0.37,
-              0.52
+              0.13,
+              0.47,
+              0.7,
+              0.53
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Dashed segment FE (seg_04) renders with short, dense dashes that read as dotted, and looks heavier than the original's longer, lighter dashes.",
-            "suggestion": "Use a dash pattern with longer dashes and wider gaps (e.g. dash 4pt gap 3pt) and consider a thinner line width for this dashed stroke."
+            "description": "Dashed segment FE is heavier and has a shorter, denser dash pattern than the original, which has thinner strokes and longer dashes. The dashes look closer to dotted in the render.",
+            "suggestion": "Use a thinner dashed style for FE, for example \\draw[dashed, line width=0.8pt, dash pattern=on 6pt off 4pt] (F) -- (E); or match the original dash lengths."
+          },
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "seg_01",
+              "seg_02",
+              "seg_03",
+              "seg_05",
+              "seg_06",
+              "seg_AB",
+              "seg_DC"
+            ],
+            "bbox": [
+              0.05,
+              0.12,
+              0.98,
+              0.78
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "Solid strokes in the render are heavier than in the original (global line width 1.4pt looks bolder than the original's thinner outlines).",
+            "suggestion": "Reduce the global line width, e.g. line width=0.9pt in the tikzpicture options, to match the original stroke weight."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Bottom edge BC is drawn from B to C, matching the original."
+            "note": "Base BC drawn from B to C, matches original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Segment DC runs through E to C, matching the original's continuous line."
+            "note": "Diagonal DC from D to C, matches original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Segment AE is drawn from A to E, matching the original."
+            "note": "Segment AE from A to E, ends at E as in original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Dashed FE is in the correct position from F to E; only the dash style differs (see issue)."
+            "note": "Dashed FE horizontal from F to E, matches original positions; dash style differs slightly."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Left side A–F–B is drawn with the correct bend at F."
+            "note": "Left side AB from A to B, matches original."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Top edge AD is drawn from A to D, matching the original."
+            "note": "Top side AD, matches original."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "Segment AB present and correctly placed."
+          },
+          {
+            "object_id": "seg_DC",
+            "status": "present",
+            "note": "Segment DC present and correctly placed, passes through E."
+          },
+          {
+            "object_id": "seg_FE",
+            "status": "present",
+            "note": "Dashed segment FE present, endpoints at F and E match original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "C is labelled at the bottom-right vertex, as in the original."
+            "note": "Point C at bottom-right vertex, labelled C correctly."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "B is labelled at the bottom-left vertex, as in the original."
+            "note": "Point B at bottom-left vertex, labelled B correctly."
+          },
+          {
+            "object_id": "point_03",
+            "status": "present",
+            "note": "Point E on DC where AE and FE meet, labelled E correctly."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "D is labelled above the top-right vertex, as in the original."
+            "note": "Point D at top-right vertex, labelled D correctly."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "A is labelled above-left of the top-left vertex, as in the original."
+            "note": "Point A at top-left vertex, labelled A correctly."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "F is labelled left of the point on AB, as in the original."
+            "note": "Point F on AB, labelled F correctly."
           }
         ],
         "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
           "medium": 0,
-          "low": 1
+          "low": 2
         },
         "flaky_count": 0,
-        "must_repair": false,
+        "must_repair": true,
         "matches": [
-          "Vertices A, B, C, D, F and interior point E are in the correct positions.",
-          "Edge topology matches: AD, DE–C, CB, BF–A, AE, and dashed FE.",
-          "The D–E–C line is continuous through E, as in the original.",
-          "All six labels (A, B, C, D, E, F) are present, correctly spelled and bound to their vertices, with no collisions with strokes."
+          "Trapezoid outline A-D-C-B with correct vertex positions and proportions",
+          "Diagonal AE from A to E on DC",
+          "Dashed FE horizontal from F on AB to E on DC",
+          "Vertex labels A, B, C, D, E, F present with correct placement and no collisions with strokes",
+          "Endpoint of dashed FE at E matches the original"
         ],
         "labels": {
           "present": [
@@ -1047,6 +1444,145 @@
         "raw_meta": "{}"
       },
       "critic_score": 0.9
+    },
+    {
+      "topology_check": {
+        "passed": true,
+        "missing_edges": []
+      },
+      "version": 2,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\n\n\\begin{tikzpicture}[line join=round, line width=0.9pt,\n  every node/.style={font=\\fontsize{14}{16.8}\\selectfont}]\n\\coordinate (A) at (-2.978,2.131);\n\\coordinate (B) at (-3.829,-2.107);\n\\coordinate (C) at (3.802,-2.109);\n\\coordinate (D) at (-0.437,2.131);\n\\coordinate (E) at (1.682,0.009);\n\\coordinate (F) at (-3.401,0.010);\n\n\n  \n  \\draw (A) -- (D);\n  \\draw (D) -- (E) -- (C);\n  \\draw (C) -- (B);\n  \\draw (B) -- (F) -- (A);\n  \\draw (A) -- (E);\n\n  \n  \\draw[line width=0.6pt, dashed, dash pattern=on 6pt off 4pt] (F) -- (E);\n\n  \n  \\node[above] at (A) {$A$};\n  \\node[above] at (D) {$D$};\n  \\node[below] at (B) {$B$};\n  \\node[below] at (C) {$C$};\n  \\node[left] at (F) {$F$};\n  \\node[right] at (E) {$E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 85cb13fd1ad9d002bb8c98f1f3eccd74abcdf8fe3bd7b91e5a3f72efc32a6411\n",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2040_s_fig1\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2040_s_fig1\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\2040_s_fig1\\best.png",
+      "ok": true,
+      "compiled": true,
+      "errors": [],
+      "warnings": [],
+      "created_at": "2026-11-09T23:01:30",
+      "agent": "code_agent",
+      "mode": "repair",
+      "notes": "Low-severity style repair only. Global line width 1.4pt -> 0.9pt. Dashed F--E now uses a thinner 0.6pt stroke with dash pattern on 6pt off 4pt. All other edges remain solid. Geometry, topology, labels and label font are unchanged. Vertex coordinates A-F are not defined in this document because the program inserts them; the previous hand-typed definitions (e.g. A at 2.131) were dropped in favour of the program-owned values (A at 2.130), which is a minor difference to be aware of when compiling standalone.",
+      "compile_seconds": 2.119,
+      "critic_report": {
+        "assessment_score": 0.92,
+        "score_kind": "heuristic visual similarity (not a calibrated probability)",
+        "verdict": "The render is faithful: the trapezoid, diagonal AE, dashed FE, and point E on DC all match the original, with only minor style differences.",
+        "figure_type": {
+          "original": "Trapezoid ABCD with AD parallel to BC, point E on DC, segment AE solid, dashed segment FE from F on AB to E",
+          "render": "Same trapezoid ABCD with point E on DC, segment AE solid, dashed FE from F on AB to E"
+        },
+        "issues": [],
+        "checks": [
+          {
+            "object_id": "seg_01",
+            "status": "present",
+            "note": "Base BC is drawn horizontally from B to C, matching the original."
+          },
+          {
+            "object_id": "seg_02",
+            "status": "present",
+            "note": "Segment DC runs from D through E to C, matching the original."
+          },
+          {
+            "object_id": "seg_03",
+            "status": "present",
+            "note": "Solid diagonal AE runs from A to E, ending at E on DC as in the original."
+          },
+          {
+            "object_id": "seg_04",
+            "status": "present",
+            "note": "Dashed horizontal FE runs from F to E at the same height as in the original."
+          },
+          {
+            "object_id": "seg_05",
+            "status": "present",
+            "note": "Left side AB runs from A down to B, with F on it."
+          },
+          {
+            "object_id": "seg_06",
+            "status": "present",
+            "note": "Top side AD is drawn horizontally from A to D."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "AB is drawn from A to B and is continuous through F."
+          },
+          {
+            "object_id": "seg_DC",
+            "status": "present",
+            "note": "DC is drawn from D through E to C."
+          },
+          {
+            "object_id": "seg_FE",
+            "status": "present",
+            "note": "Dashed FE is drawn from F to E at the correct height."
+          },
+          {
+            "object_id": "point_01",
+            "status": "present",
+            "note": "C is at the bottom-right corner of the trapezoid, as in the original."
+          },
+          {
+            "object_id": "point_02",
+            "status": "present",
+            "note": "B is at the bottom-left corner, as in the original."
+          },
+          {
+            "object_id": "point_03",
+            "status": "present",
+            "note": "E sits on DC where AE and FE meet, as in the original."
+          },
+          {
+            "object_id": "point_04",
+            "status": "present",
+            "note": "D is at the top-right corner of the top side, as in the original."
+          },
+          {
+            "object_id": "point_05",
+            "status": "present",
+            "note": "A is at the top-left corner, as in the original."
+          },
+          {
+            "object_id": "point_06",
+            "status": "present",
+            "note": "F lies on AB at the height of the dashed line, as in the original."
+          }
+        ],
+        "checklist_score": 1.0,
+        "actionable_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        },
+        "flaky_count": 0,
+        "must_repair": false,
+        "matches": [
+          "Trapezoid outline A-D-C-B with AD parallel to BC matches the original.",
+          "Solid diagonal AE ends at E on DC, as in the original.",
+          "Dashed FE is horizontal at the same height and ends at E.",
+          "Labels A, B, C, D, E and F are present, correctly placed and bound to their vertices.",
+          "Overall aspect ratio and proportions match the original."
+        ],
+        "labels": {
+          "present": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "missing": [],
+          "extra": []
+        },
+        "version": 2,
+        "binding_decisions": [],
+        "topology_decisions": [],
+        "raw_meta": "{}"
+      },
+      "critic_score": 0.92
     }
   ],
   "compilation_results": [
@@ -1054,14 +1590,27 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 3.27,
+      "seconds": 1.58,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.6611328125 KiB)\nnote: Writing `figure.pdf` (2.7841796875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2040_s_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2040_s_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2040_s_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:26:06"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.7841796875 KiB)\nnote: Writing `figure.log` (10.4833984375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T23:00:55"
+    },
+    {
+      "version": 2,
+      "ok": true,
+      "returncode": 0,
+      "seconds": 2.119,
+      "errors": [],
+      "warnings": [],
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.7978515625 KiB)\nnote: Writing `figure.log` (10.4833984375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-09T23:01:33"
     }
   ],
   "validation_results": [
@@ -1097,130 +1646,232 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2040_s_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\2040_s_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0353"
+          "detail": "ink_ratio=0.0383"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.45 vs render 1.63 (delta 0.12)"
+          "detail": "reference 1.45 vs render 1.50 (delta 0.04)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.65"
+          "detail": "figure bbox ratio 1.52"
         }
       ],
-      "created_at": "2026-11-09T11:26:06"
+      "created_at": "2026-11-09T23:00:55"
+    },
+    {
+      "version": 2,
+      "passed": true,
+      "checks": [
+        {
+          "name": "documentclass",
+          "passed": true,
+          "detail": "documentclass present"
+        },
+        {
+          "name": "document_environment",
+          "passed": true,
+          "detail": "begin=1 end=1"
+        },
+        {
+          "name": "tikzpicture",
+          "passed": true,
+          "detail": "one balanced tikzpicture"
+        },
+        {
+          "name": "no_shell_escape",
+          "passed": true,
+          "detail": "no \\write18/\\openout primitives"
+        },
+        {
+          "name": "compiler_ok",
+          "passed": true,
+          "detail": "returncode=0"
+        },
+        {
+          "name": "pdf_created",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v2\\v2.pdf"
+        },
+        {
+          "name": "png_rendered",
+          "passed": true,
+          "detail": ".cache\\redesign_150\\batch_work\\2040_s_fig1\\tikz\\v2\\v2.png"
+        },
+        {
+          "name": "render_not_blank",
+          "passed": true,
+          "detail": "ink_ratio=0.0289"
+        },
+        {
+          "name": "aspect_ratio",
+          "passed": true,
+          "detail": "reference 1.45 vs render 1.51 (delta 0.04)"
+        },
+        {
+          "name": "figure_extent_ratio",
+          "passed": true,
+          "detail": "figure bbox ratio 1.53"
+        }
+      ],
+      "created_at": "2026-11-09T23:01:33"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Render matches the original's vertices, segments, edge topology and labels (A–F). The only visible difference is the dash style of FE, which looks denser and dotted in the render.",
+      "verdict": "Render is geometrically faithful: all six points, the trapezoid, diagonals AE and DC, and dashed FE match the original. Only stroke weight and dash style differ.",
       "figure_type": {
-        "original": "quadrilateral ABCD with interior point E on DC, line AE, and dashed FE, with F on AB",
-        "render": "same quadrilateral ABCD with E, AE, dashed FE and F on AB"
+        "original": "Quadrilateral ABCD-like trapezoid with point F on AB, E on DC, dashed segment FE and solid segment AE",
+        "render": "Same quadrilateral with point F on AB, E on DC, dashed FE and solid AE"
       },
       "issues": [
         {
           "type": "wrong_style",
           "severity": "low",
           "object_ids": [
-            "seg_04"
+            "seg_04",
+            "seg_FE"
           ],
           "bbox": [
-            0.03,
-            0.48,
-            0.37,
-            0.52
+            0.13,
+            0.47,
+            0.7,
+            0.53
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "Dashed segment FE (seg_04) renders with short, dense dashes that read as dotted, and looks heavier than the original's longer, lighter dashes.",
-          "suggestion": "Use a dash pattern with longer dashes and wider gaps (e.g. dash 4pt gap 3pt) and consider a thinner line width for this dashed stroke."
+          "description": "Dashed segment FE is heavier and has a shorter, denser dash pattern than the original, which has thinner strokes and longer dashes. The dashes look closer to dotted in the render.",
+          "suggestion": "Use a thinner dashed style for FE, for example \\draw[dashed, line width=0.8pt, dash pattern=on 6pt off 4pt] (F) -- (E); or match the original dash lengths."
+        },
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "seg_01",
+            "seg_02",
+            "seg_03",
+            "seg_05",
+            "seg_06",
+            "seg_AB",
+            "seg_DC"
+          ],
+          "bbox": [
+            0.05,
+            0.12,
+            0.98,
+            0.78
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "Solid strokes in the render are heavier than in the original (global line width 1.4pt looks bolder than the original's thinner outlines).",
+          "suggestion": "Reduce the global line width, e.g. line width=0.9pt in the tikzpicture options, to match the original stroke weight."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Bottom edge BC is drawn from B to C, matching the original."
+          "note": "Base BC drawn from B to C, matches original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Segment DC runs through E to C, matching the original's continuous line."
+          "note": "Diagonal DC from D to C, matches original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Segment AE is drawn from A to E, matching the original."
+          "note": "Segment AE from A to E, ends at E as in original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Dashed FE is in the correct position from F to E; only the dash style differs (see issue)."
+          "note": "Dashed FE horizontal from F to E, matches original positions; dash style differs slightly."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Left side A–F–B is drawn with the correct bend at F."
+          "note": "Left side AB from A to B, matches original."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Top edge AD is drawn from A to D, matching the original."
+          "note": "Top side AD, matches original."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Segment AB present and correctly placed."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "Segment DC present and correctly placed, passes through E."
+        },
+        {
+          "object_id": "seg_FE",
+          "status": "present",
+          "note": "Dashed segment FE present, endpoints at F and E match original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "C is labelled at the bottom-right vertex, as in the original."
+          "note": "Point C at bottom-right vertex, labelled C correctly."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "B is labelled at the bottom-left vertex, as in the original."
+          "note": "Point B at bottom-left vertex, labelled B correctly."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "Point E on DC where AE and FE meet, labelled E correctly."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "D is labelled above the top-right vertex, as in the original."
+          "note": "Point D at top-right vertex, labelled D correctly."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "A is labelled above-left of the top-left vertex, as in the original."
+          "note": "Point A at top-left vertex, labelled A correctly."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "F is labelled left of the point on AB, as in the original."
+          "note": "Point F on AB, labelled F correctly."
         }
       ],
       "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
         "medium": 0,
-        "low": 1
+        "low": 2
       },
       "flaky_count": 0,
-      "must_repair": false,
+      "must_repair": true,
       "matches": [
-        "Vertices A, B, C, D, F and interior point E are in the correct positions.",
-        "Edge topology matches: AD, DE–C, CB, BF–A, AE, and dashed FE.",
-        "The D–E–C line is continuous through E, as in the original.",
-        "All six labels (A, B, C, D, E, F) are present, correctly spelled and bound to their vertices, with no collisions with strokes."
+        "Trapezoid outline A-D-C-B with correct vertex positions and proportions",
+        "Diagonal AE from A to E on DC",
+        "Dashed FE horizontal from F on AB to E on DC",
+        "Vertex labels A, B, C, D, E, F present with correct placement and no collisions with strokes",
+        "Endpoint of dashed FE at E matches the original"
       ],
       "labels": {
         "present": [
@@ -1238,12 +1889,142 @@
       "binding_decisions": [],
       "topology_decisions": [],
       "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.92,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "The render is faithful: the trapezoid, diagonal AE, dashed FE, and point E on DC all match the original, with only minor style differences.",
+      "figure_type": {
+        "original": "Trapezoid ABCD with AD parallel to BC, point E on DC, segment AE solid, dashed segment FE from F on AB to E",
+        "render": "Same trapezoid ABCD with point E on DC, segment AE solid, dashed FE from F on AB to E"
+      },
+      "issues": [],
+      "checks": [
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "Base BC is drawn horizontally from B to C, matching the original."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Segment DC runs from D through E to C, matching the original."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Solid diagonal AE runs from A to E, ending at E on DC as in the original."
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "Dashed horizontal FE runs from F to E at the same height as in the original."
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "Left side AB runs from A down to B, with F on it."
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "Top side AD is drawn horizontally from A to D."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "AB is drawn from A to B and is continuous through F."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "DC is drawn from D through E to C."
+        },
+        {
+          "object_id": "seg_FE",
+          "status": "present",
+          "note": "Dashed FE is drawn from F to E at the correct height."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "C is at the bottom-right corner of the trapezoid, as in the original."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "B is at the bottom-left corner, as in the original."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "E sits on DC where AE and FE meet, as in the original."
+        },
+        {
+          "object_id": "point_04",
+          "status": "present",
+          "note": "D is at the top-right corner of the top side, as in the original."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "A is at the top-left corner, as in the original."
+        },
+        {
+          "object_id": "point_06",
+          "status": "present",
+          "note": "F lies on AB at the height of the dashed line, as in the original."
+        }
+      ],
+      "checklist_score": 1.0,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": false,
+      "matches": [
+        "Trapezoid outline A-D-C-B with AD parallel to BC matches the original.",
+        "Solid diagonal AE ends at E on DC, as in the original.",
+        "Dashed FE is horizontal at the same height and ends at E.",
+        "Labels A, B, C, D, E and F are present, correctly placed and bound to their vertices.",
+        "Overall aspect ratio and proportions match the original."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 2,
+      "binding_decisions": [],
+      "topology_decisions": [],
+      "raw_meta": "{}"
     }
   ],
   "unresolved_issues": [
     {
+      "source": "geometry_agent",
+      "issue": "Exact dashed endpoint at E: detect_lines reports dash extent to x≈523 while the DC/AE junction is at x≈511; Critic should verify visually that FE ends at E."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "E label was missing in OCR; binding taken from visual glyph position, not CV text."
+    },
+    {
       "source": "supervisor",
-      "issue": "Dashed segment FE dash pattern is denser than the original (low severity, cosmetic)."
+      "issue": "Dash pattern and stroke weight of FE and the solid strokes are approximations of the original's thinner style, not exact matches."
+    },
+    {
+      "source": "supervisor",
+      "issue": "Exact dashed endpoint at E (CV dash extent to x≈523 vs junction at x≈511) was not separately verified; the render uses E as the endpoint."
     }
   ],
   "action_history": [
@@ -1272,69 +2053,103 @@
       "error": null
     },
     {
+      "step": 0,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "initial source evidence",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; count=0",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 9, 'relations': 2, 'conflicts': 0, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
       "step": 1,
-      "action": "inspect_image",
-      "purpose": "Read all visible labels in the figure, especially near the point where the slanted line from A meets the dashed horizontal line near x~510,y~255 (right side), and any label near free endpoints. Report",
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=2",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 1,
+      "action": "run_code_agent",
+      "purpose": "Draw a figure from measured pixel coordinates (image origin top-left, y down; flip y for TikZ). Use one coordinate definition per vertex, pixel scale e.g. x_tikz = px/100, y_tikz = -py/100 (or similar",
       "params": {
-        "region": null,
-        "question": "Read all visible labels in the figure, especially near the point where the slanted line from A meets the dashed horizontal line near x~510,y~255 (right side), and any label near free endpoints. Report letters and approximate positions."
+        "mode": "generate",
+        "use_image": null,
+        "instruction": "Draw a figure from measured pixel coordinates (image origin top-left, y down; flip y for TikZ). Use one coordinate definition per vertex, pixel scale e.g. x_tikz = px/100, y_tikz = -py/100 (or similar uniform scale). Vertices: A(121.85,78.14), D(334,78), B(50.8,432), C(688,432), F(86.5,255), E(510.92,255.39). Edges (solid): A--D (top, y=78), B--C (bottom, y=432), A--B, D--C (D--E--C: E lies on DC, keep it as a path through E), A--E (solid segment from A to E). Dashed edge: F--E (horizontal at y=255, dashed). Label the points A, B, C, D, E, F with the letters placed outside the vertices (A top-left, D top-right, B bottom-left, C bottom-right, F left, E right/above). Do not add extra edges beyond these. Keep line widths default."
       },
       "status": "ok",
-      "result_summary": "ok=True",
-      "duration_s": 0.01,
+      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
+      "duration_s": 27.15,
       "token_usage": {
-        "delta": 0
+        "delta": 17714
       },
+      "visual_calls": 2,
+      "error": null
+    },
+    {
+      "step": 2,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.92",
+      "duration_s": 0.0,
+      "token_usage": {},
       "visual_calls": 0,
       "error": null
     },
     {
       "step": 2,
       "action": "run_code_agent",
-      "purpose": "Draw a trapezoid-like figure with named points using these measured pixel coordinates (image origin top-left, y down; convert to TikZ by using y_tikz = -y_px, optionally scale by 0.01). Points: A=(121",
+      "purpose": "Low-severity style fixes only; keep geometry and topology unchanged. Reduce global line width from 1.4pt to about 0.9pt. Make dashed segment F--E thinner with a longer dash pattern, e.g. \\draw[dashed,",
       "params": {
-        "mode": "generate",
+        "mode": "repair",
         "use_image": null,
-        "instruction": "Draw a trapezoid-like figure with named points using these measured pixel coordinates (image origin top-left, y down; convert to TikZ by using y_tikz = -y_px, optionally scale by 0.01). Points: A=(121.85,78.14) labelled A above-left; D=(334.0,78.0) labelled D above; B=(50.8,432.0) labelled B below-left; C=(688.0,432.0) labelled C below-right; F=(86.5,255.0) labelled F left; E=(510.92,255.39) labelled E right (label E is visible in the original, right of the point). Edges: solid path A--D, solid path D--C (passes through E, so draw D--E--C as one solid line), solid path C--B, solid path B--A passing through F (draw B--F--A as solid line), solid segment A--E. Dashed segment F--E (horizontal, dashed). Use black thin-to-normal line width matching the original (about 0.8pt), no fill. Use the same coordinate definition for shared vertices. Name all endpoint pairs explicitly as paths."
+        "instruction": "Low-severity style fixes only; keep geometry and topology unchanged. Reduce global line width from 1.4pt to about 0.9pt. Make dashed segment F--E thinner with a longer dash pattern, e.g. \\draw[dashed, dash pattern=on 6pt off 4pt] (F) -- (E); keep all other edges solid."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 11.78,
+      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
+      "duration_s": 27.17,
       "token_usage": {
-        "delta": 7118
+        "delta": 18953
       },
       "visual_calls": 1,
       "error": null
     },
     {
       "step": 3,
-      "action": "run_critic",
-      "purpose": "labels and edge topology",
-      "params": {
-        "focus": "labels and edge topology"
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
-      "duration_s": 11.19,
-      "token_usage": {
-        "delta": 8950
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 4,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Compiled TikZ reconstruction of the figure (version 1): trapezoid-like figure with vertices A, B, C, D, E, F; edges A–D, D–E–C, C–B, B–F–A, solid A–E, and dashed F–E. Critic score 0.9, topology check passed, all labels A–F present. Only a low-severity note that the dashed line's dash pattern reads denser than the original; not repaired.",
+        "summary": "Produced a compiled TikZ reconstruction (version 2, best version) of the figure: trapezoid-like quadrilateral with vertices A, D (top), B, C (bottom), with F on side AB and E on side DC; solid edges AD, DE, EC, CB, BF, FA, AE and dashed edge FE. Labels A–F are all present and placed outside vertices. The automatic critic scored v2 at 0.92 with no must-repair issues and topology check passing; the v2 critic review ran after the style repair.",
         "unresolved": [
-          "Dashed segment FE dash pattern is denser than the original (low severity, cosmetic)."
+          "Dash pattern and stroke weight of FE and the solid strokes are approximations of the original's thinner style, not exact matches.",
+          "Exact dashed endpoint at E (CV dash extent to x≈523 vs junction at x≈511) was not separately verified; the render uses E as the endpoint."
         ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=1; status=success",
+      "result_summary": "ok=True; best_version=2; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -1365,51 +2180,74 @@
       "count": null,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "initial source evidence",
+      "ok": true,
+      "count": 0,
+      "visualization": null,
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 6,
-      "visual_calls": 5,
-      "prompt_tokens": 43341,
-      "completion_tokens": 5589,
-      "total_tokens": 48930,
-      "cached_tokens": 12646.0,
-      "cache_write_tokens": 18914.0,
-      "latency_s": 41.98
+      "calls": 8,
+      "visual_calls": 4,
+      "prompt_tokens": 60360,
+      "completion_tokens": 11231,
+      "total_tokens": 71591,
+      "cached_tokens": 18352.0,
+      "cache_write_tokens": 26574.0,
+      "latency_s": 72.62
     },
     "by_agent": {
+      "geometry_agent": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 8051,
+        "latency_s": 10.54
+      },
       "supervisor": {
-        "calls": 4,
-        "visual_calls": 3,
-        "total_tokens": 32862,
-        "latency_s": 23.09
+        "calls": 3,
+        "visual_calls": 0,
+        "total_tokens": 26873,
+        "latency_s": 13.63
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 7118,
-        "latency_s": 7.94
+        "total_tokens": 8100,
+        "latency_s": 9.44
       },
       "critic_agent": {
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 19494,
+        "latency_s": 29.67
+      },
+      "code_agent:repair": {
         "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 8950,
-        "latency_s": 10.95
+        "visual_calls": 0,
+        "total_tokens": 9073,
+        "latency_s": 9.34
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 20,
-    "tool_calls_left": 44,
-    "visual_calls_left": 19,
-    "tokens_left": 351070,
+    "steps_left": 21,
+    "tool_calls_left": 40,
+    "visual_calls_left": 20,
+    "tokens_left": 328409,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 48930
+    "total_tokens_used": 71591
   },
   "meta": {
     "topology_plan": {
@@ -1417,112 +2255,199 @@
         [
           "A",
           "B"
+        ],
+        [
+          "A",
+          "D"
+        ],
+        [
+          "A",
+          "E"
+        ],
+        [
+          "A",
+          "F"
+        ],
+        [
+          "B",
+          "C"
+        ],
+        [
+          "B",
+          "F"
+        ],
+        [
+          "C",
+          "D"
+        ],
+        [
+          "C",
+          "E"
+        ],
+        [
+          "D",
+          "E"
+        ],
+        [
+          "E",
+          "F"
         ]
       ],
-      "pending": [
+      "pending": [],
+      "adjudicated": [],
+      "ink_confirmed_edges": [
+        [
+          "A",
+          "D"
+        ],
+        [
+          "B",
+          "C"
+        ],
+        [
+          "C",
+          "D"
+        ]
+      ],
+      "required_styles": [
         {
-          "stroke_id": "seg_01",
-          "options": [
-            [
-              "B",
-              "C"
-            ]
+          "edge": [
+            "A",
+            "F"
           ],
-          "points_px": {
-            "B": [
-              50.8,
-              432.0
-            ],
-            "C": [
-              688.0,
-              432.0
-            ]
-          },
-          "ambiguous_labels": [],
-          "stroke_px": [
-            [
-              696.0,
-              432.0
-            ],
-            [
-              45.0,
-              432.0
-            ]
-          ],
-          "dashed": false,
-          "id": "fade666bd341f3a8"
+          "style": "solid"
         },
         {
-          "stroke_id": "seg_02",
-          "options": [
-            [
-              "C",
-              "D"
-            ]
+          "edge": [
+            "B",
+            "F"
           ],
-          "points_px": {
-            "C": [
-              688.0,
-              432.0
-            ],
-            "D": [
-              334.0,
-              78.0
-            ]
-          },
-          "ambiguous_labels": [],
-          "stroke_px": [
-            [
-              694.49,
-              438.49
-            ],
-            [
-              327.64,
-              71.64
-            ]
-          ],
-          "dashed": false,
-          "id": "adeb77d964844009"
+          "style": "solid"
         },
         {
-          "stroke_id": "seg_06",
-          "options": [
-            [
-              "A",
-              "D"
-            ]
+          "edge": [
+            "A",
+            "D"
           ],
-          "points_px": {
-            "A": [
-              121.85,
-              78.14
-            ],
-            "D": [
-              334.0,
-              78.0
-            ]
-          },
-          "ambiguous_labels": [],
-          "stroke_px": [
-            [
-              346.0,
-              78.0
-            ],
-            [
-              115.0,
-              78.0
-            ]
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "E"
           ],
-          "dashed": false,
-          "id": "aefb570e92470970"
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "E",
+            "F"
+          ],
+          "style": "dashed"
         }
       ],
-      "adjudicated": []
+      "required_marks": {}
+    },
+    "reviewed_bindings": {
+      "E": {
+        "point_id": "point_03",
+        "px": [
+          510.92,
+          255.39
+        ],
+        "previous_point_id": null,
+        "reason": "Unlabeled junction at (511,255) where solid AE, dashed FE and solid DC meet; printed E glyph sits just right of this junction",
+        "source": "geometry_agent"
+      }
+    },
+    "source_construction": {
+      "summary": "Quadrilateral ABCD-type figure: A top-left (point_05), D top-right (point_04), C bottom-right (point_01), B bottom-left (point_02). Side AB is solid and passes through F (point_06) on its left side; F is the start of a dashed horizontal segment F-E at y=255. Line DC is solid and passes through E (point_03, unlabeled in OCR, printed letter E sits just right of it). Segment AE is solid from A to E. Segments AD, BC are solid. No right-angle marks are visible in the figure. Junction E is where AE, dashed FE and DC meet.",
+      "strokes": [
+        {
+          "edge": [
+            "A",
+            "F"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "F"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "E",
+            "F"
+          ],
+          "style": "dashed"
+        }
+      ],
+      "marks": {},
+      "feet": []
     },
     "coordinate_contract": {
       "enabled": true,
       "schema": "cv-coordinate-contract.v1",
-      "n_points": 5,
+      "n_points": 6,
       "reference_used": false,
       "coordinates": {
         "schema": "cv-coordinate-contract.v1",
@@ -1576,6 +2501,18 @@
               2.132
             ]
           },
+          "E": {
+            "point_id": "point_03",
+            "px": [
+              510.92,
+              255.39
+            ],
+            "reviewed": true,
+            "tikz": [
+              1.682,
+              0.007
+            ]
+          },
           "F": {
             "point_id": "point_06",
             "px": [
@@ -1603,8 +2540,8 @@
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "ad8a1d74682bd7777e2895bb90776d1eb7684555dbd009b3356d3311124af561",
-      "output_sha256": "419b4faba60384eda9213bca39ba7e26ed39abd17741577074325dcbfb40ca78",
+      "input_sha256": "e17ef1168558f3c7f03a0b1d68ef64ae82078e451a594be449055231025dc284",
+      "output_sha256": "68e9e8c121ada40c7a98f420486d78d0100203edd8b908b60b74c0b17679bd05",
       "reason": "applied",
       "accepted": [
         {
@@ -1692,7 +2629,7 @@
       "1": {
         "enabled": true,
         "schema": "cv-coordinate-contract.v1",
-        "n_points": 5,
+        "n_points": 6,
         "reference_used": false,
         "coordinates": {
           "schema": "cv-coordinate-contract.v1",
@@ -1746,6 +2683,104 @@
                 2.132
               ]
             },
+            "E": {
+              "point_id": "point_03",
+              "px": [
+                510.92,
+                255.39
+              ],
+              "reviewed": true,
+              "tikz": [
+                1.682,
+                0.007
+              ]
+            },
+            "F": {
+              "point_id": "point_06",
+              "px": [
+                86.5,
+                255.0
+              ],
+              "tikz": [
+                -3.401,
+                0.012
+              ]
+            }
+          },
+          "skipped": {},
+          "reference_used": false,
+          "coordinate_decimals": 3
+        }
+      },
+      "2": {
+        "enabled": true,
+        "schema": "cv-coordinate-contract.v1",
+        "n_points": 6,
+        "reference_used": false,
+        "coordinates": {
+          "schema": "cv-coordinate-contract.v1",
+          "scale": 0.011976,
+          "origin_px": [
+            370.5,
+            256.0
+          ],
+          "points": {
+            "A": {
+              "point_id": "point_05",
+              "px": [
+                121.85,
+                78.14
+              ],
+              "tikz": [
+                -2.978,
+                2.13
+              ]
+            },
+            "B": {
+              "point_id": "point_02",
+              "px": [
+                50.8,
+                432.0
+              ],
+              "tikz": [
+                -3.829,
+                -2.108
+              ]
+            },
+            "C": {
+              "point_id": "point_01",
+              "px": [
+                688.0,
+                432.0
+              ],
+              "tikz": [
+                3.802,
+                -2.108
+              ]
+            },
+            "D": {
+              "point_id": "point_04",
+              "px": [
+                334.0,
+                78.0
+              ],
+              "tikz": [
+                -0.437,
+                2.132
+              ]
+            },
+            "E": {
+              "point_id": "point_03",
+              "px": [
+                510.92,
+                255.39
+              ],
+              "reviewed": true,
+              "tikz": [
+                1.682,
+                0.007
+              ]
+            },
             "F": {
               "point_id": "point_06",
               "px": [
@@ -1775,8 +2810,99 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "ad8a1d74682bd7777e2895bb90776d1eb7684555dbd009b3356d3311124af561",
-        "output_sha256": "419b4faba60384eda9213bca39ba7e26ed39abd17741577074325dcbfb40ca78",
+        "input_sha256": "b89123254dfc9ab1afff833cfffac74c5ed2d6579d45e8d272e6ba69e15c4564",
+        "output_sha256": "9d2a36f2fe4216a1a8d7f5ad61b50531a2cf898fc6e59049b6b51a6cb5427be6",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "parallel",
+            "segments": [
+              "A--D",
+              "B--C"
+            ],
+            "before_error_deg": 0.04509702296832736,
+            "after_error_deg": 0.01501658451085911,
+            "solver_after_error_deg": 1.037736710824001e-13,
+            "export_tolerance_deg": 0.04250700939282885
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--C",
+              "E--F"
+            ],
+            "before_error_deg": 0.05636018201173233,
+            "after_error_deg": 0.003744544618298858,
+            "solver_after_error_deg": 2.4993794969503273e-14,
+            "export_tolerance_deg": 0.02655942444211522
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--D",
+              "E--F"
+            ],
+            "before_error_deg": 0.10145720498005971,
+            "after_error_deg": 0.01127203989256025,
+            "solver_after_error_deg": 7.877907613445099e-14,
+            "export_tolerance_deg": 0.04782964407231277
+          }
+        ],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.005,
+          "max_length_change_rel": 0.01,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
+          ],
+          "relaxation": 1.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "input_candidates": 3,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.00022909979250004722,
+        "max_length_change_rel": 0.0013621377503152399,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00016391158720702146,
+        "max_after_error_deg": 0.01501658451085911,
+        "curve_policy": "defer",
+        "candidate_count": 3,
+        "solver_max_shift_rel": 0.00023537701519125382,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.01501658451085911,
+        "point_count": 6,
+        "segment_count": 8
+      },
+      "2": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz",
+        "reference_used": false,
+        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "e17ef1168558f3c7f03a0b1d68ef64ae82078e451a594be449055231025dc284",
+        "output_sha256": "68e9e8c121ada40c7a98f420486d78d0100203edd8b908b60b74c0b17679bd05",
         "reason": "applied",
         "accepted": [
           {
@@ -1858,7 +2984,7 @@
       }
     },
     "finish": {
-      "summary": "Compiled TikZ reconstruction of the figure (version 1): trapezoid-like figure with vertices A, B, C, D, E, F; edges A–D, D–E–C, C–B, B–F–A, solid A–E, and dashed F–E. Critic score 0.9, topology check passed, all labels A–F present. Only a low-severity note that the dashed line's dash pattern reads denser than the original; not repaired.",
+      "summary": "Produced a compiled TikZ reconstruction (version 2, best version) of the figure: trapezoid-like quadrilateral with vertices A, D (top), B, C (bottom), with F on side AB and E on side DC; solid edges AD, DE, EC, CB, BF, FA, AE and dashed edge FE. Labels A–F are all present and placed outside vertices. The automatic critic scored v2 at 0.92 with no must-repair issues and topology check passing; the v2 critic review ran after the style repair.",
       "status": "success"
     },
     "stop_reason": "finish"

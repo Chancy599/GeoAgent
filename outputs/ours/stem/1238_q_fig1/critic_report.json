@@ -1,71 +1,93 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render reproduces the trapezoid ABCD with correct vertex letters and positions; no extra segments, and only a minor vertical offset on the A and B labels.",
+  "verdict": "The render reproduces the trapezoid ABCD faithfully: four segments, correct vertex positions, parallel AB and CD, and all four labels bound to the correct vertices. The only difference is label placement, which is low severity.",
   "figure_type": {
-    "original": "closed quadrilateral ABCD drawn as a trapezoid, base AB longer than top CD, with A and B at the bottom and C and D at the top",
-    "render": "closed quadrilateral ABCD drawn as a trapezoid, base AB longer than top CD, with A and B at the bottom and C and D at the top"
+    "original": "Quadrilateral ABCD drawn as a trapezoid with horizontal parallel sides AB (longer, bottom) and CD (shorter, top), with no interior construction lines.",
+    "render": "Quadrilateral ABCD drawn as a trapezoid with horizontal parallel sides AB (bottom) and CD (top), with no interior construction lines."
   },
   "issues": [
     {
       "type": "label_error",
       "severity": "low",
       "object_ids": [
+        "point_01",
         "point_02",
-        "point_01"
+        "point_03",
+        "point_04"
       ],
       "bbox": [
-        0.07,
-        0.8,
-        0.11,
-        0.87
+        0.03,
+        0.15,
+        0.97,
+        0.78
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The A and B labels sit noticeably lower than their vertices (about 20 px below the baseline in the render), while the original places them level with the baseline beside each vertex. The offset is small and the association with each vertex is clear, so this is cosmetic.",
-      "suggestion": "Optionally change the A and B node anchors from below left / below right to left / right (or a smaller inner sep offset) so the labels sit beside the vertices. Keep the coordinate bindings unchanged."
+      "description": "Vertex labels are placed differently from the original. In the original, A and B sit beside their vertices at roughly the vertex's height (A to the left, B to the right), and D and C sit beside their vertices (D to the left, C to the right). In the render, all four labels are pushed diagonally outward and further from the vertices, with A and B below and D and C above. The association with each vertex stays clear.",
+      "suggestion": "Optionally tighten the label anchors to match the original, e.g. \\node[left] at (A), \\node[right] at (B), \\node[left] at (D), \\node[right] at (C), keeping the same vertex bindings and font size."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom base AB is drawn from A to B, matching the original in position and extent."
+      "note": "Bottom side AB is drawn as a solid horizontal segment in the render, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top side CD is drawn from D to C, matching the original."
+      "note": "Top side CD is drawn as a solid horizontal segment in the render, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right leg BC is drawn from B to C, matching the original."
+      "note": "Right side BC is drawn as a solid segment from B up to C, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left leg DA is drawn from D to A, matching the original."
+      "note": "Left side DA is drawn as a solid segment from D down to A, matching the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Base AB is correctly drawn between A and B."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Side BC is correctly drawn between B and C."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Top CD is correctly drawn between C and D."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Side DA is correctly drawn between D and A."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex B is at the bottom-right corner in both panels, labelled B."
+      "note": "Label B is present at vertex B; its position is offset below-right, which is acceptable."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex A is at the bottom-left corner in both panels, labelled A."
+      "note": "Label A is present at vertex A; its position is offset below-left rather than beside the vertex."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex C is at the top-right corner in both panels, labelled C."
+      "note": "Label C is present at vertex C; its position is offset above-right."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Vertex D is at the top-left corner in both panels, labelled D."
+      "note": "Label D is present at vertex D; its position is offset above-left."
     }
   ],
   "checklist_score": 1.0,
@@ -77,12 +99,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Trapezoid shape and vertex positions match the original; top width is about 290 px and bottom width about 484 px in both panels.",
-    "Four sides AB, BC, CD, DA are present and join at the vertices with no gaps or overhangs.",
-    "No extra segments or chords are present in the render.",
-    "Vertex letters A, B, C, D are present, correctly spelled, and bound to the correct corners.",
-    "Stroke weight and line style (solid) are visually consistent with the original.",
-    "Aspect ratio is close to the original (height about 242 px in the original vs about 246 px in the render)."
+    "Four vertices A, B, C, D are in the correct relative positions, forming the same trapezoid.",
+    "AB and CD are horizontal and parallel, with AB longer than CD.",
+    "Sides BC and DA slope inward at similar angles, so the overall proportions match.",
+    "All four sides are solid and connected at the vertices with no gaps or overhangs.",
+    "Labels A, B, C and D are present, correctly spelled and bound to the correct vertices.",
+    "Line weight and label font style are visually comparable to the original."
   ],
   "labels": {
     "present": [
@@ -96,15 +118,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "be4241a1a0f0cd1a",
-      "edge": [
-        "C",
-        "D"
-      ],
-      "reason": "In the original, the top stroke runs continuously from D to C and terminates at both labelled vertices. The render's top side also joins D and C, so the case matches."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

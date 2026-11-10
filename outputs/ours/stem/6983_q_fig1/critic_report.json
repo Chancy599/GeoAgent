@@ -1,84 +1,154 @@
 {
-  "assessment_score": 0.95,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render matches the original topology and labels; the O dot is comparable in size to the original, so the prior dot-size issue is not supported by this side-by-side.",
+  "verdict": "The render is faithful in overall topology and labelling; the only discrepancy is a small slope on DC, which is horizontal in the render but slightly rising toward C in the original.",
   "figure_type": {
-    "original": "circle with centre O (filled dot), chord-like segments A-B through O and D, A-E, A-C, and D-C with D on AB",
-    "render": "circle with centre O (filled dot), segments A-B through O and D, A-E, A-C, and D-C with D on AB"
+    "original": "Circle with centre O, diameter AB vertical, chords AE and AC, and segment DC from a point D on AB to C on the circle.",
+    "render": "Circle with centre O, diameter AB vertical, chords AE and AC, and segment DC from D on AB to C on the circle."
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_position",
+      "severity": "low",
+      "object_ids": [
+        "seg_DC",
+        "point_03",
+        "point_02"
+      ],
+      "bbox": [
+        0.52,
+        0.69,
+        0.85,
+        0.75
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "In the original, C sits about 9 px higher than D (C at y≈443, D at y≈452), so DC rises slightly to the right. In the render, D and C are at the same height, so DC is exactly horizontal.",
+      "suggestion": "Keep the endpoints, but move C slightly upward so DC has a small upward slope. For example, adjust C's y-coordinate by about +0.03 in TikZ units, keeping C on the circle (the coordinate lies on the circle of radius 3.367 about O)."
+    }
+  ],
   "checks": [
     {
-      "object_id": "circle_01",
+      "object_id": "circle_O",
       "status": "present",
-      "note": "Full circle matches the original in position and extent."
+      "note": "Circle centre and radius match the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Vertical A-B line passes through O and D in both panels."
+      "note": "Vertical line AB is drawn in the same position in the render."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "A-C chord ends at C in both panels."
+      "note": "Chord AC matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "A-E chord ends at E on the circle in both panels."
+      "note": "Chord AE matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "D-C segment joins D on AB to C in both panels."
+      "note": "Segment DC is present; its endpoints match, but the original has a slight upward slope that the render lacks (low severity)."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Diameter AB runs from A to B through O, as in the original."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Chord from A to C matches the original."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "Chord from A to E matches the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Endpoints D and C match; slope differs slightly (see issue)."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "A is at the top of the circle with its label above, as in the original."
+      "note": "A is labelled above the top of the circle, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "D sits on AB with its label to the left, as in the original."
+      "note": "D is labelled to the lower-left of the point on AB, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "C is on the circle with its label to the right, as in the original."
+      "note": "C is labelled to the right of the point on the circle, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "O is the centre with a filled dot of comparable size; label is below-left as in the original."
+      "note": "O is labelled to the lower-left of the centre dot, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "B is at the bottom of the circle with its label below, as in the original."
+      "note": "B is labelled below the bottom of the circle, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "E is on the left arc with its label to the left, as in the original."
+      "note": "E is labelled to the left of the point on the circle, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is at the top of the circle, as in the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is at the bottom of the circle, as in the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is on the circle at the same position as in the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is on AB at the same position as in the original."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Vertex E is on the circle at the same position as in the original."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Centre dot O is at the same position and is a similar size."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle centred on O with the same extent as the original",
-    "Filled dot at O present; size is comparable to the original",
-    "A-B line passes through O and D",
-    "A-E, A-C and D-C segments end at the same vertices as the original",
-    "Labels A, B, C, D, E and O are present, correctly spelled, and clear of strokes",
-    "Current label bindings match the source points"
+    "Circle centre and radius match the original.",
+    "Diameter AB is vertical, passing through O, with A at the top and B at the bottom.",
+    "Chords AE and AC start at A and end on the circle at the same points as in the original.",
+    "Point D lies on AB at the same height as in the original.",
+    "Labels A, B, C, D, E and O are present, correctly spelled, and clear of the strokes.",
+    "The centre dot at O is at the correct position."
   ],
   "labels": {
     "present": [
@@ -92,7 +162,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 4,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

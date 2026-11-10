@@ -1,127 +1,148 @@
 {
   "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render matches the original triangle-with-construction topology and all eight point labels are correctly bound; the only visible difference is that the render strokes look lighter.",
+  "verdict": "The render is a faithful reproduction of the original: triangle ABC with E on AB, H on AC, EH horizontal, F, D, G on BC, and the vertical segments EF, AD and HG, with all eight labels correctly placed.",
   "figure_type": {
-    "original": "Triangle ABC with interior construction: horizontal segment EH, verticals EF, HG and AD, with E on AB, H on AC and F, D, G on BC",
-    "render": "Triangle ABC with interior construction: horizontal segment EH, verticals EF, HG and AD, with E on AB, H on AC and F, D, G on BC"
+    "original": "Triangle ABC with interior points E, H, F, D, G and a rectangle EFGH-style construction (EH horizontal, EF, HG and AD perpendicular to BC)",
+    "render": "Same triangle and construction; geometry matches the original"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_04",
-        "seg_05",
-        "seg_06",
-        "seg_07"
-      ],
-      "bbox": [
-        0.05,
-        0.15,
-        0.95,
-        0.82
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Segment strokes in the render are visibly lighter than in the original (original outline and AD look heavier, roughly 2.5px against about 1.5px in the render).",
-      "suggestion": "Consider increasing the global line width from 1.2pt to about 1.6pt, or keep 1.2pt if the weight difference is judged acceptable."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Baseline B-C drawn across the bottom, matching the original."
+      "note": "Base line BC at y=420 drawn from B through F, D, G to C."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Left side A-B present and ends at B and A as in the original."
+      "note": "Left side AB drawn as A--E--B, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right side A-C present and ends at A and C as in the original."
+      "note": "Right side AC drawn as A--H--C, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Altitude A-D present, vertical from apex to D on BC."
+      "note": "Altitude AD from A to D on BC is present."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Horizontal E-H present across the triangle at the same height."
+      "note": "Horizontal EH is present and ends at E and H."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Vertical G-H present from H down to BC at G."
+      "note": "Vertical HG from H down to G is present."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Vertical E-F present from E down to BC at F."
+      "note": "Vertical EF from E down to F is present."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Segment AB is drawn as A--E--B, passing through E."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Segment AC is drawn as A--H--C, passing through H."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Segment AD runs vertically from A to D."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Segment BC is drawn as B--F--D--G--C along the base."
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "Segment EF is present, joining E and F."
+    },
+    {
+      "object_id": "seg_EH",
+      "status": "present",
+      "note": "Segment EH is present, joining E and H."
+    },
+    {
+      "object_id": "seg_HG",
+      "status": "present",
+      "note": "Segment HG is present, joining H and G."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B bound to the bottom-left vertex; placement below-left matches the original."
+      "note": "Point B is at the lower-left vertex, labelled B."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label C bound to the bottom-right vertex; placement matches the original."
+      "note": "Point C is at the lower-right vertex, labelled C."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label D below the altitude foot on BC, as in the original."
+      "note": "Point D is on BC below A, labelled D."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label G below the foot of the G vertical, as in the original."
+      "note": "Point G is on BC, labelled G."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label F below the foot of the F vertical, as in the original."
+      "note": "Point F is on BC, labelled F."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label A above the apex, as in the original."
+      "note": "Point A is the apex, labelled A."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label E above-left of its vertex with clear separation from strokes."
+      "note": "Point E is on AB, labelled E."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "Label H above-right of its vertex with clear separation from strokes."
+      "note": "Point H is on AC, labelled H."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Apex point labelled A, same location as point_06."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Lower-left vertex labelled B, same location as point_01."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle apex A and base vertices B and C are in the correct positions and the triangle proportions match.",
-    "E lies on AB and H lies on AC at the same height, and the horizontal EH spans exactly E to H.",
-    "F, D and G sit on BC at the correct relative x-positions and the verticals EF, AD and HG end on the base.",
-    "No stray or extra segments are present in the render.",
-    "All eight labels A, B, C, D, E, F, G, H are present, correctly spelled and bound to the matching vertices with no collisions with strokes."
+    "Triangle outline A-B-C with apex A and base BC.",
+    "E lies on AB and H lies on AC at the same height, with EH horizontal.",
+    "F, D and G lie on BC; EF, AD and HG are perpendicular to BC.",
+    "All eight point labels A-H are present and placed near their vertices without collisions.",
+    "Overall aspect ratio and proportions match the original."
   ],
   "labels": {
     "present": [
@@ -137,49 +158,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "fa473b7b5f2f2222",
-      "edge": [
-        "A",
-        "B"
-      ],
-      "reason": "The original left side runs continuously from apex A to base vertex B."
-    },
-    {
-      "case_id": "ff736023d22ef95c",
-      "edge": [
-        "A",
-        "C"
-      ],
-      "reason": "The original right side runs continuously from apex A to base vertex C."
-    },
-    {
-      "case_id": "1c757157f0d64ff0",
-      "edge": [
-        "E",
-        "H"
-      ],
-      "reason": "The horizontal in the original joins E on AB to H on AC, with E and H at the same height."
-    },
-    {
-      "case_id": "23d8fb6cfd39841d",
-      "edge": [
-        "G",
-        "H"
-      ],
-      "reason": "The vertical in the original runs from H on AC down to G on BC."
-    },
-    {
-      "case_id": "0287ca96c13c572f",
-      "edge": [
-        "E",
-        "F"
-      ],
-      "reason": "The vertical in the original runs from E on AB down to F on BC."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

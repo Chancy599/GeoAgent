@@ -1,120 +1,133 @@
 {
   "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is a faithful match of the original: same figure type, segments, dash pattern, vertex bindings, and label sizes. The E label clears the D-B stroke.",
+  "verdict": "The render is faithful to the original: same parallelogram ACBD with diagonals meeting at E, dashed F–G–A path, dashed F–D, and all seven labels correctly bound.",
   "figure_type": {
-    "original": "Parallelogram ABCD with diagonals AC and DB meeting at E, plus dashed path F-G-A and dashed F-D",
-    "render": "Parallelogram ABCD with diagonals AC and DB meeting at E, plus dashed path F-G-A and dashed F-D"
+    "original": "Planar line drawing: parallelogram with diagonals crossing at E, plus a dashed path F–G–A and dashed segment F–D",
+    "render": "Planar line drawing with the same parallelogram, diagonals, dashed path F–G–A and dashed F–D"
   },
-  "issues": [
-    {
-      "type": "label_error",
-      "severity": "medium",
-      "object_ids": [],
-      "bbox": null,
-      "flaky": false,
-      "source": "measured_label_scale",
-      "description": "Measured median label height is 0.53× the source relative to diagram size; labels are smaller.",
-      "suggestion": "Multiply the current label font size and leading by 1.88; keep geometry and stroke widths."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal A-C drawn solid and matches the original crossing at E."
+      "note": "Long solid diagonal from A through E to C is drawn as (C)--(E)--(A), matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top side D-A solid, same endpoints as the original."
+      "note": "Solid top edge D–A matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Diagonal D-B solid; passes through E with the same crossing as the original."
+      "note": "Solid diagonal from D through E to B is drawn as (D)--(E)--(B), matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Bottom side C-B solid, matching the original."
+      "note": "Solid bottom edge C–B matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed G-A matches the original, ending at A."
+      "note": "Dashed G–A segment matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed F-G matches the original, with G as the apex."
+      "note": "Dashed F–G segment matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Left side C-D solid, matching the original."
+      "note": "Solid left edge C–D matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Right side A-B solid, matching the original."
+      "note": "Solid right edge A–B matches the original."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Dashed F-D ends at D as in the original."
+      "note": "Dashed F–D segment matches the original and ends at D."
+    },
+    {
+      "object_id": "seg_CA",
+      "status": "present",
+      "note": "Segment CA is drawn as the polyline C–E–A; it appears as one straight line through E in both panels."
+    },
+    {
+      "object_id": "seg_DB",
+      "status": "present",
+      "note": "Segment DB is drawn as the polyline D–E–B; it appears as one straight line through E in both panels."
+    },
+    {
+      "object_id": "seg_FD",
+      "status": "present",
+      "note": "Dashed F–D matches the original."
+    },
+    {
+      "object_id": "seg_FG",
+      "status": "present",
+      "note": "Dashed F–G matches the original."
+    },
+    {
+      "object_id": "seg_GA",
+      "status": "present",
+      "note": "Dashed G–A matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "A is labelled at the top-right vertex, with the label clear of strokes."
+      "note": "Vertex A is at the upper-right corner, labelled A, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "E is at the diagonal crossing; its label sits below the D-B stroke with clear separation (about 35 px)."
+      "note": "Vertex E is at the diagonal crossing, labelled below as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "C is labelled at the bottom-left vertex."
+      "note": "Vertex C is at the lower-left corner, labelled C."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "D is labelled at the top-left vertex."
+      "note": "Vertex D is at the upper-left corner, labelled D."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "B is labelled at the bottom-right vertex."
+      "note": "Vertex B is at the lower-right corner, labelled B."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "G is labelled above the apex of the dashed path."
+      "note": "Vertex G is at the top of the dashed path, labelled G above."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "F is labelled at the left end of the dashed path."
+      "note": "Vertex F is at the left end of the dashed path, labelled F."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
-    "medium": 1,
+    "medium": 0,
     "low": 0
   },
   "flaky_count": 0,
-  "must_repair": true,
+  "must_repair": false,
   "matches": [
-    "Parallelogram ABCD with the same vertex positions and topology as the original.",
-    "Diagonals AC and DB cross at E in both panels.",
-    "Dashed F-G-A path and dashed F-D segment, with endpoints at the same named vertices.",
-    "All seven labels present, correctly spelled and bound to their vertices.",
-    "Label size matches the original; letters are the same scale.",
-    "E label clears the D-B stroke, sitting below it with no glyph contact."
+    "Parallelogram ACBD with solid edges D–A, C–B, C–D and A–B.",
+    "Diagonals C–E–A and D–E–B cross at E.",
+    "Dashed path F–G–A and dashed segment F–D.",
+    "All seven point labels A–G are present and bound to the correct vertices.",
+    "Line weights and dash pattern are visually comparable."
   ],
   "labels": {
     "present": [
@@ -129,7 +142,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 5,
+  "version": 1,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

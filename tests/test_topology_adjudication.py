@@ -3,6 +3,8 @@ from PIL import Image, ImageDraw
 
 from geoagent.agents.critic_agent import CriticAgent
 from geoagent.orchestration.runner import GeoAgentRunner, _finish_gate_problem
+from geoagent.state.construction import add_construction_candidates, merge_construction_plan
+from geoagent.state.coordinate_contract import build_coordinate_contract
 from geoagent.state.schemas import GeometricEvidenceState, GeometryObject
 from geoagent.state.topology import build_topology_plan, check_topology
 
@@ -94,6 +96,49 @@ def test_collinear_named_subdivision_can_satisfy_a_straight_edge():
 """
     assert check_topology(tex, plan)["passed"]
     assert not check_topology(tex.replace("(1,0)", "(1,0.1)"), plan)["passed"]
+
+
+def test_source_square_orientation_at_a_clipped_dashed_foot(tmp_path):
+    source = tmp_path / 'source.png'
+    image = Image.new('L', (400, 300), 255)
+    draw = ImageDraw.Draw(image)
+    draw.line([(50, 100), (350, 100)], fill=0, width=2)
+    draw.line([(212, 100), (212, 112), (200, 112)], fill=0, width=2)
+    for y in range(122, 239, 15):
+        draw.line([(200, y), (200, min(y + 8, 240))], fill=0, width=2)
+    image.save(source)
+    state = GeometricEvidenceState(image_path=str(source), image_size={'width': 400, 'height': 300})
+    for label, point in {'A': [50, 100], 'B': [350, 100], 'F': [200, 240]}.items():
+        state.add_object(GeometryObject(id=label, type='point', label=label, coords={'px': point},
+                                        source='cv:bind_point_labels'))
+        state.label_bindings[label] = label
+    for key, a, b, style in [('base', [50, 100], [350, 100], 'solid'),
+                              ('dash', [201, 122], [201, 240], 'dashed')]:
+        state.add_object(GeometryObject(id=key, type='segment', source='cv:detect_lines',
+                                        coords={'a_px': a, 'b_px': b}, style={'line': style}))
+    add_construction_candidates(state)
+    merge_construction_plan(state, {
+        'bindings': [{'label': 'N', 'point_id': 'junction_base_dash', 'reason': 'Foot on AB'}],
+        'strokes': [{'edge': ['F', 'N'], 'style': 'dashed'}],
+        'feet': [['F', 'N', 'A', 'B']],
+        'angle_marks': [['F', 'N', 'A']],
+    })
+    plan = build_topology_plan(state)
+    assert plan['required_marks']['N']['arms'] == ['B', 'F']
+    points = build_coordinate_contract(state)['points']
+    assert points['N']['px'] == [201, 100]
+    assert points['N']['tikz'] == [points['F']['tikz'][0], points['A']['tikz'][1]]
+    tex = r'''
+\coordinate (A) at (0,0); \coordinate (B) at (3,0);
+\coordinate (N) at (1,0); \coordinate (F) at (1,-1);
+\draw (A)--(N)--(B);
+\draw[dashed] (F)--(N);
+\draw pic[draw] {right angle=F--N--B};
+'''
+    assert check_topology(tex, plan)['passed']
+    assert check_topology(tex.replace('F--N--B', 'F--N--A'), plan)['unverified_marks'] == ['N']
+    assert check_topology(tex.replace('[dashed]', ''), plan)['unverified_styles'] == [
+        {'edge': ['F', 'N'], 'style': 'dashed'}]
 
 
 def test_continuous_source_ink_certifies_overshooting_solid_stroke(tmp_path):

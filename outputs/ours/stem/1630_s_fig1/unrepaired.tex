@@ -1,49 +1,52 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usetikzlibrary{calc,angles,quotes}
+\usepackage{amsmath}
+\usetikzlibrary{angles}
+
 \begin{document}
-\begin{tikzpicture}[line width=1.0pt, line join=round]
-% Coordinates from source frame: x=(px-543.5)*0.008538, y=(326-py)*0.008538
+\begin{tikzpicture}[line join=round, line width=1.0pt,
+  every node/.style={font=\fontsize{12}{14.5}\selectfont}]
+\coordinate (A) at (-0.612,0.613);
 \coordinate (B) at (-3.633,-1.810);
-\coordinate (H) at (0.724,-1.811);
-\coordinate (C) at (3.630,-1.811);
-\coordinate (A) at (-0.611,0.617);
-\coordinate (D) at (1.811,0.617);
-\coordinate (E) at (2.720,-0.597);
-% Q: perpendicular foot of H on line AE (calc projection)
-\coordinate (Q) at ($(A)!(H)!(E)$);
-\coordinate (F) at (-2.421,-0.837);
-\coordinate (G) at (-0.005,-0.837);
-\coordinate (P) at (0.905,1.825);
+\coordinate (C) at (3.635,-1.810);
+\coordinate (D) at (1.804,0.615);
+\coordinate (E) at (2.720,-0.598);
+\coordinate (G) at (-0.002,-0.842);
+\coordinate (H) at (0.723,-1.809);
+\coordinate (P) at (0.970,1.875);
+\coordinate (Q) at (1.345,-0.098);
 
-% Solid edges
-\draw (B) -- (C);
-\draw (A) -- (B);
-\draw (A) -- (D);
-\draw (A) -- (E);
-\draw (D) -- (C);
 
-% Dashed edges
-\draw[dashed] (P) -- (A);
-\draw[dashed] (P) -- (D);
-\draw[dashed] (F) -- (G);
+
+\coordinate (F) at (-2.425,-0.841);
+
+
+\draw (B) -- (F) -- (A);   
+\draw (B) -- (H) -- (C);   
+\draw (A) -- (D);          
+\draw (C) -- (E) -- (D);   
+\draw (A) -- (Q) -- (E);   
+
+
+\draw[dashed] (A) -- (P) -- (D);
+\draw[dashed] (F) -- (G) -- (H);
 \draw[dashed] (F) -- (H);
-\draw[dashed] (G) -- (H);
-\draw[dashed] (E) -- (H);
-\draw[dashed] (Q) -- (H);
+\draw[dashed] (H) -- (Q);
+\draw[dashed] (H) -- (E);
 
-% Open right-angle mark at Q on arms QA and QH
-\draw pic[draw, angle radius=0.162cm] {right angle=A--Q--H};
 
-% Labels: 9pt compromise between 7pt (slightly small) and normalsize (slightly large)
-\node[above, font=\fontsize{9}{11}\selectfont] at (P) {$P$};
-\node[above left, font=\fontsize{9}{11}\selectfont] at (A) {$A$};
-\node[above right, font=\fontsize{9}{11}\selectfont] at (D) {$D$};
-\node[above right, font=\fontsize{9}{11}\selectfont] at (Q) {$Q$};
-\node[above right, font=\fontsize{9}{11}\selectfont] at (E) {$E$};
-\node[left, font=\fontsize{9}{11}\selectfont] at (F) {$F$};
-\node[above, font=\fontsize{9}{11}\selectfont] at (G) {$G$};
-\node[below, font=\fontsize{9}{11}\selectfont] at (H) {$H$};
-\node[below left, font=\fontsize{9}{11}\selectfont] at (B) {$B$};
-\node[below right, font=\fontsize{9}{11}\selectfont] at (C) {$C$};
+\draw pic[draw, angle radius=0.160cm] {right angle=A--Q--H};
+
+
+\node[below left]  at (B) {$B$};
+\node[below right] at (C) {$C$};
+\node[below]       at (H) {$H$};
+\node[above left]  at (A) {$A$};
+\node[right]       at (D) {$D$};
+\node[right]       at (E) {$E$};
+\node[above right] at (Q) {$Q$};
+\node[left]        at (F) {$F$};
+\node[above]       at (G) {$G$};
+\node[above]       at (P) {$P$};
+
 \end{tikzpicture}
 \end{document}

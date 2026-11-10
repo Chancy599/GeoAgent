@@ -1,82 +1,122 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render matches the original's outline, segment topology and label set; label placement is close to the original with no collisions.",
+  "verdict": "The render matches the original's topology: the same seven points, the same eight segments, and the same vertex bindings, with no missing or misplaced elements.",
   "figure_type": {
-    "original": "Composite polygon outline: top horizontal G–A–C, left rectangle G–F–B–A, vertical A–B–E, diagonal B–C, right edge C–D, and diagonal D–E.",
-    "render": "Same composite polygon outline with the same vertices and connections."
+    "original": "Planar line diagram: a top horizontal G-A-C, a left rectangle G-F-B-A, a diagonal B-C, a right vertical C-D, a diagonal D-E, and a vertical A-B-E through B to E.",
+    "render": "Same planar line diagram with the same segments and label placements."
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Top line G to C through A is drawn with matching extent and position."
+      "note": "Top horizontal G-A-C is drawn at the same height and extent."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Vertical A to E segment through B matches the original."
+      "note": "Vertical A-to-E stroke at x≈318 runs through B to E, as in the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Diagonal from B up to C matches the original."
+      "note": "Diagonal from B up to C is present."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Diagonal from D down to E matches the original."
+      "note": "Diagonal from D down-left to E is present."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Horizontal F to B line matches the original."
+      "note": "Horizontal F-B stroke is present."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Right vertical C to D matches the original."
+      "note": "Right vertical C-D is present."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Left vertical G to F matches the original."
+      "note": "Left vertical G-F is present."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Top segment A-C is present as part of the G-A-C line."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "A-E vertical is present through B."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "B-C diagonal is present."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "C-D vertical is present."
+    },
+    {
+      "object_id": "seg_DE",
+      "status": "present",
+      "note": "D-E diagonal is present."
+    },
+    {
+      "object_id": "seg_FB",
+      "status": "present",
+      "note": "F-B horizontal is present."
+    },
+    {
+      "object_id": "seg_GA",
+      "status": "present",
+      "note": "G-A top segment is present."
+    },
+    {
+      "object_id": "seg_GF",
+      "status": "present",
+      "note": "G-F vertical is present."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label A sits above its vertex, as in the original."
+      "note": "Point A is bound and labelled above the vertex."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label C sits above its vertex, as in the original."
+      "note": "Point C is bound and labelled above-right."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label G sits left of its vertex, as in the original, with clear separation."
+      "note": "Point G is bound and labelled above-left."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label B sits below-left of its vertex, as in the original, with clear separation."
+      "note": "Point B is bound and labelled below-left."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label E sits below its vertex, as in the original."
+      "note": "Point E is bound and labelled below."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label D is to the right of its vertex; the original places it slightly lower-right. Both are clear of strokes and the association is unambiguous."
+      "note": "Point D is bound and labelled right."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label F sits left of its vertex, as in the original."
+      "note": "Point F is bound and labelled left."
     }
   ],
   "checklist_score": 1.0,
@@ -88,11 +128,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Overall outline and vertex layout match the original.",
-    "All seven segments are present with correct endpoints and no overhangs or stubs.",
-    "Label set A, B, C, D, E, F, G is complete with correct vertex binding.",
-    "No label touches or crosses any stroke.",
-    "Aspect ratio and relative proportions match the original."
+    "Top G-A-C line and left rectangle G-F-B-A match.",
+    "B-C diagonal and C-D vertical match.",
+    "A-B-E vertical through B and D-E diagonal match.",
+    "All seven point labels are present and correctly placed relative to their vertices.",
+    "No label collides with a stroke."
   ],
   "labels": {
     "present": [
@@ -107,8 +147,25 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "105655053efc7fb9",
+      "edge": [
+        "A",
+        "E"
+      ],
+      "reason": "In the original the vertical stroke runs from A through B down to E, so A-E is the supported connection."
+    },
+    {
+      "case_id": "a6c0f8959a87b752",
+      "edge": [
+        "D",
+        "E"
+      ],
+      "reason": "In the original the diagonal runs from D down-left to E, so D-E is the supported connection."
+    }
+  ],
   "raw_meta": "{}"
 }

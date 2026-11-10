@@ -1,112 +1,150 @@
 {
   "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original topology: triangle ABC, circle through C, E and F, chord EF through H, and the altitude C-O-H-D. Labels are bound to the correct points. The only visible difference is label glyph weight.",
+  "verdict": "v3 faithfully reproduces the original: O sits above-left of the centre dot, H clears the EF chord below it, and all checklist objects are present. No repair needed.",
   "figure_type": {
-    "original": "Triangle ABC with a circle centred at O through C, with chord EF horizontal through H and altitude CD; E and F lie on sides AC and BC",
-    "render": "Same: triangle ABC, circle centred at O through C, chord EF through H, altitude C-O-H-D, labels A, B, C, D, E, F, H, O"
+    "original": "Triangle ABC with apex C, foot D on AB, circle centred O through C, E and F, with chords EF and CD crossing at H",
+    "render": "Same configuration: triangle ABC, circle centred O through C, E and F, chords EF and CD crossing at H"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "point_01",
-        "point_02",
-        "point_03",
-        "point_04",
-        "point_07",
-        "point_08"
-      ],
-      "bbox": [
-        0.0,
-        0.1,
-        1.0,
-        1.0
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Point labels in the original (A, B, C, D, E, F, H, O) are visibly heavier italic serif glyphs than the render's lighter italic labels. Positions and vertex association are unaffected.",
-      "suggestion": "Optionally increase label weight, e.g. use \\mathbf or \\boldmath inside the label math, or a bolder math font. This is cosmetic and not required for topology."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
-      "object_id": "circle_01",
+      "object_id": "circle_O",
       "status": "present",
-      "note": "Circle centred at O through C, E, F and the bottom point, matching the original radius and position."
+      "note": "Circle through C, E, F centred on O matches the original"
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base AB drawn from A to B, matching the original."
+      "note": "Base AB, horizontal at D's level"
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Side CB drawn from C to B, passing through F as in the original."
+      "note": "Side CB (F to C continuation) matches the original"
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Side AC drawn from A to C, passing through E as in the original."
+      "note": "Side AC (E to C continuation) matches the original"
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Altitude C to D, passing through O and H, matching the original."
+      "note": "Vertical CD through O and H matches the original"
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Chord EF horizontal through H, ending on the circle at E and F as in the original."
+      "note": "Chord EF with H on it matches the original"
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Base AB matches the original"
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "A-E-C path matches the original"
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "B-F-C path matches the original"
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "C-O-H-D path matches the original"
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "E-H-F chord matches the original"
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B label at the bottom-right vertex, matching the original."
+      "note": "B bound correctly at the lower right vertex"
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "A label at the bottom-left vertex, matching the original."
+      "note": "A bound correctly at the lower left vertex"
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "D label below the base midpoint, matching the original."
+      "note": "D bound correctly at the foot on AB"
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "C label above the top vertex, matching the original."
+      "note": "C bound correctly at the apex on the circle"
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "F bound correctly on the circle"
+    },
+    {
+      "object_id": "point_06",
+      "status": "present",
+      "note": "E bound correctly on the circle"
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "H label below-left of H on the chord, matching the original."
+      "note": "H bound correctly at the CD/EF intersection"
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "O label above-left of the centre dot, matching the original."
+      "note": "O bound correctly at the centre dot"
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "A matches the original"
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B matches the original"
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "C matches the original"
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "D matches the original"
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "E matches the original"
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle ABC with the correct vertex positions and aspect ratio.",
-    "Circle centre O and radius match the original, passing through C and the bottom point.",
-    "Chord EF is horizontal through H and ends on the circle at E and F.",
-    "Altitude C-O-H-D runs straight through the centre dot O.",
-    "The centre dot at O is present.",
-    "Labels A, B, C, D, E, F, H and O are present, correctly placed, and clear of strokes."
+    "Triangle ABC with apex C and foot D on AB",
+    "Circle centred at O passing through C, E and F, with the same radius as the original",
+    "E-H-F chord and vertical C-O-H-D line meeting at H",
+    "O label above-left of the centre dot, as in the original",
+    "H label below-left of the H vertex, clear of the EF chord",
+    "A-E-C and B-F-C paths meet the circle at E and F",
+    "All eight point labels (A, B, C, D, E, F, H, O) present and bound to the correct vertices"
   ],
   "labels": {
     "present": [
@@ -122,25 +160,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 3,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "dbc790d182f13c19",
-      "edge": [
-        "A",
-        "C"
-      ],
-      "reason": "The original stroke runs straight from A through E to C, so the segment joins A and C."
-    },
-    {
-      "case_id": "83c0abec2c07893f",
-      "edge": [
-        "C",
-        "D"
-      ],
-      "reason": "The original vertical stroke runs from C through O and H down to D, so the segment joins C and D."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

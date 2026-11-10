@@ -1,67 +1,136 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Version 3 matches the original: circle, chords A-B, A-C, A-D, B-C, the dashed B-D chord, and labels A, B, C, D, O are all correctly placed and bound. The O label sits directly below the dot with clear space from the strokes. The centre dot is a similar size in both panels, so no style issue is raise",
+  "verdict": "The render matches the original figure: circle, diameter AD through O, chords AB, AC, BC, and dashed BD with the same labelled points. The only visible difference is that the O dot is smaller.",
   "figure_type": {
-    "original": "Circle with centre O, diameter AD, inscribed triangle-like chords AB, BC, CA and dashed chord BD",
-    "render": "Circle with centre O, diameter AD, chords AB, BC, CA and dashed chord BD"
+    "original": "Circle with diameter AD (O at centre), inscribed triangle ABC, and dashed chord BD",
+    "render": "Circle with diameter AD (O at centre), inscribed triangle ABC, and dashed chord BD"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_O"
+      ],
+      "bbox": [
+        0.48,
+        0.45,
+        0.52,
+        0.5
+      ],
+      "flaky": true,
+      "source": "vlm",
+      "description": "The centre dot at O is visibly smaller in the render than in the original, where it reads as a bolder filled dot.",
+      "suggestion": "Increase the radius of the \\fill (O) circle from 0.070 to roughly 0.09-0.10 to match the original's dot weight.",
+      "flaky_reason": "opposite verdict in v1: The centre O is a small dot in the render, while the original shows a clearly larger filled square-like dot."
+    }
+  ],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at O with the same extent and radius as the original."
+      "note": "Circle outline present with matching extent and similar stroke weight."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diameter A to D drawn solid, endpoints at A and D on the circle."
+      "note": "Diameter AD is drawn from A to D through O, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Chord B to C drawn solid, ends at the labelled B and C points."
+      "note": "Chord BC is drawn from B to C and crosses AD at the same place as in the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Chord A to B drawn solid, meets the circle at A and B."
+      "note": "Chord AB is drawn from A to B as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Chord A to C drawn solid, meets the circle at A and C."
+      "note": "Chord AC is drawn from A to C as in the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed chord B to D, starting at B and ending at D as in the original."
+      "note": "Dashed chord BD runs from B to D, matching the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "AB is correct."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "AC is correct."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "AD is correct and passes through O."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "BC is correct."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "BD is dashed and correct."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Point A on the left of the circle, label left of the point, correctly bound."
+      "note": "Label A sits at the left endpoint of the diameter, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Point D on the right of the circle, label right of the point, correctly bound."
+      "note": "Label D sits at the right endpoint of the diameter, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Point B at the upper-right of the circle, label above-right, correctly bound."
+      "note": "Label B sits at the top of the circle, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Point C at the lower part of the circle, label below, correctly bound."
+      "note": "Label C sits at the bottom of the circle, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Centre dot O drawn filled; label directly below it, clear of strokes."
+      "note": "Label O sits below the centre, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Point A is at the correct position on the circle."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Point B is at the correct position on the circle."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Point C is at the correct position on the circle."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Point D is at the correct position on the circle."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Centre dot is present but smaller than in the original."
     }
   ],
   "checklist_score": 1.0,
@@ -70,15 +139,13 @@
     "medium": 0,
     "low": 0
   },
-  "flaky_count": 0,
+  "flaky_count": 1,
   "must_repair": false,
   "matches": [
-    "Circle position, radius and aspect ratio match the original",
-    "Diameter AD runs through O and the endpoints match",
-    "Chords AB, AC and BC end at the same circle points as in the original",
-    "Dashed chord BD matches the original dash style and endpoints",
-    "Labels A, B, C, D and O are present, correctly spelled and bound to their vertices",
-    "O label is directly below the centre dot with clear separation from the strokes"
+    "Circle with centre O and diameter AD through it",
+    "Chords AB, AC, BC and dashed BD with matching endpoints",
+    "Point labels A, B, C, D, O with correct vertex binding and clear spacing",
+    "Overall aspect ratio and proportions"
   ],
   "labels": {
     "present": [
@@ -91,7 +158,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 3,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

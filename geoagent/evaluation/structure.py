@@ -9,6 +9,7 @@ import json
 import importlib
 import os
 from pathlib import Path
+import re
 import sys
 from types import SimpleNamespace
 
@@ -184,8 +185,8 @@ def make_graph(drawing):
                            extraction_audit=audit)
 
 
-def _drawing(path):
-    drawing = backend()[0].parse_drawing(str(path))
+def _drawing(path, *, source_text=None):
+    drawing = backend()[0].parse_drawing(str(path), source_text=source_text)
     if drawing.unsupported:
         raise ValueError('Unsupported source geometry: ' + str(drawing.unsupported))
     return drawing
@@ -294,7 +295,7 @@ def apply_reference_corrections(graph, spec, source_hash):
     if spec['source_sha256'] != source_hash:
         raise ValueError('Reference correction source hash changed; review correction')
     corrections = []
-    for label, construction in spec['labels'].items():
+    for label, construction in spec.get('labels', {}).items():
         names = graph.label_names
         get = lambda n: graph.points[names.index(n)]
         old = dict(graph.bindings[label])
@@ -348,15 +349,42 @@ def apply_reference_corrections(graph, spec, source_hash):
                             'radius': radius, 'construction_residual':residual,
                             'circle_residual':residual if kind!='parsed_circle_center' else None,
                             'transported_incident_endpoints':transported})
-    graph.extraction_audit['reviewed_reference_corrections'] = corrections
+    if corrections:
+        graph.extraction_audit['reviewed_reference_corrections'] = corrections
+
+
+def _reference_intersection_order(path, spec, source_hash):
+    """Select the execution-verified order of an implicitly ordered reference path."""
+    orders = (spec or {}).get('intersection_order', [])
+    if not orders:
+        return None
+    if spec['source_sha256'] != source_hash:
+        raise ValueError('Reference correction source hash changed; review correction')
+    text = path.read_text(encoding='utf-8')
+    for order in orders:
+        a, b = order['paths']
+        sort_by = order['sort_by']
+        if sort_by not in (a, b) or not all(re.fullmatch(r"[\w']+", name) for name in (a, b)):
+            raise ValueError('Invalid reference intersection order')
+        pattern = rf'(name intersections\s*=\s*\{{\s*of\s*=\s*{a}\s+and\s+{b}\s*,\s*)(?=by\s*=)'
+        text, count = re.subn(pattern, lambda match: match[1] + f'sort by={sort_by}, ', text)
+        if count != 1:
+            raise ValueError('Expected one matching implicitly ordered reference intersection')
+    return text
 
 
 def freeze_reference(path, corrections=None):
     path = Path(path)
-    graph = prediction(path)
     source_hash = hashlib.sha256(path.read_bytes()).hexdigest()
     spec = (corrections or {}).get(path.stem)
+    source_text = _reference_intersection_order(path, spec, source_hash)
+    graph = make_graph(_drawing(path, source_text=source_text))
     apply_reference_corrections(graph, spec, source_hash)
+    if source_text is not None:
+        graph.extraction_audit['reviewed_reference_corrections'] = [
+            *graph.extraction_audit.get('reviewed_reference_corrections', []),
+            {'type': 'intersection_order', 'orders': spec['intersection_order'], 'reason': spec['reason']},
+        ]
     items = reference_items(graph)
     identity = score(graph, graph, items)
     names = graph.label_names

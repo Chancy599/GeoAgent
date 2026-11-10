@@ -1,0 +1,181 @@
+{
+  "assessment_score": 0.92,
+  "score_kind": "heuristic visual similarity (not a calibrated probability)",
+  "verdict": "Render is geometrically faithful: E lies on the circle and on AB, DE and AD meet at the correct vertices, and the right-angle marks at C and D are present. The only visible difference is the lighter grey dashed radius OD.",
+  "figure_type": {
+    "original": "Circle with centre O, tangent CB at D, right triangle ACB (right angle at C), diameter AE on hypotenuse AB, chord DE, segment AD, dashed OD radius",
+    "render": "Same construction: circle centre O, tangent CB at D, triangle ACB, AE through O, chord DE, segment AD, dashed OD"
+  },
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_05"
+      ],
+      "bbox": [
+        0.44,
+        0.46,
+        0.49,
+        0.9
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Dashed radius OD is black and slightly heavier in the render; in the original it is a lighter grey dashed line.",
+      "suggestion": "If matching the original matters, set the OD dashed line to a grey colour (e.g. \\draw[dashed, gray] (O) -- (D);). Otherwise leave as is; the geometry is correct."
+    }
+  ],
+  "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circle centred at O, tangent to CB at D and passing through A and E, matches the original."
+    },
+    {
+      "object_id": "seg_01",
+      "status": "present",
+      "note": "Diagonal A to B is drawn as A--O--E--B, matching the original."
+    },
+    {
+      "object_id": "seg_02",
+      "status": "present",
+      "note": "Segment AD matches the original."
+    },
+    {
+      "object_id": "seg_03",
+      "status": "present",
+      "note": "Base CB matches the original."
+    },
+    {
+      "object_id": "seg_04",
+      "status": "present",
+      "note": "Leg AC matches the original."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Dashed OD runs from O to D, though its colour differs (see issue)."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "present",
+      "note": "Detected DE extension ends at E in the render, matching the original. No overhang past E."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "present",
+      "note": "Part of leg AC near C, present."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Leg AC from A to C, present."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "AD from A to D ends at the tangent point, present."
+    },
+    {
+      "object_id": "seg_AO",
+      "status": "present",
+      "note": "A to O on the hypotenuse, present."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "C to B along the base, present."
+    },
+    {
+      "object_id": "seg_DE",
+      "status": "present",
+      "note": "Chord DE from D to E, present."
+    },
+    {
+      "object_id": "seg_EB",
+      "status": "present",
+      "note": "E to B on the hypotenuse, present."
+    },
+    {
+      "object_id": "seg_OD",
+      "status": "present",
+      "note": "Dashed OD, present (colour differs, low severity)."
+    },
+    {
+      "object_id": "seg_OE",
+      "status": "present",
+      "note": "O to E on the hypotenuse, present."
+    },
+    {
+      "object_id": "ra_01",
+      "status": "present",
+      "note": "Right angle at D between DA and DE, matches the original."
+    },
+    {
+      "object_id": "ra_02",
+      "status": "present",
+      "note": "Right angle at C, present."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle mark at D (A-D-E), present."
+    },
+    {
+      "object_id": "right_angle_02",
+      "status": "present",
+      "note": "Right-angle mark at C, present."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "A is labelled at the top-left point on the circle, present."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "B is labelled at the right end of the base, present."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "O is labelled at the centre, present."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "E is labelled on the circle and the hypotenuse, present."
+    }
+  ],
+  "checklist_score": 1.0,
+  "actionable_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "flaky_count": 0,
+  "must_repair": false,
+  "matches": [
+    "Circle centre O and radius match the original; the circle is tangent to CB at D.",
+    "E lies on the circle and on AB, and DE ends at E.",
+    "AD and DE meet at D with the right-angle mark between them, matching the original.",
+    "Right-angle mark at C is present.",
+    "Labels A, B, C, D, E and O are present, correctly bound, and clear of strokes."
+  ],
+  "labels": {
+    "present": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "O"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "version": 2,
+  "binding_decisions": [],
+  "topology_decisions": [],
+  "raw_meta": "{}"
+}

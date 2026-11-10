@@ -1,90 +1,136 @@
 {
-  "assessment_score": 0.86,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original closely: the circle is centred on diameter AB at O, D and C lie on the circle, and all five segments and labels are present and correctly placed. The only visible difference is that the O dot is noticeably smaller in the render.",
+  "verdict": "The render is faithful in geometry and topology: the circle, diameter AB through O, chords AD, DB, DC, AC and the labels all match the original. The only visible discrepancy is the much smaller centre dot at O.",
   "figure_type": {
-    "original": "Circle with centre O on horizontal diameter AB; chords AD, DB, AC, CD inscribed; D at top, C lower-left, labels A, B, C, D, O.",
-    "render": "Circle centred on AB at O; chords AD, DB, AC, CD inscribed; D at top, C lower-left, labels A, B, C, D, O."
+    "original": "Circle with horizontal diameter AB, apex D on the top arc, chord DC and chord AC to a lower-left point C, with a filled dot at O",
+    "render": "Same circle and chords, with a filled dot at O drawn much smaller than in the original"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
+        "point_O",
         "point_05"
       ],
       "bbox": [
-        0.23,
+        0.47,
         0.5,
-        0.27,
+        0.53,
         0.56
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The centre dot at O is much smaller in the render than the filled dot in the original (render roughly half the diameter).",
-      "suggestion": "Increase the radius of the filled centre dot, e.g. \\fill (O) circle (0.09) or about 0.08 to 0.10 in TikZ units."
+      "description": "The filled dot at O is visibly smaller in the render (about 2–3 px radius) than in the original (about 6 px radius), so the centre marker looks weaker.",
+      "suggestion": "Increase the fill radius of the O dot, e.g. \\fill (O) circle[radius=4pt]; or similar, so it matches the original's prominence."
     }
   ],
   "checks": [
     {
-      "object_id": "circle_01",
+      "object_id": "circle_O",
       "status": "present",
-      "note": "Full circle centred at O on AB, radius matches the original; D and C lie on it."
-    },
-    {
-      "object_id": "circle_02",
-      "status": "unclear",
-      "note": "Detected arc with a different centre and radius. No separate arc is visible in the original; the original shows one full circle, which circle_01 covers."
+      "note": "Circle matches original position and size."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Chord CD from C (lower left, on circle) to D (top), crossing AB between A and O, as in the original."
+      "note": "Chord from D to C is drawn, matching the original DC stroke."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Diameter AB is drawn horizontally through O, matching the original."
+      "note": "Diameter AB is drawn through O."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Chord DB drawn from D to B, matching the original."
+      "note": "Chord DB matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Chord AD drawn from A to D, matching the original."
+      "note": "Chord AD matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Chord AC drawn from A to C, matching the original."
+      "note": "Chord AC matches the original short lower-left chord."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Diameter AB visible in both panels, through O."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Chord from A down to C is visible in both panels."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Chord from A up to D is visible in both panels."
+    },
+    {
+      "object_id": "seg_DB",
+      "status": "present",
+      "note": "Chord from D down to B is visible in both panels."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Chord from D down to C is visible in both panels."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "D label sits above the top of the circle at D, as in the original."
+      "note": "Label D sits above the top point of the circle, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "B label is to the right of B on AB, as in the original."
+      "note": "Label B sits at the right end of the diameter, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "A label is to the left of A on AB, as in the original."
+      "note": "Label A sits at the left end of the diameter, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "O is the centre of the circle on AB; the O label is below it, as in the original, and is bound to point_05."
+      "note": "Label O sits below the centre dot, as in the original; the dot is smaller than the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "C label sits below-left of C on the circle, as in the original."
+      "note": "Label C sits below-left of the lower-left point, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A is at the left end of the diameter on the circle."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B is at the right end of the diameter on the circle."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is on the lower-left arc, as in the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is at the top of the circle, as in the original."
+    },
+    {
+      "object_id": "point_O",
+      "status": "present",
+      "note": "Centre O is at the diameter midpoint; the dot is undersized relative to the original."
     }
   ],
   "checklist_score": 1.0,
@@ -96,12 +142,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle centred on the horizontal diameter AB at O",
-    "A, B and D lie on the circle at the expected positions",
-    "C lies on the circle at the lower-left position",
-    "Chords AD, DB, AC and CD and diameter AB are all present with correct endpoints",
-    "Crossing of CD with AB between A and O matches the original",
-    "Labels A, B, C, D and O are present and correctly bound"
+    "Circle position, radius and aspect ratio match the original.",
+    "Diameter AB passes through O at its midpoint.",
+    "Chords AD, DB, DC and AC end at the same vertices as in the original.",
+    "Labels A, B, C, D and O are present, correctly spelled and bound to their vertices, with clear space from the strokes.",
+    "Stroke weights of the circle and chords are comparable to the original."
   ],
   "labels": {
     "present": [
@@ -114,7 +159,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

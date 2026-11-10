@@ -1,14 +1,14 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's topology: P-D is the top line, P-B, B-C and C-D form the open lower outline, E-B is a vertical from E down to B, and the right-angle mark sits at E.",
+  "verdict": "The render reproduces the original's geometry closely: the top line P-E-D, the perpendicular EB with its right-angle mark at E, and the bottom path B-C with its diagonals all match. The only visible difference is label typography.",
   "figure_type": {
-    "original": "Open polyline P-B-C-D with top edge P-D; perpendicular E-B drops from E on PD to B; right-angle mark at E",
-    "render": "Open polyline P-B-C-D with top edge P-D; perpendicular E-B drops from E on PD to B; right-angle mark at E"
+    "original": "Trapezoid-like quadrilateral PDCB with a perpendicular from E on PD down to B, right-angle mark at E, labels P, E, D, B, C",
+    "render": "Same: trapezoid-like quadrilateral with PD horizontal, EB perpendicular at E with right-angle mark, labels P, E, D, B, C"
   },
   "issues": [
     {
-      "type": "wrong_style",
+      "type": "label_error",
       "severity": "low",
       "object_ids": [
         "point_01",
@@ -18,72 +18,107 @@
         "point_05"
       ],
       "bbox": [
-        0.067,
-        0.117,
-        0.931,
-        0.884
+        0.02,
+        0.28,
+        0.98,
+        0.72
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Point labels P, E, D, B, C are rendered in a lighter, regular-weight italic than the bold math-italic labels in the original. Positions and clearances are otherwise faithful.",
-      "suggestion": "Optional: use a bold math style for the labels, e.g. \\boldmath or \\mathbf inside the node text, or set the label font to a heavier weight. Keep the existing node anchors (above for P, E, D; below for B, C)."
+      "description": "Point labels are upright bold-style glyphs in the render, while the original uses italic serif math letters (P, E, D, B, C). Placement and clearance are otherwise good.",
+      "suggestion": "Set the labels in italic math (for example plain $P$ without \\mathbf, or \\mathit{P}) to match the original typography. Keep the existing node anchors (above left at P, above at E and D, below at B and C)."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Top edge P to D is horizontal and ends at P and D in both panels."
+      "note": "Horizontal line PD at y=65 from P to D, matches the original top edge."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Diagonal from P down to B is drawn in the render and meets B as in the original."
+      "note": "Diagonal from P down to B matches the original left edge."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Diagonal from D down to C is drawn in the render with the same slope and endpoints as the original."
+      "note": "Right diagonal from C up to D matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Bottom edge B to C is horizontal and matches the original."
+      "note": "Bottom segment BC matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Vertical from E on PD down to B is drawn in the render, matching the original."
+      "note": "Vertical EB from E down to B matches the original."
     },
     {
       "object_id": "seg_06",
-      "status": "unclear",
-      "note": "Not a distinct element in the original. Its coordinates lie on the P-B diagonal, so it is a duplicate CV detection of part of seg_02, not a separate stroke."
+      "status": "present",
+      "note": "Short CV fragment lying on the diagonal PB, not a separate figure edge; it is covered by the rendered PB."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Bottom edge from B to C is drawn in the render."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Edge from C to D is drawn in the render."
+    },
+    {
+      "object_id": "seg_EB",
+      "status": "present",
+      "note": "Perpendicular from E to B is drawn in the render."
+    },
+    {
+      "object_id": "seg_PB",
+      "status": "present",
+      "note": "Edge from P to B is drawn in the render."
+    },
+    {
+      "object_id": "seg_PD",
+      "status": "present",
+      "note": "Top edge P to D is drawn in the render, passing through E."
+    },
+    {
+      "object_id": "ra_01",
+      "status": "present",
+      "note": "Right-angle mark at E opens toward D and B, as in the original."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Same right-angle mark, verified in both panels at E."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label P is present above the P vertex, correctly bound."
+      "note": "P label is present above-left of the vertex, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label D is present above the D vertex, correctly bound."
+      "note": "D label is present above the vertex, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label E is present above the E vertex on PD, clear of the strokes, correctly bound."
+      "note": "E label is present above the vertex, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label B is present below the B vertex, correctly bound."
+      "note": "B label is present below the vertex, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label C is present below the C vertex, correctly bound."
+      "note": "C label is present below the vertex, as in the original."
     }
   ],
   "checklist_score": 1.0,
@@ -95,13 +130,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Top line P to D is horizontal and terminates at P and D.",
-    "P-B diagonal joins at B, matching the original.",
-    "B-C bottom edge is horizontal.",
-    "C-D diagonal matches the original slope and endpoints.",
-    "E-B vertical starts on PD at E and ends at B.",
-    "Right-angle mark at E is present on the ED/EB corner.",
-    "All five labels P, E, D, B, C are present, correctly spelled and bound to their vertices, with no stroke crossing a glyph."
+    "Top line PD with E on it",
+    "Perpendicular EB with right-angle mark at E",
+    "Diagonals PB and CD",
+    "Bottom segment BC",
+    "Label placements and vertex bindings for P, E, D, B, C",
+    "Overall aspect ratio and proportions"
   ],
   "labels": {
     "present": [
@@ -114,25 +148,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 3,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "c1acb7069af654b3",
-      "edge": [
-        "B",
-        "P"
-      ],
-      "reason": "In the original the diagonal runs from P at the upper left straight down to B at the bottom, so the stroke joins P and B."
-    },
-    {
-      "case_id": "3ce7905651129a31",
-      "edge": [
-        "B",
-        "E"
-      ],
-      "reason": "In the original the vertical stroke starts at E on the top line PD and runs straight down to B, so the stroke joins E and B."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

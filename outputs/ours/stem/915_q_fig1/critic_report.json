@@ -1,97 +1,118 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.96,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's topology, labels and diagonal endpoint at D; the only visible discrepancy is that the right-angle marks at B and C are smaller than in the original.",
+  "verdict": "Render is faithful: quadrilateral ABCD with right angles at B and C, vertex labels and bindings match the original, with no meaningful geometric or label discrepancies.",
   "figure_type": {
-    "original": "Quadrilateral ABCD with AB and CD vertical, BC horizontal, diagonal AD ending at D, and right-angle marks at B and C",
-    "render": "Same quadrilateral ABCD with the same vertical, horizontal and diagonal structure, and right-angle marks at B and C that are smaller than the original"
+    "original": "Quadrilateral ABCD with right angles at B and C (vertical AB, horizontal BC, vertical CD, diagonal AD), all solid, with point dots and italic vertex labels",
+    "render": "Same quadrilateral ABCD with right angles at B and C, solid strokes, point dots and italic vertex labels"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_05",
-        "seg_06"
-      ],
-      "bbox": [
-        0.08,
-        0.84,
-        0.2,
-        0.92
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "The right-angle marks at B and C are noticeably smaller than in the original, about two-thirds the side length of the original squares. Their top edges (seg_05 and seg_06, at y≈609 px) are correspondingly shorter.",
-      "suggestion": "Increase angle radius in both right-angle pic commands (currently 0.200cm), e.g. to about 0.3cm, so the squares match the original size."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Vertical AB from A to B matches the original."
+      "note": "Corresponds to rendered AB, spanning A to B in both panels."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Diagonal AD ends at D as in the original."
+      "note": "Diagonal AD is drawn from A to D in both panels."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Vertical CD matches the original."
+      "note": "Corresponds to rendered CD, vertical from D down to C."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Horizontal BC matches the original."
+      "note": "Corresponds to rendered BC, horizontal bottom edge from B to C."
     },
     {
       "object_id": "seg_05",
-      "status": "wrong",
-      "note": "Top edge of the right-angle mark at B is present but the mark is smaller than in the original."
+      "status": "present",
+      "note": "Short horizontal arm of the right-angle mark at B, drawn via the angle pic in the render; the square is visible in both panels."
     },
     {
       "object_id": "seg_06",
-      "status": "wrong",
-      "note": "Top edge of the right-angle mark at C is present but the mark is smaller than in the original."
+      "status": "present",
+      "note": "Short horizontal arm of the right-angle mark at C, drawn via the angle pic in the render; the square is visible in both panels."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Solid vertical side from A to B, matching the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Solid diagonal from A to D, matching the original."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Solid horizontal side from B to C, matching the original."
+    },
+    {
+      "object_id": "seg_CD",
+      "status": "present",
+      "note": "Solid vertical side from C to D, matching the original."
+    },
+    {
+      "object_id": "ra_01",
+      "status": "present",
+      "note": "Right-angle square at B opens up and to the right in both panels."
+    },
+    {
+      "object_id": "ra_02",
+      "status": "present",
+      "note": "Right-angle square at C opens up and to the left in both panels."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Same mark as ra_01 at vertex B; orientation matches the original."
+    },
+    {
+      "object_id": "right_angle_02",
+      "status": "present",
+      "note": "Same mark as ra_02 at vertex C; orientation matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label A is top-left of its vertex, as in the original."
+      "note": "Point A is at the top-left vertex with its label above-left, matching the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label B is bottom-left of its vertex, as in the original."
+      "note": "Point B is at the bottom-left vertex with its label below-left, matching the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label D is top-right of its vertex, as in the original."
+      "note": "Point D is on the right side with its label to the right, matching the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label C is bottom-right of its vertex, as in the original."
+      "note": "Point C is at the bottom-right vertex with its label below-right, matching the original."
     }
   ],
-  "checklist_score": 0.9,
+  "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Vertex labels A, B, C, D are present with the same placement as the original.",
-    "Solid edges AB, BC, CD and diagonal AD are present with the same topology.",
-    "Diagonal AD ends at D, not at C or past D.",
-    "Right-angle marks are present at B (inside angle ABC) and at C (inside angle BCD).",
-    "Overall aspect ratio and proportions match the original."
+    "Vertices A, B, C, D are placed in the same relative positions with the same proportions.",
+    "Right angles at B and C are drawn with correctly oriented squares.",
+    "All four sides are solid with matching ends at the vertices.",
+    "Diagonal AD meets vertical CD at D exactly where the original does.",
+    "Vertex labels A, B, C, D are present with correct spelling and clear placement."
   ],
   "labels": {
     "present": [
@@ -105,31 +126,6 @@
   },
   "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "d9749aba95b2aa47",
-      "edge": [
-        "A",
-        "D"
-      ],
-      "reason": "The original shows a single solid stroke from A to D."
-    },
-    {
-      "case_id": "112b70d07f5255fe",
-      "edge": [
-        "C",
-        "D"
-      ],
-      "reason": "The original shows a vertical solid stroke from C up to D."
-    },
-    {
-      "case_id": "523ac22cd528b199",
-      "edge": [
-        "B",
-        "C"
-      ],
-      "reason": "The original shows a horizontal solid stroke from B to C."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

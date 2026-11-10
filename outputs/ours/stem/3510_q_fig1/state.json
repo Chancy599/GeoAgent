@@ -452,6 +452,106 @@
         ],
         "ambiguous": false
       }
+    },
+    "seg_AB": {
+      "id": "seg_AB",
+      "type": "segment",
+      "label": "AB",
+      "coords": {
+        "a_px": [
+          185.39,
+          119.0
+        ],
+        "b_px": [
+          91.6,
+          355.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_BC": {
+      "id": "seg_BC",
+      "type": "segment",
+      "label": "BC",
+      "coords": {
+        "a_px": [
+          91.6,
+          355.0
+        ],
+        "b_px": [
+          563.6,
+          355.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_CD": {
+      "id": "seg_CD",
+      "type": "segment",
+      "label": "CD",
+      "coords": {
+        "a_px": [
+          563.6,
+          355.0
+        ],
+        "b_px": [
+          658.21,
+          119.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_DA": {
+      "id": "seg_DA",
+      "type": "segment",
+      "label": "DA",
+      "coords": {
+        "a_px": [
+          658.21,
+          119.0
+        ],
+        "b_px": [
+          185.39,
+          119.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -490,6 +590,24 @@
       "source": "bind_point_labels",
       "evidence": "Hungarian assignment distance=30.51px",
       "status": "candidate"
+    },
+    "rel_005": {
+      "id": "rel_005",
+      "subject": "seg_DA",
+      "relation": "parallel",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "both horizontal at y=119 and y=355",
+      "status": "candidate"
+    },
+    "rel_006": {
+      "id": "rel_006",
+      "subject": "seg_AB",
+      "relation": "parallel",
+      "object": "seg_CD",
+      "source": "geometry_agent",
+      "evidence": "measured slopes ~111.7 deg for both slanted edges",
+      "status": "candidate"
     }
   },
   "evidence": {
@@ -504,7 +622,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T11:27:06"
+      "created_at": "2026-11-09T23:02:30"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -517,10 +635,48 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T11:27:11"
+      "created_at": "2026-11-09T23:02:33"
     },
     "ev_0003": {
       "id": "ev_0003",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-09T23:02:34"
+    },
+    "ev_0004": {
+      "id": "ev_0004",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Plain parallelogram ABCD, all edges solid black, no dashed strokes, no right-angle marks, no feet, no curves. Edges: AB (left slanted), BC (bottom horizontal), CD (right slanted), DA (top horizontal). Vertices A(185.4,119), D(658.2,119), B(91.6,355), C(563.6,355). OCR bindings verified visually: each letter sits beside its own corner (A above-left of top-left corner, D above top-right, B below bottom-left, C below bottom-right).",
+      "payload": {
+        "merged": {
+          "objects": 8,
+          "relations": 2,
+          "conflicts": 0,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_01",
+          "point_02",
+          "point_03",
+          "point_04",
+          "seg_AB",
+          "seg_BC",
+          "seg_CD",
+          "seg_DA"
+        ]
+      },
+      "created_at": "2026-11-09T23:02:46"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v1 canvas matched to source [751, 476] (scale 0.8671)",
@@ -540,10 +696,10 @@
           83
         ]
       },
-      "created_at": "2026-11-09T11:27:24"
+      "created_at": "2026-11-09T23:03:01"
     },
-    "ev_0004": {
-      "id": "ev_0004",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: applied",
@@ -557,8 +713,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "2f0dac97b398b26aacf6de61f38dcd6e2c71c734ec83d0ff255119f533fbfd46",
-        "output_sha256": "e33ef843364cca3429b36aa3796109d6b3342a274cd6227a4f222201043fdbdc",
+        "input_sha256": "6edb816192351cdae30f29dd53f5e7263b3ddac6b6e77653ed3c07f389e9192f",
+        "output_sha256": "f5e0b3234357276778d7bfc67bc1ba13c5b18388c99fdbd7c582786e7d20cf9b",
         "reason": "applied",
         "accepted": [
           {
@@ -627,22 +783,22 @@
         "point_count": 4,
         "segment_count": 4
       },
-      "created_at": "2026-11-09T11:27:24"
+      "created_at": "2026-11-09T23:03:01"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used program-owned coordinates A, B, C, D without redefining them. Drew four solid sides AD, DC, CB, BA with line width 1.5pt and round joins. Labels set at 17/20.4 pt in math mode, placed at the outer corners (A upper-left, D upper-right, B lower-left, C lower-right). No extra marks; no right-angle marks since none were verified.",
+        "notes": "Plain trapezoid-like quadrilateral ABCD (the instruction calls it a trapezoid; the source is a parallelogram per the construction inventory, both slanted edges parallel). All four edges solid, drawn with named vertices from the program-owned frame, which was not redefined. Labels bound to their vertices with the source directions (A above-left, D above-right, B below-left, C below-right), at 17pt/20.4pt per STYLE METRICS. Line width 1.5pt with round joins. No right-angle marks, feet, or dashed strokes, as verified. Scale is fixed by the program frame (about 8 cm span), not the 6-7 cm in the instruction; the program-owned coordinates govern.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\3510_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\3510_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\redesign_150\\batch_work\\3510_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\redesign_150\\batch_work\\3510_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -672,12 +828,12 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\3510_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\redesign_150\\batch_work\\3510_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\3510_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\redesign_150\\batch_work\\3510_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
@@ -697,44 +853,7 @@
           ]
         }
       },
-      "created_at": "2026-11-09T11:27:24"
-    },
-    "ev_0006": {
-      "id": "ev_0006",
-      "source": "critic_agent",
-      "method": "endpoint_review",
-      "summary": "Reviewed 4 CV endpoint case(s)",
-      "payload": {
-        "b26313be72d64551": {
-          "edge": [
-            "B",
-            "C"
-          ],
-          "reason": "The original bottom side is a continuous solid stroke joining B and C."
-        },
-        "5ff6b215ac1efa4e": {
-          "edge": [
-            "A",
-            "D"
-          ],
-          "reason": "The original top side is a continuous solid stroke joining A and D."
-        },
-        "a0977966fe5be8a1": {
-          "edge": [
-            "A",
-            "B"
-          ],
-          "reason": "The original left side is a straight solid stroke from A down to B."
-        },
-        "72065b6c97b526d8": {
-          "edge": [
-            "C",
-            "D"
-          ],
-          "reason": "The original right side is a straight solid stroke from D down to C."
-        }
-      },
-      "created_at": "2026-11-09T11:27:48"
+      "created_at": "2026-11-09T23:03:01"
     }
   },
   "conflicts": [],
@@ -744,8 +863,8 @@
     "B": "point_01",
     "C": "point_02"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-2.532,1.587);\n\\coordinate (B) at (-3.788,-1.560);\n\\coordinate (C) at (2.511,-1.560);\n\\coordinate (D) at (3.766,1.587);\n\n  \n  \\draw (A) -- (D);   \n  \\draw (D) -- (C);   \n  \\draw (C) -- (B);   \n  \\draw (B) -- (A);   \n\n  \n  \\node[above left, font=\\fontsize{17}{20.4}\\selectfont] at (A) {$A$};\n  \\node[above right, font=\\fontsize{17}{20.4}\\selectfont] at (D) {$D$};\n  \\node[below left, font=\\fontsize{17}{20.4}\\selectfont] at (B) {$B$};\n  \\node[below right, font=\\fontsize{17}{20.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 2bf4e2678bf76bf16a9ae616a3c1166349310345464c507e9ae209da393a9909\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-2.532,1.587);\n\\coordinate (B) at (-3.788,-1.560);\n\\coordinate (C) at (2.511,-1.560);\n\\coordinate (D) at (3.766,1.587);\n\n  \n  \\draw (A) -- (D);   \n  \\draw (D) -- (C);   \n  \\draw (C) -- (B);   \n  \\draw (B) -- (A);   \n\n  \n  \\node[above left, font=\\fontsize{17}{20.4}\\selectfont] at (A) {$A$};\n  \\node[above right, font=\\fontsize{17}{20.4}\\selectfont] at (D) {$D$};\n  \\node[below left, font=\\fontsize{17}{20.4}\\selectfont] at (B) {$B$};\n  \\node[below right, font=\\fontsize{17}{20.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 2bf4e2678bf76bf16a9ae616a3c1166349310345464c507e9ae209da393a9909\n",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-2.532,1.587);\n\\coordinate (B) at (-3.788,-1.560);\n\\coordinate (C) at (2.511,-1.560);\n\\coordinate (D) at (3.766,1.587);\n\n\n\n\n\\draw (A) -- (B) -- (C) -- (D) -- cycle;\n\n\n\\node[above left, font=\\fontsize{17}{20.4}\\selectfont] at (A) {$A$};\n\\node[above right, font=\\fontsize{17}{20.4}\\selectfont] at (D) {$D$};\n\\node[below left, font=\\fontsize{17}{20.4}\\selectfont] at (B) {$B$};\n\\node[below right, font=\\fontsize{17}{20.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 f2c90d9e261a93c1beff88ef8bc47e885b6c9b19bcad5fb1d76e12f97ac70595\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-2.532,1.587);\n\\coordinate (B) at (-3.788,-1.560);\n\\coordinate (C) at (2.511,-1.560);\n\\coordinate (D) at (3.766,1.587);\n\n\n\n\n\\draw (A) -- (B) -- (C) -- (D) -- cycle;\n\n\n\\node[above left, font=\\fontsize{17}{20.4}\\selectfont] at (A) {$A$};\n\\node[above right, font=\\fontsize{17}{20.4}\\selectfont] at (D) {$D$};\n\\node[below left, font=\\fontsize{17}{20.4}\\selectfont] at (B) {$B$};\n\\node[below right, font=\\fontsize{17}{20.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 f2c90d9e261a93c1beff88ef8bc47e885b6c9b19bcad5fb1d76e12f97ac70595\n",
   "best_version": 1,
   "best_score": 0.9,
   "tikz_versions": [
@@ -755,7 +874,7 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-2.532,1.587);\n\\coordinate (B) at (-3.788,-1.560);\n\\coordinate (C) at (2.511,-1.560);\n\\coordinate (D) at (3.766,1.587);\n\n  \n  \\draw (A) -- (D);   \n  \\draw (D) -- (C);   \n  \\draw (C) -- (B);   \n  \\draw (B) -- (A);   \n\n  \n  \\node[above left, font=\\fontsize{17}{20.4}\\selectfont] at (A) {$A$};\n  \\node[above right, font=\\fontsize{17}{20.4}\\selectfont] at (D) {$D$};\n  \\node[below left, font=\\fontsize{17}{20.4}\\selectfont] at (B) {$B$};\n  \\node[below right, font=\\fontsize{17}{20.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 2bf4e2678bf76bf16a9ae616a3c1166349310345464c507e9ae209da393a9909\n",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-2.532,1.587);\n\\coordinate (B) at (-3.788,-1.560);\n\\coordinate (C) at (2.511,-1.560);\n\\coordinate (D) at (3.766,1.587);\n\n\n\n\n\\draw (A) -- (B) -- (C) -- (D) -- cycle;\n\n\n\\node[above left, font=\\fontsize{17}{20.4}\\selectfont] at (A) {$A$};\n\\node[above right, font=\\fontsize{17}{20.4}\\selectfont] at (D) {$D$};\n\\node[below left, font=\\fontsize{17}{20.4}\\selectfont] at (B) {$B$};\n\\node[below right, font=\\fontsize{17}{20.4}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 f2c90d9e261a93c1beff88ef8bc47e885b6c9b19bcad5fb1d76e12f97ac70595\n",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\3510_q_fig1\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\3510_q_fig1\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\3510_q_fig1\\best.png",
@@ -763,18 +882,18 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T11:27:21",
+      "created_at": "2026-11-09T23:02:59",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used program-owned coordinates A, B, C, D without redefining them. Drew four solid sides AD, DC, CB, BA with line width 1.5pt and round joins. Labels set at 17/20.4 pt in math mode, placed at the outer corners (A upper-left, D upper-right, B lower-left, C lower-right). No extra marks; no right-angle marks since none were verified.",
-      "compile_seconds": 2.548,
+      "notes": "Plain trapezoid-like quadrilateral ABCD (the instruction calls it a trapezoid; the source is a parallelogram per the construction inventory, both slanted edges parallel). All four edges solid, drawn with named vertices from the program-owned frame, which was not redefined. Labels bound to their vertices with the source directions (A above-left, D above-right, B below-left, C below-right), at 17pt/20.4pt per STYLE METRICS. Line width 1.5pt with round joins. No right-angle marks, feet, or dashed strokes, as verified. Scale is fixed by the program frame (about 8 cm span), not the 6-7 cm in the instruction; the program-owned coordinates govern.",
+      "compile_seconds": 1.787,
       "critic_report": {
         "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render reproduces the parallelogram ABCD with correct topology, correct vertex bindings and clear labels; the only visible difference is a slightly smaller overall scale.",
+        "verdict": "The render is a faithful parallelogram ABCD with correct topology, labels and proportions; the only discrepancy is an overall scale difference of about 9%.",
         "figure_type": {
-          "original": "Parallelogram ABCD (solid outline, AD and BC horizontal, AB and CD slanted), labels A, D above and B, C below",
-          "render": "Parallelogram ABCD (solid outline, AD and BC horizontal, AB and CD slanted), labels A, D above and B, C below"
+          "original": "parallelogram ABCD (top side AD and bottom side BC horizontal, slanted sides AB and CD)",
+          "render": "parallelogram ABCD (top side AD and bottom side BC horizontal, slanted sides AB and CD)"
         },
         "issues": [
           {
@@ -787,57 +906,77 @@
               "seg_04"
             ],
             "bbox": [
-              0.05,
-              0.24,
-              0.95,
-              0.76
+              0.06,
+              0.31,
+              0.93,
+              0.69
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "The rendered parallelogram is drawn at a smaller overall scale than the original (about 400 px wide by 200 px tall against about 440 by 220 px in the original). The width-to-height ratio (about 2:1) matches, so the shape and proportions are faithful.",
-            "suggestion": "Optional: enlarge the TikZ coordinates by about 1.1 (or set a larger xscale/yscale) to match the original's apparent size. No change to topology or bindings is needed."
+            "description": "The render is about 9% smaller than the original (roughly 400 px wide versus 438 px in the original panel, for the same vertex geometry). Aspect ratio and slant match, so the shape is correct and only the absolute size differs.",
+            "suggestion": "If the figure size must match the original, scale the coordinates or the tikzpicture (for example with scale=1.09) so the rendered extent matches the original."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Bottom side BC is horizontal and correctly drawn from B to C."
+            "note": "Bottom horizontal side BC at y≈355 is drawn and spans from B to C."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Top side AD is horizontal and correctly drawn from A to D."
+            "note": "Top horizontal side DA at y≈119 is drawn and spans from A to D."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Left side AB runs from A down-left to B, with both ends meeting the vertices."
+            "note": "Left slanted side AB is drawn and meets A and B."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Right side CD runs from D down-left to C, with both ends meeting the vertices."
+            "note": "Right slanted side CD is drawn and meets C and D."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "Left slanted side AB joins A to B, with the same slope as the original."
+          },
+          {
+            "object_id": "seg_BC",
+            "status": "present",
+            "note": "Bottom side BC joins B to C with no overhang."
+          },
+          {
+            "object_id": "seg_CD",
+            "status": "present",
+            "note": "Right slanted side CD joins C to D with the same slope as the original."
+          },
+          {
+            "object_id": "seg_DA",
+            "status": "present",
+            "note": "Top side DA joins D to A with no overhang."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Vertex B is at the bottom-left corner, labelled B below-left as in the original."
+            "note": "Vertex B is drawn at the lower-left corner with its label B below-left, as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Vertex C is at the bottom-right corner, labelled C below-right as in the original."
+            "note": "Vertex C is drawn at the lower-right corner with its label C below-right, as in the original."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Vertex A is at the top-left corner, labelled A above-left as in the original."
+            "note": "Vertex A is drawn at the upper-left corner with its label A above-left, as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Vertex D is at the top-right corner, labelled D above-right as in the original."
+            "note": "Vertex D is drawn at the upper-right corner with its label D above-right, as in the original."
           }
         ],
         "checklist_score": 1.0,
@@ -849,12 +988,12 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Parallelogram topology: four sides AD, DC, CB, BA form a closed quadrilateral with AD parallel to BC.",
-          "All four sides meet exactly at their shared vertices, with no overhangs or stubs.",
-          "Vertex labels A, B, C, D are present, correctly spelled, and bound to the matching corners.",
-          "Label placement matches the original: A and D above, B and C below, with clear separation from the strokes.",
-          "Aspect ratio (about 2:1) and stroke weight are consistent with the original.",
-          "No extra marks, right-angle markers or auxiliary lines are present or needed."
+          "Four vertices A, B, C, D are present in the correct positions, forming a parallelogram.",
+          "Top and bottom sides are horizontal and parallel; the slanted sides AB and CD are parallel with matching slope.",
+          "All sides meet cleanly at the vertices with no overhangs or gaps.",
+          "Labels A, B, C, D are spelled correctly, bound to the correct vertices, and clear of the strokes.",
+          "Aspect ratio (about 2:1) and slant match the original.",
+          "Line weight is visually comparable to the original."
         ],
         "labels": {
           "present": [
@@ -868,40 +1007,7 @@
         },
         "version": 1,
         "binding_decisions": [],
-        "topology_decisions": [
-          {
-            "case_id": "b26313be72d64551",
-            "edge": [
-              "B",
-              "C"
-            ],
-            "reason": "The original bottom side is a continuous solid stroke joining B and C."
-          },
-          {
-            "case_id": "5ff6b215ac1efa4e",
-            "edge": [
-              "A",
-              "D"
-            ],
-            "reason": "The original top side is a continuous solid stroke joining A and D."
-          },
-          {
-            "case_id": "a0977966fe5be8a1",
-            "edge": [
-              "A",
-              "B"
-            ],
-            "reason": "The original left side is a straight solid stroke from A down to B."
-          },
-          {
-            "case_id": "72065b6c97b526d8",
-            "edge": [
-              "C",
-              "D"
-            ],
-            "reason": "The original right side is a straight solid stroke from D down to C."
-          }
-        ],
+        "topology_decisions": [],
         "raw_meta": "{}"
       },
       "critic_score": 0.9
@@ -912,14 +1018,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.548,
+      "seconds": 1.787,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (12.291015625 KiB)\nnote: Writing `figure.pdf` (2.384765625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\3510_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\3510_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": "outputs\\refresh_20261109_100x2\\work_ours_v2\\3510_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T11:27:24"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.984375 KiB)\nnote: Writing `figure.pdf` (2.375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\redesign_150\\batch_work\\3510_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\redesign_150\\batch_work\\3510_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\redesign_150\\batch_work\\3510_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-09T23:03:01"
     }
   ],
   "validation_results": [
@@ -955,12 +1061,12 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\3510_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\redesign_150\\batch_work\\3510_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": "outputs\\refresh_20261109_100x2\\work_ours_v2\\3510_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\redesign_150\\batch_work\\3510_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
@@ -978,17 +1084,17 @@
           "detail": "figure bbox ratio 2.04"
         }
       ],
-      "created_at": "2026-11-09T11:27:24"
+      "created_at": "2026-11-09T23:03:01"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render reproduces the parallelogram ABCD with correct topology, correct vertex bindings and clear labels; the only visible difference is a slightly smaller overall scale.",
+      "verdict": "The render is a faithful parallelogram ABCD with correct topology, labels and proportions; the only discrepancy is an overall scale difference of about 9%.",
       "figure_type": {
-        "original": "Parallelogram ABCD (solid outline, AD and BC horizontal, AB and CD slanted), labels A, D above and B, C below",
-        "render": "Parallelogram ABCD (solid outline, AD and BC horizontal, AB and CD slanted), labels A, D above and B, C below"
+        "original": "parallelogram ABCD (top side AD and bottom side BC horizontal, slanted sides AB and CD)",
+        "render": "parallelogram ABCD (top side AD and bottom side BC horizontal, slanted sides AB and CD)"
       },
       "issues": [
         {
@@ -1001,57 +1107,77 @@
             "seg_04"
           ],
           "bbox": [
-            0.05,
-            0.24,
-            0.95,
-            0.76
+            0.06,
+            0.31,
+            0.93,
+            0.69
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "The rendered parallelogram is drawn at a smaller overall scale than the original (about 400 px wide by 200 px tall against about 440 by 220 px in the original). The width-to-height ratio (about 2:1) matches, so the shape and proportions are faithful.",
-          "suggestion": "Optional: enlarge the TikZ coordinates by about 1.1 (or set a larger xscale/yscale) to match the original's apparent size. No change to topology or bindings is needed."
+          "description": "The render is about 9% smaller than the original (roughly 400 px wide versus 438 px in the original panel, for the same vertex geometry). Aspect ratio and slant match, so the shape is correct and only the absolute size differs.",
+          "suggestion": "If the figure size must match the original, scale the coordinates or the tikzpicture (for example with scale=1.09) so the rendered extent matches the original."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Bottom side BC is horizontal and correctly drawn from B to C."
+          "note": "Bottom horizontal side BC at y≈355 is drawn and spans from B to C."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Top side AD is horizontal and correctly drawn from A to D."
+          "note": "Top horizontal side DA at y≈119 is drawn and spans from A to D."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Left side AB runs from A down-left to B, with both ends meeting the vertices."
+          "note": "Left slanted side AB is drawn and meets A and B."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Right side CD runs from D down-left to C, with both ends meeting the vertices."
+          "note": "Right slanted side CD is drawn and meets C and D."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Left slanted side AB joins A to B, with the same slope as the original."
+        },
+        {
+          "object_id": "seg_BC",
+          "status": "present",
+          "note": "Bottom side BC joins B to C with no overhang."
+        },
+        {
+          "object_id": "seg_CD",
+          "status": "present",
+          "note": "Right slanted side CD joins C to D with the same slope as the original."
+        },
+        {
+          "object_id": "seg_DA",
+          "status": "present",
+          "note": "Top side DA joins D to A with no overhang."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Vertex B is at the bottom-left corner, labelled B below-left as in the original."
+          "note": "Vertex B is drawn at the lower-left corner with its label B below-left, as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Vertex C is at the bottom-right corner, labelled C below-right as in the original."
+          "note": "Vertex C is drawn at the lower-right corner with its label C below-right, as in the original."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Vertex A is at the top-left corner, labelled A above-left as in the original."
+          "note": "Vertex A is drawn at the upper-left corner with its label A above-left, as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Vertex D is at the top-right corner, labelled D above-right as in the original."
+          "note": "Vertex D is drawn at the upper-right corner with its label D above-right, as in the original."
         }
       ],
       "checklist_score": 1.0,
@@ -1063,12 +1189,12 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Parallelogram topology: four sides AD, DC, CB, BA form a closed quadrilateral with AD parallel to BC.",
-        "All four sides meet exactly at their shared vertices, with no overhangs or stubs.",
-        "Vertex labels A, B, C, D are present, correctly spelled, and bound to the matching corners.",
-        "Label placement matches the original: A and D above, B and C below, with clear separation from the strokes.",
-        "Aspect ratio (about 2:1) and stroke weight are consistent with the original.",
-        "No extra marks, right-angle markers or auxiliary lines are present or needed."
+        "Four vertices A, B, C, D are present in the correct positions, forming a parallelogram.",
+        "Top and bottom sides are horizontal and parallel; the slanted sides AB and CD are parallel with matching slope.",
+        "All sides meet cleanly at the vertices with no overhangs or gaps.",
+        "Labels A, B, C, D are spelled correctly, bound to the correct vertices, and clear of the strokes.",
+        "Aspect ratio (about 2:1) and slant match the original.",
+        "Line weight is visually comparable to the original."
       ],
       "labels": {
         "present": [
@@ -1082,47 +1208,14 @@
       },
       "version": 1,
       "binding_decisions": [],
-      "topology_decisions": [
-        {
-          "case_id": "b26313be72d64551",
-          "edge": [
-            "B",
-            "C"
-          ],
-          "reason": "The original bottom side is a continuous solid stroke joining B and C."
-        },
-        {
-          "case_id": "5ff6b215ac1efa4e",
-          "edge": [
-            "A",
-            "D"
-          ],
-          "reason": "The original top side is a continuous solid stroke joining A and D."
-        },
-        {
-          "case_id": "a0977966fe5be8a1",
-          "edge": [
-            "A",
-            "B"
-          ],
-          "reason": "The original left side is a straight solid stroke from A down to B."
-        },
-        {
-          "case_id": "72065b6c97b526d8",
-          "edge": [
-            "C",
-            "D"
-          ],
-          "reason": "The original right side is a straight solid stroke from D down to C."
-        }
-      ],
+      "topology_decisions": [],
       "raw_meta": "{}"
     }
   ],
   "unresolved_issues": [
     {
       "source": "supervisor",
-      "issue": "Rendered figure is about 10% smaller than the original; optional coordinate scaling not applied."
+      "issue": "Overall size is about 9% smaller than the original panel (low severity, informational)."
     }
   ],
   "action_history": [
@@ -1151,47 +1244,67 @@
       "error": null
     },
     {
+      "step": 0,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "initial source evidence",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; count=0",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 0,
+      "action": "run_geometry_agent",
+      "purpose": "source construction",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 8, 'relations': 2, 'conflicts': 0, 'rejected': []}",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 1,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw trapezoid ABCD in TikZ. Use measured pixel points with y flipped (TikZ y = -py, scale ~0.01 or similar). A=(185.4,119), D=(658.2,119) on top; B=(91.6,355), C=(563.6,355) on bottom. Edges: solid s",
+      "purpose": "Draw trapezoid ABCD as closed polygon with solid edges. Pixel coordinates (origin top-left, y down; flip y for TikZ, use y_tikz = -y_px). Points: A=(185.39,119.0), D=(658.21,119.0), B=(91.6,355.0), C=",
       "params": {
         "mode": "generate",
-        "use_image": null,
-        "instruction": "Draw trapezoid ABCD in TikZ. Use measured pixel points with y flipped (TikZ y = -py, scale ~0.01 or similar). A=(185.4,119), D=(658.2,119) on top; B=(91.6,355), C=(563.6,355) on bottom. Edges: solid segments AD (top), BC (bottom), AB (left leg), DC (right leg). Labels A,B,C,D placed outside the corners: A upper-left, D upper-right, B lower-left, C lower-right. Use only the measured points; no extra marks."
+        "use_image": false,
+        "instruction": "Draw trapezoid ABCD as closed polygon with solid edges. Pixel coordinates (origin top-left, y down; flip y for TikZ, use y_tikz = -y_px). Points: A=(185.39,119.0), D=(658.21,119.0), B=(91.6,355.0), C=(563.6,355.0). Edges: AB, BC, CD, DA all solid. Labels: A placed above-left of A, D above-right of D, B below-left of B, C below-right of C. Use scale so the figure is around 6-7 cm wide. Use a standalone-compatible tikzpicture with no extra decorations."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 7.57,
+      "duration_s": 25.71,
       "token_usage": {
-        "delta": 5481
+        "delta": 15996
       },
       "visual_calls": 1,
       "error": null
     },
     {
       "step": 2,
-      "action": "run_critic",
-      "purpose": "Verify trapezoid topology, labels A/B/C/D placement, and that no extra marks are needed.",
-      "params": {
-        "focus": "Verify trapezoid topology, labels A/B/C/D placement, and that no extra marks are needed."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
-      "duration_s": 16.67,
-      "token_usage": {
-        "delta": 9202
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 3,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Reconstructed the figure as a TikZ trapezoid ABCD (version 1). It compiles, and the topology check passed with all four solid sides (AD, DC, CB, BA) present. The critic scored it 0.9 with all four labels correctly placed and no must-repair issues. The only note was a low-severity scale difference, which was left as is.",
+        "summary": "Generated TikZ for quadrilateral ABCD (parallelogram) with solid edges AB, BC, CD, DA and labels A, B, C, D bound to measured vertices. Version 1 compiled, passed topology check, and received critic score 0.9 with no must-repair issues. Only a low-severity note that the render is ~9% smaller than the original.",
         "unresolved": [
-          "Rendered figure is about 10% smaller than the original; optional coordinate scaling not applied."
+          "Overall size is about 9% smaller than the original panel (low severity, informational)."
         ],
         "status": "success"
       },
@@ -1227,6 +1340,17 @@
       "count": null,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "visualize": false
+      },
+      "purpose": "initial source evidence",
+      "ok": true,
+      "count": 0,
+      "visualization": null,
+      "error": null
     }
   ],
   "regions": {},
@@ -1234,44 +1358,50 @@
     "totals": {
       "calls": 5,
       "visual_calls": 2,
-      "prompt_tokens": 32419,
-      "completion_tokens": 4466,
-      "total_tokens": 36885,
-      "cached_tokens": 13544.0,
-      "cache_write_tokens": 17261.0,
-      "latency_s": 37.26
+      "prompt_tokens": 31156,
+      "completion_tokens": 6137,
+      "total_tokens": 37293,
+      "cached_tokens": 14135.0,
+      "cache_write_tokens": 6363.0,
+      "latency_s": 38.42
     },
     "by_agent": {
+      "geometry_agent": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 6690,
+        "latency_s": 5.86
+      },
       "supervisor": {
-        "calls": 3,
+        "calls": 2,
         "visual_calls": 0,
-        "total_tokens": 22202,
-        "latency_s": 15.96
+        "total_tokens": 14607,
+        "latency_s": 9.14
       },
       "code_agent:generate": {
         "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 5481,
-        "latency_s": 4.81
+        "visual_calls": 0,
+        "total_tokens": 6813,
+        "latency_s": 6.99
       },
       "critic_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 9202,
-        "latency_s": 16.48
+        "total_tokens": 9183,
+        "latency_s": 16.43
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 21,
-    "tool_calls_left": 44,
+    "steps_left": 22,
+    "tool_calls_left": 42,
     "visual_calls_left": 22,
-    "tokens_left": 363115,
+    "tokens_left": 362707,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 36885
+    "total_tokens_used": 37293
   },
   "meta": {
     "topology_plan": {
@@ -1294,40 +1424,91 @@
         ]
       ],
       "pending": [],
-      "adjudicated": [
+      "adjudicated": [],
+      "ink_confirmed_edges": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "D"
+        ],
+        [
+          "B",
+          "C"
+        ],
+        [
+          "C",
+          "D"
+        ]
+      ],
+      "required_styles": [
         {
-          "case_id": "b26313be72d64551",
-          "edge": [
-            "B",
-            "C"
-          ],
-          "reason": "The original bottom side is a continuous solid stroke joining B and C."
-        },
-        {
-          "case_id": "5ff6b215ac1efa4e",
-          "edge": [
-            "A",
-            "D"
-          ],
-          "reason": "The original top side is a continuous solid stroke joining A and D."
-        },
-        {
-          "case_id": "a0977966fe5be8a1",
           "edge": [
             "A",
             "B"
           ],
-          "reason": "The original left side is a straight solid stroke from A down to B."
+          "style": "solid"
         },
         {
-          "case_id": "72065b6c97b526d8",
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
           "edge": [
             "C",
             "D"
           ],
-          "reason": "The original right side is a straight solid stroke from D down to C."
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "D"
+          ],
+          "style": "solid"
         }
-      ]
+      ],
+      "required_marks": {}
+    },
+    "source_construction": {
+      "summary": "Plain parallelogram ABCD, all edges solid black, no dashed strokes, no right-angle marks, no feet, no curves. Edges: AB (left slanted), BC (bottom horizontal), CD (right slanted), DA (top horizontal). Vertices A(185.4,119), D(658.2,119), B(91.6,355), C(563.6,355). OCR bindings verified visually: each letter sits beside its own corner (A above-left of top-left corner, D above top-right, B below bottom-left, C below bottom-right).",
+      "strokes": [
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "D"
+          ],
+          "style": "solid"
+        }
+      ],
+      "marks": {},
+      "feet": []
     },
     "coordinate_contract": {
       "enabled": true,
@@ -1402,8 +1583,8 @@
       "reference_used": false,
       "algorithm": "post_tikz.body_candidates.3dp.v3",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "2f0dac97b398b26aacf6de61f38dcd6e2c71c734ec83d0ff255119f533fbfd46",
-      "output_sha256": "e33ef843364cca3429b36aa3796109d6b3342a274cd6227a4f222201043fdbdc",
+      "input_sha256": "6edb816192351cdae30f29dd53f5e7263b3ddac6b6e77653ed3c07f389e9192f",
+      "output_sha256": "f5e0b3234357276778d7bfc67bc1ba13c5b18388c99fdbd7c582786e7d20cf9b",
       "reason": "applied",
       "accepted": [
         {
@@ -1552,8 +1733,8 @@
         "reference_used": false,
         "algorithm": "post_tikz.body_candidates.3dp.v3",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "2f0dac97b398b26aacf6de61f38dcd6e2c71c734ec83d0ff255119f533fbfd46",
-        "output_sha256": "e33ef843364cca3429b36aa3796109d6b3342a274cd6227a4f222201043fdbdc",
+        "input_sha256": "6edb816192351cdae30f29dd53f5e7263b3ddac6b6e77653ed3c07f389e9192f",
+        "output_sha256": "f5e0b3234357276778d7bfc67bc1ba13c5b18388c99fdbd7c582786e7d20cf9b",
         "reason": "applied",
         "accepted": [
           {
@@ -1623,38 +1804,8 @@
         "segment_count": 4
       }
     },
-    "topology_decisions": {
-      "b26313be72d64551": {
-        "edge": [
-          "B",
-          "C"
-        ],
-        "reason": "The original bottom side is a continuous solid stroke joining B and C."
-      },
-      "5ff6b215ac1efa4e": {
-        "edge": [
-          "A",
-          "D"
-        ],
-        "reason": "The original top side is a continuous solid stroke joining A and D."
-      },
-      "a0977966fe5be8a1": {
-        "edge": [
-          "A",
-          "B"
-        ],
-        "reason": "The original left side is a straight solid stroke from A down to B."
-      },
-      "72065b6c97b526d8": {
-        "edge": [
-          "C",
-          "D"
-        ],
-        "reason": "The original right side is a straight solid stroke from D down to C."
-      }
-    },
     "finish": {
-      "summary": "Reconstructed the figure as a TikZ trapezoid ABCD (version 1). It compiles, and the topology check passed with all four solid sides (AD, DC, CB, BA) present. The critic scored it 0.9 with all four labels correctly placed and no must-repair issues. The only note was a low-severity scale difference, which was left as is.",
+      "summary": "Generated TikZ for quadrilateral ABCD (parallelogram) with solid edges AB, BC, CD, DA and labels A, B, C, D bound to measured vertices. Version 1 compiled, passed topology check, and received critic score 0.9 with no must-repair issues. Only a low-severity note that the render is ~9% smaller than the original.",
       "status": "success"
     },
     "stop_reason": "finish"

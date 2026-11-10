@@ -1,7 +1,0 @@
-# 论文摘要工作稿
-
-以下仅描述已经实现的方法；独立测试与完整基线实验完成后再添加效果主张。
-
-Recovering geometric diagrams as executable code requires preserving geometric relationships as well as visual appearance. We present GeoConstruct, a training-free system that orchestrates visual measurement, geometric evidence integration, TikZ generation, and deterministic post-generation repair. A persistent evidence state records measured primitives, visible labels, and candidate relations. After code generation, a bounded coordinate optimizer adjusts nearly satisfied relations under displacement, length-change, and curve-dependency constraints. Compilation and visual feedback support subsequent revisions. For evaluation, we extract a fixed catalogue of labelled angles and segment ratios from reference programs before inspecting predictions, then resolve the corresponding visible-label bindings in generated code. Missing labels and unsupported segments are reported through coverage instead of receiving zero error. On a frozen 100-program development batch, post-generation repair reduces paired angular and segment-ratio errors; visual changes are small and mixed. Independent evaluation and evidence-driven selective repair remain future work.
-
-将几何图形恢复为可执行代码，需要同时保留视觉外观与几何关系。GeoConstruct是一套免训练系统，组织视觉测量、几何证据整合、TikZ生成和确定性生成后修复。持久化证据状态记录图元、可见标签及候选关系；生成代码后，在点位移、边长变化和曲线依赖保护下调整近似满足的关系，并通过编译和视觉反馈支持后续修改。评测先从参考源码独立提取带标签的角度和线段比例，再在预测代码中解析同名标签的显式绑定；缺标签和缺线段通过覆盖率报告。在100份冻结程序的开发批次上，后修复降低了共同可测项的角度与比例误差，视觉变化较小且并非全部改善。独立测试与证据驱动的选择性修复仍待验证。

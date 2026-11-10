@@ -1,94 +1,167 @@
 {
-  "assessment_score": 0.95,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The v3 render matches the original: the circle is solid, the dashed radii OB and OD are correct, the right-angle mark at C is present, and no U or F labels appear in either panel.",
+  "verdict": "The render is faithful in figure type, segment topology, dashed styles, circle position, and right-angle marker. Only a minor label-placement difference at D remains.",
   "figure_type": {
-    "original": "Full solid circle centred at O, passing through B and D. Solid chords/segments A-B, A-E, E-D and D-C form a right-angled configuration at C, with dashed radii O-B and O-D.",
-    "render": "Full solid circle centred at O, passing through B and D. Solid segments A-B, A-E, E-D and C-D, with dashed radii O-B and O-D and a right-angle mark at C."
+    "original": "Circle centred at O with tangent-like line from A through B to the circle, a right triangle-like outline A-C-E with D above C, dashed radius segments B-O and O-D, and a right-angle mark at C",
+    "render": "Same: circle centred at O, line A-B ending on the circle at B, dashed B-O and O-D, solid D-C, D-E, A-E baseline, and right-angle mark at C"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_05"
+      ],
+      "bbox": [
+        0.73,
+        0.44,
+        0.8,
+        0.52
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Label D sits below-left of vertex D in the render. In the original it sits above-left of D, just beside the circle and the dashed O-D line. The render placement is still clearly associated with D and does not touch any stroke.",
+      "suggestion": "Optionally move the D node to 'above left' (with inner sep kept) to match the original placement, keeping it bound to the D coordinate."
+    }
+  ],
   "checks": [
     {
-      "object_id": "circle_01",
+      "object_id": "circle_O",
       "status": "present",
-      "note": "Solid full-weight circle through B and D in both panels; the earlier dashed-circle problem is resolved."
+      "note": "Circle centred at O with matching radius and position."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base A-E is solid and horizontal, matching the original."
+      "note": "Horizontal baseline A to E through C is drawn."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "A-B is solid and ends on the circle at B, matching the original."
+      "note": "Solid line A to B ending on the circle at B."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "E-D is solid and ends at D on the circle, matching the original."
+      "note": "Solid segment E to D is drawn."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid vertical C-D from the base up to D, matching the original."
+      "note": "Solid vertical C to D is drawn."
     },
     {
       "object_id": "seg_05",
-      "status": "present",
-      "note": "Dashed radius O-D is drawn correctly from O to D in the render."
+      "status": "unclear",
+      "note": "CV detected a dashed chain at about 113 degrees that does not match any drawn dashed segment in the original; likely a detection artefact of the O-D dashed line."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed radius O-B is drawn correctly from O to B in the render."
+      "note": "Dashed B-O radius is drawn in the render and matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Right-angle mark at C is present, matching the original's small square."
+      "note": "Short vertical stub corresponds to the right-angle mark side at C."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Solid A-B line is correct."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "Baseline A-E is drawn through C."
+    },
+    {
+      "object_id": "seg_BO",
+      "status": "present",
+      "note": "Dashed B-O is drawn."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Solid D-C is drawn."
+    },
+    {
+      "object_id": "seg_DE",
+      "status": "present",
+      "note": "Solid D-E is drawn."
+    },
+    {
+      "object_id": "seg_OD",
+      "status": "present",
+      "note": "Dashed O-D is drawn."
+    },
+    {
+      "object_id": "ra_C",
+      "status": "present",
+      "note": "Right-angle mark at C is drawn."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Right-angle mark at C is drawn in the same quadrant as the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "A is labelled at the left base vertex, matching the original."
+      "note": "Label A is present at the left endpoint."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "E is labelled at the right base vertex, matching the original."
+      "note": "Label E is present at the right endpoint."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "C is labelled below the foot of the vertical, matching the original."
+      "note": "Label C is present below the foot of the perpendicular."
     },
     {
       "object_id": "point_04",
       "status": "unclear",
-      "note": "The point at (520,321) sits next to C, but no printed U appears in the original, and none is rendered. Not decidable as a labelled vertex from the original."
+      "note": "No U label is visible in the original. Not visible in the original, so cannot be treated as a missing element."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label D is present at the endpoint of the vertical segment, with placement differing slightly (see issue)."
+    },
+    {
+      "object_id": "point_07",
+      "status": "present",
+      "note": "Label O is present to the right of the centre."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "B is labelled at the circle intersection on the left, matching the original."
+      "note": "Label B is present at the circle intersection."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Same point as A, label present."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle is solid and full-weight, centred at O, passing through B and D.",
-    "Dashed radii O-B and O-D are in the correct places.",
-    "Solid segments A-B, A-E, E-D and C-D meet at the same vertices as in the original.",
-    "Right-angle mark is present at C.",
-    "Labels A, B, C, D, E and O are present and placed as in the original; D sits upper-left of its vertex with clear separation from the circle stroke.",
-    "No U or F labels are rendered, consistent with the original."
+    "Circle centred at O with radius matching the original",
+    "Line A-B ends on the circle at B",
+    "Dashed B-O and dashed O-D match the original",
+    "Solid D-C and D-E match the original",
+    "Right-angle mark at C in the correct quadrant",
+    "Labels A, B, C, E, O present and correctly placed"
   ],
   "labels": {
     "present": [
@@ -102,7 +175,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 3,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

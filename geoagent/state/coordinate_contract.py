@@ -14,26 +14,27 @@ from .tikz_geometry import clean
 from .coordinate_precision import number, quantize_tex
 from .schemas import Relation
 
+MEASURED_POINT_SOURCES = {'cv:bind_point_labels', 'cv:construction_intersection'}
 
 def binding_review_points(state):
     """Existing CV vertices and current assignments available for visual review."""
     return {
         key: {"px": obj.coords["px"], "label": obj.label}
         for key, obj in state.objects.items()
-        if obj.type == "point" and obj.source == "cv:bind_point_labels"
+        if obj.type == "point" and obj.source in MEASURED_POINT_SOURCES
         and obj.status not in ("rejected", "conflict")
         and isinstance(obj.coords.get("px"), (list, tuple)) and len(obj.coords["px"]) == 2
     }
 
 
-def _set_reviewed_binding(state, label, point_id, reason):
+def _set_reviewed_binding(state, label, point_id, reason, source='critic_agent'):
     old = state.objects.get(state.label_bindings.get(label))
     if old is not None and old.label == label:
         old.label = None
     state.objects[point_id].label = label
     state.label_bindings[label] = point_id
     state.add_relation(Relation(id=f"rel_label_{label}", subject=f"label_{label}",
-                                relation="labels_point", object=point_id, source="critic_agent",
+                                relation="labels_point", object=point_id, source=source,
                                 evidence=reason, status="confirmed"))
 
 
@@ -52,10 +53,10 @@ def restore_reviewed_bindings(state):
                 and all(name in (label, review.get("replaces")) or owner != point_id
                         for name, owner in state.label_bindings.items())):
             _remove_replaced_label(state, point_id, review.get("replaces"))
-            _set_reviewed_binding(state, label, point_id, review["reason"])
+            _set_reviewed_binding(state, label, point_id, review["reason"], review.get('source','critic_agent'))
 
 
-def apply_reviewed_bindings(state, proposals):
+def apply_reviewed_bindings(state, proposals, *, source='critic_agent'):
     """Rebind verified glyphs to measured points without altering coordinates."""
     if not isinstance(proposals, list):
         return {}
@@ -77,14 +78,16 @@ def apply_reviewed_bindings(state, proposals):
                 or state.objects[point_id].label not in (None, label, owner)):
             continue
         _remove_replaced_label(state, point_id, owner)
-        _set_reviewed_binding(state, label, point_id, reason.strip()[:300])
+        _set_reviewed_binding(state, label, point_id, reason.strip()[:300], source)
         accepted[label] = {"point_id": point_id, "px": list(measured[point_id]["px"]),
                            "previous_point_id": old, "reason": reason.strip()[:300]}
+        if source != 'critic_agent':
+            accepted[label]['source'] = source
         if owner is not None:
             accepted[label]["replaces"] = owner
     if accepted:
         state.meta.setdefault("reviewed_bindings", {}).update(accepted)
-        state.add_evidence(source="critic_agent", method="measured_label_rebinding",
+        state.add_evidence(source=source, method="measured_label_rebinding",
                            summary=f"Corrected {len(accepted)} source label bindings", payload=accepted)
     return accepted
 
@@ -109,7 +112,7 @@ def build_coordinate_contract(state, metrics=None):
         verified = bool(obj and review.get("point_id") == point_id and review.get("px") == obj.coords.get("px"))
         labels = [o for o in state.objects.values() if o.type == 'label' and o.label == label
                   and o.status != 'rejected']
-        if (obj is None or obj.type != 'point' or obj.label != label or obj.source != 'cv:bind_point_labels'
+        if (obj is None or obj.type != 'point' or obj.label != label or obj.source not in MEASURED_POINT_SOURCES
                 or obj.status in ('rejected', 'conflict')
                 or (not verified and any(o.attributes.get('ambiguous') for o in labels))):
             skipped[label] = 'missing_or_ambiguous_cv_binding'
@@ -133,6 +136,17 @@ def build_coordinate_contract(state, metrics=None):
     for point in points.values():
         x, y = point['px']
         point['tikz'] = [float(number((x-origin[0])*scale)), float(number((origin[1]-y)*scale))]
+    for p, foot, a, b in state.meta.get('source_construction', {}).get('feet', []):
+        if not all(name in points for name in (p,foot,a,b)):
+            continue
+        origin_xy, end, source_xy = (np.asarray(points[name]['tikz']) for name in (a,b,p))
+        direction = end-origin_xy
+        length_sq = float(direction@direction)
+        if length_sq > 0:
+            projected = origin_xy + direction*float((source_xy-origin_xy)@direction)/length_sq
+            if np.linalg.norm(projected-points[foot]['tikz']) <= 6*scale:
+                points[foot]['tikz'] = [float(number(v)) for v in projected]
+                points[foot]['projection'] = [p,a,b]
     return {'schema': 'cv-coordinate-contract.v1', 'scale': scale, 'origin_px': origin,
             'points': points, 'skipped': skipped, 'reference_used': False, 'coordinate_decimals': 3}
 
