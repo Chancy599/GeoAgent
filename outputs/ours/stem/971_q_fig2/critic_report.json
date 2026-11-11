@@ -1,150 +1,153 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful to the original: the diameter, circle, chords, dashed and solid styles, endpoints and point labels all match, with only a minor label-clearance question at P.",
+  "verdict": "The render closely matches the original: the circle, diameter AB through O and P, segments CP, CO, OD, DC', C'P and C'O, and all seven labels are present and correctly placed. The only visible difference is that the dashed strokes are heavier than in the original.",
   "figure_type": {
-    "original": "Circle with centre O, horizontal diameter AB, points C and C' on the circle, D on the arc, P on AB, with solid and dashed auxiliary segments",
-    "render": "Circle with centre O, horizontal diameter AB, points C and C' on the circle, D on the arc, P on AB, with solid and dashed auxiliary segments"
+    "original": "Circle with horizontal diameter AB (center O, P on AB between O and B), chords/segments C-P, C-O, O-D, D-C', C'-P, and C'-O (thin solid), with C on the upper arc and D on the upper-right arc.",
+    "render": "Circle with horizontal diameter AB, same vertex layout and segment set, with dashed C-O, O-D, D-C' and C'-P, solid C-P, and thin solid C'-O."
   },
   "issues": [
     {
-      "type": "label_error",
+      "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "point_02"
+        "seg_CO",
+        "seg_OD",
+        "seg_DCp",
+        "seg_CpP"
       ],
       "bbox": [
-        0.6,
-        0.48,
-        0.68,
-        0.6
+        0.22,
+        0.2,
+        0.85,
+        0.9
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The 'P' label sits just below P, and the dashed P–C' segment passes very close to its left glyph edge. The original has a similar near-contact, so this is at most a small clearance difference.",
-      "suggestion": "Optionally nudge the P label slightly right (for example, 'below right' at P) to add clearance from the dashed P–C' stroke, keeping it bound to P."
+      "description": "The dashed strokes (C-O, O-D, D-C', C'-P) are drawn heavier than in the original, where the dashes are noticeably finer. The solid strokes are about right.",
+      "suggestion": "Reduce the dashed segments' line width (e.g. set line width to about 1.0pt on the four dash-pattern draws) and keep the solid strokes unchanged."
     }
   ],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at O with the matching radius is drawn in both panels."
+      "note": "Circle centred at O through A and B is present and matches the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid diameter A–O–P–B is drawn correctly."
+      "note": "Solid diameter A-O-P-B matches the original's horizontal line."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Dashed D–C' chord matches the original."
+      "note": "Dashed D-C' chord matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid C–P segment matches the original."
+      "note": "Solid C-P segment ends at P as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid O–C' segment matches the original."
+      "note": "Thin solid C'-O segment matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "unclear",
-      "note": "Short CV fragment near P, likely the start of the dashed P–C' stroke; no separate segment is visible."
+      "note": "Short stub near P/junction. It is not a clear standalone element in the TikZ source; it appears to be part of the C-P or dashed tail region."
     },
     {
       "object_id": "seg_06",
       "status": "unclear",
-      "note": "Short CV fragment near the C–P junction with no clear counterpart; likely label or stroke noise."
+      "note": "Short fragment near the C-O/O-D junction, likely a dash or label-contact artifact; no distinct element in the source."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Diameter AB is drawn in both panels."
+      "note": "Diameter AB drawn through O and P matches the original."
     },
     {
       "object_id": "seg_CO",
       "status": "present",
-      "note": "Dashed C–O segment is present in both panels."
+      "note": "Dashed C-O present and ends at C and O."
     },
     {
       "object_id": "seg_CP",
       "status": "present",
-      "note": "Solid C–P segment is present in both panels."
+      "note": "Solid C-P present and ends at P."
     },
     {
       "object_id": "seg_CpO",
       "status": "present",
-      "note": "Solid O–C' segment is present in both panels."
+      "note": "Thin solid C'-O present."
+    },
+    {
+      "object_id": "seg_CpP",
+      "status": "present",
+      "note": "Dashed C'-P present and ends at P."
     },
     {
       "object_id": "seg_DCp",
       "status": "present",
-      "note": "Dashed D–C' segment is present in both panels."
+      "note": "Dashed D-C' present."
     },
     {
       "object_id": "seg_OD",
       "status": "present",
-      "note": "Dashed O–D segment is present in both panels."
-    },
-    {
-      "object_id": "seg_PCp",
-      "status": "present",
-      "note": "Dashed P–C' segment is present in both panels."
+      "note": "Dashed O-D present."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "P is labelled at the correct point on AB."
+      "note": "P labelled and bound correctly."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "O is labelled at the centre."
+      "note": "O labelled and bound correctly."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "C' is labelled at the bottom of the circle."
+      "note": "C' labelled and bound correctly."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "B is labelled at the right end of the diameter."
+      "note": "B labelled and bound correctly."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "A is labelled at the left end of the diameter."
+      "note": "A labelled and bound correctly."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "D is labelled on the arc."
+      "note": "D labelled and bound correctly."
     },
     {
       "object_id": "point_09",
       "status": "present",
-      "note": "C is labelled at the top of the circle."
+      "note": "C labelled and bound correctly."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "A is at the left end of the diameter."
+      "note": "A is at the left end of the diameter, as in the original."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "B is at the right end of the diameter."
+      "note": "B is at the right end of the diameter, as in the original."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "C is at the top of the circle."
+      "note": "C is at the top of the circle, as in the original."
     }
   ],
   "checklist_score": 1.0,
@@ -156,25 +159,28 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle, centre O and diameter AB match the original.",
-    "Solid C–P, O–C' and the AB diameter match the original.",
-    "Dashed C–O, O–D, P–C' and D–C' match the original.",
-    "Labels A, B, C, C', D, O and P are present and bound to the correct points."
+    "Circle size and position match the original.",
+    "Diameter AB is a single straight line through O and P, with the shallow B-P-O bend absent as in the original.",
+    "Solid C-P ends at P on AB.",
+    "Dashed C-O and O-D begin at the right vertices.",
+    "Dashed D-C' and C'-P meet at C' on the lower arc as in the original.",
+    "Thin solid C'-O is present and of the correct weight relative to the solid strokes.",
+    "All seven labels (A, B, C, D, O, P, C') are present, correctly spelled, and clear of strokes."
   ],
   "labels": {
     "present": [
       "A",
       "B",
       "C",
-      "C'",
       "D",
       "O",
-      "P"
+      "P",
+      "C'"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 3,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

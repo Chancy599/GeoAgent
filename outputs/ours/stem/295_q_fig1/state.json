@@ -915,7 +915,7 @@
       "normalized": {},
       "style": {},
       "source": "geometry_agent",
-      "status": "candidate",
+      "status": "confirmed",
       "confidence_kind": "heuristic-evidence (not a calibrated probability)",
       "confidence": null,
       "notes": [],
@@ -970,29 +970,29 @@
     },
     "rel_006": {
       "id": "rel_006",
-      "subject": "seg_EB",
-      "relation": "perpendicular",
-      "object": "seg_PD",
-      "source": "geometry_agent",
-      "evidence": "right-angle square at E, cv:detect_right_angle_marker",
-      "status": "candidate"
-    },
-    "rel_007": {
-      "id": "rel_007",
       "subject": "point_03",
       "relation": "on_segment",
       "object": "seg_PD",
       "source": "geometry_agent",
-      "evidence": "E lies on the horizontal top line between P and D",
+      "evidence": "E lies on the top horizontal line between P and D (y=65)",
+      "status": "candidate"
+    },
+    "rel_007": {
+      "id": "rel_007",
+      "subject": "seg_EB",
+      "relation": "perpendicular",
+      "object": "seg_PD",
+      "source": "geometry_agent",
+      "evidence": "vertical E-B meets horizontal P-D at E; right-angle square verified at E",
       "status": "candidate"
     },
     "rel_008": {
       "id": "rel_008",
       "subject": "point_04",
       "relation": "endpoint_of",
-      "object": "seg_EB",
+      "object": "seg_PB",
       "source": "geometry_agent",
-      "evidence": "vertical line from E ends at B",
+      "evidence": "slanted P-B line ends at B",
       "status": "candidate"
     }
   },
@@ -1008,7 +1008,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:01:23"
+      "created_at": "2026-11-11T12:55:51"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -1021,7 +1021,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:01:31"
+      "created_at": "2026-11-11T12:55:52"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -1034,13 +1034,13 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:01:37"
+      "created_at": "2026-11-11T12:55:52"
     },
     "ev_0004": {
       "id": "ev_0004",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Trapezoid-like figure. Top line P-E-D is one horizontal solid line (P at px 47,65; E at 224,65 on it; D at 518.66,65). E is an interior foot on PD: the vertical segment E-B (x=224, y 65 to 242) is perpendicular to PD at E. Solid segments: P-B (diagonal from P down to B at 224,242), B-C (bottom horizontal, y=242, from B to C at 404,242), C-D (slanted from C up to D). Right-angle square at E sits in the quadrant between ray E->D (rightward) and ray E->B (downward). No dashed strokes. Curve extent: none. Junctions: E (on PD, foot of B), B (corner of P-B, E-B, B-C), C (corner of B-C and C-D), D and P are endpoints. Unlabelled points point_06, point_07, point_08, point_09, point_10, point_11 are not printed letters and are not used.",
+      "summary": "Trapezoid-like figure: horizontal line P-E-D at y=65; vertical E-B; slanted P-B; horizontal B-C at y=242; slanted C-D. Right-angle square at E between rays E->D and E->B (lower-right quadrant). E is the visible foot of the perpendicular from B to line PD. All strokes are solid; no dashed segments detected. Existing OCR bindings P,E,D,B,C are correct; unlabeled points point_06..point_11 are not printed vertices.",
       "payload": {
         "merged": {
           "objects": 11,
@@ -1062,13 +1062,13 @@
           "ra_01"
         ]
       },
-      "created_at": "2026-11-09T23:01:50"
+      "created_at": "2026-11-11T12:56:06"
     },
     "ev_0005": {
       "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [569, 309] (scale 0.7561)",
+      "summary": "v1 canvas matched to source [569, 309] (scale 0.7282)",
       "payload": {
         "ok": true,
         "size": [
@@ -1079,13 +1079,13 @@
           569,
           309
         ],
-        "scale": 0.7561,
+        "scale": 0.7282,
         "offset": [
           32,
-          37
+          41
         ]
       },
-      "created_at": "2026-11-09T23:02:06"
+      "created_at": "2026-11-11T12:56:37"
     },
     "ev_0006": {
       "id": "ev_0006",
@@ -1100,23 +1100,12 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "bd63d8159fa5175e50c0f160d637e96e08e20b596a2b01343a9f8bba7208d8ab",
-        "output_sha256": "ca8e250b9329ded0e07d0831ccec1dcbb011c13ff872e0afe5aed27675183a0e",
+        "input_sha256": "432b5523cb4a4375bf4f85c05d72160b00a04bfbc044e0b17aca596c1692f442",
+        "output_sha256": "0706004d995f5753f28df15e3339cf3904f768d80fd0ee267c6ad330d55661ee",
         "reason": "applied",
         "accepted": [
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--E",
-              "D--P"
-            ],
-            "before_error_deg": 0.05980768131854575,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 6.679101716144942e-13,
-            "export_tolerance_deg": 0.03874030203774535
-          },
           {
             "type": "parallel",
             "segments": [
@@ -1125,8 +1114,19 @@
             ],
             "before_error_deg": 0.07819275870712017,
             "after_error_deg": 0.0,
-            "solver_after_error_deg": 2.9570861059571766e-13,
-            "export_tolerance_deg": 0.038196790698092536
+            "solver_after_error_deg": 3.517429962154637e-13,
+            "export_tolerance_deg": 0.03819269334652299
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--E",
+              "D--P"
+            ],
+            "before_error_deg": 0.07974355256466481,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 1.4210854715202004e-13,
+            "export_tolerance_deg": 0.03873996771883741
           },
           {
             "type": "perpendicular",
@@ -1134,17 +1134,17 @@
               "B--C",
               "B--E"
             ],
-            "before_error_deg": 0.13800044002567802,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 3.836930773104541e-13,
-            "export_tolerance_deg": 0.05580548151052846
+            "before_error_deg": 0.15793631127178287,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 4.973799150320701e-13,
+            "export_tolerance_deg": 0.05580101986912207
           }
         ],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -1155,35 +1155,37 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 3,
         "preserved_incidence_count": 1,
         "max_shift_rel": 0.0003452989345619257,
-        "max_length_change_rel": 0.0006954095344970934,
+        "max_length_change_rel": 0.0006949250139443031,
         "fixed_points": [],
         "length_weight": 0.01,
         "length_scope": "all_pairs",
         "incidence_mode": "snap",
         "topology_tol_rel": 0.003,
         "incidence_strength": 1.0,
-        "rms_shift_rel": 0.00019260529456964644,
-        "max_after_error_deg": 0.019922036579998803,
+        "rms_shift_rel": 0.0002184564037159384,
+        "max_after_error_deg": 0.0,
         "curve_policy": "defer",
         "candidate_count": 3,
-        "solver_max_shift_rel": 0.0003047249135549436,
+        "solver_max_shift_rel": 0.0003466323741325759,
         "coordinate_decimals": 3,
         "export_verified": true,
-        "max_export_error_deg": 0.019922036579998803,
+        "max_export_error_deg": 0.0,
         "point_count": 5,
         "segment_count": 5
       },
-      "created_at": "2026-11-09T23:02:06"
+      "created_at": "2026-11-11T12:56:37"
     },
     "ev_0007": {
       "id": "ev_0007",
@@ -1191,14 +1193,14 @@
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used the program-owned B, C, D, P coordinates unchanged. Defined E=(-0.983,1.455) in the same frame (px 224,65 with s=0.01626, centred at 284.5,154.5). Right-angle pic on D--E--B with radius 21.85 px * 0.01626 = 0.355 cm. Line width 1.3pt with round joins, labels at 13pt/15.6pt per style metrics. Top line drawn as one P--D segment; E--B vertical; P--B--C--D polyline, all solid.",
+        "notes": "Resubmitted without the scope to satisfy the CV coordinate contract. Program-owned B, C, D, P are not redefined. E is a measured helper in the same frame: x=(224-284.5)*0.01626, y=(154.5-65)*0.01626. Right angle is a pic on D--E--B, radius 0.355 cm (21.85 px * 0.01626). Labels use the STYLE METRICS font on each node. Line width 1.3pt with round joins. All edges solid. Unlabeled CV fragments omitted.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1228,32 +1230,32 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0364"
+              "detail": "ink_ratio=0.0351"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.84 vs render 2.15 (delta 0.17)"
+              "detail": "reference 1.84 vs render 2.23 (delta 0.21)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 2.21"
+              "detail": "figure bbox ratio 2.29"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T23:02:06"
+      "created_at": "2026-11-11T12:56:37"
     },
     "ev_0008": {
       "id": "ev_0008",
@@ -1266,23 +1268,23 @@
             "B",
             "E"
           ],
-          "reason": "The original shows a single vertical stroke from E straight down to B, so the edge B-E is joined."
+          "reason": "The original shows one vertical stroke joining B to E, ending exactly at E on PD and at B."
         },
         "a93924150be9dfe8": {
           "edge": [
             "D",
             "E"
           ],
-          "reason": "The original top line runs continuously from E to D as part of PD, so the edge D-E is joined."
+          "reason": "In the original, PD is a continuous horizontal stroke from P through E to D, so the D-E arm is part of that continuous stroke."
         }
       },
-      "created_at": "2026-11-09T23:02:19"
+      "created_at": "2026-11-11T12:56:58"
     },
     "ev_0009": {
       "id": "ev_0009",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v2 canvas matched to source [569, 309] (scale 0.7561)",
+      "summary": "v2 canvas matched to source [569, 309] (scale 0.7166)",
       "payload": {
         "ok": true,
         "size": [
@@ -1293,13 +1295,13 @@
           569,
           309
         ],
-        "scale": 0.7561,
+        "scale": 0.7166,
         "offset": [
           32,
-          37
+          39
         ]
       },
-      "created_at": "2026-11-09T23:02:39"
+      "created_at": "2026-11-11T12:57:18"
     },
     "ev_0010": {
       "id": "ev_0010",
@@ -1314,10 +1316,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "7abd669eba80af3e53ec061e3b7115854c3b4b2cb26fa8e8fe2d9ef53ce9e9cd",
-        "output_sha256": "54c3845496d610f08c509250cf9508c0c2c433177ddf00cd9d76829373d6cc2e",
+        "input_sha256": "4c269ebaf56f99d297911ce2397a610513ddd988d0b62a68e6747cf30f3e20db",
+        "output_sha256": "3d81a9fc1d991a01f140ea00a3179b5d2715bd19e9e486e1dd6a3186a05f648c",
         "reason": "applied",
         "accepted": [
           {
@@ -1326,10 +1328,10 @@
               "B--E",
               "D--E"
             ],
-            "before_error_deg": 0.05980768131854575,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.045096030369976225
+            "before_error_deg": 0.03987179559096887,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 1.1510792319313623e-12,
+            "export_tolerance_deg": 0.04509834674692939
           },
           {
             "type": "perpendicular",
@@ -1337,234 +1339,10 @@
               "B--E",
               "E--P"
             ],
-            "before_error_deg": 0.05980768131854575,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.056304803639398424
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "B--C",
-              "D--E"
-            ],
-            "before_error_deg": 0.07819275870712017,
+            "before_error_deg": 0.03987179559096887,
             "after_error_deg": 0.0,
-            "solver_after_error_deg": 5.196591988878876e-15,
-            "export_tolerance_deg": 0.04455251903032066
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "B--C",
-              "E--P"
-            ],
-            "before_error_deg": 0.07819275870712017,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 8.299051507479512e-16,
-            "export_tolerance_deg": 0.05576129229974286
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "B--E"
-            ],
-            "before_error_deg": 0.13800044002567802,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05580548151053191
-          }
-        ],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.003,
-          "incidence_mode": "snap",
-          "length_weight": 0.01,
-          "length_scope": "all_pairs",
-          "curve_policy": "defer",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel",
-            "perpendicular"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 5,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0003452989345619257,
-        "max_length_change_rel": 0.0006954095344970934,
-        "fixed_points": [],
-        "length_weight": 0.01,
-        "length_scope": "all_pairs",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.003,
-        "incidence_strength": 1.0,
-        "rms_shift_rel": 0.000192605294562702,
-        "max_after_error_deg": 0.019922036579998803,
-        "curve_policy": "defer",
-        "candidate_count": 5,
-        "solver_max_shift_rel": 0.00030472491351788393,
-        "coordinate_decimals": 3,
-        "export_verified": true,
-        "max_export_error_deg": 0.019922036579998803,
-        "point_count": 5,
-        "segment_count": 6
-      },
-      "created_at": "2026-11-09T23:02:39"
-    },
-    "ev_0011": {
-      "id": "ev_0011",
-      "source": "code_agent",
-      "method": "tikz repair",
-      "summary": "v2 compiled=True validation=True",
-      "payload": {
-        "notes": "Repair for missing D-E topology edge: replaced single \\draw (P) -- (D) with explicit named path \\draw (P) -- (E) -- (D). Kept E--B, P--B--C--D, the right-angle pic at E (D--E--B), label bindings, font (13pt/15.6pt), and line width 1.3pt with round joins. E coordinate kept at (-0.983,1.455), which matches the source frame for px (224,65). Per the program-owned block, B, C, D, P are not redefined here; the program inserts them. Note: the previous revision redefined these four points with slightly different literals (e.g. B at -0.982,-1.421); those were dropped in favour of the program-owned coordinates. Critic label-weight suggestion (bold math) was not applied since it is cosmetic and the font is calibrated by STYLE METRICS.",
-        "compile": {
-          "compile_ok": true,
-          "validation_passed": true,
-          "errors": [],
-          "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.pdf",
-          "checks": [
-            {
-              "name": "documentclass",
-              "passed": true,
-              "detail": "documentclass present"
-            },
-            {
-              "name": "document_environment",
-              "passed": true,
-              "detail": "begin=1 end=1"
-            },
-            {
-              "name": "tikzpicture",
-              "passed": true,
-              "detail": "one balanced tikzpicture"
-            },
-            {
-              "name": "no_shell_escape",
-              "passed": true,
-              "detail": "no \\write18/\\openout primitives"
-            },
-            {
-              "name": "compiler_ok",
-              "passed": true,
-              "detail": "returncode=0"
-            },
-            {
-              "name": "pdf_created",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.pdf"
-            },
-            {
-              "name": "png_rendered",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.png"
-            },
-            {
-              "name": "render_not_blank",
-              "passed": true,
-              "detail": "ink_ratio=0.0364"
-            },
-            {
-              "name": "aspect_ratio",
-              "passed": true,
-              "detail": "reference 1.84 vs render 2.15 (delta 0.17)"
-            },
-            {
-              "name": "figure_extent_ratio",
-              "passed": true,
-              "detail": "figure bbox ratio 2.21"
-            }
-          ]
-        }
-      },
-      "created_at": "2026-11-09T23:02:39"
-    },
-    "ev_0012": {
-      "id": "ev_0012",
-      "source": "renderer",
-      "method": "frame_like_original",
-      "summary": "v3 canvas matched to source [569, 309] (scale 0.7561)",
-      "payload": {
-        "ok": true,
-        "size": [
-          569,
-          309
-        ],
-        "reference_size": [
-          569,
-          309
-        ],
-        "scale": 0.7561,
-        "offset": [
-          32,
-          37
-        ]
-      },
-      "created_at": "2026-11-09T23:03:11"
-    },
-    "ev_0013": {
-      "id": "ev_0013",
-      "source": "tikz_constraint_repair",
-      "method": "post-generation joint coordinate projection",
-      "summary": "v3: applied",
-      "payload": {
-        "ok": true,
-        "enabled": true,
-        "applied": true,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "3894764f9f5650a8fa25db8d170a814f632fc7f1d2529232a00d4a11ed4b0c2a",
-        "output_sha256": "6cc08c60f1db3495a280ee9e87338ea1184e32df22f84950c8f92df76ed5a696",
-        "reason": "applied",
-        "accepted": [
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--E",
-              "D--E"
-            ],
-            "before_error_deg": 0.019935900209063107,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.045100663239441965
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--E",
-              "E--P"
-            ],
-            "before_error_deg": 0.019935900209063107,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.0562944212817883
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "B--C",
-              "E--P"
-            ],
-            "before_error_deg": 0.07819275870712017,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 3.2016476685676214e-15,
-            "export_tolerance_deg": 0.05575844059920264
+            "solver_after_error_deg": 7.958078640513122e-13,
+            "export_tolerance_deg": 0.05629961137981737
           },
           {
             "type": "parallel",
@@ -1574,8 +1352,19 @@
             ],
             "before_error_deg": 0.07819275870712018,
             "after_error_deg": 0.0,
-            "solver_after_error_deg": 3.133684048346613e-16,
-            "export_tolerance_deg": 0.04456468255685631
+            "solver_after_error_deg": 1.2614957465423125e-11,
+            "export_tolerance_deg": 0.04455859996547487
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--C",
+              "E--P"
+            ],
+            "before_error_deg": 0.07819275870712018,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 1.457127101171212e-11,
+            "export_tolerance_deg": 0.05575986459836285
           },
           {
             "type": "perpendicular",
@@ -1583,17 +1372,17 @@
               "B--C",
               "B--E"
             ],
-            "before_error_deg": 0.09812865891618117,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.055814407262186644
+            "before_error_deg": 0.11806455429810114,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 1.3784529073745944e-11,
+            "export_tolerance_deg": 0.0558099439747954
           }
         ],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -1604,50 +1393,52 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 5,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.0002729827767112802,
-        "max_length_change_rel": 0.0006958941398573781,
+        "max_length_change_rel": 0.0006956519212806267,
         "fixed_points": [],
         "length_weight": 0.01,
         "length_scope": "all_pairs",
         "incidence_mode": "snap",
         "topology_tol_rel": 0.003,
         "incidence_strength": 1.0,
-        "rms_shift_rel": 0.0001543709010926718,
-        "max_after_error_deg": 0.019922036579998803,
+        "rms_shift_rel": 0.0001706825630442232,
+        "max_after_error_deg": 0.0,
         "curve_policy": "defer",
         "candidate_count": 5,
-        "solver_max_shift_rel": 0.0002374274288025158,
+        "solver_max_shift_rel": 0.00026757553595560215,
         "coordinate_decimals": 3,
         "export_verified": true,
-        "max_export_error_deg": 0.019922036579998803,
+        "max_export_error_deg": 0.0,
         "point_count": 5,
         "segment_count": 6
       },
-      "created_at": "2026-11-09T23:03:11"
+      "created_at": "2026-11-11T12:57:18"
     },
-    "ev_0014": {
-      "id": "ev_0014",
+    "ev_0011": {
+      "id": "ev_0011",
       "source": "code_agent",
       "method": "tikz repair",
-      "summary": "v3 compiled=True validation=True",
+      "summary": "v2 compiled=True validation=True",
       "payload": {
-        "notes": "Cosmetic repair: line width raised from 1.3pt to 1.6pt; point labels set bold with \\mathbf, same font size, anchors and offsets. Coordinates, edges and the right-angle mark are unchanged. B, C, D, P are program-owned and not redefined here. E remains defined locally at (-0.981,1.455), same frame.",
+        "notes": "Repair for unverified edge D-E: the top horizontal stroke is now drawn as explicit named paths P--E and E--D, with E at the same coordinate (-0.982,1.455) and on the same line y=1.455, so the PD stroke passes through E. The right-angle pic at E (D--E--B, radius 0.355cm) and the E--B vertical are unchanged. Labels P, E, D, C, B are now \\mathbf at \\fontsize{14}{16.8} (up from 13pt) per the low-severity critic suggestion, with the same node anchors. Line width 1.3pt and line join=round are unchanged. B, C, D, P are not redefined because the program owns them; the previous hand-typed values were slightly different (e.g. B at -0.982 vs -0.980), so the program-inserted values take precedence. The standalone file will not compile on its own without the program-inserted definitions of B, C, D, P. No measurement was flagged as wrong.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v3\\v3.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v3\\v3.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v2\\v2.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1677,32 +1468,32 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v3\\v3.pdf"
+              "detail": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v2\\v2.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v3\\v3.png"
+              "detail": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v2\\v2.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.046"
+              "detail": "ink_ratio=0.0378"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.84 vs render 2.14 (delta 0.16)"
+              "detail": "reference 1.84 vs render 2.19 (delta 0.19)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 2.20"
+              "detail": "figure bbox ratio 2.26"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T23:03:11"
+      "created_at": "2026-11-11T12:57:18"
     }
   },
   "conflicts": [],
@@ -1713,10 +1504,10 @@
     "C": "point_05",
     "B": "point_04"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.6pt, line join=round]\n\\coordinate (B) at (-0.981,-1.421);\n\\coordinate (C) at (1.951,-1.421);\n\\coordinate (D) at (3.807,1.455);\n\\coordinate (P) at (-3.862,1.455);\n\n\n\n\\coordinate (E) at (-0.980,1.455);\n\n\n\\draw (P) -- (E) -- (D);\n\n\n\\draw (E) -- (B);\n\n\n\\draw (P) -- (B) -- (C) -- (D);\n\n\n\\draw pic[draw, angle radius=0.355cm] {right angle=D--E--B};\n\n\n\\node[above left] at (P) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{P}$};\n\\node[above] at (E) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{E}$};\n\\node[above] at (D) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{D}$};\n\\node[below] at (B) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{B}$};\n\\node[below] at (C) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{C}$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 aeb34953e6dadcdf2e098491794c3f0159bb973cfb23b458aac869dd600570ef\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.6pt, line join=round]\n\\coordinate (B) at (-0.981,-1.421);\n\\coordinate (C) at (1.951,-1.421);\n\\coordinate (D) at (3.807,1.455);\n\\coordinate (P) at (-3.862,1.455);\n\n\n\n\\coordinate (E) at (-0.980,1.455);\n\n\n\\draw (P) -- (E) -- (D);\n\n\n\\draw (E) -- (B);\n\n\n\\draw (P) -- (B) -- (C) -- (D);\n\n\n\\draw pic[draw, angle radius=0.355cm] {right angle=D--E--B};\n\n\n\\node[above left] at (P) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{P}$};\n\\node[above] at (E) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{E}$};\n\\node[above] at (D) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{D}$};\n\\node[below] at (B) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{B}$};\n\\node[below] at (C) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{C}$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 aeb34953e6dadcdf2e098491794c3f0159bb973cfb23b458aac869dd600570ef\n",
-  "best_version": 3,
-  "best_score": 0.9,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (B) at (-0.981,-1.421);\n\\coordinate (C) at (1.951,-1.421);\n\\coordinate (D) at (3.807,1.455);\n\\coordinate (P) at (-3.862,1.455);\n\n\n\n\n\\coordinate (E) at (-0.981,1.455);\n\n\n\\draw (P) -- (E);\n\\draw (E) -- (D);\n\n\n\\draw (P) -- (B);\n\\draw (B) -- (C);\n\\draw (C) -- (D);\n\n\n\\draw (E) -- (B);\n\n\n\\draw pic[draw, angle radius=0.355cm] {right angle=D--E--B};\n\n\n\\node[above left,  font=\\fontsize{14}{16.8}\\selectfont] at (P) {$\\mathbf{P}$};\n\\node[above,       font=\\fontsize{14}{16.8}\\selectfont] at (E) {$\\mathbf{E}$};\n\\node[above right, font=\\fontsize{14}{16.8}\\selectfont] at (D) {$\\mathbf{D}$};\n\\node[below right, font=\\fontsize{14}{16.8}\\selectfont] at (C) {$\\mathbf{C}$};\n\\node[below left,  font=\\fontsize{14}{16.8}\\selectfont] at (B) {$\\mathbf{B}$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 f729debc659e27f386d03d47023b9c2759efb0044264e27f69fc53cdf126a158\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (B) at (-0.981,-1.421);\n\\coordinate (C) at (1.951,-1.421);\n\\coordinate (D) at (3.807,1.455);\n\\coordinate (P) at (-3.862,1.455);\n\n\n\n\n\\coordinate (E) at (-0.981,1.455);\n\n\n\\draw (P) -- (E);\n\\draw (E) -- (D);\n\n\n\\draw (P) -- (B);\n\\draw (B) -- (C);\n\\draw (C) -- (D);\n\n\n\\draw (E) -- (B);\n\n\n\\draw pic[draw, angle radius=0.355cm] {right angle=D--E--B};\n\n\n\\node[above left,  font=\\fontsize{14}{16.8}\\selectfont] at (P) {$\\mathbf{P}$};\n\\node[above,       font=\\fontsize{14}{16.8}\\selectfont] at (E) {$\\mathbf{E}$};\n\\node[above right, font=\\fontsize{14}{16.8}\\selectfont] at (D) {$\\mathbf{D}$};\n\\node[below right, font=\\fontsize{14}{16.8}\\selectfont] at (C) {$\\mathbf{C}$};\n\\node[below left,  font=\\fontsize{14}{16.8}\\selectfont] at (B) {$\\mathbf{B}$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 f729debc659e27f386d03d47023b9c2759efb0044264e27f69fc53cdf126a158\n",
+  "best_version": 2,
+  "best_score": 0.93,
   "tikz_versions": [
     {
       "topology_check": {
@@ -1729,140 +1520,140 @@
         ]
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (B) at (-0.982,-1.421);\n\\coordinate (C) at (1.951,-1.421);\n\\coordinate (D) at (3.807,1.455);\n\\coordinate (P) at (-3.862,1.455);\n\n\n\n\\coordinate (E) at (-0.981,1.455);\n\n\\draw (P) -- (D);\n\n\\draw (E) -- (B);\n\n\\draw (P) -- (B) -- (C) -- (D);\n\n\\draw pic[draw, angle radius=0.355cm] {right angle=D--E--B};\n\n\\node[above left] at (P) {\\fontsize{13}{15.6}\\selectfont $P$};\n\\node[above] at (E) {\\fontsize{13}{15.6}\\selectfont $E$};\n\\node[above] at (D) {\\fontsize{13}{15.6}\\selectfont $D$};\n\\node[below] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[below] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 84d7cb2e323f5aee7a0dc2eda4e7cbe67c63f824b27a060f496c75ff7b4893ad\n",
-      "tex_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (B) at (-0.982,-1.421);\n\\coordinate (C) at (1.951,-1.421);\n\\coordinate (D) at (3.807,1.455);\n\\coordinate (P) at (-3.862,1.455);\n\n\n\n\\coordinate (E) at (-0.982,1.455);\n\n\n\\draw (D) -- (P);\n\\draw (P) -- (B);\n\\draw (B) -- (C);\n\\draw (C) -- (D);\n\\draw (E) -- (B);\n\n\n\\draw pic[draw, angle radius=0.355cm] {right angle=D--E--B};\n\n\n\\node[above left, font=\\fontsize{13}{15.6}\\selectfont] at (P) {$P$};\n\\node[above, font=\\fontsize{13}{15.6}\\selectfont] at (E) {$E$};\n\\node[above right, font=\\fontsize{13}{15.6}\\selectfont] at (D) {$D$};\n\\node[below right, font=\\fontsize{13}{15.6}\\selectfont] at (C) {$C$};\n\\node[below left, font=\\fontsize{13}{15.6}\\selectfont] at (B) {$B$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 ee8f73789a00acf00a763606b9f67029ebb0cd80e6d28d90063ad7a2bd1faea0\n",
+      "tex_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:02:04",
+      "created_at": "2026-11-11T12:56:34",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used the program-owned B, C, D, P coordinates unchanged. Defined E=(-0.983,1.455) in the same frame (px 224,65 with s=0.01626, centred at 284.5,154.5). Right-angle pic on D--E--B with radius 21.85 px * 0.01626 = 0.355 cm. Line width 1.3pt with round joins, labels at 13pt/15.6pt per style metrics. Top line drawn as one P--D segment; E--B vertical; P--B--C--D polyline, all solid.",
-      "compile_seconds": 1.905,
+      "notes": "Resubmitted without the scope to satisfy the CV coordinate contract. Program-owned B, C, D, P are not redefined. E is a measured helper in the same frame: x=(224-284.5)*0.01626, y=(154.5-65)*0.01626. Right angle is a pic on D--E--B, radius 0.355 cm (21.85 px * 0.01626). Labels use the STYLE METRICS font on each node. Line width 1.3pt with round joins. All edges solid. Unlabeled CV fragments omitted.",
+      "compile_seconds": 2.187,
       "critic_report": {
-        "assessment_score": 0.92,
+        "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render reproduces the same quadrilateral P-B-C-D with E on the top edge, EB perpendicular to PD, and all five labels in the correct places; only the label typeface weight differs.",
+        "verdict": "The render faithfully reproduces the trapezoid PBCD with the vertical altitude EB, its right-angle mark at E, and all five labels in the correct positions; the only visible difference is lighter, smaller label typography.",
         "figure_type": {
-          "original": "Quadrilateral P-B-C-D with top edge PD, a vertical altitude EB from E on PD down to B, and a right-angle mark at E",
-          "render": "Same quadrilateral P-B-C-D with top edge PD, vertical EB from E to B, and a right-angle mark at E"
+          "original": "Quadrilateral P-B-C-D with horizontal top PD, altitude EB dropped from E on PD to B, right-angle mark at E, and horizontal base BC",
+          "render": "Quadrilateral P-B-C-D with horizontal top PD, altitude EB dropped from E on PD to B, right-angle mark at E, and horizontal base BC"
         },
         "issues": [
           {
-            "type": "other",
+            "type": "wrong_style",
             "severity": "low",
             "object_ids": [
-              "point_01",
-              "point_02",
-              "point_03",
-              "point_04",
-              "point_05"
+              "label_01",
+              "label_02",
+              "label_03",
+              "label_04",
+              "label_05"
             ],
             "bbox": [
               0.02,
               0.27,
-              0.98,
+              0.99,
               0.72
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Point labels P, E, D, B, C are set in a lighter, non-bold math font than the bold-looking labels in the original. Positions and vertex bindings are correct.",
-            "suggestion": "Optionally switch the label font to a bolder math style (for example \\boldmath or \\mathbf inside the node) to match the original's heavier lettering. This is cosmetic and not required for geometric fidelity."
+            "description": "Point labels P, E, D, C and B are rendered in a light, smaller upright math font. In the original they are heavier and slightly larger (bold-looking math italic). The label-weight difference is the only obvious style gap.",
+            "suggestion": "Make the labels heavier and slightly larger, for example by using \\boldmath or \\mathbf inside the node text, or by raising the font size from 13pt. Keep the existing node anchors (above left, above, above right, below right, below left) so the vertex bindings do not change."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Top edge PD, solid, continuous through E, matches the original."
+            "note": "Top line PD, spanning P to D, matches the original and passes through E."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Diagonal from P down to B, matches the original."
+            "note": "Diagonal from P down to B is drawn in the render; the CV fragment is part of PB."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Diagonal from D down to C, matches the original."
+            "note": "Right diagonal from C up to D matches the original CD."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Bottom edge BC, matches the original."
+            "note": "Base BC from B to C matches the original."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Vertical EB from E down to B, matches the original."
+            "note": "Vertical altitude EB from E down to B matches the original and ends at both vertices."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Short CV fragment lying along PB near B; it is part of the PB stroke, not a separate element."
+            "note": "Short CV fragment lies along the rendered PB diagonal near B; no separate stroke is needed."
           },
           {
             "object_id": "seg_BC",
             "status": "present",
-            "note": "Bottom edge from B to C is drawn correctly."
+            "note": "Base BC is drawn with the same endpoints as the original."
           },
           {
             "object_id": "seg_CD",
             "status": "present",
-            "note": "Right side from C to D is drawn correctly."
+            "note": "CD is drawn from C to D as in the original."
           },
           {
             "object_id": "seg_EB",
             "status": "present",
-            "note": "Vertical from E to B is drawn and meets B as in the original."
+            "note": "EB is drawn from E to B with no overhang, as in the original."
           },
           {
             "object_id": "seg_PB",
             "status": "present",
-            "note": "Left side from P to B is drawn correctly."
+            "note": "PB is drawn from P to B as in the original."
           },
           {
             "object_id": "seg_PD",
             "status": "present",
-            "note": "Top edge PD is drawn and passes through E, as in the original."
+            "note": "PD runs from P to D through E, as in the original."
           },
           {
             "object_id": "ra_01",
             "status": "present",
-            "note": "Right-angle mark at E is drawn in the upper-right quadrant, as in the original."
+            "note": "Right-angle mark at E in the render sits in the same quadrant as the original (right of EB, below PD)."
           },
           {
             "object_id": "right_angle_01",
             "status": "present",
-            "note": "Same right-angle mark at E, correct quadrant and orientation."
+            "note": "Same right-angle mark as ra_01; it is correctly placed and oriented."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label P sits at upper-left of P."
+            "note": "Label P is above-left of P, as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label D sits above D."
+            "note": "Label D is above-right of D, as in the original."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label E sits above E, clear of the top line."
+            "note": "Label E sits above E, as in the original, with clear space from the line."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label B sits below B."
+            "note": "Label B is below-left of B, as in the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label C sits below C."
+            "note": "Label C is below-right of C, as in the original."
           }
         ],
         "checklist_score": 1.0,
@@ -1874,18 +1665,22 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Quadrilateral P-B-C-D has the same vertices and edges as the original.",
-          "E lies on PD, and EB meets PD at a right angle with the mark in the correct quadrant.",
-          "Vertex positions and proportions are faithful to the original.",
-          "Labels P, E, D, B, C are present with correct vertex binding and no collisions with strokes."
+          "Horizontal top PD passing through E",
+          "Altitude EB from E to B, with no overhang",
+          "Diagonal PB from P to B",
+          "Base BC from B to C",
+          "Diagonal CD from C to D",
+          "Right-angle mark at E in the same quadrant",
+          "All five labels present and bound to the correct vertices",
+          "Overall proportions and aspect ratio match"
         ],
         "labels": {
           "present": [
             "P",
             "E",
             "D",
-            "B",
-            "C"
+            "C",
+            "B"
           ],
           "missing": [],
           "extra": []
@@ -1899,7 +1694,7 @@
               "B",
               "E"
             ],
-            "reason": "The original shows a single vertical stroke from E straight down to B, so the edge B-E is joined."
+            "reason": "The original shows one vertical stroke joining B to E, ending exactly at E on PD and at B."
           },
           {
             "case_id": "a93924150be9dfe8",
@@ -1907,12 +1702,12 @@
               "D",
               "E"
             ],
-            "reason": "The original top line runs continuously from E to D as part of PD, so the edge D-E is joined."
+            "reason": "In the original, PD is a continuous horizontal stroke from P through E to D, so the D-E arm is part of that continuous stroke."
           }
         ],
         "raw_meta": "{}"
       },
-      "critic_score": 0.92
+      "critic_score": 0.9
     },
     {
       "topology_check": {
@@ -1920,176 +1715,137 @@
         "missing_edges": []
       },
       "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (B) at (-0.982,-1.421);\n\\coordinate (C) at (1.951,-1.421);\n\\coordinate (D) at (3.807,1.455);\n\\coordinate (P) at (-3.862,1.455);\n\n\n\n\n\\coordinate (E) at (-0.981,1.455);\n\n\n\\draw (P) -- (E) -- (D);\n\n\n\\draw (E) -- (B);\n\n\n\\draw (P) -- (B) -- (C) -- (D);\n\n\n\\draw pic[draw, angle radius=0.355cm] {right angle=D--E--B};\n\n\n\\node[above left] at (P) {\\fontsize{13}{15.6}\\selectfont $P$};\n\\node[above] at (E) {\\fontsize{13}{15.6}\\selectfont $E$};\n\\node[above] at (D) {\\fontsize{13}{15.6}\\selectfont $D$};\n\\node[below] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[below] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 b6f458816a39ca17d8ccb68cb68ab444abb2f80be2ebe94d7d829cd4ac4e7c3e\n",
-      "tex_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (B) at (-0.981,-1.421);\n\\coordinate (C) at (1.951,-1.421);\n\\coordinate (D) at (3.807,1.455);\n\\coordinate (P) at (-3.862,1.455);\n\n\n\n\n\\coordinate (E) at (-0.981,1.455);\n\n\n\\draw (P) -- (E);\n\\draw (E) -- (D);\n\n\n\\draw (P) -- (B);\n\\draw (B) -- (C);\n\\draw (C) -- (D);\n\n\n\\draw (E) -- (B);\n\n\n\\draw pic[draw, angle radius=0.355cm] {right angle=D--E--B};\n\n\n\\node[above left,  font=\\fontsize{14}{16.8}\\selectfont] at (P) {$\\mathbf{P}$};\n\\node[above,       font=\\fontsize{14}{16.8}\\selectfont] at (E) {$\\mathbf{E}$};\n\\node[above right, font=\\fontsize{14}{16.8}\\selectfont] at (D) {$\\mathbf{D}$};\n\\node[below right, font=\\fontsize{14}{16.8}\\selectfont] at (C) {$\\mathbf{C}$};\n\\node[below left,  font=\\fontsize{14}{16.8}\\selectfont] at (B) {$\\mathbf{B}$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 f729debc659e27f386d03d47023b9c2759efb0044264e27f69fc53cdf126a158\n",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\295_q_fig1\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\295_q_fig1\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\295_q_fig1\\best.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:02:38",
+      "created_at": "2026-11-11T12:57:14",
       "agent": "code_agent",
       "mode": "repair",
-      "notes": "Repair for missing D-E topology edge: replaced single \\draw (P) -- (D) with explicit named path \\draw (P) -- (E) -- (D). Kept E--B, P--B--C--D, the right-angle pic at E (D--E--B), label bindings, font (13pt/15.6pt), and line width 1.3pt with round joins. E coordinate kept at (-0.983,1.455), which matches the source frame for px (224,65). Per the program-owned block, B, C, D, P are not redefined here; the program inserts them. Note: the previous revision redefined these four points with slightly different literals (e.g. B at -0.982,-1.421); those were dropped in favour of the program-owned coordinates. Critic label-weight suggestion (bold math) was not applied since it is cosmetic and the font is calibrated by STYLE METRICS.",
-      "compile_seconds": 1.468,
+      "notes": "Repair for unverified edge D-E: the top horizontal stroke is now drawn as explicit named paths P--E and E--D, with E at the same coordinate (-0.982,1.455) and on the same line y=1.455, so the PD stroke passes through E. The right-angle pic at E (D--E--B, radius 0.355cm) and the E--B vertical are unchanged. Labels P, E, D, C, B are now \\mathbf at \\fontsize{14}{16.8} (up from 13pt) per the low-severity critic suggestion, with the same node anchors. Line width 1.3pt and line join=round are unchanged. B, C, D, P are not redefined because the program owns them; the previous hand-typed values were slightly different (e.g. B at -0.982 vs -0.980), so the program-inserted values take precedence. The standalone file will not compile on its own without the program-inserted definitions of B, C, D, P. No measurement was flagged as wrong.",
+      "compile_seconds": 3.139,
       "critic_report": {
-        "assessment_score": 0.9,
+        "assessment_score": 0.93,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render matches the original's geometry: the quadrilateral P-D-C-B with the interior segment EB, E on PD, and the right-angle mark at E are all present and correctly placed. Differences are limited to typographic and line-weight style.",
+        "verdict": "The render is faithful: same quadrilateral-with-perpendicular geometry, endpoints, labels, and right-angle mark, with uniform scaling.",
         "figure_type": {
-          "original": "Trapezoid-like polygon P-D-C-B with E on PD and a perpendicular EB, with a right-angle mark at E (open to the right and below)",
-          "render": "Same polygon with E on PD, perpendicular EB, and right-angle mark at E in the same quadrant"
+          "original": "Quadrilateral PDCB with E on PD, EB perpendicular to PD at E, and a right-angle mark at E on the right side.",
+          "render": "Same quadrilateral PDCB with E on PD, EB perpendicular to PD at E, and a right-angle mark at E on the right side."
         },
-        "issues": [
-          {
-            "type": "wrong_style",
-            "severity": "low",
-            "object_ids": [
-              "seg_PD",
-              "seg_PB",
-              "seg_BC",
-              "seg_CD",
-              "seg_EB"
-            ],
-            "bbox": [
-              0.03,
-              0.28,
-              0.97,
-              0.7
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "Stroke weight in the render is slightly thinner than in the original (original lines look about 3px, render about 2px at the same scale).",
-            "suggestion": "Increase line width slightly, e.g. from line width=1.3pt to about 1.6pt, to match the original's heavier strokes."
-          },
-          {
-            "type": "label_error",
-            "severity": "low",
-            "object_ids": [
-              "point_01",
-              "point_02",
-              "point_03",
-              "point_04",
-              "point_05"
-            ],
-            "bbox": [
-              0.02,
-              0.12,
-              0.98,
-              0.72
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "Point labels in the render are smaller and lighter (upright math, thin weight) than the original's bolder, larger italic labels. Placement and clearance are correct.",
-            "suggestion": "Use a bold math font for labels (e.g. \\boldmath or \\mathbf inside the node) and increase the font size slightly, keeping the current node anchors."
-          }
-        ],
+        "issues": [],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Segment PD (top horizontal side) is present and in the same position."
+            "note": "Horizontal segment P to D is drawn and ends at P and D in the render."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Segment PB (left diagonal) is present and meets B correctly."
+            "note": "Diagonal P to B is drawn; this CV fragment lies on the PB stroke."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Segment CD (right diagonal) is present and meets D correctly."
+            "note": "Right side C to D is drawn with the same slope and endpoints."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Segment BC (bottom side) is present and spans B to C."
+            "note": "Bottom segment B to C is drawn between the same endpoints."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Segment EB (vertical from E down to B) is present."
+            "note": "Vertical segment E to B is drawn and meets PD at E at a right angle."
           },
           {
             "object_id": "seg_06",
-            "status": "unclear",
-            "note": "Short CV fragment lying along the PB diagonal near B; it is a duplicate detection of PB rather than a separate object in the original."
+            "status": "present",
+            "note": "Short CV fragment lies on the PB stroke near B; covered by the drawn PB line."
           },
           {
             "object_id": "seg_BC",
             "status": "present",
-            "note": "Bottom side BC is drawn from B to C as in the original."
+            "note": "Segment BC is drawn correctly."
           },
           {
             "object_id": "seg_CD",
             "status": "present",
-            "note": "Right side CD runs from C up to D as in the original."
+            "note": "Segment CD is drawn correctly."
           },
           {
             "object_id": "seg_EB",
             "status": "present",
-            "note": "Perpendicular EB is drawn from E to B."
+            "note": "Segment EB is drawn correctly and ends at B."
           },
           {
             "object_id": "seg_PB",
             "status": "present",
-            "note": "Left side PB runs from P to B."
+            "note": "Segment PB is drawn correctly and ends at B."
           },
           {
             "object_id": "seg_PD",
             "status": "present",
-            "note": "Top side PD runs from P to D through E."
+            "note": "Segment PD is drawn correctly and ends at P and D."
           },
           {
             "object_id": "ra_01",
             "status": "present",
-            "note": "Right-angle mark at E is drawn in the same quadrant (right and below) as in the original."
+            "note": "Right-angle mark at E is present in the same quadrant (right and below) as the original."
           },
           {
             "object_id": "right_angle_01",
             "status": "present",
-            "note": "Same right-angle mark at E; present in both panels."
+            "note": "Right-angle mark at E is present in the same quadrant as the original; size is comparable."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label P sits above-left of P, matching the original."
+            "note": "P label is present, placed above-left of P, and bound to the correct vertex."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label D sits above D, matching the original."
+            "note": "D label is present, placed above-right of D, and bound to the correct vertex."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label E sits above E, matching the original."
+            "note": "E label is present above E, clear of the strokes, and bound to the correct vertex."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label B sits below B, matching the original."
+            "note": "B label is present below-left of B, and bound to the correct vertex."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label C sits below C, matching the original."
+            "note": "C label is present below-right of C, and bound to the correct vertex."
           }
         ],
         "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
           "medium": 0,
-          "low": 2
+          "low": 0
         },
         "flaky_count": 0,
-        "must_repair": true,
+        "must_repair": false,
         "matches": [
-          "Vertex positions P, D, B, C and the point E on PD match the original.",
-          "E lies on PD and EB is perpendicular to PD, with the right-angle mark in the same quadrant.",
-          "Side set P-D, P-B, B-C, C-D and E-B is complete with no extra or missing segments.",
-          "All five point labels (P, E, D, B, C) are present, correctly spelled, and bound to the right vertices."
+          "Horizontal PD with P and D at the ends.",
+          "Diagonal PB from P down to B.",
+          "Vertical EB from E down to B, perpendicular to PD.",
+          "Horizontal BC at the bottom.",
+          "Diagonal CD from C up to D, with matching slope.",
+          "Right-angle mark at E in the same quadrant (right and below).",
+          "Labels P, E, D, B, C are present and bound to the correct vertices with clear spacing.",
+          "Uniform scaling; no warping or aspect-ratio distortion."
         ],
         "labels": {
           "present": [
@@ -2107,183 +1863,7 @@
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.9
-    },
-    {
-      "topology_check": {
-        "passed": true,
-        "missing_edges": []
-      },
-      "version": 3,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.6pt, line join=round]\n\\coordinate (B) at (-0.981,-1.421);\n\\coordinate (C) at (1.951,-1.421);\n\\coordinate (D) at (3.807,1.455);\n\\coordinate (P) at (-3.862,1.455);\n\n\n\n\\coordinate (E) at (-0.980,1.455);\n\n\n\\draw (P) -- (E) -- (D);\n\n\n\\draw (E) -- (B);\n\n\n\\draw (P) -- (B) -- (C) -- (D);\n\n\n\\draw pic[draw, angle radius=0.355cm] {right angle=D--E--B};\n\n\n\\node[above left] at (P) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{P}$};\n\\node[above] at (E) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{E}$};\n\\node[above] at (D) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{D}$};\n\\node[below] at (B) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{B}$};\n\\node[below] at (C) {\\fontsize{13}{15.6}\\selectfont $\\mathbf{C}$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 aeb34953e6dadcdf2e098491794c3f0159bb973cfb23b458aac869dd600570ef\n",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\295_q_fig1\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\295_q_fig1\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\295_q_fig1\\best.png",
-      "ok": true,
-      "compiled": true,
-      "errors": [],
-      "warnings": [],
-      "created_at": "2026-11-09T23:03:10",
-      "agent": "code_agent",
-      "mode": "repair",
-      "notes": "Cosmetic repair: line width raised from 1.3pt to 1.6pt; point labels set bold with \\mathbf, same font size, anchors and offsets. Coordinates, edges and the right-angle mark are unchanged. B, C, D, P are program-owned and not redefined here. E remains defined locally at (-0.981,1.455), same frame.",
-      "compile_seconds": 1.641,
-      "critic_report": {
-        "assessment_score": 0.9,
-        "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render reproduces the original's geometry closely: the top line P-E-D, the perpendicular EB with its right-angle mark at E, and the bottom path B-C with its diagonals all match. The only visible difference is label typography.",
-        "figure_type": {
-          "original": "Trapezoid-like quadrilateral PDCB with a perpendicular from E on PD down to B, right-angle mark at E, labels P, E, D, B, C",
-          "render": "Same: trapezoid-like quadrilateral with PD horizontal, EB perpendicular at E with right-angle mark, labels P, E, D, B, C"
-        },
-        "issues": [
-          {
-            "type": "label_error",
-            "severity": "low",
-            "object_ids": [
-              "point_01",
-              "point_02",
-              "point_03",
-              "point_04",
-              "point_05"
-            ],
-            "bbox": [
-              0.02,
-              0.28,
-              0.98,
-              0.72
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "Point labels are upright bold-style glyphs in the render, while the original uses italic serif math letters (P, E, D, B, C). Placement and clearance are otherwise good.",
-            "suggestion": "Set the labels in italic math (for example plain $P$ without \\mathbf, or \\mathit{P}) to match the original typography. Keep the existing node anchors (above left at P, above at E and D, below at B and C)."
-          }
-        ],
-        "checks": [
-          {
-            "object_id": "seg_01",
-            "status": "present",
-            "note": "Horizontal line PD at y=65 from P to D, matches the original top edge."
-          },
-          {
-            "object_id": "seg_02",
-            "status": "present",
-            "note": "Diagonal from P down to B matches the original left edge."
-          },
-          {
-            "object_id": "seg_03",
-            "status": "present",
-            "note": "Right diagonal from C up to D matches the original."
-          },
-          {
-            "object_id": "seg_04",
-            "status": "present",
-            "note": "Bottom segment BC matches the original."
-          },
-          {
-            "object_id": "seg_05",
-            "status": "present",
-            "note": "Vertical EB from E down to B matches the original."
-          },
-          {
-            "object_id": "seg_06",
-            "status": "present",
-            "note": "Short CV fragment lying on the diagonal PB, not a separate figure edge; it is covered by the rendered PB."
-          },
-          {
-            "object_id": "seg_BC",
-            "status": "present",
-            "note": "Bottom edge from B to C is drawn in the render."
-          },
-          {
-            "object_id": "seg_CD",
-            "status": "present",
-            "note": "Edge from C to D is drawn in the render."
-          },
-          {
-            "object_id": "seg_EB",
-            "status": "present",
-            "note": "Perpendicular from E to B is drawn in the render."
-          },
-          {
-            "object_id": "seg_PB",
-            "status": "present",
-            "note": "Edge from P to B is drawn in the render."
-          },
-          {
-            "object_id": "seg_PD",
-            "status": "present",
-            "note": "Top edge P to D is drawn in the render, passing through E."
-          },
-          {
-            "object_id": "ra_01",
-            "status": "present",
-            "note": "Right-angle mark at E opens toward D and B, as in the original."
-          },
-          {
-            "object_id": "right_angle_01",
-            "status": "present",
-            "note": "Same right-angle mark, verified in both panels at E."
-          },
-          {
-            "object_id": "point_01",
-            "status": "present",
-            "note": "P label is present above-left of the vertex, as in the original."
-          },
-          {
-            "object_id": "point_02",
-            "status": "present",
-            "note": "D label is present above the vertex, as in the original."
-          },
-          {
-            "object_id": "point_03",
-            "status": "present",
-            "note": "E label is present above the vertex, as in the original."
-          },
-          {
-            "object_id": "point_04",
-            "status": "present",
-            "note": "B label is present below the vertex, as in the original."
-          },
-          {
-            "object_id": "point_05",
-            "status": "present",
-            "note": "C label is present below the vertex, as in the original."
-          }
-        ],
-        "checklist_score": 1.0,
-        "actionable_counts": {
-          "high": 0,
-          "medium": 0,
-          "low": 1
-        },
-        "flaky_count": 0,
-        "must_repair": false,
-        "matches": [
-          "Top line PD with E on it",
-          "Perpendicular EB with right-angle mark at E",
-          "Diagonals PB and CD",
-          "Bottom segment BC",
-          "Label placements and vertex bindings for P, E, D, B, C",
-          "Overall aspect ratio and proportions"
-        ],
-        "labels": {
-          "present": [
-            "P",
-            "E",
-            "D",
-            "B",
-            "C"
-          ],
-          "missing": [],
-          "extra": []
-        },
-        "version": 3,
-        "binding_decisions": [],
-        "topology_decisions": [],
-        "raw_meta": "{}"
-      },
-      "critic_score": 0.9
+      "critic_score": 0.93
     }
   ],
   "compilation_results": [
@@ -2291,40 +1871,27 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.905,
+      "seconds": 2.187,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.556640625 KiB)\nnote: Writing `figure.pdf` (2.5869140625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:02:06"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.556640625 KiB)\nnote: Writing `figure.pdf` (2.591796875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T12:56:37"
     },
     {
       "version": 2,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.468,
+      "seconds": 3.139,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.5888671875 KiB)\nnote: Writing `figure.log` (11.556640625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T23:02:39"
-    },
-    {
-      "version": 3,
-      "ok": true,
-      "returncode": 0,
-      "seconds": 1.641,
-      "errors": [],
-      "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.8203125 KiB)\nnote: Writing `figure.pdf` (2.37890625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v3\\v3.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v3\\v3.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v3\\v3.png",
-      "created_at": "2026-11-09T23:03:11"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.662109375 KiB)\nnote: Writing `figure.pdf` (2.3798828125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-11T12:57:18"
     }
   ],
   "validation_results": [
@@ -2360,30 +1927,30 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0364"
+          "detail": "ink_ratio=0.0351"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.84 vs render 2.15 (delta 0.17)"
+          "detail": "reference 1.84 vs render 2.23 (delta 0.21)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 2.21"
+          "detail": "figure bbox ratio 2.29"
         }
       ],
-      "created_at": "2026-11-09T23:02:06"
+      "created_at": "2026-11-11T12:56:37"
     },
     {
       "version": 2,
@@ -2417,211 +1984,154 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.pdf"
+          "detail": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v2\\v2.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v2\\v2.png"
+          "detail": ".cache\\collinear\\batch_work\\295_q_fig1\\tikz\\v2\\v2.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0364"
+          "detail": "ink_ratio=0.0378"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.84 vs render 2.15 (delta 0.17)"
+          "detail": "reference 1.84 vs render 2.19 (delta 0.19)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 2.21"
+          "detail": "figure bbox ratio 2.26"
         }
       ],
-      "created_at": "2026-11-09T23:02:39"
-    },
-    {
-      "version": 3,
-      "passed": true,
-      "checks": [
-        {
-          "name": "documentclass",
-          "passed": true,
-          "detail": "documentclass present"
-        },
-        {
-          "name": "document_environment",
-          "passed": true,
-          "detail": "begin=1 end=1"
-        },
-        {
-          "name": "tikzpicture",
-          "passed": true,
-          "detail": "one balanced tikzpicture"
-        },
-        {
-          "name": "no_shell_escape",
-          "passed": true,
-          "detail": "no \\write18/\\openout primitives"
-        },
-        {
-          "name": "compiler_ok",
-          "passed": true,
-          "detail": "returncode=0"
-        },
-        {
-          "name": "pdf_created",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v3\\v3.pdf"
-        },
-        {
-          "name": "png_rendered",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\295_q_fig1\\tikz\\v3\\v3.png"
-        },
-        {
-          "name": "render_not_blank",
-          "passed": true,
-          "detail": "ink_ratio=0.046"
-        },
-        {
-          "name": "aspect_ratio",
-          "passed": true,
-          "detail": "reference 1.84 vs render 2.14 (delta 0.16)"
-        },
-        {
-          "name": "figure_extent_ratio",
-          "passed": true,
-          "detail": "figure bbox ratio 2.20"
-        }
-      ],
-      "created_at": "2026-11-09T23:03:11"
+      "created_at": "2026-11-11T12:57:18"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.92,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render reproduces the same quadrilateral P-B-C-D with E on the top edge, EB perpendicular to PD, and all five labels in the correct places; only the label typeface weight differs.",
+      "verdict": "The render faithfully reproduces the trapezoid PBCD with the vertical altitude EB, its right-angle mark at E, and all five labels in the correct positions; the only visible difference is lighter, smaller label typography.",
       "figure_type": {
-        "original": "Quadrilateral P-B-C-D with top edge PD, a vertical altitude EB from E on PD down to B, and a right-angle mark at E",
-        "render": "Same quadrilateral P-B-C-D with top edge PD, vertical EB from E to B, and a right-angle mark at E"
+        "original": "Quadrilateral P-B-C-D with horizontal top PD, altitude EB dropped from E on PD to B, right-angle mark at E, and horizontal base BC",
+        "render": "Quadrilateral P-B-C-D with horizontal top PD, altitude EB dropped from E on PD to B, right-angle mark at E, and horizontal base BC"
       },
       "issues": [
         {
-          "type": "other",
+          "type": "wrong_style",
           "severity": "low",
           "object_ids": [
-            "point_01",
-            "point_02",
-            "point_03",
-            "point_04",
-            "point_05"
+            "label_01",
+            "label_02",
+            "label_03",
+            "label_04",
+            "label_05"
           ],
           "bbox": [
             0.02,
             0.27,
-            0.98,
+            0.99,
             0.72
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "Point labels P, E, D, B, C are set in a lighter, non-bold math font than the bold-looking labels in the original. Positions and vertex bindings are correct.",
-          "suggestion": "Optionally switch the label font to a bolder math style (for example \\boldmath or \\mathbf inside the node) to match the original's heavier lettering. This is cosmetic and not required for geometric fidelity."
+          "description": "Point labels P, E, D, C and B are rendered in a light, smaller upright math font. In the original they are heavier and slightly larger (bold-looking math italic). The label-weight difference is the only obvious style gap.",
+          "suggestion": "Make the labels heavier and slightly larger, for example by using \\boldmath or \\mathbf inside the node text, or by raising the font size from 13pt. Keep the existing node anchors (above left, above, above right, below right, below left) so the vertex bindings do not change."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Top edge PD, solid, continuous through E, matches the original."
+          "note": "Top line PD, spanning P to D, matches the original and passes through E."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Diagonal from P down to B, matches the original."
+          "note": "Diagonal from P down to B is drawn in the render; the CV fragment is part of PB."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Diagonal from D down to C, matches the original."
+          "note": "Right diagonal from C up to D matches the original CD."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Bottom edge BC, matches the original."
+          "note": "Base BC from B to C matches the original."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Vertical EB from E down to B, matches the original."
+          "note": "Vertical altitude EB from E down to B matches the original and ends at both vertices."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Short CV fragment lying along PB near B; it is part of the PB stroke, not a separate element."
+          "note": "Short CV fragment lies along the rendered PB diagonal near B; no separate stroke is needed."
         },
         {
           "object_id": "seg_BC",
           "status": "present",
-          "note": "Bottom edge from B to C is drawn correctly."
+          "note": "Base BC is drawn with the same endpoints as the original."
         },
         {
           "object_id": "seg_CD",
           "status": "present",
-          "note": "Right side from C to D is drawn correctly."
+          "note": "CD is drawn from C to D as in the original."
         },
         {
           "object_id": "seg_EB",
           "status": "present",
-          "note": "Vertical from E to B is drawn and meets B as in the original."
+          "note": "EB is drawn from E to B with no overhang, as in the original."
         },
         {
           "object_id": "seg_PB",
           "status": "present",
-          "note": "Left side from P to B is drawn correctly."
+          "note": "PB is drawn from P to B as in the original."
         },
         {
           "object_id": "seg_PD",
           "status": "present",
-          "note": "Top edge PD is drawn and passes through E, as in the original."
+          "note": "PD runs from P to D through E, as in the original."
         },
         {
           "object_id": "ra_01",
           "status": "present",
-          "note": "Right-angle mark at E is drawn in the upper-right quadrant, as in the original."
+          "note": "Right-angle mark at E in the render sits in the same quadrant as the original (right of EB, below PD)."
         },
         {
           "object_id": "right_angle_01",
           "status": "present",
-          "note": "Same right-angle mark at E, correct quadrant and orientation."
+          "note": "Same right-angle mark as ra_01; it is correctly placed and oriented."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label P sits at upper-left of P."
+          "note": "Label P is above-left of P, as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label D sits above D."
+          "note": "Label D is above-right of D, as in the original."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label E sits above E, clear of the top line."
+          "note": "Label E sits above E, as in the original, with clear space from the line."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label B sits below B."
+          "note": "Label B is below-left of B, as in the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label C sits below C."
+          "note": "Label C is below-right of C, as in the original."
         }
       ],
       "checklist_score": 1.0,
@@ -2633,18 +2143,22 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Quadrilateral P-B-C-D has the same vertices and edges as the original.",
-        "E lies on PD, and EB meets PD at a right angle with the mark in the correct quadrant.",
-        "Vertex positions and proportions are faithful to the original.",
-        "Labels P, E, D, B, C are present with correct vertex binding and no collisions with strokes."
+        "Horizontal top PD passing through E",
+        "Altitude EB from E to B, with no overhang",
+        "Diagonal PB from P to B",
+        "Base BC from B to C",
+        "Diagonal CD from C to D",
+        "Right-angle mark at E in the same quadrant",
+        "All five labels present and bound to the correct vertices",
+        "Overall proportions and aspect ratio match"
       ],
       "labels": {
         "present": [
           "P",
           "E",
           "D",
-          "B",
-          "C"
+          "C",
+          "B"
         ],
         "missing": [],
         "extra": []
@@ -2658,7 +2172,7 @@
             "B",
             "E"
           ],
-          "reason": "The original shows a single vertical stroke from E straight down to B, so the edge B-E is joined."
+          "reason": "The original shows one vertical stroke joining B to E, ending exactly at E on PD and at B."
         },
         {
           "case_id": "a93924150be9dfe8",
@@ -2666,168 +2180,129 @@
             "D",
             "E"
           ],
-          "reason": "The original top line runs continuously from E to D as part of PD, so the edge D-E is joined."
+          "reason": "In the original, PD is a continuous horizontal stroke from P through E to D, so the D-E arm is part of that continuous stroke."
         }
       ],
       "raw_meta": "{}"
     },
     {
-      "assessment_score": 0.9,
+      "assessment_score": 0.93,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render matches the original's geometry: the quadrilateral P-D-C-B with the interior segment EB, E on PD, and the right-angle mark at E are all present and correctly placed. Differences are limited to typographic and line-weight style.",
+      "verdict": "The render is faithful: same quadrilateral-with-perpendicular geometry, endpoints, labels, and right-angle mark, with uniform scaling.",
       "figure_type": {
-        "original": "Trapezoid-like polygon P-D-C-B with E on PD and a perpendicular EB, with a right-angle mark at E (open to the right and below)",
-        "render": "Same polygon with E on PD, perpendicular EB, and right-angle mark at E in the same quadrant"
+        "original": "Quadrilateral PDCB with E on PD, EB perpendicular to PD at E, and a right-angle mark at E on the right side.",
+        "render": "Same quadrilateral PDCB with E on PD, EB perpendicular to PD at E, and a right-angle mark at E on the right side."
       },
-      "issues": [
-        {
-          "type": "wrong_style",
-          "severity": "low",
-          "object_ids": [
-            "seg_PD",
-            "seg_PB",
-            "seg_BC",
-            "seg_CD",
-            "seg_EB"
-          ],
-          "bbox": [
-            0.03,
-            0.28,
-            0.97,
-            0.7
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "Stroke weight in the render is slightly thinner than in the original (original lines look about 3px, render about 2px at the same scale).",
-          "suggestion": "Increase line width slightly, e.g. from line width=1.3pt to about 1.6pt, to match the original's heavier strokes."
-        },
-        {
-          "type": "label_error",
-          "severity": "low",
-          "object_ids": [
-            "point_01",
-            "point_02",
-            "point_03",
-            "point_04",
-            "point_05"
-          ],
-          "bbox": [
-            0.02,
-            0.12,
-            0.98,
-            0.72
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "Point labels in the render are smaller and lighter (upright math, thin weight) than the original's bolder, larger italic labels. Placement and clearance are correct.",
-          "suggestion": "Use a bold math font for labels (e.g. \\boldmath or \\mathbf inside the node) and increase the font size slightly, keeping the current node anchors."
-        }
-      ],
+      "issues": [],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Segment PD (top horizontal side) is present and in the same position."
+          "note": "Horizontal segment P to D is drawn and ends at P and D in the render."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Segment PB (left diagonal) is present and meets B correctly."
+          "note": "Diagonal P to B is drawn; this CV fragment lies on the PB stroke."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Segment CD (right diagonal) is present and meets D correctly."
+          "note": "Right side C to D is drawn with the same slope and endpoints."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Segment BC (bottom side) is present and spans B to C."
+          "note": "Bottom segment B to C is drawn between the same endpoints."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Segment EB (vertical from E down to B) is present."
+          "note": "Vertical segment E to B is drawn and meets PD at E at a right angle."
         },
         {
           "object_id": "seg_06",
-          "status": "unclear",
-          "note": "Short CV fragment lying along the PB diagonal near B; it is a duplicate detection of PB rather than a separate object in the original."
+          "status": "present",
+          "note": "Short CV fragment lies on the PB stroke near B; covered by the drawn PB line."
         },
         {
           "object_id": "seg_BC",
           "status": "present",
-          "note": "Bottom side BC is drawn from B to C as in the original."
+          "note": "Segment BC is drawn correctly."
         },
         {
           "object_id": "seg_CD",
           "status": "present",
-          "note": "Right side CD runs from C up to D as in the original."
+          "note": "Segment CD is drawn correctly."
         },
         {
           "object_id": "seg_EB",
           "status": "present",
-          "note": "Perpendicular EB is drawn from E to B."
+          "note": "Segment EB is drawn correctly and ends at B."
         },
         {
           "object_id": "seg_PB",
           "status": "present",
-          "note": "Left side PB runs from P to B."
+          "note": "Segment PB is drawn correctly and ends at B."
         },
         {
           "object_id": "seg_PD",
           "status": "present",
-          "note": "Top side PD runs from P to D through E."
+          "note": "Segment PD is drawn correctly and ends at P and D."
         },
         {
           "object_id": "ra_01",
           "status": "present",
-          "note": "Right-angle mark at E is drawn in the same quadrant (right and below) as in the original."
+          "note": "Right-angle mark at E is present in the same quadrant (right and below) as the original."
         },
         {
           "object_id": "right_angle_01",
           "status": "present",
-          "note": "Same right-angle mark at E; present in both panels."
+          "note": "Right-angle mark at E is present in the same quadrant as the original; size is comparable."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label P sits above-left of P, matching the original."
+          "note": "P label is present, placed above-left of P, and bound to the correct vertex."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label D sits above D, matching the original."
+          "note": "D label is present, placed above-right of D, and bound to the correct vertex."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label E sits above E, matching the original."
+          "note": "E label is present above E, clear of the strokes, and bound to the correct vertex."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label B sits below B, matching the original."
+          "note": "B label is present below-left of B, and bound to the correct vertex."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label C sits below C, matching the original."
+          "note": "C label is present below-right of C, and bound to the correct vertex."
         }
       ],
       "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
         "medium": 0,
-        "low": 2
+        "low": 0
       },
       "flaky_count": 0,
-      "must_repair": true,
+      "must_repair": false,
       "matches": [
-        "Vertex positions P, D, B, C and the point E on PD match the original.",
-        "E lies on PD and EB is perpendicular to PD, with the right-angle mark in the same quadrant.",
-        "Side set P-D, P-B, B-C, C-D and E-B is complete with no extra or missing segments.",
-        "All five point labels (P, E, D, B, C) are present, correctly spelled, and bound to the right vertices."
+        "Horizontal PD with P and D at the ends.",
+        "Diagonal PB from P down to B.",
+        "Vertical EB from E down to B, perpendicular to PD.",
+        "Horizontal BC at the bottom.",
+        "Diagonal CD from C up to D, with matching slope.",
+        "Right-angle mark at E in the same quadrant (right and below).",
+        "Labels P, E, D, B, C are present and bound to the correct vertices with clear spacing.",
+        "Uniform scaling; no warping or aspect-ratio distortion."
       ],
       "labels": {
         "present": [
@@ -2844,171 +2319,20 @@
       "binding_decisions": [],
       "topology_decisions": [],
       "raw_meta": "{}"
-    },
-    {
-      "assessment_score": 0.9,
-      "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render reproduces the original's geometry closely: the top line P-E-D, the perpendicular EB with its right-angle mark at E, and the bottom path B-C with its diagonals all match. The only visible difference is label typography.",
-      "figure_type": {
-        "original": "Trapezoid-like quadrilateral PDCB with a perpendicular from E on PD down to B, right-angle mark at E, labels P, E, D, B, C",
-        "render": "Same: trapezoid-like quadrilateral with PD horizontal, EB perpendicular at E with right-angle mark, labels P, E, D, B, C"
-      },
-      "issues": [
-        {
-          "type": "label_error",
-          "severity": "low",
-          "object_ids": [
-            "point_01",
-            "point_02",
-            "point_03",
-            "point_04",
-            "point_05"
-          ],
-          "bbox": [
-            0.02,
-            0.28,
-            0.98,
-            0.72
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "Point labels are upright bold-style glyphs in the render, while the original uses italic serif math letters (P, E, D, B, C). Placement and clearance are otherwise good.",
-          "suggestion": "Set the labels in italic math (for example plain $P$ without \\mathbf, or \\mathit{P}) to match the original typography. Keep the existing node anchors (above left at P, above at E and D, below at B and C)."
-        }
-      ],
-      "checks": [
-        {
-          "object_id": "seg_01",
-          "status": "present",
-          "note": "Horizontal line PD at y=65 from P to D, matches the original top edge."
-        },
-        {
-          "object_id": "seg_02",
-          "status": "present",
-          "note": "Diagonal from P down to B matches the original left edge."
-        },
-        {
-          "object_id": "seg_03",
-          "status": "present",
-          "note": "Right diagonal from C up to D matches the original."
-        },
-        {
-          "object_id": "seg_04",
-          "status": "present",
-          "note": "Bottom segment BC matches the original."
-        },
-        {
-          "object_id": "seg_05",
-          "status": "present",
-          "note": "Vertical EB from E down to B matches the original."
-        },
-        {
-          "object_id": "seg_06",
-          "status": "present",
-          "note": "Short CV fragment lying on the diagonal PB, not a separate figure edge; it is covered by the rendered PB."
-        },
-        {
-          "object_id": "seg_BC",
-          "status": "present",
-          "note": "Bottom edge from B to C is drawn in the render."
-        },
-        {
-          "object_id": "seg_CD",
-          "status": "present",
-          "note": "Edge from C to D is drawn in the render."
-        },
-        {
-          "object_id": "seg_EB",
-          "status": "present",
-          "note": "Perpendicular from E to B is drawn in the render."
-        },
-        {
-          "object_id": "seg_PB",
-          "status": "present",
-          "note": "Edge from P to B is drawn in the render."
-        },
-        {
-          "object_id": "seg_PD",
-          "status": "present",
-          "note": "Top edge P to D is drawn in the render, passing through E."
-        },
-        {
-          "object_id": "ra_01",
-          "status": "present",
-          "note": "Right-angle mark at E opens toward D and B, as in the original."
-        },
-        {
-          "object_id": "right_angle_01",
-          "status": "present",
-          "note": "Same right-angle mark, verified in both panels at E."
-        },
-        {
-          "object_id": "point_01",
-          "status": "present",
-          "note": "P label is present above-left of the vertex, as in the original."
-        },
-        {
-          "object_id": "point_02",
-          "status": "present",
-          "note": "D label is present above the vertex, as in the original."
-        },
-        {
-          "object_id": "point_03",
-          "status": "present",
-          "note": "E label is present above the vertex, as in the original."
-        },
-        {
-          "object_id": "point_04",
-          "status": "present",
-          "note": "B label is present below the vertex, as in the original."
-        },
-        {
-          "object_id": "point_05",
-          "status": "present",
-          "note": "C label is present below the vertex, as in the original."
-        }
-      ],
-      "checklist_score": 1.0,
-      "actionable_counts": {
-        "high": 0,
-        "medium": 0,
-        "low": 1
-      },
-      "flaky_count": 0,
-      "must_repair": false,
-      "matches": [
-        "Top line PD with E on it",
-        "Perpendicular EB with right-angle mark at E",
-        "Diagonals PB and CD",
-        "Bottom segment BC",
-        "Label placements and vertex bindings for P, E, D, B, C",
-        "Overall aspect ratio and proportions"
-      ],
-      "labels": {
-        "present": [
-          "P",
-          "E",
-          "D",
-          "B",
-          "C"
-        ],
-        "missing": [],
-        "extra": []
-      },
-      "version": 3,
-      "binding_decisions": [],
-      "topology_decisions": [],
-      "raw_meta": "{}"
     }
   ],
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "Right-angle square stroke ends were not separately verified beyond cv:detect_right_angle_marker; it is drawn to the right of and below E (between ED and EB)."
+      "issue": "Strokes are all solid by CV line-style analysis; no dashed endpoints found."
     },
     {
       "source": "supervisor",
-      "issue": "Point label font style differs from the original (italic serif in the source, upright bold in the render); cosmetic only."
+      "issue": "Source strokes are all solid, so no dashed edges were drawn."
+    },
+    {
+      "source": "supervisor",
+      "issue": "Unlabeled CV fragments (points 06–11 and duplicate segments) were intentionally omitted as artefacts."
     }
   ],
   "action_history": [
@@ -3066,7 +2390,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.92; issues=1",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -3075,19 +2399,19 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw a figure with named points (image px, origin top-left, flip y for TikZ; use y_tikz = -py/scale, e.g. scale 0.01 ok). Points: P=(47,65), E=(224,65), D=(518.66,65) all on one horizontal line (solid",
+      "purpose": "Reconstruct the figure as compilable TikZ using image-pixel coordinates (origin top-left, flip y for TikZ; use y_tikz = -y_px scaled consistently). Vertices: P(47,65), E(224,65), D(518.66,65) on one h",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Draw a figure with named points (image px, origin top-left, flip y for TikZ; use y_tikz = -py/scale, e.g. scale 0.01 ok). Points: P=(47,65), E=(224,65), D=(518.66,65) all on one horizontal line (solid segment P--E--D, draw P to D as one line). B=(224.22,241.79) directly below E; solid segment E--B (vertical). C=(404.47,242.0) on same horizontal as B; solid segment B--C. Solid segments P--B and C--D. Right angle square mark at E with arms toward D (right) and toward B (down), side ~20 px. Labels: P above-left of P, E above E, D above D, B below B, C below C. Use no decorations beyond these. Keep the figure compact, no axes, no grid."
+        "instruction": "Reconstruct the figure as compilable TikZ using image-pixel coordinates (origin top-left, flip y for TikZ; use y_tikz = -y_px scaled consistently). Vertices: P(47,65), E(224,65), D(518.66,65) on one horizontal line; B(224.22,241.79) directly below E; C(404.47,242.0) on the same horizontal level as B. Solid edges: P--D (horizontal, passes through E), E--B (vertical), P--B (45-degree line, passing near (216,234)), B--C (horizontal), C--D (slanted). Draw a right-angle square mark at E in the lower-right quadrant (between arm E->D and arm E->B), side about 22 px. Labels: P at upper-left of P, E above E, D above-right of D, C below-right of C, B below-left/below of B. Ignore unlabeled CV fragments (points 06,07,08,09,10,11 and the short segment fragments are glyph/duplicate artefacts; the 45-degree fragment seg_06 is collinear with PB). All edges solid. Use the measured coordinates exactly and share one definition per vertex."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 21.59,
+      "duration_s": 39.74,
       "token_usage": {
-        "delta": 18401
+        "delta": 29541
       },
-      "visual_calls": 2,
+      "visual_calls": 3,
       "error": null
     },
     {
@@ -3096,7 +2420,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.9; issues=2",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.93",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -3105,64 +2429,35 @@
     {
       "step": 2,
       "action": "run_code_agent",
-      "purpose": "Topology check fails: missing edge D-E. Replace the single \\draw (P) -- (D) with explicit named path \\draw (P) -- (E) -- (D); keep all other edges (E--B, P--B--C--D) and the right angle mark at E, lab",
+      "purpose": "Fix the unverified topology edge D-E: draw the horizontal stroke as explicit named paths P--E and E--D (same E coordinate, same line), so the continuous PD stroke passes through E. Keep all other coor",
       "params": {
         "mode": "repair",
         "use_image": null,
-        "instruction": "Topology check fails: missing edge D-E. Replace the single \\draw (P) -- (D) with explicit named path \\draw (P) -- (E) -- (D); keep all other edges (E--B, P--B--C--D) and the right angle mark at E, labels unchanged."
+        "instruction": "Fix the unverified topology edge D-E: draw the horizontal stroke as explicit named paths P--E and E--D (same E coordinate, same line), so the continuous PD stroke passes through E. Keep all other coordinates and the right-angle mark at E (arms E->D and E->B). Optional low-severity: make the point labels P, E, D, C, B slightly heavier and larger (e.g. \\\\boldmath or \\\\mathbf, ~14pt), keeping the same node anchors."
       },
       "status": "ok",
       "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
-      "duration_s": 31.66,
+      "duration_s": 31.1,
       "token_usage": {
-        "delta": 19844
+        "delta": 20293
       },
       "visual_calls": 1,
       "error": null
     },
     {
       "step": 3,
-      "action": "run_critic",
-      "purpose": "review newly compiled version",
-      "params": {},
-      "status": "ok",
-      "result_summary": "ok=True; version=3; best_version=3; assessment_score=0.9; issues=1",
-      "duration_s": 0.0,
-      "token_usage": {},
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 3,
-      "action": "run_code_agent",
-      "purpose": "Cosmetic only: increase line width to 1.6pt; make point labels bold (e.g. \\mathbf or \\boldmath inside nodes) and keep their positions and anchors. Do not change coordinates, edges, or the right-angle ",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Cosmetic only: increase line width to 1.6pt; make point labels bold (e.g. \\mathbf or \\boldmath inside nodes) and keep their positions and anchors. Do not change coordinates, edges, or the right-angle mark."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=3",
-      "duration_s": 36.77,
-      "token_usage": {
-        "delta": 28255
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 4,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Produced compilable TikZ (version 3, best version) reconstructing the figure: top line P–E–D, vertical solid E–B with right-angle mark at E, and the lower path P–B–C–D, with labels P, E, D, B, C bound to the measured vertices. Topology check passes and the latest version has a critic score of 0.9 with must_repair=false. The only remaining difference is label typography (the original uses italic serif letters; the render uses bold upright).",
+        "summary": "Version 2 compiles and passes validation. Topology check passes, with edges P–E, E–D, P–B, B–C, C–D, E–B, and a right-angle mark at E. All five labels (P, E, D, B, C) are bound. The Critic scored it 0.93 with must_repair=false and no open issues. The figure is a trapezoid PBCD with altitude EB, where E lies on the top side PD.",
         "unresolved": [
-          "Point label font style differs from the original (italic serif in the source, upright bold in the render); cosmetic only."
+          "Source strokes are all solid, so no dashed edges were drawn.",
+          "Unlabeled CV fragments (points 06–11 and duplicate segments) were intentionally omitted as artefacts."
         ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=3; status=success",
+      "result_summary": "ok=True; best_version=2; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -3209,58 +2504,58 @@
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 12,
+      "calls": 9,
       "visual_calls": 5,
-      "prompt_tokens": 98138,
-      "completion_tokens": 17084,
-      "total_tokens": 115222,
-      "cached_tokens": 44877.0,
-      "cache_write_tokens": 26989.0,
-      "latency_s": 97.65
+      "prompt_tokens": 72764,
+      "completion_tokens": 15827,
+      "total_tokens": 88591,
+      "cached_tokens": 24166.0,
+      "cache_write_tokens": 48568.0,
+      "latency_s": 96.18
     },
     "by_agent": {
       "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8557,
-        "latency_s": 13.52
+        "total_tokens": 8655,
+        "latency_s": 14.24
       },
       "supervisor": {
-        "calls": 4,
+        "calls": 3,
         "visual_calls": 0,
-        "total_tokens": 40165,
-        "latency_s": 12.89
+        "total_tokens": 30102,
+        "latency_s": 17.22
       },
       "code_agent:generate": {
-        "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 8195,
-        "latency_s": 6.1
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 17798,
+        "latency_s": 15.98
       },
       "critic_agent": {
-        "calls": 3,
-        "visual_calls": 3,
-        "total_tokens": 29666,
-        "latency_s": 35.27
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 21938,
+        "latency_s": 35.21
       },
       "code_agent:repair": {
-        "calls": 3,
+        "calls": 1,
         "visual_calls": 0,
-        "total_tokens": 28639,
-        "latency_s": 29.86
+        "total_tokens": 10098,
+        "latency_s": 13.54
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 20,
-    "tool_calls_left": 38,
+    "steps_left": 21,
+    "tool_calls_left": 40,
     "visual_calls_left": 19,
-    "tokens_left": 284778,
+    "tokens_left": 311409,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 115222
+    "total_tokens_used": 88591
   },
   "meta": {
     "topology_plan": {
@@ -3298,7 +2593,7 @@
             "B",
             "E"
           ],
-          "reason": "The original shows a single vertical stroke from E straight down to B, so the edge B-E is joined."
+          "reason": "The original shows one vertical stroke joining B to E, ending exactly at E on PD and at B."
         },
         {
           "case_id": "a93924150be9dfe8",
@@ -3306,7 +2601,7 @@
             "D",
             "E"
           ],
-          "reason": "The original top line runs continuously from E to D as part of PD, so the edge D-E is joined."
+          "reason": "In the original, PD is a continuous horizontal stroke from P through E to D, so the D-E arm is part of that continuous stroke."
         }
       ],
       "ink_confirmed_edges": [
@@ -3316,6 +2611,13 @@
         ]
       ],
       "required_styles": [
+        {
+          "edge": [
+            "D",
+            "P"
+          ],
+          "style": "solid"
+        },
         {
           "edge": [
             "B",
@@ -3341,7 +2643,7 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Trapezoid-like figure. Top line P-E-D is one horizontal solid line (P at px 47,65; E at 224,65 on it; D at 518.66,65). E is an interior foot on PD: the vertical segment E-B (x=224, y 65 to 242) is perpendicular to PD at E. Solid segments: P-B (diagonal from P down to B at 224,242), B-C (bottom horizontal, y=242, from B to C at 404,242), C-D (slanted from C up to D). Right-angle square at E sits in the quadrant between ray E->D (rightward) and ray E->B (downward). No dashed strokes. Curve extent: none. Junctions: E (on PD, foot of B), B (corner of P-B, E-B, B-C), C (corner of B-C and C-D), D and P are endpoints. Unlabelled points point_06, point_07, point_08, point_09, point_10, point_11 are not printed letters and are not used.",
+      "summary": "Trapezoid-like figure: horizontal line P-E-D at y=65; vertical E-B; slanted P-B; horizontal B-C at y=242; slanted C-D. Right-angle square at E between rays E->D and E->B (lower-right quadrant). E is the visible foot of the perpendicular from B to line PD. All strokes are solid; no dashed segments detected. Existing OCR bindings P,E,D,B,C are correct; unlabeled points point_06..point_11 are not printed vertices.",
       "strokes": [
         {
           "edge": [
@@ -3354,6 +2656,13 @@
           "edge": [
             "D",
             "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "P"
           ],
           "style": "solid"
         },
@@ -3402,7 +2711,8 @@
           "P",
           "D"
         ]
-      ]
+      ],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -3477,10 +2787,10 @@
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "3894764f9f5650a8fa25db8d170a814f632fc7f1d2529232a00d4a11ed4b0c2a",
-      "output_sha256": "6cc08c60f1db3495a280ee9e87338ea1184e32df22f84950c8f92df76ed5a696",
+      "input_sha256": "4c269ebaf56f99d297911ce2397a610513ddd988d0b62a68e6747cf30f3e20db",
+      "output_sha256": "3d81a9fc1d991a01f140ea00a3179b5d2715bd19e9e486e1dd6a3186a05f648c",
       "reason": "applied",
       "accepted": [
         {
@@ -3489,10 +2799,10 @@
             "B--E",
             "D--E"
           ],
-          "before_error_deg": 0.019935900209063107,
-          "after_error_deg": 0.019922036579998803,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.045100663239441965
+          "before_error_deg": 0.03987179559096887,
+          "after_error_deg": 0.0,
+          "solver_after_error_deg": 1.1510792319313623e-12,
+          "export_tolerance_deg": 0.04509834674692939
         },
         {
           "type": "perpendicular",
@@ -3500,21 +2810,10 @@
             "B--E",
             "E--P"
           ],
-          "before_error_deg": 0.019935900209063107,
-          "after_error_deg": 0.019922036579998803,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.0562944212817883
-        },
-        {
-          "type": "parallel",
-          "segments": [
-            "B--C",
-            "E--P"
-          ],
-          "before_error_deg": 0.07819275870712017,
+          "before_error_deg": 0.03987179559096887,
           "after_error_deg": 0.0,
-          "solver_after_error_deg": 3.2016476685676214e-15,
-          "export_tolerance_deg": 0.05575844059920264
+          "solver_after_error_deg": 7.958078640513122e-13,
+          "export_tolerance_deg": 0.05629961137981737
         },
         {
           "type": "parallel",
@@ -3524,8 +2823,19 @@
           ],
           "before_error_deg": 0.07819275870712018,
           "after_error_deg": 0.0,
-          "solver_after_error_deg": 3.133684048346613e-16,
-          "export_tolerance_deg": 0.04456468255685631
+          "solver_after_error_deg": 1.2614957465423125e-11,
+          "export_tolerance_deg": 0.04455859996547487
+        },
+        {
+          "type": "parallel",
+          "segments": [
+            "B--C",
+            "E--P"
+          ],
+          "before_error_deg": 0.07819275870712018,
+          "after_error_deg": 0.0,
+          "solver_after_error_deg": 1.457127101171212e-11,
+          "export_tolerance_deg": 0.05575986459836285
         },
         {
           "type": "perpendicular",
@@ -3533,17 +2843,17 @@
             "B--C",
             "B--E"
           ],
-          "before_error_deg": 0.09812865891618117,
-          "after_error_deg": 0.019922036579998803,
-          "solver_after_error_deg": 0.0,
-          "export_tolerance_deg": 0.055814407262186644
+          "before_error_deg": 0.11806455429810114,
+          "after_error_deg": 0.0,
+          "solver_after_error_deg": 1.3784529073745944e-11,
+          "export_tolerance_deg": 0.0558099439747954
         }
       ],
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.003,
         "incidence_mode": "snap",
         "length_weight": 0.01,
@@ -3554,31 +2864,33 @@
           "parallel",
           "perpendicular"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
+      "source_collinear_candidates": [],
       "input_candidates": 5,
       "preserved_incidence_count": 0,
       "max_shift_rel": 0.0002729827767112802,
-      "max_length_change_rel": 0.0006958941398573781,
+      "max_length_change_rel": 0.0006956519212806267,
       "fixed_points": [],
       "length_weight": 0.01,
       "length_scope": "all_pairs",
       "incidence_mode": "snap",
       "topology_tol_rel": 0.003,
       "incidence_strength": 1.0,
-      "rms_shift_rel": 0.0001543709010926718,
-      "max_after_error_deg": 0.019922036579998803,
+      "rms_shift_rel": 0.0001706825630442232,
+      "max_after_error_deg": 0.0,
       "curve_policy": "defer",
       "candidate_count": 5,
-      "solver_max_shift_rel": 0.0002374274288025158,
+      "solver_max_shift_rel": 0.00026757553595560215,
       "coordinate_decimals": 3,
       "export_verified": true,
-      "max_export_error_deg": 0.019922036579998803,
+      "max_export_error_deg": 0.0,
       "point_count": 5,
       "segment_count": 6
     },
@@ -3716,71 +3028,6 @@
           "reference_used": false,
           "coordinate_decimals": 3
         }
-      },
-      "3": {
-        "enabled": true,
-        "schema": "cv-coordinate-contract.v1",
-        "n_points": 4,
-        "reference_used": false,
-        "coordinates": {
-          "schema": "cv-coordinate-contract.v1",
-          "scale": 0.01626,
-          "origin_px": [
-            284.5,
-            154.5
-          ],
-          "points": {
-            "B": {
-              "point_id": "point_04",
-              "px": [
-                224.22,
-                241.79
-              ],
-              "tikz": [
-                -0.98,
-                -1.419
-              ]
-            },
-            "C": {
-              "point_id": "point_05",
-              "px": [
-                404.47,
-                242.0
-              ],
-              "tikz": [
-                1.951,
-                -1.423
-              ]
-            },
-            "D": {
-              "point_id": "point_02",
-              "px": [
-                518.66,
-                65.0
-              ],
-              "tikz": [
-                3.807,
-                1.455
-              ]
-            },
-            "P": {
-              "point_id": "point_01",
-              "px": [
-                47.0,
-                65.0
-              ],
-              "tikz": [
-                -3.862,
-                1.455
-              ]
-            }
-          },
-          "skipped": {
-            "E": "missing_or_ambiguous_cv_binding"
-          },
-          "reference_used": false,
-          "coordinate_decimals": 3
-        }
       }
     },
     "tikz_constraint_repairs": {
@@ -3792,23 +3039,12 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "bd63d8159fa5175e50c0f160d637e96e08e20b596a2b01343a9f8bba7208d8ab",
-        "output_sha256": "ca8e250b9329ded0e07d0831ccec1dcbb011c13ff872e0afe5aed27675183a0e",
+        "input_sha256": "432b5523cb4a4375bf4f85c05d72160b00a04bfbc044e0b17aca596c1692f442",
+        "output_sha256": "0706004d995f5753f28df15e3339cf3904f768d80fd0ee267c6ad330d55661ee",
         "reason": "applied",
         "accepted": [
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--E",
-              "D--P"
-            ],
-            "before_error_deg": 0.05980768131854575,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 6.679101716144942e-13,
-            "export_tolerance_deg": 0.03874030203774535
-          },
           {
             "type": "parallel",
             "segments": [
@@ -3817,8 +3053,19 @@
             ],
             "before_error_deg": 0.07819275870712017,
             "after_error_deg": 0.0,
-            "solver_after_error_deg": 2.9570861059571766e-13,
-            "export_tolerance_deg": 0.038196790698092536
+            "solver_after_error_deg": 3.517429962154637e-13,
+            "export_tolerance_deg": 0.03819269334652299
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--E",
+              "D--P"
+            ],
+            "before_error_deg": 0.07974355256466481,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 1.4210854715202004e-13,
+            "export_tolerance_deg": 0.03873996771883741
           },
           {
             "type": "perpendicular",
@@ -3826,17 +3073,17 @@
               "B--C",
               "B--E"
             ],
-            "before_error_deg": 0.13800044002567802,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 3.836930773104541e-13,
-            "export_tolerance_deg": 0.05580548151052846
+            "before_error_deg": 0.15793631127178287,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 4.973799150320701e-13,
+            "export_tolerance_deg": 0.05580101986912207
           }
         ],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -3847,31 +3094,33 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 3,
         "preserved_incidence_count": 1,
         "max_shift_rel": 0.0003452989345619257,
-        "max_length_change_rel": 0.0006954095344970934,
+        "max_length_change_rel": 0.0006949250139443031,
         "fixed_points": [],
         "length_weight": 0.01,
         "length_scope": "all_pairs",
         "incidence_mode": "snap",
         "topology_tol_rel": 0.003,
         "incidence_strength": 1.0,
-        "rms_shift_rel": 0.00019260529456964644,
-        "max_after_error_deg": 0.019922036579998803,
+        "rms_shift_rel": 0.0002184564037159384,
+        "max_after_error_deg": 0.0,
         "curve_policy": "defer",
         "candidate_count": 3,
-        "solver_max_shift_rel": 0.0003047249135549436,
+        "solver_max_shift_rel": 0.0003466323741325759,
         "coordinate_decimals": 3,
         "export_verified": true,
-        "max_export_error_deg": 0.019922036579998803,
+        "max_export_error_deg": 0.0,
         "point_count": 5,
         "segment_count": 5
       },
@@ -3883,10 +3132,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "7abd669eba80af3e53ec061e3b7115854c3b4b2cb26fa8e8fe2d9ef53ce9e9cd",
-        "output_sha256": "54c3845496d610f08c509250cf9508c0c2c433177ddf00cd9d76829373d6cc2e",
+        "input_sha256": "4c269ebaf56f99d297911ce2397a610513ddd988d0b62a68e6747cf30f3e20db",
+        "output_sha256": "3d81a9fc1d991a01f140ea00a3179b5d2715bd19e9e486e1dd6a3186a05f648c",
         "reason": "applied",
         "accepted": [
           {
@@ -3895,10 +3144,10 @@
               "B--E",
               "D--E"
             ],
-            "before_error_deg": 0.05980768131854575,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.045096030369976225
+            "before_error_deg": 0.03987179559096887,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 1.1510792319313623e-12,
+            "export_tolerance_deg": 0.04509834674692939
           },
           {
             "type": "perpendicular",
@@ -3906,134 +3155,10 @@
               "B--E",
               "E--P"
             ],
-            "before_error_deg": 0.05980768131854575,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.056304803639398424
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "B--C",
-              "D--E"
-            ],
-            "before_error_deg": 0.07819275870712017,
+            "before_error_deg": 0.03987179559096887,
             "after_error_deg": 0.0,
-            "solver_after_error_deg": 5.196591988878876e-15,
-            "export_tolerance_deg": 0.04455251903032066
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "B--C",
-              "E--P"
-            ],
-            "before_error_deg": 0.07819275870712017,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 8.299051507479512e-16,
-            "export_tolerance_deg": 0.05576129229974286
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--C",
-              "B--E"
-            ],
-            "before_error_deg": 0.13800044002567802,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.05580548151053191
-          }
-        ],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.003,
-          "incidence_mode": "snap",
-          "length_weight": 0.01,
-          "length_scope": "all_pairs",
-          "curve_policy": "defer",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel",
-            "perpendicular"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 5,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0003452989345619257,
-        "max_length_change_rel": 0.0006954095344970934,
-        "fixed_points": [],
-        "length_weight": 0.01,
-        "length_scope": "all_pairs",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.003,
-        "incidence_strength": 1.0,
-        "rms_shift_rel": 0.000192605294562702,
-        "max_after_error_deg": 0.019922036579998803,
-        "curve_policy": "defer",
-        "candidate_count": 5,
-        "solver_max_shift_rel": 0.00030472491351788393,
-        "coordinate_decimals": 3,
-        "export_verified": true,
-        "max_export_error_deg": 0.019922036579998803,
-        "point_count": 5,
-        "segment_count": 6
-      },
-      "3": {
-        "ok": true,
-        "enabled": true,
-        "applied": true,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "3894764f9f5650a8fa25db8d170a814f632fc7f1d2529232a00d4a11ed4b0c2a",
-        "output_sha256": "6cc08c60f1db3495a280ee9e87338ea1184e32df22f84950c8f92df76ed5a696",
-        "reason": "applied",
-        "accepted": [
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--E",
-              "D--E"
-            ],
-            "before_error_deg": 0.019935900209063107,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.045100663239441965
-          },
-          {
-            "type": "perpendicular",
-            "segments": [
-              "B--E",
-              "E--P"
-            ],
-            "before_error_deg": 0.019935900209063107,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.0562944212817883
-          },
-          {
-            "type": "parallel",
-            "segments": [
-              "B--C",
-              "E--P"
-            ],
-            "before_error_deg": 0.07819275870712017,
-            "after_error_deg": 0.0,
-            "solver_after_error_deg": 3.2016476685676214e-15,
-            "export_tolerance_deg": 0.05575844059920264
+            "solver_after_error_deg": 7.958078640513122e-13,
+            "export_tolerance_deg": 0.05629961137981737
           },
           {
             "type": "parallel",
@@ -4043,8 +3168,19 @@
             ],
             "before_error_deg": 0.07819275870712018,
             "after_error_deg": 0.0,
-            "solver_after_error_deg": 3.133684048346613e-16,
-            "export_tolerance_deg": 0.04456468255685631
+            "solver_after_error_deg": 1.2614957465423125e-11,
+            "export_tolerance_deg": 0.04455859996547487
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "B--C",
+              "E--P"
+            ],
+            "before_error_deg": 0.07819275870712018,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 1.457127101171212e-11,
+            "export_tolerance_deg": 0.05575986459836285
           },
           {
             "type": "perpendicular",
@@ -4052,17 +3188,17 @@
               "B--C",
               "B--E"
             ],
-            "before_error_deg": 0.09812865891618117,
-            "after_error_deg": 0.019922036579998803,
-            "solver_after_error_deg": 0.0,
-            "export_tolerance_deg": 0.055814407262186644
+            "before_error_deg": 0.11806455429810114,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 1.3784529073745944e-11,
+            "export_tolerance_deg": 0.0558099439747954
           }
         ],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -4073,31 +3209,33 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 5,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.0002729827767112802,
-        "max_length_change_rel": 0.0006958941398573781,
+        "max_length_change_rel": 0.0006956519212806267,
         "fixed_points": [],
         "length_weight": 0.01,
         "length_scope": "all_pairs",
         "incidence_mode": "snap",
         "topology_tol_rel": 0.003,
         "incidence_strength": 1.0,
-        "rms_shift_rel": 0.0001543709010926718,
-        "max_after_error_deg": 0.019922036579998803,
+        "rms_shift_rel": 0.0001706825630442232,
+        "max_after_error_deg": 0.0,
         "curve_policy": "defer",
         "candidate_count": 5,
-        "solver_max_shift_rel": 0.0002374274288025158,
+        "solver_max_shift_rel": 0.00026757553595560215,
         "coordinate_decimals": 3,
         "export_verified": true,
-        "max_export_error_deg": 0.019922036579998803,
+        "max_export_error_deg": 0.0,
         "point_count": 5,
         "segment_count": 6
       }
@@ -4108,18 +3246,18 @@
           "B",
           "E"
         ],
-        "reason": "The original shows a single vertical stroke from E straight down to B, so the edge B-E is joined."
+        "reason": "The original shows one vertical stroke joining B to E, ending exactly at E on PD and at B."
       },
       "a93924150be9dfe8": {
         "edge": [
           "D",
           "E"
         ],
-        "reason": "The original top line runs continuously from E to D as part of PD, so the edge D-E is joined."
+        "reason": "In the original, PD is a continuous horizontal stroke from P through E to D, so the D-E arm is part of that continuous stroke."
       }
     },
     "finish": {
-      "summary": "Produced compilable TikZ (version 3, best version) reconstructing the figure: top line P–E–D, vertical solid E–B with right-angle mark at E, and the lower path P–B–C–D, with labels P, E, D, B, C bound to the measured vertices. Topology check passes and the latest version has a critic score of 0.9 with must_repair=false. The only remaining difference is label typography (the original uses italic serif letters; the render uses bold upright).",
+      "summary": "Version 2 compiles and passes validation. Topology check passes, with edges P–E, E–D, P–B, B–C, C–D, E–B, and a right-angle mark at E. All five labels (P, E, D, B, C) are bound. The Critic scored it 0.93 with must_repair=false and no open issues. The figure is a trapezoid PBCD with altitude EB, where E lies on the top side PD.",
       "status": "success"
     },
     "stop_reason": "finish"

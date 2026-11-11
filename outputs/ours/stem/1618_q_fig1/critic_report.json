@@ -1,130 +1,171 @@
 {
-  "assessment_score": 0.95,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful: rectangle, interior segments, endpoints, labels and right-angle mark match the original.",
+  "verdict": "The render reproduces the rectangle, the segments AE, MN, BF, FN and DF/FC, the right-angle mark at the AE/BF foot, and all nine labels in the correct positions. The only discrepancy is that the strokes are visibly lighter than the original.",
   "figure_type": {
-    "original": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing.",
-    "render": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing."
+    "original": "Rectangle ABCD with points M on AD, E and N on BC, and F on DC. Segments AE and MN are parallel. BF passes through O and crosses AE at a right angle. FN and BN/F-to-N are drawn. Right-angle marker at the AE/BF intersection.",
+    "render": "Same rectangle with the same points, segments and right-angle marker at the AE/BF intersection, with matching label placement."
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_02",
+        "seg_03",
+        "seg_06",
+        "seg_07"
+      ],
+      "bbox": [
+        0.1,
+        0.2,
+        0.89,
+        0.8
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Rectangle outline strokes (AD, BC, AB, DC) are noticeably thinner in the render than in the original. The original outline reads as heavier than the render.",
+      "suggestion": "Increase the width of the outer rectangle strokes (the 1.2pt paths for A-M-D and B-E-N-C, and the A-B edge) to about 1.5pt or more, keeping the internal lines at their current weight."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal B–F drawn from B to F as in the original."
+      "note": "Long diagonal B-O-F matches the original and passes through O."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge AD drawn, with M on it."
+      "note": "Top edge AD is drawn, though thinner than the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Bottom edge BC drawn, with E and N on it."
+      "note": "Bottom edge BC is drawn, though thinner than the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment MN drawn from M on the top edge to N on the bottom edge."
+      "note": "Segment matching MN, which runs from M down to N across the figure."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment AE drawn from A to E, both ends matching the original."
+      "note": "Segment matching AE, running from A to E."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Left edge AB drawn."
+      "note": "Left edge AB is drawn, though thinner than the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Right edge DC drawn, with F on it."
+      "note": "Right edge DC is drawn, though thinner than the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Segment FN drawn from F to N as in the original."
+      "note": "Segment matching FN, from F to N."
     },
     {
       "object_id": "seg_09",
       "status": "unclear",
-      "note": "Short CV fragment lying on BF near point_03; the original shows no separate stroke there, so it appears to be a detection artifact of BF rather than a distinct element."
+      "note": "Short CV fragment near the right-angle marker; it does not correspond to a distinct stroke in the original, so it is not assessed."
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "A to E is drawn and ends at E on BC, as in the original."
+    },
+    {
+      "object_id": "seg_BF",
+      "status": "present",
+      "note": "B to F passes through O and ends at F on DC, as in the original."
+    },
+    {
+      "object_id": "seg_FN",
+      "status": "present",
+      "note": "F to N is drawn and ends at N, as in the original."
+    },
+    {
+      "object_id": "seg_MN",
+      "status": "present",
+      "note": "M to N is drawn, with M on AD and N on BC, as in the original."
     },
     {
       "object_id": "ra_01",
       "status": "present",
-      "note": "Right-angle mark at the AE/BF foot is drawn on the same side as the original."
+      "note": "Right-angle marker sits at the AE/BF intersection on the same side as the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Same right-angle mark as ra_01; present in both panels."
+      "note": "Same right-angle marker, in the same quadrant and orientation as the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B labelled at the bottom-left vertex, below-left as in the original."
+      "note": "B is at the bottom-left corner with its label placed below-left."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "O labelled at the MN/BF crossing, above-right as in the original."
+      "note": "O is on BF and MN, with its label placed upper-right, clear of the strokes."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "F labelled on the right edge, right of the vertex, as in the original."
+      "note": "F is on the right edge with its label to the right."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "M labelled above the top edge at the MN endpoint."
+      "note": "M is on the top edge with its label above."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "A labelled above-left of the top-left vertex."
+      "note": "A is at the top-left corner with its label above-left."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "D labelled above-right of the top-right vertex."
+      "note": "D is at the top-right corner with its label above-right."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "N labelled below the bottom-edge endpoint of MN and FN."
+      "note": "N is on the bottom edge with its label below."
     },
     {
       "object_id": "point_09",
       "status": "present",
-      "note": "E labelled below the bottom-edge endpoint of AE."
+      "note": "E is on the bottom edge with its label below."
     },
     {
       "object_id": "point_10",
       "status": "present",
-      "note": "C labelled below-right of the bottom-right vertex."
+      "note": "C is at the bottom-right corner with its label below-right."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle proportions and aspect ratio match the original.",
-    "E and N sit at the same relative positions along BC (about 0.37 and 0.62 of its length).",
-    "F sits at the same height on DC.",
-    "M sits at the same relative position on AD.",
-    "Segments AE, MN, BF and FN have the same endpoints and crossings as in the original.",
-    "The right-angle mark is at the AE/BF foot on the same side as in the original.",
-    "All nine labels are present, correctly spelled and placed clear of strokes."
+    "Rectangle ABCD with correct corner labels",
+    "Points M, E, N, F and O are on the correct edges and lines",
+    "Segments AE and MN are parallel, and both end at the correct base points",
+    "BF passes through O and ends at F on the right edge",
+    "FN and DF/FC are present with correct endpoints",
+    "Right-angle marker at the AE/BF foot is present in the same quadrant as the original",
+    "All nine labels are present with no extras and no label/stroke collisions"
   ],
   "labels": {
     "present": [
@@ -143,15 +184,6 @@
   },
   "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "3c601fd8894a0c4f",
-      "edge": [
-        "A",
-        "E"
-      ],
-      "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

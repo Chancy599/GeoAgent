@@ -1,167 +1,102 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful: the triangle, both right-angle markers, the dashed M-C perpendicular and the D-C segment match the original, with only a minor dash-style difference.",
+  "verdict": "The render is faithful to the original: same segments, dashed CM, both right-angle marks, and all five labels in matching positions.",
   "figure_type": {
-    "original": "Straight-line triangle A-E-D with a dashed perpendicular MC from M (on AD) to C (on AE), a segment DC, and right-angle marks at M and D",
-    "render": "Straight-line triangle A-E-D with a dashed perpendicular MC from M (on AD) to C (on AE), a segment DC, and right-angle marks at M and D"
+    "original": "Triangle-based geometry diagram: vertical side AE, segments AD, DE, DC, and AC/CE, with dashed altitude CM perpendicular to AD and right-angle marks at M and D.",
+    "render": "Same triangle-based diagram with dashed CM perpendicular to AD, right-angle marks at M and D, and labels A, M, D, C, E."
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_05",
-        "seg_MC"
-      ],
-      "bbox": [
-        0.5,
-        0.3,
-        0.71,
-        0.55
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Dashed segment M-C: the render's dashes are shorter and more finely spaced than the original's longer dashes, so it reads closer to a dotted line.",
-      "suggestion": "Use a longer dash pattern for the M-C line, e.g. \\draw[dash pattern=on 4pt off 3pt] (M) -- (C); instead of the default dashed style. Keep the endpoints unchanged."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Vertical segment A-E on the right is drawn and ends at A and E in both panels."
+      "note": "Vertical segment A to E is drawn in the same place and extent as the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment D-E is drawn from D to E in both panels."
+      "note": "Segment E to D matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment A-M-D is drawn as one straight line through M in both panels."
+      "note": "Segment A to D matches the original and ends at the labelled vertices."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment D-C is drawn from D to C in both panels."
+      "note": "Segment D to C matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed M-C is drawn in both panels; only the dash spacing differs slightly."
+      "note": "Dashed segment C to M is drawn with the same dash style and endpoints as the original."
     },
     {
       "object_id": "seg_06",
       "status": "unclear",
-      "note": "Short ink fragment inside the M glyph, not a drawn segment in the original; not a figure element."
+      "note": "Short CV fragment lies inside the M label glyph area, not on a figure stroke; not a geometry segment in the original."
     },
     {
       "object_id": "seg_07",
       "status": "unclear",
-      "note": "Short ink fragment inside the M glyph, not a drawn segment in the original; not a figure element."
+      "note": "Short CV fragment lies inside the M label glyph area, not on a figure stroke; not a geometry segment in the original."
     },
     {
-      "object_id": "seg_AD",
+      "object_id": "seg_CM",
       "status": "present",
-      "note": "A-M-D line is drawn from A to D in both panels."
+      "note": "Dashed CM runs from C to M, which lies on AD, as in the original."
     },
     {
-      "object_id": "seg_AE",
+      "object_id": "ra_01",
       "status": "present",
-      "note": "Vertical A-E segment is drawn in both panels."
-    },
-    {
-      "object_id": "seg_DC",
-      "status": "present",
-      "note": "D-C segment is drawn in both panels."
-    },
-    {
-      "object_id": "seg_DE",
-      "status": "present",
-      "note": "D-E segment is drawn in both panels."
-    },
-    {
-      "object_id": "seg_MC",
-      "status": "present",
-      "note": "Dashed M-C perpendicular is drawn in both panels, ending at the same points."
-    },
-    {
-      "object_id": "ra_M",
-      "status": "present",
-      "note": "Right-angle mark at M is present with the same orientation as the original."
+      "note": "Right-angle mark at M is drawn at the same vertex and orientation as in the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right-angle mark at M is present, matching the original."
+      "note": "Right-angle mark at M is visible in both panels in the same position."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label E is present below the bottom vertex in both panels."
+      "note": "Label E is below E and clear of strokes, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label A is present above the top vertex in both panels."
+      "note": "Label A is above and right of A, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label C is present to the right of C in both panels."
+      "note": "Label C is to the right of C, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label D is present to the left of D in both panels."
+      "note": "Label D is to the left of D, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label M is present above-left of M in both panels."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "Label A is present and bound to the top vertex."
-    },
-    {
-      "object_id": "point_C",
-      "status": "present",
-      "note": "Label C is present and bound to the C vertex."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "Label D is present and bound to the D vertex."
-    },
-    {
-      "object_id": "point_E",
-      "status": "present",
-      "note": "Label E is present and bound to the bottom vertex."
-    },
-    {
-      "object_id": "point_M",
-      "status": "present",
-      "note": "Label M is present and bound to the M vertex."
+      "note": "Label M is above-left of M, as in the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle outline A-E, E-D and D-A through M, with vertices at the same positions as the original",
-    "Segment D-C from D to C",
-    "Dashed perpendicular M-C from M to C",
-    "Right-angle marks at M and at D",
-    "Labels A, M, D, C and E, all present and placed as in the original"
+    "Triangle outline A-D-E with vertical side A-E and segment D-C to C on AE.",
+    "Dashed altitude C-M, perpendicular to AD, ending at M on AD.",
+    "Right-angle marks at M and D.",
+    "Labels A, M, D, C, E present with correct placement and clearance."
   ],
   "labels": {
     "present": [
@@ -174,25 +109,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 3,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "80916202b447dfe9",
-      "edge": [
-        "A",
-        "E"
-      ],
-      "reason": "In the original, one continuous vertical stroke runs from the top vertex A to the bottom vertex E."
-    },
-    {
-      "case_id": "255373517ce3e7f9",
-      "edge": [
-        "D",
-        "E"
-      ],
-      "reason": "In the original, the lower-left stroke runs from D down to E."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

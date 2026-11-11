@@ -1,10 +1,10 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the quadrilateral ABCD with diagonal BD and the same vertex layout; only minor label and stroke weight differences remain.",
+  "verdict": "The render reproduces the trapezoid ABCD and diagonal BD with matching vertex positions, endpoints and label bindings; the only visible difference is the letter style of the vertex labels.",
   "figure_type": {
-    "original": "Quadrilateral ABCD (trapezoid-like, AD parallel to BC) with diagonal BD, labelled vertices A, B, C, D",
-    "render": "Quadrilateral ABCD with diagonal BD, same vertex layout and proportions"
+    "original": "Trapezoid ABCD (AD parallel to BC) with diagonal BD, labels A, B, C, D at vertices",
+    "render": "Trapezoid ABCD with diagonal BD, labels A, B, C, D at vertices"
   },
   "issues": [
     {
@@ -17,124 +17,103 @@
         "point_04"
       ],
       "bbox": [
-        0.04,
-        0.27,
-        0.1,
-        0.7
+        0.29,
+        0.11,
+        0.33,
+        0.18
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The A, B, C, D labels in the render look lighter and slightly smaller than the bolder labels in the original. Positions and vertex bindings match. The render uses math-italic letters, so the \\bfseries setting has no visible effect on them.",
-      "suggestion": "Optionally use \\boldmath or \\mathbf{A} etc. inside the node, or increase the label font size slightly, to match the heavier label weight. Keep the current node anchors."
-    },
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_AB",
-        "seg_AD",
-        "seg_BC",
-        "seg_BD",
-        "seg_DC"
-      ],
-      "bbox": [
-        0.05,
-        0.32,
-        0.92,
-        0.67
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Edge strokes in the render look slightly thinner than the heavier strokes in the original. The difference is modest and not clearly obvious.",
-      "suggestion": "Optionally raise line width marginally (e.g. from 1.4pt to about 1.5pt). This is not required for fidelity."
+      "description": "Vertex letters in the original are italic math letters (A, D, C, B in math italic). The render uses upright bold letters from \\mathbf, so the label style differs. Positions and bindings are correct.",
+      "suggestion": "Drop \\mathbf and use plain math mode for the labels (e.g. $A$, $D$, $C$, $B$) so they render in math italic, keeping the same node anchors (above left at A, above right at D, below right at C, below left at B)."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base line at the bottom of the figure (BC) is drawn horizontally in the render, matching the original."
+      "note": "Base BC, horizontal-ish segment from B to C, is drawn at the same position as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Diagonal from B to D is drawn in the render and ends at the labelled D vertex as in the original."
+      "note": "Diagonal BD from B to D is drawn correctly and ends at D."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Left leg AB is drawn from A down to B, matching the original."
+      "note": "Left side BA is drawn from B up to A."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Right leg DC is drawn from D down to C, matching the original."
+      "note": "Right side DC is drawn from D down to C."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Top edge AD is drawn horizontally between A and D, matching the original."
-    },
-    {
-      "object_id": "seg_AB",
-      "status": "present",
-      "note": "Edge AB is drawn from A to B in the render, as in the original."
+      "note": "Top side AD is drawn horizontally from A to D."
     },
     {
       "object_id": "seg_AD",
       "status": "present",
-      "note": "Edge AD is drawn from A to D in the render, as in the original."
+      "note": "Top side AD matches the original, with endpoints at A and D."
     },
     {
-      "object_id": "seg_BC",
+      "object_id": "seg_BA",
       "status": "present",
-      "note": "Edge BC is drawn from B to C in the render, as in the original."
+      "note": "Left side BA matches the original."
     },
     {
       "object_id": "seg_BD",
       "status": "present",
-      "note": "Diagonal BD is drawn from B to D in the render, as in the original."
+      "note": "Diagonal BD matches the original and terminates at D."
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Bottom side CB matches the original."
     },
     {
       "object_id": "seg_DC",
       "status": "present",
-      "note": "Edge DC is drawn from D to C in the render, as in the original."
+      "note": "Right side DC matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex B is at the bottom-left corner of the figure, with its label bound correctly."
+      "note": "Vertex B is at the same location as in the original, with its label below left."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex C is at the bottom-right corner, with its label bound correctly."
+      "note": "Vertex C is at the same location as in the original, with its label below right."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex D is at the top-right corner, with its label bound correctly."
+      "note": "Vertex D is at the same location as in the original, with its label above right."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Vertex A is at the top-left corner, with its label bound correctly."
+      "note": "Vertex A is at the same location as in the original, with its label above left."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 2
+    "low": 1
   },
   "flaky_count": 0,
-  "must_repair": true,
+  "must_repair": false,
   "matches": [
-    "Quadrilateral ABCD topology: AB, AD, DC, BC edges and diagonal BD all present",
-    "Vertex positions and relative proportions match the original",
-    "AD runs horizontally and BC runs horizontally, as in the original",
-    "Labels A, B, C, D are present, spelled correctly, and placed on the outside of their vertices with clear separation from strokes",
-    "No extra lines or labels in the render"
+    "Trapezoid outline A-D-C-B with AD parallel to BC and matching proportions",
+    "Diagonal BD runs from B to D and ends exactly at D",
+    "All four vertex positions match the original within a pixel or two",
+    "Label placement and clearance around A, B, C and D match the original",
+    "No extra or missing segments"
   ],
   "labels": {
     "present": [

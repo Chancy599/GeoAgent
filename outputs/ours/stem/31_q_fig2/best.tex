@@ -1,5 +1,5 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usetikzlibrary{angles,quotes}
+\usetikzlibrary{calc}
 \begin{document}
 \begin{tikzpicture}[line width=1.2pt, line join=round]
 \coordinate (A) at (0.583,3.568);
@@ -17,22 +17,20 @@
 \draw (A) -- (D);
 
 
-\draw (B) -- (D);
-\draw (D) -- (E);
-\draw (E) -- (C);
+\draw (B) -- (D) -- (E) -- (C);
 
 
-\draw[dash pattern=on 6pt off 4pt] (A) -- (E);
+\draw[dash pattern=on 4pt off 3pt] (A) -- (E);
 
 
-\draw pic[draw, angle radius=0.287cm] {right angle=A--E--C};
+\draw ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$);
 
 
 \node[above] at (A) {\fontsize{12.5}{15}\selectfont $A$};
-\node[left] at (B) {\fontsize{12.5}{15}\selectfont $B$};
-\node[right] at (C) {\fontsize{12.5}{15}\selectfont $C$};
+\node[below left] at (B) {\fontsize{12.5}{15}\selectfont $B$};
+\node[below right] at (C) {\fontsize{12.5}{15}\selectfont $C$};
 \node[below] at (D) {\fontsize{12.5}{15}\selectfont $D$};
 \node[below] at (E) {\fontsize{12.5}{15}\selectfont $E$};
 \end{tikzpicture}
 \end{document}
-% GEOAGENT_REPAIR_V1 732da5aaa6106a12 0104fe34ac7b70b795b27f7c3964416cfb426f6027f784f7971149b582a51c5d
+% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 ab3d6c0ce87e02f4067c3920717627dbdcf6e8e51e887086e57ea2dbbec56ecc

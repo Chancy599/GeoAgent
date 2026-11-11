@@ -4,14 +4,48 @@
   "applied": true,
   "stage": "post_tikz",
   "constraint_mode": "joint_coordinate_projection",
-  "candidate_source": "generated_tikz",
+  "candidate_source": "generated_tikz_and_original_raster",
   "reference_used": false,
-  "algorithm": "post_tikz.body_candidates.3dp.v3",
+  "algorithm": "post_tikz.source_collinearity.3dp.v4",
   "angle_glyphs_are_candidates": false,
-  "input_sha256": "98878176a0524960941623d21ec0eb2b0a7609a0691cb6009961541194d25bc3",
-  "output_sha256": "037ae62022d719e076e2537370d13fef6919e35ed17a187c9f9461cb008a8c1a",
+  "input_sha256": "1ed07661734c5f4f72999c6d7997fe8a03b3f918e9af61c1f83eb31b018c76d8",
+  "output_sha256": "097007d29793d3a27ce0b352ffbbc827f71d1cca36b15e3ef732c876ae1a7777",
   "reason": "applied",
   "accepted": [
+    {
+      "type": "collinear",
+      "segments": [
+        "A--P",
+        "A--D"
+      ],
+      "before_error_deg": 0.28364015575781637,
+      "after_error_deg": 0.0,
+      "labels": [
+        "P",
+        "A",
+        "D"
+      ],
+      "source_turn_deg": 0.2836,
+      "solver_after_error_deg": 3.0737886615002126e-14,
+      "export_tolerance_deg": 0.1487670799967002
+    },
+    {
+      "type": "collinear",
+      "segments": [
+        "A--D",
+        "D--E"
+      ],
+      "before_error_deg": 0.35055490432839126,
+      "after_error_deg": 0.016728694272986653,
+      "labels": [
+        "A",
+        "D",
+        "E"
+      ],
+      "source_turn_deg": 0.3506,
+      "solver_after_error_deg": 3.3408459376061094e-14,
+      "export_tolerance_deg": 0.12397321704441727
+    },
     {
       "type": "perpendicular",
       "segments": [
@@ -19,49 +53,71 @@
         "A--P"
       ],
       "before_error_deg": 0.0,
-      "after_error_deg": 0.0,
+      "after_error_deg": 0.01658823911760976,
       "solver_after_error_deg": 0.0,
-      "export_tolerance_deg": 0.07191979233373044
-    },
-    {
-      "type": "perpendicular",
-      "segments": [
-        "A--B",
-        "E--Q"
-      ],
-      "before_error_deg": 0.034453260737961955,
-      "after_error_deg": 0.0,
-      "solver_after_error_deg": 0.0,
-      "export_tolerance_deg": 0.07218317947258635
-    },
-    {
-      "type": "perpendicular",
-      "segments": [
-        "A--B",
-        "D--E"
-      ],
-      "before_error_deg": 0.05018607141040832,
-      "after_error_deg": 0.0,
-      "solver_after_error_deg": 0.0,
-      "export_tolerance_deg": 0.04711687726223373
-    },
-    {
-      "type": "perpendicular",
-      "segments": [
-        "A--B",
-        "A--D"
-      ],
-      "before_error_deg": 0.28364015575782275,
-      "after_error_deg": 0.0,
-      "solver_after_error_deg": 4.263256414560601e-14,
-      "export_tolerance_deg": 0.12374440689613055
+      "export_tolerance_deg": 0.0719124156022034
     }
   ],
-  "rejected": [],
+  "rejected": [
+    {
+      "candidate": {
+        "type": "perpendicular",
+        "segments": [
+          "A--B",
+          "A--D"
+        ],
+        "metrics": {
+          "parallel_error_deg": 89.71635984424218,
+          "perpendicular_error_deg": 0.28364015575782275,
+          "collinear_error_deg": 89.71635984424218,
+          "relative_length_error": 0.7659977118652077,
+          "relative_line_offset": 0.0,
+          "shared_endpoint": true
+        }
+      },
+      "reason": "degenerate constraint"
+    },
+    {
+      "candidate": {
+        "type": "perpendicular",
+        "segments": [
+          "A--B",
+          "D--E"
+        ],
+        "metrics": {
+          "parallel_error_deg": 89.93308525142943,
+          "perpendicular_error_deg": 0.0669147485705679,
+          "collinear_error_deg": 89.93308525142943,
+          "relative_length_error": 0.008108214374275509,
+          "relative_line_offset": 0.0884077056770592,
+          "shared_endpoint": false
+        }
+      },
+      "reason": "degenerate constraint"
+    },
+    {
+      "candidate": {
+        "type": "perpendicular",
+        "segments": [
+          "A--B",
+          "E--Q"
+        ],
+        "metrics": {
+          "parallel_error_deg": 90.0,
+          "perpendicular_error_deg": 0.0,
+          "collinear_error_deg": 90.0,
+          "relative_length_error": 0.518389805965827,
+          "relative_line_offset": 0.46315571550865314,
+          "shared_endpoint": false
+        }
+      },
+      "reason": "degenerate constraint"
+    }
+  ],
   "limits": {
     "angle_tol_deg": 0.5,
-    "max_shift_rel": 0.005,
-    "max_length_change_rel": 0.01,
+    "max_shift_rel": 0.013,
+    "max_length_change_rel": 0.035,
     "topology_tol_rel": 0.003,
     "incidence_mode": "snap",
     "length_weight": 0.01,
@@ -72,15 +128,44 @@
       "parallel",
       "perpendicular"
     ],
-    "relaxation": 1.0
+    "relaxation": 1.0,
+    "collinear_max_turn_deg": 8.0
   },
   "angle_glyph_exclusion": {
     "excluded_paths": [],
     "excluded_helper_points": [],
     "excluded_strokes": 0
   },
-  "input_candidates": 4,
-  "preserved_incidence_count": 0,
+  "source_collinear_candidates": [
+    {
+      "type": "collinear",
+      "segments": [
+        "A--P",
+        "A--D"
+      ],
+      "labels": [
+        "P",
+        "A",
+        "D"
+      ],
+      "source_turn_deg": 0.2836
+    },
+    {
+      "type": "collinear",
+      "segments": [
+        "A--D",
+        "D--E"
+      ],
+      "labels": [
+        "A",
+        "D",
+        "E"
+      ],
+      "source_turn_deg": 0.3506
+    }
+  ],
+  "input_candidates": 6,
+  "preserved_incidence_count": 1,
   "max_shift_rel": 0.0003282464319692917,
   "max_length_change_rel": 0.0005688861201859075,
   "fixed_points": [],
@@ -89,14 +174,14 @@
   "incidence_mode": "snap",
   "topology_tol_rel": 0.003,
   "incidence_strength": 1.0,
-  "rms_shift_rel": 0.00014284095419546736,
-  "max_after_error_deg": 0.0,
+  "rms_shift_rel": 0.00016404450384934922,
+  "max_after_error_deg": 0.016728694272986653,
   "curve_policy": "defer",
-  "candidate_count": 4,
-  "solver_max_shift_rel": 0.0003231535839616663,
+  "candidate_count": 6,
+  "solver_max_shift_rel": 0.0003620913385142241,
   "coordinate_decimals": 3,
   "export_verified": true,
-  "max_export_error_deg": 0.0,
+  "max_export_error_deg": 0.016728694272986653,
   "point_count": 7,
   "segment_count": 8
 }

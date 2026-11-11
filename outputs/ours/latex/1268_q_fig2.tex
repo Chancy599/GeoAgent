@@ -1,6 +1,5 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usepackage{amsmath}
-\usetikzlibrary{calc,angles,quotes}
+\usetikzlibrary{angles}
 \begin{document}
 \begin{tikzpicture}[line width=1.2pt, line join=round]
 \coordinate (A) at (-3.555,-3.305);
@@ -9,41 +8,47 @@
 \coordinate (D) at (0.559,0.177);
 \coordinate (O) at (-0.023,-3.310);
 \coordinate (P) at (1.088,3.334);
+\coordinate (GeoTailC) at (1.019,3.236);
 
 
 
 
-\coordinate (E) at (-2.399,-1.651);
 
 
-\draw (A) -- (O) -- (B);
 
 
-\draw (A) -- (E) -- (C) -- (P);
 
 
-\draw (P) -- (D) -- (O);
+
+\coordinate (E) at (-2.398,-1.651);
 
 
-\draw (A) arc[start angle=180.000, end angle=0.000, radius=3.535];
+\draw[solid] (A) -- (O) -- (B);
+\fill (O) circle (1.500pt);
 
 
-\draw[dashed] (O) -- (C);
-\draw[dashed] (O) -- (E);
+\draw (A) arc[start angle=180.000, end angle=0.000, radius=3.533];
+
+
+\draw[solid] (A) -- (E) -- (C) -- (GeoTailC) -- (P);
+
+
+\draw[solid] (P) -- (D) -- (O);
+
+
+\draw[dash pattern=on 3pt off 2pt] (E) -- (O);
+\draw[dash pattern=on 3pt off 2pt] (C) -- (O);
 
 
 \draw pic[draw, angle radius=0.225cm] {right angle=P--E--O};
 
-\fill (O) circle (1.600pt);
 
-
-\fontsize{12}{14.4}\selectfont
-\node[above] at (P) {$P$};
-\node[above right] at (D) {$D$};
-\node[above left] at (C) {$C$};
-\node[left] at (E) {$E$};
-\node[below] at (A) {$A$};
-\node[below] at (O) {$O$};
-\node[below] at (B) {$B$};
+\node[below left, font=\fontsize{12}{14.4}\selectfont] at (A) {$A$};
+\node[below, font=\fontsize{12}{14.4}\selectfont] at (O) {$O$};
+\node[below right, font=\fontsize{12}{14.4}\selectfont] at (B) {$B$};
+\node[above, font=\fontsize{12}{14.4}\selectfont] at (P) {$P$};
+\node[above left, font=\fontsize{12}{14.4}\selectfont] at (C) {$C$};
+\node[above right, font=\fontsize{12}{14.4}\selectfont] at (D) {$D$};
+\node[left, font=\fontsize{12}{14.4}\selectfont] at (E) {$E$};
 \end{tikzpicture}
 \end{document}

@@ -1,143 +1,168 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render closely matches the original: the top line runs from A through D and overhangs to M by about the same distance, all six segments and five labelled vertices are present, and the M label sits in the same place relative to the line end.",
+  "verdict": "Faithful reconstruction: all segments, intersections, and labels match the original. The only differences are a slight tilt of the BC and AM baselines in the render, which the original draws horizontal.",
   "figure_type": {
-    "original": "Trapezoid-like quadrilateral ABCD with P on base BC, a horizontal line from A through D extended to M, and diagonals AP, AC, DP, DC.",
-    "render": "Same configuration: trapezoid with base BC, apex line AM, P on BC, and diagonals AP, AC, DP, DC."
+    "original": "Quadrilateral-based construction: triangle-like figure with base BC, top line AM through D, interior segments AP, AC, DP, AB, DC, and point P on BC",
+    "render": "Same construction: base BC, top line A-D-M, interior segments AP, AC, DP, AB, DC, and point P on BC"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_position",
+      "severity": "low",
+      "object_ids": [
+        "seg_02",
+        "seg_01"
+      ],
+      "bbox": [
+        0.05,
+        0.25,
+        0.97,
+        0.72
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "In the render, the top line A-D-M slopes slightly downward from A to M (A at y≈200, M at y≈206 in the right panel), and the base B-P-C slopes slightly downward from B to C (y≈413 to y≈417). In the original, both AM and BC are horizontal.",
+      "suggestion": "Make A and D share the same y-coordinate and make M lie on that same horizontal line. Make B and C share the same y-coordinate, and place P on that line. Current coordinates: A(-2.063,1.627), D(1.561,1.586), M(3.862,1.560), B(-3.515,-1.595), C(2.286,-1.661). Set A.y = D.y = M.y and B.y = P.y = C.y."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base segment B to C, drawn through P, matches the original."
+      "note": "Base BC drawn with P on it; slight tilt noted in issues."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top line from A through D to M matches the original; the overhang past D is about 128 px in the original and about 131 px in the render."
+      "note": "Top line AM through D present; slight tilt noted in issues."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Diagonal A to C matches the original."
+      "note": "Segment CA present, endpoints match A and C."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Diagonal D to P matches the original."
+      "note": "Segment DP present, endpoints match D and P."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Left side A to B matches the original."
+      "note": "Segment AB present, endpoints match A and B."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment A to P matches the original."
+      "note": "Segment AP present, endpoints match A and P."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Right side D to C matches the original."
+      "note": "Segment DC present, endpoints match D and C."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Terminal stub at the M end of the top line is present; the line ends where the original ends."
+      "note": "Short CV stub near M (553,57)-(549,75) is not drawn in the original as a separate segment and is not needed in the render; treated as an artifact of the CV pass."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Drawn as A to B; matches seg_05."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Diagonal A to C is drawn and labelled consistently with the original."
+      "note": "Drawn as A to C; matches seg_03."
     },
     {
-      "object_id": "seg_AD_top",
+      "object_id": "seg_AM",
       "status": "present",
-      "note": "Top line A to M, labelled AM, matches the original, including the overhang beyond D."
+      "note": "Top line from A through D to M; matches seg_02 and the A-D stretch, with slight tilt noted."
+    },
+    {
+      "object_id": "seg_AP",
+      "status": "present",
+      "note": "Drawn as A to P; matches seg_06."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Base BC matches the original with P on it."
+      "note": "Base from B through P to C; matches seg_01, with slight tilt noted."
     },
     {
-      "object_id": "seg_DP",
+      "object_id": "seg_DC",
       "status": "present",
-      "note": "Diagonal DP matches the original."
+      "note": "Drawn as D to C; matches seg_07."
     },
     {
-      "object_id": "junction_seg_01_seg_03",
+      "object_id": "seg_PD",
       "status": "present",
-      "note": "Point C is at the bottom-right vertex, labelled C, with clear separation from strokes."
+      "note": "Drawn as P to D; matches seg_04."
     },
     {
-      "object_id": "junction_seg_01_seg_04",
+      "object_id": "point_01",
       "status": "present",
-      "note": "Point P is on the base, labelled P, with the correct binding."
+      "note": "C label and vertex correctly placed at the lower-right end of the base."
     },
     {
-      "object_id": "junction_seg_01_seg_05",
+      "object_id": "point_02",
       "status": "present",
-      "note": "Point B is at the bottom-left vertex, labelled B."
+      "note": "P label below the base, where the AP and DP segments meet BC."
     },
     {
-      "object_id": "junction_seg_02_seg_03",
+      "object_id": "point_03",
       "status": "present",
-      "note": "Point A is at the top-left vertex, labelled A, with the correct binding."
+      "note": "B label at the lower-left vertex."
     },
     {
-      "object_id": "junction_seg_02_seg_04",
+      "object_id": "point_04",
       "status": "present",
-      "note": "Point D is at the top vertex where DP and DC meet the top line, labelled D."
+      "note": "A label above-left of the top-left vertex."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "D label above the top vertex where the line to M passes through."
+    },
+    {
+      "object_id": "point_17",
+      "status": "present",
+      "note": "M label to the right of the end of the top line."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "A is at the correct top-left vertex and is labelled."
+      "note": "Letter A is visible at the top-left vertex in both panels. The ID is not in the geometry state; it corresponds to point_04."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "B is at the correct bottom-left vertex and is labelled."
+      "note": "Letter B is visible at the lower-left vertex in both panels. The ID is not in the geometry state; it corresponds to point_03."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "C is at the correct bottom-right vertex and is labelled."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "D is at the correct top vertex and is labelled."
-    },
-    {
-      "object_id": "point_M_end",
-      "status": "present",
-      "note": "The M end of the top line is at the correct overhang position, and the M label is offset to the right as in the original."
-    },
-    {
-      "object_id": "point_P",
-      "status": "present",
-      "note": "P is on the base between B and C, labelled P, with no crossing of the label."
+      "note": "Letter C is visible at the lower-right vertex in both panels. The ID is not in the geometry state; it corresponds to point_01."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Top line A-D-M is present, and the overhang from D to M is about 128 px in the original and about 131 px in the render, a difference of about 3 px.",
-    "The M label is placed to the right of the line end, in the same relative position as the original.",
-    "All five vertex labels A, B, C, D, P are present and bound to the correct points.",
-    "All diagonals and sides (AB, AP, AC, DP, DC, BC) are present with the same topology as the original.",
-    "P lies on base BC, and the base is straight through P."
+    "All six labels A, B, C, D, P, M are present, correctly spelled, and bound to their vertices with clear clearance from strokes.",
+    "Segment topology matches: AB, AP, AC, DP, DC, and the top line through D to M.",
+    "Intersection of AC and DP lies in the interior at the same relative location as in the original.",
+    "P sits on the base between B and C at the same relative position.",
+    "Overall aspect ratio and proportions of the figure are consistent with the original.",
+    "Stroke weights and label sizes are comparable between panels."
   ],
   "labels": {
     "present": [
@@ -151,7 +176,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

@@ -1,10 +1,10 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful to the original: circle, diameter MN, P on OM, and rays PA and PB match in position and direction; the only notable difference is the much smaller center dot at O.",
+  "verdict": "Render is faithful to the original: circle, diameter MN, O at centre, P between O and N, and rays PA and PB ending on the circle all match, with only a marginal dot-size difference.",
   "figure_type": {
-    "original": "Circle with horizontal diameter MN, center O marked by a visible filled dot, P between O and N, and two rays from P ending on the circle at A (upper) and B (right-upper).",
-    "render": "Circle with horizontal diameter MN, center O marked by a very small dot, P between O and N, and two rays from P ending on the circle at A and B."
+    "original": "circle with horizontal diameter MN, centre O, point P on the diameter between O and N, chords-from-P segments PA and PB to the circle",
+    "render": "circle with horizontal diameter MN, centre O, point P on the diameter between O and N, segments PA and PB to the circle"
   },
   "issues": [
     {
@@ -15,111 +15,111 @@
       ],
       "bbox": [
         0.48,
-        0.48,
+        0.47,
         0.53,
         0.53
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The filled dot at center O is much smaller in the render than in the original (render dot is roughly a few pixels across; original is about 3x larger in diameter).",
-      "suggestion": "Increase the dot radius in \\fill (O) circle[radius=0.040]; e.g. to about 0.07-0.08 to match the original's visible dot size."
+      "description": "The filled dot marking O is slightly smaller in the render than in the original, where it reads as a clearly visible filled dot.",
+      "suggestion": "Increase the O dot radius slightly, e.g. from 0.080 to about 0.095 in the TikZ fill for (O)."
     }
   ],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Circle center and radius match the original; stroke weight comparable."
+      "note": "Circle centred at O with matching radius and extent in both panels."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diameter MN drawn from M to N through O and P, matching the original extent."
+      "note": "Diameter MN drawn horizontally from M to N in both panels."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Ray PA from P to the circle at A; direction and endpoint match the original."
+      "note": "Segment from P up to A ends on the circle in both panels."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Ray PB from P to the circle at B; direction and endpoint match the original."
+      "note": "Segment from P to B ends on the circle in both panels."
     },
     {
       "object_id": "seg_MN",
       "status": "present",
-      "note": "Same diameter as seg_01, drawn M to N."
+      "note": "Diameter MN matches the original."
     },
     {
       "object_id": "seg_PA",
       "status": "present",
-      "note": "Matches the original segment from P to A."
+      "note": "PA matches the original in position and angle."
     },
     {
       "object_id": "seg_PB",
       "status": "present",
-      "note": "Matches the original segment from P to B."
+      "note": "PB matches the original in position and angle."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "P is placed on MN at about 0.22 radius right of O, as in the original; label P is below it."
+      "note": "P is present on MN, between O and N, with its label below."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "O is at the center of the circle; the dot is present but noticeably smaller than in the original."
+      "note": "O is the centre dot with label below; dot is marginally smaller in the render."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "N is at the right end of the diameter on the circle; label is correctly placed."
+      "note": "N is at the right end of the diameter on the circle, labelled to the right."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "M is at the left end of the diameter on the circle; label is correctly placed."
+      "note": "M is at the left end of the diameter on the circle, labelled to the left."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "A is on the circle at the end of PA; label is above-right as in the original."
+      "note": "A is at the end of PA on the circle, labelled above-right."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "B is on the circle at the end of PB; label sits to the right of the endpoint, close to the original."
+      "note": "B is at the end of PB on the circle, labelled above-right."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Same point as point_05; the A label matches the original."
+      "note": "Same vertex as point_05; present at the end of PA."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Same point as point_06; the B label matches the original."
+      "note": "Same vertex as point_06; present at the end of PB."
     },
     {
       "object_id": "point_M",
       "status": "present",
-      "note": "Same point as point_04; M label is correctly placed to the left."
+      "note": "Same vertex as point_04; present at the left end of MN."
     },
     {
       "object_id": "point_N",
       "status": "present",
-      "note": "Same point as point_03; N label is correctly placed to the right."
+      "note": "Same vertex as point_03; present at the right end of MN."
     },
     {
       "object_id": "point_O",
       "status": "present",
-      "note": "Same point as point_02; O label sits below the center as in the original, though the dot is smaller."
+      "note": "Same vertex as point_02; centre of the circle."
     },
     {
       "object_id": "point_P",
       "status": "present",
-      "note": "Same point as point_01; P label is below P with clear separation from the rays."
+      "note": "Same vertex as point_01; present on MN."
     }
   ],
   "checklist_score": 1.0,
@@ -131,14 +131,13 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle center, radius and aspect ratio match the original.",
-    "Diameter MN spans the full circle horizontally with M left and N right.",
-    "P position on the diameter (about 0.22 radius right of O) matches the original.",
-    "Ray PA direction and endpoint on the circle match the original.",
-    "Ray PB direction and endpoint on the circle match the original.",
-    "Labels M, N, O, P, A, B are present, spelled correctly, and bound to their intended vertices.",
-    "No label collides with a stroke; label clearances are comparable to the original.",
-    "Line weights of the circle and rays are comparable to the original."
+    "Circle size and position match the original.",
+    "Diameter MN spans M to N on the circle.",
+    "O is at the centre of the circle, on MN.",
+    "P lies on MN between O and N, at a similar offset from O as in the original.",
+    "PA and PB start at P and end on the circle, with similar angles to the original.",
+    "Labels M, N, O, P, A and B are present, correctly spelled, and clear of the strokes.",
+    "Label bindings (A, B, M, N, O, P) match the source points."
   ],
   "labels": {
     "present": [
@@ -152,7 +151,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

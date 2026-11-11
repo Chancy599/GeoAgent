@@ -37,10 +37,12 @@ def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
     fixed={ids[name] for name in fixed_points}
     free=np.array([i for p in range(len(names)) if p not in fixed for i in (2*p,2*p+1)],dtype=int)
     for candidate in candidates:
-        if candidate["type"] not in ("parallel","perpendicular"):
-            raise ValueError("Only parallel/perpendicular constraints are accepted")
+        if candidate["type"] not in ("parallel", "perpendicular", "collinear"):
+            raise ValueError("Unknown directional constraint")
         if len(candidate["segments"])!=2 or any(s not in edges for s in candidate["segments"]):
             raise ValueError("unknown segment reference")
+        if candidate['type'] == 'collinear' and len(set(edges[candidate['segments'][0]]) & set(edges[candidate['segments'][1]])) != 1:
+            raise ValueError('Collinear segments must share one vertex')
 
     # Preserve existing interior point-on-line incidence (including its tiny
     # original detector/rounding offset), without discovering collinear relations.
@@ -58,6 +60,28 @@ def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
             cross=float(edge[0]*offset[1]-edge[1]*offset[0])/length
             if 0.001<t<0.999 and abs(cross)<=topology_tol_rel:
                 incidence.append((a,b,p,length,cross if incidence_mode=="preserve" else cross*(1-incidence_strength)))
+
+    # A collinear repair can move a shared endpoint of another straight chain.
+    # Preserve that chain's existing offset when the chord is not a drawn edge.
+    collinear_pairs = {frozenset(item['segments']) for item in candidates if item['type'] == 'collinear'}
+    if collinear_pairs:
+        direct = {frozenset(edge) for edge in edges.values()}
+        for (first, left), (second, right) in itertools.combinations(edges.items(), 2):
+            shared = set(left) & set(right)
+            if len(shared) != 1 or frozenset((first, second)) in collinear_pairs:
+                continue
+            p = shared.pop()
+            a, b = next(i for i in left if i != p), next(i for i in right if i != p)
+            if a == b or frozenset((a, b)) in direct:
+                continue
+            u, v = initial[b]-initial[a], initial[p]-initial[a]
+            length = float(np.linalg.norm(u))
+            if length <= 1e-9:
+                continue
+            fraction = float(u@v) / length**2
+            cross = float(u[0]*v[1]-u[1]*v[0]) / length
+            if .001 < fraction < .999 and abs(cross) <= min(.002, topology_tol_rel):
+                incidence.append((a, b, p, length, cross))
 
     # A fixed quadratic approximation to relative length change. Its metric
     # protects short edges more strongly, rather than clipping vertices after
@@ -177,7 +201,7 @@ def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
         metric=pair_metrics(geometry["points"],*(geometry["segments"][s] for s in candidate["segments"]))
         return metric[candidate["type"]+"_error_deg"]
 
-    active=sorted(candidates,key=error)
+    active=sorted(candidates, key=lambda candidate: (candidate['type'] != 'collinear', error(candidate)))
     rejected=[]
     report={"applied":False,"reason":"no_candidates","input_candidates":len(candidates),
             "accepted":[],"rejected":rejected,"preserved_incidence_count":len(incidence),
@@ -215,8 +239,11 @@ def optimize_coordinates(geometry, candidates=None, *, max_shift_rel=0.005,
             before=pair_metrics(geometry["points"],first,second)
             after=pair_metrics(optimized["points"],first,second)
             key=candidate["type"]+"_error_deg"
-            details.append({"type":candidate["type"],"segments":candidate["segments"],
-                            "before_error_deg":before[key],"after_error_deg":after[key]})
+            detail = {"type":candidate["type"],"segments":candidate["segments"],
+                      "before_error_deg":before[key],"after_error_deg":after[key]}
+            if candidate['type'] == 'collinear' and 'source_turn_deg' in candidate:
+                detail.update(labels=candidate['labels'], source_turn_deg=candidate['source_turn_deg'])
+            details.append(detail)
         max_error=max(d["after_error_deg"] for d in details)
         if max_error>1e-7:
             rejected.append({"candidate":active.pop(),"reason":"final_angle_tolerance_exceeded"})

@@ -1,118 +1,156 @@
 {
-  "assessment_score": 0.96,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful: quadrilateral ABCD with right angles at B and C, vertex labels and bindings match the original, with no meaningful geometric or label discrepancies.",
+  "verdict": "The render is a faithful reproduction: the quadrilateral ABCD, its edges, the two right-angle markers at B and C, and the vertex dots all match the original, with only a minor difference in the placement of the D label.",
   "figure_type": {
-    "original": "Quadrilateral ABCD with right angles at B and C (vertical AB, horizontal BC, vertical CD, diagonal AD), all solid, with point dots and italic vertex labels",
-    "render": "Same quadrilateral ABCD with right angles at B and C, solid strokes, point dots and italic vertex labels"
+    "original": "Quadrilateral ABCD (portrait) with vertical side AB, horizontal base BC, vertical side CD, and diagonal AD; right angles at B and C; solid strokes",
+    "render": "Quadrilateral ABCD (portrait) with vertical side AB, horizontal base BC, vertical side CD, and diagonal AD; right angles at B and C; solid strokes"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_04"
+      ],
+      "bbox": [
+        0.7,
+        0.44,
+        0.76,
+        0.52
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The label D sits directly to the right of vertex D in the render, whereas in the original it sits above-right of D. The binding to D is correct and the label does not touch any stroke, so this is only a small placement difference.",
+      "suggestion": "Optionally change the D node anchor from [right] to [above right] so it matches the original; keep it bound to (D)."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Corresponds to rendered AB, spanning A to B in both panels."
+      "note": "Edge AB is drawn as the vertical left side from A to B, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Diagonal AD is drawn from A to D in both panels."
+      "note": "Diagonal AD runs from A to D, matching the original; the CV endpoint extends slightly past the vertices, which is detection noise."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Corresponds to rendered CD, vertical from D down to C."
+      "note": "Edge CD is the vertical right side from D down to C, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Corresponds to rendered BC, horizontal bottom edge from B to C."
+      "note": "Base BC runs horizontally from B to C, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Short horizontal arm of the right-angle mark at B, drawn via the angle pic in the render; the square is visible in both panels."
+      "note": "Top side of the right-angle square at B, drawn by pic right angle=A--B--C. It appears in both panels; the CV extent is approximate."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Short horizontal arm of the right-angle mark at C, drawn via the angle pic in the render; the square is visible in both panels."
+      "note": "Top side of the right-angle square at C, drawn by pic right angle=B--C--D. It appears in both panels; the CV extent is approximate."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Solid vertical side from A to B, matching the original."
+      "note": "AB is drawn from A to B and matches the original."
     },
     {
       "object_id": "seg_AD",
       "status": "present",
-      "note": "Solid diagonal from A to D, matching the original."
+      "note": "AD is drawn from A to D and matches the original."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Solid horizontal side from B to C, matching the original."
+      "note": "BC is drawn from B to C and matches the original."
     },
     {
       "object_id": "seg_CD",
       "status": "present",
-      "note": "Solid vertical side from C to D, matching the original."
+      "note": "CD is drawn from C to D and matches the original."
     },
     {
       "object_id": "ra_01",
       "status": "present",
-      "note": "Right-angle square at B opens up and to the right in both panels."
+      "note": "Right-angle mark at B opens up-right between BA and BC, as in the original."
     },
     {
       "object_id": "ra_02",
       "status": "present",
-      "note": "Right-angle square at C opens up and to the left in both panels."
+      "note": "Right-angle mark at C opens up-left between CB and CD, as in the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Same mark as ra_01 at vertex B; orientation matches the original."
+      "note": "Same right-angle mark at B, with the same quadrant and size as the original."
     },
     {
       "object_id": "right_angle_02",
       "status": "present",
-      "note": "Same mark as ra_02 at vertex C; orientation matches the original."
+      "note": "Same right-angle mark at C, with the same quadrant and size as the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Point A is at the top-left vertex with its label above-left, matching the original."
+      "note": "Vertex A is at the top-left end of AB and carries its label above-left, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Point B is at the bottom-left vertex with its label below-left, matching the original."
+      "note": "Vertex B is at the bottom-left corner with its label below-left, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Point D is on the right side with its label to the right, matching the original."
+      "note": "Vertex D is on the right side at the endpoint of AD and CD, with the correct binding. Its label is placed to the right instead of above-right (see low issue)."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Point C is at the bottom-right vertex with its label below-right, matching the original."
+      "note": "Vertex C is at the bottom-right corner with its label below-right, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Point A is present at the correct location and labelled A."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Point B is present at the correct location and labelled B."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Point C is present at the correct location and labelled C."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Point D is present at the correct location and labelled D."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Vertices A, B, C, D are placed in the same relative positions with the same proportions.",
-    "Right angles at B and C are drawn with correctly oriented squares.",
-    "All four sides are solid with matching ends at the vertices.",
-    "Diagonal AD meets vertical CD at D exactly where the original does.",
-    "Vertex labels A, B, C, D are present with correct spelling and clear placement."
+    "Vertices A, B, C and D are in the same relative positions, and the shape and proportions match the original.",
+    "Edges AB, BC, CD and AD are all solid and end at the correct vertices, with no overhangs or gaps.",
+    "Right-angle markers at B and C are present, in the correct quadrants, and have similar sizes.",
+    "The labels A, B and C match the original in spelling and placement, with clear separation from the strokes.",
+    "Stroke weight of the edges and markers is comparable to the original, and there is no warping."
   ],
   "labels": {
     "present": [

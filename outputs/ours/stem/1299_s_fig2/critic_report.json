@@ -1,150 +1,150 @@
 {
-  "assessment_score": 0.86,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is a faithful reconstruction of the circle, triangle, centre O, altitude AD, line BF through E and H, perpendicular CH with its right-angle mark, and dashed FC and HC. The main discrepancy is a visibly heavier stroke along part of BF.",
+  "verdict": "Render is faithful: circle, triangle ABC, foot D, centre O, the B–O–E–H–F line, dashed F–C and H–C, and the right-angle mark at H all match the original; only minor label clearance differs.",
   "figure_type": {
-    "original": "Circle with inscribed triangle ABC, altitude AD, centre O, and a line from B through O, E and H to F, with a right-angle mark at H and dashed segments FC and HC.",
-    "render": "Same construction: circle, triangle ABC, altitude AD, centre O, line B-E-H-F, right-angle mark at H, and dashed FC and HC."
+    "original": "Circle with inscribed triangle ABC, altitude AD, centre O, line B-O-E-H-F through E on AC, dashed H-C and F-C, right angle at H",
+    "render": "Circle with inscribed triangle ABC, altitude AD, centre O, line B-O-E-H-F through E on AC, dashed H-C and F-C, right angle at H"
   },
   "issues": [
     {
-      "type": "wrong_style",
+      "type": "label_error",
       "severity": "low",
       "object_ids": [
-        "seg_01"
+        "point_02"
       ],
       "bbox": [
-        0.36,
-        0.36,
-        0.95,
-        0.68
+        0.66,
+        0.38,
+        0.74,
+        0.47
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The segment from E to F appears darker and thicker than the rest of the BF line. The TikZ draws B--F and also B--E--H--F, so the two overlapping strokes double the weight. In the original BF is a single thin line.",
-      "suggestion": "Draw BF once. Either remove the separate \\draw (B) -- (F) and keep the polyline B--E--H--F, or keep B--F and drop E--H--F from the polyline, so the stroke is not doubled."
+      "description": "The E label sits close to the A–C stroke in the render, with little clearance from the line. The original also places E near AC, so this is a minor clearance difference and not a binding error.",
+      "suggestion": "Optionally nudge the E label slightly away from AC (for example, 'below left' or a small manual shift) while keeping the node bound to coordinate (E)."
     }
   ],
   "checks": [
     {
-      "object_id": "circle_O",
+      "object_id": "circle_01",
       "status": "present",
-      "note": "Circle is centred at O and passes through A, B, C in the same way as the original."
+      "note": "Circle centred at O with matching radius and extent."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Line B through O, E, H to F matches the original, but the E-F stretch is doubled and heavier."
+      "note": "Segment B–A drawn thick, as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Base BC is drawn horizontally, matching the original."
+      "note": "Base B–C drawn thick and horizontal, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Side AB matches the original."
+      "note": "Side A–B matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Side AC matches the original, passing through E."
+      "note": "Side A–C through E matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Altitude AD matches the original."
+      "note": "Altitude A–D drawn thin, as in the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment from C to O matches the original."
+      "note": "Line C–O extended to the circle at the matching angle."
     },
     {
       "object_id": "seg_07",
       "status": "unclear",
-      "note": "Short CV fragment on the dashed FC/HC region, not clearly separate in the original."
+      "note": "Geometry-state centreline is weakly supported by ink; the render's B–O–E–H–F line matches the original's visible stroke."
     },
     {
       "object_id": "seg_08",
       "status": "unclear",
-      "note": "Short CV fragment on the dashed FC segment, consistent with the dashed line in both panels."
+      "note": "Short CV segment with interrupted ink; the corresponding dashed segment H–C is present in both panels."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Short piece at H on the perpendicular CH, matching the original."
+      "note": "Dashed H–C short segment present in both panels, ending at H."
     },
     {
-      "object_id": "seg_AC",
-      "status": "present",
-      "note": "A-E-C path matches the original."
-    },
-    {
-      "object_id": "seg_BF",
-      "status": "present",
-      "note": "B-F line is present, with the same overlap issue noted in seg_01."
-    },
-    {
-      "object_id": "seg_FC",
-      "status": "present",
-      "note": "Dashed F-C segment matches the original."
-    },
-    {
-      "object_id": "seg_HC",
-      "status": "present",
-      "note": "Dashed H-C segment matches the original."
-    },
-    {
-      "object_id": "ra_H",
-      "status": "present",
-      "note": "Right-angle mark at H between CH and BF is drawn, as in the original."
+      "object_id": "ra_01",
+      "status": "unclear",
+      "note": "No separate ra_01 entry appears in the geometry state; the right angle at H is covered by right_angle_01."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Same right-angle mark at H, correctly oriented."
+      "note": "Right-angle square at H on line BF, with its opening toward C, matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B is labelled at the left base vertex."
+      "note": "B placed at the left circle contact, labelled B."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "E is labelled at the intersection of AC and BF."
+      "note": "E on AC and on line B–H; label present but close to AC."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "O is labelled at the centre."
+      "note": "O at the circle centre, filled dot, label left of it."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "C is labelled at the right base vertex."
+      "note": "C at the right circle contact, labelled C."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "D is labelled below the base."
+      "note": "D at the foot of the altitude from A, labelled below."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "A is labelled at the top vertex."
+      "note": "A at the top circle contact, labelled above."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "F is labelled at the end of the BF line on the circle."
+      "note": "F at the end of the B–H–F line on the circle, labelled upper right."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "H is labelled near the foot of the perpendicular from C."
+      "note": "H on line BF with the right-angle mark, labelled above."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Label A present at the apex."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Label B present at the left vertex."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Label C present at the right vertex."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Label D present under the foot."
     }
   ],
   "checklist_score": 1.0,
@@ -156,11 +156,13 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle, centre O, and inscribed triangle ABC match the original.",
-    "Altitude AD, segment OC, and base BC match.",
-    "Line B-O-E-H-F and its intersections with AC and the perpendicular CH match.",
-    "Right-angle mark at H and dashed segments FC and HC are present.",
-    "All eight point labels A to H are present and bound to the correct vertices."
+    "Circle extent and centre O match the original.",
+    "Triangle ABC: thick sides AB, AC and BC match the original's emphasis.",
+    "Altitude AD is drawn thin and vertical from A to D on BC.",
+    "Line B–O–E–H–F is continuous and passes through E on AC.",
+    "Dashed segments H–C and F–C are present and end at the correct points.",
+    "Right-angle mark at H is present with the same orientation as the original.",
+    "All eight point labels A–H are present and correctly bound, with no extra labels."
   ],
   "labels": {
     "present": [

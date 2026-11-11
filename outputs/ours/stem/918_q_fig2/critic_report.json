@@ -1,109 +1,115 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the rectangle ABCQ, the point P on edge BA, and the diagonal PQ with correct topology and labels; the only visible difference is stroke weight.",
+  "verdict": "The render matches the original's topology and labels: rectangle ABCQ with P on side AB joined to Q. Only the stroke weight is lighter.",
   "figure_type": {
-    "original": "Rectangle ABCQ with P on the left side BA and diagonal PQ, bold strokes",
-    "render": "Rectangle ABCQ with P on the left side BA and diagonal PQ, thin strokes"
+    "original": "Rectangle ABCQ with a point P on side AB, joined by a segment PQ that splits the figure into a triangle APQ and a quadrilateral BCQP. Points are labelled A, B, C, P, Q.",
+    "render": "Rectangle ABCQ with a point P on side AB, joined by a segment PQ that splits the figure into a triangle APQ and a quadrilateral BCQP. Points are labelled A, B, C, P, Q."
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_AQ",
-        "seg_BA",
+        "seg_AP",
+        "seg_PB",
         "seg_BC",
         "seg_CQ",
+        "seg_QA",
         "seg_PQ"
       ],
       "bbox": [
         0.03,
         0.2,
-        0.46,
-        0.8
+        0.97,
+        0.78
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Stroke weight: the rendered edges and diagonal are noticeably thinner than the original's bold lines, and the vertex dots are smaller.",
-      "suggestion": "Increase the line width for the segments (for example from 1.0pt to about 1.5-2.0pt) and increase the point dot radius from 1.5pt if the original's heavier look should be matched."
+      "description": "The outline and diagonal strokes in the render are visibly thinner than in the original. The original strokes look bolder relative to the figure size.",
+      "suggestion": "Increase the stroke width of the main draw path and the PQ segment, for example from line width=1.0pt to about 1.4pt. Consider making the vertex dots slightly larger to match the original."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal PQ is drawn from P to Q, matching the original."
+      "note": "CV diagonal from P to Q is drawn in the render as the P–Q segment."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Bottom edge AQ is drawn and spans A to Q."
+      "note": "Bottom side A to Q is drawn in the render."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Top edge BC is drawn and spans B to C."
+      "note": "Top side B to C is drawn in the render."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left edge BA is drawn and passes through P."
+      "note": "Left side A to B, passing through P, is drawn in the render."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Right edge CQ is drawn and spans C to Q."
+      "note": "Right side C to Q is drawn in the render."
     },
     {
-      "object_id": "seg_AQ",
+      "object_id": "seg_AP",
       "status": "present",
-      "note": "Bottom edge from A to Q matches the original."
-    },
-    {
-      "object_id": "seg_BA",
-      "status": "present",
-      "note": "Left edge from B to A matches the original, with P on it."
+      "note": "Left side from A up to P is drawn and ends at P."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Top edge from B to C matches the original."
+      "note": "Top side from B to C is drawn."
     },
     {
       "object_id": "seg_CQ",
       "status": "present",
-      "note": "Right edge from C to Q matches the original."
+      "note": "Right side from C down to Q is drawn."
+    },
+    {
+      "object_id": "seg_PB",
+      "status": "present",
+      "note": "Left side from P up to B is drawn."
     },
     {
       "object_id": "seg_PQ",
       "status": "present",
-      "note": "Diagonal from P to Q matches the original."
+      "note": "Diagonal from P to Q is drawn and ends at Q."
+    },
+    {
+      "object_id": "seg_QA",
+      "status": "present",
+      "note": "Bottom side from Q to A is drawn."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Point Q is at the bottom-right corner, labelled Q."
+      "note": "Point Q is at the bottom-right corner with its label."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Point P is on the left edge, labelled P."
+      "note": "Point P is on the left side with its label to the left."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Point A is at the bottom-left corner, labelled A."
+      "note": "Point A is at the bottom-left corner with its label."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Point B is at the top-left corner, labelled B."
+      "note": "Point B is at the top-left corner with its label."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Point C is at the top-right corner, labelled C."
+      "note": "Point C is at the top-right corner with its label."
     }
   ],
   "checklist_score": 1.0,
@@ -115,11 +121,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle ABCQ with corners in the correct positions",
-    "P lies on the left edge between B and A",
-    "Diagonal PQ joins P to Q and ends at Q",
-    "All five labels A, B, C, P, Q are present, correctly placed and clear of strokes",
-    "No extra or missing segments"
+    "Rectangle ABCQ has the correct corners and proportions.",
+    "P lies on side AB, between A and B, at about the same height as the original.",
+    "Segment PQ runs from P to Q with the same slope as the original.",
+    "All five labels A, B, C, P, Q are present, correctly spelled and placed near their vertices with clear space from the strokes.",
+    "No extra segments or labels appear in the render."
   ],
   "labels": {
     "present": [

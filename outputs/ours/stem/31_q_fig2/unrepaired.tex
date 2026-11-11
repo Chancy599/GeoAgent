@@ -1,5 +1,5 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usetikzlibrary{angles,quotes}
+\usetikzlibrary{calc}
 \begin{document}
 \begin{tikzpicture}[line width=1.2pt, line join=round]
 \coordinate (A) at (0.584,3.568);
@@ -17,20 +17,18 @@
 \draw (A) -- (D);
 
 
-\draw (B) -- (D);
-\draw (D) -- (E);
-\draw (E) -- (C);
+\draw (B) -- (D) -- (E) -- (C);
 
 
-\draw[dash pattern=on 6pt off 4pt] (A) -- (E);
+\draw[dash pattern=on 4pt off 3pt] (A) -- (E);
 
 
-\draw pic[draw, angle radius=0.287cm] {right angle=A--E--C};
+\draw ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$);
 
 
 \node[above] at (A) {\fontsize{12.5}{15}\selectfont $A$};
-\node[left] at (B) {\fontsize{12.5}{15}\selectfont $B$};
-\node[right] at (C) {\fontsize{12.5}{15}\selectfont $C$};
+\node[below left] at (B) {\fontsize{12.5}{15}\selectfont $B$};
+\node[below right] at (C) {\fontsize{12.5}{15}\selectfont $C$};
 \node[below] at (D) {\fontsize{12.5}{15}\selectfont $D$};
 \node[below] at (E) {\fontsize{12.5}{15}\selectfont $E$};
 \end{tikzpicture}

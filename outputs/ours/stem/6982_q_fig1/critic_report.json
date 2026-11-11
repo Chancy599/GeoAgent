@@ -1,135 +1,135 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is a faithful reproduction: the circle, the four chords AB, AE, BD and EC, the centre O and all six labels match the original, with only a minor difference in the size of the centre dot.",
+  "verdict": "Faithful render: circle, chords AB, AE, EC, BD, and all labelled vertices match the original; the only deviation is the placement of the O label.",
   "figure_type": {
-    "original": "circle with centre O, inscribed quadrilateral ABED-like figure with chords AB, AE, BD, EC and point C on the arc near D",
-    "render": "circle with centre O and chords AB, AE, BD, EC, labels A, B, C, D, E, O"
+    "original": "circle with centre O (dot), inscribed quadrilateral-like chord figure A, B, C, D, E on the circle, with chords AB, AE, EC and BD crossing inside",
+    "render": "circle with centre O (dot), chords AB, AE, EC and BD crossing inside, vertices A, B, C, D, E on the circle"
   },
   "issues": [
     {
-      "type": "wrong_style",
+      "type": "label_error",
       "severity": "low",
       "object_ids": [
         "point_O"
       ],
       "bbox": [
-        0.66,
-        0.46,
-        0.7,
-        0.52
+        0.4,
+        0.45,
+        0.48,
+        0.55
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The filled centre dot at O is visibly smaller in the render than in the original.",
-      "suggestion": "Increase the radius of the \\fill (O) circle from 0.070 to roughly 0.09-0.10 to match the original dot size."
+      "description": "The O label sits below-right of the centre dot in the render, whereas in the original it sits to the left of the dot. The label is clear of strokes and remains bound to O, so this is only a placement difference.",
+      "suggestion": "Change the O node anchor to 'left' (or 'above left') so the label sits to the left of the centre dot as in the original, keeping (O) as the anchor coordinate."
     }
   ],
   "checks": [
     {
-      "object_id": "circle_O",
+      "object_id": "circle_01",
       "status": "present",
-      "note": "Circle matches the original extent and position."
+      "note": "Circle centred at O with matching radius and extent."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Corresponds to chord EC, drawn correctly from E to C on the arc."
+      "note": "Chord from C to E, ending on the circle at C and at E, as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Corresponds to chord AE, drawn correctly."
+      "note": "Chord from A to E, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Corresponds to chord BD, drawn correctly from B to D on the arc."
+      "note": "Chord B to D, ending at D on the circle, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Corresponds to chord AB, drawn correctly."
+      "note": "Chord A to B, matching the original."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Chord AB matches the original."
+      "note": "AB drawn from A to B as in the original."
     },
     {
       "object_id": "seg_AE",
       "status": "present",
-      "note": "Chord AE matches the original."
+      "note": "AE drawn from A to E as in the original."
     },
     {
       "object_id": "seg_BD",
       "status": "present",
-      "note": "Chord BD matches the original; it ends on the arc at D."
+      "note": "BD drawn from B to D, crossing EC inside the circle as in the original."
     },
     {
       "object_id": "seg_EC",
       "status": "present",
-      "note": "Chord EC matches the original; it ends at C on the arc."
+      "note": "EC drawn from E to C, crossing BD inside the circle as in the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label E is placed right of the vertex, as in the original."
+      "note": "E label bound to the right vertex on the circle, matching the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label A is placed above the vertex, as in the original."
+      "note": "A label bound to the top vertex, matching the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label B is placed left of the vertex, as in the original."
+      "note": "B label bound to the left vertex, matching the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label O is left of the centre dot, as in the original."
+      "note": "O label is bound to the centre dot; placement is below-right instead of left (see low-severity issue)."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label C is below-left of the vertex, as in the original."
+      "note": "C label bound to the lower-left vertex, matching the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label D is below the vertex, as in the original."
+      "note": "D label bound to the bottom vertex, matching the original."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Vertex A lies on the circle at the top, as in the original."
+      "note": "Vertex A on the circle at the top, matching the original."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Vertex B lies on the circle at the left, as in the original."
+      "note": "Vertex B on the circle at the left, matching the original."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "Vertex C lies on the circle at the lower left, as in the original."
+      "note": "Vertex C on the circle, matching the original."
     },
     {
       "object_id": "point_D",
       "status": "present",
-      "note": "Vertex D lies on the circle at the bottom, as in the original."
+      "note": "Vertex D on the circle, matching the original."
     },
     {
       "object_id": "point_E",
       "status": "present",
-      "note": "Vertex E lies on the circle at the right, as in the original."
+      "note": "Vertex E on the circle at the right, matching the original."
     },
     {
       "object_id": "point_O",
       "status": "present",
-      "note": "Centre O is at the correct position; the dot is slightly small."
+      "note": "Centre dot at O is present and correctly positioned."
     }
   ],
   "checklist_score": 1.0,
@@ -141,11 +141,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle centre and radius match the original.",
-    "Chords AB, AE, BD and EC are present with the same endpoints on the circle.",
-    "Vertices A, B, C, D, E lie on the circle at the correct positions.",
-    "All six labels A, B, C, D, E, O are present, correctly spelled and placed with clear space from the strokes.",
-    "Line weights and overall aspect ratio are comparable to the original."
+    "Circle radius and centre match the original.",
+    "Chords AB, AE, EC and BD have the same endpoints and the same crossing inside the circle.",
+    "EC ends at C on the circle and BD ends at D on the circle, with no overhang.",
+    "Labels A, B, C, D, E and O are present and spelled correctly.",
+    "Centre dot O is present and in the same place.",
+    "Stroke weights and overall aspect ratio are comparable."
   ],
   "labels": {
     "present": [
@@ -159,8 +160,25 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "87e90f362be9d544",
+      "edge": [
+        "C",
+        "E"
+      ],
+      "reason": "In the original, a single straight stroke runs from C on the lower-left arc up to E on the right of the circle, so the edge joins these two vertices."
+    },
+    {
+      "case_id": "7cbf612569ade198",
+      "edge": [
+        "A",
+        "E"
+      ],
+      "reason": "In the original, a straight stroke runs from the top vertex A down to the right vertex E, so the edge joins these two vertices."
+    }
+  ],
   "raw_meta": "{}"
 }

@@ -719,10 +719,10 @@
       "notes": [],
       "attributes": {}
     },
-    "circle_O": {
-      "id": "circle_O",
+    "circle_01": {
+      "id": "circle_01",
       "type": "circle",
-      "label": "",
+      "label": null,
       "coords": {
         "center_px": [
           224.26,
@@ -733,7 +733,7 @@
       "normalized": {},
       "style": {},
       "source": "geometry_agent",
-      "status": "confirmed",
+      "status": "candidate",
       "confidence_kind": "heuristic-evidence (not a calibrated probability)",
       "confidence": null,
       "notes": [],
@@ -790,54 +790,63 @@
       "id": "rel_006",
       "subject": "point_O",
       "relation": "center_of",
-      "object": "circle_O",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "O is equidistant from A and B and the circle's center on diameter AB",
+      "evidence": "A, B, C, D all at distance ~157.3 from O",
       "status": "candidate"
     },
     "rel_007": {
       "id": "rel_007",
-      "subject": "point_A",
-      "relation": "on_circle",
-      "object": "circle_O",
+      "subject": "point_O",
+      "relation": "midpoint",
+      "object": "seg_AB",
       "source": "geometry_agent",
-      "evidence": "A at distance 157.3 from O",
+      "evidence": "A and B are equidistant (~157.3) from O on the horizontal diameter",
       "status": "candidate"
     },
     "rel_008": {
       "id": "rel_008",
-      "subject": "point_B",
-      "relation": "on_circle",
-      "object": "circle_O",
+      "subject": "point_P",
+      "relation": "on_segment",
+      "object": "seg_AB",
       "source": "geometry_agent",
-      "evidence": "B at distance 157.3 from O",
+      "evidence": "P at y=201.03 lies on AB between O and B",
       "status": "candidate"
     },
     "rel_009": {
       "id": "rel_009",
       "subject": "point_C",
       "relation": "on_circle",
-      "object": "circle_O",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "C on the arc",
+      "evidence": "distance from O ~157.3",
       "status": "candidate"
     },
     "rel_010": {
       "id": "rel_010",
       "subject": "point_D",
       "relation": "on_circle",
-      "object": "circle_O",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "D at end of PD on the arc",
+      "evidence": "distance from O ~157.3",
       "status": "candidate"
     },
     "rel_011": {
       "id": "rel_011",
       "subject": "point_P",
-      "relation": "on_segment",
-      "object": "seg_AB",
+      "relation": "endpoint_of",
+      "object": "seg_PC",
       "source": "geometry_agent",
-      "evidence": "P lies on the horizontal line AB",
+      "evidence": "seg_02 runs from P toward C",
+      "status": "candidate"
+    },
+    "rel_012": {
+      "id": "rel_012",
+      "subject": "point_P",
+      "relation": "endpoint_of",
+      "object": "seg_PD",
+      "source": "geometry_agent",
+      "evidence": "seg_03 runs from P toward D",
       "status": "candidate"
     }
   },
@@ -853,7 +862,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:07:24"
+      "created_at": "2026-11-11T13:01:49"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -866,7 +875,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:07:27"
+      "created_at": "2026-11-11T13:01:51"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -879,35 +888,17 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:07:29"
+      "created_at": "2026-11-11T13:01:53"
     },
     "ev_0004": {
       "id": "ev_0004",
-      "source": "cv_tool",
-      "method": "detect_right_angle_marker",
-      "summary": "detect_right_angle_marker produced 0 result(s)",
-      "payload": {
-        "params": {
-          "roi": [
-            0,
-            0,
-            1,
-            1
-          ]
-        },
-        "tool": "detect_right_angle_marker"
-      },
-      "created_at": "2026-11-09T23:07:39"
-    },
-    "ev_0005": {
-      "id": "ev_0005",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Circle centered at O (point_02, px 224.26,201.13), radius about 157.3 px, passing through A (point_04) and B (point_03) on the horizontal diameter AB. P (point_01) lies on AB between O and B. Chords/segments PC (to point_05) and PD (to point_06, the glyph misread as O) are solid straight segments from P. AB is a solid straight line through A, O, P, B. The circle is solid and full. PC is perpendicular to PD (dot product near 0), but no printed square mark was verified, so no right_angle object is added.",
+      "summary": "Circle centered at O (point_02, px [224.26,201.13]), radius ~157.3 px, drawn as a full circle. Diameter AB is a solid straight line through O and P (A=point_04 at left, B=point_03 at right). P (point_01, px [271.78,201.03]) lies on AB between O and B. Two solid radii-like segments leave P: PC to C (point_05 on circle, px [145.95,64.69]) and PD to D (point_06 on circle, px [360.31,122.15]). Point_06 is misread as O; its glyph is D and it is the circle contact of PD. No right-angle marker is visible in the raster, so no right_angle objects. All strokes solid; no dashed segments detected.",
       "payload": {
         "merged": {
           "objects": 10,
-          "relations": 6,
+          "relations": 7,
           "conflicts": 1,
           "rejected": []
         },
@@ -921,16 +912,16 @@
           "seg_AB",
           "seg_PC",
           "seg_PD",
-          "circle_O"
+          "circle_01"
         ]
       },
-      "created_at": "2026-11-09T23:07:49"
+      "created_at": "2026-11-11T13:02:08"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0005": {
+      "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [451, 388] (scale 0.6007)",
+      "summary": "v1 canvas matched to source [451, 388] (scale 0.6039)",
       "payload": {
         "ok": true,
         "size": [
@@ -941,38 +932,73 @@
           451,
           388
         ],
-        "scale": 0.6007,
+        "scale": 0.6039,
         "offset": [
-          34,
-          31
+          33,
+          97
         ]
       },
-      "created_at": "2026-11-09T23:08:17"
+      "created_at": "2026-11-11T13:02:43"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v1: no_candidates",
+      "summary": "v1: applied",
       "payload": {
         "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "f0ad5f33a6e08f506e29000053fab7ae775b9fcb65fa1dafeb63a5b7e919f09c",
-        "output_sha256": "f0ad5f33a6e08f506e29000053fab7ae775b9fcb65fa1dafeb63a5b7e919f09c",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "3500aafeb6bb1d608d7bfae9a942210d9c231037eb83650496f7395c83598e95",
+        "output_sha256": "5f6ed38bc608fce9486c14fbde5298788c2ed26f4cf9ac8688b7a55f65e36896",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "before_error_deg": 0.08865637465073664,
+            "after_error_deg": 0.007631554503645047,
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887,
+            "solver_after_error_deg": 2.1156671605492275e-15,
+            "export_tolerance_deg": 0.11458661561115278
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "collinear",
+              "segments": [
+                "A--O",
+                "O--P"
+              ],
+              "labels": [
+                "A",
+                "O",
+                "P"
+              ],
+              "source_turn_deg": 0.1643
+            },
+            "reason": "degenerate constraint"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -982,17 +1008,46 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "A--O",
+              "O--P"
+            ],
+            "labels": [
+              "A",
+              "O",
+              "P"
+            ],
+            "source_turn_deg": 0.1643
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887
+          }
+        ],
+        "input_candidates": 2,
         "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
+        "max_shift_rel": 0.0001367025679548339,
+        "max_length_change_rel": 0.0002629790083634731,
         "fixed_points": [
           "A",
           "B",
@@ -1005,6 +1060,8 @@
         "incidence_mode": "snap",
         "topology_tol_rel": 0.002,
         "incidence_strength": 1.0,
+        "rms_shift_rel": 6.106505239093875e-05,
+        "max_after_error_deg": 0.007631554503645047,
         "curve_policy": "freeze",
         "curve_anchors": {
           "fixed_points": [
@@ -1015,23 +1072,29 @@
             "O"
           ],
           "dependencies": [
-            "O"
+            "A"
           ],
           "circles": [
             {
               "center": [
-                -0.026,
-                -0.152
+                -0.026000000000000245,
+                -0.1490000000000004
               ],
               "radius": 3.356
             }
           ]
         },
-        "candidate_count": 0,
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.00014957821947412183,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.007631554503645047,
+        "point_count": 6,
+        "segment_count": 5,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1044,22 +1107,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T23:08:17"
+      "created_at": "2026-11-11T13:02:43"
     },
-    "ev_0008": {
-      "id": "ev_0008",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "code_agent",
       "method": "tikz generate",
-      "summary": "v1 compiled=True validation=True",
+      "summary": "v1 compiled=True validation=False",
       "payload": {
-        "notes": "Used the program-owned CV coordinates for A, B, C, O, P (not redefined, per the block). D is not program-owned, so it is defined in the same frame: x=(360.31-225.5)*0.021333=2.876, y=(194-122.15)*0.021333=1.533. Circle centre O, radius 157.3 px = 3.356 units (checked against A: |A-O|=3.356). Stroke 1.7pt with round joins; labels at 18/21.6 pt. Only one O label, below the centre. Labels A left, B right, O and P below, C above-left, D above-right. No right-angle mark (none verified). Note: the standalone document will not compile on its own unless the program inserts the A, B, C, O, P definitions at the start of the tikzpicture, as its block specifies.",
+        "notes": "Point D (the glyph read as O at upper right) is defined locally in the program frame: x=(360.31-225.5)*0.021333=2.876, y=(194-122.15)*0.021333=1.533. A, B, C, O, P are used from the program block, not redefined. The upper arc is drawn from A with radius 3.356 (157.3 px * 0.021333), delta angle -180, so it passes over the top through C and D; no full circle. The arc centre implied by A is about 0.003 cm off O, which is within measurement noise; report for remeasurement if needed. AB is drawn as the polyline A--O--P--B (collinear, covers the named edges). Line width 1.7pt and labels at 18pt/21.6pt from STYLE METRICS. No right-angle mark at P, since none is verified. Small filled dots at O and P follow the source. No libraries needed.",
         "compile": {
           "compile_ok": true,
-          "validation_passed": true,
+          "validation_passed": false,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1089,35 +1152,35 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0444"
+              "detail": "ink_ratio=0.0531"
             },
             {
               "name": "aspect_ratio",
-              "passed": true,
-              "detail": "reference 1.16 vs render 1.15 (delta 0.01)"
+              "passed": false,
+              "detail": "reference 1.16 vs render 1.90 (delta 0.63)"
             },
             {
               "name": "figure_extent_ratio",
-              "passed": true,
-              "detail": "figure bbox ratio 1.15"
+              "passed": false,
+              "detail": "figure bbox ratio 1.94"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T23:08:17"
+      "created_at": "2026-11-11T13:02:43"
     },
-    "ev_0009": {
-      "id": "ev_0009",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v2 canvas matched to source [451, 388] (scale 0.6007)",
@@ -1137,32 +1200,67 @@
           31
         ]
       },
-      "created_at": "2026-11-09T23:08:48"
+      "created_at": "2026-11-11T13:03:27"
     },
-    "ev_0010": {
-      "id": "ev_0010",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v2: no_candidates",
+      "summary": "v2: applied",
       "payload": {
         "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "8aa359bfe120f18493cab8b75f5c922e5806bb1a5e9d0e0eed5a800c95259f3d",
-        "output_sha256": "8aa359bfe120f18493cab8b75f5c922e5806bb1a5e9d0e0eed5a800c95259f3d",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "e089672a7e193a2433805db6a57ce165521a508e195cb7bcfae96769986dd0ed",
+        "output_sha256": "77d185d3d91aded28e30d1957d00112eaf979470bcb65434be00f75c98e2dfbd",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "before_error_deg": 0.08865637465073664,
+            "after_error_deg": 0.007631554503645047,
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887,
+            "solver_after_error_deg": 2.1156671605492275e-15,
+            "export_tolerance_deg": 0.11458661561115278
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "collinear",
+              "segments": [
+                "A--O",
+                "O--P"
+              ],
+              "labels": [
+                "A",
+                "O",
+                "P"
+              ],
+              "source_turn_deg": 0.1643
+            },
+            "reason": "degenerate constraint"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1172,17 +1270,46 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "A--O",
+              "O--P"
+            ],
+            "labels": [
+              "A",
+              "O",
+              "P"
+            ],
+            "source_turn_deg": 0.1643
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887
+          }
+        ],
+        "input_candidates": 2,
         "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
+        "max_shift_rel": 0.0001367025679548339,
+        "max_length_change_rel": 0.0002629790083634731,
         "fixed_points": [
           "A",
           "B",
@@ -1195,6 +1322,8 @@
         "incidence_mode": "snap",
         "topology_tol_rel": 0.002,
         "incidence_strength": 1.0,
+        "rms_shift_rel": 6.106505239093875e-05,
+        "max_after_error_deg": 0.007631554503645047,
         "curve_policy": "freeze",
         "curve_anchors": {
           "fixed_points": [
@@ -1217,11 +1346,17 @@
             }
           ]
         },
-        "candidate_count": 0,
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.00014957821947412183,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.007631554503645047,
+        "point_count": 6,
+        "segment_count": 5,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1234,22 +1369,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T23:08:48"
+      "created_at": "2026-11-11T13:03:27"
     },
-    "ev_0011": {
-      "id": "ev_0011",
+    "ev_0010": {
+      "id": "ev_0010",
       "source": "code_agent",
       "method": "tikz repair",
       "summary": "v2 compiled=True validation=True",
       "payload": {
-        "notes": "Repair v1 style fixes only. AB (A--O--P--B) now drawn at 0.8pt; circle, PC, PD stay at 1.7pt. Filled dots removed at A and B; kept at O, P (and C, D as before). Coordinates, labels, fonts and topology unchanged. Omitted the A, B, C, O, P \\coordinate definitions because the program inserts them; D kept as a literal in the same frame (it is not in the program block and matches the frame). Note: if the program does not insert the block, the document will fail to compile.",
+        "notes": "Repair: replaced the half-arc (start 180, delta -180) with a full circle centred at program-owned O with radius 3.356 units, matching the measured radius 157.3 px at scale 0.021333. Diameter AB (A--O--P--B), solid segments P--C and P--D, and dots/labels at A, B, O, P, C, D are kept as in v1. Label at the upper-right contact point reads D, not O. No right-angle mark at P. Per the program-owned coordinate block, A, B, C, O, P are not redefined here; P is taken from the program (0.987,-0.150), which differs from v1's -0.151 by 0.001 and is not a material change. D stays at (2.876,1.533), which matches px (360.31,122.15) in the source frame. Stroke width 1.7pt and 18pt label font are unchanged.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1279,17 +1414,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf"
+              "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png"
+              "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0415"
+              "detail": "ink_ratio=0.0442"
             },
             {
               "name": "aspect_ratio",
@@ -1304,10 +1439,10 @@
           ]
         }
       },
-      "created_at": "2026-11-09T23:08:48"
+      "created_at": "2026-11-11T13:03:27"
     },
-    "ev_0012": {
-      "id": "ev_0012",
+    "ev_0011": {
+      "id": "ev_0011",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v3 canvas matched to source [451, 388] (scale 0.6007)",
@@ -1327,32 +1462,67 @@
           31
         ]
       },
-      "created_at": "2026-11-09T23:09:20"
+      "created_at": "2026-11-11T13:04:15"
     },
-    "ev_0013": {
-      "id": "ev_0013",
+    "ev_0012": {
+      "id": "ev_0012",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v3: no_candidates",
+      "summary": "v3: applied",
       "payload": {
         "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "ecd4dd1a3abfb5988adb7bd17d8aa55eecaaa4eb0566f2b7513f4eec2c0d9886",
-        "output_sha256": "ecd4dd1a3abfb5988adb7bd17d8aa55eecaaa4eb0566f2b7513f4eec2c0d9886",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "9ef9d214a0a43e9af0fb29180ebde1c7de5ea6de972e22f4c0792f99642c5974",
+        "output_sha256": "0b605e245dd6c03609a598861272f0d29c1feca6d5b6ac2a31914671fcc5ce0b",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "before_error_deg": 0.08865637465073664,
+            "after_error_deg": 0.007631554503645047,
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887,
+            "solver_after_error_deg": 2.1156671605492275e-15,
+            "export_tolerance_deg": 0.11458661561115278
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "collinear",
+              "segments": [
+                "A--O",
+                "O--P"
+              ],
+              "labels": [
+                "A",
+                "O",
+                "P"
+              ],
+              "source_turn_deg": 0.1643
+            },
+            "reason": "degenerate constraint"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1362,17 +1532,46 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "A--O",
+              "O--P"
+            ],
+            "labels": [
+              "A",
+              "O",
+              "P"
+            ],
+            "source_turn_deg": 0.1643
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887
+          }
+        ],
+        "input_candidates": 2,
         "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
+        "max_shift_rel": 0.0001367025679548339,
+        "max_length_change_rel": 0.0002629790083634731,
         "fixed_points": [
           "A",
           "B",
@@ -1385,6 +1584,8 @@
         "incidence_mode": "snap",
         "topology_tol_rel": 0.002,
         "incidence_strength": 1.0,
+        "rms_shift_rel": 6.106505239093875e-05,
+        "max_after_error_deg": 0.007631554503645047,
         "curve_policy": "freeze",
         "curve_anchors": {
           "fixed_points": [
@@ -1407,11 +1608,17 @@
             }
           ]
         },
-        "candidate_count": 0,
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.00014957821947412183,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.007631554503645047,
+        "point_count": 6,
+        "segment_count": 5,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1424,22 +1631,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T23:09:20"
+      "created_at": "2026-11-11T13:04:15"
     },
-    "ev_0014": {
-      "id": "ev_0014",
+    "ev_0013": {
+      "id": "ev_0013",
       "source": "code_agent",
       "method": "tikz repair",
       "summary": "v3 compiled=True validation=True",
       "payload": {
-        "notes": "Styling-only repair: filled dots at O and P enlarged from 1.8pt to 2.5pt radius; dots at C and D removed (C and D kept as chord endpoints and labels). Coordinates, label bindings, O label below centre, D label above-right, line widths and fonts unchanged. Program-owned coordinate definitions for A, B, C, O, P are not re-emitted per the program-owned block; D remains an unmeasured helper in the same frame.",
+        "notes": "Repair v2 changes only: (1) point_06 is bound to D; the single D label is kept above the PD endpoint and the O label stays only at the centre O, so no extra O label is added at the circle end. (2) Diameter A-O-P-B is drawn at line width 1.0pt; the circle stays at the global 1.7pt. (3) Dot radius at O and P raised from 0.070 to 0.09. Coordinates, circle radius, PC/PD segments, label fonts and placements are unchanged. Per PROGRAM-OWNED CV COORDINATES, the definitions of A, B, C, O, P were not emitted; the program inserts them, so this file only compiles standalone once those lines are provided. D is not in the program block and keeps its previous definition (2.876,1.533), which lies on the circle (distance 3.356 from O). The program-supplied P at (0.987,-0.150) is used, replacing the earlier literal (0.987,-0.151).",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1469,17 +1676,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf"
+              "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png"
+              "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0417"
+              "detail": "ink_ratio=0.0416"
             },
             {
               "name": "aspect_ratio",
@@ -1494,13 +1701,275 @@
           ]
         }
       },
-      "created_at": "2026-11-09T23:09:20"
+      "created_at": "2026-11-11T13:04:15"
+    },
+    "ev_0014": {
+      "id": "ev_0014",
+      "source": "renderer",
+      "method": "frame_like_original",
+      "summary": "v4 canvas matched to source [451, 388] (scale 0.6007)",
+      "payload": {
+        "ok": true,
+        "size": [
+          451,
+          388
+        ],
+        "reference_size": [
+          451,
+          388
+        ],
+        "scale": 0.6007,
+        "offset": [
+          34,
+          31
+        ]
+      },
+      "created_at": "2026-11-11T13:04:46"
+    },
+    "ev_0015": {
+      "id": "ev_0015",
+      "source": "tikz_constraint_repair",
+      "method": "post-generation joint coordinate projection",
+      "summary": "v4: applied",
+      "payload": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz_and_original_raster",
+        "reference_used": false,
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "b6d34679ec989434d7152e452513f04261746108f65a55e3b38b22258dbc4d1e",
+        "output_sha256": "02ab1d9a6201f89211874008a83c6aee76408ee4ed7fa0638cc03748b9dc95a4",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "before_error_deg": 0.08865637465073664,
+            "after_error_deg": 0.007631554503645047,
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887,
+            "solver_after_error_deg": 2.1156671605492275e-15,
+            "export_tolerance_deg": 0.11458661561115278
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "collinear",
+              "segments": [
+                "A--O",
+                "O--P"
+              ],
+              "labels": [
+                "A",
+                "O",
+                "P"
+              ],
+              "source_turn_deg": 0.1643
+            },
+            "reason": "degenerate constraint"
+          }
+        ],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
+          "topology_tol_rel": 0.002,
+          "incidence_mode": "snap",
+          "length_weight": 0.0,
+          "length_scope": "edges",
+          "curve_policy": "freeze",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel"
+          ],
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "A--O",
+              "O--P"
+            ],
+            "labels": [
+              "A",
+              "O",
+              "P"
+            ],
+            "source_turn_deg": 0.1643
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887
+          }
+        ],
+        "input_candidates": 2,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.0001367025679548339,
+        "max_length_change_rel": 0.0002629790083634731,
+        "fixed_points": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "O"
+        ],
+        "length_weight": 0.0,
+        "length_scope": "edges",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.002,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 6.106505239093875e-05,
+        "max_after_error_deg": 0.007631554503645047,
+        "curve_policy": "freeze",
+        "curve_anchors": {
+          "fixed_points": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "O"
+          ],
+          "dependencies": [
+            "O"
+          ],
+          "circles": [
+            {
+              "center": [
+                -0.026,
+                -0.152
+              ],
+              "radius": 3.356
+            }
+          ]
+        },
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.00014957821947412183,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.007631554503645047,
+        "point_count": 6,
+        "segment_count": 5,
+        "curve_options_applied": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
+          "topology_tol_rel": 0.002,
+          "incidence_mode": "snap",
+          "length_weight": 0.0,
+          "length_scope": "edges",
+          "curve_policy": "freeze",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel"
+          ],
+          "relaxation": 1.0
+        }
+      },
+      "created_at": "2026-11-11T13:04:46"
+    },
+    "ev_0016": {
+      "id": "ev_0016",
+      "source": "code_agent",
+      "method": "tikz repair",
+      "summary": "v4 compiled=True validation=True",
+      "payload": {
+        "notes": "Repair v3: only change is the P label placement from [below right] to [below], still bound to (P). The D label stays at the PD circle contact. The program-owned coordinate definitions (A, B, C, O, P) are not emitted here, as the program requires; they are inserted at the start of the tikzpicture. The previous inline definitions are removed for this reason. Stroke width, label font, scale and the other strokes are unchanged. No right-angle marks (none verified).",
+        "compile": {
+          "compile_ok": true,
+          "validation_passed": true,
+          "errors": [],
+          "warnings": [],
+          "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v4\\v4.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v4\\v4.pdf",
+          "checks": [
+            {
+              "name": "documentclass",
+              "passed": true,
+              "detail": "documentclass present"
+            },
+            {
+              "name": "document_environment",
+              "passed": true,
+              "detail": "begin=1 end=1"
+            },
+            {
+              "name": "tikzpicture",
+              "passed": true,
+              "detail": "one balanced tikzpicture"
+            },
+            {
+              "name": "no_shell_escape",
+              "passed": true,
+              "detail": "no \\write18/\\openout primitives"
+            },
+            {
+              "name": "compiler_ok",
+              "passed": true,
+              "detail": "returncode=0"
+            },
+            {
+              "name": "pdf_created",
+              "passed": true,
+              "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v4\\v4.pdf"
+            },
+            {
+              "name": "png_rendered",
+              "passed": true,
+              "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v4\\v4.png"
+            },
+            {
+              "name": "render_not_blank",
+              "passed": true,
+              "detail": "ink_ratio=0.0416"
+            },
+            {
+              "name": "aspect_ratio",
+              "passed": true,
+              "detail": "reference 1.16 vs render 1.15 (delta 0.01)"
+            },
+            {
+              "name": "figure_extent_ratio",
+              "passed": true,
+              "detail": "figure bbox ratio 1.15"
+            }
+          ]
+        }
+      },
+      "created_at": "2026-11-11T13:04:46"
     }
   },
   "conflicts": [
     {
       "id": "conflict_001",
-      "topic": "Label at point_06",
+      "topic": "label at point_06",
       "claims": [
         {
           "source": "bind_point_labels",
@@ -1508,7 +1977,7 @@
         },
         {
           "source": "visual glyph",
-          "claim": "Letter near (362,101) reads D at endpoint of PD"
+          "claim": "glyph beside point_06 reads D; O is already at point_02"
         }
       ],
       "status": "unresolved",
@@ -1522,10 +1991,10 @@
     "B": "point_03",
     "P": "point_01"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.150);\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw[line width=0.8pt] (A) -- (O) -- (P) -- (B);\n\n\n\\draw (C) -- (P);\n\\draw (P) -- (D);\n\n\n\\foreach \\v in {O,P}\n  \\fill (\\v) circle (2.500pt);\n\n\n\\node[left]        at (A) {\\fontsize{18}{21.6}\\selectfont$A$};\n\\node[right]       at (B) {\\fontsize{18}{21.6}\\selectfont$B$};\n\\node[below]       at (O) {\\fontsize{18}{21.6}\\selectfont$O$};\n\\node[below]       at (P) {\\fontsize{18}{21.6}\\selectfont$P$};\n\\node[above left]  at (C) {\\fontsize{18}{21.6}\\selectfont$C$};\n\\node[above right] at (D) {\\fontsize{18}{21.6}\\selectfont$D$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.150);\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw (A) -- (O) -- (P) -- (B);   \n\\draw (C) -- (P);\n\\draw (P) -- (D);\n\n\n\\foreach \\v in {A,B,C,D,O,P}\n  \\fill (\\v) circle (1.800pt);\n\n\n\\node[left]        at (A) {\\fontsize{18}{21.6}\\selectfont$A$};\n\\node[right]       at (B) {\\fontsize{18}{21.6}\\selectfont$B$};\n\\node[below]       at (O) {\\fontsize{18}{21.6}\\selectfont$O$};\n\\node[below]       at (P) {\\fontsize{18}{21.6}\\selectfont$P$};\n\\node[above left]  at (C) {\\fontsize{18}{21.6}\\selectfont$C$};\n\\node[above right] at (D) {\\fontsize{18}{21.6}\\selectfont$D$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_version": 1,
-  "best_score": 0.9,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.151);\n\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw[line width=1.0pt] (A) -- (O) -- (P) -- (B);\n\n\n\\draw (C) -- (P) -- (D);\n\n\n\\fill (O) circle (0.090);\n\\fill (P) circle (0.090);\n\n\n\\node[left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n\\node[right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n\\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\node[below] at (P) {\\fontsize{18}{21.6}\\selectfont $P$};\n\\node[above left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n\\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 f7a638a681cb069e 6d28ce507ed1e332c686d854e7d08b3c18aeffc026dc5da15b244b4d6c6741e0\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.151);\n\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw[line width=1.0pt] (A) -- (O) -- (P) -- (B);\n\n\n\\draw (C) -- (P) -- (D);\n\n\n\\fill (O) circle (0.090);\n\\fill (P) circle (0.090);\n\n\n\\node[left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n\\node[right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n\\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\node[below] at (P) {\\fontsize{18}{21.6}\\selectfont $P$};\n\\node[above left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n\\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 f7a638a681cb069e 6d28ce507ed1e332c686d854e7d08b3c18aeffc026dc5da15b244b4d6c6741e0\n",
+  "best_version": 4,
+  "best_score": 0.95,
   "tikz_versions": [
     {
       "topology_check": {
@@ -1533,192 +2002,174 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.150);\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw (A) -- (O) -- (P) -- (B);   \n\\draw (C) -- (P);\n\\draw (P) -- (D);\n\n\n\\foreach \\v in {A,B,C,D,O,P}\n  \\fill (\\v) circle (1.800pt);\n\n\n\\node[left]        at (A) {\\fontsize{18}{21.6}\\selectfont$A$};\n\\node[right]       at (B) {\\fontsize{18}{21.6}\\selectfont$B$};\n\\node[below]       at (O) {\\fontsize{18}{21.6}\\selectfont$O$};\n\\node[below]       at (P) {\\fontsize{18}{21.6}\\selectfont$P$};\n\\node[above left]  at (C) {\\fontsize{18}{21.6}\\selectfont$C$};\n\\node[above right] at (D) {\\fontsize{18}{21.6}\\selectfont$D$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\971_q_fig1\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\971_q_fig1\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\971_q_fig1\\best.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.151);\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (A) arc[start angle=180.000, delta angle=-180, radius=3.356];\n\n\n\\draw (A) -- (O) -- (P) -- (B);\n\n\n\\draw (C) -- (P) -- (D);\n\n\n\\fill (O) circle (0.070);\n\\fill (P) circle (0.070);\n\n\n\\node[left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n\\node[right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n\\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\node[below right] at (P) {\\fontsize{18}{21.6}\\selectfont $P$};\n\\node[above left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n\\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 f7a638a681cb069e e3a5da9ec1135d46c80422a9abe79aedc2055fe8e1a5ad71fd326928e5769a68\n",
+      "tex_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:08:13",
+      "created_at": "2026-11-11T13:02:40",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used the program-owned CV coordinates for A, B, C, O, P (not redefined, per the block). D is not program-owned, so it is defined in the same frame: x=(360.31-225.5)*0.021333=2.876, y=(194-122.15)*0.021333=1.533. Circle centre O, radius 157.3 px = 3.356 units (checked against A: |A-O|=3.356). Stroke 1.7pt with round joins; labels at 18/21.6 pt. Only one O label, below the centre. Labels A left, B right, O and P below, C above-left, D above-right. No right-angle mark (none verified). Note: the standalone document will not compile on its own unless the program inserts the A, B, C, O, P definitions at the start of the tikzpicture, as its block specifies.",
-      "compile_seconds": 3.714,
+      "notes": "Point D (the glyph read as O at upper right) is defined locally in the program frame: x=(360.31-225.5)*0.021333=2.876, y=(194-122.15)*0.021333=1.533. A, B, C, O, P are used from the program block, not redefined. The upper arc is drawn from A with radius 3.356 (157.3 px * 0.021333), delta angle -180, so it passes over the top through C and D; no full circle. The arc centre implied by A is about 0.003 cm off O, which is within measurement noise; report for remeasurement if needed. AB is drawn as the polyline A--O--P--B (collinear, covers the named edges). Line width 1.7pt and labels at 18pt/21.6pt from STYLE METRICS. No right-angle mark at P, since none is verified. Small filled dots at O and P follow the source. No libraries needed.",
+      "compile_seconds": 2.626,
       "critic_report": {
-        "assessment_score": 0.9,
+        "assessment_score": 0.5,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render is geometrically faithful: circle, diameter AB, the two chords PC and PD, and all six labels sit where they do in the original. Remaining differences are stroke weight and point-marker styling.",
+        "verdict": "The render draws only the upper semicircle, while the original is a full circle with diameter AB; the rest of the geometry (P, O, C, D, the chords) is faithful.",
         "figure_type": {
-          "original": "Circle with horizontal diameter AB, centre O, point P on AB between O and B, chords PC and PD meeting at P with C and D on the upper arc",
-          "render": "Circle with horizontal diameter AB, centre O, point P on AB between O and B, chords PC and PD meeting at P with C and D on the upper arc"
+          "original": "full circle with horizontal diameter AB, center O, point P on AB between O and B, and chords PC and PD ending on the circle",
+          "render": "upper semicircle from A to B with the same interior segments (PC, PD) and the baseline AB"
         },
         "issues": [
           {
-            "type": "wrong_style",
-            "severity": "low",
+            "type": "arc_error",
+            "severity": "high",
             "object_ids": [
-              "seg_01"
+              "circle_01"
             ],
             "bbox": [
-              0.05,
-              0.47,
-              0.9,
-              0.53
+              0.12,
+              0.5,
+              0.88,
+              0.89
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "The diameter AB is drawn at the same weight as the circle and chords (1.7pt). In the original it is visibly thinner than the circle arc, so the render's AB is too heavy.",
-            "suggestion": "Draw the AB segment with a thinner line width (for example 0.8-1pt) while keeping the circle and PC/PD at about 1.7pt."
+            "description": "The original is a full circle centred at O (radius about 3.356 units). The render draws only the upper half (start angle 180, delta -180), so the lower arc below AB is missing.",
+            "suggestion": "Replace the half-arc with a full circle centred at O, e.g. \\draw (O) circle (3.356); (or \\draw (O) circle[radius=3.356];)."
           },
           {
-            "type": "wrong_style",
+            "type": "wrong_position",
             "severity": "low",
             "object_ids": [
-              "point_O"
+              "point_06"
             ],
             "bbox": [
-              0.48,
-              0.47,
-              0.52,
-              0.53
+              0.779,
+              0.295,
+              0.819,
+              0.335
             ],
             "flaky": false,
-            "source": "vlm",
-            "description": "The centre O is a bold filled dot in the original, but the render draws it as a small dot.",
-            "suggestion": "Increase the radius of the fill at O to match the original (roughly the size of the P marker), or keep it as is if small-dot styling is preferred."
-          },
-          {
-            "type": "other",
-            "severity": "low",
-            "object_ids": [
-              "point_A",
-              "point_B"
-            ],
-            "bbox": [
-              0.1,
-              0.47,
-              0.13,
-              0.53
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "The render puts filled dots at A and B where the original has only the line ending on the circle with no visible marker.",
-            "suggestion": "Remove the fill for A and B, or leave them if the dots are judged harmless for the figure."
+            "source": "checklist",
+            "description": "Checklist: point point_06 is visible but misplaced.",
+            "suggestion": "Move this element to match the original."
           }
         ],
         "checks": [
           {
-            "object_id": "circle_O",
-            "status": "present",
-            "note": "Circle centred at O passing through A, B, C and D matches the original."
+            "object_id": "circle_01",
+            "status": "wrong",
+            "note": "Original is a full circle; render shows only the upper semicircle (lower arc missing)."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Diameter AB is drawn from A to B through O and P. Its weight is heavier than the original."
+            "note": "Diameter AB from A to B is drawn through O and P, matching the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Chord PC runs from P up-left to C on the arc, matching the original."
+            "note": "Chord PC from P to the circle at C matches the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Chord PD runs from P up-right to D on the arc, matching the original."
+            "note": "Chord PD from P to the circle at D matches the original."
           },
           {
             "object_id": "seg_AB",
             "status": "present",
-            "note": "AB is drawn as the diameter with the correct endpoints."
+            "note": "AB is drawn from A to B and passes through O and P."
           },
           {
             "object_id": "seg_PC",
             "status": "present",
-            "note": "PC is drawn from P to the arc at C."
+            "note": "PC is drawn correctly from P to C on the arc."
           },
           {
             "object_id": "seg_PD",
             "status": "present",
-            "note": "PD is drawn from P to the arc at D."
+            "note": "PD is drawn correctly from P to D on the arc."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label P is bound to the point on AB, right of O, as in the original."
+            "note": "P is labelled correctly at the intersection on AB."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label O sits at the centre, below the diameter, as in the original."
+            "note": "O is labelled correctly at the centre."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label B is at the right end of the diameter on the circle."
+            "note": "B is labelled correctly at the right end of the diameter."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label A is at the left end of the diameter on the circle."
+            "note": "A is labelled correctly at the left end of the diameter."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label C is at the upper-left arc point where PC meets the circle."
+            "note": "C is labelled correctly on the arc."
           },
           {
             "object_id": "point_06",
-            "status": "unclear",
-            "note": "This CV point labelled O at about (360,122) has no counterpart in the original. The original shows no O there, so it is a stray detection and should not be drawn."
+            "status": "wrong",
+            "note": "This CV point sits at the D position on the circle, but it is bound to the label O. The printed letter there is D."
           },
           {
             "object_id": "point_A",
             "status": "present",
-            "note": "A is at the left end of the diameter on the circle."
+            "note": "A is at the left end of the diameter."
           },
           {
             "object_id": "point_B",
             "status": "present",
-            "note": "B is at the right end of the diameter on the circle."
+            "note": "B is at the right end of the diameter."
           },
           {
             "object_id": "point_C",
             "status": "present",
-            "note": "C is at the upper-left arc point where PC meets the circle."
+            "note": "C is on the arc at the upper left."
           },
           {
             "object_id": "point_D",
             "status": "present",
-            "note": "D is at the upper-right arc point where PD meets the circle, with a label in the same position."
+            "note": "D is on the arc at the upper right and is labelled correctly in the render."
           },
           {
             "object_id": "point_O",
             "status": "present",
-            "note": "O is the centre of the circle."
+            "note": "O is at the centre of AB, labelled below."
           },
           {
             "object_id": "point_P",
             "status": "present",
-            "note": "P is on AB between O and B, and PC and PD meet there."
+            "note": "P is on AB between O and B, labelled below right."
           }
         ],
-        "checklist_score": 1.0,
+        "checklist_score": 0.947,
         "actionable_counts": {
-          "high": 0,
+          "high": 1,
           "medium": 0,
-          "low": 3
+          "low": 1
         },
         "flaky_count": 0,
         "must_repair": true,
         "matches": [
-          "Circle centre, radius and position match the original.",
-          "A, B, C, D, O and P sit at the same relative positions as in the original.",
-          "Chords PC and PD meet at P with the same angular configuration.",
-          "Label placement and spelling for A, B, C, D, O and P match the original.",
-          "Labels do not collide with strokes."
+          "Diameter AB spans A to B and passes through O and P.",
+          "P lies on AB between O and B.",
+          "Chords PC and PD go from P to the arc at C and D, with angles and lengths close to the original.",
+          "Labels A, B, C, D, O and P are all present and placed near their vertices without collisions.",
+          "No right-angle marker appears in the original, and none is drawn in the render."
         ],
         "labels": {
           "present": [
@@ -1733,11 +2184,18 @@
           "extra": []
         },
         "version": 1,
-        "binding_decisions": [],
+        "binding_decisions": [
+          {
+            "label": "D",
+            "point_id": "point_06",
+            "reason": "The printed letter next to the upper-right arc point (the end of PD on the circle) is D, as the render also shows. point_06 is currently bound to O, which is the centre point_02.",
+            "replaces": "O"
+          }
+        ],
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.9
+      "critic_score": 0.5
     },
     {
       "topology_check": {
@@ -1745,28 +2203,64 @@
         "missing_edges": []
       },
       "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.150);\n\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw[line width=0.8pt] (A) -- (O) -- (P) -- (B);\n\n\n\\draw (C) -- (P);\n\\draw (P) -- (D);\n\n\n\\foreach \\v in {C,D,O,P}\n  \\fill (\\v) circle (1.800pt);\n\n\n\\node[left]        at (A) {\\fontsize{18}{21.6}\\selectfont$A$};\n\\node[right]       at (B) {\\fontsize{18}{21.6}\\selectfont$B$};\n\\node[below]       at (O) {\\fontsize{18}{21.6}\\selectfont$O$};\n\\node[below]       at (P) {\\fontsize{18}{21.6}\\selectfont$P$};\n\\node[above left]  at (C) {\\fontsize{18}{21.6}\\selectfont$C$};\n\\node[above right] at (D) {\\fontsize{18}{21.6}\\selectfont$D$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.151);\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw (A) -- (O) -- (P) -- (B);\n\n\n\\draw (C) -- (P) -- (D);\n\n\n\\fill (O) circle (0.070);\n\\fill (P) circle (0.070);\n\n\n\\node[left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n\\node[right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n\\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\node[below right] at (P) {\\fontsize{18}{21.6}\\selectfont $P$};\n\\node[above left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n\\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 f7a638a681cb069e 679efbf562073e4654db7d99be60e1b76b02ddb9d7283151a7bcdcc8a3426251\n",
+      "tex_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:08:45",
+      "created_at": "2026-11-11T13:03:23",
       "agent": "code_agent",
       "mode": "repair",
-      "notes": "Repair v1 style fixes only. AB (A--O--P--B) now drawn at 0.8pt; circle, PC, PD stay at 1.7pt. Filled dots removed at A and B; kept at O, P (and C, D as before). Coordinates, labels, fonts and topology unchanged. Omitted the A, B, C, O, P \\coordinate definitions because the program inserts them; D kept as a literal in the same frame (it is not in the program block and matches the frame). Note: if the program does not insert the block, the document will fail to compile.",
-      "compile_seconds": 2.598,
+      "notes": "Repair: replaced the half-arc (start 180, delta -180) with a full circle centred at program-owned O with radius 3.356 units, matching the measured radius 157.3 px at scale 0.021333. Diameter AB (A--O--P--B), solid segments P--C and P--D, and dots/labels at A, B, O, P, C, D are kept as in v1. Label at the upper-right contact point reads D, not O. No right-angle mark at P. Per the program-owned coordinate block, A, B, C, O, P are not redefined here; P is taken from the program (0.987,-0.150), which differs from v1's -0.151 by 0.001 and is not a material change. D stays at (2.876,1.533), which matches px (360.31,122.15) in the source frame. Stroke width 1.7pt and 18pt label font are unchanged.",
+      "compile_seconds": 3.183,
       "critic_report": {
         "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render is geometrically faithful: circle, diameter AB, chords PC and PD, and all six labels match the original. Remaining differences are small dot-size and dot-placement styling.",
+        "verdict": "The render is faithful: full circle centred at O, diameter AB through O and P, and chords PC and PD meeting at P with C and D on the circle. Remaining differences are minor styling and a CV binding error on the D point.",
         "figure_type": {
-          "original": "circle with centre O, diameter AB, point P on AB, and chords PC and PD from P to the circle",
-          "render": "circle with centre O, diameter AB, point P on AB, and chords PC and PD from P to the circle"
+          "original": "Circle centred at O with diameter AB on a horizontal line; P on AB between O and B; chords PC and PD from P to the circle.",
+          "render": "Full circle centred at O with horizontal line AB through O and P; PC and PD from P to the circle; labels A, B, O, P, C, D."
         },
         "issues": [
+          {
+            "type": "label_error",
+            "severity": "medium",
+            "object_ids": [
+              "point_06",
+              "label_02"
+            ],
+            "bbox": [
+              0.78,
+              0.22,
+              0.86,
+              0.32
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "The CV point point_06 at the circle end of PD is bound to the letter O, but the printed label in the original at that point is D. The render itself shows D correctly above the PD endpoint, so the error is in the binding, not in the TikZ drawing.",
+            "suggestion": "Rebind point_06 to D (the same point as point_D). Do not add a second O label at that location."
+          },
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "seg_AB",
+              "seg_01"
+            ],
+            "bbox": [
+              0.05,
+              0.48,
+              0.95,
+              0.53
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "The AB line stroke is heavier in the render than in the original, where AB is a thinner line than the circle arc.",
+            "suggestion": "Optionally draw AB with a thinner width (e.g. line width around 1.0pt) while keeping the circle at the current weight. Low priority."
+          },
           {
             "type": "wrong_style",
             "severity": "low",
@@ -1775,163 +2269,128 @@
               "point_P"
             ],
             "bbox": [
-              0.46,
-              0.46,
+              0.45,
+              0.48,
               0.65,
               0.55
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "The centre O and the point P are drawn as bold filled dots in the original, but the render's dots at O and P are visibly smaller.",
-            "suggestion": "Increase the radius of the filled dots at O and P (e.g. from 1.8pt to about 2.5-3pt) and keep the dots at C and D smaller or remove them."
-          },
-          {
-            "type": "other",
-            "severity": "low",
-            "object_ids": [
-              "point_C",
-              "point_D"
-            ],
-            "bbox": [
-              0.27,
-              0.12,
-              0.35,
-              0.2
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "The render draws small filled dots at C and D on the circle. The original shows no marker at C or D, only the chord ending on the arc.",
-            "suggestion": "Remove the filled dots at C and D (drop them from the \\foreach list, keeping only C and D as coordinates for the chord endpoints and labels)."
-          },
-          {
-            "type": "other",
-            "severity": "low",
-            "object_ids": [
-              "point_06"
-            ],
-            "bbox": [
-              0.79,
-              0.26,
-              0.87,
-              0.36
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "The CV label binding assigns the letter O to point_06, which lies at the chord endpoint D on the circle. The printed letter beside that point is D, and the original has no O there.",
-            "suggestion": "Bind point_06 to the label D (the render already draws D at this location). Do not use point_06 as the centre O."
+            "description": "The dots at O and P are smaller in the render than in the original.",
+            "suggestion": "Increase the fill radius for O and P (e.g. from 0.070 to about 0.09) to match the original. Low priority."
           }
         ],
         "checks": [
           {
-            "object_id": "circle_O",
+            "object_id": "circle_01",
             "status": "present",
-            "note": "Circle with centre O matches the original in position and radius."
+            "note": "Full circle centred at O is drawn and matches the original; the earlier half-arc problem is fixed in this version."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Diameter AB is drawn correctly from A to B."
+            "note": "AB spans A to B through O and P, as in the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Chord PC matches the original from P to C on the arc."
+            "note": "Segment from P to C matches the original chord PC."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Chord PD matches the original from P to D on the arc."
+            "note": "Segment from P to D matches the original chord PD."
           },
           {
             "object_id": "seg_AB",
             "status": "present",
-            "note": "AB runs end to end across the circle through O and P."
+            "note": "Diameter AB is drawn from A to B."
           },
           {
             "object_id": "seg_PC",
             "status": "present",
-            "note": "PC runs from P to the circle at C."
+            "note": "PC joins P to C on the circle."
           },
           {
             "object_id": "seg_PD",
             "status": "present",
-            "note": "PD runs from P to the circle at D."
+            "note": "PD joins P to D on the circle."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "P label and point are correctly placed on AB."
+            "note": "P label and vertex are correct."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "O label and point are correctly placed at the centre."
+            "note": "O label and vertex are correct."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "B label is at the right end of the diameter."
+            "note": "B label and vertex are correct."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "A label is at the left end of the diameter."
+            "note": "A label and vertex are correct."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "C label is above-left of the arc point C."
+            "note": "C label and vertex are correct."
           },
           {
             "object_id": "point_06",
             "status": "wrong",
-            "note": "Labelled O by OCR, but the printed letter at this location (the chord end on the arc) is D. The O is at the centre."
+            "note": "This point is the D vertex at the end of PD on the circle, but it is labelled O. The printed letter there is D."
           },
           {
             "object_id": "point_A",
             "status": "present",
-            "note": "A is correctly placed at the left end of AB."
+            "note": "A is at the left end of the diameter."
           },
           {
             "object_id": "point_B",
             "status": "present",
-            "note": "B is correctly placed at the right end of AB."
+            "note": "B is at the right end of the diameter."
           },
           {
             "object_id": "point_C",
             "status": "present",
-            "note": "C is correctly placed on the arc and labelled."
+            "note": "C is on the circle at the end of PC."
           },
           {
             "object_id": "point_D",
             "status": "present",
-            "note": "D is correctly placed on the arc and labelled."
+            "note": "D is on the circle at the end of PD, with the correct label."
           },
           {
             "object_id": "point_O",
             "status": "present",
-            "note": "O is correctly placed at the centre; dot is smaller than in the original."
+            "note": "O is the centre of the circle on AB."
           },
           {
             "object_id": "point_P",
             "status": "present",
-            "note": "P is correctly placed on AB; dot is smaller than in the original."
+            "note": "P is on AB between O and B, where PC and PD meet."
           }
         ],
         "checklist_score": 0.974,
         "actionable_counts": {
           "high": 0,
-          "medium": 0,
-          "low": 3
+          "medium": 1,
+          "low": 2
         },
         "flaky_count": 0,
         "must_repair": true,
         "matches": [
-          "Circle centre and radius match the original.",
-          "Diameter AB spans the circle end to end, with A and B on the arc.",
-          "P lies on AB between O and B, as in the original.",
-          "Chords PC and PD reach the arc at C and D with the same angle at P.",
-          "Labels A, B, C, D, O and P are present and placed on the correct side of their points."
+          "Full circle centred at O.",
+          "Diameter AB through O, with A and B on the circle.",
+          "P on AB between O and B.",
+          "Chords PC and PD meet at P, with C and D on the circle.",
+          "Label positions for A, B, O, P, C and D are close to the original."
         ],
         "labels": {
           "present": [
@@ -1943,14 +2402,16 @@
             "P"
           ],
           "missing": [],
-          "extra": []
+          "extra": [
+            "O bound to point_06 (should be D)"
+          ]
         },
         "version": 2,
         "binding_decisions": [
           {
             "label": "D",
             "point_id": "point_06",
-            "reason": "The printed D sits beside the chord endpoint on the arc at upper right. The original has no O there; O is at the centre.",
+            "reason": "The printed letter at the circle end of PD in the original is D, and the render places D above that endpoint.",
             "replaces": "O"
           }
         ],
@@ -1965,26 +2426,228 @@
         "missing_edges": []
       },
       "version": 3,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.150);\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw[line width=0.8pt] (A) -- (O) -- (P) -- (B);\n\n\n\\draw (C) -- (P);\n\\draw (P) -- (D);\n\n\n\\foreach \\v in {O,P}\n  \\fill (\\v) circle (2.500pt);\n\n\n\\node[left]        at (A) {\\fontsize{18}{21.6}\\selectfont$A$};\n\\node[right]       at (B) {\\fontsize{18}{21.6}\\selectfont$B$};\n\\node[below]       at (O) {\\fontsize{18}{21.6}\\selectfont$O$};\n\\node[below]       at (P) {\\fontsize{18}{21.6}\\selectfont$P$};\n\\node[above left]  at (C) {\\fontsize{18}{21.6}\\selectfont$C$};\n\\node[above right] at (D) {\\fontsize{18}{21.6}\\selectfont$D$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.151);\n\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw[line width=1.0pt] (A) -- (O) -- (P) -- (B);\n\n\n\\draw (C) -- (P) -- (D);\n\n\n\\fill (O) circle (0.090);\n\\fill (P) circle (0.090);\n\n\n\\node[left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n\\node[right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n\\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\node[below right] at (P) {\\fontsize{18}{21.6}\\selectfont $P$};\n\\node[above left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n\\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 f7a638a681cb069e 10c7198cee19dad807c88c2199def55e5a607586f14df981b35507c967f59b6a\n",
+      "tex_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:09:18",
+      "created_at": "2026-11-11T13:04:11",
       "agent": "code_agent",
       "mode": "repair",
-      "notes": "Styling-only repair: filled dots at O and P enlarged from 1.8pt to 2.5pt radius; dots at C and D removed (C and D kept as chord endpoints and labels). Coordinates, label bindings, O label below centre, D label above-right, line widths and fonts unchanged. Program-owned coordinate definitions for A, B, C, O, P are not re-emitted per the program-owned block; D remains an unmeasured helper in the same frame.",
-      "compile_seconds": 1.975,
+      "notes": "Repair v2 changes only: (1) point_06 is bound to D; the single D label is kept above the PD endpoint and the O label stays only at the centre O, so no extra O label is added at the circle end. (2) Diameter A-O-P-B is drawn at line width 1.0pt; the circle stays at the global 1.7pt. (3) Dot radius at O and P raised from 0.070 to 0.09. Coordinates, circle radius, PC/PD segments, label fonts and placements are unchanged. Per PROGRAM-OWNED CV COORDINATES, the definitions of A, B, C, O, P were not emitted; the program inserts them, so this file only compiles standalone once those lines are provided. D is not in the program block and keeps its previous definition (2.876,1.533), which lies on the circle (distance 3.356 from O). The program-supplied P at (0.987,-0.150) is used, replacing the earlier literal (0.987,-0.151).",
+      "compile_seconds": 2.881,
       "critic_report": {
         "assessment_score": 0.93,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "v3 render is faithful to the original: circle, diameter AB through O and P, chords PC and PD to the circle, and all six labels are present and correctly placed. No actionable geometry or label issue remains.",
+        "verdict": "The render is faithful: the circle, diameter AB, chords PC and PD, and labels match the original. The only real discrepancy is the CV binding of the D contact point (point_06) to O, which the render itself draws correctly as D.",
         "figure_type": {
-          "original": "circle with centre O on diameter AB, interior point P between O and B, chords PC and PD meeting at P",
-          "render": "circle with centre O on diameter AB, interior point P between O and B, chords PC and PD meeting at P"
+          "original": "circle with diameter AB, centre O, interior point P on AB, and chords PC and PD ending on the circle",
+          "render": "circle with diameter AB, centre O, interior point P on AB, and chords PC and PD ending on the circle"
+        },
+        "issues": [
+          {
+            "type": "label_error",
+            "severity": "low",
+            "object_ids": [
+              "point_P"
+            ],
+            "bbox": [
+              0.58,
+              0.52,
+              0.64,
+              0.59
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "The label P sits slightly right of the vertex in the render (below-right), while in the original it sits almost directly below P. The offset is small and the association to P is clear.",
+            "suggestion": "Change the P node placement from [below right] to [below] (keep the vertex binding at (P))."
+          },
+          {
+            "type": "wrong_position",
+            "severity": "low",
+            "object_ids": [
+              "point_06"
+            ],
+            "bbox": [
+              0.779,
+              0.295,
+              0.819,
+              0.335
+            ],
+            "flaky": false,
+            "source": "checklist",
+            "description": "Checklist: point point_06 is visible but misplaced.",
+            "suggestion": "Move this element to match the original."
+          }
+        ],
+        "checks": [
+          {
+            "object_id": "circle_01",
+            "status": "present",
+            "note": "Circle centred at O with the same extent as the original."
+          },
+          {
+            "object_id": "seg_01",
+            "status": "present",
+            "note": "Diameter AB is drawn horizontally from A to B."
+          },
+          {
+            "object_id": "seg_02",
+            "status": "present",
+            "note": "Chord PC runs from P to the upper-left circle contact C."
+          },
+          {
+            "object_id": "seg_03",
+            "status": "present",
+            "note": "Chord PD runs from P to the upper-right circle contact D."
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "AB spans the full diameter, ending at the circle on both sides."
+          },
+          {
+            "object_id": "seg_PC",
+            "status": "present",
+            "note": "PC ends on the circle at C, matching the original."
+          },
+          {
+            "object_id": "seg_PD",
+            "status": "present",
+            "note": "PD ends on the circle at D, matching the original."
+          },
+          {
+            "object_id": "point_01",
+            "status": "present",
+            "note": "P is at the same position and labelled P."
+          },
+          {
+            "object_id": "point_02",
+            "status": "present",
+            "note": "O is at the centre and labelled O."
+          },
+          {
+            "object_id": "point_03",
+            "status": "present",
+            "note": "B is labelled at the right end of the diameter."
+          },
+          {
+            "object_id": "point_04",
+            "status": "present",
+            "note": "A is labelled at the left end of the diameter."
+          },
+          {
+            "object_id": "point_05",
+            "status": "present",
+            "note": "C is labelled at the upper-left contact."
+          },
+          {
+            "object_id": "point_06",
+            "status": "wrong",
+            "note": "The CV binding assigns the letter O to the circle contact, but the printed letter there is D. The render correctly draws D at this point."
+          },
+          {
+            "object_id": "point_A",
+            "status": "present",
+            "note": "A matches the original."
+          },
+          {
+            "object_id": "point_B",
+            "status": "present",
+            "note": "B matches the original."
+          },
+          {
+            "object_id": "point_C",
+            "status": "present",
+            "note": "C matches the original."
+          },
+          {
+            "object_id": "point_D",
+            "status": "present",
+            "note": "D is at the upper-right circle contact, matching the original."
+          },
+          {
+            "object_id": "point_O",
+            "status": "present",
+            "note": "O is at the centre, matching the original."
+          },
+          {
+            "object_id": "point_P",
+            "status": "present",
+            "note": "P is at the correct position on AB."
+          }
+        ],
+        "checklist_score": 0.974,
+        "actionable_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 2
+        },
+        "flaky_count": 0,
+        "must_repair": true,
+        "matches": [
+          "Circle size and position match the original.",
+          "Diameter AB spans the circle horizontally with the correct endpoints.",
+          "O is at the centre and P sits just right of O on AB.",
+          "Chords PC and PD meet at P and end on the circle at C and D.",
+          "Labels A, B, C and D are present and placed correctly; O is present.",
+          "Line weights and overall proportions are comparable to the original."
+        ],
+        "labels": {
+          "present": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "O",
+            "P"
+          ],
+          "missing": [],
+          "extra": []
+        },
+        "version": 3,
+        "binding_decisions": [
+          {
+            "label": "D",
+            "point_id": "point_06",
+            "reason": "In the original, the letter at the upper-right circle contact where PD ends is D, not O. The render draws D there.",
+            "replaces": "O"
+          }
+        ],
+        "topology_decisions": [],
+        "raw_meta": "{}"
+      },
+      "critic_score": 0.93
+    },
+    {
+      "topology_check": {
+        "passed": true,
+        "missing_edges": []
+      },
+      "version": 4,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.7pt, line join=round]\n\\coordinate (A) at (-3.382,-0.149);\n\\coordinate (B) at (3.329,-0.149);\n\\coordinate (C) at (-1.697,2.759);\n\\coordinate (O) at (-0.026,-0.152);\n\\coordinate (P) at (0.987,-0.151);\n\n\n\n\n\\coordinate (D) at (2.876,1.533);\n\n\n\\draw (O) circle (3.356);\n\n\n\\draw[line width=1.0pt] (A) -- (O) -- (P) -- (B);\n\n\n\\draw (C) -- (P) -- (D);\n\n\n\\fill (O) circle (0.090);\n\\fill (P) circle (0.090);\n\n\n\\node[left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n\\node[right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n\\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\node[below] at (P) {\\fontsize{18}{21.6}\\selectfont $P$};\n\\node[above left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n\\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 f7a638a681cb069e 6d28ce507ed1e332c686d854e7d08b3c18aeffc026dc5da15b244b4d6c6741e0\n",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\971_q_fig1\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\971_q_fig1\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\971_q_fig1\\best.png",
+      "ok": true,
+      "compiled": true,
+      "errors": [],
+      "warnings": [],
+      "created_at": "2026-11-11T13:04:43",
+      "agent": "code_agent",
+      "mode": "repair",
+      "notes": "Repair v3: only change is the P label placement from [below right] to [below], still bound to (P). The D label stays at the PD circle contact. The program-owned coordinate definitions (A, B, C, O, P) are not emitted here, as the program requires; they are inserted at the start of the tikzpicture. The previous inline definitions are removed for this reason. Stroke width, label font, scale and the other strokes are unchanged. No right-angle marks (none verified).",
+      "compile_seconds": 2.727,
+      "critic_report": {
+        "assessment_score": 0.95,
+        "score_kind": "heuristic visual similarity (not a calibrated probability)",
+        "verdict": "The render faithfully reproduces the circle, diameter AB with O and P on it, and chords PC and PD meeting at P; the only discrepancy is a CV binding error at point_06, which is D, not O.",
+        "figure_type": {
+          "original": "circle with diameter AB, interior point P on AB, and segments PC and PD from P to circle points C and D",
+          "render": "circle with diameter AB, interior point P on AB, and segments PC and PD from P to circle points C and D"
         },
         "issues": [
           {
@@ -2007,24 +2670,24 @@
         ],
         "checks": [
           {
-            "object_id": "circle_O",
+            "object_id": "circle_01",
             "status": "present",
-            "note": "Circle matches the original's size and position relative to A, B, and the labels."
+            "note": "Circle centre and radius match the original; outline is consistent in both panels."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Solid diameter line from A to B, passing through O and P, matches the original."
+            "note": "Diameter AB is drawn from A to B through O and P, matching the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Chord PC: straight segment from P up-left to the circle at C, matches the original."
+            "note": "Segment PC runs from P to C on the circle, matching the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Chord PD: straight segment from P up-right to the circle at D, matches the original."
+            "note": "Segment PD runs from P to D on the circle, matching the original."
           },
           {
             "object_id": "seg_AB",
@@ -2034,72 +2697,72 @@
           {
             "object_id": "seg_PC",
             "status": "present",
-            "note": "PC ends on the circle at C with no overhang, matching the original."
+            "note": "PC joins P and the circle at C in both panels."
           },
           {
             "object_id": "seg_PD",
             "status": "present",
-            "note": "PD ends on the circle at D with no overhang, matching the original."
+            "note": "PD joins P and the circle at D in both panels; the endpoint is on the circle, not overshooting."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "P label sits below-right of P, clear of strokes, as in the original."
+            "note": "P is labelled correctly and sits on AB, with its label placed directly below as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "O label sits below O, as in the original."
+            "note": "O is labelled correctly at the centre of the circle, and its label sits below as in the original."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "B label sits to the right of B on the circle, as in the original."
+            "note": "B is at the right end of the diameter, matching the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "A label sits to the left of A on the circle, as in the original."
+            "note": "A is at the left end of the diameter, matching the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "C label sits above-left of C on the circle, as in the original."
+            "note": "C is at the circle contact of PC, with its label above-left as in the original."
           },
           {
             "object_id": "point_06",
             "status": "wrong",
-            "note": "CV binding labels this chord endpoint as O, but the point is the upper-right chord end on the circle, which the original labels D. The render itself draws D correctly; the wrong letter is only in the "
+            "note": "This CV point sits at the circle contact of PD, which is D's position in the original. It is bound to the OCR letter O, but no printed O appears there. The printed letter is D."
           },
           {
             "object_id": "point_A",
             "status": "present",
-            "note": "A is the left end of the diameter on the circle."
+            "note": "A is at the left end of the diameter."
           },
           {
             "object_id": "point_B",
             "status": "present",
-            "note": "B is the right end of the diameter on the circle."
+            "note": "B is at the right end of the diameter."
           },
           {
             "object_id": "point_C",
             "status": "present",
-            "note": "C is the upper-left chord end on the circle."
+            "note": "C is at the upper-left circle contact of PC."
           },
           {
             "object_id": "point_D",
             "status": "present",
-            "note": "D is the upper-right chord end on the circle, with its label placed upper-right as in the original."
+            "note": "D is at the upper-right circle contact of PD, matching the original and the render."
           },
           {
             "object_id": "point_O",
             "status": "present",
-            "note": "O is the centre of the circle, on the diameter, with its label below as in the original."
+            "note": "O is the centre of the circle, matching the original."
           },
           {
             "object_id": "point_P",
             "status": "present",
-            "note": "P is the interior point on AB where PC and PD meet, with its label below as in the original."
+            "note": "P lies on AB between O and B, matching the original."
           }
         ],
         "checklist_score": 0.974,
@@ -2111,12 +2774,11 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Circle is centred at O with A and B at its ends of the horizontal diameter.",
-          "P lies on AB between O and B, with PC and PD meeting at P.",
-          "Chord endpoints C and D lie on the circle with no overhang.",
-          "Labels A, B, C, D, O and P are present, correctly spelled, and clear of the strokes.",
-          "Dots at O and P are present at the correct positions.",
-          "No right-angle mark is printed in the original at P, so none is required in the render."
+          "Circle size and position match the original.",
+          "Diameter AB runs through O and P with the correct endpoints A and B.",
+          "PC and PD both meet at P and end on the circle at C and D.",
+          "The P, O, A, B, C and D labels are present and placed as in the original with clear separation from strokes.",
+          "No right-angle marker is drawn at P in either panel, so none is missing."
         ],
         "labels": {
           "present": [
@@ -2128,21 +2790,23 @@
             "P"
           ],
           "missing": [],
-          "extra": []
+          "extra": [
+            "O bound to point_06 (CV label_02) is a misread of the printed D"
+          ]
         },
-        "version": 3,
+        "version": 4,
         "binding_decisions": [
           {
             "label": "D",
             "point_id": "point_06",
-            "reason": "In the original, the printed letter beside the upper-right chord endpoint on the circle is D, and the render draws D there. The CV binding wrongly reads it as O.",
+            "reason": "In the original, the printed letter D sits just outside the upper-right circle contact of PD. That contact is at the same angle (about 30 degrees above horizontal from O) as point_06, which is on the circle. The render also draws D there.",
             "replaces": "O"
           }
         ],
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.93
+      "critic_score": 0.95
     }
   ],
   "compilation_results": [
@@ -2150,46 +2814,59 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 3.714,
+      "seconds": 2.626,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.203125 KiB)\nnote: Writing `figure.log` (11.490234375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:08:17"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.857421875 KiB)\nnote: Writing `figure.log` (11.404296875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T13:02:43"
     },
     {
       "version": 2,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.598,
+      "seconds": 3.183,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.068359375 KiB)\nnote: Writing `figure.log` (11.490234375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T23:08:48"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.8935546875 KiB)\nnote: Writing `figure.log` (11.404296875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-11T13:03:27"
     },
     {
       "version": 3,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.975,
+      "seconds": 2.881,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.9140625 KiB)\nnote: Writing `figure.log` (11.490234375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png",
-      "created_at": "2026-11-09T23:09:20"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.404296875 KiB)\nnote: Writing `figure.pdf` (2.908203125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png",
+      "created_at": "2026-11-11T13:04:15"
+    },
+    {
+      "version": 4,
+      "ok": true,
+      "returncode": 0,
+      "seconds": 2.727,
+      "errors": [],
+      "warnings": [],
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.404296875 KiB)\nnote: Writing `figure.pdf` (2.9091796875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v4\\v4.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v4\\v4.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v4\\v4.png",
+      "created_at": "2026-11-11T13:04:46"
     }
   ],
   "validation_results": [
     {
       "version": 1,
-      "passed": true,
+      "passed": false,
       "checks": [
         {
           "name": "documentclass",
@@ -2219,30 +2896,30 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0444"
+          "detail": "ink_ratio=0.0531"
         },
         {
           "name": "aspect_ratio",
-          "passed": true,
-          "detail": "reference 1.16 vs render 1.15 (delta 0.01)"
+          "passed": false,
+          "detail": "reference 1.16 vs render 1.90 (delta 0.63)"
         },
         {
           "name": "figure_extent_ratio",
-          "passed": true,
-          "detail": "figure bbox ratio 1.15"
+          "passed": false,
+          "detail": "figure bbox ratio 1.94"
         }
       ],
-      "created_at": "2026-11-09T23:08:16"
+      "created_at": "2026-11-11T13:02:43"
     },
     {
       "version": 2,
@@ -2276,17 +2953,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf"
+          "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png"
+          "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v2\\v2.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0415"
+          "detail": "ink_ratio=0.0442"
         },
         {
           "name": "aspect_ratio",
@@ -2299,7 +2976,7 @@
           "detail": "figure bbox ratio 1.15"
         }
       ],
-      "created_at": "2026-11-09T23:08:48"
+      "created_at": "2026-11-11T13:03:27"
     },
     {
       "version": 3,
@@ -2333,17 +3010,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf"
+          "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png"
+          "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v3\\v3.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0417"
+          "detail": "ink_ratio=0.0416"
         },
         {
           "name": "aspect_ratio",
@@ -2356,183 +3033,222 @@
           "detail": "figure bbox ratio 1.15"
         }
       ],
-      "created_at": "2026-11-09T23:09:20"
+      "created_at": "2026-11-11T13:04:15"
+    },
+    {
+      "version": 4,
+      "passed": true,
+      "checks": [
+        {
+          "name": "documentclass",
+          "passed": true,
+          "detail": "documentclass present"
+        },
+        {
+          "name": "document_environment",
+          "passed": true,
+          "detail": "begin=1 end=1"
+        },
+        {
+          "name": "tikzpicture",
+          "passed": true,
+          "detail": "one balanced tikzpicture"
+        },
+        {
+          "name": "no_shell_escape",
+          "passed": true,
+          "detail": "no \\write18/\\openout primitives"
+        },
+        {
+          "name": "compiler_ok",
+          "passed": true,
+          "detail": "returncode=0"
+        },
+        {
+          "name": "pdf_created",
+          "passed": true,
+          "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v4\\v4.pdf"
+        },
+        {
+          "name": "png_rendered",
+          "passed": true,
+          "detail": ".cache\\collinear\\batch_work\\971_q_fig1\\tikz\\v4\\v4.png"
+        },
+        {
+          "name": "render_not_blank",
+          "passed": true,
+          "detail": "ink_ratio=0.0416"
+        },
+        {
+          "name": "aspect_ratio",
+          "passed": true,
+          "detail": "reference 1.16 vs render 1.15 (delta 0.01)"
+        },
+        {
+          "name": "figure_extent_ratio",
+          "passed": true,
+          "detail": "figure bbox ratio 1.15"
+        }
+      ],
+      "created_at": "2026-11-11T13:04:46"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.9,
+      "assessment_score": 0.5,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render is geometrically faithful: circle, diameter AB, the two chords PC and PD, and all six labels sit where they do in the original. Remaining differences are stroke weight and point-marker styling.",
+      "verdict": "The render draws only the upper semicircle, while the original is a full circle with diameter AB; the rest of the geometry (P, O, C, D, the chords) is faithful.",
       "figure_type": {
-        "original": "Circle with horizontal diameter AB, centre O, point P on AB between O and B, chords PC and PD meeting at P with C and D on the upper arc",
-        "render": "Circle with horizontal diameter AB, centre O, point P on AB between O and B, chords PC and PD meeting at P with C and D on the upper arc"
+        "original": "full circle with horizontal diameter AB, center O, point P on AB between O and B, and chords PC and PD ending on the circle",
+        "render": "upper semicircle from A to B with the same interior segments (PC, PD) and the baseline AB"
       },
       "issues": [
         {
-          "type": "wrong_style",
-          "severity": "low",
+          "type": "arc_error",
+          "severity": "high",
           "object_ids": [
-            "seg_01"
+            "circle_01"
           ],
           "bbox": [
-            0.05,
-            0.47,
-            0.9,
-            0.53
+            0.12,
+            0.5,
+            0.88,
+            0.89
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "The diameter AB is drawn at the same weight as the circle and chords (1.7pt). In the original it is visibly thinner than the circle arc, so the render's AB is too heavy.",
-          "suggestion": "Draw the AB segment with a thinner line width (for example 0.8-1pt) while keeping the circle and PC/PD at about 1.7pt."
+          "description": "The original is a full circle centred at O (radius about 3.356 units). The render draws only the upper half (start angle 180, delta -180), so the lower arc below AB is missing.",
+          "suggestion": "Replace the half-arc with a full circle centred at O, e.g. \\draw (O) circle (3.356); (or \\draw (O) circle[radius=3.356];)."
         },
         {
-          "type": "wrong_style",
+          "type": "wrong_position",
           "severity": "low",
           "object_ids": [
-            "point_O"
+            "point_06"
           ],
           "bbox": [
-            0.48,
-            0.47,
-            0.52,
-            0.53
+            0.779,
+            0.295,
+            0.819,
+            0.335
           ],
           "flaky": false,
-          "source": "vlm",
-          "description": "The centre O is a bold filled dot in the original, but the render draws it as a small dot.",
-          "suggestion": "Increase the radius of the fill at O to match the original (roughly the size of the P marker), or keep it as is if small-dot styling is preferred."
-        },
-        {
-          "type": "other",
-          "severity": "low",
-          "object_ids": [
-            "point_A",
-            "point_B"
-          ],
-          "bbox": [
-            0.1,
-            0.47,
-            0.13,
-            0.53
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "The render puts filled dots at A and B where the original has only the line ending on the circle with no visible marker.",
-          "suggestion": "Remove the fill for A and B, or leave them if the dots are judged harmless for the figure."
+          "source": "checklist",
+          "description": "Checklist: point point_06 is visible but misplaced.",
+          "suggestion": "Move this element to match the original."
         }
       ],
       "checks": [
         {
-          "object_id": "circle_O",
-          "status": "present",
-          "note": "Circle centred at O passing through A, B, C and D matches the original."
+          "object_id": "circle_01",
+          "status": "wrong",
+          "note": "Original is a full circle; render shows only the upper semicircle (lower arc missing)."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Diameter AB is drawn from A to B through O and P. Its weight is heavier than the original."
+          "note": "Diameter AB from A to B is drawn through O and P, matching the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Chord PC runs from P up-left to C on the arc, matching the original."
+          "note": "Chord PC from P to the circle at C matches the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Chord PD runs from P up-right to D on the arc, matching the original."
+          "note": "Chord PD from P to the circle at D matches the original."
         },
         {
           "object_id": "seg_AB",
           "status": "present",
-          "note": "AB is drawn as the diameter with the correct endpoints."
+          "note": "AB is drawn from A to B and passes through O and P."
         },
         {
           "object_id": "seg_PC",
           "status": "present",
-          "note": "PC is drawn from P to the arc at C."
+          "note": "PC is drawn correctly from P to C on the arc."
         },
         {
           "object_id": "seg_PD",
           "status": "present",
-          "note": "PD is drawn from P to the arc at D."
+          "note": "PD is drawn correctly from P to D on the arc."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label P is bound to the point on AB, right of O, as in the original."
+          "note": "P is labelled correctly at the intersection on AB."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label O sits at the centre, below the diameter, as in the original."
+          "note": "O is labelled correctly at the centre."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label B is at the right end of the diameter on the circle."
+          "note": "B is labelled correctly at the right end of the diameter."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label A is at the left end of the diameter on the circle."
+          "note": "A is labelled correctly at the left end of the diameter."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label C is at the upper-left arc point where PC meets the circle."
+          "note": "C is labelled correctly on the arc."
         },
         {
           "object_id": "point_06",
-          "status": "unclear",
-          "note": "This CV point labelled O at about (360,122) has no counterpart in the original. The original shows no O there, so it is a stray detection and should not be drawn."
+          "status": "wrong",
+          "note": "This CV point sits at the D position on the circle, but it is bound to the label O. The printed letter there is D."
         },
         {
           "object_id": "point_A",
           "status": "present",
-          "note": "A is at the left end of the diameter on the circle."
+          "note": "A is at the left end of the diameter."
         },
         {
           "object_id": "point_B",
           "status": "present",
-          "note": "B is at the right end of the diameter on the circle."
+          "note": "B is at the right end of the diameter."
         },
         {
           "object_id": "point_C",
           "status": "present",
-          "note": "C is at the upper-left arc point where PC meets the circle."
+          "note": "C is on the arc at the upper left."
         },
         {
           "object_id": "point_D",
           "status": "present",
-          "note": "D is at the upper-right arc point where PD meets the circle, with a label in the same position."
+          "note": "D is on the arc at the upper right and is labelled correctly in the render."
         },
         {
           "object_id": "point_O",
           "status": "present",
-          "note": "O is the centre of the circle."
+          "note": "O is at the centre of AB, labelled below."
         },
         {
           "object_id": "point_P",
           "status": "present",
-          "note": "P is on AB between O and B, and PC and PD meet there."
+          "note": "P is on AB between O and B, labelled below right."
         }
       ],
-      "checklist_score": 1.0,
+      "checklist_score": 0.947,
       "actionable_counts": {
-        "high": 0,
+        "high": 1,
         "medium": 0,
-        "low": 3
+        "low": 1
       },
       "flaky_count": 0,
       "must_repair": true,
       "matches": [
-        "Circle centre, radius and position match the original.",
-        "A, B, C, D, O and P sit at the same relative positions as in the original.",
-        "Chords PC and PD meet at P with the same angular configuration.",
-        "Label placement and spelling for A, B, C, D, O and P match the original.",
-        "Labels do not collide with strokes."
+        "Diameter AB spans A to B and passes through O and P.",
+        "P lies on AB between O and B.",
+        "Chords PC and PD go from P to the arc at C and D, with angles and lengths close to the original.",
+        "Labels A, B, C, D, O and P are all present and placed near their vertices without collisions.",
+        "No right-angle marker appears in the original, and none is drawn in the render."
       ],
       "labels": {
         "present": [
@@ -2547,203 +3263,11 @@
         "extra": []
       },
       "version": 1,
-      "binding_decisions": [],
-      "topology_decisions": [],
-      "raw_meta": "{}"
-    },
-    {
-      "assessment_score": 0.9,
-      "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render is geometrically faithful: circle, diameter AB, chords PC and PD, and all six labels match the original. Remaining differences are small dot-size and dot-placement styling.",
-      "figure_type": {
-        "original": "circle with centre O, diameter AB, point P on AB, and chords PC and PD from P to the circle",
-        "render": "circle with centre O, diameter AB, point P on AB, and chords PC and PD from P to the circle"
-      },
-      "issues": [
-        {
-          "type": "wrong_style",
-          "severity": "low",
-          "object_ids": [
-            "point_O",
-            "point_P"
-          ],
-          "bbox": [
-            0.46,
-            0.46,
-            0.65,
-            0.55
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "The centre O and the point P are drawn as bold filled dots in the original, but the render's dots at O and P are visibly smaller.",
-          "suggestion": "Increase the radius of the filled dots at O and P (e.g. from 1.8pt to about 2.5-3pt) and keep the dots at C and D smaller or remove them."
-        },
-        {
-          "type": "other",
-          "severity": "low",
-          "object_ids": [
-            "point_C",
-            "point_D"
-          ],
-          "bbox": [
-            0.27,
-            0.12,
-            0.35,
-            0.2
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "The render draws small filled dots at C and D on the circle. The original shows no marker at C or D, only the chord ending on the arc.",
-          "suggestion": "Remove the filled dots at C and D (drop them from the \\foreach list, keeping only C and D as coordinates for the chord endpoints and labels)."
-        },
-        {
-          "type": "other",
-          "severity": "low",
-          "object_ids": [
-            "point_06"
-          ],
-          "bbox": [
-            0.79,
-            0.26,
-            0.87,
-            0.36
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "The CV label binding assigns the letter O to point_06, which lies at the chord endpoint D on the circle. The printed letter beside that point is D, and the original has no O there.",
-          "suggestion": "Bind point_06 to the label D (the render already draws D at this location). Do not use point_06 as the centre O."
-        }
-      ],
-      "checks": [
-        {
-          "object_id": "circle_O",
-          "status": "present",
-          "note": "Circle with centre O matches the original in position and radius."
-        },
-        {
-          "object_id": "seg_01",
-          "status": "present",
-          "note": "Diameter AB is drawn correctly from A to B."
-        },
-        {
-          "object_id": "seg_02",
-          "status": "present",
-          "note": "Chord PC matches the original from P to C on the arc."
-        },
-        {
-          "object_id": "seg_03",
-          "status": "present",
-          "note": "Chord PD matches the original from P to D on the arc."
-        },
-        {
-          "object_id": "seg_AB",
-          "status": "present",
-          "note": "AB runs end to end across the circle through O and P."
-        },
-        {
-          "object_id": "seg_PC",
-          "status": "present",
-          "note": "PC runs from P to the circle at C."
-        },
-        {
-          "object_id": "seg_PD",
-          "status": "present",
-          "note": "PD runs from P to the circle at D."
-        },
-        {
-          "object_id": "point_01",
-          "status": "present",
-          "note": "P label and point are correctly placed on AB."
-        },
-        {
-          "object_id": "point_02",
-          "status": "present",
-          "note": "O label and point are correctly placed at the centre."
-        },
-        {
-          "object_id": "point_03",
-          "status": "present",
-          "note": "B label is at the right end of the diameter."
-        },
-        {
-          "object_id": "point_04",
-          "status": "present",
-          "note": "A label is at the left end of the diameter."
-        },
-        {
-          "object_id": "point_05",
-          "status": "present",
-          "note": "C label is above-left of the arc point C."
-        },
-        {
-          "object_id": "point_06",
-          "status": "wrong",
-          "note": "Labelled O by OCR, but the printed letter at this location (the chord end on the arc) is D. The O is at the centre."
-        },
-        {
-          "object_id": "point_A",
-          "status": "present",
-          "note": "A is correctly placed at the left end of AB."
-        },
-        {
-          "object_id": "point_B",
-          "status": "present",
-          "note": "B is correctly placed at the right end of AB."
-        },
-        {
-          "object_id": "point_C",
-          "status": "present",
-          "note": "C is correctly placed on the arc and labelled."
-        },
-        {
-          "object_id": "point_D",
-          "status": "present",
-          "note": "D is correctly placed on the arc and labelled."
-        },
-        {
-          "object_id": "point_O",
-          "status": "present",
-          "note": "O is correctly placed at the centre; dot is smaller than in the original."
-        },
-        {
-          "object_id": "point_P",
-          "status": "present",
-          "note": "P is correctly placed on AB; dot is smaller than in the original."
-        }
-      ],
-      "checklist_score": 0.974,
-      "actionable_counts": {
-        "high": 0,
-        "medium": 0,
-        "low": 3
-      },
-      "flaky_count": 0,
-      "must_repair": true,
-      "matches": [
-        "Circle centre and radius match the original.",
-        "Diameter AB spans the circle end to end, with A and B on the arc.",
-        "P lies on AB between O and B, as in the original.",
-        "Chords PC and PD reach the arc at C and D with the same angle at P.",
-        "Labels A, B, C, D, O and P are present and placed on the correct side of their points."
-      ],
-      "labels": {
-        "present": [
-          "A",
-          "B",
-          "C",
-          "D",
-          "O",
-          "P"
-        ],
-        "missing": [],
-        "extra": []
-      },
-      "version": 2,
       "binding_decisions": [
         {
           "label": "D",
           "point_id": "point_06",
-          "reason": "The printed D sits beside the chord endpoint on the arc at upper right. The original has no O there; O is at the centre.",
+          "reason": "The printed letter next to the upper-right arc point (the end of PD on the circle) is D, as the render also shows. point_06 is currently bound to O, which is the centre point_02.",
           "replaces": "O"
         }
       ],
@@ -2751,14 +3275,50 @@
       "raw_meta": "{}"
     },
     {
-      "assessment_score": 0.92,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render is faithful in geometry and labelling: circle, diameter AB, chords PC and PD, and points O and P all match the original. Remaining differences are minor marker-size and CV binding issues.",
+      "verdict": "The render is faithful: full circle centred at O, diameter AB through O and P, and chords PC and PD meeting at P with C and D on the circle. Remaining differences are minor styling and a CV binding error on the D point.",
       "figure_type": {
-        "original": "Circle with centre O, diameter AB, point P on AB between O and B, and chords PC and PD ending on the circle",
-        "render": "Circle with centre O, diameter AB, point P on AB, and chords PC and PD ending on the circle"
+        "original": "Circle centred at O with diameter AB on a horizontal line; P on AB between O and B; chords PC and PD from P to the circle.",
+        "render": "Full circle centred at O with horizontal line AB through O and P; PC and PD from P to the circle; labels A, B, O, P, C, D."
       },
       "issues": [
+        {
+          "type": "label_error",
+          "severity": "medium",
+          "object_ids": [
+            "point_06",
+            "label_02"
+          ],
+          "bbox": [
+            0.78,
+            0.22,
+            0.86,
+            0.32
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The CV point point_06 at the circle end of PD is bound to the letter O, but the printed label in the original at that point is D. The render itself shows D correctly above the PD endpoint, so the error is in the binding, not in the TikZ drawing.",
+          "suggestion": "Rebind point_06 to D (the same point as point_D). Do not add a second O label at that location."
+        },
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "seg_AB",
+            "seg_01"
+          ],
+          "bbox": [
+            0.05,
+            0.48,
+            0.95,
+            0.53
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The AB line stroke is heavier in the render than in the original, where AB is a thinner line than the circle arc.",
+          "suggestion": "Optionally draw AB with a thinner width (e.g. line width around 1.0pt) while keeping the circle at the current weight. Low priority."
+        },
         {
           "type": "wrong_style",
           "severity": "low",
@@ -2767,79 +3327,244 @@
             "point_P"
           ],
           "bbox": [
-            0.2,
-            0.47,
-            0.33,
-            0.58
+            0.45,
+            0.48,
+            0.65,
+            0.55
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "The filled dots at O and P are visibly smaller in the render than in the original, where they read as bolder markers.",
-          "suggestion": "Increase the marker radius for the O and P dots, for example from 2.5pt to about 3.5pt, in the \\foreach fill line."
+          "description": "The dots at O and P are smaller in the render than in the original.",
+          "suggestion": "Increase the fill radius for O and P (e.g. from 0.070 to about 0.09) to match the original. Low priority."
+        }
+      ],
+      "checks": [
+        {
+          "object_id": "circle_01",
+          "status": "present",
+          "note": "Full circle centred at O is drawn and matches the original; the earlier half-arc problem is fixed in this version."
         },
         {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "AB spans A to B through O and P, as in the original."
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Segment from P to C matches the original chord PC."
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "Segment from P to D matches the original chord PD."
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Diameter AB is drawn from A to B."
+        },
+        {
+          "object_id": "seg_PC",
+          "status": "present",
+          "note": "PC joins P to C on the circle."
+        },
+        {
+          "object_id": "seg_PD",
+          "status": "present",
+          "note": "PD joins P to D on the circle."
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "P label and vertex are correct."
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "O label and vertex are correct."
+        },
+        {
+          "object_id": "point_03",
+          "status": "present",
+          "note": "B label and vertex are correct."
+        },
+        {
+          "object_id": "point_04",
+          "status": "present",
+          "note": "A label and vertex are correct."
+        },
+        {
+          "object_id": "point_05",
+          "status": "present",
+          "note": "C label and vertex are correct."
+        },
+        {
+          "object_id": "point_06",
+          "status": "wrong",
+          "note": "This point is the D vertex at the end of PD on the circle, but it is labelled O. The printed letter there is D."
+        },
+        {
+          "object_id": "point_A",
+          "status": "present",
+          "note": "A is at the left end of the diameter."
+        },
+        {
+          "object_id": "point_B",
+          "status": "present",
+          "note": "B is at the right end of the diameter."
+        },
+        {
+          "object_id": "point_C",
+          "status": "present",
+          "note": "C is on the circle at the end of PC."
+        },
+        {
+          "object_id": "point_D",
+          "status": "present",
+          "note": "D is on the circle at the end of PD, with the correct label."
+        },
+        {
+          "object_id": "point_O",
+          "status": "present",
+          "note": "O is the centre of the circle on AB."
+        },
+        {
+          "object_id": "point_P",
+          "status": "present",
+          "note": "P is on AB between O and B, where PC and PD meet."
+        }
+      ],
+      "checklist_score": 0.974,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 1,
+        "low": 2
+      },
+      "flaky_count": 0,
+      "must_repair": true,
+      "matches": [
+        "Full circle centred at O.",
+        "Diameter AB through O, with A and B on the circle.",
+        "P on AB between O and B.",
+        "Chords PC and PD meet at P, with C and D on the circle.",
+        "Label positions for A, B, O, P, C and D are close to the original."
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "O",
+          "P"
+        ],
+        "missing": [],
+        "extra": [
+          "O bound to point_06 (should be D)"
+        ]
+      },
+      "version": 2,
+      "binding_decisions": [
+        {
+          "label": "D",
+          "point_id": "point_06",
+          "reason": "The printed letter at the circle end of PD in the original is D, and the render places D above that endpoint.",
+          "replaces": "O"
+        }
+      ],
+      "topology_decisions": [],
+      "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.93,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "The render is faithful: the circle, diameter AB, chords PC and PD, and labels match the original. The only real discrepancy is the CV binding of the D contact point (point_06) to O, which the render itself draws correctly as D.",
+      "figure_type": {
+        "original": "circle with diameter AB, centre O, interior point P on AB, and chords PC and PD ending on the circle",
+        "render": "circle with diameter AB, centre O, interior point P on AB, and chords PC and PD ending on the circle"
+      },
+      "issues": [
+        {
           "type": "label_error",
+          "severity": "low",
+          "object_ids": [
+            "point_P"
+          ],
+          "bbox": [
+            0.58,
+            0.52,
+            0.64,
+            0.59
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The label P sits slightly right of the vertex in the render (below-right), while in the original it sits almost directly below P. The offset is small and the association to P is clear.",
+          "suggestion": "Change the P node placement from [below right] to [below] (keep the vertex binding at (P))."
+        },
+        {
+          "type": "wrong_position",
           "severity": "low",
           "object_ids": [
             "point_06"
           ],
           "bbox": [
-            0.55,
-            0.22,
-            0.62,
-            0.33
+            0.779,
+            0.295,
+            0.819,
+            0.335
           ],
           "flaky": false,
-          "source": "vlm",
-          "description": "The CV binding assigns the letter O to point_06, the chord endpoint on the circle. The printed letter beside that point is D, and the render correctly labels it D.",
-          "suggestion": "No change to the TikZ is needed for the render. Correct the CV label binding so point_06 is bound to D, not O."
+          "source": "checklist",
+          "description": "Checklist: point point_06 is visible but misplaced.",
+          "suggestion": "Move this element to match the original."
         }
       ],
       "checks": [
         {
-          "object_id": "circle_O",
+          "object_id": "circle_01",
           "status": "present",
-          "note": "Circle centred at O with matching radius and position."
+          "note": "Circle centred at O with the same extent as the original."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Diameter AB is drawn from A to B, matching the original."
+          "note": "Diameter AB is drawn horizontally from A to B."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Chord PC is drawn from P to the circle at C."
+          "note": "Chord PC runs from P to the upper-left circle contact C."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Chord PD is drawn from P to the circle at D."
+          "note": "Chord PD runs from P to the upper-right circle contact D."
         },
         {
           "object_id": "seg_AB",
           "status": "present",
-          "note": "AB spans the full diameter."
+          "note": "AB spans the full diameter, ending at the circle on both sides."
         },
         {
           "object_id": "seg_PC",
           "status": "present",
-          "note": "PC ends on the circle at C."
+          "note": "PC ends on the circle at C, matching the original."
         },
         {
           "object_id": "seg_PD",
           "status": "present",
-          "note": "PD ends on the circle at D."
+          "note": "PD ends on the circle at D, matching the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "P is labelled and positioned correctly."
+          "note": "P is at the same position and labelled P."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "O is labelled and positioned correctly."
+          "note": "O is at the centre and labelled O."
         },
         {
           "object_id": "point_03",
@@ -2854,12 +3579,12 @@
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "C is labelled at the upper-left circle point."
+          "note": "C is labelled at the upper-left contact."
         },
         {
           "object_id": "point_06",
           "status": "wrong",
-          "note": "The point at D on the circle is bound to the letter O by CV. The printed letter is D; the render itself shows D correctly."
+          "note": "The CV binding assigns the letter O to the circle contact, but the printed letter there is D. The render correctly draws D at this point."
         },
         {
           "object_id": "point_A",
@@ -2879,17 +3604,17 @@
         {
           "object_id": "point_D",
           "status": "present",
-          "note": "D is labelled at the upper-right circle point, matching the original."
+          "note": "D is at the upper-right circle contact, matching the original."
         },
         {
           "object_id": "point_O",
           "status": "present",
-          "note": "O matches the original; the dot is slightly smaller."
+          "note": "O is at the centre, matching the original."
         },
         {
           "object_id": "point_P",
           "status": "present",
-          "note": "P matches the original; the dot is slightly smaller."
+          "note": "P is at the correct position on AB."
         }
       ],
       "checklist_score": 0.974,
@@ -2901,11 +3626,12 @@
       "flaky_count": 0,
       "must_repair": true,
       "matches": [
-        "Circle position, radius and aspect ratio match the original.",
-        "Diameter AB runs from A to B along the horizontal axis.",
-        "P lies between O and B at the same relative position as in the original.",
-        "Chords PC and PD end on the circle at the same positions as in the original.",
-        "Labels A, B, C, D, O and P are present with matching placement and no collisions with strokes."
+        "Circle size and position match the original.",
+        "Diameter AB spans the circle horizontally with the correct endpoints.",
+        "O is at the centre and P sits just right of O on AB.",
+        "Chords PC and PD meet at P and end on the circle at C and D.",
+        "Labels A, B, C and D are present and placed correctly; O is present.",
+        "Line weights and overall proportions are comparable to the original."
       ],
       "labels": {
         "present": [
@@ -2924,7 +3650,7 @@
         {
           "label": "D",
           "point_id": "point_06",
-          "reason": "The printed letter beside the upper-right chord endpoint on the circle is D, not O.",
+          "reason": "In the original, the letter at the upper-right circle contact where PD ends is D, not O. The render draws D there.",
           "replaces": "O"
         }
       ],
@@ -2932,12 +3658,12 @@
       "raw_meta": "{}"
     },
     {
-      "assessment_score": 0.93,
+      "assessment_score": 0.95,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "v3 render is faithful to the original: circle, diameter AB through O and P, chords PC and PD to the circle, and all six labels are present and correctly placed. No actionable geometry or label issue remains.",
+      "verdict": "The render faithfully reproduces the circle, diameter AB with O and P on it, and chords PC and PD meeting at P; the only discrepancy is a CV binding error at point_06, which is D, not O.",
       "figure_type": {
-        "original": "circle with centre O on diameter AB, interior point P between O and B, chords PC and PD meeting at P",
-        "render": "circle with centre O on diameter AB, interior point P between O and B, chords PC and PD meeting at P"
+        "original": "circle with diameter AB, interior point P on AB, and segments PC and PD from P to circle points C and D",
+        "render": "circle with diameter AB, interior point P on AB, and segments PC and PD from P to circle points C and D"
       },
       "issues": [
         {
@@ -2960,24 +3686,24 @@
       ],
       "checks": [
         {
-          "object_id": "circle_O",
+          "object_id": "circle_01",
           "status": "present",
-          "note": "Circle matches the original's size and position relative to A, B, and the labels."
+          "note": "Circle centre and radius match the original; outline is consistent in both panels."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Solid diameter line from A to B, passing through O and P, matches the original."
+          "note": "Diameter AB is drawn from A to B through O and P, matching the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Chord PC: straight segment from P up-left to the circle at C, matches the original."
+          "note": "Segment PC runs from P to C on the circle, matching the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Chord PD: straight segment from P up-right to the circle at D, matches the original."
+          "note": "Segment PD runs from P to D on the circle, matching the original."
         },
         {
           "object_id": "seg_AB",
@@ -2987,72 +3713,72 @@
         {
           "object_id": "seg_PC",
           "status": "present",
-          "note": "PC ends on the circle at C with no overhang, matching the original."
+          "note": "PC joins P and the circle at C in both panels."
         },
         {
           "object_id": "seg_PD",
           "status": "present",
-          "note": "PD ends on the circle at D with no overhang, matching the original."
+          "note": "PD joins P and the circle at D in both panels; the endpoint is on the circle, not overshooting."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "P label sits below-right of P, clear of strokes, as in the original."
+          "note": "P is labelled correctly and sits on AB, with its label placed directly below as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "O label sits below O, as in the original."
+          "note": "O is labelled correctly at the centre of the circle, and its label sits below as in the original."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "B label sits to the right of B on the circle, as in the original."
+          "note": "B is at the right end of the diameter, matching the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "A label sits to the left of A on the circle, as in the original."
+          "note": "A is at the left end of the diameter, matching the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "C label sits above-left of C on the circle, as in the original."
+          "note": "C is at the circle contact of PC, with its label above-left as in the original."
         },
         {
           "object_id": "point_06",
           "status": "wrong",
-          "note": "CV binding labels this chord endpoint as O, but the point is the upper-right chord end on the circle, which the original labels D. The render itself draws D correctly; the wrong letter is only in the "
+          "note": "This CV point sits at the circle contact of PD, which is D's position in the original. It is bound to the OCR letter O, but no printed O appears there. The printed letter is D."
         },
         {
           "object_id": "point_A",
           "status": "present",
-          "note": "A is the left end of the diameter on the circle."
+          "note": "A is at the left end of the diameter."
         },
         {
           "object_id": "point_B",
           "status": "present",
-          "note": "B is the right end of the diameter on the circle."
+          "note": "B is at the right end of the diameter."
         },
         {
           "object_id": "point_C",
           "status": "present",
-          "note": "C is the upper-left chord end on the circle."
+          "note": "C is at the upper-left circle contact of PC."
         },
         {
           "object_id": "point_D",
           "status": "present",
-          "note": "D is the upper-right chord end on the circle, with its label placed upper-right as in the original."
+          "note": "D is at the upper-right circle contact of PD, matching the original and the render."
         },
         {
           "object_id": "point_O",
           "status": "present",
-          "note": "O is the centre of the circle, on the diameter, with its label below as in the original."
+          "note": "O is the centre of the circle, matching the original."
         },
         {
           "object_id": "point_P",
           "status": "present",
-          "note": "P is the interior point on AB where PC and PD meet, with its label below as in the original."
+          "note": "P lies on AB between O and B, matching the original."
         }
       ],
       "checklist_score": 0.974,
@@ -3064,12 +3790,11 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Circle is centred at O with A and B at its ends of the horizontal diameter.",
-        "P lies on AB between O and B, with PC and PD meeting at P.",
-        "Chord endpoints C and D lie on the circle with no overhang.",
-        "Labels A, B, C, D, O and P are present, correctly spelled, and clear of the strokes.",
-        "Dots at O and P are present at the correct positions.",
-        "No right-angle mark is printed in the original at P, so none is required in the render."
+        "Circle size and position match the original.",
+        "Diameter AB runs through O and P with the correct endpoints A and B.",
+        "PC and PD both meet at P and end on the circle at C and D.",
+        "The P, O, A, B, C and D labels are present and placed as in the original with clear separation from strokes.",
+        "No right-angle marker is drawn at P in either panel, so none is missing."
       ],
       "labels": {
         "present": [
@@ -3081,14 +3806,16 @@
           "P"
         ],
         "missing": [],
-        "extra": []
+        "extra": [
+          "O bound to point_06 (CV label_02) is a misread of the printed D"
+        ]
       },
-      "version": 3,
+      "version": 4,
       "binding_decisions": [
         {
           "label": "D",
           "point_id": "point_06",
-          "reason": "In the original, the printed letter beside the upper-right chord endpoint on the circle is D, and the render draws D there. The CV binding wrongly reads it as O.",
+          "reason": "In the original, the printed letter D sits just outside the upper-right circle contact of PD. That contact is at the same angle (about 30 degrees above horizontal from O) as point_06, which is on the circle. The render also draws D there.",
           "replaces": "O"
         }
       ],
@@ -3099,23 +3826,19 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "PC and PD appear perpendicular at P but no printed square mark was verified; angle mark omitted."
+      "issue": "No right-angle square marker is visible at P; none submitted."
     },
     {
       "source": "geometry_agent",
-      "issue": "Circle radius is estimated from A/B distance to O, not fitted independently."
+      "issue": "Segment PD end at px [367.94,115.35] is slightly outside point_06 px; treated as circle contact at point_06."
     },
     {
       "source": "supervisor",
-      "issue": "CV binding still labels point_06 as O (the D endpoint). The render is correct, but the CV binding was not corrected in the pipeline."
+      "issue": "CV metadata still binds point_06 to the letter O (label_02). The rendered label is D, which is correct, so this is a binding error in the CV data, not in the TikZ."
     },
     {
       "source": "supervisor",
-      "issue": "Remaining low-severity cosmetic differences: dot size at O and P; the Critic also flagged point_06 as misplaced (low), which is the same binding issue."
-    },
-    {
-      "source": "supervisor",
-      "issue": "No right-angle square mark at P (none verified in the original)."
+      "issue": "Low-severity: the point_06 position is flagged as checklist-misplaced, but the render matches the original circle contact."
     }
   ],
   "action_history": [
@@ -3161,7 +3884,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 10, 'relations': 6, 'conflicts': 1, 'rejected': []}",
+      "result_summary": "ok=True; merged={'objects': 10, 'relations': 7, 'conflicts': 1, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -3170,14 +3893,19 @@
     {
       "step": 1,
       "action": "inspect_image",
-      "purpose": "Read every letter label in the figure (A, B, C, D, O, P, etc.) and say which point each sits next to. Specifically check the label near the upper-right point around (360,120) and the label near (362,1",
+      "purpose": "Read the letter labels near the upper-right of the circle (around x 355-371, y 94-113) and confirm the letter identity. Also confirm the letters at the bottom of the figure (O, P) and the left/right e",
       "params": {
-        "region": null,
-        "question": "Read every letter label in the figure (A, B, C, D, O, P, etc.) and say which point each sits next to. Specifically check the label near the upper-right point around (360,120) and the label near (362,100)."
+        "region": [
+          0.7,
+          0.2,
+          0.95,
+          0.35
+        ],
+        "question": "Read the letter labels near the upper-right of the circle (around x 355-371, y 94-113) and confirm the letter identity. Also confirm the letters at the bottom of the figure (O, P) and the left/right endpoints (A, B) and top point C."
       },
       "status": "ok",
       "result_summary": "ok=True",
-      "duration_s": 0.0,
+      "duration_s": 0.02,
       "token_usage": {
         "delta": 0
       },
@@ -3190,7 +3918,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=3",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.5; issues=2",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -3199,17 +3927,17 @@
     {
       "step": 2,
       "action": "run_code_agent",
-      "purpose": "Draw the figure in TikZ with y flipped (y_tikz = -y_px, scale ~1/100 or similar). Points (pixel coords, top-left origin): O center (224.26,201.13); A (66.95,201.0); B (381.57,201.0); P (271.78,201.03)",
+      "purpose": "Build a TikZ figure in pixel-derived coordinates (flip y, TikZ y up; image height 388). Use these measured points: A=(66.95,201.0), B=(381.57,201.0), O=center (224.26,201.13), P=(271.78,201.03) on seg",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Draw the figure in TikZ with y flipped (y_tikz = -y_px, scale ~1/100 or similar). Points (pixel coords, top-left origin): O center (224.26,201.13); A (66.95,201.0); B (381.57,201.0); P (271.78,201.03); C (145.95,64.69); D (360.31,122.15). Circle centered at O with radius 157.3 px. Draw the horizontal diameter segment AB (solid) through O and P. Draw segments PC and PD (solid). Labels: A left of A, B right of B, O below-left of O (small dot at O), P below of P, C above-left of C, D above-right of D. IMPORTANT: the point at (360,122) is labelled D (verified by inspection), NOT O; the only O label is the one at (224,220) under the center. No square right-angle mark is drawn (none verified). Keep the circle as a full circle (the figure shows a full circle through A, B, C, D). Small filled dots at O, P, A, B, C, D."
+        "instruction": "Build a TikZ figure in pixel-derived coordinates (flip y, TikZ y up; image height 388). Use these measured points: A=(66.95,201.0), B=(381.57,201.0), O=center (224.26,201.13), P=(271.78,201.03) on segment AB, C=(145.95,64.69) on circle, D=(360.31,122.15) on circle. Circle radius 157.3 about O. Draw the upper arc of the circle from A to B passing through C and D (a semicircle arc, not a full circle; do not draw the lower half). Draw the diameter AB as a solid segment. Draw solid segments P-C and P-D. IMPORTANT LABEL CORRECTION: the upper-right label near (362,100) is the letter D, NOT O (verified by inspection); point_06 is D, which is the same as point D. Label points: A left, B right, O below-center (label near (224,220)), P below-right (label near (271,219)), C upper-left (label near (143,45)), D upper-right (label near (362,100)). Do not add a right-angle mark at P (none visible). Keep one coordinate definition per point and reuse it for shared vertices."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 31.9,
+      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=False; best_version=1",
+      "duration_s": 42.71,
       "token_usage": {
-        "delta": 18410
+        "delta": 20323
       },
       "visual_calls": 2,
       "error": null
@@ -3220,7 +3948,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=2; best_version=1; assessment_score=0.9; issues=3",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.9; issues=3",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -3229,86 +3957,98 @@
     {
       "step": 3,
       "action": "run_code_agent",
-      "purpose": "Repair v1 with these low-severity style fixes only; keep all coordinates and topology unchanged: (1) draw the diameter AB (segment A--O--P--B) with a thinner line width (about 0.8pt) while the circle ",
+      "purpose": "Repair: draw a FULL circle centred at O (224.26,201.13) with radius 157.3 px (3.356 units in the program frame), not a half-arc. AB is a diameter through O. Keep solid diameter AB, solid segments P-C ",
       "params": {
         "mode": "repair",
         "use_image": null,
-        "instruction": "Repair v1 with these low-severity style fixes only; keep all coordinates and topology unchanged: (1) draw the diameter AB (segment A--O--P--B) with a thinner line width (about 0.8pt) while the circle and chords PC, PD stay at 1.7pt. (2) Remove the filled dots at A and B (the original shows no marker there). (3) Keep the small filled dot at O and P as is."
+        "instruction": "Repair: draw a FULL circle centred at O (224.26,201.13) with radius 157.3 px (3.356 units in the program frame), not a half-arc. AB is a diameter through O. Keep solid diameter AB, solid segments P-C and P-D, and points A, B, O, P, C, D as in v1. Keep the label at the upper-right point reading D (not O). No right-angle mark at P."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 29.57,
+      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
+      "duration_s": 34.14,
       "token_usage": {
-        "delta": 19737
+        "delta": 20074
       },
       "visual_calls": 1,
       "error": null
     },
     {
       "step": 4,
+      "action": "finish",
+      "purpose": "finish run",
+      "params": {
+        "summary": "Version 2 compiles and passes validation (topology check passed, no missing edges). It draws a full circle centred at O with radius 157.3 px, diameter AB through O and P, and solid chords P-C and P-D. Labels A, B, C, D, O, P are all present. The critic scored it 0.9. The upper-right label was corrected from O to D by visual inspection. The v2 render shows D correctly.",
+        "unresolved": [
+          "CV binding point_06 is still tagged O in metadata; the render shows D there, so this is a metadata issue, not a drawing error. The critic still flagged must_repair for it.",
+          "Minor styling: AB stroke is heavier than the original, and the O/P dots are slightly smaller. Both are low severity."
+        ],
+        "status": "success"
+      },
+      "status": "error",
+      "result_summary": "ok=False; error=finish blocked: best version 2 still has 0 high, 1 medium and 2 low actionable critic issues (must_repair=true); run_code_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)",
+      "duration_s": 0.0,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": "finish blocked: best version 2 still has 0 high, 1 medium and 2 low actionable critic issues (must_repair=true); run_code_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)"
+    },
+    {
+      "step": 5,
       "action": "run_critic",
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=3; best_version=1; assessment_score=0.92; issues=2",
+      "result_summary": "ok=True; version=3; best_version=3; assessment_score=0.93; issues=2",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
       "error": null
     },
     {
-      "step": 4,
+      "step": 5,
       "action": "run_code_agent",
-      "purpose": "Final repair of v2, styling only; keep all coordinates, labels and topology unchanged: (1) enlarge the filled dots at O and P to about 2.5pt radius; (2) remove the filled dots at C and D (no marker in",
+      "purpose": "Repair v2 with these fixes only: (1) the point at the end of PD on the circle (point_06 / D) must carry the label D, not O; the render already shows D there, so keep exactly one D label and no O label",
       "params": {
         "mode": "repair",
         "use_image": null,
-        "instruction": "Final repair of v2, styling only; keep all coordinates, labels and topology unchanged: (1) enlarge the filled dots at O and P to about 2.5pt radius; (2) remove the filled dots at C and D (no marker in the original there); keep C and D as chord endpoints and labels. Do not change the O label, which stays below the centre; D is the label at the upper-right chord end."
+        "instruction": "Repair v2 with these fixes only: (1) the point at the end of PD on the circle (point_06 / D) must carry the label D, not O; the render already shows D there, so keep exactly one D label and no O label at that point. (2) Draw diameter AB with a thinner stroke (about 1.0pt) while keeping the circle at the current weight. (3) Increase the dot radius at O and P from 0.070 to about 0.09. Keep all coordinates, the full circle, segments P-C and P-D, and the other labels unchanged."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 23.92,
+      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=3",
+      "duration_s": 34.54,
       "token_usage": {
-        "delta": 18413
+        "delta": 19728
       },
       "visual_calls": 1,
       "error": null
     },
     {
-      "step": 5,
-      "action": "finish",
-      "purpose": "finish run",
-      "params": {
-        "summary": "Produced a compiling TikZ reconstruction of the figure: full circle centred at O, diameter AB through O and P, chords PC and PD meeting at P, with labels A, B, C, D, O, P. Inspection corrected the CV binding: the point at the upper-right chord end is D, not O. Critic scores were 0.90 (v1), 0.90 (v2), 0.92 (v3). Latest version v3 has the O and P dots enlarged, C and D dots removed, and AB drawn thinner. The Critic found no geometry or label errors in v3, only minor dot-size differences. The CV binding for point_06 (O) is wrong and was overridden by the visual check.",
-        "unresolved": [
-          "Filled dot size at O and P still judged slightly smaller than the original (low severity, cosmetic).",
-          "CV label binding still assigns 'O' to point_06 (the D endpoint); the TikZ uses D there, so the render is correct, but the binding itself was not fixed.",
-          "best_version reported as v1 (score 0.9) although v3 scored 0.92; the final TikZ is v3.",
-          "No right-angle square mark drawn at P; none was verified in the original."
-        ],
-        "status": "success"
-      },
-      "status": "error",
-      "result_summary": "ok=False; error=finish blocked: best version 1 still has 0 high, 0 medium and 3 low actionable critic issues (must_repair=true); run_code_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)",
+      "step": 6,
+      "action": "run_critic",
+      "purpose": "review newly compiled version",
+      "params": {},
+      "status": "ok",
+      "result_summary": "ok=True; version=4; best_version=4; assessment_score=0.95; issues=1",
       "duration_s": 0.0,
-      "token_usage": {
-        "delta": 0
-      },
+      "token_usage": {},
       "visual_calls": 0,
-      "error": "finish blocked: best version 1 still has 0 high, 0 medium and 3 low actionable critic issues (must_repair=true); run_code_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)"
+      "error": null
     },
     {
       "step": 6,
-      "action": "run_critic",
-      "purpose": "Score the latest version v3 against the original. Confirm geometry and labels (D at upper-right chord end, O under centre). Report whether any actionable issue remains for v3.",
+      "action": "run_code_agent",
+      "purpose": "Repair v3 with one change only: place the label P directly below the vertex P (use [below] instead of [below right]); keep the vertex coordinate (P) unchanged. Keep the D label at the PD circle contac",
       "params": {
-        "focus": "Score the latest version v3 against the original. Confirm geometry and labels (D at upper-right chord end, O under centre). Report whether any actionable issue remains for v3."
+        "mode": "repair",
+        "use_image": null,
+        "instruction": "Repair v3 with one change only: place the label P directly below the vertex P (use [below] instead of [below right]); keep the vertex coordinate (P) unchanged. Keep the D label at the PD circle contact, and keep everything else unchanged."
       },
       "status": "ok",
-      "result_summary": "ok=True; version=3; best_version=1; assessment_score=0.93; issues=1",
-      "duration_s": 17.8,
+      "result_summary": "ok=True; version=4; compile_ok=True; validation_passed=True; best_version=4",
+      "duration_s": 35.16,
       "token_usage": {
-        "delta": 10121
+        "delta": 19474
       },
       "visual_calls": 1,
       "error": null
@@ -3318,16 +4058,15 @@
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Produced a compiling TikZ reconstruction (v3, Critic score 0.93, must_repair=false). The figure has a full circle centred at O, diameter AB through O and P, chords PC and PD meeting at P, and labels A, B, C, D, O, P. Inspection corrected the CV binding: the upper-right chord endpoint is D, not O. No geometry or label errors remain in v3.",
+        "summary": "Version 4 is the best version. It compiles and passes validation, with the topology check passed and no missing edges. It is critic-scored at 0.95, and must_repair is false. The figure has a full circle centred at O (radius 157.3 px), a diameter AB through O and P, and solid chords P-C and P-D. Labels A, B, C, D, O, P are all present. The upper-right label was corrected from O to D after visual inspection.",
         "unresolved": [
-          "CV binding still labels point_06 as O (the D endpoint). The render is correct, but the CV binding was not corrected in the pipeline.",
-          "Remaining low-severity cosmetic differences: dot size at O and P; the Critic also flagged point_06 as misplaced (low), which is the same binding issue.",
-          "No right-angle square mark at P (none verified in the original)."
+          "CV metadata still binds point_06 to the letter O (label_02). The rendered label is D, which is correct, so this is a binding error in the CV data, not in the TikZ.",
+          "Low-severity: the point_06 position is flagged as checklist-misplaced, but the render matches the original circle contact."
         ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=1; status=success",
+      "result_summary": "ok=True; best_version=4; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -3369,79 +4108,63 @@
       "count": 0,
       "visualization": null,
       "error": null
-    },
-    {
-      "tool": "detect_right_angle_marker",
-      "params": {
-        "roi": [
-          0,
-          0,
-          1,
-          1
-        ]
-      },
-      "purpose": null,
-      "ok": true,
-      "count": 0,
-      "visualization": ".cache\\redesign_150\\batch_work\\971_q_fig1\\cv\\detect_right_angle_marker.png",
-      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
       "calls": 16,
-      "visual_calls": 13,
-      "prompt_tokens": 136167,
-      "completion_tokens": 23467,
-      "total_tokens": 159634,
-      "cached_tokens": 74727.0,
-      "cache_write_tokens": 37465.0,
-      "latency_s": 140.15
+      "visual_calls": 12,
+      "prompt_tokens": 138292,
+      "completion_tokens": 28088,
+      "total_tokens": 166380,
+      "cached_tokens": 62483.0,
+      "cache_write_tokens": 75755.0,
+      "latency_s": 188.14
     },
     "by_agent": {
       "geometry_agent": {
-        "calls": 2,
-        "visual_calls": 2,
-        "total_tokens": 14141,
-        "latency_s": 18.28
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 8144,
+        "latency_s": 14.76
       },
       "supervisor": {
         "calls": 7,
         "visual_calls": 6,
-        "total_tokens": 78812,
-        "latency_s": 28.82
+        "total_tokens": 78637,
+        "latency_s": 39.72
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8703,
-        "latency_s": 13.37
+        "total_tokens": 9607,
+        "latency_s": 16.64
       },
       "critic_agent": {
         "calls": 4,
         "visual_calls": 4,
-        "total_tokens": 40298,
-        "latency_s": 62.12
+        "total_tokens": 42865,
+        "latency_s": 84.12
       },
       "code_agent:repair": {
-        "calls": 2,
+        "calls": 3,
         "visual_calls": 0,
-        "total_tokens": 17680,
-        "latency_s": 17.56
+        "total_tokens": 27127,
+        "latency_s": 32.9
       }
     }
   },
   "remaining_budget": {
     "steps_left": 17,
     "tool_calls_left": 36,
-    "visual_calls_left": 11,
-    "tokens_left": 240366,
+    "visual_calls_left": 12,
+    "tokens_left": 233620,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 159634
+    "total_tokens_used": 166380
   },
   "meta": {
     "topology_plan": {
@@ -3503,7 +4226,7 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Circle centered at O (point_02, px 224.26,201.13), radius about 157.3 px, passing through A (point_04) and B (point_03) on the horizontal diameter AB. P (point_01) lies on AB between O and B. Chords/segments PC (to point_05) and PD (to point_06, the glyph misread as O) are solid straight segments from P. AB is a solid straight line through A, O, P, B. The circle is solid and full. PC is perpendicular to PD (dot product near 0), but no printed square mark was verified, so no right_angle object is added.",
+      "summary": "Circle centered at O (point_02, px [224.26,201.13]), radius ~157.3 px, drawn as a full circle. Diameter AB is a solid straight line through O and P (A=point_04 at left, B=point_03 at right). P (point_01, px [271.78,201.03]) lies on AB between O and B. Two solid radii-like segments leave P: PC to C (point_05 on circle, px [145.95,64.69]) and PD to D (point_06 on circle, px [360.31,122.15]). Point_06 is misread as O; its glyph is D and it is the circle contact of PD. No right-angle marker is visible in the raster, so no right_angle objects. All strokes solid; no dashed segments detected.",
       "strokes": [
         {
           "edge": [
@@ -3535,7 +4258,8 @@
         }
       ],
       "marks": {},
-      "feet": []
+      "feet": [],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -3614,22 +4338,57 @@
     "constraint_repair": {
       "ok": true,
       "enabled": true,
-      "applied": false,
+      "applied": true,
       "stage": "post_tikz",
       "constraint_mode": "joint_coordinate_projection",
-      "candidate_source": "generated_tikz",
+      "candidate_source": "generated_tikz_and_original_raster",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "ecd4dd1a3abfb5988adb7bd17d8aa55eecaaa4eb0566f2b7513f4eec2c0d9886",
-      "output_sha256": "ecd4dd1a3abfb5988adb7bd17d8aa55eecaaa4eb0566f2b7513f4eec2c0d9886",
-      "reason": "no_candidates",
-      "accepted": [],
-      "rejected": [],
+      "input_sha256": "b6d34679ec989434d7152e452513f04261746108f65a55e3b38b22258dbc4d1e",
+      "output_sha256": "02ab1d9a6201f89211874008a83c6aee76408ee4ed7fa0638cc03748b9dc95a4",
+      "reason": "applied",
+      "accepted": [
+        {
+          "type": "collinear",
+          "segments": [
+            "O--P",
+            "B--P"
+          ],
+          "before_error_deg": 0.08865637465073664,
+          "after_error_deg": 0.007631554503645047,
+          "labels": [
+            "O",
+            "P",
+            "B"
+          ],
+          "source_turn_deg": 0.0887,
+          "solver_after_error_deg": 2.1156671605492275e-15,
+          "export_tolerance_deg": 0.11458661561115278
+        }
+      ],
+      "rejected": [
+        {
+          "candidate": {
+            "type": "collinear",
+            "segments": [
+              "A--O",
+              "O--P"
+            ],
+            "labels": [
+              "A",
+              "O",
+              "P"
+            ],
+            "source_turn_deg": 0.1643
+          },
+          "reason": "degenerate constraint"
+        }
+      ],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -3639,17 +4398,46 @@
         "relation_types": [
           "parallel"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
-      "input_candidates": 0,
+      "source_collinear_candidates": [
+        {
+          "type": "collinear",
+          "segments": [
+            "A--O",
+            "O--P"
+          ],
+          "labels": [
+            "A",
+            "O",
+            "P"
+          ],
+          "source_turn_deg": 0.1643
+        },
+        {
+          "type": "collinear",
+          "segments": [
+            "O--P",
+            "B--P"
+          ],
+          "labels": [
+            "O",
+            "P",
+            "B"
+          ],
+          "source_turn_deg": 0.0887
+        }
+      ],
+      "input_candidates": 2,
       "preserved_incidence_count": 0,
-      "max_shift_rel": 0.0,
-      "max_length_change_rel": 0.0,
+      "max_shift_rel": 0.0001367025679548339,
+      "max_length_change_rel": 0.0002629790083634731,
       "fixed_points": [
         "A",
         "B",
@@ -3662,6 +4450,8 @@
       "incidence_mode": "snap",
       "topology_tol_rel": 0.002,
       "incidence_strength": 1.0,
+      "rms_shift_rel": 6.106505239093875e-05,
+      "max_after_error_deg": 0.007631554503645047,
       "curve_policy": "freeze",
       "curve_anchors": {
         "fixed_points": [
@@ -3684,11 +4474,17 @@
           }
         ]
       },
-      "candidate_count": 0,
+      "candidate_count": 2,
+      "solver_max_shift_rel": 0.00014957821947412183,
+      "coordinate_decimals": 3,
+      "export_verified": true,
+      "max_export_error_deg": 0.007631554503645047,
+      "point_count": 6,
+      "segment_count": 5,
       "curve_options_applied": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -3927,28 +4723,137 @@
           "reference_used": false,
           "coordinate_decimals": 3
         }
+      },
+      "4": {
+        "enabled": true,
+        "schema": "cv-coordinate-contract.v1",
+        "n_points": 5,
+        "reference_used": false,
+        "coordinates": {
+          "schema": "cv-coordinate-contract.v1",
+          "scale": 0.021333,
+          "origin_px": [
+            225.5,
+            194.0
+          ],
+          "points": {
+            "A": {
+              "point_id": "point_04",
+              "px": [
+                66.95,
+                201.0
+              ],
+              "tikz": [
+                -3.382,
+                -0.149
+              ]
+            },
+            "B": {
+              "point_id": "point_03",
+              "px": [
+                381.57,
+                201.0
+              ],
+              "tikz": [
+                3.329,
+                -0.149
+              ]
+            },
+            "C": {
+              "point_id": "point_05",
+              "px": [
+                145.95,
+                64.69
+              ],
+              "tikz": [
+                -1.697,
+                2.759
+              ]
+            },
+            "O": {
+              "point_id": "point_02",
+              "px": [
+                224.26,
+                201.13
+              ],
+              "tikz": [
+                -0.026,
+                -0.152
+              ]
+            },
+            "P": {
+              "point_id": "point_01",
+              "px": [
+                271.78,
+                201.03
+              ],
+              "tikz": [
+                0.987,
+                -0.15
+              ]
+            }
+          },
+          "skipped": {},
+          "reference_used": false,
+          "coordinate_decimals": 3
+        }
       }
     },
     "tikz_constraint_repairs": {
       "1": {
         "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "f0ad5f33a6e08f506e29000053fab7ae775b9fcb65fa1dafeb63a5b7e919f09c",
-        "output_sha256": "f0ad5f33a6e08f506e29000053fab7ae775b9fcb65fa1dafeb63a5b7e919f09c",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "3500aafeb6bb1d608d7bfae9a942210d9c231037eb83650496f7395c83598e95",
+        "output_sha256": "5f6ed38bc608fce9486c14fbde5298788c2ed26f4cf9ac8688b7a55f65e36896",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "before_error_deg": 0.08865637465073664,
+            "after_error_deg": 0.007631554503645047,
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887,
+            "solver_after_error_deg": 2.1156671605492275e-15,
+            "export_tolerance_deg": 0.11458661561115278
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "collinear",
+              "segments": [
+                "A--O",
+                "O--P"
+              ],
+              "labels": [
+                "A",
+                "O",
+                "P"
+              ],
+              "source_turn_deg": 0.1643
+            },
+            "reason": "degenerate constraint"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -3958,17 +4863,46 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "A--O",
+              "O--P"
+            ],
+            "labels": [
+              "A",
+              "O",
+              "P"
+            ],
+            "source_turn_deg": 0.1643
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887
+          }
+        ],
+        "input_candidates": 2,
         "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
+        "max_shift_rel": 0.0001367025679548339,
+        "max_length_change_rel": 0.0002629790083634731,
         "fixed_points": [
           "A",
           "B",
@@ -3981,6 +4915,8 @@
         "incidence_mode": "snap",
         "topology_tol_rel": 0.002,
         "incidence_strength": 1.0,
+        "rms_shift_rel": 6.106505239093875e-05,
+        "max_after_error_deg": 0.007631554503645047,
         "curve_policy": "freeze",
         "curve_anchors": {
           "fixed_points": [
@@ -3991,23 +4927,29 @@
             "O"
           ],
           "dependencies": [
-            "O"
+            "A"
           ],
           "circles": [
             {
               "center": [
-                -0.026,
-                -0.152
+                -0.026000000000000245,
+                -0.1490000000000004
               ],
               "radius": 3.356
             }
           ]
         },
-        "candidate_count": 0,
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.00014957821947412183,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.007631554503645047,
+        "point_count": 6,
+        "segment_count": 5,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -4023,22 +4965,57 @@
       "2": {
         "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "8aa359bfe120f18493cab8b75f5c922e5806bb1a5e9d0e0eed5a800c95259f3d",
-        "output_sha256": "8aa359bfe120f18493cab8b75f5c922e5806bb1a5e9d0e0eed5a800c95259f3d",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "e089672a7e193a2433805db6a57ce165521a508e195cb7bcfae96769986dd0ed",
+        "output_sha256": "77d185d3d91aded28e30d1957d00112eaf979470bcb65434be00f75c98e2dfbd",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "before_error_deg": 0.08865637465073664,
+            "after_error_deg": 0.007631554503645047,
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887,
+            "solver_after_error_deg": 2.1156671605492275e-15,
+            "export_tolerance_deg": 0.11458661561115278
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "collinear",
+              "segments": [
+                "A--O",
+                "O--P"
+              ],
+              "labels": [
+                "A",
+                "O",
+                "P"
+              ],
+              "source_turn_deg": 0.1643
+            },
+            "reason": "degenerate constraint"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -4048,17 +5025,46 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "A--O",
+              "O--P"
+            ],
+            "labels": [
+              "A",
+              "O",
+              "P"
+            ],
+            "source_turn_deg": 0.1643
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887
+          }
+        ],
+        "input_candidates": 2,
         "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
+        "max_shift_rel": 0.0001367025679548339,
+        "max_length_change_rel": 0.0002629790083634731,
         "fixed_points": [
           "A",
           "B",
@@ -4071,6 +5077,8 @@
         "incidence_mode": "snap",
         "topology_tol_rel": 0.002,
         "incidence_strength": 1.0,
+        "rms_shift_rel": 6.106505239093875e-05,
+        "max_after_error_deg": 0.007631554503645047,
         "curve_policy": "freeze",
         "curve_anchors": {
           "fixed_points": [
@@ -4093,11 +5101,17 @@
             }
           ]
         },
-        "candidate_count": 0,
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.00014957821947412183,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.007631554503645047,
+        "point_count": 6,
+        "segment_count": 5,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -4113,22 +5127,57 @@
       "3": {
         "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "ecd4dd1a3abfb5988adb7bd17d8aa55eecaaa4eb0566f2b7513f4eec2c0d9886",
-        "output_sha256": "ecd4dd1a3abfb5988adb7bd17d8aa55eecaaa4eb0566f2b7513f4eec2c0d9886",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "9ef9d214a0a43e9af0fb29180ebde1c7de5ea6de972e22f4c0792f99642c5974",
+        "output_sha256": "0b605e245dd6c03609a598861272f0d29c1feca6d5b6ac2a31914671fcc5ce0b",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "before_error_deg": 0.08865637465073664,
+            "after_error_deg": 0.007631554503645047,
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887,
+            "solver_after_error_deg": 2.1156671605492275e-15,
+            "export_tolerance_deg": 0.11458661561115278
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "collinear",
+              "segments": [
+                "A--O",
+                "O--P"
+              ],
+              "labels": [
+                "A",
+                "O",
+                "P"
+              ],
+              "source_turn_deg": 0.1643
+            },
+            "reason": "degenerate constraint"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -4138,17 +5187,46 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "A--O",
+              "O--P"
+            ],
+            "labels": [
+              "A",
+              "O",
+              "P"
+            ],
+            "source_turn_deg": 0.1643
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887
+          }
+        ],
+        "input_candidates": 2,
         "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
+        "max_shift_rel": 0.0001367025679548339,
+        "max_length_change_rel": 0.0002629790083634731,
         "fixed_points": [
           "A",
           "B",
@@ -4161,6 +5239,8 @@
         "incidence_mode": "snap",
         "topology_tol_rel": 0.002,
         "incidence_strength": 1.0,
+        "rms_shift_rel": 6.106505239093875e-05,
+        "max_after_error_deg": 0.007631554503645047,
         "curve_policy": "freeze",
         "curve_anchors": {
           "fixed_points": [
@@ -4183,11 +5263,179 @@
             }
           ]
         },
-        "candidate_count": 0,
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.00014957821947412183,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.007631554503645047,
+        "point_count": 6,
+        "segment_count": 5,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
+          "topology_tol_rel": 0.002,
+          "incidence_mode": "snap",
+          "length_weight": 0.0,
+          "length_scope": "edges",
+          "curve_policy": "freeze",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel"
+          ],
+          "relaxation": 1.0
+        }
+      },
+      "4": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz_and_original_raster",
+        "reference_used": false,
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "b6d34679ec989434d7152e452513f04261746108f65a55e3b38b22258dbc4d1e",
+        "output_sha256": "02ab1d9a6201f89211874008a83c6aee76408ee4ed7fa0638cc03748b9dc95a4",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "before_error_deg": 0.08865637465073664,
+            "after_error_deg": 0.007631554503645047,
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887,
+            "solver_after_error_deg": 2.1156671605492275e-15,
+            "export_tolerance_deg": 0.11458661561115278
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "collinear",
+              "segments": [
+                "A--O",
+                "O--P"
+              ],
+              "labels": [
+                "A",
+                "O",
+                "P"
+              ],
+              "source_turn_deg": 0.1643
+            },
+            "reason": "degenerate constraint"
+          }
+        ],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
+          "topology_tol_rel": 0.002,
+          "incidence_mode": "snap",
+          "length_weight": 0.0,
+          "length_scope": "edges",
+          "curve_policy": "freeze",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel"
+          ],
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "A--O",
+              "O--P"
+            ],
+            "labels": [
+              "A",
+              "O",
+              "P"
+            ],
+            "source_turn_deg": 0.1643
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "O--P",
+              "B--P"
+            ],
+            "labels": [
+              "O",
+              "P",
+              "B"
+            ],
+            "source_turn_deg": 0.0887
+          }
+        ],
+        "input_candidates": 2,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.0001367025679548339,
+        "max_length_change_rel": 0.0002629790083634731,
+        "fixed_points": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "O"
+        ],
+        "length_weight": 0.0,
+        "length_scope": "edges",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.002,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 6.106505239093875e-05,
+        "max_after_error_deg": 0.007631554503645047,
+        "curve_policy": "freeze",
+        "curve_anchors": {
+          "fixed_points": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "O"
+          ],
+          "dependencies": [
+            "O"
+          ],
+          "circles": [
+            {
+              "center": [
+                -0.026,
+                -0.152
+              ],
+              "radius": 3.356
+            }
+          ]
+        },
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.00014957821947412183,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.007631554503645047,
+        "point_count": 6,
+        "segment_count": 5,
+        "curve_options_applied": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -4202,8 +5450,8 @@
       }
     },
     "finish": {
-      "summary": "Produced a compiling TikZ reconstruction (v3, Critic score 0.93, must_repair=false). The figure has a full circle centred at O, diameter AB through O and P, chords PC and PD meeting at P, and labels A, B, C, D, O, P. Inspection corrected the CV binding: the upper-right chord endpoint is D, not O. No geometry or label errors remain in v3.",
-      "status": "partial"
+      "summary": "Version 4 is the best version. It compiles and passes validation, with the topology check passed and no missing edges. It is critic-scored at 0.95, and must_repair is false. The figure has a full circle centred at O (radius 157.3 px), a diameter AB through O and P, and solid chords P-C and P-D. Labels A, B, C, D, O, P are all present. The upper-right label was corrected from O to D after visual inspection.",
+      "status": "success"
     },
     "stop_reason": "finish"
   }

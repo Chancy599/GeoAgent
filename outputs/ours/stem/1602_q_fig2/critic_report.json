@@ -1,10 +1,10 @@
 {
-  "assessment_score": 0.86,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the original's topology and labels: all five vertices are bound correctly, and the solid and dashed segments connect the same points. The main difference is that the render's strokes and dashes are lighter than the original.",
+  "verdict": "Render is geometrically faithful: parallelogram ABCD, dashed AC, dashed CE, and dashed ED-to-D with solid DA all match the original. The main difference is stroke weight, which is lighter in the render.",
   "figure_type": {
-    "original": "Quadrilateral ABCD (parallelogram-like) with apex E; solid AB, BC, CD, AD; dashed AC, CE, DE; E lies on the extension of AD beyond D.",
-    "render": "Same figure: solid AB, BC, CD, AD; dashed AC, CE, DE; E on the extension beyond D; labels A–E at matching positions."
+    "original": "parallelogram ABCD with diagonal AC and external point E on line AD extended beyond D, joined to C",
+    "render": "parallelogram ABCD with diagonal AC and external point E on line AD extended beyond D, joined to C"
   },
   "issues": [
     {
@@ -14,113 +14,113 @@
         "seg_AB",
         "seg_BC",
         "seg_CD",
-        "seg_AD",
+        "seg_DA",
         "seg_AC",
         "seg_CE",
-        "seg_DE"
+        "seg_ED"
       ],
       "bbox": [
-        0.02,
+        0.0,
         0.1,
         0.95,
-        0.92
+        0.95
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Render strokes are thinner than the original: solid edges look about half as heavy, and the dash pattern is finer and tighter than the original's bolder dashes.",
-      "suggestion": "Increase the global line width (e.g. from 1.1pt to about 1.6–1.8pt) and set a longer dash pattern, e.g. dash pattern on=5pt off=4pt, to match the original weight."
+      "description": "Stroke weight is visibly lighter than the original. Solid edges (AB, BC, CD, DA) and the dash strokes (AC, CE, ED) look thinner, and the dash pattern is finer than in the original.",
+      "suggestion": "Increase line width from 1.1pt to about 1.5–1.8pt for the solid edges and dashed strokes, and consider a longer dash pattern (e.g. dash 'on 4pt off 3pt') to match the original."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Detector chain for dashed AC; drawn as dashed A–C in the render."
+      "note": "Dashed diagonal from A to C, drawn correctly as dashed AC."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid AB along the bottom, correctly drawn."
+      "note": "Solid base AB matches the original, ending at A and B."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid CD horizontal, correctly drawn."
+      "note": "Solid top CD matches the original, running from D to C."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Dashed chain from E to C, correctly drawn."
+      "note": "Dashed CE matches the original, joining C to E."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Solid AD, correctly drawn."
+      "note": "Solid DA matches the original; the dash-to-solid change at D is consistent with the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Solid BC, correctly drawn."
+      "note": "Solid BC matches the original, running from B to C."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Solid A to B in both panels."
+      "note": "Solid AB is drawn correctly between A and B."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Dashed diagonal from A to C in both panels."
-    },
-    {
-      "object_id": "seg_AD",
-      "status": "present",
-      "note": "Solid left edge from A to D in both panels."
+      "note": "Dashed AC is drawn correctly between A and C."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Solid right edge from B to C in both panels."
+      "note": "Solid BC is drawn correctly between B and C."
     },
     {
       "object_id": "seg_CD",
       "status": "present",
-      "note": "Solid top edge from D to C in both panels."
+      "note": "Solid CD is drawn correctly between C and D."
     },
     {
       "object_id": "seg_CE",
       "status": "present",
-      "note": "Dashed E to C in both panels."
+      "note": "Dashed CE is drawn correctly between C and E."
     },
     {
-      "object_id": "seg_DE",
+      "object_id": "seg_DA",
       "status": "present",
-      "note": "Dashed D to E extension visible in the original and correctly drawn; the detector did not list it, but it is visible."
+      "note": "Solid DA is drawn correctly between D and A."
+    },
+    {
+      "object_id": "seg_ED",
+      "status": "present",
+      "note": "Dashed ED ends at D, matching the original where the dashes stop at D before solid DA begins."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "A at the bottom-left vertex, correctly labelled."
+      "note": "Point A is labelled correctly at the lower-left vertex."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "C at the right vertex, correctly labelled."
+      "note": "Point C is labelled correctly at the right vertex."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "B at the bottom-right vertex, correctly labelled."
+      "note": "Point B is labelled correctly at the lower-right vertex."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "D on the top-left vertex, correctly labelled."
+      "note": "Point D is labelled correctly at the upper-left vertex."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "E at the apex, correctly labelled."
+      "note": "Point E is labelled correctly at the top vertex."
     }
   ],
   "checklist_score": 1.0,
@@ -132,11 +132,13 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Vertex topology A, B, C, D, E matches the original.",
-    "Solid edges AB, BC, CD, AD and dashed AC, CE, DE are in the same styles.",
-    "DE overhangs past D toward E, as in the original.",
-    "Point labels A–E are present, correctly spelled and placed clear of strokes.",
-    "Label bindings match the source points (D→point_04, C→point_02, A→point_01, B→point_03, E→point_05)."
+    "Parallelogram ABCD with solid edges AB, BC, CD, and DA",
+    "Dashed diagonal AC from A to C",
+    "Dashed segment CE from C up to E",
+    "Dashed segment ED ending at D, with solid DA continuing from D to A",
+    "E, D, A are collinear, as in the original",
+    "Labels A, B, C, D, E present, correctly bound, and clear of strokes",
+    "No right-angle marks in the original, and none in the render"
   ],
   "labels": {
     "present": [
@@ -158,7 +160,7 @@
         "C",
         "E"
       ],
-      "reason": "In the original, the dashed stroke runs from the apex E down to C without a break, so the endpoints are C and E."
+      "reason": "The original shows a continuous dashed stroke from C up to E, which the render reproduces."
     }
   ],
   "raw_meta": "{}"

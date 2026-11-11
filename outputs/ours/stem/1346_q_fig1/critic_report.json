@@ -1,10 +1,10 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the original's vertices, segments, and bends, including the E-A-C and B-A-D bends at A. The only visible difference is the placement of the label A.",
+  "verdict": "The render reproduces all eleven segments, the shallow bend at A, and all six labels with correct vertex binding; only a minor label-clearance issue at A remains.",
   "figure_type": {
-    "original": "Planar straight-line geometry diagram with six labelled vertices (A-F), no arcs, and a shallow bend at A",
-    "render": "Planar straight-line geometry diagram with the same six vertices and the same connectivity"
+    "original": "Planar straight-line figure: hexagon-like outline with vertices E, F, D, C, B and interior vertex A, with a shallow bend at A along B-A-D and a steeper kink at A along E-A-C.",
+    "render": "Same planar straight-line figure with the same vertex layout, edges and bend at A."
   },
   "issues": [
     {
@@ -14,137 +14,137 @@
         "point_06"
       ],
       "bbox": [
-        0.56,
+        0.57,
         0.58,
         0.63,
         0.66
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The label A sits below-right of its vertex in the original, close to the A-C stroke. In the render it sits above the vertex. The association with A is clear, so this is cosmetic.",
-      "suggestion": "Optionally move the A node to below right (e.g. 'below right' or 'below') to match the original. Keep the (A) binding unchanged."
+      "description": "The label A sits below-left of its vertex in the render, while in the original it sits almost directly below the vertex. In the render the label's upper-left corner sits close to the B-A stroke, which passes just above it. Clearance is small but not overlapping.",
+      "suggestion": "Change the A node placement from 'below left' to 'below' (or 'below right') so the label sits clear of the B-A and A-C strokes while staying bound to coordinate (A)."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base B-C is drawn and matches the original."
+      "note": "Base B-C is drawn horizontally and matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "F-C stroke matches the original."
+      "note": "C-F diagonal is drawn and ends at F and C as in the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "B-F stroke matches the original."
+      "note": "B-F diagonal is drawn and ends at B and F as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Part of the B-A-D polyline, ending at A as in the original."
+      "note": "B-A part of the shallow bend is drawn and ends at A as in the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Part of the E-A-C polyline, ending at A as in the original."
+      "note": "E-A stroke is drawn and ends at A; the kink at A matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Side B-E matches the original."
+      "note": "E-B left side is drawn and matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Segment F-D matches the original."
+      "note": "F-D stroke is drawn and matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Part of the B-A-D polyline, A to D, as in the original."
+      "note": "A-D part of the shallow bend is drawn and ends at D as in the original."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Side D-C matches the original."
+      "note": "D-C stroke is drawn and matches the original."
     },
     {
       "object_id": "seg_10",
       "status": "present",
-      "note": "A-C stroke matches the original."
+      "note": "A-C stroke is drawn and ends at C with the kink at A as in the original."
     },
     {
       "object_id": "seg_11",
       "status": "present",
-      "note": "Side E-F matches the original."
+      "note": "E-F top edge is drawn and matches the original."
     },
     {
       "object_id": "seg_12",
-      "status": "present",
-      "note": "Part of the F-D stroke, so it is covered by the render."
-    },
-    {
-      "object_id": "seg_AC",
-      "status": "present",
-      "note": "A-C segment is drawn in the render and matches the original."
-    },
-    {
-      "object_id": "seg_AD",
-      "status": "present",
-      "note": "A-D segment is drawn in the render and matches the original."
-    },
-    {
-      "object_id": "seg_BA",
-      "status": "present",
-      "note": "B-A segment is drawn in the render and matches the original."
-    },
-    {
-      "object_id": "seg_EA_bend",
-      "status": "present",
-      "note": "E-A segment with its bend at A is drawn in the render and matches the original."
+      "status": "unclear",
+      "note": "Short fragment near F flagged as uncertain by CV with a gap; it is covered by the F-D and E-F strokes in the original and is not a separate visible element."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Point C is labelled correctly at the lower-right vertex."
+      "note": "Label C is bound to the lower-right vertex and printed correctly."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Point B is labelled correctly at the lower-left vertex."
+      "note": "Label B is bound to the lower-left vertex and printed correctly."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Point F is labelled correctly at the top vertex."
+      "note": "Label F is bound to the top vertex and printed correctly."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Point A is at the correct vertex. Its label sits above instead of below-right (low severity)."
+      "note": "Label A is bound to the interior bend vertex; placement is slightly offset (see issue)."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Point E is labelled correctly at the upper-left vertex."
+      "note": "Label E is bound to the upper-left vertex and printed correctly."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "Point D is labelled correctly at the right vertex."
+      "note": "Label D is bound to the right vertex and printed correctly."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Point A is drawn at the correct vertex with its label."
+      "note": "Vertex A is drawn and labelled in the render."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Point B is drawn at the correct vertex with its label."
+      "note": "Vertex B is drawn and labelled in the render."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C is drawn and labelled in the render."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D is drawn and labelled in the render."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Vertex E is drawn and labelled in the render."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Vertex F is drawn and labelled in the render."
     }
   ],
   "checklist_score": 1.0,
@@ -156,20 +156,21 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "All six vertices A-F are at the correct relative positions.",
-    "The outer outline E-F-D-C-B-E is present.",
-    "Internal lines B-F, F-C, E-A-C, and B-A-D match the original, including the bends at A.",
-    "Labels E, F, D, C, and B are present with correct placement and binding.",
-    "Stroke weight and label size are comparable to the original."
+    "All eleven drawn segments (E-F, E-B, E-A, A-C, B-A, A-D, B-C, B-F, C-F, C-D, D-F) are present with the same endpoints as the original.",
+    "The shallow bend at A along B-A-D is preserved and not straightened into a single line.",
+    "The steeper kink at A along E-A-C is preserved.",
+    "Vertices E, F, D, C, B and A are in the same relative positions, and the overall aspect ratio matches.",
+    "Labels E, F, D, C and B are present, correctly spelled and bound to the right vertices, with clear separation from strokes.",
+    "Stroke weight and label size are comparable between panels."
   ],
   "labels": {
     "present": [
+      "E",
+      "F",
+      "D",
       "A",
       "B",
-      "C",
-      "D",
-      "E",
-      "F"
+      "C"
     ],
     "missing": [],
     "extra": []

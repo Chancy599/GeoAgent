@@ -1,10 +1,10 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the figure faithfully: triangle ABC with C on line AP, P beyond C, and all labels bound to the correct vertices. The only visible gap is stroke weight, which is lighter than the original.",
+  "verdict": "Render matches the original topology: A-B, B-C, A-C and C-P are correct, C lies on the A-P line, and all four labels are bound correctly. The only notable difference is that the original strokes are heavier.",
   "figure_type": {
-    "original": "Triangle ABC with A-B horizontal, B-C rising to a point C on the extended line AP, and P beyond C on the same line, with labels A, B, C, P",
-    "render": "Same configuration: A-B horizontal, B-C rising to C on the line from A to P, with P beyond C, and labels A, B, C, P"
+    "original": "Triangle ABC with B-C and A-P passing through C, drawn as an open figure with a line extending past C to P",
+    "render": "Same figure: triangle ABC with line A-C-P and segment B-C, with labels A, B, C, P"
   },
   "issues": [
     {
@@ -16,67 +16,52 @@
         "seg_03"
       ],
       "bbox": [
-        0.02,
+        0.04,
         0.3,
-        0.98,
-        0.7
+        0.92,
+        0.68
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Rendered strokes (AP, AB, BC) are thinner than the original, which uses visibly heavier lines.",
-      "suggestion": "Increase the global line width from 0.7pt to roughly 1.0-1.2pt to match the original stroke weight."
+      "description": "Stroke weight: the render's lines are thinner than the original's (arc of A-P, A-B and B-C look bolder in the original panel). Direction: render strokes too thin.",
+      "suggestion": "Increase the line width from 0.7pt to roughly 1.0-1.2pt, or add line width=1pt to the drawn paths."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Line A to P drawn, passing through C and ending at P as in the original."
+      "note": "Line A-P is drawn through C to P, matching the original's continuous stroke."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Horizontal segment A to B drawn correctly."
+      "note": "Horizontal segment A-B is drawn at the correct position and extent."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment B to C drawn and meets line AP at C."
-    },
-    {
-      "object_id": "seg_AB",
-      "status": "present",
-      "note": "Segment AB matches the original."
-    },
-    {
-      "object_id": "seg_AP",
-      "status": "present",
-      "note": "Segment AP matches the original."
-    },
-    {
-      "object_id": "seg_BC",
-      "status": "present",
-      "note": "Segment BC matches the original and ends on AP at C."
+      "note": "Segment B-C joins B to C on the A-P line, matching the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "A is at the left end of the horizontal segment, labelled A."
+      "note": "A is labelled at the left end of the horizontal segment, on the correct vertex."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "C is where BC meets AP, labelled C above-right."
+      "note": "C is labelled at the junction of B-C and A-P, on the correct vertex."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "B is the right end of the horizontal segment, labelled B below."
+      "note": "B is labelled below the right end of the horizontal segment, on the correct vertex."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "P is the far end of the line, labelled P above-right."
+      "note": "P is labelled at the far end of the A-P line."
     }
   ],
   "checklist_score": 1.0,
@@ -88,10 +73,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle-like configuration A-B-C with C on line AP",
-    "P beyond C on the same line",
-    "Horizontal AB and steep BC geometry and proportions",
-    "Labels A, B, C, P present with correct vertex binding"
+    "A-B horizontal segment with correct length and position",
+    "B-C segment joining B to C on the A-P line",
+    "A-P line passing through C and extending to P",
+    "Labels A, B, C and P present, correctly placed and bound to their vertices",
+    "Overall aspect ratio and proportions match the original"
   ],
   "labels": {
     "present": [
@@ -112,7 +98,7 @@
         "B",
         "C"
       ],
-      "reason": "In the original, the BC stroke runs from B up to C, where it meets line AP. The render has the same connection."
+      "reason": "In the original, the stroke runs from B up to C and ends at the A-P line at C. The render draws the same B-C segment, so the endpoints match."
     }
   ],
   "raw_meta": "{}"

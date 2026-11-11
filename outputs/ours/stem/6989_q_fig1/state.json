@@ -704,8 +704,8 @@
       "label": "O",
       "coords": {
         "px": [
-          224.4,
-          222.1
+          224.43,
+          222.14
         ]
       },
       "normalized": {},
@@ -755,14 +755,14 @@
       "notes": [],
       "attributes": {}
     },
-    "point_D": {
-      "id": "point_D",
+    "point_C": {
+      "id": "point_C",
       "type": "point",
-      "label": "D",
+      "label": "C",
       "coords": {
         "px": [
-          223.9,
-          65.04
+          122.96,
+          342.1
         ]
       },
       "normalized": {},
@@ -774,14 +774,14 @@
       "notes": [],
       "attributes": {}
     },
-    "point_C": {
-      "id": "point_C",
+    "point_D": {
+      "id": "point_D",
       "type": "point",
-      "label": "C",
+      "label": "D",
       "coords": {
         "px": [
-          122.96,
-          342.1
+          223.9,
+          65.04
         ]
       },
       "normalized": {},
@@ -812,21 +812,21 @@
       "notes": [],
       "attributes": {}
     },
-    "circle_O": {
-      "id": "circle_O",
+    "circle_01": {
+      "id": "circle_01",
       "type": "circle",
       "label": null,
       "coords": {
         "center_px": [
-          224.4,
-          222.1
+          224.43,
+          222.14
         ],
-        "radius_px": 158.0
+        "radius_px": 157
       },
       "normalized": {},
       "style": {},
       "source": "geometry_agent",
-      "status": "confirmed",
+      "status": "candidate",
       "confidence_kind": "heuristic-evidence (not a calibrated probability)",
       "confidence": null,
       "notes": [],
@@ -907,14 +907,14 @@
       "notes": [],
       "attributes": {}
     },
-    "seg_DC": {
-      "id": "seg_DC",
+    "seg_AC": {
+      "id": "seg_AC",
       "type": "segment",
-      "label": "DC",
+      "label": "AC",
       "coords": {
         "a_px": [
-          223.9,
-          65.04
+          67.17,
+          222.04
         ],
         "b_px": [
           122.96,
@@ -932,14 +932,14 @@
       "notes": [],
       "attributes": {}
     },
-    "seg_AC": {
-      "id": "seg_AC",
+    "seg_DC": {
+      "id": "seg_DC",
       "type": "segment",
-      "label": "AC",
+      "label": "DC",
       "coords": {
         "a_px": [
-          67.17,
-          222.04
+          223.9,
+          65.04
         ],
         "b_px": [
           122.96,
@@ -992,7 +992,7 @@
       "relation": "labels_point",
       "object": "point_05",
       "source": "geometry_agent",
-      "evidence": "Small dot at the centre of the diameter AB, approx (224.4,222.1). The OCR label O sits below it at point_07, which is the glyph location and not the vertex.",
+      "evidence": "Printed O sits below the centre dot at point_05 on AB (224.4,222.1); point_07 at (224.5,248.5) is the glyph location, not the geometric centre.",
       "status": "confirmed"
     },
     "rel_label_C": {
@@ -1010,52 +1010,88 @@
       "relation": "midpoint",
       "object": "seg_AB",
       "source": "geometry_agent",
-      "evidence": "O is the centre of the circle and lies on the diameter AB.",
+      "evidence": "O at x≈224.4 is the midpoint of A(67.2) and B(381.4) on y≈222",
       "status": "candidate"
     },
     "rel_007": {
       "id": "rel_007",
-      "subject": "point_A",
-      "relation": "on_circle",
-      "object": "circle_O",
+      "subject": "point_O",
+      "relation": "center_of",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "A is an end of the diameter.",
+      "evidence": "O equidistant from A, B, D, C on the circle",
       "status": "candidate"
     },
     "rel_008": {
       "id": "rel_008",
-      "subject": "point_B",
+      "subject": "point_A",
       "relation": "on_circle",
-      "object": "circle_O",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "B is an end of the diameter.",
+      "evidence": "A is an endpoint of diameter AB",
       "status": "candidate"
     },
     "rel_009": {
       "id": "rel_009",
-      "subject": "point_D",
+      "subject": "point_B",
       "relation": "on_circle",
-      "object": "circle_O",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "D is the top point of the circle.",
+      "evidence": "B is an endpoint of diameter AB",
       "status": "candidate"
     },
     "rel_010": {
       "id": "rel_010",
-      "subject": "point_C",
+      "subject": "point_D",
       "relation": "on_circle",
-      "object": "circle_O",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "C is on the lower-left arc.",
+      "evidence": "D at top of circle",
       "status": "candidate"
     },
     "rel_011": {
       "id": "rel_011",
+      "subject": "point_C",
+      "relation": "on_circle",
+      "object": "circle_01",
+      "source": "geometry_agent",
+      "evidence": "C at lower-left circle contact",
+      "status": "candidate"
+    },
+    "rel_012": {
+      "id": "rel_012",
+      "subject": "point_X",
+      "relation": "on_segment",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "intersection of DC with AB",
+      "status": "candidate"
+    },
+    "rel_013": {
+      "id": "rel_013",
       "subject": "point_X",
       "relation": "on_segment",
       "object": "seg_DC",
       "source": "geometry_agent",
-      "evidence": "Line DC crosses AB at x of about 166.8 when y=222.",
+      "evidence": "intersection of DC with AB",
+      "status": "candidate"
+    },
+    "rel_014": {
+      "id": "rel_014",
+      "subject": "point_O",
+      "relation": "midpoint",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "AB is a diameter through O",
+      "status": "candidate"
+    },
+    "rel_015": {
+      "id": "rel_015",
+      "subject": "point_D",
+      "relation": "on_circle",
+      "object": "circle_01",
+      "source": "geometry_agent",
+      "evidence": "top of circle",
       "status": "candidate"
     }
   },
@@ -1071,7 +1107,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:05:13"
+      "created_at": "2026-11-11T12:59:40"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -1084,7 +1120,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:05:41"
+      "created_at": "2026-11-11T12:59:42"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -1097,17 +1133,36 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:05:51"
+      "created_at": "2026-11-11T12:59:43"
     },
     "ev_0004": {
       "id": "ev_0004",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "roi": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-11T12:59:55"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Circle with centre O (dot at point_05, approx (224,222)), radius about 158 px. A and B are the diameter ends on the horizontal line y=222. D is the top of the circle and C is the lower-left point on the circle. Straight solid strokes: AB (diameter through O), AD, DB, AC (short chord at lower left), and DC, which crosses AB at an unlabeled interior junction point_01 (approx (166.7,222)). All strokes are solid; no dashed strokes were seen. No right-angle square marks are drawn, so angle_marks and feet are empty and there are no right_angle objects. Point_07 is the glyph position of the O label and should not be used as the O vertex.",
+      "summary": "Circle (center O at point_05 px≈(224.4,222.1), radius≈157 px) with diameter AB along y≈222. Points: A=point_04, B=point_03, D=point_02 (top of circle), C=point_06 (lower-left circle contact). Straight strokes, all solid, no dashed strokes: AB (through O), AD, DB, AC, DC. DC crosses AB at unlabeled junction point_01 (166.67,222). No right-angle marker verified by detect_right_angle_marker, so no right_angle objects. Arc extent: full circle.",
       "payload": {
         "merged": {
           "objects": 12,
-          "relations": 6,
+          "relations": 8,
           "conflicts": 1,
           "rejected": []
         },
@@ -1115,21 +1170,21 @@
           "point_O",
           "point_A",
           "point_B",
-          "point_D",
           "point_C",
+          "point_D",
           "point_X",
-          "circle_O",
+          "circle_01",
           "seg_AB",
           "seg_AD",
           "seg_DB",
-          "seg_DC",
-          "seg_AC"
+          "seg_AC",
+          "seg_DC"
         ]
       },
-      "created_at": "2026-11-09T23:06:19"
+      "created_at": "2026-11-11T13:00:10"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "geometry_agent",
       "method": "measured_label_rebinding",
       "summary": "Corrected 1 source label bindings",
@@ -1141,17 +1196,17 @@
             222.14
           ],
           "previous_point_id": "point_07",
-          "reason": "Small dot at the centre of the diameter AB, approx (224.4,222.1). The OCR label O sits below it at point_07, which is the glyph location and not the vertex.",
+          "reason": "Printed O sits below the centre dot at point_05 on AB (224.4,222.1); point_07 at (224.5,248.5) is the glyph location, not the geometric centre.",
           "source": "geometry_agent"
         }
       },
-      "created_at": "2026-11-09T23:06:19"
+      "created_at": "2026-11-11T13:00:10"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [451, 409] (scale 0.6007)",
+      "summary": "v1 canvas matched to source [451, 409] (scale 0.6017)",
       "payload": {
         "ok": true,
         "size": [
@@ -1162,16 +1217,16 @@
           451,
           409
         ],
-        "scale": 0.6007,
+        "scale": 0.6017,
         "offset": [
           34,
           31
         ]
       },
-      "created_at": "2026-11-09T23:06:41"
+      "created_at": "2026-11-11T13:00:33"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: all_points_fixed",
@@ -1183,17 +1238,17 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "60c8e052f534ecb42b15cab2c4801bbfdae0c5a2217be92e59adf9c7e30b41dc",
-        "output_sha256": "60c8e052f534ecb42b15cab2c4801bbfdae0c5a2217be92e59adf9c7e30b41dc",
+        "input_sha256": "2ed26f19fa733e0f8fdd5744436fe8ace84ebb5097f2cb998196dd0d036a0e7a",
+        "output_sha256": "2ed26f19fa733e0f8fdd5744436fe8ace84ebb5097f2cb998196dd0d036a0e7a",
         "reason": "all_points_fixed",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1203,13 +1258,15 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 0,
         "preserved_incidence_count": 1,
         "max_shift_rel": 0.0,
@@ -1244,15 +1301,15 @@
                 -0.023,
                 -0.376
               ],
-              "radius": 3.371
+              "radius": 3.349
             }
           ]
         },
         "candidate_count": 0,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1265,22 +1322,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T23:06:41"
+      "created_at": "2026-11-11T13:00:33"
     },
-    "ev_0008": {
-      "id": "ev_0008",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used the program-owned coordinates A, B, C, D, O without redefining them (they are inserted at the start of the tikzpicture, so this file will only compile with that insertion). Full circle centred at O with radius 158 px * 0.021333 = 3.371 units. Solid edges AB, AD, DB, DC, AC drawn between named points. Junction X (unlabeled crossing of DC and AB) is implicit in the DC stroke and has no label. Small filled dot at O, label O placed below. Label fonts use the STYLE METRICS size 18/21.6 pt; line width 1.7pt with round joins. No right-angle marks, no dashed strokes.",
+        "notes": "Circle drawn as a full circle centred at program-owned O with radius 157 px * 0.021333 = 3.349 cm, in the program's frame. Five solid edges AB, AD, DB, AC, DC use the named program coordinates. Labels A (left), B (right), D (above), C (below left), O (below) are bound to their vertices, with font 18/21.6 pt and line width 1.7pt, round joins, per STYLE METRICS. No right-angle square at D: the instruction asks for one, but no right_angle object was verified and the source image shows no square, so none is drawn. Unlabeled crossing X is omitted, since it is not a visible mark. Coordinates A, B, C, D, O are not defined in this document; the program inserts them, so standalone compilation requires that insertion.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1310,17 +1367,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.055"
+              "detail": "ink_ratio=0.0546"
             },
             {
               "name": "aspect_ratio",
@@ -1335,21 +1392,76 @@
           ]
         }
       },
-      "created_at": "2026-11-09T23:06:41"
+      "created_at": "2026-11-11T13:00:33"
+    },
+    "ev_0010": {
+      "id": "ev_0010",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "roi": [
+            0.35,
+            0.1,
+            0.65,
+            0.3
+          ],
+          "visualize": false
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-11T13:01:04"
+    },
+    "ev_0011": {
+      "id": "ev_0011",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Circle centre O (point_05, 224.43,222.14), radius about 157 px. A is on the circle at the left end of diameter AB, B at the right end. D (point_02, 223.9,65.04) is on the top of the circle. C is on the lower-left arc. Straight edges: AB (diameter), AD, DB, AC, DC. detect_right_angle_marker found NO square right-angle mark at D (count 0). Perpendicular edges DA and DB meet at D, which is consistent with an inscribed right angle on diameter AB, but no square mark is drawn, so no right_angle object is submitted.",
+      "payload": {
+        "merged": {
+          "objects": 3,
+          "relations": 2,
+          "conflicts": 1,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_O",
+          "point_D",
+          "circle_01"
+        ]
+      },
+      "created_at": "2026-11-11T13:01:09"
     }
   },
   "conflicts": [
     {
       "id": "conflict_001",
-      "topic": "O label position",
+      "topic": "Label O position",
       "claims": [
         {
           "source": "bind_point_labels",
-          "claim": "O label is at point_07 (224.5,248.5)"
+          "claim": "O bound to point_07 (224.5,248.5)"
         },
         {
-          "source": "visual inspection",
-          "claim": "O dot is at point_05 (224.4,222.1); the label sits below it"
+          "source": "geometry inspection",
+          "claim": "O is the centre dot on AB at point_05 (224.4,222.1); the glyph sits below it"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
+    },
+    {
+      "id": "conflict_002",
+      "topic": "Right-angle mark at D",
+      "claims": [
+        {
+          "source": "geometry_agent",
+          "claim": "ADB is a right angle inscribed on diameter AB, so a mark is expected"
+        },
+        {
+          "source": "detect_right_angle_marker",
+          "claim": "No square mark verified at D"
         }
       ],
       "status": "unresolved",
@@ -1363,10 +1475,10 @@
     "O": "point_05",
     "C": "point_06"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.378,-0.374);\n\\coordinate (B) at (3.325,-0.377);\n\\coordinate (C) at (-2.187,-2.935);\n\\coordinate (D) at (-0.034,2.975);\n\\coordinate (O) at (-0.023,-0.376);\n\n  \n  \\draw (O) circle[radius=3.371];\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (B);\n  \\draw (D) -- (C);\n  \\draw (A) -- (C);\n  \n  \\fill (O) circle[radius=1.800pt];\n  \n  \\node[above left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n  \\node[above right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n  \\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n  \\node[below left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n  \\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.378,-0.374);\n\\coordinate (B) at (3.325,-0.377);\n\\coordinate (C) at (-2.187,-2.935);\n\\coordinate (D) at (-0.034,2.975);\n\\coordinate (O) at (-0.023,-0.376);\n\n  \n  \\draw (O) circle[radius=3.371];\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (B);\n  \\draw (D) -- (C);\n  \\draw (A) -- (C);\n  \n  \\fill (O) circle[radius=1.800pt];\n  \n  \\node[above left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n  \\node[above right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n  \\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n  \\node[below left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n  \\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\end{tikzpicture}\n\\end{document}",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.378,-0.374);\n\\coordinate (B) at (3.325,-0.377);\n\\coordinate (C) at (-2.187,-2.935);\n\\coordinate (D) at (-0.034,2.975);\n\\coordinate (O) at (-0.023,-0.376);\n\n  \n  \\draw (O) circle[radius=3.349];\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (B);\n  \\draw (A) -- (C);\n  \\draw (C) -- (D);\n\n  \n  \\fill (O) circle[radius=1.600pt];\n\n  \n  \\node[left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n  \\node[right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n  \\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n  \\node[below left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n  \\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.378,-0.374);\n\\coordinate (B) at (3.325,-0.377);\n\\coordinate (C) at (-2.187,-2.935);\n\\coordinate (D) at (-0.034,2.975);\n\\coordinate (O) at (-0.023,-0.376);\n\n  \n  \\draw (O) circle[radius=3.349];\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (B);\n  \\draw (A) -- (C);\n  \\draw (C) -- (D);\n\n  \n  \\fill (O) circle[radius=1.600pt];\n\n  \n  \\node[left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n  \\node[right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n  \\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n  \\node[below left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n  \\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\end{tikzpicture}\n\\end{document}",
   "best_version": 1,
-  "best_score": 0.93,
+  "best_score": 0.9,
   "tikz_versions": [
     {
       "topology_check": {
@@ -1374,7 +1486,7 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.378,-0.374);\n\\coordinate (B) at (3.325,-0.377);\n\\coordinate (C) at (-2.187,-2.935);\n\\coordinate (D) at (-0.034,2.975);\n\\coordinate (O) at (-0.023,-0.376);\n\n  \n  \\draw (O) circle[radius=3.371];\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (B);\n  \\draw (D) -- (C);\n  \\draw (A) -- (C);\n  \n  \\fill (O) circle[radius=1.800pt];\n  \n  \\node[above left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n  \\node[above right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n  \\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n  \\node[below left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n  \\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.7pt]\n\\coordinate (A) at (-3.378,-0.374);\n\\coordinate (B) at (3.325,-0.377);\n\\coordinate (C) at (-2.187,-2.935);\n\\coordinate (D) at (-0.034,2.975);\n\\coordinate (O) at (-0.023,-0.376);\n\n  \n  \\draw (O) circle[radius=3.349];\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (D);\n  \\draw (D) -- (B);\n  \\draw (A) -- (C);\n  \\draw (C) -- (D);\n\n  \n  \\fill (O) circle[radius=1.600pt];\n\n  \n  \\node[left] at (A) {\\fontsize{18}{21.6}\\selectfont $A$};\n  \\node[right] at (B) {\\fontsize{18}{21.6}\\selectfont $B$};\n  \\node[above] at (D) {\\fontsize{18}{21.6}\\selectfont $D$};\n  \\node[below left] at (C) {\\fontsize{18}{21.6}\\selectfont $C$};\n  \\node[below] at (O) {\\fontsize{18}{21.6}\\selectfont $O$};\n\\end{tikzpicture}\n\\end{document}",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6989_q_fig1\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6989_q_fig1\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6989_q_fig1\\best.png",
@@ -1382,18 +1494,18 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:06:37",
+      "created_at": "2026-11-11T13:00:30",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used the program-owned coordinates A, B, C, D, O without redefining them (they are inserted at the start of the tikzpicture, so this file will only compile with that insertion). Full circle centred at O with radius 158 px * 0.021333 = 3.371 units. Solid edges AB, AD, DB, DC, AC drawn between named points. Junction X (unlabeled crossing of DC and AB) is implicit in the DC stroke and has no label. Small filled dot at O, label O placed below. Label fonts use the STYLE METRICS size 18/21.6 pt; line width 1.7pt with round joins. No right-angle marks, no dashed strokes.",
-      "compile_seconds": 2.348,
+      "notes": "Circle drawn as a full circle centred at program-owned O with radius 157 px * 0.021333 = 3.349 cm, in the program's frame. Five solid edges AB, AD, DB, AC, DC use the named program coordinates. Labels A (left), B (right), D (above), C (below left), O (below) are bound to their vertices, with font 18/21.6 pt and line width 1.7pt, round joins, per STYLE METRICS. No right-angle square at D: the instruction asks for one, but no right_angle object was verified and the source image shows no square, so none is drawn. Unlabeled crossing X is omitted, since it is not a visible mark. Coordinates A, B, C, D, O are not defined in this document; the program inserts them, so standalone compilation requires that insertion.",
+      "compile_seconds": 2.64,
       "critic_report": {
-        "assessment_score": 0.93,
+        "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render is faithful in geometry and topology: the circle, diameter AB through O, chords AD, DB, DC, AC and the labels all match the original. The only visible discrepancy is the much smaller centre dot at O.",
+        "verdict": "Render is geometrically faithful: circle, diameter AB through O, chords AD, DB, AC, DC all match the original's endpoints and crossings; only the O marker weight differs.",
         "figure_type": {
-          "original": "Circle with horizontal diameter AB, apex D on the top arc, chord DC and chord AC to a lower-left point C, with a filled dot at O",
-          "render": "Same circle and chords, with a filled dot at O drawn much smaller than in the original"
+          "original": "circle with horizontal diameter AB (centre O), points D on top arc and C on lower-left arc, chords AD, DB, AC, DC",
+          "render": "circle with horizontal diameter AB (centre O), points D on top arc and C on lower-left arc, chords AD, DB, AC, DC"
         },
         "issues": [
           {
@@ -1404,32 +1516,32 @@
               "point_05"
             ],
             "bbox": [
-              0.47,
-              0.5,
-              0.53,
+              0.48,
+              0.51,
+              0.52,
               0.56
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "The filled dot at O is visibly smaller in the render (about 2–3 px radius) than in the original (about 6 px radius), so the centre marker looks weaker.",
-            "suggestion": "Increase the fill radius of the O dot, e.g. \\fill (O) circle[radius=4pt]; or similar, so it matches the original's prominence."
+            "description": "The filled dot at O is visibly smaller in the render than in the original (render dot is a tiny point; original is a bold dot roughly twice the diameter).",
+            "suggestion": "Increase the fill radius at O, e.g. \\fill (O) circle[radius=3pt]; instead of radius=1.600pt."
           }
         ],
         "checks": [
           {
-            "object_id": "circle_O",
+            "object_id": "circle_01",
             "status": "present",
-            "note": "Circle matches original position and size."
+            "note": "Circle centred at O with matching radius and extent."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Chord from D to C is drawn, matching the original DC stroke."
+            "note": "Chord DC from D to C matches the original's line and crossing of AB."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Diameter AB is drawn through O."
+            "note": "Diameter AB matches in extent and position."
           },
           {
             "object_id": "seg_03",
@@ -1444,82 +1556,82 @@
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Chord AC matches the original short lower-left chord."
+            "note": "Chord AC matches the original, ending at C on the arc."
           },
           {
             "object_id": "seg_AB",
             "status": "present",
-            "note": "Diameter AB visible in both panels, through O."
+            "note": "Diameter A to B correct."
           },
           {
             "object_id": "seg_AC",
             "status": "present",
-            "note": "Chord from A down to C is visible in both panels."
+            "note": "A to C chord correct."
           },
           {
             "object_id": "seg_AD",
             "status": "present",
-            "note": "Chord from A up to D is visible in both panels."
+            "note": "A to D chord correct."
           },
           {
             "object_id": "seg_DB",
             "status": "present",
-            "note": "Chord from D down to B is visible in both panels."
+            "note": "D to B chord correct."
           },
           {
             "object_id": "seg_DC",
             "status": "present",
-            "note": "Chord from D down to C is visible in both panels."
+            "note": "D to C chord correct."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label D sits above the top point of the circle, as in the original."
+            "note": "Label D sits above the top vertex, as in the original."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label B sits at the right end of the diameter, as in the original."
+            "note": "Label B to the right of the right vertex, as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label A sits at the left end of the diameter, as in the original."
+            "note": "Label A to the left of the left vertex, as in the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label O sits below the centre dot, as in the original; the dot is smaller than the original."
+            "note": "Label O present below the centre; dot is undersized (see issue)."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "Label C sits below-left of the lower-left point, as in the original."
+            "note": "Label C lower-left of the vertex, as in the original."
           },
           {
             "object_id": "point_A",
             "status": "present",
-            "note": "Vertex A is at the left end of the diameter on the circle."
+            "note": "Vertex A at the left end of the diameter."
           },
           {
             "object_id": "point_B",
             "status": "present",
-            "note": "Vertex B is at the right end of the diameter on the circle."
+            "note": "Vertex B at the right end of the diameter."
           },
           {
             "object_id": "point_C",
             "status": "present",
-            "note": "Vertex C is on the lower-left arc, as in the original."
+            "note": "Vertex C on the lower-left arc."
           },
           {
             "object_id": "point_D",
             "status": "present",
-            "note": "Vertex D is at the top of the circle, as in the original."
+            "note": "Vertex D on the top arc."
           },
           {
             "object_id": "point_O",
             "status": "present",
-            "note": "Centre O is at the diameter midpoint; the dot is undersized relative to the original."
+            "note": "Centre O on the diameter; marker is smaller than in the original."
           }
         ],
         "checklist_score": 1.0,
@@ -1531,11 +1643,12 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Circle position, radius and aspect ratio match the original.",
+          "Circle extent and centre match the original.",
           "Diameter AB passes through O at its midpoint.",
-          "Chords AD, DB, DC and AC end at the same vertices as in the original.",
-          "Labels A, B, C, D and O are present, correctly spelled and bound to their vertices, with clear space from the strokes.",
-          "Stroke weights of the circle and chords are comparable to the original."
+          "Chords AD, DB, AC and DC have the same endpoints and the same crossing of AB.",
+          "Vertices A, B, C, D sit at the same relative positions on the circle.",
+          "Labels A, B, C, D, O are present with correct spelling and placement and do not collide with strokes.",
+          "No right-angle markers appear in either panel, so none are missing."
         ],
         "labels": {
           "present": [
@@ -1553,7 +1666,7 @@
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.93
+      "critic_score": 0.9
     }
   ],
   "compilation_results": [
@@ -1561,14 +1674,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.348,
+      "seconds": 2.64,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.689453125 KiB)\nnote: Writing `figure.log` (11.404296875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:06:41"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.6875 KiB)\nnote: Writing `figure.log` (11.490234375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T13:00:33"
     }
   ],
   "validation_results": [
@@ -1604,17 +1717,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\6989_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.055"
+          "detail": "ink_ratio=0.0546"
         },
         {
           "name": "aspect_ratio",
@@ -1627,17 +1740,17 @@
           "detail": "figure bbox ratio 1.08"
         }
       ],
-      "created_at": "2026-11-09T23:06:41"
+      "created_at": "2026-11-11T13:00:33"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.93,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render is faithful in geometry and topology: the circle, diameter AB through O, chords AD, DB, DC, AC and the labels all match the original. The only visible discrepancy is the much smaller centre dot at O.",
+      "verdict": "Render is geometrically faithful: circle, diameter AB through O, chords AD, DB, AC, DC all match the original's endpoints and crossings; only the O marker weight differs.",
       "figure_type": {
-        "original": "Circle with horizontal diameter AB, apex D on the top arc, chord DC and chord AC to a lower-left point C, with a filled dot at O",
-        "render": "Same circle and chords, with a filled dot at O drawn much smaller than in the original"
+        "original": "circle with horizontal diameter AB (centre O), points D on top arc and C on lower-left arc, chords AD, DB, AC, DC",
+        "render": "circle with horizontal diameter AB (centre O), points D on top arc and C on lower-left arc, chords AD, DB, AC, DC"
       },
       "issues": [
         {
@@ -1648,32 +1761,32 @@
             "point_05"
           ],
           "bbox": [
-            0.47,
-            0.5,
-            0.53,
+            0.48,
+            0.51,
+            0.52,
             0.56
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "The filled dot at O is visibly smaller in the render (about 2–3 px radius) than in the original (about 6 px radius), so the centre marker looks weaker.",
-          "suggestion": "Increase the fill radius of the O dot, e.g. \\fill (O) circle[radius=4pt]; or similar, so it matches the original's prominence."
+          "description": "The filled dot at O is visibly smaller in the render than in the original (render dot is a tiny point; original is a bold dot roughly twice the diameter).",
+          "suggestion": "Increase the fill radius at O, e.g. \\fill (O) circle[radius=3pt]; instead of radius=1.600pt."
         }
       ],
       "checks": [
         {
-          "object_id": "circle_O",
+          "object_id": "circle_01",
           "status": "present",
-          "note": "Circle matches original position and size."
+          "note": "Circle centred at O with matching radius and extent."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Chord from D to C is drawn, matching the original DC stroke."
+          "note": "Chord DC from D to C matches the original's line and crossing of AB."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Diameter AB is drawn through O."
+          "note": "Diameter AB matches in extent and position."
         },
         {
           "object_id": "seg_03",
@@ -1688,82 +1801,82 @@
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Chord AC matches the original short lower-left chord."
+          "note": "Chord AC matches the original, ending at C on the arc."
         },
         {
           "object_id": "seg_AB",
           "status": "present",
-          "note": "Diameter AB visible in both panels, through O."
+          "note": "Diameter A to B correct."
         },
         {
           "object_id": "seg_AC",
           "status": "present",
-          "note": "Chord from A down to C is visible in both panels."
+          "note": "A to C chord correct."
         },
         {
           "object_id": "seg_AD",
           "status": "present",
-          "note": "Chord from A up to D is visible in both panels."
+          "note": "A to D chord correct."
         },
         {
           "object_id": "seg_DB",
           "status": "present",
-          "note": "Chord from D down to B is visible in both panels."
+          "note": "D to B chord correct."
         },
         {
           "object_id": "seg_DC",
           "status": "present",
-          "note": "Chord from D down to C is visible in both panels."
+          "note": "D to C chord correct."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label D sits above the top point of the circle, as in the original."
+          "note": "Label D sits above the top vertex, as in the original."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label B sits at the right end of the diameter, as in the original."
+          "note": "Label B to the right of the right vertex, as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label A sits at the left end of the diameter, as in the original."
+          "note": "Label A to the left of the left vertex, as in the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label O sits below the centre dot, as in the original; the dot is smaller than the original."
+          "note": "Label O present below the centre; dot is undersized (see issue)."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "Label C sits below-left of the lower-left point, as in the original."
+          "note": "Label C lower-left of the vertex, as in the original."
         },
         {
           "object_id": "point_A",
           "status": "present",
-          "note": "Vertex A is at the left end of the diameter on the circle."
+          "note": "Vertex A at the left end of the diameter."
         },
         {
           "object_id": "point_B",
           "status": "present",
-          "note": "Vertex B is at the right end of the diameter on the circle."
+          "note": "Vertex B at the right end of the diameter."
         },
         {
           "object_id": "point_C",
           "status": "present",
-          "note": "Vertex C is on the lower-left arc, as in the original."
+          "note": "Vertex C on the lower-left arc."
         },
         {
           "object_id": "point_D",
           "status": "present",
-          "note": "Vertex D is at the top of the circle, as in the original."
+          "note": "Vertex D on the top arc."
         },
         {
           "object_id": "point_O",
           "status": "present",
-          "note": "Centre O is at the diameter midpoint; the dot is undersized relative to the original."
+          "note": "Centre O on the diameter; marker is smaller than in the original."
         }
       ],
       "checklist_score": 1.0,
@@ -1775,11 +1888,12 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Circle position, radius and aspect ratio match the original.",
+        "Circle extent and centre match the original.",
         "Diameter AB passes through O at its midpoint.",
-        "Chords AD, DB, DC and AC end at the same vertices as in the original.",
-        "Labels A, B, C, D and O are present, correctly spelled and bound to their vertices, with clear space from the strokes.",
-        "Stroke weights of the circle and chords are comparable to the original."
+        "Chords AD, DB, AC and DC have the same endpoints and the same crossing of AB.",
+        "Vertices A, B, C, D sit at the same relative positions on the circle.",
+        "Labels A, B, C, D, O are present with correct spelling and placement and do not collide with strokes.",
+        "No right-angle markers appear in either panel, so none are missing."
       ],
       "labels": {
         "present": [
@@ -1801,23 +1915,31 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "The dashed or solid style of each stroke was judged visually, not from the gap metrics; all look solid."
+      "issue": "Right angle at D (ADB) is inscribed in a semicircle (AB diameter) but no square mark is drawn in the figure; none submitted."
     },
     {
       "source": "geometry_agent",
-      "issue": "point_01 is an unlabeled crossing of DC and AB; it is not a printed letter."
+      "issue": "Point_08 (125.19,335.96) and point_12/point_11/point_09/point_10 are unlabeled and not used in the construction."
     },
     {
       "source": "geometry_agent",
-      "issue": "The short chord AC is inferred from the detected segment seg_05 and the points A and C; C sits at the circle contact at point_06."
+      "issue": "Right-angle square mark at D is not visible in the raster; do not draw one unless the Critic confirms it in the original image."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "point_08, point_12, point_11, point_09, point_10 are unlabeled and not used in the construction."
     },
     {
       "source": "supervisor",
-      "issue": "Centre dot at O is smaller than in the original (low severity, cosmetic)."
+      "issue": "Filled dot at O is smaller than in the original (low severity, cosmetic)."
     },
     {
       "source": "supervisor",
-      "issue": "Line styles were judged solid from CV metrics; the geometry agent flagged that style was assessed visually."
+      "issue": "Right-angle mark at D: CV detector found none and the Critic did not report one, so no square mark was drawn."
+    },
+    {
+      "source": "supervisor",
+      "issue": "Unlabeled CV points (point_08, point_09–12) and the intersection X=(166.67,222) were not drawn; they are not labelled in the original figure."
     }
   ],
   "action_history": [
@@ -1863,7 +1985,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 12, 'relations': 6, 'conflicts': 1, 'rejected': []}",
+      "result_summary": "ok=True; merged={'objects': 12, 'relations': 8, 'conflicts': 1, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1875,7 +1997,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.93; issues=1",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1884,30 +2006,47 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw the figure as TikZ. Circle O (center at point O, approx px (224.4,222.1), radius 158 px) with diameter AB (A at px (67.17,222.04), B at px (381.37,222.18)). Points D (223.9,65.04) and C (122.96,3",
+      "purpose": "Draw a circle with center O (224.43,222.14 px) radius 157 px. Diameter AB: A=(67.17,222.04), B=(381.37,222.18), O is midpoint. Points on circle: D=(223.9,65.04) (top), C=(122.96,342.1) (lower-left). S",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Draw the figure as TikZ. Circle O (center at point O, approx px (224.4,222.1), radius 158 px) with diameter AB (A at px (67.17,222.04), B at px (381.37,222.18)). Points D (223.9,65.04) and C (122.96,342.1) lie on the circle. Draw solid edges AB, AD, DB, DC, AC. Point X (166.67,222.0) is the unlabeled crossing of DC with AB; do not print a letter for it. Label A, B, C, D, O with their visible letters at their positions (O label sits just below-right of centre-ish; keep it near point O). Convert image y to TikZ y by flipping (y_tikz = -y_px, use a consistent scale, e.g. 1 unit = 1 px / 50 or similar). Use one coordinate definition per point, shared by all edges. Keep the circle as a full circle only if the original shows a full circle; the circle is drawn as a full circle through A,B,D,C."
+        "instruction": "Draw a circle with center O (224.43,222.14 px) radius 157 px. Diameter AB: A=(67.17,222.04), B=(381.37,222.18), O is midpoint. Points on circle: D=(223.9,65.04) (top), C=(122.96,342.1) (lower-left). Solid edges: AB (through O), AD, DB, AC, DC. Point X=(166.67,222.0) is the intersection of DC with AB; it is an unlabeled point (do not label it) and may be omitted or drawn as a small dot only if visible. Right-angle square mark at D (angle ADB) is inscribed-in-semicircle; draw a small square mark at D between DA and DB. Labels: A left of A, B right of B, D above D, C below-left of C, O below O. Image y is down; convert to TikZ by flipping y (use y_tikz = -y_px, scale 1 pt per px or ~0.01 cm per px). Use only these measured coordinates; keep AB as a named path through O."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 27.27,
+      "duration_s": 30.32,
       "token_usage": {
-        "delta": 18102
+        "delta": 18940
       },
       "visual_calls": 2,
       "error": null
     },
     {
       "step": 2,
+      "action": "run_geometry_agent",
+      "purpose": "Run detect_right_angle_marker on the figure and report whether a square right-angle mark is visible at point D (about 224,65 px), between arms DA and DB.",
+      "params": {
+        "instruction": "Run detect_right_angle_marker on the figure and report whether a square right-angle mark is visible at point D (about 224,65 px), between arms DA and DB."
+      },
+      "status": "ok",
+      "result_summary": "ok=True; merged={'objects': 3, 'relations': 2, 'conflicts': 1, 'rejected': []}",
+      "duration_s": 11.79,
+      "token_usage": {
+        "delta": 16415
+      },
+      "visual_calls": 2,
+      "error": null
+    },
+    {
+      "step": 3,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Generated TikZ version 1 for the figure: circle centred at O with diameter AB, chords AD, DB, DC, AC, labels A, B, C, D, O. It compiled, passed topology checks, and received a critic score of 0.93 with must_repair=false. The only remaining note is that the centre dot at O is drawn smaller than in the original.",
+        "summary": "Generated TikZ v1 from CV/Geometry Agent measurements: circle centred at O (radius 157 px) with diameter AB and chords AD, DB, AC, DC; labels A, B, C, D, O bound to their measured vertices. Compiles, passes topology check, Critic score 0.9, must_repair=false.",
         "unresolved": [
-          "Centre dot at O is smaller than in the original (low severity, cosmetic).",
-          "Line styles were judged solid from CV metrics; the geometry agent flagged that style was assessed visually."
+          "Filled dot at O is smaller than in the original (low severity, cosmetic).",
+          "Right-angle mark at D: CV detector found none and the Critic did not report one, so no square mark was drawn.",
+          "Unlabeled CV points (point_08, point_09–12) and the intersection X=(166.67,222) were not drawn; they are not labelled in the original figure."
         ],
         "status": "success"
       },
@@ -1954,57 +2093,91 @@
       "count": 0,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "roi": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "visualize": false
+      },
+      "purpose": null,
+      "ok": true,
+      "count": 0,
+      "visualization": null,
+      "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "roi": [
+          0.35,
+          0.1,
+          0.65,
+          0.3
+        ],
+        "visualize": false
+      },
+      "purpose": null,
+      "ok": true,
+      "count": 0,
+      "visualization": null,
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 5,
-      "visual_calls": 3,
-      "prompt_tokens": 37212,
-      "completion_tokens": 7791,
-      "total_tokens": 45003,
-      "cached_tokens": 9753.0,
-      "cache_write_tokens": 14944.0,
-      "latency_s": 59.21
+      "calls": 9,
+      "visual_calls": 6,
+      "prompt_tokens": 69989,
+      "completion_tokens": 11232,
+      "total_tokens": 81221,
+      "cached_tokens": 30840.0,
+      "cache_write_tokens": 39121.0,
+      "latency_s": 85.64
     },
     "by_agent": {
       "geometry_agent": {
-        "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 9094,
-        "latency_s": 27.69
+        "calls": 4,
+        "visual_calls": 4,
+        "total_tokens": 33191,
+        "latency_s": 36.66
       },
       "supervisor": {
-        "calls": 2,
+        "calls": 3,
         "visual_calls": 0,
-        "total_tokens": 17807,
-        "latency_s": 10.77
+        "total_tokens": 29090,
+        "latency_s": 21.65
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8615,
-        "latency_s": 9.67
+        "total_tokens": 8977,
+        "latency_s": 11.33
       },
       "critic_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 9487,
-        "latency_s": 11.08
+        "total_tokens": 9963,
+        "latency_s": 16.0
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 22,
-    "tool_calls_left": 42,
-    "visual_calls_left": 21,
-    "tokens_left": 354997,
+    "steps_left": 21,
+    "tool_calls_left": 39,
+    "visual_calls_left": 18,
+    "tokens_left": 318779,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 45003
+    "total_tokens_used": 81221
   },
   "meta": {
     "topology_plan": {
@@ -2074,15 +2247,15 @@
         },
         {
           "edge": [
-            "C",
-            "D"
+            "A",
+            "C"
           ],
           "style": "solid"
         },
         {
           "edge": [
-            "A",
-            "C"
+            "C",
+            "D"
           ],
           "style": "solid"
         }
@@ -2097,12 +2270,12 @@
           222.14
         ],
         "previous_point_id": "point_07",
-        "reason": "Small dot at the centre of the diameter AB, approx (224.4,222.1). The OCR label O sits below it at point_07, which is the glyph location and not the vertex.",
+        "reason": "Printed O sits below the centre dot at point_05 on AB (224.4,222.1); point_07 at (224.5,248.5) is the glyph location, not the geometric centre.",
         "source": "geometry_agent"
       }
     },
     "source_construction": {
-      "summary": "Circle with centre O (dot at point_05, approx (224,222)), radius about 158 px. A and B are the diameter ends on the horizontal line y=222. D is the top of the circle and C is the lower-left point on the circle. Straight solid strokes: AB (diameter through O), AD, DB, AC (short chord at lower left), and DC, which crosses AB at an unlabeled interior junction point_01 (approx (166.7,222)). All strokes are solid; no dashed strokes were seen. No right-angle square marks are drawn, so angle_marks and feet are empty and there are no right_angle objects. Point_07 is the glyph position of the O label and should not be used as the O vertex.",
+      "summary": "Circle centre O (point_05, 224.43,222.14), radius about 157 px. A is on the circle at the left end of diameter AB, B at the right end. D (point_02, 223.9,65.04) is on the top of the circle. C is on the lower-left arc. Straight edges: AB (diameter), AD, DB, AC, DC. detect_right_angle_marker found NO square right-angle mark at D (count 0). Perpendicular edges DA and DB meet at D, which is consistent with an inscribed right angle on diameter AB, but no square mark is drawn, so no right_angle object is submitted.",
       "strokes": [
         {
           "edge": [
@@ -2127,21 +2300,22 @@
         },
         {
           "edge": [
-            "C",
-            "D"
+            "A",
+            "C"
           ],
           "style": "solid"
         },
         {
           "edge": [
-            "A",
-            "C"
+            "C",
+            "D"
           ],
           "style": "solid"
         }
       ],
       "marks": {},
-      "feet": []
+      "feet": [],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -2226,17 +2400,17 @@
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "60c8e052f534ecb42b15cab2c4801bbfdae0c5a2217be92e59adf9c7e30b41dc",
-      "output_sha256": "60c8e052f534ecb42b15cab2c4801bbfdae0c5a2217be92e59adf9c7e30b41dc",
+      "input_sha256": "2ed26f19fa733e0f8fdd5744436fe8ace84ebb5097f2cb998196dd0d036a0e7a",
+      "output_sha256": "2ed26f19fa733e0f8fdd5744436fe8ace84ebb5097f2cb998196dd0d036a0e7a",
       "reason": "all_points_fixed",
       "accepted": [],
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2246,13 +2420,15 @@
         "relation_types": [
           "parallel"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
+      "source_collinear_candidates": [],
       "input_candidates": 0,
       "preserved_incidence_count": 1,
       "max_shift_rel": 0.0,
@@ -2287,15 +2463,15 @@
               -0.023,
               -0.376
             ],
-            "radius": 3.371
+            "radius": 3.349
           }
         ]
       },
       "candidate_count": 0,
       "curve_options_applied": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2398,17 +2574,17 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "60c8e052f534ecb42b15cab2c4801bbfdae0c5a2217be92e59adf9c7e30b41dc",
-        "output_sha256": "60c8e052f534ecb42b15cab2c4801bbfdae0c5a2217be92e59adf9c7e30b41dc",
+        "input_sha256": "2ed26f19fa733e0f8fdd5744436fe8ace84ebb5097f2cb998196dd0d036a0e7a",
+        "output_sha256": "2ed26f19fa733e0f8fdd5744436fe8ace84ebb5097f2cb998196dd0d036a0e7a",
         "reason": "all_points_fixed",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2418,13 +2594,15 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 0,
         "preserved_incidence_count": 1,
         "max_shift_rel": 0.0,
@@ -2459,15 +2637,15 @@
                 -0.023,
                 -0.376
               ],
-              "radius": 3.371
+              "radius": 3.349
             }
           ]
         },
         "candidate_count": 0,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2482,7 +2660,7 @@
       }
     },
     "finish": {
-      "summary": "Generated TikZ version 1 for the figure: circle centred at O with diameter AB, chords AD, DB, DC, AC, labels A, B, C, D, O. It compiled, passed topology checks, and received a critic score of 0.93 with must_repair=false. The only remaining note is that the centre dot at O is drawn smaller than in the original.",
+      "summary": "Generated TikZ v1 from CV/Geometry Agent measurements: circle centred at O (radius 157 px) with diameter AB and chords AD, DB, AC, DC; labels A, B, C, D, O bound to their measured vertices. Compiles, passes topology check, Critic score 0.9, must_repair=false.",
       "status": "success"
     },
     "stop_reason": "finish"

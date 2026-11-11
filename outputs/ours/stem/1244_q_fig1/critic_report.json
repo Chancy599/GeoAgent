@@ -1,132 +1,125 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original figure: same vertices, segments, incidences and label placement, with no meaningful discrepancies.",
+  "verdict": "The render reproduces all nine segments, their endpoints and the six labels of the original; the only visible difference is the small filled vertex dots, which are absent in the render.",
   "figure_type": {
-    "original": "Triangle ABC with points D on BC, F on AB and E on the extension right of C, with cevian-style segments among them (horizontal FE, vertical AD, AC, AE, ED, DF, EC, BDC base)",
-    "render": "Same configuration: triangle ABC with D on BC, F on AB, E at the same height as F, and matching segments"
+    "original": "Triangle ABC with interior points D, E, F; segments A-F-B, B-D-C, A-D, A-C, A-E, F-E, F-D, D-E, C-E; vertex dots drawn at labelled points",
+    "render": "Triangle ABC with interior points D, E, F; the same nine segments and six labels, without vertex dots"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "point_02",
+        "point_03",
+        "point_05",
+        "point_06",
+        "point_07",
+        "point_08"
+      ],
+      "bbox": [
+        0.02,
+        0.2,
+        0.97,
+        0.82
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The original marks each labelled vertex with a small filled dot; the render shows no vertex dots at A, B, C, D, E or F.",
+      "suggestion": "Optionally draw each labelled vertex with a small filled dot (e.g. \\fill (A) circle (1.2pt); for each point) to match the original's point markers."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Horizontal F-E line drawn through P1 and P2, matching the original."
+      "note": "Horizontal F-E segment matches the original, ending at F and E."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Base B-D-C drawn as in the original."
+      "note": "Bottom B-C baseline through D matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "A-C diagonal present and ending at C."
+      "note": "C-A segment matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "A-E edge present and ending at E."
+      "note": "A-E segment matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "A-F-B left side present, with F on the segment."
+      "note": "A-B side (through F) matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "E-D segment present and ending at D."
+      "note": "D-E segment matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Vertical A-D segment present."
+      "note": "Vertical A-D segment matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "F-D segment present."
+      "note": "F-D segment matches the original."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "E-C segment present."
+      "note": "C-E segment matches the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "E is labelled at the right vertex, matching the original."
+      "note": "Label E is bound to the right vertex and placed to its right, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "F is labelled at the left-side vertex, matching the original."
+      "note": "Label F is bound to the left mid-vertex and placed to its left, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "C is labelled at the bottom-right vertex, matching the original."
+      "note": "Label C is bound to the bottom-right vertex and placed below-right, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "B is labelled at the bottom-left vertex, matching the original."
+      "note": "Label B is bound to the bottom-left vertex and placed below-left, as in the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "D is labelled on the base, matching the original."
+      "note": "Label D is bound to the bottom-middle vertex and placed below, as in the original."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "A is labelled at the top vertex, matching the original."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "A label present at the top vertex."
-    },
-    {
-      "object_id": "point_B",
-      "status": "present",
-      "note": "B label present at the bottom-left vertex."
-    },
-    {
-      "object_id": "point_C",
-      "status": "present",
-      "note": "C label present at the bottom-right vertex."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "D label present on the base."
-    },
-    {
-      "object_id": "point_E",
-      "status": "present",
-      "note": "E label present at the right vertex."
-    },
-    {
-      "object_id": "point_F",
-      "status": "present",
-      "note": "F label present on the left side."
+      "note": "Label A is bound to the top vertex and placed above, as in the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "All six labelled vertices A-F are in the same positions and bound to the correct points.",
-    "Segments A-F-B, B-D-C, A-C, A-E, A-D, E-C, E-D, D-F and F-E are all present.",
-    "Overall aspect ratio and proportions agree between the panels (B-to-E span about 493 px in the original and 494 px in the render).",
-    "Label placement (A above, F upper-left, E right, C lower-right, B lower-left, D below) matches the original."
+    "Triangle outline A-F-B, B-D-C with the apex A and all interior segments match the original.",
+    "Endpoints of F-E, A-E, D-E and C-E land on the labelled vertices E and F as in the original.",
+    "Label set A, B, C, D, E, F is present with correct placement and no clashes with strokes.",
+    "Aspect ratio and overall proportions match the original."
   ],
   "labels": {
     "present": [
@@ -140,8 +133,41 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "179d3237cb595750",
+      "edge": [
+        "E",
+        "F"
+      ],
+      "reason": "The original shows a continuous horizontal stroke joining F and E."
+    },
+    {
+      "case_id": "f9a81ad5dcb5fbc5",
+      "edge": [
+        "A",
+        "E"
+      ],
+      "reason": "The original shows a straight stroke from A to E."
+    },
+    {
+      "case_id": "cf71ec15c7cd735c",
+      "edge": [
+        "D",
+        "E"
+      ],
+      "reason": "The original shows a stroke from D up to E."
+    },
+    {
+      "case_id": "0934148e2f24cc80",
+      "edge": [
+        "C",
+        "E"
+      ],
+      "reason": "The original shows a short stroke from C up to E."
+    }
+  ],
   "raw_meta": "{}"
 }

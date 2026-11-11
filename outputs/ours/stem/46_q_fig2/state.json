@@ -620,101 +620,43 @@
         "ambiguous": false
       }
     },
-    "point_O": {
-      "id": "point_O",
-      "type": "point",
-      "label": "O",
-      "coords": {
-        "px": [
-          185.84,
-          317.04
-        ]
-      },
-      "normalized": {},
-      "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "point_A": {
-      "id": "point_A",
-      "type": "point",
-      "label": "A",
-      "coords": {
-        "px": [
-          539.8,
-          316.89
-        ]
-      },
-      "normalized": {},
-      "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "point_B": {
-      "id": "point_B",
-      "type": "point",
-      "label": "B",
-      "coords": {
-        "px": [
-          185.26,
-          159.6
-        ]
-      },
-      "normalized": {},
-      "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "point_C": {
-      "id": "point_C",
-      "type": "point",
-      "label": "C",
-      "coords": {
-        "px": [
-          460.85,
-          65.7
-        ]
-      },
-      "normalized": {},
-      "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
     "circle_01": {
       "id": "circle_01",
       "type": "circle",
       "label": null,
       "coords": {
         "center_px": [
-          185.84,
-          317.04
+          185.47,
+          317.26
         ],
-        "radius_px": 158.0
+        "radius_px": 157.24,
+        "visible_ranges_deg": [
+          [
+            0.0,
+            360.0
+          ]
+        ],
+        "visible_span_deg": 360.0
       },
-      "normalized": {},
+      "normalized": {
+        "center": [
+          0.3045,
+          0.6295
+        ],
+        "radius": 0.2582
+      },
       "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "source": "cv:detect_circles",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
       "confidence": null,
-      "notes": [],
-      "attributes": {}
+      "notes": [
+        "skeleton RANSAC + Kasa refit"
+      ],
+      "attributes": {
+        "ink_coverage": 1.0,
+        "angle_frame": "image pixel frame (x right, y down); flip y for TikZ"
+      }
     }
   },
   "relations": {
@@ -756,47 +698,83 @@
     },
     "rel_005": {
       "id": "rel_005",
-      "subject": "point_O",
+      "subject": "point_02",
       "relation": "center_of",
       "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "O is the center; B, point_03, point_06, point_07 lie on circle",
+      "evidence": "detect_circles center matches O",
       "status": "candidate"
     },
     "rel_006": {
       "id": "rel_006",
-      "subject": "point_B",
+      "subject": "point_04",
       "relation": "on_circle",
       "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "B at top of circle",
+      "evidence": "B at top of circle, on vertical radius OB",
       "status": "candidate"
     },
     "rel_007": {
       "id": "rel_007",
       "subject": "point_03",
-      "relation": "on_segment",
-      "object": "seg_BA",
+      "relation": "on_circle",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "collinear with B and A",
+      "evidence": "distance from O is about 157.1 vs radius 157.2",
       "status": "candidate"
     },
     "rel_008": {
       "id": "rel_008",
-      "subject": "point_03",
-      "relation": "on_segment",
-      "object": "seg_OC",
+      "subject": "point_06",
+      "relation": "on_circle",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "collinear with O and C",
+      "evidence": "right intersection of circle with OA",
       "status": "candidate"
     },
     "rel_009": {
       "id": "rel_009",
-      "subject": "point_06",
+      "subject": "point_07",
+      "relation": "on_circle",
+      "object": "circle_01",
+      "source": "geometry_agent",
+      "evidence": "left intersection of circle with OA",
+      "status": "candidate"
+    },
+    "rel_010": {
+      "id": "rel_010",
+      "subject": "point_03",
+      "relation": "on_segment",
+      "object": "seg_CO",
+      "source": "geometry_agent",
+      "evidence": "point_03 lies on line C-O (computed y=211.3 at x=301.5)",
+      "status": "candidate"
+    },
+    "rel_011": {
+      "id": "rel_011",
+      "subject": "point_03",
+      "relation": "on_segment",
+      "object": "seg_AB",
+      "source": "geometry_agent",
+      "evidence": "point_03 on CV segment seg_02 from A to B",
+      "status": "candidate"
+    },
+    "rel_012": {
+      "id": "rel_012",
+      "subject": "point_02",
       "relation": "on_segment",
       "object": "seg_OA",
       "source": "geometry_agent",
-      "evidence": "on horizontal line O-A at radius distance",
+      "evidence": "O on horizontal line through A",
+      "status": "candidate"
+    },
+    "rel_013": {
+      "id": "rel_013",
+      "subject": "seg_OB",
+      "relation": "perpendicular",
+      "object": "seg_OA",
+      "source": "geometry_agent",
+      "evidence": "vertical radius OB vs horizontal OA",
       "status": "candidate"
     }
   },
@@ -812,7 +790,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:03:25"
+      "created_at": "2026-11-11T12:57:58"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -825,7 +803,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:03:42"
+      "created_at": "2026-11-11T12:58:02"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -838,38 +816,69 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:03:52"
+      "created_at": "2026-11-11T12:58:07"
     },
     "ev_0004": {
       "id": "ev_0004",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "roi": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-11T12:58:20"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
+      "source": "cv_tool",
+      "method": "detect_circles",
+      "summary": "detect_circles produced 1 result(s)",
+      "payload": {
+        "params": {
+          "max_circles": 2
+        },
+        "tool": "detect_circles"
+      },
+      "created_at": "2026-11-11T12:58:21"
+    },
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Circle centered at O (186,317), radius about 158 px, passing through B (186,159), left point_07 (28,317), right point_06 (343,317), and bottom (186,475). Solid lines only, no dashed strokes detected. Triangle-like figure: B-C, C-A, and B-A (B-A passes through unlabelled crossing point_03 at (301,211), which lies on circle and on line O-C). Segment O-A runs horizontally through point_06 and ends at A. Segment O-B is vertical. Segment O-C passes through point_03. No right-angle square marks are visible in the raster; none reported by CV.",
+      "summary": "Circle circle_01 centered at O (185.5,317.3), radius 157.2, full 360 deg, all strokes solid, no dashed strokes. Explicit labelled points: A (point_01, right end of horizontal line), O (point_02, circle center), B (point_04, top of circle on vertical radius), C (point_05, top-right apex). Unlabelled junctions: point_03 (301.5,211.0) lies on circle, on line CO and on line AB; point_06 (342.7,317) is the right circle/OA intersection; point_07 (28.2,317) is the left circle/OA intersection. Strokes: horizontal line point_07-O-point_06-A (through O); vertical OB; segment B-point_03-A (AB, point_03 interior); segment C-point_03-O (CO, point_03 interior); segment C-B ends at B; segment C-A. No verified right-angle square marks (detect_right_angle_marker returned 0), so no right_angle objects. Angle ACB is geometrically ~90 deg (CA vs CB differ by 88.6 deg) but no square is drawn, so no angle mark is emitted. No feet.",
       "payload": {
         "merged": {
           "objects": 8,
-          "relations": 5,
-          "conflicts": 0,
+          "relations": 9,
+          "conflicts": 1,
           "rejected": []
         },
         "object_ids": [
-          "point_O",
-          "point_A",
-          "point_B",
-          "point_C",
+          "point_01",
+          "point_02",
+          "point_04",
+          "point_05",
           "point_03",
           "point_06",
           "point_07",
           "circle_01"
         ]
       },
-      "created_at": "2026-11-09T23:04:05"
+      "created_at": "2026-11-11T12:58:40"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [609, 504] (scale 0.8635)",
+      "summary": "v1 canvas matched to source [609, 504] (scale 0.8621)",
       "payload": {
         "ok": true,
         "size": [
@@ -880,16 +889,16 @@
           609,
           504
         ],
-        "scale": 0.8635,
+        "scale": 0.8621,
         "offset": [
           20,
-          28
+          29
         ]
       },
-      "created_at": "2026-11-09T23:04:40"
+      "created_at": "2026-11-11T12:59:13"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: no_candidates",
@@ -901,17 +910,17 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "3c31383bef4c2eb7f3247a11f455244408dec68be9c2f75fd1350fb8e547f501",
-        "output_sha256": "3c31383bef4c2eb7f3247a11f455244408dec68be9c2f75fd1350fb8e547f501",
+        "input_sha256": "040c639efa9dc17066765cfd14ee6d1f1b3cdeae5cb8e0ba91f238c6a5f1b913",
+        "output_sha256": "040c639efa9dc17066765cfd14ee6d1f1b3cdeae5cb8e0ba91f238c6a5f1b913",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -921,13 +930,15 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 0,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
@@ -956,15 +967,15 @@
                 -1.745,
                 -0.956
               ],
-              "radius": 2.323
+              "radius": 2.312
             }
           ]
         },
         "candidate_count": 0,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -977,22 +988,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T23:04:40"
+      "created_at": "2026-11-11T12:59:13"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used the program-owned A, B, C, O coordinates without redefining them. Scale 0.014706 units/px per STYLE METRICS. Circle radius 158 px = 2.323 units. Horizontal line left end (-4.063,-0.956) is the measured free endpoint at px x=28.23. Labels use 12.5pt/15pt font. Line width 1.2pt, round joins. No right-angle mark added (none verified). Point_03 and point_06 are not drawn as labelled points.",
+        "notes": "Used program-owned names A, B, C, O without redefining them. Circle drawn at O with radius 2.312 units (157.24 px x 0.014706). Horizontal line runs from the left circle intersection (-4.062,-0.956) to A, passing through O. Named edges AB, AC, BC, BO, CO drawn as straight segments; CB ends at B. Unlabelled junctions drawn as small dots. No right-angle mark emitted, since no verified square exists. Labels use the STYLE METRICS font (12.5/15 pt). Line width 1.2pt with round joins. Measurement note: A's y in the program frame is -0.954 and O's is -0.956, so the OA line has a tiny tilt from measurement; left endpoint is a literal at the same y as O. Both are consistent with the source to within a pixel.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\46_q_fig2\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\46_q_fig2\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1022,22 +1033,22 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\46_q_fig2\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\46_q_fig2\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0392"
+              "detail": "ink_ratio=0.0396"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.21 vs render 1.23 (delta 0.01)"
+              "detail": "reference 1.21 vs render 1.23 (delta 0.02)"
             },
             {
               "name": "figure_extent_ratio",
@@ -1047,248 +1058,45 @@
           ]
         }
       },
-      "created_at": "2026-11-09T23:04:40"
-    },
-    "ev_0008": {
-      "id": "ev_0008",
-      "source": "renderer",
-      "method": "frame_like_original",
-      "summary": "v2 canvas matched to source [609, 504] (scale 0.8635)",
-      "payload": {
-        "ok": true,
-        "size": [
-          609,
-          504
-        ],
-        "reference_size": [
-          609,
-          504
-        ],
-        "scale": 0.8635,
-        "offset": [
-          20,
-          28
-        ]
-      },
-      "created_at": "2026-11-09T23:05:13"
-    },
-    "ev_0009": {
-      "id": "ev_0009",
-      "source": "tikz_constraint_repair",
-      "method": "post-generation joint coordinate projection",
-      "summary": "v2: no_candidates",
-      "payload": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "31d3bc5e8096505cf8e41f005d7b081efd23fbd02f25051b2bf3e4c860f74b3c",
-        "output_sha256": "31d3bc5e8096505cf8e41f005d7b081efd23fbd02f25051b2bf3e4c860f74b3c",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "B",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "B",
-            "O"
-          ],
-          "dependencies": [
-            "O"
-          ],
-          "circles": [
-            {
-              "center": [
-                -1.745,
-                -0.956
-              ],
-              "radius": 2.323
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "created_at": "2026-11-09T23:05:13"
-    },
-    "ev_0010": {
-      "id": "ev_0010",
-      "source": "code_agent",
-      "method": "tikz repair",
-      "summary": "v2 compiled=True validation=True",
-      "payload": {
-        "notes": "Topology repair: added an explicit named path \\draw (O) -- (A); as requested, keeping the existing horizontal line from the free endpoint (-4.063,-0.956) through O to A. All coordinates, labels, styles, scale and line width are unchanged. The added stroke overlaps the existing horizontal segment, so the visual result is identical while the O-A edge is now explicitly named.",
-        "compile": {
-          "compile_ok": true,
-          "validation_passed": true,
-          "errors": [],
-          "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v2\\v2.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v2\\v2.pdf",
-          "checks": [
-            {
-              "name": "documentclass",
-              "passed": true,
-              "detail": "documentclass present"
-            },
-            {
-              "name": "document_environment",
-              "passed": true,
-              "detail": "begin=1 end=1"
-            },
-            {
-              "name": "tikzpicture",
-              "passed": true,
-              "detail": "one balanced tikzpicture"
-            },
-            {
-              "name": "no_shell_escape",
-              "passed": true,
-              "detail": "no \\write18/\\openout primitives"
-            },
-            {
-              "name": "compiler_ok",
-              "passed": true,
-              "detail": "returncode=0"
-            },
-            {
-              "name": "pdf_created",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v2\\v2.pdf"
-            },
-            {
-              "name": "png_rendered",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v2\\v2.png"
-            },
-            {
-              "name": "render_not_blank",
-              "passed": true,
-              "detail": "ink_ratio=0.0403"
-            },
-            {
-              "name": "aspect_ratio",
-              "passed": true,
-              "detail": "reference 1.21 vs render 1.23 (delta 0.01)"
-            },
-            {
-              "name": "figure_extent_ratio",
-              "passed": true,
-              "detail": "figure bbox ratio 1.24"
-            }
-          ]
-        }
-      },
-      "created_at": "2026-11-09T23:05:13"
+      "created_at": "2026-11-11T12:59:13"
     }
   },
-  "conflicts": [],
+  "conflicts": [
+    {
+      "id": "conflict_001",
+      "topic": "C-B extension",
+      "claims": [
+        {
+          "source": "detect_lines seg_04",
+          "claim": "line from C extends to (151.4,170.4), past B"
+        },
+        {
+          "source": "image",
+          "claim": "C-B stroke appears to end at B"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
+    }
+  ],
   "label_bindings": {
     "C": "point_05",
     "B": "point_04",
     "A": "point_01",
     "O": "point_02"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.460,-0.954);\n\\coordinate (B) at (-1.754,1.359);\n\\coordinate (C) at (2.299,2.740);\n\\coordinate (O) at (-1.745,-0.956);\n\n\n\n\n\n\n\n  \n  \\draw (O) circle[radius=2.323];\n\n  \n  \\draw (-4.063,-0.956) -- (O) -- (A);\n\n  \n  \\draw (O) -- (A);\n\n  \n  \\draw (O) -- (B);\n\n  \n  \\draw (B) -- (A);\n  \\draw (C) -- (A);\n  \\draw (C) -- (O);\n  \\draw (C) -- (B);\n\n  \n  \\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont$A$};\n  \\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont$B$};\n  \\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont$C$};\n  \\node[below left] at (O) {\\fontsize{12.5}{15}\\selectfont$O$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.460,-0.954);\n\\coordinate (B) at (-1.754,1.359);\n\\coordinate (C) at (2.299,2.740);\n\\coordinate (O) at (-1.745,-0.956);\n\n\n\n\n\n\n\n  \n  \\draw (O) circle[radius=2.323];\n\n  \n  \\draw (-4.063,-0.956) -- (O) -- (A);\n\n  \n  \\draw (O) -- (A);\n\n  \n  \\draw (O) -- (B);\n\n  \n  \\draw (B) -- (A);\n  \\draw (C) -- (A);\n  \\draw (C) -- (O);\n  \\draw (C) -- (B);\n\n  \n  \\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont$A$};\n  \\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont$B$};\n  \\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont$C$};\n  \\node[below left] at (O) {\\fontsize{12.5}{15}\\selectfont$O$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_version": 2,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.460,-0.954);\n\\coordinate (B) at (-1.754,1.359);\n\\coordinate (C) at (2.299,2.740);\n\\coordinate (O) at (-1.745,-0.956);\n\n  \n  \\draw (O) circle[radius=2.312];\n\n  \n  \\draw (-4.062,-0.956) -- (A);\n\n  \n  \\draw (B) -- (O);   \n  \\draw (A) -- (C);   \n  \\draw (A) -- (B);   \n  \\draw (C) -- (O);   \n  \\draw (C) -- (B);   \n\n  \n  \\fill (0.562,-0.956) circle[radius=1.200pt];   \n  \\fill (-4.062,-0.956) circle[radius=1.200pt];  \n  \\fill (-0.045,0.603) circle[radius=1.200pt];   \n\n  \n  \\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n  \\node[above] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n  \\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n  \\node[below] at (O) {\\fontsize{12.5}{15}\\selectfont $O$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.460,-0.954);\n\\coordinate (B) at (-1.754,1.359);\n\\coordinate (C) at (2.299,2.740);\n\\coordinate (O) at (-1.745,-0.956);\n\n  \n  \\draw (O) circle[radius=2.312];\n\n  \n  \\draw (-4.062,-0.956) -- (A);\n\n  \n  \\draw (B) -- (O);   \n  \\draw (A) -- (C);   \n  \\draw (A) -- (B);   \n  \\draw (C) -- (O);   \n  \\draw (C) -- (B);   \n\n  \n  \\fill (0.562,-0.956) circle[radius=1.200pt];   \n  \\fill (-4.062,-0.956) circle[radius=1.200pt];  \n  \\fill (-0.045,0.603) circle[radius=1.200pt];   \n\n  \n  \\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n  \\node[above] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n  \\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n  \\node[below] at (O) {\\fontsize{12.5}{15}\\selectfont $O$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_version": 1,
   "best_score": 0.92,
   "tikz_versions": [
-    {
-      "topology_check": {
-        "passed": false,
-        "missing_edges": [
-          [
-            "A",
-            "O"
-          ]
-        ],
-        "unverified_styles": [
-          {
-            "edge": [
-              "A",
-              "O"
-            ],
-            "style": "solid"
-          }
-        ]
-      },
-      "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.460,-0.954);\n\\coordinate (B) at (-1.754,1.359);\n\\coordinate (C) at (2.299,2.740);\n\\coordinate (O) at (-1.745,-0.956);\n\n  \n  \\draw (O) circle[radius=2.323];\n  \n  \\draw (-4.063,-0.956) -- (O) -- (A);\n  \n  \\draw (O) -- (B);\n  \n  \\draw (B) -- (A);\n  \\draw (C) -- (A);\n  \\draw (C) -- (O);\n  \\draw (C) -- (B);\n  \n  \\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont$A$};\n  \\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont$B$};\n  \\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont$C$};\n  \\node[below left] at (O) {\\fontsize{12.5}{15}\\selectfont$O$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.png",
-      "ok": true,
-      "compiled": true,
-      "errors": [],
-      "warnings": [],
-      "created_at": "2026-11-09T23:04:36",
-      "agent": "code_agent",
-      "mode": "generate",
-      "notes": "Used the program-owned A, B, C, O coordinates without redefining them. Scale 0.014706 units/px per STYLE METRICS. Circle radius 158 px = 2.323 units. Horizontal line left end (-4.063,-0.956) is the measured free endpoint at px x=28.23. Labels use 12.5pt/15pt font. Line width 1.2pt, round joins. No right-angle mark added (none verified). Point_03 and point_06 are not drawn as labelled points.",
-      "compile_seconds": 2.04,
-      "critic_report": null,
-      "critic_score": null
-    },
     {
       "topology_check": {
         "passed": true,
         "missing_edges": []
       },
-      "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.460,-0.954);\n\\coordinate (B) at (-1.754,1.359);\n\\coordinate (C) at (2.299,2.740);\n\\coordinate (O) at (-1.745,-0.956);\n\n\n\n\n\n\n\n  \n  \\draw (O) circle[radius=2.323];\n\n  \n  \\draw (-4.063,-0.956) -- (O) -- (A);\n\n  \n  \\draw (O) -- (A);\n\n  \n  \\draw (O) -- (B);\n\n  \n  \\draw (B) -- (A);\n  \\draw (C) -- (A);\n  \\draw (C) -- (O);\n  \\draw (C) -- (B);\n\n  \n  \\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont$A$};\n  \\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont$B$};\n  \\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont$C$};\n  \\node[below left] at (O) {\\fontsize{12.5}{15}\\selectfont$O$};\n\\end{tikzpicture}\n\\end{document}",
+      "version": 1,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (3.460,-0.954);\n\\coordinate (B) at (-1.754,1.359);\n\\coordinate (C) at (2.299,2.740);\n\\coordinate (O) at (-1.745,-0.956);\n\n  \n  \\draw (O) circle[radius=2.312];\n\n  \n  \\draw (-4.062,-0.956) -- (A);\n\n  \n  \\draw (B) -- (O);   \n  \\draw (A) -- (C);   \n  \\draw (A) -- (B);   \n  \\draw (C) -- (O);   \n  \\draw (C) -- (B);   \n\n  \n  \\fill (0.562,-0.956) circle[radius=1.200pt];   \n  \\fill (-4.062,-0.956) circle[radius=1.200pt];  \n  \\fill (-0.045,0.603) circle[radius=1.200pt];   \n\n  \n  \\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n  \\node[above] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n  \\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n  \\node[below] at (O) {\\fontsize{12.5}{15}\\selectfont $O$};\n\\end{tikzpicture}\n\\end{document}",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\46_q_fig2\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\46_q_fig2\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\46_q_fig2\\best.png",
@@ -1296,95 +1104,75 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:05:11",
+      "created_at": "2026-11-11T12:59:10",
       "agent": "code_agent",
-      "mode": "repair",
-      "notes": "Topology repair: added an explicit named path \\draw (O) -- (A); as requested, keeping the existing horizontal line from the free endpoint (-4.063,-0.956) through O to A. All coordinates, labels, styles, scale and line width are unchanged. The added stroke overlaps the existing horizontal segment, so the visual result is identical while the O-A edge is now explicitly named.",
-      "compile_seconds": 1.981,
+      "mode": "generate",
+      "notes": "Used program-owned names A, B, C, O without redefining them. Circle drawn at O with radius 2.312 units (157.24 px x 0.014706). Horizontal line runs from the left circle intersection (-4.062,-0.956) to A, passing through O. Named edges AB, AC, BC, BO, CO drawn as straight segments; CB ends at B. Unlabelled junctions drawn as small dots. No right-angle mark emitted, since no verified square exists. Labels use the STYLE METRICS font (12.5/15 pt). Line width 1.2pt with round joins. Measurement note: A's y in the program frame is -0.954 and O's is -0.956, so the OA line has a tiny tilt from measurement; left endpoint is a literal at the same y as O. Both are consistent with the source to within a pixel.",
+      "compile_seconds": 2.168,
       "critic_report": {
         "assessment_score": 0.92,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render matches the original's geometry: circle centred at O through B, horizontal OA, the chords BA, CA, CO and CB with their crossing on the circle, and the vertical OB. Labels A, B, C and O are present and bound to the correct points.",
+        "verdict": "Render is faithful to the original: circle, horizontal OA line, OB radius, and all triangle and cross segments match in position, extent and labels.",
         "figure_type": {
-          "original": "Circle centred at O with radius OB, a horizontal diameter-line OA extended to A, and triangle-like chords from C to A, B and O plus chord BA",
-          "render": "Same circle and line set as the original, with the same crossing near the arc and the same label set"
+          "original": "Circle centred at O with B on its upper arc; horizontal line through O to exterior point A; C above-right of A; segments OB, OC, AB, AC, CB drawn, with OC and AB crossing inside the circle.",
+          "render": "Same: circle centred at O through B, horizontal line O to A, segments OB, OC, AB, AC, CB, labels A, B, C, O."
         },
         "issues": [],
         "checks": [
           {
             "object_id": "circle_01",
             "status": "present",
-            "note": "Circle centred at O passing through B, matching the original extent."
+            "note": "Circle centred at O with radius matching B; left and right crossings with the horizontal line agree with the original."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Horizontal line from the circle's left edge to A, matching the original."
+            "note": "Horizontal line from the left circle crossing to A is drawn with the same extent."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Chord BA is drawn through the interior crossing, matching the original."
+            "note": "Segment A-B is drawn and crosses the circle at the same interior point."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Chord CO is drawn through the same interior crossing, matching the original."
+            "note": "Segment C-O is drawn from O through the circle to C, as in the original."
           },
           {
             "object_id": "seg_04",
-            "status": "present",
-            "note": "Chord CB ends at B, matching the original."
+            "status": "unclear",
+            "note": "CV reports a CB extension past B, but the original shows CB ending at B and the render also ends at B. No visible discrepancy, so no issue raised."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Chord CA is drawn, matching the original."
+            "note": "Segment A-C is drawn from A up to C with matching angle and length."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Vertical radius OB is drawn, matching the original."
+            "note": "Vertical segment O-B is drawn from O up to B on the circle."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label A sits at the right end of the horizontal line, as in the original."
+            "note": "Point A is at the right end of the horizontal line, labelled A to the right as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label O sits below-left of the centre, as in the original."
+            "note": "Point O is the circle centre, labelled below as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label B sits at the top of the vertical radius, as in the original."
+            "note": "Point B is on the circle top with its label above, as in the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label C sits above the top vertex, as in the original."
-          },
-          {
-            "object_id": "point_A",
-            "status": "present",
-            "note": "A is the right vertex of the horizontal line and the end of chords AB and AC."
-          },
-          {
-            "object_id": "point_B",
-            "status": "present",
-            "note": "B is on the circle at the top of the vertical radius, with chords BA and BC meeting there."
-          },
-          {
-            "object_id": "point_C",
-            "status": "present",
-            "note": "C is the upper-right vertex, with chords CA, CB and CO meeting there."
-          },
-          {
-            "object_id": "point_O",
-            "status": "present",
-            "note": "O is the centre, with the vertical radius, the horizontal line and chord CO meeting there."
+            "note": "Point C is the upper-right vertex, labelled above, as in the original."
           }
         ],
         "checklist_score": 1.0,
@@ -1396,11 +1184,13 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Circle centred at O with radius to B and matching extent",
-          "Horizontal OA line from the circle's left edge to A",
-          "Chords BA, CA, CO and CB with the interior crossing on the circle",
-          "Vertical radius OB",
-          "Labels A, B, C and O present, correctly spelled and bound to their vertices"
+          "Circle centre, radius and crossings with the horizontal line match the original.",
+          "Horizontal line from left circle crossing to A matches.",
+          "Vertical OB radius matches.",
+          "Segments OC, AB, AC and CB match in endpoints and crossings.",
+          "Labels A, B, C and O are present, correctly spelled and placed with clear separation from strokes.",
+          "No right-angle mark is drawn in either panel, so none is missing.",
+          "Stroke weight and overall aspect ratio are comparable between panels."
         ],
         "labels": {
           "present": [
@@ -1412,7 +1202,7 @@
           "missing": [],
           "extra": []
         },
-        "version": 2,
+        "version": 1,
         "binding_decisions": [],
         "topology_decisions": [],
         "raw_meta": "{}"
@@ -1425,27 +1215,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.04,
+      "seconds": 2.168,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.994140625 KiB)\nnote: Writing `figure.pdf` (2.533203125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:04:40"
-    },
-    {
-      "version": 2,
-      "ok": true,
-      "returncode": 0,
-      "seconds": 1.981,
-      "errors": [],
-      "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.5341796875 KiB)\nnote: Writing `figure.log` (10.994140625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T23:05:13"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.759765625 KiB)\nnote: Writing `figure.log` (10.994140625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\46_q_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\46_q_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\46_q_fig2\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T12:59:13"
     }
   ],
   "validation_results": [
@@ -1481,22 +1258,22 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\46_q_fig2\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\46_q_fig2\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0392"
+          "detail": "ink_ratio=0.0396"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.21 vs render 1.23 (delta 0.01)"
+          "detail": "reference 1.21 vs render 1.23 (delta 0.02)"
         },
         {
           "name": "figure_extent_ratio",
@@ -1504,151 +1281,74 @@
           "detail": "figure bbox ratio 1.24"
         }
       ],
-      "created_at": "2026-11-09T23:04:40"
-    },
-    {
-      "version": 2,
-      "passed": true,
-      "checks": [
-        {
-          "name": "documentclass",
-          "passed": true,
-          "detail": "documentclass present"
-        },
-        {
-          "name": "document_environment",
-          "passed": true,
-          "detail": "begin=1 end=1"
-        },
-        {
-          "name": "tikzpicture",
-          "passed": true,
-          "detail": "one balanced tikzpicture"
-        },
-        {
-          "name": "no_shell_escape",
-          "passed": true,
-          "detail": "no \\write18/\\openout primitives"
-        },
-        {
-          "name": "compiler_ok",
-          "passed": true,
-          "detail": "returncode=0"
-        },
-        {
-          "name": "pdf_created",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v2\\v2.pdf"
-        },
-        {
-          "name": "png_rendered",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\46_q_fig2\\tikz\\v2\\v2.png"
-        },
-        {
-          "name": "render_not_blank",
-          "passed": true,
-          "detail": "ink_ratio=0.0403"
-        },
-        {
-          "name": "aspect_ratio",
-          "passed": true,
-          "detail": "reference 1.21 vs render 1.23 (delta 0.01)"
-        },
-        {
-          "name": "figure_extent_ratio",
-          "passed": true,
-          "detail": "figure bbox ratio 1.24"
-        }
-      ],
-      "created_at": "2026-11-09T23:05:13"
+      "created_at": "2026-11-11T12:59:12"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.92,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render matches the original's geometry: circle centred at O through B, horizontal OA, the chords BA, CA, CO and CB with their crossing on the circle, and the vertical OB. Labels A, B, C and O are present and bound to the correct points.",
+      "verdict": "Render is faithful to the original: circle, horizontal OA line, OB radius, and all triangle and cross segments match in position, extent and labels.",
       "figure_type": {
-        "original": "Circle centred at O with radius OB, a horizontal diameter-line OA extended to A, and triangle-like chords from C to A, B and O plus chord BA",
-        "render": "Same circle and line set as the original, with the same crossing near the arc and the same label set"
+        "original": "Circle centred at O with B on its upper arc; horizontal line through O to exterior point A; C above-right of A; segments OB, OC, AB, AC, CB drawn, with OC and AB crossing inside the circle.",
+        "render": "Same: circle centred at O through B, horizontal line O to A, segments OB, OC, AB, AC, CB, labels A, B, C, O."
       },
       "issues": [],
       "checks": [
         {
           "object_id": "circle_01",
           "status": "present",
-          "note": "Circle centred at O passing through B, matching the original extent."
+          "note": "Circle centred at O with radius matching B; left and right crossings with the horizontal line agree with the original."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Horizontal line from the circle's left edge to A, matching the original."
+          "note": "Horizontal line from the left circle crossing to A is drawn with the same extent."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Chord BA is drawn through the interior crossing, matching the original."
+          "note": "Segment A-B is drawn and crosses the circle at the same interior point."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Chord CO is drawn through the same interior crossing, matching the original."
+          "note": "Segment C-O is drawn from O through the circle to C, as in the original."
         },
         {
           "object_id": "seg_04",
-          "status": "present",
-          "note": "Chord CB ends at B, matching the original."
+          "status": "unclear",
+          "note": "CV reports a CB extension past B, but the original shows CB ending at B and the render also ends at B. No visible discrepancy, so no issue raised."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Chord CA is drawn, matching the original."
+          "note": "Segment A-C is drawn from A up to C with matching angle and length."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Vertical radius OB is drawn, matching the original."
+          "note": "Vertical segment O-B is drawn from O up to B on the circle."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label A sits at the right end of the horizontal line, as in the original."
+          "note": "Point A is at the right end of the horizontal line, labelled A to the right as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label O sits below-left of the centre, as in the original."
+          "note": "Point O is the circle centre, labelled below as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label B sits at the top of the vertical radius, as in the original."
+          "note": "Point B is on the circle top with its label above, as in the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label C sits above the top vertex, as in the original."
-        },
-        {
-          "object_id": "point_A",
-          "status": "present",
-          "note": "A is the right vertex of the horizontal line and the end of chords AB and AC."
-        },
-        {
-          "object_id": "point_B",
-          "status": "present",
-          "note": "B is on the circle at the top of the vertical radius, with chords BA and BC meeting there."
-        },
-        {
-          "object_id": "point_C",
-          "status": "present",
-          "note": "C is the upper-right vertex, with chords CA, CB and CO meeting there."
-        },
-        {
-          "object_id": "point_O",
-          "status": "present",
-          "note": "O is the centre, with the vertical radius, the horizontal line and chord CO meeting there."
+          "note": "Point C is the upper-right vertex, labelled above, as in the original."
         }
       ],
       "checklist_score": 1.0,
@@ -1660,11 +1360,13 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Circle centred at O with radius to B and matching extent",
-        "Horizontal OA line from the circle's left edge to A",
-        "Chords BA, CA, CO and CB with the interior crossing on the circle",
-        "Vertical radius OB",
-        "Labels A, B, C and O present, correctly spelled and bound to their vertices"
+        "Circle centre, radius and crossings with the horizontal line match the original.",
+        "Horizontal line from left circle crossing to A matches.",
+        "Vertical OB radius matches.",
+        "Segments OC, AB, AC and CB match in endpoints and crossings.",
+        "Labels A, B, C and O are present, correctly spelled and placed with clear separation from strokes.",
+        "No right-angle mark is drawn in either panel, so none is missing.",
+        "Stroke weight and overall aspect ratio are comparable between panels."
       ],
       "labels": {
         "present": [
@@ -1676,7 +1378,7 @@
         "missing": [],
         "extra": []
       },
-      "version": 2,
+      "version": 1,
       "binding_decisions": [],
       "topology_decisions": [],
       "raw_meta": "{}"
@@ -1685,27 +1387,19 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "point_03 is an unlabelled interior crossing of BA and OC on the circle; no letter printed near it."
+      "issue": "Whether segment CB extends past B toward the left; CV reports an extension to (151,170) which is inside the circle, but the render shows it ending at B. Critic should check visually."
     },
     {
       "source": "geometry_agent",
-      "issue": "seg_04 from C extends slightly past B to x=151; treated as line CB ending at B."
-    },
-    {
-      "source": "geometry_agent",
-      "issue": "No right-angle marker detected; OB and OA meet at O at 90 degrees but no printed square was verified."
+      "issue": "Angle ACB is about 90 deg from line directions but no square mark is drawn; no right_angle object was emitted."
     },
     {
       "source": "supervisor",
-      "issue": "The unlabelled interior crossing point_03 (BA with OC) is drawn but not labelled, which matches the source."
+      "issue": "No right-angle square mark at C for angle ACB. The CV detector did not find one, and the Critic did not flag it as missing. The Geometry Agent reported about 90 degrees from line directions, so a mark may be visible in the original. This was not verified with vision."
     },
     {
       "source": "supervisor",
-      "issue": "No right-angle square mark at O was verified in the image, so none is drawn."
-    },
-    {
-      "source": "supervisor",
-      "issue": "The Critic call for version 1 failed with a rate-limit error; version 2 was reviewed automatically."
+      "issue": "The CB extension past B toward the left was resolved by keeping CB ending at B. This was based on the render and the Critic's review, not on a confirmed visible continuation."
     }
   ],
   "action_history": [
@@ -1751,7 +1445,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 8, 'relations': 5, 'conflicts': 0, 'rejected': []}",
+      "result_summary": "ok=True; merged={'objects': 8, 'relations': 9, 'conflicts': 1, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1762,8 +1456,8 @@
       "action": "run_critic",
       "purpose": "review newly compiled version",
       "params": {},
-      "status": "error",
-      "result_summary": "ok=False; error=RuntimeError: LLM request failed after 4 attempts: RateLimitError: Error code: 429 - {'error': {'message': '当前分组 claude_max 上游模型 claude-haiku-5-5 负载已饱和，请稍后再试！ (request id: 2026110923045583375253037331007)', 'type': 'rate_limit_error', 'param': None, 'code': None}}",
+      "status": "ok",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.92",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1772,66 +1466,35 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw a TikZ figure from these pixel measurements (image origin top-left, y down; convert y_tikz = -(y_px) with an overall scale of 1/100, e.g. x_tikz = (x_px - 186)/100 relative to O, y_tikz = (317 - ",
+      "purpose": "Reconstruct the figure as compilable TikZ using the measured pixel coordinates (origin top-left, flip y for TikZ). Verified labelled points: O=(185.84,317.04) is the circle center; A=(539.8,316.89) li",
       "params": {
         "mode": "generate",
-        "use_image": true,
-        "instruction": "Draw a TikZ figure from these pixel measurements (image origin top-left, y down; convert y_tikz = -(y_px) with an overall scale of 1/100, e.g. x_tikz = (x_px - 186)/100 relative to O, y_tikz = (317 - y_px)/100). Points: O center (185.84,317.04); A (539.8,316.89) on the horizontal line through O; B (185.26,159.6) top of circle; C (460.85,65.7); point_03 (301.47,211.01) is the unlabelled crossing of BA and OC (do not label it); point_06 (342.71,317) lies on OA; left end of horizontal line at (28.23,317). Circle centered O radius 158 px (1.58 units) passing through B and the left end of the horizontal diameter. Edges: horizontal line from left end (28.23,317) through O to A (solid); OB vertical solid; circle solid; segment B-A solid; segment C-A solid; segment C-O solid (passes through point_03); segment C-B solid (ends at B). Labels: A to the right of A, B left of B, C above C, O below-left of O. No right-angle square mark was verified, so do not add one unless clearly visible. Use a compact standalone document with tikzpicture, no extra decorations."
+        "use_image": null,
+        "instruction": "Reconstruct the figure as compilable TikZ using the measured pixel coordinates (origin top-left, flip y for TikZ). Verified labelled points: O=(185.84,317.04) is the circle center; A=(539.8,316.89) lies on the horizontal line through O (segment OA, label A at right); B=(185.26,159.6) is on the circle directly above O (OB is vertical and perpendicular to OA); C=(460.85,65.7) is on the circle, upper right. Circle: center O, radius 157.24 px, full 360 deg visible. Unlabeled CV points to draw as small dots only if they are visible: point_06=(342.71,317.0) on the circle on the OA line, point_07=(28.23,317.0) on the circle at the left end of the horizontal line (horizontal line seg_01 spans x=23 to 532 at y=317), point_03=(301.47,211.01) where segment CO and segment AB cross. Edges: horizontal line through O and A (seg_01 / OA), segment OB, segment AC (from A up to C), segment CO (from C to O), segment AB (from A down-left to B), segment CB (from C to B; keep it ending at B, do not extend past B since the extension inside the circle is unverified). Draw a right-angle square mark at C for angle ACB only if the figure supports it; otherwise leave it out. Label A, B, C, O near their points with small offsets as in the original figure. Keep the full circle outline."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 28.1,
+      "duration_s": 36.9,
       "token_usage": {
-        "delta": 8752
+        "delta": 20408
       },
-      "visual_calls": 1,
+      "visual_calls": 2,
       "error": null
     },
     {
       "step": 2,
-      "action": "run_critic",
-      "purpose": "review newly compiled version",
-      "params": {},
-      "status": "ok",
-      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.92",
-      "duration_s": 0.0,
-      "token_usage": {},
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 2,
-      "action": "run_code_agent",
-      "purpose": "Topology check reports missing solid edge A-O. Draw the O-A edge as its own explicit named path, e.g. \\draw (O) -- (A); in addition to the horizontal line from the left free endpoint (-4.063,-0.956) t",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Topology check reports missing solid edge A-O. Draw the O-A edge as its own explicit named path, e.g. \\draw (O) -- (A); in addition to the horizontal line from the left free endpoint (-4.063,-0.956) to O. Keep all other coordinates unchanged."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
-      "duration_s": 21.0,
-      "token_usage": {
-        "delta": 16407
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 3,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Produced compilable TikZ (version 2) for the figure: circle centred at O through B, horizontal diameter line from a free left endpoint through O to A, vertical OB, and chords/segments BA, CA, CO, CB with labels A, B, C, O. Version 2 passed topology check (all edges present) and received an automatic Critic review scoring 0.92 with no must-repair issues. Labels A, B, C, O are present and bound correctly.",
+        "summary": "Version 1 compiled and passed validation and topology checks (no missing edges). The automatic Critic scored it 0.92 with must_repair=false and no actionable issues. The render includes the circle centred at O (radius 157.24 px), the horizontal line through O and A, segment OB, the triangle edges AB, AC, BC, the segment CO, and labels A, B, C, O. Unlabelled junction points are drawn as small dots.",
         "unresolved": [
-          "The unlabelled interior crossing point_03 (BA with OC) is drawn but not labelled, which matches the source.",
-          "No right-angle square mark at O was verified in the image, so none is drawn.",
-          "The Critic call for version 1 failed with a rate-limit error; version 2 was reviewed automatically."
+          "No right-angle square mark at C for angle ACB. The CV detector did not find one, and the Critic did not flag it as missing. The Geometry Agent reported about 90 degrees from line directions, so a mark may be visible in the original. This was not verified with vision.",
+          "The CB extension past B toward the left was resolved by keeping CB ending at B. This was based on the render and the Critic's review, not on a confirmed visible continuation."
         ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=2; status=success",
+      "result_summary": "ok=True; best_version=1; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -1873,63 +1536,84 @@
       "count": 0,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "roi": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "purpose": null,
+      "ok": true,
+      "count": 0,
+      "visualization": ".cache\\collinear\\batch_work\\46_q_fig2\\cv\\detect_right_angle_marker.png",
+      "error": null
+    },
+    {
+      "tool": "detect_circles",
+      "params": {
+        "max_circles": 2
+      },
+      "purpose": null,
+      "ok": true,
+      "count": 1,
+      "visualization": ".cache\\collinear\\batch_work\\46_q_fig2\\cv\\detect_circles.png",
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 7,
-      "visual_calls": 3,
-      "prompt_tokens": 51436,
-      "completion_tokens": 9060,
-      "total_tokens": 60496,
-      "cached_tokens": 23686.0,
-      "cache_write_tokens": 4181.0,
-      "latency_s": 56.14
+      "calls": 6,
+      "visual_calls": 4,
+      "prompt_tokens": 43750,
+      "completion_tokens": 13198,
+      "total_tokens": 56948,
+      "cached_tokens": 13416.0,
+      "cache_write_tokens": 30314.0,
+      "latency_s": 95.02
     },
     "by_agent": {
       "geometry_agent": {
-        "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 8526,
-        "latency_s": 12.86
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 18619,
+        "latency_s": 30.24
       },
       "supervisor": {
-        "calls": 3,
+        "calls": 2,
         "visual_calls": 0,
-        "total_tokens": 26811,
-        "latency_s": 17.82
+        "total_tokens": 17921,
+        "latency_s": 30.42
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8752,
-        "latency_s": 10.13
-      },
-      "code_agent:repair": {
-        "calls": 1,
-        "visual_calls": 0,
-        "total_tokens": 7336,
-        "latency_s": 4.66
+        "total_tokens": 9733,
+        "latency_s": 13.13
       },
       "critic_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 9071,
-        "latency_s": 10.66
+        "total_tokens": 10675,
+        "latency_s": 21.23
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 21,
+    "steps_left": 22,
     "tool_calls_left": 40,
-    "visual_calls_left": 21,
-    "tokens_left": 339504,
+    "visual_calls_left": 20,
+    "tokens_left": 343052,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 60496
+    "total_tokens_used": 56948
   },
   "meta": {
     "topology_plan": {
@@ -1941,10 +1625,6 @@
         [
           "A",
           "C"
-        ],
-        [
-          "A",
-          "O"
         ],
         [
           "B",
@@ -1970,21 +1650,7 @@
       "required_styles": [
         {
           "edge": [
-            "A",
-            "O"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
             "B",
-            "O"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "C",
             "O"
           ],
           "style": "solid"
@@ -2000,13 +1666,6 @@
           "edge": [
             "A",
             "C"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "A",
-            "B"
           ],
           "style": "solid"
         }
@@ -2014,25 +1673,11 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Circle centered at O (186,317), radius about 158 px, passing through B (186,159), left point_07 (28,317), right point_06 (343,317), and bottom (186,475). Solid lines only, no dashed strokes detected. Triangle-like figure: B-C, C-A, and B-A (B-A passes through unlabelled crossing point_03 at (301,211), which lies on circle and on line O-C). Segment O-A runs horizontally through point_06 and ends at A. Segment O-B is vertical. Segment O-C passes through point_03. No right-angle square marks are visible in the raster; none reported by CV.",
+      "summary": "Circle circle_01 centered at O (185.5,317.3), radius 157.2, full 360 deg, all strokes solid, no dashed strokes. Explicit labelled points: A (point_01, right end of horizontal line), O (point_02, circle center), B (point_04, top of circle on vertical radius), C (point_05, top-right apex). Unlabelled junctions: point_03 (301.5,211.0) lies on circle, on line CO and on line AB; point_06 (342.7,317) is the right circle/OA intersection; point_07 (28.2,317) is the left circle/OA intersection. Strokes: horizontal line point_07-O-point_06-A (through O); vertical OB; segment B-point_03-A (AB, point_03 interior); segment C-point_03-O (CO, point_03 interior); segment C-B ends at B; segment C-A. No verified right-angle square marks (detect_right_angle_marker returned 0), so no right_angle objects. Angle ACB is geometrically ~90 deg (CA vs CB differ by 88.6 deg) but no square is drawn, so no angle mark is emitted. No feet.",
       "strokes": [
         {
           "edge": [
-            "A",
-            "O"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
             "B",
-            "O"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "C",
             "O"
           ],
           "style": "solid"
@@ -2048,19 +1693,13 @@
           "edge": [
             "A",
             "C"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "A",
-            "B"
           ],
           "style": "solid"
         }
       ],
       "marks": {},
-      "feet": []
+      "feet": [],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -2133,17 +1772,17 @@
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "31d3bc5e8096505cf8e41f005d7b081efd23fbd02f25051b2bf3e4c860f74b3c",
-      "output_sha256": "31d3bc5e8096505cf8e41f005d7b081efd23fbd02f25051b2bf3e4c860f74b3c",
+      "input_sha256": "040c639efa9dc17066765cfd14ee6d1f1b3cdeae5cb8e0ba91f238c6a5f1b913",
+      "output_sha256": "040c639efa9dc17066765cfd14ee6d1f1b3cdeae5cb8e0ba91f238c6a5f1b913",
       "reason": "no_candidates",
       "accepted": [],
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2153,13 +1792,15 @@
         "relation_types": [
           "parallel"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
+      "source_collinear_candidates": [],
       "input_candidates": 0,
       "preserved_incidence_count": 0,
       "max_shift_rel": 0.0,
@@ -2188,15 +1829,15 @@
               -1.745,
               -0.956
             ],
-            "radius": 2.323
+            "radius": 2.312
           }
         ]
       },
       "candidate_count": 0,
       "curve_options_applied": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2276,69 +1917,6 @@
           "reference_used": false,
           "coordinate_decimals": 3
         }
-      },
-      "2": {
-        "enabled": true,
-        "schema": "cv-coordinate-contract.v1",
-        "n_points": 4,
-        "reference_used": false,
-        "coordinates": {
-          "schema": "cv-coordinate-contract.v1",
-          "scale": 0.014706,
-          "origin_px": [
-            304.5,
-            252.0
-          ],
-          "points": {
-            "A": {
-              "point_id": "point_01",
-              "px": [
-                539.8,
-                316.89
-              ],
-              "tikz": [
-                3.46,
-                -0.954
-              ]
-            },
-            "B": {
-              "point_id": "point_04",
-              "px": [
-                185.26,
-                159.6
-              ],
-              "tikz": [
-                -1.754,
-                1.359
-              ]
-            },
-            "C": {
-              "point_id": "point_05",
-              "px": [
-                460.85,
-                65.7
-              ],
-              "tikz": [
-                2.299,
-                2.74
-              ]
-            },
-            "O": {
-              "point_id": "point_02",
-              "px": [
-                185.84,
-                317.04
-              ],
-              "tikz": [
-                -1.745,
-                -0.956
-              ]
-            }
-          },
-          "skipped": {},
-          "reference_used": false,
-          "coordinate_decimals": 3
-        }
       }
     },
     "tikz_constraint_repairs": {
@@ -2350,17 +1928,17 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "3c31383bef4c2eb7f3247a11f455244408dec68be9c2f75fd1350fb8e547f501",
-        "output_sha256": "3c31383bef4c2eb7f3247a11f455244408dec68be9c2f75fd1350fb8e547f501",
+        "input_sha256": "040c639efa9dc17066765cfd14ee6d1f1b3cdeae5cb8e0ba91f238c6a5f1b913",
+        "output_sha256": "040c639efa9dc17066765cfd14ee6d1f1b3cdeae5cb8e0ba91f238c6a5f1b913",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2370,13 +1948,15 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 0,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
@@ -2405,99 +1985,15 @@
                 -1.745,
                 -0.956
               ],
-              "radius": 2.323
+              "radius": 2.312
             }
           ]
         },
         "candidate_count": 0,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "2": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "31d3bc5e8096505cf8e41f005d7b081efd23fbd02f25051b2bf3e4c860f74b3c",
-        "output_sha256": "31d3bc5e8096505cf8e41f005d7b081efd23fbd02f25051b2bf3e4c860f74b3c",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "B",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "B",
-            "O"
-          ],
-          "dependencies": [
-            "O"
-          ],
-          "circles": [
-            {
-              "center": [
-                -1.745,
-                -0.956
-              ],
-              "radius": 2.323
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2512,7 +2008,7 @@
       }
     },
     "finish": {
-      "summary": "Produced compilable TikZ (version 2) for the figure: circle centred at O through B, horizontal diameter line from a free left endpoint through O to A, vertical OB, and chords/segments BA, CA, CO, CB with labels A, B, C, O. Version 2 passed topology check (all edges present) and received an automatic Critic review scoring 0.92 with no must-repair issues. Labels A, B, C, O are present and bound correctly.",
+      "summary": "Version 1 compiled and passed validation and topology checks (no missing edges). The automatic Critic scored it 0.92 with must_repair=false and no actionable issues. The render includes the circle centred at O (radius 157.24 px), the horizontal line through O and A, segment OB, the triangle edges AB, AC, BC, the segment CO, and labels A, B, C, O. Unlabelled junction points are drawn as small dots.",
       "status": "success"
     },
     "stop_reason": "finish"

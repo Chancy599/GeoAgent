@@ -1,149 +1,167 @@
 {
   "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful: semicircle on BD, chords BC through E, CA, BA and OA, both right-angle marks and all six labels match the original, with no material geometric or labelling differences.",
+  "verdict": "The render faithfully reproduces the semicircle, the chords and segments, both right-angle markers and all six labels; the only discrepancy is the placement of the E label, which sits lower and closer to the strokes than in the original.",
   "figure_type": {
-    "original": "Semicircle with centre O on diameter BD; chords BE-C, CA, BA and OA; right angles at C and at A; labels B, O, D, A, C, E.",
-    "render": "Same semicircle (arc from B to D over the top), with lines B-E-C, C-A, B-A, O-A; right-angle marks at C and A; labels B, O, D, A, C, E."
+    "original": "Semicircle on diameter BD with centre O; points B, O, D on the baseline; E on the arc; C above the arc with segments B-E-C and C-A; A on the arc with segments B-A and A-O; right angles at C and at A.",
+    "render": "Same construction: upper semicircle on BD with centre O, B-E-C, C-A, B-A, A-O, and right-angle markers at C and A."
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_06",
+        "label_03"
+      ],
+      "bbox": [
+        0.448,
+        0.167,
+        0.48,
+        0.213
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The E label is placed at the lower-left of the E vertex, close to where the B-C stroke and the arc cross. In the original, E sits higher and further left, clear of both strokes. The render gap is smaller, though the glyph does not touch a stroke.",
+      "suggestion": "Move the E node up and left, for example with 'above left' instead of 'left', so it matches the original and clears the B-C stroke and the arc."
+    }
+  ],
   "checks": [
     {
       "object_id": "arc_BD",
       "status": "present",
-      "note": "Semicircular arc from B to D passes through E, matching the original."
+      "note": "Upper semicircle from B to D with centre O matches the original."
+    },
+    {
+      "object_id": "circle_01",
+      "status": "unclear",
+      "note": "The full circle is not visible in the original; only the upper semicircle is drawn, and the render matches that."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Baseline BD is drawn from B to D through O."
+      "note": "Baseline B-O-D is drawn in both panels."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment BA matches the original."
+      "note": "Segment from B to A matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment BC through E matches the original."
+      "note": "Segment from B through E to C matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment OA matches the original."
+      "note": "Segment from A to O matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment CA matches the original."
+      "note": "Segment from C to A matches the original."
+    },
+    {
+      "object_id": "seg_AO",
+      "status": "present",
+      "note": "Segment A-O is drawn and ends at A and O, as in the original."
     },
     {
       "object_id": "seg_BA",
       "status": "present",
-      "note": "Drawn from B to A as in the original."
+      "note": "Segment B-A is drawn and ends at A, as in the original."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Drawn from B through E to C as in the original."
+      "note": "B-E-C line is present and reaches C in both panels."
     },
     {
       "object_id": "seg_BD",
       "status": "present",
-      "note": "Diameter BD matches the original."
+      "note": "Baseline BD is present and matches."
     },
     {
       "object_id": "seg_CA",
       "status": "present",
-      "note": "Drawn from C to A as in the original."
+      "note": "C-A segment matches the original."
     },
     {
-      "object_id": "seg_OA",
+      "object_id": "ra_01",
       "status": "present",
-      "note": "Drawn from O to A as in the original."
+      "note": "Right-angle marker at C is present in both panels, between CA and CB."
     },
     {
-      "object_id": "ra_A",
+      "object_id": "ra_02",
       "status": "present",
-      "note": "Right-angle mark at A is visible in both panels."
-    },
-    {
-      "object_id": "ra_C",
-      "status": "present",
-      "note": "Right-angle mark at C is visible in both panels."
+      "note": "Right-angle marker at A is present in both panels, between AC and AO."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right angle at C is drawn in the render."
+      "note": "Marker at vertex C matches the original."
     },
     {
       "object_id": "right_angle_02",
       "status": "present",
-      "note": "Right angle at A is drawn in the render."
+      "note": "Marker at vertex A matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B is bound to the B vertex."
+      "note": "Point B is drawn and labelled B at the left end of the baseline."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label O is bound to the O vertex."
+      "note": "Point O is drawn at the centre and labelled O below it."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label A is bound to the A vertex."
+      "note": "Point A is on the arc and labelled A upper-right."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label C is bound to the C vertex."
+      "note": "Point C is labelled above the vertex, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label D is bound to the D vertex."
+      "note": "Point D is labelled at the right end of the baseline."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label E sits at the arc crossing, with clear separation from the BC stroke."
+      "note": "E is on the arc and labelled, though the label sits closer to the strokes than in the original (see issue)."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Point A is at the correct position."
+      "note": "Point A matches the original."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Point B is at the correct position."
-    },
-    {
-      "object_id": "point_C",
-      "status": "present",
-      "note": "Point C is at the correct position."
+      "note": "Point B matches the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Semicircle arc and its intersection with E",
-    "Chords BE-C, CA, BA and OA",
-    "Right angles at C and A",
-    "All six labels B, O, D, A, C, E with correct binding",
-    "Point O dot",
-    "Stroke weight and overall aspect ratio are comparable"
+    "Semicircle arc from B to D with centre O and the correct extent (upper half only).",
+    "Segments B-E-C, C-A, B-A and A-O have correct endpoints and end at the same vertices as the original.",
+    "The right angle at C and the right angle at A are present, with markers in the correct quadrants.",
+    "Vertex bindings for B, O, D, A, C and E agree with the original.",
+    "Overall aspect ratio and proportions of the figure match."
   ],
   "labels": {
     "present": [

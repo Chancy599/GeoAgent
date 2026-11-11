@@ -1,7 +1,7 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usepackage{amsmath}
 \begin{document}
-\begin{tikzpicture}[line width=1.2pt, line join=round]
+\begin{tikzpicture}[line width=1.2pt, line join=round,
+  lbl/.style={font=\fontsize{12.5}{15}\selectfont}]
 \coordinate (A) at (-3.548,0.674);
 \coordinate (B) at (-3.019,-2.365);
 \coordinate (C) at (2.963,-2.366);
@@ -13,34 +13,41 @@
 
 
 
-\coordinate (E) at (3.504,-1.213);
 
 
-\draw (O) circle (3.650);
 
 
-\draw (A)--(B)--(C)--(A);
-\draw (B)--(D)--(C);
-\draw (A)--(D);
 
 
+
+\coordinate (E) at (3.505,-1.214);
+
+
+\draw (O) circle (3.652);
+
+
+\draw (A)--(B)--(C)--cycle;
+\draw (C)--(D);
+\draw (A)--(H)--(D);
+\draw (B)--(F)--(D);
 \draw (H)--(O);
 
 
-\draw[dashed] (A)--(O)--(E);
+\draw[dashed] (A)--(E);
 \draw[dashed] (D)--(E);
+
+
 \draw[dashed] (C)--(E);
 
-\fill (O) circle (1.500pt);
+\fill (O) circle (3.000pt);
 
-
-\node[left, font=\fontsize{12.5}{15}\selectfont] at (A) {$A$};
-\node[below left, font=\fontsize{12.5}{15}\selectfont] at (B) {$B$};
-\node[below right, font=\fontsize{12.5}{15}\selectfont] at (C) {$C$};
-\node[above, font=\fontsize{12.5}{15}\selectfont] at (D) {$D$};
-\node[right, font=\fontsize{12.5}{15}\selectfont] at (E) {$E$};
-\node[above left, font=\fontsize{12.5}{15}\selectfont] at (H) {$H$};
-\node[above right, font=\fontsize{12.5}{15}\selectfont] at (O) {$O$};
-\node[below left, font=\fontsize{12.5}{15}\selectfont] at (F) {$F$};
+\node[lbl, left]        at (A) {$A$};
+\node[lbl, below left]  at (B) {$B$};
+\node[lbl, below right] at (C) {$C$};
+\node[lbl, above]       at (D) {$D$};
+\node[lbl, right]       at (E) {$E$};
+\node[lbl, below left]  at (F) {$F$};
+\node[lbl, above left]  at (H) {$H$};
+\node[lbl, above right] at (O) {$O$};
 \end{tikzpicture}
 \end{document}

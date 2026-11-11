@@ -1,135 +1,115 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful in geometry, topology, labels and point positions; the only discrepancy is the heavier stroke on segment CB in the original.",
+  "verdict": "The render is a faithful match: the circle, chords A-B, A-C, C-B, dashed D-C and D-A, and all five labels are in the right places.",
   "figure_type": {
-    "original": "Circle with centre O, diameter DB, chord AB, and segments AC, AD (dashed) and DC (dashed) with C on the diameter",
-    "render": "Circle with centre O, diameter DB, chord AB, and segments AC, AD (dashed) and DC (dashed) with C on the diameter"
+    "original": "Circle with centre O, chords AB, AC, CB, and dashed DC and DA, with D, C, O, B on the diameter line and A on the upper arc",
+    "render": "Same: circle centred at O, chords AB, AC, CB, and dashed DC and DA, with the same point labels"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_CB"
+        "point_O"
       ],
       "bbox": [
-        0.28,
         0.48,
-        0.9,
-        0.52
+        0.47,
+        0.53,
+        0.55
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "In the original, the solid stroke from C to B along the diameter is drawn noticeably heavier than the other solid strokes (AB, AC). In the render, CB has the same uniform 1.2pt weight as the other solid lines, so it looks lighter than the original.",
-      "suggestion": "Optionally draw (C) -- (B) with a heavier line width (for example, a thicker \\draw option on that single segment) to match the original's emphasis. Geometry should not change."
+      "description": "The centre dot at O is visibly smaller in the render than in the original.",
+      "suggestion": "Increase the fill radius for O (e.g. \\fill (O) circle (2.2pt) instead of 1.5pt) to match the original's dot size."
     }
   ],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at O through A, B and D matches the original."
+      "note": "Circle centred at O with matching radius; A lies on the arc and B and D lie on it."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid chord AB matches the original."
+      "note": "Solid chord from A to B is drawn."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Diameter line D to B is present: dashed from D to C, solid from C to B, as in the original."
+      "note": "Solid segment C to B along the diameter is drawn."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Dashed AD matches the original from A to D."
+      "note": "Dashed chord from D to A is drawn."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid AC matches the original and ends at C on the diameter."
+      "note": "Solid segment from A down to C is drawn."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed DC matches the original."
+      "note": "Dashed segment from D to C is drawn."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Solid chord from A to B is correct."
+      "note": "AB is correct."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Solid segment from A to C is correct."
-    },
-    {
-      "object_id": "seg_AD",
-      "status": "present",
-      "note": "Dashed segment from A to D is correct."
+      "note": "AC is correct and ends at C."
     },
     {
       "object_id": "seg_CB",
       "status": "present",
-      "note": "Segment C to B is correctly placed; the original stroke is heavier (see issue)."
+      "note": "CB is correct, solid from C to B."
+    },
+    {
+      "object_id": "seg_DA",
+      "status": "present",
+      "note": "Dashed DA is correct."
     },
     {
       "object_id": "seg_DC",
       "status": "present",
-      "note": "Dashed segment from D to C is correct."
+      "note": "Dashed DC is correct and ends at C."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Point B is at the right end of the diameter, labelled B."
+      "note": "Label B is at the right end of the diameter, on the circle."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Point A is on the circle at the top-left, labelled A."
+      "note": "Label A is above the top point of the circle."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Point C is on the diameter, labelled C."
+      "note": "Label C is below the diameter, clear of strokes."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Point D is on the left of the circle, labelled D."
+      "note": "Label D is left of the circle point."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Point O is the centre, labelled O."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "Point A matches the original."
-    },
-    {
-      "object_id": "point_B",
-      "status": "present",
-      "note": "Point B matches the original."
-    },
-    {
-      "object_id": "point_C",
-      "status": "present",
-      "note": "Point C matches the original."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "Point D matches the original."
+      "note": "Label O is below the centre dot."
     },
     {
       "object_id": "point_O",
       "status": "present",
-      "note": "Point O matches the original; the centre dot is present."
+      "note": "Centre O is present; dot is slightly smaller than the original."
     }
   ],
   "checklist_score": 1.0,
@@ -141,15 +121,10 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle is centred at O and passes through A, B and D.",
-    "Chord AB runs from A on the circle to B at the right end of the diameter.",
-    "Segment AC is solid and ends on the diameter at C.",
-    "Segment AD is dashed from A to D on the circle.",
-    "Segment DC is dashed along the diameter from D to C.",
-    "Segment CB is solid along the diameter from C to B.",
-    "Labels A, B, C, D and O are present, correctly spelled and placed next to their vertices.",
-    "No right-angle marker is present in either panel, so none is missing.",
-    "Aspect ratio and overall scale are consistent."
+    "Circle position, radius and extent match the original.",
+    "Chords AB, AC, CB, DA and DC match in endpoints and in solid/dashed style.",
+    "C lies on the diameter between D and O, with the dashed-to-solid change at C.",
+    "All five point labels A, B, C, D, O are present and bound to the correct vertices with clear spacing."
   ],
   "labels": {
     "present": [
@@ -162,7 +137,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

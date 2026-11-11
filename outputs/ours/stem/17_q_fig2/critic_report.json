@@ -1,137 +1,180 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Geometry matches the original: trapezoid-like outline A-B-D-F-E-C, dashed altitude M-C with right-angle mark at M, and all seven labels in the correct places. The only visible difference is that the render's strokes are thinner.",
+  "verdict": "Render is geometrically faithful: all vertices, segments, the dashed altitude MC and the right-angle mark at M match the original. Only stroke weight and label typeface differ.",
   "figure_type": {
-    "original": "Closed polygon outline A-B-D-F-E-C with top edge AB, dashed perpendicular MC from M on AB to C, and right-angle marker at M",
-    "render": "Same polygon outline with dashed MC, solid C-E, and right-angle marker at M"
+    "original": "Closed polygon A-B-D-F-E-C-A with a horizontal top edge AB, diagonals AC and DB, vertical sides CE and DF, bottom edge EF, and a dashed perpendicular MC from M on AB down to C, with a right-angle mark at M.",
+    "render": "Same polygon: horizontal AB, diagonals AC and DB, vertical CE and FD, bottom EF, dashed MC with a right-angle mark at M in the same quadrant (right of the dashed line, below AB)."
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_01",
-        "seg_03",
-        "seg_04",
-        "seg_05",
-        "seg_06",
-        "seg_02"
+        "seg_AB",
+        "seg_CE",
+        "seg_EF",
+        "seg_FD",
+        "seg_MC"
       ],
       "bbox": [
-        0.05,
-        0.15,
-        0.95,
-        0.85
+        0.03,
+        0.2,
+        0.98,
+        0.82
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Stroke weight: in the render the outline strokes are thinner than in the original, which uses bolder lines. Both panels are at the same scale, so the difference is visible.",
-      "suggestion": "Increase the global line width (e.g. line width=1.5pt or 2.0pt) on the tikzpicture so the outline strokes match the original's weight."
+      "description": "Stroke weight: the original strokes are noticeably heavier than the render's; the render's solid lines look thin relative to the figure size.",
+      "suggestion": "Increase line width from 1.0pt (e.g. to about 1.4-1.6pt) for the solid segments and the dashed MC if the thicker look should match the original."
+    },
+    {
+      "type": "other",
+      "severity": "low",
+      "object_ids": [
+        "point_03",
+        "point_02",
+        "point_04",
+        "point_06"
+      ],
+      "bbox": [
+        0.5,
+        0.2,
+        0.98,
+        0.98
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Label typeface: the original labels E and F (and the other letters) are rendered in a bold math italic, while the render uses a regular-weight math italic font.",
+      "suggestion": "If matching the original is required, set the label font to bold (e.g. \\boldmath or \\mathbf in the node text for E and F), keeping the same node anchors."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Top edge A-B drawn correctly, ends at A and B."
+      "note": "Top edge AB is drawn from A to B, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Vertical dashed M-C drawn between M on AB and C; the solid C-E continuation is also correct."
+      "note": "Dashed MC from M down to C, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right vertical D-F drawn correctly."
+      "note": "Right side FD from D down to F, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Bottom edge E-F drawn correctly."
+      "note": "Bottom edge EF joins E and F, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Diagonal B-D drawn correctly, ends at D."
+      "note": "Diagonal DB from D up to B, matching the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Diagonal A-C drawn correctly, ends at C."
+      "note": "Diagonal AC from A down to C, matching the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Horizontal AB, correct endpoints."
+    },
+    {
+      "object_id": "seg_CE",
+      "status": "present",
+      "note": "Vertical CE from C to E, correct."
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "Bottom EF, correct."
+    },
+    {
+      "object_id": "seg_FD",
+      "status": "present",
+      "note": "Vertical FD, correct."
+    },
+    {
+      "object_id": "seg_MC",
+      "status": "present",
+      "note": "Dashed MC, correct endpoints at M and C."
     },
     {
       "object_id": "ra_01",
       "status": "present",
-      "note": "Right-angle mark at M, in the quadrant right of M and below AB, matches the original."
+      "note": "Right-angle mark at M, in the same quadrant as the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Same right-angle mark as ra_01; position and orientation match the original."
+      "note": "Same right-angle mark as ra_01."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label M present above the vertex on AB."
+      "note": "Label M sits above M, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label B present at the upper-right corner."
+      "note": "Label B at the right end of AB."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label A present at the upper-left corner."
+      "note": "Label A at the left end of AB."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label E present at the lower-left corner."
+      "note": "Label E at the bottom-left corner."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label C present to the left of C, clear of strokes."
+      "note": "Label C at the lower-left of C."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label F present at the lower-right corner."
+      "note": "Label F at the bottom-right corner."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label D present to the right of D."
+      "note": "Label D at the lower-right of D."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 2
   },
   "flaky_count": 0,
-  "must_repair": false,
+  "must_repair": true,
   "matches": [
-    "Top edge A-B spans the full width with correct endpoints.",
-    "Diagonals A-C and B-D end at C and D as in the original.",
-    "Verticals C-E and D-F and bottom edge E-F form the same closed outline.",
-    "Dashed altitude MC runs from M on AB down to C, with the dashed-to-solid transition at C.",
-    "Right-angle mark at M is in the same quadrant as the original.",
-    "All seven point labels (A, B, C, D, E, F, M) are present, correctly spelled, and bound to the right vertices with no collisions."
+    "Vertices A, B, C, D, E, F, M are placed at the same relative positions.",
+    "Top edge AB, diagonals AC and DB, verticals CE and DF, and bottom EF all match.",
+    "Dashed altitude MC from M to C is correct.",
+    "Right-angle mark at M is present in the same quadrant.",
+    "All seven point labels are present, spelled correctly and bound to the right vertices with clear clearance."
   ],
   "labels": {
     "present": [
-      "M",
       "A",
       "B",
       "C",
       "D",
       "E",
-      "F"
+      "F",
+      "M"
     ],
     "missing": [],
     "extra": []
@@ -145,7 +188,7 @@
         "E",
         "F"
       ],
-      "reason": "In the original, the bottom stroke runs continuously from E to F, with no extension past either vertex."
+      "reason": "In the original, the solid bottom stroke runs continuously from E to F with no bend, so the stroke joins these two vertices."
     }
   ],
   "raw_meta": "{}"

@@ -1,92 +1,127 @@
 {
   "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful to the original: all segments, the dashed AH, both right-angle markers, and all six labels match in position and binding.",
+  "verdict": "The render is faithful: all six labelled points, the solid and dashed segments, and both right-angle markers match the original, with no topology or position errors.",
   "figure_type": {
-    "original": "Plane diagram: triangle-like outline A-B-E with interior points D and H on segment BC, dashed altitude AH, right angles at H and D.",
-    "render": "Same diagram: segments AB, BDHC, AC, CE, AD, DE, dashed AH, right-angle markers at H and D, labels A, B, C, D, E, H."
+    "original": "Planar triangle-like construction: B, A, E outer vertices with interior points D and H on line BC, dashed altitude AH, and right angles at H and D",
+    "render": "Same construction: B, A, E outer vertices with D and H on line BC, dashed AH, and right angles at H and D"
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Segment AB drawn from B to A, matching the original."
+      "note": "Long upper edge from B to A matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment B to C through D and H matches the original."
+      "note": "Line B through D to C matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Vertical A-C-E edge matches the original."
+      "note": "Vertical A to C line matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment DE matches the original."
+      "note": "Segment from D to E matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment AD matches the original."
+      "note": "Segment A to D matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed altitude from A to H matches the original."
+      "note": "Dashed A to H segment matches the original, ending at H."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Short piece of AD near A is present in the render."
+      "note": "Short detected piece lies on the drawn A to D segment near A; no separate element is needed."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Edge A to B is drawn and ends at both vertices."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Vertical edge A to C is drawn and ends at A and C."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Edge A to D is drawn and ends at D."
     },
     {
       "object_id": "seg_AH",
       "status": "present",
-      "note": "Dashed AH ends at H on line BC, as in the original."
+      "note": "Dashed AH is drawn with matching dash style and endpoints at A and H."
+    },
+    {
+      "object_id": "seg_BC_line",
+      "status": "present",
+      "note": "Line BC passes through D and H and ends at C, as in the original."
+    },
+    {
+      "object_id": "seg_CE",
+      "status": "present",
+      "note": "Vertical segment C to E is drawn."
+    },
+    {
+      "object_id": "seg_DE",
+      "status": "present",
+      "note": "Segment D to E is drawn and matches the original."
+    },
+    {
+      "object_id": "ra_D",
+      "status": "present",
+      "note": "Right-angle marker at D is present, on the same quadrant as the original."
     },
     {
       "object_id": "ra_H",
       "status": "present",
-      "note": "Right-angle square at H is drawn between HA and HC, as in the original."
+      "note": "Right-angle marker at H is present and matches the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right-angle marker at H is correctly placed."
+      "note": "Right-angle marker at H, the verified marker, is drawn."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B sits left of B, matching the original."
+      "note": "Point B is at the left end of the line and labelled B."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label A sits upper-right of A, matching the original."
+      "note": "Point A is at the top right and labelled A."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label C sits right of C, matching the original."
+      "note": "Point C is at the right and labelled C."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label D sits left of D; the B-C line crosses the glyph in both the original and the render."
+      "note": "Point D is on line BC and labelled D, with clear space from strokes."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label H sits below H, matching the original."
+      "note": "Point H is on line BC above E-side and labelled H, below and left of the point."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label E sits below E, matching the original."
+      "note": "Point E is at the bottom right and labelled E."
     }
   ],
   "checklist_score": 1.0,
@@ -98,12 +133,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Outline A-B, A-C, C-E and the B-D-H-C line match the original.",
-    "Segments AD and DE meet at D as in the original.",
-    "Dashed altitude AH ends at H on line BC.",
-    "Right-angle markers at H and at D are both present and oriented as in the original.",
-    "All six point labels (A, B, C, D, E, H) are present, correctly bound and clear of the strokes except the D glyph, which the original also crosses.",
-    "Stroke weights and overall aspect ratio are consistent between panels."
+    "Segment B–A, A–D, D–E, A–C and C–E are all drawn with matching endpoints.",
+    "Line B–D–H–C is continuous and ends at C.",
+    "Dashed altitude A–H has the same dash pattern and endpoint at H.",
+    "Right-angle marks at H and D are present in the same quadrants.",
+    "All six point labels A, B, C, D, E, H are present and bound to the correct vertices."
   ],
   "labels": {
     "present": [
@@ -117,7 +151,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 3,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

@@ -1,97 +1,109 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the original triangle-with-interior-point figure: all six segments and the four labelled vertices match, with only a small difference in the O label offset.",
+  "verdict": "Render is faithful: same six segments and four labelled vertices, with matching proportions and O placement; the only visible difference is label clearance at O, where the render is cleaner than the original.",
   "figure_type": {
-    "original": "Triangle ABC with an interior point O joined to A, B and C (six straight segments, no arcs, no right-angle marker)",
-    "render": "Same: triangle ABC with interior point O joined to A, B and C, no arcs, no right-angle marker"
+    "original": "Triangle ABC with interior point O, joined by AO, BO and OC; solid straight segments, no right-angle marks",
+    "render": "Triangle ABC with interior point O, joined by AO, BO and OC; solid straight segments, no right-angle marks"
   },
-  "issues": [
-    {
-      "type": "label_error",
-      "severity": "low",
-      "object_ids": [
-        "point_04"
-      ],
-      "bbox": [
-        0.32,
-        0.6,
-        0.37,
-        0.67
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "In the original, the O label sits lower-left of the vertex, where the B-O stroke runs through or touches its glyph. In the render the O label is placed above-left of the vertex with clear space from all strokes, so the association with O is clear. The offset differs from the original but is not a defect.",
-      "suggestion": "Optional: keep the current \\node[above left] placement, or move it to lower-left if matching the original placement exactly is required. The vertex binding for O should stay as it is."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Segment A-B drawn from A to B, matching the original's left outer edge."
+      "note": "Corresponds to the long left side AB; matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment B-C drawn as the horizontal base, matching the original."
+      "note": "Horizontal base BC; matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment C-A drawn as the right outer edge, matching the original."
+      "note": "Right side AC; matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment B-O drawn from B to O, ending at the O vertex as in the original."
+      "note": "Segment BO from B to O; matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment A-O drawn as the vertical segment, matching the original."
+      "note": "Vertical segment AO from A down to O; matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment C-O drawn from C to O, ending at the O vertex, consistent with the original where the stroke terminates at O."
+      "note": "Segment OC from O to C; matches the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "Drawn from A to B as in the original."
+    },
+    {
+      "object_id": "seg_AC",
+      "status": "present",
+      "note": "Drawn from A to C as in the original."
+    },
+    {
+      "object_id": "seg_AO",
+      "status": "present",
+      "note": "Vertical from A to O, ends at O in both panels."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "Horizontal base from B to C."
+    },
+    {
+      "object_id": "seg_BO",
+      "status": "present",
+      "note": "From B to O, ends at O in both panels."
+    },
+    {
+      "object_id": "seg_OC",
+      "status": "present",
+      "note": "From O to C, ends at O in both panels."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex B at the lower-left corner, labelled B and bound correctly."
+      "note": "Vertex B is labelled and placed at the lower-left corner in both panels."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex A at the apex, labelled A and bound correctly."
+      "note": "Vertex A is labelled and placed at the top in both panels."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex C at the lower-right corner, labelled C and bound correctly."
+      "note": "Vertex C is labelled and placed at the lower-right corner in both panels."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Interior vertex O at the junction of the three inner segments, labelled O. Its label placement differs slightly from the original (see low-severity issue)."
+      "note": "Vertex O is labelled and placed at the same relative position in both panels."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle outline A-B, B-C, C-A matches the original.",
-    "Interior segments A-O, B-O and C-O meet at O with the same topology as the original.",
-    "Vertex positions for A, B, C and O match the original proportions and aspect ratio.",
-    "Labels A, B, C and O are present with correct spelling and binding.",
-    "No right-angle marker is drawn at O, consistent with the original.",
-    "Line weights are visually comparable between panels."
+    "Triangle ABC has the same shape and aspect ratio in both panels (about 0.90 height to width).",
+    "O sits at the same relative position inside the triangle (about 0.69 of the way from A to BC).",
+    "AO is vertical and meets O; BO and OC both terminate at O, with no overshoot or trimming.",
+    "Base BC is horizontal and its endpoints match B and C.",
+    "Labels A, B, C and O are present with correct spelling and vertex binding.",
+    "Stroke weights look comparable across the two panels."
   ],
   "labels": {
     "present": [

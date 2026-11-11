@@ -1,92 +1,92 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the original triangle A1B1M2 and the circle centred at M2 faithfully; the only visible difference is the lighter, smaller label typography.",
+  "verdict": "The render is faithful: the triangle A_1B_1M_2 and the circle centred on M_2 match the original in geometry and intersections; only the label size and the bold M_2 differ.",
   "figure_type": {
-    "original": "Isosceles triangle A1B1M2 with horizontal top side A1B1 and apex M2 at the centre of a circle that crosses both slanted sides",
-    "render": "Same triangle A1B1M2 with a circle centred at M2 crossing both slanted sides"
+    "original": "Isosceles triangle A_1B_1M_2 (apex M_2) with a circle centred at M_2 that crosses both legs; top side horizontal",
+    "render": "Isosceles triangle A_1B_1M_2 (apex M_2) with a circle centred at M_2 that crosses both legs; top side horizontal"
   },
   "issues": [
     {
-      "type": "wrong_style",
+      "type": "label_error",
       "severity": "low",
       "object_ids": [
+        "point_M2",
         "point_A1",
-        "point_B1",
-        "point_M2"
+        "point_B1"
       ],
       "bbox": [
-        0.45,
-        0.6,
+        0.44,
+        0.61,
         0.56,
-        0.7
+        0.71
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Point labels A1, B1 and M2 are set in a lighter, smaller weight in the render than the bold labels in the original. The M2 label in the original is bold and sits just below the apex with clear separation; the render's M2 is light. Placement and vertex association are correct.",
-      "suggestion": "Optionally bold the subscripts and the M2 label (e.g. \\mathbf{M_2} is already used; check that the fontsize/weight matches the original). Keep the node placement below M2 and the binding to the vertex unchanged."
+      "description": "Point labels are smaller and lighter than in the original. The original M_2 is bold and noticeably larger; the render uses a regular-weight, smaller M_2. The A_1 and B_1 labels are also somewhat smaller. Clearances from the strokes are fine.",
+      "suggestion": "Optionally match the original label size and weight, e.g. use \\boldmath or \\mathbf for M_2 and increase the font size for all three labels. This is cosmetic only."
     }
   ],
   "checks": [
     {
-      "object_id": "circle_M2",
+      "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at M2 with matching radius; crosses both slanted sides at the same places as the original."
+      "note": "Circle centred at M_2 with radius about 217 px in the panel, matching the original; crosses both legs at the same places."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Left slanted side from A1 down to M2 is drawn in the same position."
+      "note": "Left leg from A_1 to M_2 is drawn and ends at M_2 as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Right slanted side from B1 down to M2 is drawn in the same position."
+      "note": "Right leg from B_1 to M_2 is drawn and ends at M_2 as in the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Horizontal top side A1B1 matches the original."
+      "note": "Top side A_1B_1 is horizontal and spans the same extent as the original."
     },
     {
       "object_id": "seg_04",
       "status": "unclear",
-      "note": "Short fragment just below the apex is not a visible separate stroke in the original; it is the M2 glyph region, so there is no segment to draw."
+      "note": "No separate stroke is visible near the M_2 glyph in either panel. It is likely a CV artefact from the M_2 text and should not be drawn."
     },
     {
       "object_id": "seg_A1B1",
       "status": "present",
-      "note": "Top side from A1 to B1 matches the original."
+      "note": "Top side drawn between the two top vertices."
     },
     {
       "object_id": "seg_A1M2",
       "status": "present",
-      "note": "Segment from A1 to M2 matches the original."
+      "note": "Left leg drawn from A_1 to M_2."
     },
     {
       "object_id": "seg_B1M2",
       "status": "present",
-      "note": "Segment from B1 to M2 matches the original."
+      "note": "Right leg drawn from B_1 to M_2."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label A is bound to the top-left vertex, which matches the original's A1 corner."
+      "note": "This is the top-left vertex, drawn at the correct location. The printed letter in the original is A_1 (subscript visible), so the binding should be corrected to A_1."
     },
     {
       "object_id": "point_A1",
       "status": "present",
-      "note": "A1 label sits at the top-left vertex with clear separation."
+      "note": "A_1 label is present at the top-left vertex, placed left of the vertex as in the original."
     },
     {
       "object_id": "point_B1",
       "status": "present",
-      "note": "B1 label sits at the top-right vertex with clear separation."
+      "note": "B_1 label is present at the top-right vertex, placed right of the vertex as in the original."
     },
     {
       "object_id": "point_M2",
       "status": "present",
-      "note": "M2 label is below the apex at the circle centre, as in the original."
+      "note": "M_2 label is present below the apex and bound to the centre, as in the original. It is lighter and smaller than the original."
     }
   ],
   "checklist_score": 1.0,
@@ -98,22 +98,29 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle vertices and side directions match the original.",
-    "Circle centre at M2 and radius match; circle crosses both slanted sides at the same places.",
-    "Label positions for A1, B1 and M2 match the original.",
-    "Stroke weights of the lines are comparable."
+    "Triangle vertices and side lengths match the original.",
+    "The circle is centred at M_2 with a matching radius and passes through the same leg crossings.",
+    "Labels A_1, B_1 and M_2 are present with correct spelling and placement relative to their vertices.",
+    "No extra strokes are drawn."
   ],
   "labels": {
     "present": [
-      "A1",
-      "B1",
-      "M2"
+      "A_1",
+      "B_1",
+      "M_2"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 3,
-  "binding_decisions": [],
+  "version": 1,
+  "binding_decisions": [
+    {
+      "label": "A_1",
+      "point_id": "point_02",
+      "reason": "The top-left vertex in the original is labelled with a visible subscript 1 (A_1). OCR read only 'A'.",
+      "replaces": "A"
+    }
+  ],
   "topology_decisions": [],
   "raw_meta": "{}"
 }

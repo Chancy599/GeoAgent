@@ -1,148 +1,171 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful: all segments, dashed/solid styles, endpoints and point labels match the original, with only minor stroke-weight differences.",
+  "verdict": "Render is faithful: all labelled points, segments, dashed styles and endpoints match the original; only a minor stroke-weight difference remains.",
   "figure_type": {
-    "original": "Quadrilateral-style figure A-D-C-B with interior points E, F, G: trapezoid-like outline, A-E-F triangle, dashed A-B, B-E and F-G, and baseline E-G-C",
-    "render": "Same configuration: A-D, D-C, dashed A-B, dashed B-E, baseline E-G-C, A-E, E-F, A-F, dashed F-G"
+    "original": "Quadrilateral-like figure ABCD with horizontal base BC, dashed auxiliary lines AB, BE and FG, and interior triangle AEF with points E and F on the base and diagonal.",
+    "render": "Same figure: quadrilateral ABCD with base BC, dashed AB, BE and FG, and solid triangle AEF; labels A through G placed at the same vertices."
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_01",
+        "seg_02",
+        "seg_03",
+        "seg_04",
+        "seg_05",
+        "seg_07"
+      ],
+      "bbox": [
+        0.04,
+        0.33,
+        0.95,
+        0.69
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Solid strokes in the render (AD, DC, BC, AE, AF, EF) look slightly thinner than in the original, where the interior segments AE, AF and EF appear heavier. The difference is small and not clearly obvious.",
+      "suggestion": "Optionally raise the solid line width slightly (e.g. from line width 1.0pt toward 1.2pt). Not required for faithfulness."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Baseline E-G-C is drawn solid from E to C, matching the original"
+      "note": "Solid base E to C matches the original bottom line."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Diagonal D-C is drawn solid from D to C, matching the original"
+      "note": "Solid diagonal D to C matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Top edge A-D is drawn solid, matching the original"
+      "note": "Top edge A to D matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "A-E is drawn solid, ending at E as in the original"
+      "note": "Solid A to E matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "A-F is drawn solid, ending at F as in the original"
+      "note": "Solid A to F matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed A-B, matching the original"
+      "note": "Dashed vertical A to B matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "E-F is drawn solid, matching the original"
+      "note": "Solid E to F matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Dashed B-E, matching the original"
+      "note": "Dashed B to E matches the original."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Dashed A-B in the render, matching the original"
+      "note": "Dashed AB is drawn in both panels."
     },
     {
       "object_id": "seg_AD",
       "status": "present",
-      "note": "Solid top edge A-D, matching the original"
+      "note": "Top edge AD matches the original."
     },
     {
       "object_id": "seg_AE",
       "status": "present",
-      "note": "Solid A-E, matching the original"
+      "note": "Solid AE ends at E in both panels."
     },
     {
-      "object_id": "seg_AG",
+      "object_id": "seg_AF",
       "status": "present",
-      "note": "A-F solid continues collinearly as dashed F-G to G, matching the original's A-F-G line"
+      "note": "Solid AF ends at F in both panels."
     },
     {
-      "object_id": "seg_BE",
+      "object_id": "seg_BC",
       "status": "present",
-      "note": "Dashed B-E, matching the original"
+      "note": "Base BC is solid from E to C with dashed BE, as in the original."
     },
     {
       "object_id": "seg_DC",
       "status": "present",
-      "note": "Solid D-C, matching the original"
-    },
-    {
-      "object_id": "seg_EC",
-      "status": "present",
-      "note": "Solid baseline E-G-C, matching the original"
+      "note": "Diagonal DC matches the original."
     },
     {
       "object_id": "seg_EF",
       "status": "present",
-      "note": "Solid E-F, matching the original"
+      "note": "Solid EF matches the original."
     },
     {
       "object_id": "seg_FG",
       "status": "present",
-      "note": "Dashed F-G, matching the original"
+      "note": "Dashed FG to the base matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "C label at bottom-right of C, matching the original"
+      "note": "Point C is at the lower-right corner in both panels."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "E label below E, matching the original"
+      "note": "Point E is on the base in both panels."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "D label above D, matching the original"
+      "note": "Point D is at the top-right of the top edge in both panels."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "A label at upper-left of A, matching the original"
+      "note": "Point A is at the top-left corner in both panels."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "F label at upper-right of F, matching the original"
+      "note": "Point F is on the diagonal in both panels."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "B label at lower-left of B, matching the original"
+      "note": "Point B is at the bottom-left corner in both panels."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "A label at the same vertex as point_04, matching the original"
+      "note": "Point A matches the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Point B matches the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Vertex positions and relative layout of A, B, C, D, E, F, G",
-    "Dashed/solid styles for A-B, B-E, F-G",
-    "Solid A-E, A-F, E-F, D-C, A-D, E-G-C",
-    "All seven point labels present with correct vertex binding",
-    "Overall aspect ratio and placement"
+    "Quadrilateral ABCD outline: top edge AD, diagonal DC, base BC and dashed AB.",
+    "Dashed BE on the base and dashed FG from F to the base at G.",
+    "Solid triangle AEF with A-E, E-F and A-F ending at the correct vertices.",
+    "All labels A, B, C, D, E, F, G are present, correctly spelled and clear of strokes.",
+    "Overall aspect ratio and proportions match the original."
   ],
   "labels": {
     "present": [
@@ -166,7 +189,7 @@
         "C",
         "E"
       ],
-      "reason": "The original baseline is one continuous solid stroke from E through G to C, so the C-E connection is supported."
+      "reason": "In the original, the solid bottom stroke runs continuously from E to C along the base."
     },
     {
       "case_id": "63ffbb4025397362",
@@ -174,7 +197,7 @@
         "A",
         "E"
       ],
-      "reason": "The original solid stroke runs from A down to E, ending at the E vertex."
+      "reason": "In the original, the solid stroke runs from A down to E, where it meets the base."
     },
     {
       "case_id": "37ddedfe49bf2452",
@@ -182,7 +205,7 @@
         "E",
         "F"
       ],
-      "reason": "The original solid stroke runs from E up to F, ending at F."
+      "reason": "In the original, the solid stroke runs from E up to F, ending at the F label point."
     }
   ],
   "raw_meta": "{}"

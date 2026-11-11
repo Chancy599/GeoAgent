@@ -4,14 +4,31 @@
   "applied": true,
   "stage": "post_tikz",
   "constraint_mode": "joint_coordinate_projection",
-  "candidate_source": "generated_tikz",
+  "candidate_source": "generated_tikz_and_original_raster",
   "reference_used": false,
-  "algorithm": "post_tikz.body_candidates.3dp.v3",
+  "algorithm": "post_tikz.source_collinearity.3dp.v4",
   "angle_glyphs_are_candidates": false,
-  "input_sha256": "075fe084d6b51551696f09a491a1c6cbac75d21c7c034b370ee4f6e28b0312c2",
-  "output_sha256": "91d5718d58bbd3fd517942666bc4bb5248fbc15ab95fbe718fde7267ee738eb6",
+  "input_sha256": "995ec9cf0764af66c10179af384d4f512e35d13f4690f3d42f2885f0967cf527",
+  "output_sha256": "559f1843a05e49d1a1d1c5ed05689bc72f2e1cf4649368f4b9a403f6327701cb",
   "reason": "applied",
   "accepted": [
+    {
+      "type": "collinear",
+      "segments": [
+        "A--G",
+        "E--G"
+      ],
+      "before_error_deg": 0.3976933094284951,
+      "after_error_deg": 0.04940924843708385,
+      "labels": [
+        "A",
+        "G",
+        "E"
+      ],
+      "source_turn_deg": 0.0679,
+      "solver_after_error_deg": 1.3975756706792395e-14,
+      "export_tolerance_deg": 0.1096700235598368
+    },
     {
       "type": "parallel",
       "segments": [
@@ -19,9 +36,9 @@
         "B--C"
       ],
       "before_error_deg": 0.0,
-      "after_error_deg": 0.0,
-      "solver_after_error_deg": 8.02538407804014e-13,
-      "export_tolerance_deg": 0.031748806490912475
+      "after_error_deg": 0.011225661986671838,
+      "solver_after_error_deg": 2.1433598727127662e-15,
+      "export_tolerance_deg": 0.031744753205144055
     },
     {
       "type": "perpendicular",
@@ -30,60 +47,89 @@
         "E--F"
       ],
       "before_error_deg": 0.0038507393782936106,
-      "after_error_deg": 0.017197235380962184,
-      "solver_after_error_deg": 2.8137492336099967e-12,
-      "export_tolerance_deg": 0.07355851136710534
-    },
-    {
-      "type": "perpendicular",
-      "segments": [
-        "A--F",
-        "E--F"
-      ],
-      "before_error_deg": 0.01673393522992228,
-      "after_error_deg": 0.03896629056704626,
-      "solver_after_error_deg": 3.524291969370097e-12,
-      "export_tolerance_deg": 0.0753655341170095
-    },
-    {
-      "type": "parallel",
-      "segments": [
-        "A--F",
-        "C--D"
-      ],
-      "before_error_deg": 0.021865392390462625,
-      "after_error_deg": 0.021994402960124927,
-      "solver_after_error_deg": 4.4691462353486935e-12,
-      "export_tolerance_deg": 0.05079744717672835
-    },
-    {
-      "type": "perpendicular",
-      "segments": [
-        "C--D",
-        "E--F"
-      ],
-      "before_error_deg": 0.03859932762037488,
-      "after_error_deg": 0.016971887606914038,
-      "solver_after_error_deg": 9.379164112033322e-13,
-      "export_tolerance_deg": 0.05781438583396581
-    },
-    {
-      "type": "parallel",
-      "segments": [
-        "B--F",
-        "C--D"
-      ],
-      "before_error_deg": 0.042450066998680924,
-      "after_error_deg": 0.00022534777404666607,
-      "solver_after_error_deg": 1.8724549174572835e-12,
-      "export_tolerance_deg": 0.04899042442682418
+      "after_error_deg": 0.0071515798984194134,
+      "solver_after_error_deg": 0.0,
+      "export_tolerance_deg": 0.07359295883986525
     }
   ],
-  "rejected": [],
+  "rejected": [
+    {
+      "candidate": {
+        "type": "parallel",
+        "segments": [
+          "B--F",
+          "C--D"
+        ],
+        "metrics": {
+          "parallel_error_deg": 0.042450066998680924,
+          "perpendicular_error_deg": 89.95754993300132,
+          "collinear_error_deg": 0.042450066998680924,
+          "relative_length_error": 0.4862337943584166,
+          "relative_line_offset": 0.5639951642507618,
+          "shared_endpoint": false
+        }
+      },
+      "reason": "constraints did not converge"
+    },
+    {
+      "candidate": {
+        "type": "perpendicular",
+        "segments": [
+          "C--D",
+          "E--F"
+        ],
+        "metrics": {
+          "parallel_error_deg": 89.96140067237963,
+          "perpendicular_error_deg": 0.03859932762037488,
+          "collinear_error_deg": 89.96140067237963,
+          "relative_length_error": 0.5964496711537834,
+          "relative_line_offset": 0.3277357973883948,
+          "shared_endpoint": false
+        }
+      },
+      "reason": "constraints did not converge"
+    },
+    {
+      "candidate": {
+        "type": "parallel",
+        "segments": [
+          "A--F",
+          "C--D"
+        ],
+        "metrics": {
+          "parallel_error_deg": 0.021865392390462625,
+          "perpendicular_error_deg": 89.97813460760953,
+          "collinear_error_deg": 0.021865392390462625,
+          "relative_length_error": 0.513524810292524,
+          "relative_line_offset": 0.56397357302252,
+          "shared_endpoint": false
+        }
+      },
+      "reason": "constraints did not converge"
+    },
+    {
+      "candidate": {
+        "type": "perpendicular",
+        "segments": [
+          "A--F",
+          "E--F"
+        ],
+        "metrics": {
+          "parallel_error_deg": 89.98326606477008,
+          "perpendicular_error_deg": 0.01673393522992228,
+          "collinear_error_deg": 89.98326606477008,
+          "relative_length_error": 0.1704606167297522,
+          "relative_line_offset": 0.23621480486251656,
+          "shared_endpoint": true
+        }
+      },
+      "reason": "constraints did not converge"
+    }
+  ],
   "limits": {
     "angle_tol_deg": 0.5,
-    "max_shift_rel": 0.005,
-    "max_length_change_rel": 0.01,
+    "max_shift_rel": 0.013,
+    "max_length_change_rel": 0.035,
     "topology_tol_rel": 0.003,
     "incidence_mode": "snap",
     "length_weight": 0.01,
@@ -94,31 +140,47 @@
       "parallel",
       "perpendicular"
     ],
-    "relaxation": 1.0
+    "relaxation": 1.0,
+    "collinear_max_turn_deg": 8.0
   },
   "angle_glyph_exclusion": {
     "excluded_paths": [],
     "excluded_helper_points": [],
     "excluded_strokes": 0
   },
-  "input_candidates": 6,
-  "preserved_incidence_count": 0,
-  "max_shift_rel": 0.00012009855892244418,
-  "max_length_change_rel": 0.00039192631785245347,
+  "source_collinear_candidates": [
+    {
+      "type": "collinear",
+      "segments": [
+        "A--G",
+        "E--G"
+      ],
+      "labels": [
+        "A",
+        "G",
+        "E"
+      ],
+      "source_turn_deg": 0.0679
+    }
+  ],
+  "input_candidates": 7,
+  "preserved_incidence_count": 1,
+  "max_shift_rel": 0.0004951790439216488,
+  "max_length_change_rel": 0.000832877998295789,
   "fixed_points": [],
   "length_weight": 0.01,
   "length_scope": "all_pairs",
   "incidence_mode": "snap",
   "topology_tol_rel": 0.003,
   "incidence_strength": 1.0,
-  "rms_shift_rel": 7.412173060359415e-05,
-  "max_after_error_deg": 0.03896629056704626,
+  "rms_shift_rel": 0.00019686044444557348,
+  "max_after_error_deg": 0.04940924843708385,
   "curve_policy": "defer",
-  "candidate_count": 6,
-  "solver_max_shift_rel": 9.923578290100644e-05,
+  "candidate_count": 7,
+  "solver_max_shift_rel": 0.0004410739179338382,
   "coordinate_decimals": 3,
   "export_verified": true,
-  "max_export_error_deg": 0.03896629056704626,
+  "max_export_error_deg": 0.04940924843708385,
   "point_count": 7,
   "segment_count": 11
 }

@@ -39,6 +39,16 @@ def add_construction_candidates(state):
     margin = min(36., .065 * math.hypot(w, h))
     existing = [np.asarray(o.coords['px']) for o in state.objects.values()
                 if o.type == 'point' and o.source in MEASURED_POINT_SOURCES and 'px' in o.coords]
+    for mark in list(state.objects.values()):
+        if mark.type != 'right_angle' or mark.source != 'cv:detect_right_angle_marker' or mark.status != 'confirmed':
+            continue
+        vertex = np.asarray(mark.coords.get('vertex_px'), float)
+        if vertex.shape != (2,) or not np.isfinite(vertex).all() or any(np.linalg.norm(p-vertex) <= 1.5 for p in existing):
+            continue
+        state.add_object(GeometryObject(id=f'vertex_{mark.id}', type='point', coords={'px': vertex.tolist()},
+                                        source='cv:construction_mark_vertex', status='candidate',
+                                        attributes={'marker_id': mark.id}))
+        existing.append(vertex)
     for (left, a, b, _), (right, c, d, _) in combinations(lines, 2):
         vectors = np.column_stack((b-a, c-d))
         lengths = np.linalg.norm(vectors, axis=0)
@@ -111,6 +121,54 @@ def _verified_marks(state, rows, points):
     return marks
 
 
+def _solid_extensions(paths, points, lines, mask):
+    """Preserve continuous ink past a labelled junction on a measured solid stroke."""
+    minimum = max(14, .025 * math.hypot(*mask.shape))
+    solid_paths = [path for path in paths if path['style'] == 'solid']
+    named_strokes = []
+    for path in solid_paths:
+        a, b = (points[n] for n in path['edge'])
+        length = np.linalg.norm(b - a)
+        direction = (b - a) / length
+        named_strokes.append((a, direction, np.array([-direction[1], direction[0]]), length))
+    extensions = {}
+    for path in solid_paths:
+        for start, vertex in (path['edge'], path['edge'][::-1]):
+            origin, anchor = points[start], points[vertex]
+            axis = anchor-origin
+            length = np.linalg.norm(axis)
+            axis /= length
+            normal = np.array([-axis[1], axis[0]])
+            has_branch = any(vertex in row['edge'] and any(abs((points[n]-anchor) @ normal) >= minimum
+                                                           for n in row['edge']) for row in paths)
+            if not has_branch:
+                continue
+            for key, a, b, style in lines:
+                if style != 'solid' or max(abs((p-origin) @ normal) for p in (a, b)) > 3:
+                    continue
+                left, right = sorted((a, b), key=lambda p: (p-origin) @ axis)
+                if (left-origin) @ axis > 3 or (right-anchor) @ axis < minimum:
+                    continue
+                # Only introduce a helper where there is no already bound endpoint.
+                if any(np.linalg.norm(p-right) <= 6 for p in points.values()):
+                    continue
+                if any(abs((p-anchor) @ normal) <= 3 and 6 < (p-anchor) @ axis < (right-anchor) @ axis
+                       for p in points.values()):
+                    continue
+                # A fitted stroke can end inside a verified named stroke. Its
+                # interior endpoint does not need another drawn segment.
+                if any(all(-3 <= (p-a) @ direction <= extent+3 and abs((p-a) @ across) <= 3
+                           for p in (anchor, right)) for a, direction, across, extent in named_strokes):
+                    continue
+                if not _supported_stroke(anchor, right, 'solid', lines, mask):
+                    continue
+                candidate = {'anchor': vertex, 'px': right.tolist(), 'stroke_id': key}
+                existing = extensions.get(vertex)
+                if existing is None or np.linalg.norm(right-anchor) > np.linalg.norm(existing['px']-anchor):
+                    extensions[vertex] = candidate
+    return extensions
+
+
 def merge_construction_plan(state, submission):
     """Record the proposed source construction and promote supported requirements."""
     apply_reviewed_bindings(state, submission.get('bindings'), source='geometry_agent')
@@ -159,4 +217,5 @@ def merge_construction_plan(state, submission):
                     side, size = square
                     marks[foot] = {'arms': sorted((p, (a, b)[side])), 'side_px': size}
     state.meta['source_construction'] = {'summary':str(submission.get('summary') or prior.get('summary',''))[:1500],
-                                        'strokes':paths,'marks':marks,'feet':feet}
+                                        'strokes':paths,'marks':marks,'feet':feet,
+                                        'extensions': _solid_extensions(paths, points, lines, mask)}

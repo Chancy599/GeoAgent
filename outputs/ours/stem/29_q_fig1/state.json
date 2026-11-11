@@ -401,81 +401,6 @@
         ],
         "ambiguous": false
       }
-    },
-    "seg_AB": {
-      "id": "seg_AB",
-      "type": "segment",
-      "label": "AB",
-      "coords": {
-        "a_px": [
-          64.0,
-          282.0
-        ],
-        "b_px": [
-          388.0,
-          282.0
-        ]
-      },
-      "normalized": {},
-      "style": {
-        "line": "solid"
-      },
-      "source": "geometry_agent",
-      "status": "candidate",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "seg_BC": {
-      "id": "seg_BC",
-      "type": "segment",
-      "label": "BC",
-      "coords": {
-        "a_px": [
-          382.49,
-          282.0
-        ],
-        "b_px": [
-          461.63,
-          124.75
-        ]
-      },
-      "normalized": {},
-      "style": {
-        "line": "solid"
-      },
-      "source": "geometry_agent",
-      "status": "candidate",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "seg_AP": {
-      "id": "seg_AP",
-      "type": "segment",
-      "label": "AP",
-      "coords": {
-        "a_px": [
-          69.51,
-          282.0
-        ],
-        "b_px": [
-          661.71,
-          44.51
-        ]
-      },
-      "normalized": {},
-      "style": {
-        "line": "solid"
-      },
-      "source": "geometry_agent",
-      "status": "candidate",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
     }
   },
   "relations": {
@@ -519,9 +444,18 @@
       "id": "rel_005",
       "subject": "point_02",
       "relation": "on_segment",
-      "object": "seg_AP",
+      "object": "seg_01",
       "source": "geometry_agent",
-      "evidence": "C lies on line AP within a pixel (measured y at x=461.6 on AP is ~124.7)",
+      "evidence": "C lies on the long solid line from A to P (computed line y at x=461.63 is ~124.7 vs measured 124.75).",
+      "status": "candidate"
+    },
+    "rel_006": {
+      "id": "rel_006",
+      "subject": "point_03",
+      "relation": "on_segment",
+      "object": "seg_02",
+      "source": "geometry_agent",
+      "evidence": "B is the right end of the horizontal base AB at y=282.",
       "status": "candidate"
     }
   },
@@ -537,7 +471,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:01:17"
+      "created_at": "2026-11-11T12:55:49"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -550,7 +484,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:01:21"
+      "created_at": "2026-11-11T12:55:50"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -563,17 +497,35 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:01:23"
+      "created_at": "2026-11-11T12:55:51"
     },
     "ev_0004": {
       "id": "ev_0004",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "roi": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-11T12:55:59"
+    },
+    "ev_0005": {
+      "id": "ev_0005",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Figure shows triangle-like construction: horizontal segment A-B (y=282), segment B-C rising to C, and one straight solid line from A through C continuing to P (A, C, P collinear; seg_01 spans A to P and passes through C at (461.6,124.7)). All strokes solid, no dashed parts. No right-angle marker visible. No feet. Labels A, B, C, P bind to point_01, point_03, point_02, point_04 respectively; OCR assignments verified visually.",
+      "summary": "Triangle-like figure: A-B horizontal base (A(69.5,282) to B(382.5,282)); B-C short side rising to C(461.6,124.8); a single long solid line runs from A through C and continues to endpoint P(661.7,44.5). C lies on line AP (verified: line seg_01 passes through C within ~0.5px). Subedges: AB, BC, AC (part of AP), CP (part of AP). All strokes solid; no dashed strokes found. No right-angle square marks (detect_right_angle_marker returned 0). No perpendicular feet drawn. Labels A, B, C, P bind to point_01, point_03, point_02, point_04 as OCR suggested; all four glyphs sit beside their corners.",
       "payload": {
         "merged": {
           "objects": 7,
-          "relations": 1,
+          "relations": 2,
           "conflicts": 0,
           "rejected": []
         },
@@ -582,15 +534,15 @@
           "point_03",
           "point_02",
           "point_04",
-          "seg_AB",
-          "seg_BC",
-          "seg_AP"
+          "seg_02",
+          "seg_03",
+          "seg_01"
         ]
       },
-      "created_at": "2026-11-09T23:01:32"
+      "created_at": "2026-11-11T12:56:06"
     },
-    "ev_0005": {
-      "id": "ev_0005",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v1 canvas matched to source [727, 349] (scale 0.9683)",
@@ -610,10 +562,10 @@
           28
         ]
       },
-      "created_at": "2026-11-09T23:01:52"
+      "created_at": "2026-11-11T12:56:31"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: no_candidates",
@@ -625,17 +577,17 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "7e9fb05c44825bac3125bd25c1a40e3eb9656ce136af27f1945bf2a243378487",
-        "output_sha256": "7e9fb05c44825bac3125bd25c1a40e3eb9656ce136af27f1945bf2a243378487",
+        "input_sha256": "700f0356c2f5bc875667e002f0ef7c559563f440bc004774adefc53f70953008",
+        "output_sha256": "700f0356c2f5bc875667e002f0ef7c559563f440bc004774adefc53f70953008",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -646,15 +598,17 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 0,
-        "preserved_incidence_count": 1,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [],
@@ -666,22 +620,22 @@
         "curve_policy": "defer",
         "candidate_count": 0
       },
-      "created_at": "2026-11-09T23:01:52"
+      "created_at": "2026-11-11T12:56:31"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used program-owned A, B, P (not redefined); C defined once from the source frame (1.204, 0.610), which lies on line AP (checked: y at x=1.204 on AP is 0.610). Line width 0.7pt with round joins and 9.5/11.4 pt label font from STYLE METRICS. Instruction asked for C upper-left, but the source image shows the C label up-right of the vertex, so I kept above right to match the original; P also above right. A label left, B label below. No right-angle mark, since none was verified. Standalone compilation needs the program-inserted A, B, P definitions, as the program-owned block requires.",
+        "notes": "Used the program-owned A, B, P coordinates by name and did not redefine them. C is not in the program block, so I defined it as an unmeasured helper in the same frame: (1.204, 0.610). C lies on line AP (the line at x=1.204 gives y≈0.610). Edges: A--B solid; A--C--P as one collinear solid polyline covering AP; C--B solid. No dashed strokes, no right-angle marks (none verified), no extra edges. Stroke 0.7pt with round joins and label font \\fontsize{9.5}{11.4} from STYLE METRICS. Labels: A below-left, B below, C and P above-right. The standalone wrapper will not compile by itself unless the program inserts A, B, P at the start of the tikzpicture, as the system block states. Measurements for A, B, P matched the frame when recomputed, so no remeasurement is needed.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\29_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\29_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\29_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\29_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -711,12 +665,12 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\29_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\29_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\29_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\29_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
@@ -736,10 +690,10 @@
           ]
         }
       },
-      "created_at": "2026-11-09T23:01:52"
+      "created_at": "2026-11-11T12:56:31"
     },
-    "ev_0008": {
-      "id": "ev_0008",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "critic_agent",
       "method": "endpoint_review",
       "summary": "Reviewed 1 CV endpoint case(s)",
@@ -749,10 +703,10 @@
             "B",
             "C"
           ],
-          "reason": "In the original, the BC stroke runs from B up to C, where it meets line AP. The render has the same connection."
+          "reason": "In the original, the stroke runs from B up to C and ends at the A-P line at C. The render draws the same B-C segment, so the endpoints match."
         }
       },
-      "created_at": "2026-11-09T23:02:02"
+      "created_at": "2026-11-11T12:56:43"
     }
   },
   "conflicts": [],
@@ -762,8 +716,8 @@
     "B": "point_03",
     "P": "point_04"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=0.7pt]\n\\coordinate (A) at (-3.607,-1.319);\n\\coordinate (B) at (0.233,-1.319);\n\\coordinate (P) at (3.659,1.595);\n\n  \n  \\coordinate (C) at (1.204,0.610);\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \n  \\draw (A) -- (P);\n\n  \n  \\node[left] at (A) {\\fontsize{9.5}{11.4}\\selectfont $A$};\n  \\node[below] at (B) {\\fontsize{9.5}{11.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{9.5}{11.4}\\selectfont $C$};\n  \\node[above right] at (P) {\\fontsize{9.5}{11.4}\\selectfont $P$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=0.7pt]\n\\coordinate (A) at (-3.607,-1.319);\n\\coordinate (B) at (0.233,-1.319);\n\\coordinate (P) at (3.659,1.595);\n\n  \n  \\coordinate (C) at (1.204,0.610);\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \n  \\draw (A) -- (P);\n\n  \n  \\node[left] at (A) {\\fontsize{9.5}{11.4}\\selectfont $A$};\n  \\node[below] at (B) {\\fontsize{9.5}{11.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{9.5}{11.4}\\selectfont $C$};\n  \\node[above right] at (P) {\\fontsize{9.5}{11.4}\\selectfont $P$};\n\\end{tikzpicture}\n\\end{document}",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\n\\begin{document}\n\\begin{tikzpicture}[line width=0.7pt, line join=round]\n\\coordinate (A) at (-3.607,-1.319);\n\\coordinate (B) at (0.233,-1.319);\n\\coordinate (P) at (3.659,1.595);\n\n  \n  \n  \\coordinate (C) at (1.204,0.610);\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C) -- (P);\n  \n  \\draw (B) -- (C);\n\n  \n  \\node[below left, font=\\fontsize{9.5}{11.4}\\selectfont] at (A) {$A$};\n  \\node[below, font=\\fontsize{9.5}{11.4}\\selectfont] at (B) {$B$};\n  \\node[above right, font=\\fontsize{9.5}{11.4}\\selectfont] at (C) {$C$};\n  \\node[above right, font=\\fontsize{9.5}{11.4}\\selectfont] at (P) {$P$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\n\\begin{document}\n\\begin{tikzpicture}[line width=0.7pt, line join=round]\n\\coordinate (A) at (-3.607,-1.319);\n\\coordinate (B) at (0.233,-1.319);\n\\coordinate (P) at (3.659,1.595);\n\n  \n  \n  \\coordinate (C) at (1.204,0.610);\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C) -- (P);\n  \n  \\draw (B) -- (C);\n\n  \n  \\node[below left, font=\\fontsize{9.5}{11.4}\\selectfont] at (A) {$A$};\n  \\node[below, font=\\fontsize{9.5}{11.4}\\selectfont] at (B) {$B$};\n  \\node[above right, font=\\fontsize{9.5}{11.4}\\selectfont] at (C) {$C$};\n  \\node[above right, font=\\fontsize{9.5}{11.4}\\selectfont] at (P) {$P$};\n\\end{tikzpicture}\n\\end{document}",
   "best_version": 1,
   "best_score": 0.9,
   "tikz_versions": [
@@ -773,7 +727,7 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=0.7pt]\n\\coordinate (A) at (-3.607,-1.319);\n\\coordinate (B) at (0.233,-1.319);\n\\coordinate (P) at (3.659,1.595);\n\n  \n  \\coordinate (C) at (1.204,0.610);\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \n  \\draw (A) -- (P);\n\n  \n  \\node[left] at (A) {\\fontsize{9.5}{11.4}\\selectfont $A$};\n  \\node[below] at (B) {\\fontsize{9.5}{11.4}\\selectfont $B$};\n  \\node[above right] at (C) {\\fontsize{9.5}{11.4}\\selectfont $C$};\n  \\node[above right] at (P) {\\fontsize{9.5}{11.4}\\selectfont $P$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\n\\begin{document}\n\\begin{tikzpicture}[line width=0.7pt, line join=round]\n\\coordinate (A) at (-3.607,-1.319);\n\\coordinate (B) at (0.233,-1.319);\n\\coordinate (P) at (3.659,1.595);\n\n  \n  \n  \\coordinate (C) at (1.204,0.610);\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C) -- (P);\n  \n  \\draw (B) -- (C);\n\n  \n  \\node[below left, font=\\fontsize{9.5}{11.4}\\selectfont] at (A) {$A$};\n  \\node[below, font=\\fontsize{9.5}{11.4}\\selectfont] at (B) {$B$};\n  \\node[above right, font=\\fontsize{9.5}{11.4}\\selectfont] at (C) {$C$};\n  \\node[above right, font=\\fontsize{9.5}{11.4}\\selectfont] at (P) {$P$};\n\\end{tikzpicture}\n\\end{document}",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\29_q_fig1\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\29_q_fig1\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\29_q_fig1\\best.png",
@@ -781,18 +735,18 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:01:50",
+      "created_at": "2026-11-11T12:56:29",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used program-owned A, B, P (not redefined); C defined once from the source frame (1.204, 0.610), which lies on line AP (checked: y at x=1.204 on AP is 0.610). Line width 0.7pt with round joins and 9.5/11.4 pt label font from STYLE METRICS. Instruction asked for C upper-left, but the source image shows the C label up-right of the vertex, so I kept above right to match the original; P also above right. A label left, B label below. No right-angle mark, since none was verified. Standalone compilation needs the program-inserted A, B, P definitions, as the program-owned block requires.",
-      "compile_seconds": 2.091,
+      "notes": "Used the program-owned A, B, P coordinates by name and did not redefine them. C is not in the program block, so I defined it as an unmeasured helper in the same frame: (1.204, 0.610). C lies on line AP (the line at x=1.204 gives y≈0.610). Edges: A--B solid; A--C--P as one collinear solid polyline covering AP; C--B solid. No dashed strokes, no right-angle marks (none verified), no extra edges. Stroke 0.7pt with round joins and label font \\fontsize{9.5}{11.4} from STYLE METRICS. Labels: A below-left, B below, C and P above-right. The standalone wrapper will not compile by itself unless the program inserts A, B, P at the start of the tikzpicture, as the system block states. Measurements for A, B, P matched the frame when recomputed, so no remeasurement is needed.",
+      "compile_seconds": 2.474,
       "critic_report": {
         "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render reproduces the figure faithfully: triangle ABC with C on line AP, P beyond C, and all labels bound to the correct vertices. The only visible gap is stroke weight, which is lighter than the original.",
+        "verdict": "Render matches the original topology: A-B, B-C, A-C and C-P are correct, C lies on the A-P line, and all four labels are bound correctly. The only notable difference is that the original strokes are heavier.",
         "figure_type": {
-          "original": "Triangle ABC with A-B horizontal, B-C rising to a point C on the extended line AP, and P beyond C on the same line, with labels A, B, C, P",
-          "render": "Same configuration: A-B horizontal, B-C rising to C on the line from A to P, with P beyond C, and labels A, B, C, P"
+          "original": "Triangle ABC with B-C and A-P passing through C, drawn as an open figure with a line extending past C to P",
+          "render": "Same figure: triangle ABC with line A-C-P and segment B-C, with labels A, B, C, P"
         },
         "issues": [
           {
@@ -804,67 +758,52 @@
               "seg_03"
             ],
             "bbox": [
-              0.02,
+              0.04,
               0.3,
-              0.98,
-              0.7
+              0.92,
+              0.68
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Rendered strokes (AP, AB, BC) are thinner than the original, which uses visibly heavier lines.",
-            "suggestion": "Increase the global line width from 0.7pt to roughly 1.0-1.2pt to match the original stroke weight."
+            "description": "Stroke weight: the render's lines are thinner than the original's (arc of A-P, A-B and B-C look bolder in the original panel). Direction: render strokes too thin.",
+            "suggestion": "Increase the line width from 0.7pt to roughly 1.0-1.2pt, or add line width=1pt to the drawn paths."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Line A to P drawn, passing through C and ending at P as in the original."
+            "note": "Line A-P is drawn through C to P, matching the original's continuous stroke."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Horizontal segment A to B drawn correctly."
+            "note": "Horizontal segment A-B is drawn at the correct position and extent."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Segment B to C drawn and meets line AP at C."
-          },
-          {
-            "object_id": "seg_AB",
-            "status": "present",
-            "note": "Segment AB matches the original."
-          },
-          {
-            "object_id": "seg_AP",
-            "status": "present",
-            "note": "Segment AP matches the original."
-          },
-          {
-            "object_id": "seg_BC",
-            "status": "present",
-            "note": "Segment BC matches the original and ends on AP at C."
+            "note": "Segment B-C joins B to C on the A-P line, matching the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "A is at the left end of the horizontal segment, labelled A."
+            "note": "A is labelled at the left end of the horizontal segment, on the correct vertex."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "C is where BC meets AP, labelled C above-right."
+            "note": "C is labelled at the junction of B-C and A-P, on the correct vertex."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "B is the right end of the horizontal segment, labelled B below."
+            "note": "B is labelled below the right end of the horizontal segment, on the correct vertex."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "P is the far end of the line, labelled P above-right."
+            "note": "P is labelled at the far end of the A-P line."
           }
         ],
         "checklist_score": 1.0,
@@ -876,10 +815,11 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Triangle-like configuration A-B-C with C on line AP",
-          "P beyond C on the same line",
-          "Horizontal AB and steep BC geometry and proportions",
-          "Labels A, B, C, P present with correct vertex binding"
+          "A-B horizontal segment with correct length and position",
+          "B-C segment joining B to C on the A-P line",
+          "A-P line passing through C and extending to P",
+          "Labels A, B, C and P present, correctly placed and bound to their vertices",
+          "Overall aspect ratio and proportions match the original"
         ],
         "labels": {
           "present": [
@@ -900,7 +840,7 @@
               "B",
               "C"
             ],
-            "reason": "In the original, the BC stroke runs from B up to C, where it meets line AP. The render has the same connection."
+            "reason": "In the original, the stroke runs from B up to C and ends at the A-P line at C. The render draws the same B-C segment, so the endpoints match."
           }
         ],
         "raw_meta": "{}"
@@ -913,14 +853,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.091,
+      "seconds": 2.474,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.474609375 KiB)\nnote: Writing `figure.log` (10.986328125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\29_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\29_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\29_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:01:52"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.986328125 KiB)\nnote: Writing `figure.pdf` (2.474609375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\29_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\29_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\29_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T12:56:31"
     }
   ],
   "validation_results": [
@@ -956,12 +896,12 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\29_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\29_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\29_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\29_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
@@ -979,17 +919,17 @@
           "detail": "figure bbox ratio 2.22"
         }
       ],
-      "created_at": "2026-11-09T23:01:52"
+      "created_at": "2026-11-11T12:56:31"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render reproduces the figure faithfully: triangle ABC with C on line AP, P beyond C, and all labels bound to the correct vertices. The only visible gap is stroke weight, which is lighter than the original.",
+      "verdict": "Render matches the original topology: A-B, B-C, A-C and C-P are correct, C lies on the A-P line, and all four labels are bound correctly. The only notable difference is that the original strokes are heavier.",
       "figure_type": {
-        "original": "Triangle ABC with A-B horizontal, B-C rising to a point C on the extended line AP, and P beyond C on the same line, with labels A, B, C, P",
-        "render": "Same configuration: A-B horizontal, B-C rising to C on the line from A to P, with P beyond C, and labels A, B, C, P"
+        "original": "Triangle ABC with B-C and A-P passing through C, drawn as an open figure with a line extending past C to P",
+        "render": "Same figure: triangle ABC with line A-C-P and segment B-C, with labels A, B, C, P"
       },
       "issues": [
         {
@@ -1001,67 +941,52 @@
             "seg_03"
           ],
           "bbox": [
-            0.02,
+            0.04,
             0.3,
-            0.98,
-            0.7
+            0.92,
+            0.68
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "Rendered strokes (AP, AB, BC) are thinner than the original, which uses visibly heavier lines.",
-          "suggestion": "Increase the global line width from 0.7pt to roughly 1.0-1.2pt to match the original stroke weight."
+          "description": "Stroke weight: the render's lines are thinner than the original's (arc of A-P, A-B and B-C look bolder in the original panel). Direction: render strokes too thin.",
+          "suggestion": "Increase the line width from 0.7pt to roughly 1.0-1.2pt, or add line width=1pt to the drawn paths."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Line A to P drawn, passing through C and ending at P as in the original."
+          "note": "Line A-P is drawn through C to P, matching the original's continuous stroke."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Horizontal segment A to B drawn correctly."
+          "note": "Horizontal segment A-B is drawn at the correct position and extent."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Segment B to C drawn and meets line AP at C."
-        },
-        {
-          "object_id": "seg_AB",
-          "status": "present",
-          "note": "Segment AB matches the original."
-        },
-        {
-          "object_id": "seg_AP",
-          "status": "present",
-          "note": "Segment AP matches the original."
-        },
-        {
-          "object_id": "seg_BC",
-          "status": "present",
-          "note": "Segment BC matches the original and ends on AP at C."
+          "note": "Segment B-C joins B to C on the A-P line, matching the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "A is at the left end of the horizontal segment, labelled A."
+          "note": "A is labelled at the left end of the horizontal segment, on the correct vertex."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "C is where BC meets AP, labelled C above-right."
+          "note": "C is labelled at the junction of B-C and A-P, on the correct vertex."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "B is the right end of the horizontal segment, labelled B below."
+          "note": "B is labelled below the right end of the horizontal segment, on the correct vertex."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "P is the far end of the line, labelled P above-right."
+          "note": "P is labelled at the far end of the A-P line."
         }
       ],
       "checklist_score": 1.0,
@@ -1073,10 +998,11 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Triangle-like configuration A-B-C with C on line AP",
-        "P beyond C on the same line",
-        "Horizontal AB and steep BC geometry and proportions",
-        "Labels A, B, C, P present with correct vertex binding"
+        "A-B horizontal segment with correct length and position",
+        "B-C segment joining B to C on the A-P line",
+        "A-P line passing through C and extending to P",
+        "Labels A, B, C and P present, correctly placed and bound to their vertices",
+        "Overall aspect ratio and proportions match the original"
       ],
       "labels": {
         "present": [
@@ -1097,7 +1023,7 @@
             "B",
             "C"
           ],
-          "reason": "In the original, the BC stroke runs from B up to C, where it meets line AP. The render has the same connection."
+          "reason": "In the original, the stroke runs from B up to C and ends at the A-P line at C. The render draws the same B-C segment, so the endpoints match."
         }
       ],
       "raw_meta": "{}"
@@ -1106,15 +1032,15 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "No right-angle marker detected or visible; none added."
+      "issue": "Whether the line segment A-P is one stroke through C or two abutting strokes AC and CP is not distinguishable from pixels; drawn as one continuous solid line."
     },
     {
       "source": "supervisor",
-      "issue": "Stroke weight is slightly lighter than the original (low severity; global line width 0.7pt could be raised to about 1.0–1.2pt)."
+      "issue": "Stroke weight is slightly lighter than the original (low severity, cosmetic; line width could be raised to about 1pt)."
     },
     {
       "source": "supervisor",
-      "issue": "No right-angle mark is drawn; none was detected by CV and none was observed by the Critic."
+      "issue": "Whether A-P is one stroke through C or two abutting strokes AC and CP cannot be determined from pixels; rendered as one collinear path."
     }
   ],
   "action_history": [
@@ -1160,7 +1086,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 7, 'relations': 1, 'conflicts': 0, 'rejected': []}",
+      "result_summary": "ok=True; merged={'objects': 7, 'relations': 2, 'conflicts': 0, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1181,19 +1107,19 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw the figure from the measured geometry in image pixels (origin top-left, y down; flip y for TikZ). Points: A=(69.51,282.0), B=(382.49,282.0), C=(461.63,124.75), P=(661.71,44.51). Edges: solid segm",
+      "purpose": "Draw the figure with these CV-measured points (image px, origin top-left; convert y to TikZ by flipping: y_tikz = (349 - y_px) scaled consistently, e.g. scale 1/100 units). Points: A=(69.51,282.0) lab",
       "params": {
         "mode": "generate",
-        "use_image": null,
-        "instruction": "Draw the figure from the measured geometry in image pixels (origin top-left, y down; flip y for TikZ). Points: A=(69.51,282.0), B=(382.49,282.0), C=(461.63,124.75), P=(661.71,44.51). Edges: solid segment A–B (use the measured B point, 382.49 rather than 388), solid segment B–C, solid segment A–P passing through C (keep A–C–P as one straight line through C; C lies on AP). Label the points A, B, C, P with their labels placed near each point (A bottom-left, B bottom, C upper-left of the point, P upper-right). Use a single coordinate definition per vertex. No right-angle mark was detected; do not add one. Keep the figure compilable standalone (tikzpicture, no external libraries beyond tikz)."
+        "use_image": false,
+        "instruction": "Draw the figure with these CV-measured points (image px, origin top-left; convert y to TikZ by flipping: y_tikz = (349 - y_px) scaled consistently, e.g. scale 1/100 units). Points: A=(69.51,282.0) labelled A below-left; B=(382.49,282.0) labelled B below; C=(461.63,124.75) labelled C upper-right of point; P=(661.71,44.51) labelled P upper-right. Edges: segment A-P is one solid straight stroke passing through C (draw as A--C--P, collinear, or A--P with C on it); segment A-B horizontal solid; segment C-B solid. Keep labels A, B, C, P exactly as shown. No extra edges. Use a standalone tikzpicture with no extraneous decoration."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 23.38,
+      "duration_s": 30.28,
       "token_usage": {
-        "delta": 15538
+        "delta": 16153
       },
-      "visual_calls": 2,
+      "visual_calls": 1,
       "error": null
     },
     {
@@ -1201,10 +1127,10 @@
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Generated TikZ v1 from the measured geometry: points A, B, C, P with solid edges A–B, B–C, and A–P passing through C (C lies on AP). Compiled cleanly, topology check passed, all four labels present and correctly bound. Critic score 0.9, must_repair=false.",
+        "summary": "Generated TikZ v1 compiles and passed validation and topology checks (no missing edges). Critic score 0.9, must_repair=false. Figure has points A, B, C, P with labels bound correctly: A-B solid horizontal, A-C-P as one collinear solid path (C lies on AP), and C-B solid. The only remaining note is a low-severity stroke-weight difference (render 0.7pt vs. heavier original).",
         "unresolved": [
-          "Stroke weight is slightly lighter than the original (low severity; global line width 0.7pt could be raised to about 1.0–1.2pt).",
-          "No right-angle mark is drawn; none was detected by CV and none was observed by the Critic."
+          "Stroke weight is slightly lighter than the original (low severity, cosmetic; line width could be raised to about 1pt).",
+          "Whether A-P is one stroke through C or two abutting strokes AC and CP cannot be determined from pixels; rendered as one collinear path."
         ],
         "status": "success"
       },
@@ -1251,57 +1177,73 @@
       "count": 0,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "roi": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "purpose": null,
+      "ok": true,
+      "count": 0,
+      "visualization": ".cache\\collinear\\batch_work\\29_q_fig1\\cv\\detect_right_angle_marker.png",
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 5,
+      "calls": 6,
       "visual_calls": 3,
-      "prompt_tokens": 30854,
-      "completion_tokens": 6095,
-      "total_tokens": 36949,
-      "cached_tokens": 9753.0,
-      "cache_write_tokens": 21083.0,
-      "latency_s": 38.99
+      "prompt_tokens": 36654,
+      "completion_tokens": 7811,
+      "total_tokens": 44465,
+      "cached_tokens": 11585.0,
+      "cache_write_tokens": 25049.0,
+      "latency_s": 53.27
     },
     "by_agent": {
       "geometry_agent": {
-        "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 6515,
-        "latency_s": 9.5
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 13276,
+        "latency_s": 15.35
       },
       "supervisor": {
         "calls": 2,
         "visual_calls": 0,
-        "total_tokens": 14896,
-        "latency_s": 8.93
+        "total_tokens": 15036,
+        "latency_s": 10.41
       },
       "code_agent:generate": {
         "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 7796,
-        "latency_s": 11.54
+        "visual_calls": 0,
+        "total_tokens": 8061,
+        "latency_s": 15.52
       },
       "critic_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 7742,
-        "latency_s": 9.02
+        "total_tokens": 8092,
+        "latency_s": 11.98
       }
     }
   },
   "remaining_budget": {
     "steps_left": 22,
-    "tool_calls_left": 42,
+    "tool_calls_left": 41,
     "visual_calls_left": 21,
-    "tokens_left": 363051,
+    "tokens_left": 355535,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 36949
+    "total_tokens_used": 44465
   },
   "meta": {
     "topology_plan": {
@@ -1327,7 +1269,7 @@
             "B",
             "C"
           ],
-          "reason": "In the original, the BC stroke runs from B up to C, where it meets line AP. The render has the same connection."
+          "reason": "In the original, the stroke runs from B up to C and ends at the A-P line at C. The render draws the same B-C segment, so the endpoints match."
         }
       ],
       "ink_confirmed_edges": [],
@@ -1343,7 +1285,7 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Figure shows triangle-like construction: horizontal segment A-B (y=282), segment B-C rising to C, and one straight solid line from A through C continuing to P (A, C, P collinear; seg_01 spans A to P and passes through C at (461.6,124.7)). All strokes solid, no dashed parts. No right-angle marker visible. No feet. Labels A, B, C, P bind to point_01, point_03, point_02, point_04 respectively; OCR assignments verified visually.",
+      "summary": "Triangle-like figure: A-B horizontal base (A(69.5,282) to B(382.5,282)); B-C short side rising to C(461.6,124.8); a single long solid line runs from A through C and continues to endpoint P(661.7,44.5). C lies on line AP (verified: line seg_01 passes through C within ~0.5px). Subedges: AB, BC, AC (part of AP), CP (part of AP). All strokes solid; no dashed strokes found. No right-angle square marks (detect_right_angle_marker returned 0). No perpendicular feet drawn. Labels A, B, C, P bind to point_01, point_03, point_02, point_04 as OCR suggested; all four glyphs sit beside their corners.",
       "strokes": [
         {
           "edge": [
@@ -1375,7 +1317,8 @@
         }
       ],
       "marks": {},
-      "feet": []
+      "feet": [],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -1439,17 +1382,17 @@
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "7e9fb05c44825bac3125bd25c1a40e3eb9656ce136af27f1945bf2a243378487",
-      "output_sha256": "7e9fb05c44825bac3125bd25c1a40e3eb9656ce136af27f1945bf2a243378487",
+      "input_sha256": "700f0356c2f5bc875667e002f0ef7c559563f440bc004774adefc53f70953008",
+      "output_sha256": "700f0356c2f5bc875667e002f0ef7c559563f440bc004774adefc53f70953008",
       "reason": "no_candidates",
       "accepted": [],
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.003,
         "incidence_mode": "snap",
         "length_weight": 0.01,
@@ -1460,15 +1403,17 @@
           "parallel",
           "perpendicular"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
+      "source_collinear_candidates": [],
       "input_candidates": 0,
-      "preserved_incidence_count": 1,
+      "preserved_incidence_count": 0,
       "max_shift_rel": 0.0,
       "max_length_change_rel": 0.0,
       "fixed_points": [],
@@ -1549,17 +1494,17 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "7e9fb05c44825bac3125bd25c1a40e3eb9656ce136af27f1945bf2a243378487",
-        "output_sha256": "7e9fb05c44825bac3125bd25c1a40e3eb9656ce136af27f1945bf2a243378487",
+        "input_sha256": "700f0356c2f5bc875667e002f0ef7c559563f440bc004774adefc53f70953008",
+        "output_sha256": "700f0356c2f5bc875667e002f0ef7c559563f440bc004774adefc53f70953008",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -1570,15 +1515,17 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 0,
-        "preserved_incidence_count": 1,
+        "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [],
@@ -1597,11 +1544,11 @@
           "B",
           "C"
         ],
-        "reason": "In the original, the BC stroke runs from B up to C, where it meets line AP. The render has the same connection."
+        "reason": "In the original, the stroke runs from B up to C and ends at the A-P line at C. The render draws the same B-C segment, so the endpoints match."
       }
     },
     "finish": {
-      "summary": "Generated TikZ v1 from the measured geometry: points A, B, C, P with solid edges A–B, B–C, and A–P passing through C (C lies on AP). Compiled cleanly, topology check passed, all four labels present and correctly bound. Critic score 0.9, must_repair=false.",
+      "summary": "Generated TikZ v1 compiles and passed validation and topology checks (no missing edges). Critic score 0.9, must_repair=false. Figure has points A, B, C, P with labels bound correctly: A-B solid horizontal, A-C-P as one collinear solid path (C lies on AP), and C-B solid. The only remaining note is a low-severity stroke-weight difference (render 0.7pt vs. heavier original).",
       "status": "success"
     },
     "stop_reason": "finish"

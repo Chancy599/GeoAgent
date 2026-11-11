@@ -14,7 +14,7 @@ from .tikz_geometry import clean
 from .coordinate_precision import number, quantize_tex
 from .schemas import Relation
 
-MEASURED_POINT_SOURCES = {'cv:bind_point_labels', 'cv:construction_intersection'}
+MEASURED_POINT_SOURCES = {'cv:bind_point_labels', 'cv:construction_intersection', 'cv:construction_mark_vertex'}
 
 def binding_review_points(state):
     """Existing CV vertices and current assignments available for visual review."""
@@ -131,6 +131,10 @@ def build_coordinate_contract(state, metrics=None):
             points[label]['reviewed'] = True
     if not points:
         return None
+    for anchor, extension in state.meta.get('source_construction', {}).get('extensions', {}).items():
+        if anchor in points:
+            points['GeoTail'+anchor] = {'px': extension['px'], 'point_id': extension['stroke_id'],
+                                        'extension_from': anchor}
     # The same scale is used in the style block; no model arithmetic is needed.
     scale, origin = coordinate_frame(state, metrics)
     for point in points.values():
@@ -176,7 +180,7 @@ def apply_coordinate_contract(tex, contract):
         raise ValueError('CV coordinate contract requires one picture without coordinate transforms/scopes')
     # Model definitions may only repeat the exact supplied measurement. Incorrect
     # frames/rounding are rejected, rather than silently changing curve radii etc.
-    pattern = r'\\coordinate\s*\(([A-Z])\)\s*at\s*(.*?);'
+    pattern = r'\\coordinate\s*\(([A-Z]|GeoTail[A-Z])\)\s*at\s*(.*?);'
     seen = set()
     def remove_definition(match):
         label = match[1]
@@ -197,6 +201,8 @@ def apply_coordinate_contract(tex, contract):
         # Also covers path syntax such as "... coordinate (A)" without a slash.
         if re.search(r'\b(?:coordinate|node)\s*(?:\[[^\]]*\]\s*)?\('+label+r'\)', source):
             raise ValueError(f'Coordinate {label} may not be redefined by a node/path')
+        if point.get('extension_from'):
+            continue
         found = False
         for node in nodes:
             text = re.sub(r'\\fontsize\s*\{[^{}]*\}\s*\{[^{}]*\}', '', node)

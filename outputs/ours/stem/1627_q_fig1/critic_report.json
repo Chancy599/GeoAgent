@@ -1,40 +1,22 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful in figure type, segment topology, dashed styles, circle position, and right-angle marker. Only a minor label-placement difference at D remains.",
+  "verdict": "The render is a faithful reproduction of the original: same circle, dashed radius BO and OD, solid AB, CD, DE and AE, right angle at C, and all printed labels in matching positions.",
   "figure_type": {
-    "original": "Circle centred at O with tangent-like line from A through B to the circle, a right triangle-like outline A-C-E with D above C, dashed radius segments B-O and O-D, and a right-angle mark at C",
-    "render": "Same: circle centred at O, line A-B ending on the circle at B, dashed B-O and O-D, solid D-C, D-E, A-E baseline, and right-angle mark at C"
+    "original": "Circle with centre O, tangent-style line AB to the circle at B, dashed radii BO and OD, right triangle-like construction A-C-D with right angle at C and segment DE, all on horizontal base AE",
+    "render": "Same: circle with centre O, solid AB to B, dashed BO and OD, solid CD and DE, right angle at C, horizontal base AE"
   },
-  "issues": [
-    {
-      "type": "label_error",
-      "severity": "low",
-      "object_ids": [
-        "point_05"
-      ],
-      "bbox": [
-        0.73,
-        0.44,
-        0.8,
-        0.52
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Label D sits below-left of vertex D in the render. In the original it sits above-left of D, just beside the circle and the dashed O-D line. The render placement is still clearly associated with D and does not touch any stroke.",
-      "suggestion": "Optionally move the D node to 'above left' (with inner sep kept) to match the original placement, keeping it bound to the D coordinate."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
-      "object_id": "circle_O",
+      "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at O with matching radius and position."
+      "note": "Circle centred at O on the right, matching the original's position and size."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Horizontal baseline A to E through C is drawn."
+      "note": "Horizontal base AE, same extent from A to E."
     },
     {
       "object_id": "seg_02",
@@ -44,124 +26,120 @@
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid segment E to D is drawn."
+      "note": "Solid segment from E up to D, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid vertical C to D is drawn."
+      "note": "Solid vertical CD from C up to D, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "unclear",
-      "note": "CV detected a dashed chain at about 113 degrees that does not match any drawn dashed segment in the original; likely a detection artefact of the O-D dashed line."
+      "note": "Diagonal CV chain of dashes at about 113 degrees has no counterpart stroke visible in the original; likely a detection artifact around the circle."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed B-O radius is drawn in the render and matches the original."
+      "note": "Dashed radius B to O, matching the original's dashed BO."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Short vertical stub corresponds to the right-angle mark side at C."
+      "note": "Short vertical piece is the left arm of the right-angle square at C, visible in both panels."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Solid A-B line is correct."
+      "note": "Solid line A to B, correct endpoints."
     },
     {
       "object_id": "seg_AE",
       "status": "present",
-      "note": "Baseline A-E is drawn through C."
+      "note": "Base line A to E, correct."
     },
     {
       "object_id": "seg_BO",
       "status": "present",
-      "note": "Dashed B-O is drawn."
+      "note": "Dashed BO, correct endpoints at B and O."
     },
     {
-      "object_id": "seg_DC",
+      "object_id": "seg_CD",
       "status": "present",
-      "note": "Solid D-C is drawn."
+      "note": "Solid CD from C to D, correct."
     },
     {
       "object_id": "seg_DE",
       "status": "present",
-      "note": "Solid D-E is drawn."
+      "note": "Solid DE from D to E, correct."
     },
     {
       "object_id": "seg_OD",
       "status": "present",
-      "note": "Dashed O-D is drawn."
+      "note": "Dashed vertical OD from O down to D, correct."
     },
     {
-      "object_id": "ra_C",
+      "object_id": "ra_01",
       "status": "present",
-      "note": "Right-angle mark at C is drawn."
+      "note": "Right-angle square at C is visible in both panels, upper-left of C in the same quadrant."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right-angle mark at C is drawn in the same quadrant as the original."
+      "note": "Same right-angle mark at C in the same quadrant in both panels."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label A is present at the left endpoint."
+      "note": "Point A is labelled and placed at the left end of the base, matching the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label E is present at the right endpoint."
+      "note": "Point E is labelled at the right end of the base, matching the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label C is present below the foot of the perpendicular."
+      "note": "Point C is labelled below the foot of the perpendicular, matching the original."
     },
     {
       "object_id": "point_04",
       "status": "unclear",
-      "note": "No U label is visible in the original. Not visible in the original, so cannot be treated as a missing element."
+      "note": "No printed U appears in the original; the point is a CV artifact at the right-angle corner, not a labelled vertex."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label D is present at the endpoint of the vertical segment, with placement differing slightly (see issue)."
+      "note": "Point D is labelled left of the circle's bottom point, matching the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label O is present to the right of the centre."
+      "note": "Centre O is marked with a dot and labelled to its right, matching the original."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "Label B is present at the circle intersection."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "Same point as A, label present."
+      "note": "Point B is labelled above-left of the circle crossing, matching the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle centred at O with radius matching the original",
-    "Line A-B ends on the circle at B",
-    "Dashed B-O and dashed O-D match the original",
-    "Solid D-C and D-E match the original",
-    "Right-angle mark at C in the correct quadrant",
-    "Labels A, B, C, E, O present and correctly placed"
+    "Circle with centre O and matching radius",
+    "Solid line A to B ending on the circle at B",
+    "Dashed radius B to O and dashed radius O to D",
+    "Solid vertical CD and solid DE meeting at D",
+    "Horizontal base AE with A and E at the correct ends",
+    "Right-angle square at C in the same quadrant",
+    "Labels A, B, C, D, E, O present with correct placement and clear of strokes"
   ],
   "labels": {
     "present": [
@@ -173,7 +151,10 @@
       "O"
     ],
     "missing": [],
-    "extra": []
+    "extra": [
+      "U (CV artifact at the right-angle corner, not printed in original)",
+      "F (CV misread of the B label)"
+    ]
   },
   "version": 2,
   "binding_decisions": [],

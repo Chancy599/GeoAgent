@@ -1,10 +1,10 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.88,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Geometry is faithful: triangle ABC with points E, F, G, M, N and all dashed segments land on the same vertices as the original. The only visible difference is the dash style, which is finer in the render.",
+  "verdict": "Render is faithful in topology, endpoints and labels; only the dash style of the dashed auxiliary lines is visibly lighter than the original.",
   "figure_type": {
-    "original": "Triangle ABC with interior dashed cevian-like segments NA, NGF, EGM and EF; N lies beyond A on the extension of FG",
-    "render": "Triangle ABC with the same dashed segments NA, NGF, EGM and EF; N lies beyond A on the extension of FG"
+    "original": "Triangle ABC with apex A, points E on AB, M on AC and F on BC, plus dashed auxiliary lines E-G-M, E-F, and N-A-side/N-G-F through the interior, with N beyond A",
+    "render": "Same triangle and dashed auxiliary construction, with N beyond A and the same segment layout"
   },
   "issues": [
     {
@@ -20,135 +20,135 @@
       "bbox": [
         0.1,
         0.05,
-        0.85,
+        0.75,
         0.9
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Dashed strokes in the render have shorter, finer dashes that read as dotted, while the original has longer dashes with a heavier appearance. Dashed segments are otherwise correct.",
-      "suggestion": "Use a longer dash pattern for the dashed segments, e.g. dash pattern=on 6pt off 4pt, and optionally increase their line width slightly."
+      "description": "The dashed auxiliary lines (N-A, N-G-F, E-G-M, E-F) render with finer, shorter dashes than the original, which uses longer, heavier dashes; the render reads as dotted.",
+      "suggestion": "Use a longer dash pattern for the dashed style, e.g. \\draw[dash pattern=on 6pt off 4pt] or dashed with a slightly larger line width, for all dashed paths."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid side AC, from A to C, matches the original."
+      "note": "Solid side A-M-C (right side of triangle) drawn correctly."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid side AB, from A to B, matches the original."
+      "note": "Solid side A-B (left side) drawn correctly."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid base BC matches the original."
+      "note": "Solid base B-F-C drawn correctly."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Dashed N-G-F line segment through G to F is present in both panels."
+      "note": "Long dashed N-G-F line present; passes through the same interior point as the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed segment from N to A is present and ends at A."
+      "note": "Dashed N-A stub present, ending at A as in the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed E-F segment is present in both panels."
+      "note": "Dashed E-F present with matching endpoints."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Dashed E-G-M segment is present in both panels."
+      "note": "Dashed E-G-M present with matching endpoints."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Dashed N-to-G portion of the N-F line is present."
+      "note": "Dashed segment from N toward the A/G region present, matching the original's N-side stroke."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Triangle side AB is drawn correctly."
+      "note": "Side AB drawn solid from A to B."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Triangle side AC is drawn correctly."
+      "note": "Side AC drawn solid from A through M to C."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Base BC is drawn correctly."
+      "note": "Base BC drawn solid through F."
     },
     {
       "object_id": "seg_EF",
       "status": "present",
-      "note": "Dashed E-F segment matches the original."
+      "note": "Dashed EF present."
     },
     {
       "object_id": "seg_EM",
       "status": "present",
-      "note": "Dashed E-G-M segment matches the original."
+      "note": "Dashed EM present through G."
     },
     {
       "object_id": "seg_NA",
       "status": "present",
-      "note": "Dashed N-A segment matches the original."
+      "note": "Dashed NA present, ending at A."
     },
     {
       "object_id": "seg_NF",
       "status": "present",
-      "note": "Dashed N-G-F segment matches the original."
+      "note": "Dashed NF present through G to F."
     },
     {
       "object_id": "junction_seg_01_seg_07",
       "status": "present",
-      "note": "M is on side AC with its label placed above right, as in the original."
+      "note": "Point M correctly placed on side AC with label M to the right."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "A is at the apex, labelled above right, as in the original."
+      "note": "A at apex, label above right, matches original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "C is at the bottom-right vertex, labelled correctly."
+      "note": "C at bottom right, label below right, matches original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "B is at the bottom-left vertex, labelled correctly."
+      "note": "B at bottom left, label below left, matches original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "E is on side AB and labelled to the left, as in the original."
+      "note": "E on AB with label on the left, matches original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "F is on BC and labelled below, as in the original."
+      "note": "F on BC with label below, matches original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "G is the intersection of EM and NF, labelled correctly."
+      "note": "G at the dashed intersection with label below right, matches original."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "N is beyond A on the extension of FG, labelled correctly."
+      "note": "N beyond A with label to the right, matches original."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Same point as point_01 (A), correctly drawn."
+      "note": "Same point as point_01, labelled A."
     }
   ],
   "checklist_score": 1.0,
@@ -160,12 +160,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle ABC shape, aspect ratio and vertex positions match the original.",
-    "E lies on AB and F lies on BC, and the dashed E-F segment joins them as in the original.",
-    "M lies on AC and the dashed E-G-M line reaches M as in the original.",
-    "G is the intersection of EM and NF, and the N-G-F line passes through G as in the original.",
-    "N is beyond A on the extension of FG, and the dashed N-A segment ends at A.",
-    "All eight point labels (A, B, C, E, F, G, M, N) are present, correctly spelled and clear of strokes."
+    "Triangle ABC geometry and aspect ratio match the original.",
+    "E lies on AB, M on AC, F on BC in the same positions.",
+    "N lies beyond A on the same extension, and the N-A stub ends at A.",
+    "Dashed N-G-F line crosses AB at the same relative position as in the original.",
+    "G is the intersection of E-M and N-F, as in the original.",
+    "All eight point labels are present, correctly spelled and clear of strokes."
   ],
   "labels": {
     "present": [
@@ -181,17 +181,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "c187a0558885ce1c",
-      "edge": [
-        "E",
-        "F"
-      ],
-      "reason": "In the original, the dashed stroke starts at E on side AB and runs down to F on base BC, so the E-F edge is correct."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

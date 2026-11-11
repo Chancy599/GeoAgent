@@ -1,110 +1,67 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the trapezoid ABCD faithfully: four segments, correct vertex positions, parallel AB and CD, and all four labels bound to the correct vertices. The only difference is label placement, which is low severity.",
+  "verdict": "The render is a faithful trapezoid ABCD with matching vertex positions, segment endpoints and label placement; only minor stroke and label weight differences remain.",
   "figure_type": {
-    "original": "Quadrilateral ABCD drawn as a trapezoid with horizontal parallel sides AB (longer, bottom) and CD (shorter, top), with no interior construction lines.",
-    "render": "Quadrilateral ABCD drawn as a trapezoid with horizontal parallel sides AB (bottom) and CD (top), with no interior construction lines."
+    "original": "Trapezoid ABCD with AB and DC horizontal, AB longer than DC, legs AD and BC meeting the bases at the vertices",
+    "render": "Trapezoid ABCD with AB and DC horizontal, AB longer than DC, legs AD and BC meeting the bases at the vertices"
   },
-  "issues": [
-    {
-      "type": "label_error",
-      "severity": "low",
-      "object_ids": [
-        "point_01",
-        "point_02",
-        "point_03",
-        "point_04"
-      ],
-      "bbox": [
-        0.03,
-        0.15,
-        0.97,
-        0.78
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Vertex labels are placed differently from the original. In the original, A and B sit beside their vertices at roughly the vertex's height (A to the left, B to the right), and D and C sit beside their vertices (D to the left, C to the right). In the render, all four labels are pushed diagonally outward and further from the vertices, with A and B below and D and C above. The association with each vertex stays clear.",
-      "suggestion": "Optionally tighten the label anchors to match the original, e.g. \\node[left] at (A), \\node[right] at (B), \\node[left] at (D), \\node[right] at (C), keeping the same vertex bindings and font size."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom side AB is drawn as a solid horizontal segment in the render, matching the original."
+      "note": "Bottom base AB spans from A to B at the same height and matches the original extent."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top side CD is drawn as a solid horizontal segment in the render, matching the original."
+      "note": "Top base DC spans from D to C at the same height and matches the original extent."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right side BC is drawn as a solid segment from B up to C, matching the original."
+      "note": "Leg BC runs from B up to C and ends at the vertices, as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left side DA is drawn as a solid segment from D down to A, matching the original."
-    },
-    {
-      "object_id": "seg_AB",
-      "status": "present",
-      "note": "Base AB is correctly drawn between A and B."
-    },
-    {
-      "object_id": "seg_BC",
-      "status": "present",
-      "note": "Side BC is correctly drawn between B and C."
-    },
-    {
-      "object_id": "seg_CD",
-      "status": "present",
-      "note": "Top CD is correctly drawn between C and D."
-    },
-    {
-      "object_id": "seg_DA",
-      "status": "present",
-      "note": "Side DA is correctly drawn between D and A."
+      "note": "Leg DA runs from D down to A and ends at the vertices, as in the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B is present at vertex B; its position is offset below-right, which is acceptable."
+      "note": "Vertex B is at the lower-right corner, and its label sits to the right as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label A is present at vertex A; its position is offset below-left rather than beside the vertex."
+      "note": "Vertex A is at the lower-left corner, and its label sits to the left as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label C is present at vertex C; its position is offset above-right."
+      "note": "Vertex C is at the upper-right corner, and its label sits to the right as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label D is present at vertex D; its position is offset above-left."
+      "note": "Vertex D is at the upper-left corner, and its label sits to the left as in the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Four vertices A, B, C, D are in the correct relative positions, forming the same trapezoid.",
-    "AB and CD are horizontal and parallel, with AB longer than CD.",
-    "Sides BC and DA slope inward at similar angles, so the overall proportions match.",
-    "All four sides are solid and connected at the vertices with no gaps or overhangs.",
-    "Labels A, B, C and D are present, correctly spelled and bound to the correct vertices.",
-    "Line weight and label font style are visually comparable to the original."
+    "Four vertices A, B, C, D are in the same relative positions as the original, with matching base lengths and leg slopes.",
+    "Segments AB, BC, CD and DA are all present, join at the vertices, and do not overshoot.",
+    "Label placement matches the original: A and D sit left of their vertices, B and C sit right of theirs, with no stroke collisions.",
+    "Aspect ratio and overall proportions match the original panel."
   ],
   "labels": {
     "present": [
@@ -116,7 +73,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

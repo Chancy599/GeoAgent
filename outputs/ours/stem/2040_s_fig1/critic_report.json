@@ -1,87 +1,132 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful: the trapezoid, diagonal AE, dashed FE, and point E on DC all match the original, with only minor style differences.",
+  "verdict": "Render is faithful: same quadrilateral ABCD with F on AB, dashed FE, solid AE, and E on DC, with all six labels correctly placed. The only difference is a slightly smaller overall scale.",
   "figure_type": {
-    "original": "Trapezoid ABCD with AD parallel to BC, point E on DC, segment AE solid, dashed segment FE from F on AB to E",
-    "render": "Same trapezoid ABCD with point E on DC, segment AE solid, dashed FE from F on AB to E"
+    "original": "Quadrilateral ABCD (trapezoid-like) with interior segment AE, dashed horizontal FE with F on AB and E on DC",
+    "render": "Quadrilateral ABCD with interior segment AE, dashed horizontal FE with F on AB and E on DC"
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base BC is drawn horizontally from B to C, matching the original."
+      "note": "Base BC drawn solid, same extent as original"
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment DC runs from D through E to C, matching the original."
+      "note": "Segment DC drawn from D to C, passing through E"
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid diagonal AE runs from A to E, ending at E on DC as in the original."
+      "note": "Segment AE drawn solid from A to E"
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Dashed horizontal FE runs from F to E at the same height as in the original."
+      "note": "Dashed FE drawn horizontally from F on AB to E"
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Left side AB runs from A down to B, with F on it."
+      "note": "Side AB drawn, F lies on it"
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Top side AD is drawn horizontally from A to D."
+      "note": "Top side AD drawn solid"
     },
     {
-      "object_id": "seg_AB",
+      "object_id": "seg_AD",
       "status": "present",
-      "note": "AB is drawn from A to B and is continuous through F."
+      "note": "Top side AD matches original"
+    },
+    {
+      "object_id": "seg_AE",
+      "status": "present",
+      "note": "AE matches original, ends at E"
+    },
+    {
+      "object_id": "seg_BA",
+      "status": "present",
+      "note": "Left side BA matches original"
+    },
+    {
+      "object_id": "seg_CB",
+      "status": "present",
+      "note": "Bottom side CB matches original"
     },
     {
       "object_id": "seg_DC",
       "status": "present",
-      "note": "DC is drawn from D through E to C."
+      "note": "DC matches original and passes through E"
     },
     {
       "object_id": "seg_FE",
       "status": "present",
-      "note": "Dashed FE is drawn from F to E at the correct height."
+      "note": "Dashed FE ends at E as in original"
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "C is at the bottom-right corner of the trapezoid, as in the original."
+      "note": "C label present at bottom-right vertex"
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "B is at the bottom-left corner, as in the original."
+      "note": "B label present at bottom-left vertex"
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "E sits on DC where AE and FE meet, as in the original."
+      "note": "E label present right of E, clear of strokes"
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "D is at the top-right corner of the top side, as in the original."
+      "note": "D label present above D"
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "A is at the top-left corner, as in the original."
+      "note": "A label present above-left of A"
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "F lies on AB at the height of the dashed line, as in the original."
+      "note": "F label present left of F"
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Vertex A at top-left corner, matches original"
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B at bottom-left corner, matches original"
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C at bottom-right corner, matches original"
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D at top, matches original"
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Vertex E at AE/FE/DC junction, matches original"
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Vertex F on AB at dashed line start, matches original"
     }
   ],
   "checklist_score": 1.0,
@@ -93,11 +138,13 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Trapezoid outline A-D-C-B with AD parallel to BC matches the original.",
-    "Solid diagonal AE ends at E on DC, as in the original.",
-    "Dashed FE is horizontal at the same height and ends at E.",
-    "Labels A, B, C, D, E and F are present, correctly placed and bound to their vertices.",
-    "Overall aspect ratio and proportions match the original."
+    "Quadrilateral ABCD outline with correct vertex order",
+    "Solid segment AE from A to E",
+    "Dashed horizontal FE from F on AB to E on DC",
+    "E lies on DC at the intersection with the dashed line",
+    "All six point labels A, B, C, D, E, F present and bound to the correct vertices",
+    "Dash style and solid stroke weight comparable to original",
+    "Aspect ratio preserved"
   ],
   "labels": {
     "present": [

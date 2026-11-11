@@ -6,7 +6,7 @@ import json
 import math
 import re
 from collections import Counter
-from itertools import product
+from itertools import combinations, product
 from pathlib import Path
 
 import numpy as np
@@ -46,7 +46,7 @@ def _continuous_source_ink(mask, a, b) -> bool:
     return bool(hits.mean() >= .98 and min(section.mean() for section in np.array_split(hits, 12)) >= .90)
 
 
-def build_topology_plan(state: GeometricEvidenceState) -> dict:
+def build_topology_plan(state: GeometricEvidenceState, *, include_extensions: bool = True) -> dict:
     """Keep strong CV evidence and expose competing endpoint interpretations."""
     contract = build_coordinate_contract(state) or {}
     construction = state.meta.get('source_construction', {})
@@ -66,6 +66,11 @@ def build_topology_plan(state: GeometricEvidenceState) -> dict:
     marks = {v: mark for v, mark in construction.get('marks',{}).items()
              if all(n in reliable for n in (v,*mark['arms']))}
     required = {tuple(row['edge']) for row in requirements}
+    for name, point in contract.get('points', {}).items():
+        if include_extensions and (anchor := point.get('extension_from')):
+            edge = sorted((anchor, name))
+            required.add(tuple(edge))
+            requirements.append({'edge': edge, 'style': 'solid'})
     ink_confirmed = set()
     cases = []
     if len(points) < 2:
@@ -250,13 +255,37 @@ def _has_collinear_chain(start, end, edges, points):
         reached = expanded
 
 
+def _overlapping_strokes(strokes, points):
+    duplicates = set()
+    for first, second in combinations(strokes, 2):
+        if first == second:
+            duplicates.add((first, second))
+            continue
+        if any(name not in points for edge in (first, second) for name in edge):
+            continue
+        longer, shorter = sorted((first, second), key=lambda edge: np.linalg.norm(points[edge[1]]-points[edge[0]]),
+                                 reverse=True)
+        start, end = (points[name] for name in longer)
+        axis = end-start
+        length = np.linalg.norm(axis)
+        axis /= length
+        offsets = np.asarray([points[name]-start for name in shorter])
+        along = offsets@axis
+        across = offsets@np.array([-axis[1], axis[0]])
+        tolerance = max(.003, min(.045, .006*length))
+        if (min(along) >= -tolerance and max(along) <= length+tolerance
+                and np.max(np.abs(across)) <= tolerance
+                and abs(across[1]-across[0]) <= math.tan(math.radians(2))*abs(along[1]-along[0])):
+            duplicates.add(tuple(sorted((longer, shorter))))
+    return [[list(a), list(b)] for a, b in sorted(duplicates)]
+
+
 def check_topology(tex: str, plan: dict) -> dict:
     """Check explicit named edges, including shared vertices and closed chains."""
     required = plan["required_edges"]
-    if not required and not plan.get('required_marks'):
-        return {"passed": True, "missing_edges": []}
     edges = set()
     styled = {'solid':set(), 'dashed':set()}
+    solid_strokes = []
     text = clean(tex)
     definitions = re.findall(rf"\\coordinate\s*{_VERTEX}\s*at\b([^;]*);", text)
     counts = Counter(name for name, _ in definitions)
@@ -272,13 +301,15 @@ def check_topology(tex: str, plan: dict) -> dict:
         names = re.findall(_VERTEX, path)
         if path.rstrip().endswith("cycle"):
             names.append(names[0])
-        chain = {tuple(sorted((a,b))) for a,b in zip(names,names[1:])
+        chain = [tuple(sorted((a,b))) for a,b in zip(names,names[1:])
                  if a in defined and b in defined and a != b
-                 and not (a in points and b in points and np.array_equal(points[a], points[b]))}
+                 and not (a in points and b in points and np.array_equal(points[a], points[b]))]
         edges.update(chain)
         if not re.search(r'\bdotted\b', options):
             style = 'dashed' if re.search(r'\bdashed\b|\bdash pattern\s*=', options) else 'solid'
             styled[style].update(chain)
+            if style == 'solid':
+                solid_strokes.extend(chain)
     missing = [[a, b] for a, b in required
                if tuple(sorted((a, b))) not in edges and not _has_collinear_chain(a, b, edges, points)]
     styles = [row for row in plan.get('required_styles', [])
@@ -287,7 +318,9 @@ def check_topology(tex: str, plan: dict) -> dict:
     seen_marks = {(v,tuple(sorted((a,b)))) for a,v,b in re.findall(
         rf'\bright angle\s*=\s*({NAME})\s*--\s*({NAME})\s*--\s*({NAME})',text)}
     marks = [v for v,mark in plan.get('required_marks',{}).items() if (v,tuple(mark['arms'])) not in seen_marks]
-    result = {"passed": not (missing or styles or marks), "missing_edges": missing}
+    duplicates = _overlapping_strokes(solid_strokes, points)
+    result = {"passed": not (missing or styles or marks or duplicates), "missing_edges": missing}
     if styles: result['unverified_styles'] = styles
     if marks: result['unverified_marks'] = marks
+    if duplicates: result['overlapping_strokes'] = duplicates
     return result

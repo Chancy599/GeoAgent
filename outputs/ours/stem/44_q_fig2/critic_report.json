@@ -1,117 +1,112 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful: same triangle ACB with D on AB, segment DE to E on CB, and all five labels correctly placed. No material discrepancies were found.",
+  "verdict": "Render is faithful to the original: right triangle ACB with D on AB and segment DE to E on CB; only the D label placement differs slightly.",
   "figure_type": {
-    "original": "Right triangle ACB (right angle at C) with point D on hypotenuse AB and segment DE from D to E on CB; labels A, B, C, D, E.",
-    "render": "Right triangle ACB (right angle at C) with point D on hypotenuse AB and segment DE from D to E on CB; labels A, B, C, D, E."
+    "original": "Right triangle ACB (right angle at C, AC vertical, CB horizontal) with hypotenuse AB, point D on AB, and segment DE from D to E on CB",
+    "render": "Right triangle ACB (right angle at C, AC vertical, CB horizontal) with hypotenuse AB, point D on AB, and segment DE from D to E on CB"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_03"
+      ],
+      "bbox": [
+        0.59,
+        0.54,
+        0.66,
+        0.62
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The label D sits to the right of point D, with its left edge only a few pixels from the line AB. In the original, D is placed above-right of the vertex with clear space from the hypotenuse.",
+      "suggestion": "Change the D node anchor from 'right' to 'above right' (keep it bound to coordinate D) so the glyph clears the stroke AB, as in the original."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal AB is drawn from A to B, passing through D."
+      "note": "Hypotenuse from A to B is drawn and matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Vertical AC is drawn from A down to C."
+      "note": "Vertical leg AC is drawn and matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Horizontal CB is drawn from C to B, with E on it."
+      "note": "Horizontal base CB is drawn and matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment DE runs from D on AB down to E on CB, matching the original."
-    },
-    {
-      "object_id": "point_01",
-      "status": "present",
-      "note": "A is labelled at the top vertex, above the corner."
-    },
-    {
-      "object_id": "point_02",
-      "status": "present",
-      "note": "B is labelled at the bottom-right vertex."
-    },
-    {
-      "object_id": "point_03",
-      "status": "present",
-      "note": "D is labelled up-right of the point on AB."
-    },
-    {
-      "object_id": "point_04",
-      "status": "present",
-      "note": "C is labelled at the bottom-left corner."
-    },
-    {
-      "object_id": "point_05",
-      "status": "present",
-      "note": "E is labelled below the point on CB."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "Geometry-agent point A matches the A vertex."
-    },
-    {
-      "object_id": "point_B",
-      "status": "present",
-      "note": "Geometry-agent point B matches the B vertex."
-    },
-    {
-      "object_id": "point_C",
-      "status": "present",
-      "note": "Geometry-agent point C matches the C vertex."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "Geometry-agent point D matches the point on AB."
-    },
-    {
-      "object_id": "point_E",
-      "status": "present",
-      "note": "Geometry-agent point E matches the point on CB."
+      "note": "Segment DE runs from D on AB to E on CB, as in the original."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "AB is drawn as one continuous segment from A to B."
+      "note": "Segment AB is drawn from A to B."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "AC is drawn as a vertical segment."
+      "note": "Segment AC is drawn from A to C."
     },
     {
       "object_id": "seg_CB",
       "status": "present",
-      "note": "CB is drawn as a horizontal segment."
+      "note": "Segment CB is drawn from C to B."
     },
     {
       "object_id": "seg_DE",
       "status": "present",
-      "note": "DE joins D to E as in the original."
+      "note": "Segment DE is drawn from D to E."
+    },
+    {
+      "object_id": "point_01",
+      "status": "present",
+      "note": "Label A is at the top vertex, correctly bound."
+    },
+    {
+      "object_id": "point_02",
+      "status": "present",
+      "note": "Label B is at the bottom-right vertex, correctly bound."
+    },
+    {
+      "object_id": "point_03",
+      "status": "present",
+      "note": "Label D is at the point on AB, correctly bound, though the placement is tight against AB (see issue)."
+    },
+    {
+      "object_id": "point_04",
+      "status": "present",
+      "note": "Label C is at the bottom-left corner, correctly bound."
+    },
+    {
+      "object_id": "point_05",
+      "status": "present",
+      "note": "Label E is below the point on CB, correctly bound."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle ACB: AC vertical, CB horizontal, AB diagonal, with the right angle at C.",
-    "D lies on AB and E lies on CB, with segment DE joining them.",
-    "Label positions for A, B, C, D and E are correct and do not collide with strokes.",
-    "No right-angle marker appears at C in the original, so its absence in the render is correct."
+    "Right triangle ACB with the right angle at C and AC vertical.",
+    "Point D lies on hypotenuse AB, and DE runs from D to E on base CB.",
+    "Labels A, B, C, D and E are all present and correctly associated with their vertices.",
+    "Overall aspect ratio and proportions match the original.",
+    "Stroke weights are comparable between the panels, with no obvious style difference.",
+    "No right-angle square marker appears at C in either panel, so there is no discrepancy."
   ],
   "labels": {
     "present": [
@@ -133,7 +128,7 @@
         "D",
         "E"
       ],
-      "reason": "In the original, the single straight stroke runs from D on AB down to E on the base CB, so the D–E pairing is supported."
+      "reason": "In the original, the stroke runs from D on AB straight down-left and ends at E on the base CB, so it joins D and E."
     }
   ],
   "raw_meta": "{}"

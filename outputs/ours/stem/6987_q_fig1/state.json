@@ -923,6 +923,106 @@
       "notes": [],
       "attributes": {}
     },
+    "seg_AD": {
+      "id": "seg_AD",
+      "type": "segment",
+      "label": "AD",
+      "coords": {
+        "a_px": [
+          47.0,
+          65.0
+        ],
+        "b_px": [
+          441.0,
+          65.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_DC": {
+      "id": "seg_DC",
+      "type": "segment",
+      "label": "DC",
+      "coords": {
+        "a_px": [
+          441.0,
+          65.0
+        ],
+        "b_px": [
+          441.0,
+          300.17
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_CB": {
+      "id": "seg_CB",
+      "type": "segment",
+      "label": "CB",
+      "coords": {
+        "a_px": [
+          440.09,
+          300.17
+        ],
+        "b_px": [
+          48.46,
+          299.58
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_BA": {
+      "id": "seg_BA",
+      "type": "segment",
+      "label": "BA",
+      "coords": {
+        "a_px": [
+          48.46,
+          299.58
+        ],
+        "b_px": [
+          47.0,
+          65.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
     "seg_AE": {
       "id": "seg_AE",
       "type": "segment",
@@ -998,8 +1098,8 @@
       "notes": [],
       "attributes": {}
     },
-    "ra_E": {
-      "id": "ra_E",
+    "ra_01": {
+      "id": "ra_01",
       "type": "right_angle",
       "label": null,
       "coords": {
@@ -1066,29 +1166,11 @@
     },
     "rel_006": {
       "id": "rel_006",
-      "subject": "point_E",
-      "relation": "on_segment",
-      "object": "seg_AE",
-      "source": "geometry_agent",
-      "evidence": "E is the bend between shallow AE and steeper EC on the upper diagonal",
-      "status": "candidate"
-    },
-    "rel_007": {
-      "id": "rel_007",
-      "subject": "point_E",
-      "relation": "on_segment",
-      "object": "seg_EC",
-      "source": "geometry_agent",
-      "evidence": "E is the endpoint of EC at the bend",
-      "status": "candidate"
-    },
-    "rel_008": {
-      "id": "rel_008",
-      "subject": "seg_BE",
+      "subject": "seg_AE",
       "relation": "perpendicular",
-      "object": "seg_AE",
+      "object": "seg_BE",
       "source": "geometry_agent",
-      "evidence": "right-angle mark at E; dot product of EA and EB approx 0",
+      "evidence": "right_angle_01 at E; ray E-A and ray E-B; dot product of directions about 0",
       "status": "candidate"
     }
   },
@@ -1104,7 +1186,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:04:58"
+      "created_at": "2026-11-11T12:45:57"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -1117,7 +1199,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:05:22"
+      "created_at": "2026-11-11T12:46:20"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -1130,17 +1212,17 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:05:37"
+      "created_at": "2026-11-11T12:46:29"
     },
     "ev_0004": {
       "id": "ev_0004",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Rectangle ABCD (A top-left, D top-right, B bottom-left, C bottom-right), all sides solid: AB, BC, CD, DA. Point E (point_05) lies on the upper diagonal from A to C, but the path bends at E: A-E is shallower (about 24.7 deg) and E-C is steeper (about 32.5 deg), so record AE and EC as separate strokes meeting at E. Segment BE runs from B to E and is solid. Right-angle mark at E between rays EA and EB (mark drawn on the left side of E, around (106-127, 93-129)); BE is perpendicular to EA, so B's foot on AE is E. No dashed strokes detected. Junctions: A=point_04, B=point_02, C=point_01, D=point_03, E=point_05. Labels A,B,C,D,E all correct; no bindings changed.",
+      "summary": "Rectangle ABCD (A top-left, D top-right, B bottom-left, C bottom-right) with sides AD, DC, CB, BA all solid. Inside, a bent path A-E-C: A-E (seg_07) and E-C (seg_03) are not collinear (slopes about 0.46 and 0.64), so E is a bend. Segment B-E (seg_04) meets E. One right-angle square at E between rays E-A and E-B. No dashed strokes. No interior foot onto a drawn line. Curve extent: none.",
       "payload": {
         "merged": {
-          "objects": 9,
-          "relations": 3,
+          "objects": 13,
+          "relations": 1,
           "conflicts": 1,
           "rejected": []
         },
@@ -1150,19 +1232,23 @@
           "point_C",
           "point_D",
           "point_E",
+          "seg_AD",
+          "seg_DC",
+          "seg_CB",
+          "seg_BA",
           "seg_AE",
           "seg_EC",
           "seg_BE",
-          "ra_E"
+          "ra_01"
         ]
       },
-      "created_at": "2026-11-09T23:05:55"
+      "created_at": "2026-11-11T12:46:53"
     },
     "ev_0005": {
       "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [491, 367] (scale 0.6085)",
+      "summary": "v1 canvas matched to source [491, 367] (scale 0.6619)",
       "payload": {
         "ok": true,
         "size": [
@@ -1173,13 +1259,13 @@
           491,
           367
         ],
-        "scale": 0.6085,
+        "scale": 0.6619,
         "offset": [
-          33,
-          45
+          32,
+          33
         ]
       },
-      "created_at": "2026-11-09T23:06:27"
+      "created_at": "2026-11-11T12:47:19"
     },
     "ev_0006": {
       "id": "ev_0006",
@@ -1194,10 +1280,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "53c22e360747df24b5ba7f948313ac19d2c6f6a37fd33e71238056b88c945b5a",
-        "output_sha256": "b7612beac158c23ebaffcd23f02a4956f581ec68968e0a35db8ebd1f58fbf8da",
+        "input_sha256": "87c67fdb95a7f02c7dffdff31af9b5c9543bdd761d308c304c6ef19a477cc4c3",
+        "output_sha256": "f8d9d6aec743e4d74337f67f84a7eba86b58af90bffa5e26208babc69b248e2b",
         "reason": "applied",
         "accepted": [
           {
@@ -1270,8 +1356,8 @@
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -1282,13 +1368,15 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 6,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.0018599028340629921,
@@ -1310,7 +1398,7 @@
         "point_count": 5,
         "segment_count": 7
       },
-      "created_at": "2026-11-09T23:06:27"
+      "created_at": "2026-11-11T12:47:19"
     },
     "ev_0007": {
       "id": "ev_0007",
@@ -1318,14 +1406,14 @@
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used the program-owned A, B, C, D coordinates unchanged. E is an unmeasured helper defined in the same frame from the measured pixel (138.07,106.72). Outer rectangle drawn as closed path; A-E-C kept as a polyline with a shallow bend; B-E solid. Right angle drawn as a TikZ pic tied to rays E-A and E-B, radius 0.48 cm (25 px x 0.019324). Line width 1.5pt, labels 15.5/18.6 pt per STYLE METRICS. Labels placed at the measured corners' directions.",
+        "notes": "Kept the program-owned A, B, C, D definitions out of the document (inserted at tikzpicture start). E is defined from the source frame: (-2.076, 1.484). Stroke width 1.5pt with round joins and 15.5/18.6 pt label font per STYLE METRICS. Rectangle drawn as A-D-C-B cycle (all solid). Bent path A-E-C kept as a polyline (shallow bend of about 8 degrees is preserved). B-E solid. Right-angle pic between rays E-A and E-B with radius 0.483 cm (25 px * 0.019324). Labels: A, D above; B, C below; E above right at its bound point. No dashed strokes. No extension of E-C past E toward A. Unlabeled CV fragment points were not added. Standalone compilation will fail unless the program supplies A-D as stated.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1355,32 +1443,32 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0469"
+              "detail": "ink_ratio=0.0526"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.34 vs render 1.54 (delta 0.15)"
+              "detail": "reference 1.34 vs render 1.42 (delta 0.06)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.56"
+              "detail": "figure bbox ratio 1.43"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T23:06:27"
+      "created_at": "2026-11-11T12:47:19"
     },
     "ev_0008": {
       "id": "ev_0008",
@@ -1393,38 +1481,38 @@
             "A",
             "E"
           ],
-          "reason": "The original shows a continuous stroke from A to E that bends at E toward C; the A-E arm is present."
+          "reason": "In the original, the top-left stroke runs from A and bends at E, so the A-E arm is part of the continuous A-E-C stroke."
         },
         "107558f160519a4d": {
           "edge": [
             "B",
             "E"
           ],
-          "reason": "The original shows a stroke from B up to E that carries the right-angle marker at E."
+          "reason": "In the original, the stroke from B ends at E, where the right-angle mark sits."
         },
         "8f2e733c8d02f343": {
           "edge": [
             "C",
             "E"
           ],
-          "reason": "The original shows the long stroke from E down to C, continuous with the A-E arm at the bend."
+          "reason": "In the original, the long diagonal from C runs through the shallow bend and ends at E, continuing into the A-E arm."
         }
       },
-      "created_at": "2026-11-09T23:06:44"
+      "created_at": "2026-11-11T12:47:36"
     }
   },
   "conflicts": [
     {
       "id": "conflict_001",
-      "topic": "Whether A-E-C is one straight diagonal",
+      "topic": "seg_03 extent",
       "claims": [
         {
-          "source": "detect_lines seg_03",
-          "claim": "single line from C to near E with angle 32.45 deg"
+          "source": "cv:detect_lines seg_03",
+          "claim": "segment runs from C to about (116.12,93.27), overshooting E toward A by about 25 px"
         },
         {
-          "source": "detect_lines seg_07 and seg_04",
-          "claim": "A-E segment with shallower angle 24.7 deg, bending at E"
+          "source": "label E / point_05",
+          "claim": "E is the bend where EC meets EA"
         }
       ],
       "status": "unresolved",
@@ -1438,8 +1526,8 @@
     "C": "point_01",
     "B": "point_02"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-3.820,2.294);\n\\coordinate (B) at (-3.822,-2.248);\n\\coordinate (C) at (3.768,-2.251);\n\\coordinate (D) at (3.770,2.291);\n\n\n\n\\coordinate (E) at (-2.079,1.480);\n\n\n\\draw (A) -- (D) -- (C) -- (B) -- cycle;\n\n\n\\draw (A) -- (E) -- (C);\n\\draw (B) -- (E);\n\n\n\\draw pic[draw, line width=0.8pt, angle radius=0.480cm] {right angle=A--E--B};\n\n\n\\node[above left] at (A) {\\fontsize{15.5}{18.6}\\selectfont $A$};\n\\node[above right] at (D) {\\fontsize{15.5}{18.6}\\selectfont $D$};\n\\node[below right] at (C) {\\fontsize{15.5}{18.6}\\selectfont $C$};\n\\node[below left] at (B) {\\fontsize{15.5}{18.6}\\selectfont $B$};\n\\node[above right] at (E) {\\fontsize{15.5}{18.6}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 e01365f968077646503246feed46508b5e2ebdafbdf76976b8e76e0316781e36\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-3.820,2.294);\n\\coordinate (B) at (-3.822,-2.248);\n\\coordinate (C) at (3.768,-2.251);\n\\coordinate (D) at (3.770,2.291);\n\n\n\n\\coordinate (E) at (-2.079,1.480);\n\n\n\\draw (A) -- (D) -- (C) -- (B) -- cycle;\n\n\n\\draw (A) -- (E) -- (C);\n\\draw (B) -- (E);\n\n\n\\draw pic[draw, line width=0.8pt, angle radius=0.480cm] {right angle=A--E--B};\n\n\n\\node[above left] at (A) {\\fontsize{15.5}{18.6}\\selectfont $A$};\n\\node[above right] at (D) {\\fontsize{15.5}{18.6}\\selectfont $D$};\n\\node[below right] at (C) {\\fontsize{15.5}{18.6}\\selectfont $C$};\n\\node[below left] at (B) {\\fontsize{15.5}{18.6}\\selectfont $B$};\n\\node[above right] at (E) {\\fontsize{15.5}{18.6}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 e01365f968077646503246feed46508b5e2ebdafbdf76976b8e76e0316781e36\n",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-3.820,2.294);\n\\coordinate (B) at (-3.822,-2.248);\n\\coordinate (C) at (3.768,-2.251);\n\\coordinate (D) at (3.770,2.291);\n\n\n\n\\coordinate (E) at (-2.079,1.480);\n\n\n\\draw (A) -- (D) -- (C) -- (B) -- cycle;\n\n\n\\draw (A) -- (E) -- (C);\n\\draw (B) -- (E);\n\n\n\\draw pic[draw, angle radius=0.483cm] {right angle=A--E--B};\n\n\n\\node[above] at (A) {\\fontsize{15.5}{18.6}\\selectfont $A$};\n\\node[above] at (D) {\\fontsize{15.5}{18.6}\\selectfont $D$};\n\\node[below] at (B) {\\fontsize{15.5}{18.6}\\selectfont $B$};\n\\node[below] at (C) {\\fontsize{15.5}{18.6}\\selectfont $C$};\n\\node[above right] at (E) {\\fontsize{15.5}{18.6}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 b1e8b89abfd3431ba10d64eb28243431b17d73723635d48c669aef1b8bb2103c\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-3.820,2.294);\n\\coordinate (B) at (-3.822,-2.248);\n\\coordinate (C) at (3.768,-2.251);\n\\coordinate (D) at (3.770,2.291);\n\n\n\n\\coordinate (E) at (-2.079,1.480);\n\n\n\\draw (A) -- (D) -- (C) -- (B) -- cycle;\n\n\n\\draw (A) -- (E) -- (C);\n\\draw (B) -- (E);\n\n\n\\draw pic[draw, angle radius=0.483cm] {right angle=A--E--B};\n\n\n\\node[above] at (A) {\\fontsize{15.5}{18.6}\\selectfont $A$};\n\\node[above] at (D) {\\fontsize{15.5}{18.6}\\selectfont $D$};\n\\node[below] at (B) {\\fontsize{15.5}{18.6}\\selectfont $B$};\n\\node[below] at (C) {\\fontsize{15.5}{18.6}\\selectfont $C$};\n\\node[above right] at (E) {\\fontsize{15.5}{18.6}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 b1e8b89abfd3431ba10d64eb28243431b17d73723635d48c669aef1b8bb2103c\n",
   "best_version": 1,
   "best_score": 0.92,
   "tikz_versions": [
@@ -1449,7 +1537,7 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-3.820,2.294);\n\\coordinate (B) at (-3.822,-2.248);\n\\coordinate (C) at (3.768,-2.251);\n\\coordinate (D) at (3.770,2.291);\n\n\n\n\\coordinate (E) at (-2.079,1.480);\n\n\n\\draw (A) -- (D) -- (C) -- (B) -- cycle;\n\n\n\\draw (A) -- (E) -- (C);\n\\draw (B) -- (E);\n\n\n\\draw pic[draw, line width=0.8pt, angle radius=0.480cm] {right angle=A--E--B};\n\n\n\\node[above left] at (A) {\\fontsize{15.5}{18.6}\\selectfont $A$};\n\\node[above right] at (D) {\\fontsize{15.5}{18.6}\\selectfont $D$};\n\\node[below right] at (C) {\\fontsize{15.5}{18.6}\\selectfont $C$};\n\\node[below left] at (B) {\\fontsize{15.5}{18.6}\\selectfont $B$};\n\\node[above right] at (E) {\\fontsize{15.5}{18.6}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 e01365f968077646503246feed46508b5e2ebdafbdf76976b8e76e0316781e36\n",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-3.820,2.294);\n\\coordinate (B) at (-3.822,-2.248);\n\\coordinate (C) at (3.768,-2.251);\n\\coordinate (D) at (3.770,2.291);\n\n\n\n\\coordinate (E) at (-2.079,1.480);\n\n\n\\draw (A) -- (D) -- (C) -- (B) -- cycle;\n\n\n\\draw (A) -- (E) -- (C);\n\\draw (B) -- (E);\n\n\n\\draw pic[draw, angle radius=0.483cm] {right angle=A--E--B};\n\n\n\\node[above] at (A) {\\fontsize{15.5}{18.6}\\selectfont $A$};\n\\node[above] at (D) {\\fontsize{15.5}{18.6}\\selectfont $D$};\n\\node[below] at (B) {\\fontsize{15.5}{18.6}\\selectfont $B$};\n\\node[below] at (C) {\\fontsize{15.5}{18.6}\\selectfont $C$};\n\\node[above right] at (E) {\\fontsize{15.5}{18.6}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 b1e8b89abfd3431ba10d64eb28243431b17d73723635d48c669aef1b8bb2103c\n",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6987_q_fig1\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6987_q_fig1\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6987_q_fig1\\best.png",
@@ -1457,130 +1545,140 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:06:23",
+      "created_at": "2026-11-11T12:47:16",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used the program-owned A, B, C, D coordinates unchanged. E is an unmeasured helper defined in the same frame from the measured pixel (138.07,106.72). Outer rectangle drawn as closed path; A-E-C kept as a polyline with a shallow bend; B-E solid. Right angle drawn as a TikZ pic tied to rays E-A and E-B, radius 0.48 cm (25 px x 0.019324). Line width 1.5pt, labels 15.5/18.6 pt per STYLE METRICS. Labels placed at the measured corners' directions.",
-      "compile_seconds": 3.631,
+      "notes": "Kept the program-owned A, B, C, D definitions out of the document (inserted at tikzpicture start). E is defined from the source frame: (-2.076, 1.484). Stroke width 1.5pt with round joins and 15.5/18.6 pt label font per STYLE METRICS. Rectangle drawn as A-D-C-B cycle (all solid). Bent path A-E-C kept as a polyline (shallow bend of about 8 degrees is preserved). B-E solid. Right-angle pic between rays E-A and E-B with radius 0.483 cm (25 px * 0.019324). Labels: A, D above; B, C below; E above right at its bound point. No dashed strokes. No extension of E-C past E toward A. Unlabeled CV fragment points were not added. Standalone compilation will fail unless the program supplies A-D as stated.",
+      "compile_seconds": 3.245,
       "critic_report": {
         "assessment_score": 0.92,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Render is faithful to the original: same rectangle, same A-E-C path with the shallow bend at E, same B-E arm with its right-angle mark, and all five labels bound to the correct vertices.",
+        "verdict": "The render is faithful: rectangle ABCD, the A-E-C shallow bend, the BE segment and the right-angle mark at E all match the original, with only minor font and rendering differences.",
         "figure_type": {
-          "original": "rectangle ABCD with interior path A-E-C (shallow bend at E), segment B-E with right-angle marker at E, and point labels A-E",
-          "render": "rectangle ABCD with interior path A-E-C (shallow bend at E), segment B-E with right-angle marker at E, and point labels A-E"
+          "original": "Rectangle ABCD with a point E inside near the top-left side; segments AE, EC and BE, with a right-angle mark at E between EA and EB.",
+          "render": "Rectangle ABCD with a point E inside near the top-left side; segments AE, EC and BE, with a right-angle mark at E between EA and EB."
         },
         "issues": [],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "bottom edge BC drawn at the correct height and extent"
+            "note": "Bottom edge BC is drawn at the same position and extent as the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "top edge AD drawn correctly"
+            "note": "Top edge AD matches the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "diagonal E-C drawn from C to E"
+            "note": "Diagonal EC runs from E to C as in the original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "segment B-E drawn from B to E"
+            "note": "Segment BE joins B to E as in the original."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "right edge DC drawn correctly"
+            "note": "Right side DC matches the original."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "left edge AB drawn correctly"
+            "note": "Left side AB matches the original."
           },
           {
             "object_id": "seg_07",
             "status": "present",
-            "note": "segment A-E drawn from A to E with the same bend as the original"
+            "note": "Segment AE joins A to E, with the shallow bend at E preserved."
+          },
+          {
+            "object_id": "seg_AD",
+            "status": "present",
+            "note": "Top edge AD is present."
           },
           {
             "object_id": "seg_AE",
             "status": "present",
-            "note": "A-E arm ends at E, as in the original"
+            "note": "AE is present and ends at E."
+          },
+          {
+            "object_id": "seg_BA",
+            "status": "present",
+            "note": "Left side BA is present."
           },
           {
             "object_id": "seg_BE",
             "status": "present",
-            "note": "B-E arm ends at E, as in the original"
+            "note": "BE is present and meets E, carrying the right-angle mark."
+          },
+          {
+            "object_id": "seg_CB",
+            "status": "present",
+            "note": "Bottom edge CB is present."
+          },
+          {
+            "object_id": "seg_DC",
+            "status": "present",
+            "note": "Right side DC is present."
           },
           {
             "object_id": "seg_EC",
             "status": "present",
-            "note": "E-C arm ends at E and reaches C"
+            "note": "EC is present and continues from E to C."
           },
           {
-            "object_id": "ra_E",
+            "object_id": "ra_01",
             "status": "present",
-            "note": "right-angle marker at E between arms EB and EA, same quadrant as the original"
+            "note": "Right-angle mark at E is drawn in the same quadrant as the original."
           },
           {
             "object_id": "right_angle_01",
             "status": "present",
-            "note": "same right-angle marker as ra_E"
+            "note": "Right-angle mark at E is drawn in the same quadrant as the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "label C bound to bottom-right corner, placed below-right as in the original"
+            "note": "Label C sits at the bottom-right corner, as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "label B bound to bottom-left corner, placed below-left as in the original"
+            "note": "Label B sits at the bottom-left corner, as in the original."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "label D bound to top-right corner, placed above-right as in the original"
+            "note": "Label D sits at the top-right corner, as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "label A bound to top-left corner, placed above-left as in the original"
+            "note": "Label A sits at the top-left corner, as in the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "label E bound to the bend point, placed above-right without touching strokes"
+            "note": "Label E sits above-right of E with clear separation, as in the original."
           },
           {
             "object_id": "point_A",
             "status": "present",
-            "note": "vertex A matches the original"
+            "note": "Vertex A is at the top-left corner in both panels."
           },
           {
             "object_id": "point_B",
             "status": "present",
-            "note": "vertex B matches the original"
+            "note": "Vertex B is at the bottom-left corner in both panels."
           },
           {
             "object_id": "point_C",
             "status": "present",
-            "note": "vertex C matches the original"
-          },
-          {
-            "object_id": "point_D",
-            "status": "present",
-            "note": "vertex D matches the original"
-          },
-          {
-            "object_id": "point_E",
-            "status": "present",
-            "note": "vertex E matches the original bend point"
+            "note": "Vertex C is at the bottom-right corner in both panels."
           }
         ],
         "checklist_score": 1.0,
@@ -1592,11 +1690,12 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Rectangle ABCD with correct corners and proportions",
-          "Path A-E-C with the shallow bend at E preserved",
-          "Segment B-E ending at E with a right-angle marker in the same quadrant as the original",
-          "Labels A, B, C, D, E present, correctly spelled, and bound to their vertices",
-          "Label clearance from strokes is comparable to the original"
+          "Rectangle ABCD with correct aspect ratio and corner positions.",
+          "Shallow bend at E on the A-E-C path, matching the original.",
+          "Segment BE from B to E, with the same slope.",
+          "Right-angle mark at E on the EA/EB corner, in the same quadrant.",
+          "Labels A, B, C, D and E are present, correctly spelled and bound to their corners or to E.",
+          "Stroke weights and label sizes are comparable between panels."
         ],
         "labels": {
           "present": [
@@ -1618,7 +1717,7 @@
               "A",
               "E"
             ],
-            "reason": "The original shows a continuous stroke from A to E that bends at E toward C; the A-E arm is present."
+            "reason": "In the original, the top-left stroke runs from A and bends at E, so the A-E arm is part of the continuous A-E-C stroke."
           },
           {
             "case_id": "107558f160519a4d",
@@ -1626,7 +1725,7 @@
               "B",
               "E"
             ],
-            "reason": "The original shows a stroke from B up to E that carries the right-angle marker at E."
+            "reason": "In the original, the stroke from B ends at E, where the right-angle mark sits."
           },
           {
             "case_id": "8f2e733c8d02f343",
@@ -1634,7 +1733,7 @@
               "C",
               "E"
             ],
-            "reason": "The original shows the long stroke from E down to C, continuous with the A-E arm at the bend."
+            "reason": "In the original, the long diagonal from C runs through the shallow bend and ends at E, continuing into the A-E arm."
           }
         ],
         "raw_meta": "{}"
@@ -1647,14 +1746,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 3.631,
+      "seconds": 3.245,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.654296875 KiB)\nnote: Writing `figure.log` (11.1796875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:06:27"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.646484375 KiB)\nnote: Writing `figure.log` (11.1796875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T12:47:19"
     }
   ],
   "validation_results": [
@@ -1690,152 +1789,162 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\6987_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0469"
+          "detail": "ink_ratio=0.0526"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.34 vs render 1.54 (delta 0.15)"
+          "detail": "reference 1.34 vs render 1.42 (delta 0.06)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.56"
+          "detail": "figure bbox ratio 1.43"
         }
       ],
-      "created_at": "2026-11-09T23:06:27"
+      "created_at": "2026-11-11T12:47:19"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.92,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Render is faithful to the original: same rectangle, same A-E-C path with the shallow bend at E, same B-E arm with its right-angle mark, and all five labels bound to the correct vertices.",
+      "verdict": "The render is faithful: rectangle ABCD, the A-E-C shallow bend, the BE segment and the right-angle mark at E all match the original, with only minor font and rendering differences.",
       "figure_type": {
-        "original": "rectangle ABCD with interior path A-E-C (shallow bend at E), segment B-E with right-angle marker at E, and point labels A-E",
-        "render": "rectangle ABCD with interior path A-E-C (shallow bend at E), segment B-E with right-angle marker at E, and point labels A-E"
+        "original": "Rectangle ABCD with a point E inside near the top-left side; segments AE, EC and BE, with a right-angle mark at E between EA and EB.",
+        "render": "Rectangle ABCD with a point E inside near the top-left side; segments AE, EC and BE, with a right-angle mark at E between EA and EB."
       },
       "issues": [],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "bottom edge BC drawn at the correct height and extent"
+          "note": "Bottom edge BC is drawn at the same position and extent as the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "top edge AD drawn correctly"
+          "note": "Top edge AD matches the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "diagonal E-C drawn from C to E"
+          "note": "Diagonal EC runs from E to C as in the original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "segment B-E drawn from B to E"
+          "note": "Segment BE joins B to E as in the original."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "right edge DC drawn correctly"
+          "note": "Right side DC matches the original."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "left edge AB drawn correctly"
+          "note": "Left side AB matches the original."
         },
         {
           "object_id": "seg_07",
           "status": "present",
-          "note": "segment A-E drawn from A to E with the same bend as the original"
+          "note": "Segment AE joins A to E, with the shallow bend at E preserved."
+        },
+        {
+          "object_id": "seg_AD",
+          "status": "present",
+          "note": "Top edge AD is present."
         },
         {
           "object_id": "seg_AE",
           "status": "present",
-          "note": "A-E arm ends at E, as in the original"
+          "note": "AE is present and ends at E."
+        },
+        {
+          "object_id": "seg_BA",
+          "status": "present",
+          "note": "Left side BA is present."
         },
         {
           "object_id": "seg_BE",
           "status": "present",
-          "note": "B-E arm ends at E, as in the original"
+          "note": "BE is present and meets E, carrying the right-angle mark."
+        },
+        {
+          "object_id": "seg_CB",
+          "status": "present",
+          "note": "Bottom edge CB is present."
+        },
+        {
+          "object_id": "seg_DC",
+          "status": "present",
+          "note": "Right side DC is present."
         },
         {
           "object_id": "seg_EC",
           "status": "present",
-          "note": "E-C arm ends at E and reaches C"
+          "note": "EC is present and continues from E to C."
         },
         {
-          "object_id": "ra_E",
+          "object_id": "ra_01",
           "status": "present",
-          "note": "right-angle marker at E between arms EB and EA, same quadrant as the original"
+          "note": "Right-angle mark at E is drawn in the same quadrant as the original."
         },
         {
           "object_id": "right_angle_01",
           "status": "present",
-          "note": "same right-angle marker as ra_E"
+          "note": "Right-angle mark at E is drawn in the same quadrant as the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "label C bound to bottom-right corner, placed below-right as in the original"
+          "note": "Label C sits at the bottom-right corner, as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "label B bound to bottom-left corner, placed below-left as in the original"
+          "note": "Label B sits at the bottom-left corner, as in the original."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "label D bound to top-right corner, placed above-right as in the original"
+          "note": "Label D sits at the top-right corner, as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "label A bound to top-left corner, placed above-left as in the original"
+          "note": "Label A sits at the top-left corner, as in the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "label E bound to the bend point, placed above-right without touching strokes"
+          "note": "Label E sits above-right of E with clear separation, as in the original."
         },
         {
           "object_id": "point_A",
           "status": "present",
-          "note": "vertex A matches the original"
+          "note": "Vertex A is at the top-left corner in both panels."
         },
         {
           "object_id": "point_B",
           "status": "present",
-          "note": "vertex B matches the original"
+          "note": "Vertex B is at the bottom-left corner in both panels."
         },
         {
           "object_id": "point_C",
           "status": "present",
-          "note": "vertex C matches the original"
-        },
-        {
-          "object_id": "point_D",
-          "status": "present",
-          "note": "vertex D matches the original"
-        },
-        {
-          "object_id": "point_E",
-          "status": "present",
-          "note": "vertex E matches the original bend point"
+          "note": "Vertex C is at the bottom-right corner in both panels."
         }
       ],
       "checklist_score": 1.0,
@@ -1847,11 +1956,12 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Rectangle ABCD with correct corners and proportions",
-        "Path A-E-C with the shallow bend at E preserved",
-        "Segment B-E ending at E with a right-angle marker in the same quadrant as the original",
-        "Labels A, B, C, D, E present, correctly spelled, and bound to their vertices",
-        "Label clearance from strokes is comparable to the original"
+        "Rectangle ABCD with correct aspect ratio and corner positions.",
+        "Shallow bend at E on the A-E-C path, matching the original.",
+        "Segment BE from B to E, with the same slope.",
+        "Right-angle mark at E on the EA/EB corner, in the same quadrant.",
+        "Labels A, B, C, D and E are present, correctly spelled and bound to their corners or to E.",
+        "Stroke weights and label sizes are comparable between panels."
       ],
       "labels": {
         "present": [
@@ -1873,7 +1983,7 @@
             "A",
             "E"
           ],
-          "reason": "The original shows a continuous stroke from A to E that bends at E toward C; the A-E arm is present."
+          "reason": "In the original, the top-left stroke runs from A and bends at E, so the A-E arm is part of the continuous A-E-C stroke."
         },
         {
           "case_id": "107558f160519a4d",
@@ -1881,7 +1991,7 @@
             "B",
             "E"
           ],
-          "reason": "The original shows a stroke from B up to E that carries the right-angle marker at E."
+          "reason": "In the original, the stroke from B ends at E, where the right-angle mark sits."
         },
         {
           "case_id": "8f2e733c8d02f343",
@@ -1889,7 +1999,7 @@
             "C",
             "E"
           ],
-          "reason": "The original shows the long stroke from E down to C, continuous with the A-E arm at the bend."
+          "reason": "In the original, the long diagonal from C runs through the shallow bend and ends at E, continuing into the A-E arm."
         }
       ],
       "raw_meta": "{}"
@@ -1898,19 +2008,19 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "Measured bend at E between AE and EC is shallow; Critic should verify visually that it is a bend and not a single straight line."
+      "issue": "seg_03 overshoots E toward A by about 25 px (ends near the right-angle square at (116.12,93.27)); Critic should confirm the drawn E-C stroke ends at E and the overshoot is part of the square mark, not a stroke"
     },
     {
       "source": "geometry_agent",
-      "issue": "point_09 at (124.64,99.42) is not on any drawn stroke and is ignored."
+      "issue": "seg_07 measured endpoint (55,68) is near A (47,65), treated as A-E; confirm A-E endpoint at A"
     },
     {
       "source": "supervisor",
-      "issue": "The bend at E is shallow and was accepted from CV and critic evidence rather than independently remeasured."
+      "issue": "Shallow bend at E on the A-E-C path was kept as measured; the critic judged it faithful, but it was not independently verified beyond the critic's review."
     },
     {
       "source": "supervisor",
-      "issue": "point_09 (124.64,99.42) was ignored as not lying on a drawn stroke."
+      "issue": "Some unbound CV point candidates were treated as glyph/edge fragments and not drawn."
     }
   ],
   "action_history": [
@@ -1956,7 +2066,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 9, 'relations': 3, 'conflicts': 1, 'rejected': []}",
+      "result_summary": "ok=True; merged={'objects': 13, 'relations': 1, 'conflicts': 1, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1977,17 +2087,17 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw the figure in TikZ using measured image pixels (origin top-left, y down; convert with y_tikz = -y_px, scale 0.01 cm per px or similar). Use these measured vertices with the exact labels: A=(47,65",
+      "purpose": "Reconstruct the figure as TikZ using the measured vertices (y flipped). Rectangle A(47,65), D(441,65), C(440,300), B(48,300) with solid edges AD, DC, CB, BA. Interior point E at (138.07,106.72). Solid",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Draw the figure in TikZ using measured image pixels (origin top-left, y down; convert with y_tikz = -y_px, scale 0.01 cm per px or similar). Use these measured vertices with the exact labels: A=(47,65), D=(441,65), C=(440,300), B=(48,300), E=(138,107). Draw the outer quadrilateral as closed path A-D-C-B-A: top edge A-D (y=65), right edge D-C (x=441, measured to y~253 and continuing to C), bottom edge B-C (y=300), left edge A-B (x=47). Draw the interior edges as explicit named paths: A-E, E-C (shallow bend at E, do NOT collapse to a straight line A-C), and B-E. Mark a right angle at E between arms EB and EA (small square mark, side ~25 px). Place labels A (upper-left of A), D (upper-right of D), C (lower-right of C), B (lower-left of B), E (upper-right of E). Use solid lines throughout. No other points."
+        "instruction": "Reconstruct the figure as TikZ using the measured vertices (y flipped). Rectangle A(47,65), D(441,65), C(440,300), B(48,300) with solid edges AD, DC, CB, BA. Interior point E at (138.07,106.72). Solid edges AE, EC, BE. Draw a right-angle square mark at E between arms EA and EB (mark points near (116.75,93.66),(106.13,116.29),(127.44,129.35)). Keep labels A, B, C, D, E at their bound points, placed outside the figure near each vertex (E label near (158,88) upper-right of E). Do not extend E-C beyond E toward A; the segment from E toward A ends at A. Unlabeled CV points (244,258), (290,65), (198,65), (124,99), (441,230), (47,231) are glyph/edge fragments; do not add them as labels. Use the same coordinate definitions for shared vertices."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 35.71,
+      "duration_s": 33.95,
       "token_usage": {
-        "delta": 20326
+        "delta": 20096
       },
       "visual_calls": 2,
       "error": null
@@ -1997,10 +2107,10 @@
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "TikZ reconstruction v1 compiled and passed validation and critic review (score 0.92, must_repair false). It draws rectangle A-D-C-B with labels A, B, C, D, the path A-E-C with a shallow bend at E, segment B-E, and a right-angle mark at E between EA and EB. All five labels are present.",
+        "summary": "Generated TikZ v1 (compiles, topology check passed). Rectangle ABCD with solid edges, interior point E joined to A (shallow bend A-E-C), B-E, right-angle mark at E between EA and EB, labels A,B,C,D,E. Critic score 0.92, must_repair=false, no issues reported.",
         "unresolved": [
-          "The bend at E is shallow and was accepted from CV and critic evidence rather than independently remeasured.",
-          "point_09 (124.64,99.42) was ignored as not lying on a drawn stroke."
+          "Shallow bend at E on the A-E-C path was kept as measured; the critic judged it faithful, but it was not independently verified beyond the critic's review.",
+          "Some unbound CV point candidates were treated as glyph/edge fragments and not drawn."
         ],
         "status": "success"
       },
@@ -2054,37 +2164,37 @@
     "totals": {
       "calls": 5,
       "visual_calls": 3,
-      "prompt_tokens": 39153,
-      "completion_tokens": 9086,
-      "total_tokens": 48239,
-      "cached_tokens": 9918.0,
-      "cache_write_tokens": 16523.0,
-      "latency_s": 52.49
+      "prompt_tokens": 39675,
+      "completion_tokens": 9249,
+      "total_tokens": 48924,
+      "cached_tokens": 4217.0,
+      "cache_write_tokens": 35440.0,
+      "latency_s": 66.08
     },
     "by_agent": {
       "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 9030,
-        "latency_s": 11.74
+        "total_tokens": 10097,
+        "latency_s": 24.62
       },
       "supervisor": {
         "calls": 2,
         "visual_calls": 0,
-        "total_tokens": 18883,
-        "latency_s": 16.61
+        "total_tokens": 18731,
+        "latency_s": 11.04
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8805,
-        "latency_s": 8.46
+        "total_tokens": 9170,
+        "latency_s": 14.28
       },
       "critic_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 11521,
-        "latency_s": 15.68
+        "total_tokens": 10926,
+        "latency_s": 16.15
       }
     }
   },
@@ -2092,12 +2202,12 @@
     "steps_left": 22,
     "tool_calls_left": 42,
     "visual_calls_left": 21,
-    "tokens_left": 351761,
+    "tokens_left": 351076,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 48239
+    "total_tokens_used": 48924
   },
   "meta": {
     "topology_plan": {
@@ -2139,7 +2249,7 @@
             "A",
             "E"
           ],
-          "reason": "The original shows a continuous stroke from A to E that bends at E toward C; the A-E arm is present."
+          "reason": "In the original, the top-left stroke runs from A and bends at E, so the A-E arm is part of the continuous A-E-C stroke."
         },
         {
           "case_id": "107558f160519a4d",
@@ -2147,7 +2257,7 @@
             "B",
             "E"
           ],
-          "reason": "The original shows a stroke from B up to E that carries the right-angle marker at E."
+          "reason": "In the original, the stroke from B ends at E, where the right-angle mark sits."
         },
         {
           "case_id": "8f2e733c8d02f343",
@@ -2155,7 +2265,7 @@
             "C",
             "E"
           ],
-          "reason": "The original shows the long stroke from E down to C, continuous with the A-E arm at the bend."
+          "reason": "In the original, the long diagonal from C runs through the shallow bend and ends at E, continuing into the A-E arm."
         }
       ],
       "ink_confirmed_edges": [],
@@ -2163,14 +2273,7 @@
         {
           "edge": [
             "A",
-            "B"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "B",
-            "C"
+            "D"
           ],
           "style": "solid"
         },
@@ -2183,8 +2286,15 @@
         },
         {
           "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
             "A",
-            "D"
+            "B"
           ],
           "style": "solid"
         }
@@ -2192,19 +2302,12 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Rectangle ABCD (A top-left, D top-right, B bottom-left, C bottom-right), all sides solid: AB, BC, CD, DA. Point E (point_05) lies on the upper diagonal from A to C, but the path bends at E: A-E is shallower (about 24.7 deg) and E-C is steeper (about 32.5 deg), so record AE and EC as separate strokes meeting at E. Segment BE runs from B to E and is solid. Right-angle mark at E between rays EA and EB (mark drawn on the left side of E, around (106-127, 93-129)); BE is perpendicular to EA, so B's foot on AE is E. No dashed strokes detected. Junctions: A=point_04, B=point_02, C=point_01, D=point_03, E=point_05. Labels A,B,C,D,E all correct; no bindings changed.",
+      "summary": "Rectangle ABCD (A top-left, D top-right, B bottom-left, C bottom-right) with sides AD, DC, CB, BA all solid. Inside, a bent path A-E-C: A-E (seg_07) and E-C (seg_03) are not collinear (slopes about 0.46 and 0.64), so E is a bend. Segment B-E (seg_04) meets E. One right-angle square at E between rays E-A and E-B. No dashed strokes. No interior foot onto a drawn line. Curve extent: none.",
       "strokes": [
         {
           "edge": [
             "A",
-            "B"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "B",
-            "C"
+            "D"
           ],
           "style": "solid"
         },
@@ -2217,8 +2320,15 @@
         },
         {
           "edge": [
+            "B",
+            "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
             "A",
-            "D"
+            "B"
           ],
           "style": "solid"
         },
@@ -2253,7 +2363,17 @@
           "side_px": 25.0
         }
       },
-      "feet": []
+      "feet": [],
+      "extensions": {
+        "E": {
+          "anchor": "E",
+          "px": [
+            116.12,
+            93.27
+          ],
+          "stroke_id": "seg_03"
+        }
+      }
     },
     "coordinate_contract": {
       "enabled": true,
@@ -2328,10 +2448,10 @@
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "53c22e360747df24b5ba7f948313ac19d2c6f6a37fd33e71238056b88c945b5a",
-      "output_sha256": "b7612beac158c23ebaffcd23f02a4956f581ec68968e0a35db8ebd1f58fbf8da",
+      "input_sha256": "87c67fdb95a7f02c7dffdff31af9b5c9543bdd761d308c304c6ef19a477cc4c3",
+      "output_sha256": "f8d9d6aec743e4d74337f67f84a7eba86b58af90bffa5e26208babc69b248e2b",
       "reason": "applied",
       "accepted": [
         {
@@ -2404,8 +2524,8 @@
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.003,
         "incidence_mode": "snap",
         "length_weight": 0.01,
@@ -2416,13 +2536,15 @@
           "parallel",
           "perpendicular"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
+      "source_collinear_candidates": [],
       "input_candidates": 6,
       "preserved_incidence_count": 0,
       "max_shift_rel": 0.0018599028340629921,
@@ -2524,10 +2646,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "53c22e360747df24b5ba7f948313ac19d2c6f6a37fd33e71238056b88c945b5a",
-        "output_sha256": "b7612beac158c23ebaffcd23f02a4956f581ec68968e0a35db8ebd1f58fbf8da",
+        "input_sha256": "87c67fdb95a7f02c7dffdff31af9b5c9543bdd761d308c304c6ef19a477cc4c3",
+        "output_sha256": "f8d9d6aec743e4d74337f67f84a7eba86b58af90bffa5e26208babc69b248e2b",
         "reason": "applied",
         "accepted": [
           {
@@ -2600,8 +2722,8 @@
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -2612,13 +2734,15 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 6,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.0018599028340629921,
@@ -2647,25 +2771,25 @@
           "A",
           "E"
         ],
-        "reason": "The original shows a continuous stroke from A to E that bends at E toward C; the A-E arm is present."
+        "reason": "In the original, the top-left stroke runs from A and bends at E, so the A-E arm is part of the continuous A-E-C stroke."
       },
       "107558f160519a4d": {
         "edge": [
           "B",
           "E"
         ],
-        "reason": "The original shows a stroke from B up to E that carries the right-angle marker at E."
+        "reason": "In the original, the stroke from B ends at E, where the right-angle mark sits."
       },
       "8f2e733c8d02f343": {
         "edge": [
           "C",
           "E"
         ],
-        "reason": "The original shows the long stroke from E down to C, continuous with the A-E arm at the bend."
+        "reason": "In the original, the long diagonal from C runs through the shallow bend and ends at E, continuing into the A-E arm."
       }
     },
     "finish": {
-      "summary": "TikZ reconstruction v1 compiled and passed validation and critic review (score 0.92, must_repair false). It draws rectangle A-D-C-B with labels A, B, C, D, the path A-E-C with a shallow bend at E, segment B-E, and a right-angle mark at E between EA and EB. All five labels are present.",
+      "summary": "Generated TikZ v1 (compiles, topology check passed). Rectangle ABCD with solid edges, interior point E joined to A (shallow bend A-E-C), B-E, right-angle mark at E between EA and EB, labels A,B,C,D,E. Critic score 0.92, must_repair=false, no issues reported.",
       "status": "success"
     },
     "stop_reason": "finish"

@@ -300,6 +300,7 @@ def apply_reference_corrections(graph, spec, source_hash):
         get = lambda n: graph.points[names.index(n)]
         old = dict(graph.bindings[label])
         kind=construction['type']
+        rebind_only = kind in ('declared_vertex', 'segment_intersection')
         if kind == 'line_circle_other_intersection':
             a,b = (get(n) for n in construction['line'])
             center = get(construction['center'])
@@ -322,33 +323,60 @@ def apply_reference_corrections(graph, spec, source_hash):
                 direction=np.asarray(old['xy'])-center
                 if np.linalg.norm(direction)<1e-10:raise ValueError('No polar direction for radial projection')
                 point=center+radius*direction/np.linalg.norm(direction)
+        elif kind == 'declared_vertex':
+            conflict = next((row for row in graph.extraction_audit['same_name_coordinate_conflicts']
+                             if row['label'] == label), None)
+            if conflict is None:
+                raise ValueError(f'No distinct declared vertex for {label}')
+            point = np.asarray(conflict['same_name_coordinate_xy'], float)
+        elif kind == 'segment_intersection':
+            first, second = construction['segments']
+            a, b, c, d = (get(name) for name in (*first, *second))
+            u, v = b-a, d-c
+            system = np.column_stack((u, -v))
+            if abs(np.linalg.det(system)) <= 1e-10 * max(float(np.linalg.norm(u)*np.linalg.norm(v)), 1e-12):
+                raise ValueError('Reference segments do not have a unique intersection')
+            t, s = np.linalg.solve(system, c-a)
+            if not all(-1e-9 <= parameter <= 1+1e-9 for parameter in (t, s)):
+                raise ValueError('Reference intersection lies outside a segment')
+            point = a + t*u
         else:
             raise ValueError('Unsupported reviewed reference construction')
         graph.points[names.index(label)] = point
         # A reviewed move of a declared edge endpoint also moves its incident
         # strokes. An interior label such as 6986 E does not alter the body ray.
         transported=0;strokes=[]
-        for stroke in graph.strokes:
+        for stroke in () if rebind_only else graph.strokes:
             ends=[]
             for endpoint in (stroke.a,stroke.b):
                 attached=np.linalg.norm(endpoint-np.asarray(old['xy']))<1e-9
                 ends.append(point.copy() if attached else endpoint)
                 transported+=int(attached)
             strokes.append(SimpleNamespace(a=ends[0],b=ends[1],length=float(np.linalg.norm(ends[1]-ends[0])),dashed=stroke.dashed,source=stroke.source))
-        graph.strokes=strokes
+        if not rebind_only:
+            graph.strokes=strokes
         binding = dict(old, xy=point.tolist(), source_xy=old['xy'],
-                       coordinate_aliases=[], reviewed_construction=construction)
+                       coordinate_aliases=[label] if kind == 'declared_vertex' else [],
+                       reviewed_construction=construction)
         graph.bindings[label] = binding
         graph.extraction_audit['label_bindings'][label] = binding
+        off_body = graph.extraction_audit.get('off_body_labels', [])
+        if rebind_only and label in off_body and any(_distance(point, stroke.a, stroke.b) <= 1e-7*graph.span
+                                                    for stroke in graph.strokes):
+            off_body.remove(label)
         for conflict in graph.extraction_audit.get('same_name_coordinate_conflicts', []):
             if conflict['label'] == label:
                 conflict.update(corrected_reference_xy=point.tolist(), resolution='reviewed construction; original source conflict retained')
-        residual=float(np.linalg.norm(point-center)) if kind=='parsed_circle_center' else abs(float(np.linalg.norm(point-center))-radius)
-        corrections.append({'label': label, 'source_xy': old['xy'], 'corrected_xy': point.tolist(),
-                            'construction': construction, 'reason': spec['reason'],
-                            'radius': radius, 'construction_residual':residual,
-                            'circle_residual':residual if kind!='parsed_circle_center' else None,
-                            'transported_incident_endpoints':transported})
+        correction = {'label': label, 'source_xy': old['xy'], 'corrected_xy': point.tolist(),
+                      'construction': construction, 'reason': spec['reason'],
+                      'transported_incident_endpoints': transported}
+        if not rebind_only:
+            residual = float(np.linalg.norm(point-center))
+            if kind != 'parsed_circle_center':
+                residual = abs(residual-radius)
+            correction.update(radius=radius, construction_residual=residual,
+                              circle_residual=residual if kind!='parsed_circle_center' else None)
+        corrections.append(correction)
     if corrections:
         graph.extraction_audit['reviewed_reference_corrections'] = corrections
 

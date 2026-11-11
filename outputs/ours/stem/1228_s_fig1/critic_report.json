@@ -1,118 +1,168 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful: all segments, the right angle at F, the angle arc at G and all seven labels match the original, with no positional or topological discrepancies found.",
+  "verdict": "Render is faithful: all seven vertices, the parallelogram-style outline, the interior segments, the right-angle mark at F and the angle arc at G match the original, with only a minor G-label clearance difference.",
   "figure_type": {
-    "original": "Planar quadrilateral-style figure (A, D top; B, C bottom) with interior points E, F, G, a right-angle mark at F, and an angle arc at G",
-    "render": "Same planar figure with the same segments, right-angle mark at F and angle arc at G"
+    "original": "Planar line diagram: quadrilateral ADCB with interior points F (on AB), G (on AE) and E, right-angle mark at F, angle arc at G",
+    "render": "Same planar line diagram with the same vertex set, segment layout and right-angle mark at F"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_05"
+      ],
+      "bbox": [
+        0.41,
+        0.41,
+        0.46,
+        0.47
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Label G sits very close to the A-E stroke that passes through G; the original leaves slightly more clearance on the right side of that stroke.",
+      "suggestion": "Nudge the G label slightly further right (e.g. use 'right=2pt' or a small xshift) while keeping it bound to coordinate (G)."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom edge B-C drawn in the matching position."
+      "note": "Bottom edge B-C drawn at matching height and extent."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge A-D drawn in the matching position."
+      "note": "Top edge A-D drawn at matching height and extent."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment D-G-A direction matches; the G-D line ends at G as in the original."
+      "note": "D-G segment ends at G as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left side A-B, passing through F, matches the original."
+      "note": "Left edge A-B drawn through F, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Right side D-C matches the original."
+      "note": "Right edge D-C drawn correctly."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment A-G-E (A to E through G) present with correct endpoints."
+      "note": "B-E segment ends at E as in the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Segment E-C present and joins E as in the original."
+      "note": "E-C segment ends at E and C as in the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Segment A-E-G line present; matches the original."
+      "note": "A-G-E line passes through G with the same slant."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Segment F-E present with correct endpoints."
+      "note": "F-E segment ends at F and E as in the original."
     },
     {
-      "object_id": "ra_01",
+      "object_id": "ra_F",
       "status": "present",
-      "note": "Right-angle mark at F between F-E and the line AB is present and in the same quadrant as the original."
+      "note": "Right-angle mark at F is drawn on the same side as in the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Same right-angle mark at F; square lies on the F-E side as in the original."
+      "note": "Same right-angle marker at F between FA and FE."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B label is at the bottom-left vertex, matching the original."
+      "note": "B label placed below-left of B, clear of strokes."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "C label is at the bottom-right vertex, matching the original."
+      "note": "C label placed below-right of C, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "D label is at the top-right vertex, matching the original."
+      "note": "D label placed above-right of D, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "A label is at the top-left vertex, matching the original."
+      "note": "A label placed above A, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "G label sits right of G, with clearance from the strokes, as in the original."
+      "note": "G label present on the right of G; clearance is slightly tighter than the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "F label is left of F, matching the original."
+      "note": "F label placed left of F, as in the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "E label is right of E, matching the original; clear of the E-C line."
+      "note": "E label placed upper-right of E, as in the original."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Same A vertex and label as point_04."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Same B vertex and label as point_01."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Same C vertex and label as point_02."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Same D vertex and label as point_03."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Same E vertex and label as point_07."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Same F vertex and label as point_06."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Overall outline A-D-C-B and the interior segments A-F-B, B-E-C, F-E, A-G-E and D-G match the original.",
-    "Right-angle mark at F is present in the same quadrant.",
-    "Angle arc at G is present.",
-    "All seven point labels A, B, C, D, E, F, G are present and bound to the correct vertices.",
-    "Aspect ratio and overall layout are consistent."
+    "Outline A-D, D-C, C-B, B-A is drawn with matching proportions and position.",
+    "F lies on AB with the right-angle mark on the correct side, matching the original.",
+    "E is the intersection of B-E, C-E, F-E and A-G-E, with the correct endpoints.",
+    "G lies on A-E with D-G drawn to it and the angle arc at G present.",
+    "All seven labels (A, B, C, D, E, F, G) are present and bound to the correct vertices.",
+    "Shallow bend at E along C-E-F is preserved as in the original.",
+    "Line weights and label sizes are comparable between the panels."
   ],
   "labels": {
     "present": [

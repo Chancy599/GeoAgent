@@ -1,148 +1,154 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful: E sits on the solid AB side, and the solid ED and dashed EG strokes meet at E as in the original.",
+  "verdict": "The render matches the original closely: B-E-A is a straight line with E as a shared junction, the dashed and solid styles agree, and all seven labels are present.",
   "figure_type": {
-    "original": "triangle ABC with interior cevian-like segments, dashed AD and dashed EG, points E, F, G on the figure",
-    "render": "same triangle ABC with the same segments, dashed AD and dashed EG, labels E, F, G"
+    "original": "Triangle ABC with interior points E, D, F, G; segments A-D and E-G dashed, others solid; B-D-C horizontal, B-E-A straight, F-D-G straight",
+    "render": "Same configuration: triangle ABC with the same interior construction and matching dashed/solid styles"
   },
   "issues": [
     {
       "type": "other",
       "severity": "low",
       "object_ids": [
-        "point_07"
+        "point_07",
+        "point_10"
       ],
       "bbox": [
         0.45,
-        0.2,
-        0.55,
-        0.4
+        0.25,
+        0.6,
+        0.42
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Point_07 (px 258,136) is labelled F in the geometry state, but it lies on segment AB near E, not on the F position on AC. The rendered F label is correctly at point_10 on the right side, so this is a stray binding and does not appear in the render.",
-      "suggestion": "Keep F bound to point_10 and remove the F binding from point_07 in the topology state. The TikZ source is unaffected."
+      "description": "The CV binding for label F does not sit on the visible F vertex. point_07 (258,135) and point_10 (407,222) are both off the drawn figure, while the visible F label sits on AC near (515,365) in the original panel. The rendered F is placed correctly on AC, so this is a source-binding inconsistency and not a render defect.",
+      "suggestion": "No TikZ change is needed for the render. Rebind the F label in the CV geometry to the vertex on AC, or ignore the duplicate F bindings."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base BC is drawn horizontally at the same height in both panels."
+      "note": "Horizontal base B-D-C is drawn solid and matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment from B up to A along the solid side AB, with E on it, matches the original."
+      "note": "Solid segment from A down to G matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid segment from A down to G matches the original."
+      "note": "Solid segment from A to G matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Dashed vertical AD from A to D on BC matches the original."
+      "note": "Vertical dashed A-D matches the original dashed style and endpoints."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Solid segment from E to D matches the original; it meets D."
+      "note": "Solid E-D matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Solid segment from A to F along AC region matches the original."
+      "note": "Solid F-D-G line through D matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Dashed chain from E down to G matches the original, with the same bend."
+      "note": "Dashed E-G matches the original, ending at G."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Solid segment from G up-right through D to F matches the original."
+      "note": "Solid A-G (or A-C side) segment matches the original."
     },
     {
-      "object_id": "seg_AD",
+      "object_id": "seg_AD_dashed",
       "status": "present",
-      "note": "Dashed AD is drawn from A to D as in the original."
+      "note": "Dashed A-D is present with the correct endpoints at A and D."
+    },
+    {
+      "object_id": "seg_EG_dashed",
+      "status": "present",
+      "note": "Dashed E-G is present with the correct endpoints at E and G."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B is labelled at the left base vertex."
+      "note": "B label is present at the left end of the base."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "D is labelled at the base intersection, below right."
+      "note": "D label is present below-right of D."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "C is labelled at the right base vertex."
+      "note": "C label is present at the right end of the base."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "A is labelled at the top vertex."
+      "note": "A label is present at the apex."
     },
     {
       "object_id": "point_07",
-      "status": "wrong",
-      "note": "Labelled F but located on AB, not at the F position on the right side."
+      "status": "unclear",
+      "note": "CV point (258,135) is not at a visible F vertex. The rendered F label is correct on AC."
     },
     {
       "object_id": "point_09",
       "status": "present",
-      "note": "G is labelled below the base at the lower vertex of the dashed EG."
+      "note": "G label is present at the lower-left of the segment end."
     },
     {
       "object_id": "point_10",
-      "status": "present",
-      "note": "F is labelled on the right at the end of the solid G-D-F line, matching the original."
+      "status": "unclear",
+      "note": "CV point (407,222) is not at the visible F vertex. The rendered F label is correct."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Vertex A matches the original top vertex."
+      "note": "A is present at the apex."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Vertex B matches the original left base vertex."
+      "note": "B is present at the left vertex."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "Vertex C matches the original right base vertex."
+      "note": "C is present at the right vertex."
     },
     {
       "object_id": "point_D",
       "status": "present",
-      "note": "D lies on the base where AD, ED and GF meet, matching the original."
+      "note": "D is present at the base junction."
     },
     {
       "object_id": "point_E",
       "status": "present",
-      "note": "E lies on the solid AB side and is the junction of the solid ED and dashed EG, as in the original."
+      "note": "E is present on AB, where it is a shared junction of B-E-A and E-D/E-G."
     },
     {
       "object_id": "point_F",
       "status": "present",
-      "note": "F matches the original position on the right side of the figure."
+      "note": "F is present on AC, with F-D-G passing through D."
     },
     {
       "object_id": "point_G",
       "status": "present",
-      "note": "G matches the original lower position below the baseline."
+      "note": "G is present at the bottom end of E-G and A-G."
     }
   ],
-  "checklist_score": 0.978,
+  "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
@@ -151,11 +157,15 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "E is on the solid AB side, at the same relative position as in the original.",
-    "E is the junction of the solid ED segment and the dashed EG segment, as in the original.",
-    "Dashed AD and dashed EG styles and endpoints match the original.",
-    "The solid line from G through D to F is present and passes through D as in the original.",
-    "Labels A, B, C, D, E, F, G are present and placed near their vertices."
+    "B-E-A is drawn as one straight solid line with E as a shared junction.",
+    "A-C is drawn solid from A to C.",
+    "B-D-C is drawn solid along the base.",
+    "A-D is dashed vertically from A to D, matching the original.",
+    "E-D is drawn solid from E to D.",
+    "E-G is dashed and ends at G, matching the original.",
+    "A-G is drawn solid from A to G.",
+    "F-D-G is drawn as one straight solid line passing through D.",
+    "All labels A, B, C, D, E, F, G are present with positions matching the original."
   ],
   "labels": {
     "present": [

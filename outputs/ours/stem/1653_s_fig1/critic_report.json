@@ -1,170 +1,150 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.95,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is a faithful reproduction of the original: same rectangle, same interior segments, same dashed PE, and all eight labels are correctly placed and bound. The only visible difference is slightly heavier stroke weight.",
+  "verdict": "Render is faithful to the original: rectangle, all interior segments, dashed EP, and all eight labels match in position and connectivity.",
   "figure_type": {
-    "original": "rectangle ABCD with interior segments AE, AF through P, PE (dashed), PC, EF and M at the PC/EF crossing",
-    "render": "same rectangle and interior segments, same dashed PE and point labels"
+    "original": "Rectangle ABCD with interior segments AE, AF through P, EF, PC through M to C, and dashed EP",
+    "render": "Rectangle ABCD with interior segments AE, AF through P, EF, PC through M to C, and dashed EP"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_02",
-        "seg_03",
-        "seg_07",
-        "seg_08"
-      ],
-      "bbox": [
-        0.05,
-        0.2,
-        0.97,
-        0.75
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Solid strokes in the render (rectangle sides and the interior lines) look somewhat heavier than the thinner strokes in the original.",
-      "suggestion": "Optionally reduce the global line width from 1.1pt to about 0.8-0.9pt to match the original's lighter stroke."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Segment A to P to F diagonal drawn correctly."
+      "note": "Segment A to F passing through P is drawn correctly and ends at F."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge A to D present."
+      "note": "Top edge AD matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Bottom edge B to C present."
+      "note": "Bottom edge BC matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment F to E region present; rendered as F-E line through M."
+      "note": "Segment F to E is drawn and meets E as in the original; the CV extension past E is detection noise."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment A to E present."
+      "note": "Segment A to E is drawn and meets E on the base as in the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment C to P present, passing through M."
+      "note": "Segment P to C passes through M and ends at C as in the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Left edge A to B present."
+      "note": "Left edge AB matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Right edge D to C present, with F on it."
+      "note": "Right edge DC matches the original."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Dashed P to E present."
+      "note": "Dashed segment from E to P matches the original in position and style."
     },
     {
       "object_id": "seg_AE",
       "status": "present",
-      "note": "AE drawn from A to E as in the original."
+      "note": "Segment AE is drawn correctly."
     },
     {
-      "object_id": "seg_AP_PF",
+      "object_id": "seg_AF",
       "status": "present",
-      "note": "A-P-F line drawn; P lies on it and it ends at F."
+      "note": "Segment AF through P is drawn correctly."
     },
     {
       "object_id": "seg_EF",
       "status": "present",
-      "note": "E to F line present and passes through M."
+      "note": "Segment EF is drawn correctly and meets E and F."
+    },
+    {
+      "object_id": "seg_EP_dashed",
+      "status": "present",
+      "note": "Dashed segment EP is drawn correctly."
     },
     {
       "object_id": "seg_PC",
       "status": "present",
-      "note": "P to M to C line present."
-    },
-    {
-      "object_id": "seg_PE",
-      "status": "present",
-      "note": "Dashed PE present with correct endpoints."
+      "note": "Segment PC through M to C is drawn correctly."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label A at top-left corner, correctly placed."
+      "note": "Label A is at the top-left corner, bound correctly."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label F on right edge, correctly placed."
+      "note": "Label F is on the right edge, bound correctly."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label P above its vertex, clear of strokes."
+      "note": "Label P is above the vertex, bound correctly."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label D at top-right corner."
+      "note": "Label D is at the top-right corner, bound correctly."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label E below bottom edge, correctly placed."
+      "note": "Label E is below the base vertex, bound correctly."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label C at bottom-right corner."
+      "note": "Label C is at the bottom-right corner, bound correctly."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label B at bottom-left corner."
+      "note": "Label B is at the bottom-left corner, bound correctly."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "Label M below the crossing point."
+      "note": "Label M is below the intersection, bound correctly."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Label A matches the corner vertex."
+      "note": "Vertex A matches the original."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Label B matches the corner vertex."
+      "note": "Vertex B matches the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle ABCD with the correct corner labels and proportions",
-    "E lies on BC and is joined to A, P (dashed) and F",
-    "P lies on segment AF and joins to M and C",
-    "F lies on the right edge DC and is joined to D, A-P, E and C",
-    "M sits at the crossing of PC and EF",
-    "All eight point labels are present, correctly bound and clear of strokes"
+    "Rectangle ABCD with correct aspect ratio and corner positions",
+    "E on the bottom edge with AE and EF meeting there",
+    "F on the right edge with AF and EF meeting there",
+    "P on AF with dashed EP and PC emanating from it",
+    "M at the intersection of PC and EF",
+    "Stroke weights and dashed pattern are comparable to the original",
+    "All eight labels A, B, C, D, E, F, M, P are present with clear separation from strokes"
   ],
   "labels": {
     "present": [
@@ -180,7 +160,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 3,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

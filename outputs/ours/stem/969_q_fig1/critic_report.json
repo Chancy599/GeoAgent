@@ -1,17 +1,17 @@
 {
-  "assessment_score": 0.93,
+  "assessment_score": 0.95,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful: the parallelogram ABCD, the diagonal A-P-C, PF, PE and all seven labels match the original.",
+  "verdict": "Render is a faithful match: parallelogram ABCD with diagonal AC, P on AC, PF and PE drawn, F on BC, and all labels present and bound correctly.",
   "figure_type": {
-    "original": "Parallelogram ABCD with diagonal AC; P on AC; F on BC; E on AB; segments PF and PE",
-    "render": "Parallelogram ABCD with diagonal AC; P on AC; F on BC; E on AB; segments PF and PE"
+    "original": "Parallelogram ABCD with diagonal AC; P on AC; segment PF to F on BC; segment PE to E on AB",
+    "render": "Parallelogram ABCD with diagonal AC; P on AC; segment PF to F on BC; segment PE to E on AB"
   },
   "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal A-P-C (CV line) is drawn in the render as the A to C path through P."
+      "note": "Diagonal A to C is drawn and passes through P in both panels."
     },
     {
       "object_id": "seg_02",
@@ -26,22 +26,22 @@
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Right edge BC matches the original."
+      "note": "Right edge CB matches the original, ending at B."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Left edge DA matches the original."
+      "note": "Left edge AD matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment PF from P to F matches the original."
+      "note": "Segment PF runs from P to F on BC, matching the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Segment PE from P down to E matches the original."
+      "note": "Segment PE runs from P down to E on AB, matching the original."
     },
     {
       "object_id": "seg_AB",
@@ -51,82 +51,82 @@
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Diagonal AC passes through P in both panels."
+      "note": "Diagonal AC is drawn and passes through P."
     },
     {
-      "object_id": "seg_BC",
+      "object_id": "seg_AD",
       "status": "present",
-      "note": "Edge BC is drawn from B to C."
+      "note": "Edge AD is drawn from A to D."
     },
     {
-      "object_id": "seg_CD",
+      "object_id": "seg_CB",
       "status": "present",
-      "note": "Edge CD is drawn from C to D."
+      "note": "Edge CB is drawn from C to B."
     },
     {
-      "object_id": "seg_DA",
+      "object_id": "seg_DC",
       "status": "present",
-      "note": "Edge DA is drawn from D to A."
+      "note": "Edge DC is drawn from D to C."
     },
     {
       "object_id": "seg_PE",
       "status": "present",
-      "note": "Segment PE is drawn from P to E in both panels."
+      "note": "Segment PE joins P to E on AB."
     },
     {
       "object_id": "seg_PF",
       "status": "present",
-      "note": "Segment PF is drawn from P to F in both panels."
+      "note": "Segment PF joins P to F on BC."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "C is at the top-right corner in both panels."
+      "note": "C is at the top-right vertex in both panels."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "A is at the bottom-left corner in both panels."
+      "note": "A is at the bottom-left vertex in both panels."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "P is on AC at the same position in both panels."
+      "note": "P sits on AC, with its label placed above-left, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "D is at the top-left corner in both panels."
+      "note": "D is at the top-left vertex in both panels."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "B is at the bottom-right corner in both panels."
+      "note": "B is at the bottom-right vertex in both panels."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "E is on AB at the same position in both panels."
+      "note": "E is on AB, with its label below, as in the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "F is on BC at the same position in both panels."
+      "note": "F is on BC, with its label to the right, as in the original."
     },
     {
-      "object_id": "point_E",
+      "object_id": "point_A",
       "status": "present",
-      "note": "E matches the original position and label."
+      "note": "A matches the original vertex position."
     },
     {
-      "object_id": "point_F",
+      "object_id": "point_B",
       "status": "present",
-      "note": "F matches the original position and label."
+      "note": "B matches the original vertex position."
     },
     {
-      "object_id": "point_P",
+      "object_id": "point_C",
       "status": "present",
-      "note": "P matches the original position and label."
+      "note": "C matches the original vertex position."
     }
   ],
   "checklist_score": 1.0,
@@ -138,11 +138,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Parallelogram ABCD with the same vertex positions and aspect ratio.",
-    "Diagonal A-P-C passes through P, which lies on AC.",
-    "PF runs from P to F on BC, and PE runs from P down to E on AB.",
-    "All seven point labels (A, B, C, D, E, F, P) are present, correctly spelled and placed near their vertices with clear separation from strokes.",
-    "Line weights are comparable between the panels."
+    "Parallelogram ABCD with the correct vertex order and proportions.",
+    "Diagonal AC runs through P, which lies on it (verified from coordinates: slope about 0.5 in both panels).",
+    "Segment PF ends at F on BC.",
+    "Segment PE ends at E on AB, with the correct foot position.",
+    "All point labels A, B, C, D, E, F, P are present, correctly spelled, and clear of strokes.",
+    "Line weights are comparable between panels."
   ],
   "labels": {
     "present": [
@@ -166,7 +167,7 @@
         "E",
         "P"
       ],
-      "reason": "In the original, the solid stroke runs from P down to the baseline point E, and the render draws the same P-E segment."
+      "reason": "The original shows a single straight stroke from P down to E on AB, so the PE edge is confirmed."
     }
   ],
   "raw_meta": "{}"

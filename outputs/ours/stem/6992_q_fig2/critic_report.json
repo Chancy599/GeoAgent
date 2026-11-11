@@ -1,135 +1,166 @@
 {
-  "assessment_score": 0.95,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful to the original: circle, A/B/E/C/D positions, solid chords, dashed B-C, O-C and O-D strokes, and labels all match.",
+  "verdict": "Render is faithful to the original: circle, vertices A, B, C, D, E, O, solid chords AB, AE, EC, BD, and dashed BC, OC, OD all match in position and extent.",
   "figure_type": {
-    "original": "Circle with centre O; A, B, E, C, D on the circumference; solid chords AB, AE, BD, EC; dashed BC, OC, OD.",
-    "render": "Circle with centre O; A, B, E, C, D on the circumference; solid chords AB, AE, BD, EC; dashed BC, OC, OD."
+    "original": "circle with center O; inscribed quadrilateral-like chords A, B, E on the upper arc and C, D on the lower arc; dashed radii/chords to O and C",
+    "render": "circle with center O; same vertices, solid chords and dashed BC, OC, OD"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_12"
+      ],
+      "bbox": [
+        0.48,
+        0.47,
+        0.52,
+        0.52
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The center dot at O is visibly smaller in the render than in the original (original dot about twice the diameter).",
+      "suggestion": "Increase the fill radius at O, e.g. \\fill (O) circle (0.10); the current value is 0.070."
+    }
+  ],
   "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circle matches the original in center, radius and extent."
+    },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid chord E-C, drawn in both panels with matching endpoints."
+      "note": "Solid E–C chord matches the original; corresponds to seg_EC."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid chord A-E, matching in both panels."
+      "note": "Solid A–E chord matches the original; corresponds to seg_AE."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid chord B-D, matching in both panels."
+      "note": "Solid B–D line matches the original; corresponds to seg_BD."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid chord A-B, matching in both panels."
+      "note": "Solid A–B chord matches the original; corresponds to seg_AB."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed B-C, matching in both panels."
+      "note": "Dashed B–C matches the original; corresponds to seg_BC."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed O-C, matching in both panels."
+      "note": "Dashed O–C matches the original; corresponds to seg_OC."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Dashed vertical O-D, matching in both panels."
+      "note": "Dashed vertical O–D matches the original; corresponds to seg_OD."
     },
     {
       "object_id": "seg_08",
       "status": "unclear",
-      "note": "CV fragment near (201-237, 191-312) has no matching stroke in the original or the render; treated as a detection artifact."
+      "note": "CV detection with no counterpart in the original figure; likely a spurious dash chain, not a checklist item."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Chord AB is visible in the original and correctly drawn in the render."
+      "note": "A–B solid chord drawn correctly."
     },
     {
       "object_id": "seg_AE",
       "status": "present",
-      "note": "Chord AE is visible in the original and correctly drawn in the render."
+      "note": "A–E solid chord drawn correctly."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Dashed chord BC is visible in the original and correctly drawn in the render."
+      "note": "Dashed B–C drawn correctly."
     },
     {
       "object_id": "seg_BD",
       "status": "present",
-      "note": "Solid chord BD is visible in the original and correctly drawn in the render."
+      "note": "B–D solid line drawn correctly."
     },
     {
       "object_id": "seg_EC",
       "status": "present",
-      "note": "Solid chord EC is visible in the original and correctly drawn in the render."
+      "note": "E–C solid line drawn correctly."
     },
     {
       "object_id": "seg_OC",
       "status": "present",
-      "note": "Dashed radius-like segment OC is visible in the original and correctly drawn in the render."
+      "note": "Dashed O–C drawn correctly."
     },
     {
       "object_id": "seg_OD",
       "status": "present",
-      "note": "Dashed vertical OD is visible in the original and correctly drawn in the render."
+      "note": "Dashed O–D drawn correctly."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label E sits at the right circle contact in both panels."
+      "note": "E label bound to the right-hand vertex on the circle."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label C sits at the lower-left circle contact in both panels."
+      "note": "C label bound to the lower-left point on the circle."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label A sits at the top circle contact in both panels."
+      "note": "A label bound to the top vertex."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label B sits at the left circle contact in both panels."
+      "note": "B label bound to the left vertex."
     },
     {
       "object_id": "point_09",
       "status": "present",
-      "note": "Label D sits at the bottom circle contact in both panels."
+      "note": "D label bound to the bottom vertex."
     },
     {
       "object_id": "point_12",
       "status": "present",
-      "note": "Label O is at the centre dot in both panels."
+      "note": "O label bound to the center point."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "A label bound to the top vertex."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B label bound to the left vertex."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle with centre O and matching radius and position.",
-    "A at the top, B at the left, E at the right, C at the lower-left and D at the bottom, all on the circle.",
-    "Solid chords AB, AE, BD and EC with matching endpoints.",
-    "Dashed BC, OC and OD with matching endpoints.",
-    "Centre dot at O.",
-    "Labels A, B, C, D, E and O present, correctly spelled and clear of strokes.",
-    "Overall aspect ratio and proportions match."
+    "Circle extent and position match the original",
+    "Solid chords A–B, A–E, E–C, B–D match",
+    "Dashed B–C, O–C, O–D match",
+    "All six labels A, B, C, D, E, O present and bound to the correct vertices",
+    "Label placements (A above, B left, E right, C below-left, D below, O above-left) match the original"
   ],
   "labels": {
     "present": [

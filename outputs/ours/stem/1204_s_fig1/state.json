@@ -695,101 +695,6 @@
         }
       }
     },
-    "point_A": {
-      "id": "point_A",
-      "type": "point",
-      "label": "A",
-      "coords": {
-        "px": [
-          67.48,
-          65.0
-        ]
-      },
-      "normalized": {},
-      "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "point_M": {
-      "id": "point_M",
-      "type": "point",
-      "label": "M",
-      "coords": {
-        "px": [
-          305.59,
-          65.0
-        ]
-      },
-      "normalized": {},
-      "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "point_O": {
-      "id": "point_O",
-      "type": "point",
-      "label": "O",
-      "coords": {
-        "px": [
-          421.88,
-          66.09
-        ]
-      },
-      "normalized": {},
-      "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "point_D": {
-      "id": "point_D",
-      "type": "point",
-      "label": "D",
-      "coords": {
-        "px": [
-          540.0,
-          65.0
-        ]
-      },
-      "normalized": {},
-      "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "point_C": {
-      "id": "point_C",
-      "type": "point",
-      "label": "C",
-      "coords": {
-        "px": [
-          539.7,
-          379.07
-        ]
-      },
-      "normalized": {},
-      "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
     "seg_AD": {
       "id": "seg_AD",
       "type": "segment",
@@ -815,13 +720,13 @@
       "notes": [],
       "attributes": {}
     },
-    "seg_DC": {
-      "id": "seg_DC",
+    "seg_AC": {
+      "id": "seg_AC",
       "type": "segment",
-      "label": "DC",
+      "label": "AC",
       "coords": {
         "a_px": [
-          540.0,
+          67.48,
           65.0
         ],
         "b_px": [
@@ -840,13 +745,13 @@
       "notes": [],
       "attributes": {}
     },
-    "seg_AC": {
-      "id": "seg_AC",
+    "seg_DC": {
+      "id": "seg_DC",
       "type": "segment",
-      "label": "AC",
+      "label": "DC",
       "coords": {
         "a_px": [
-          67.48,
+          540.0,
           65.0
         ],
         "b_px": [
@@ -890,8 +795,8 @@
       "notes": [],
       "attributes": {}
     },
-    "arc_MOD": {
-      "id": "arc_MOD",
+    "arc_MD": {
+      "id": "arc_MD",
       "type": "arc",
       "label": null,
       "coords": {
@@ -899,7 +804,7 @@
           421.88,
           66.09
         ],
-        "radius_px": 116.0,
+        "radius_px": 117.0,
         "visible_ranges_deg": [
           [
             0,
@@ -918,8 +823,8 @@
       "notes": [],
       "attributes": {}
     },
-    "ra_D": {
-      "id": "ra_D",
+    "ra_01": {
+      "id": "ra_01",
       "type": "right_angle",
       "label": null,
       "coords": {
@@ -986,42 +891,60 @@
     },
     "rel_006": {
       "id": "rel_006",
-      "subject": "point_M",
+      "subject": "point_06",
       "relation": "on_segment",
       "object": "seg_AD",
       "source": "geometry_agent",
-      "evidence": "collinear on top line",
+      "evidence": "M on top line between A and D",
       "status": "candidate"
     },
     "rel_007": {
       "id": "rel_007",
-      "subject": "point_O",
+      "subject": "point_04",
       "relation": "on_segment",
       "object": "seg_AD",
       "source": "geometry_agent",
-      "evidence": "collinear on top line",
+      "evidence": "O on top line between M and D",
       "status": "candidate"
     },
     "rel_008": {
       "id": "rel_008",
-      "subject": "point_O",
-      "relation": "center_of",
-      "object": "arc_MOD",
+      "subject": "point_04",
+      "relation": "midpoint",
+      "object": "seg_AD",
       "source": "geometry_agent",
-      "evidence": "semicircle through M centred on O",
+      "evidence": "O is center of arc MD; OM and OD are both about 117 px",
       "status": "candidate"
     },
     "rel_009": {
       "id": "rel_009",
-      "subject": "point_M",
-      "relation": "on_arc",
-      "object": "arc_MOD",
+      "subject": "point_04",
+      "relation": "center_of",
+      "object": "arc_MD",
       "source": "geometry_agent",
-      "evidence": "arc endpoint at M",
+      "evidence": "semicircle on diameter MD centered at O",
       "status": "candidate"
     },
     "rel_010": {
       "id": "rel_010",
+      "subject": "point_07",
+      "relation": "on_arc",
+      "object": "arc_MD",
+      "source": "geometry_agent",
+      "evidence": "dashed OC crosses arc at point_07",
+      "status": "candidate"
+    },
+    "rel_011": {
+      "id": "rel_011",
+      "subject": "point_07",
+      "relation": "on_segment",
+      "object": "seg_OC",
+      "source": "geometry_agent",
+      "evidence": "dashed chain seg_05/seg_04 collinear with O and C",
+      "status": "candidate"
+    },
+    "rel_012": {
+      "id": "rel_012",
       "subject": "seg_DC",
       "relation": "perpendicular",
       "object": "seg_AD",
@@ -1042,7 +965,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T22:52:00"
+      "created_at": "2026-11-11T12:46:02"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -1055,7 +978,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T22:52:17"
+      "created_at": "2026-11-11T12:46:25"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -1068,83 +991,61 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T22:52:23"
+      "created_at": "2026-11-11T12:46:31"
     },
     "ev_0004": {
       "id": "ev_0004",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Right triangle-like figure: top horizontal line A-M-O-D (solid), vertical right side D-C (solid), hypotenuse A-C (solid). Dashed segment O-C runs from O down-right to C, crossing the arc near point_07 (463,176). Semicircle (arc) centered at O (421.9,65), radius about 116 px, drawn below AD from M (305.6,65) around the bottom (~422,181) and up to the right, ending on DC near (538,88). Right-angle square mark at D between DA and DC (vertex point_03 at (540,65)). point_05 (516,65) is a spurious point on AD at the mark's left edge, not a label; point_07 is the dashed/arc crossing, unlabeled. No perpendicular feet.",
+      "summary": "Right triangle ACD with right angle at D. Top horizontal line A-M-O-D is solid (A to D, M and O lie on it). Solid segment A-C is the hypotenuse. Solid vertical segment D-C. Dashed segment O-C runs from O down to C and crosses the semicircle at point_07 (463.33,176.05). Semicircle arc centered at O (radius about 117 px) runs from M through the bottom to D, lower half only (visible range 0 to 180 deg in image coords). Right-angle square marker at D sits between rays DA (leftward) and DC (downward). point_05 (516,65) is the inner corner of that square marker, not a figure vertex.",
       "payload": {
         "merged": {
-          "objects": 11,
-          "relations": 5,
+          "objects": 12,
+          "relations": 7,
           "conflicts": 0,
           "rejected": []
         },
         "object_ids": [
-          "point_A",
-          "point_M",
-          "point_O",
-          "point_D",
-          "point_C",
+          "point_01",
+          "point_06",
+          "point_04",
+          "point_03",
+          "point_02",
+          "point_07",
           "seg_AD",
-          "seg_DC",
           "seg_AC",
+          "seg_DC",
           "seg_OC",
-          "arc_MOD",
-          "ra_D"
+          "arc_MD",
+          "ra_01"
         ]
       },
-      "created_at": "2026-11-09T22:52:37"
+      "created_at": "2026-11-11T12:46:52"
     },
     "ev_0005": {
       "id": "ev_0005",
-      "source": "renderer",
-      "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [611, 427] (scale 0.6833)",
-      "payload": {
-        "ok": true,
-        "size": [
-          611,
-          427
-        ],
-        "reference_size": [
-          611,
-          427
-        ],
-        "scale": 0.6833,
-        "offset": [
-          86,
-          30
-        ]
-      },
-      "created_at": "2026-11-09T22:53:03"
-    },
-    "ev_0006": {
-      "id": "ev_0006",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v1: no_candidates",
+      "summary": "v1: unsupported_or_failed",
       "payload": {
-        "ok": true,
+        "ok": false,
         "enabled": true,
         "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "e6fccda8375d9dd648223a94ae23b96787a2f1ff03c5c0a01b59c65ccc8603bb",
-        "output_sha256": "e6fccda8375d9dd648223a94ae23b96787a2f1ff03c5c0a01b59c65ccc8603bb",
-        "reason": "no_candidates",
+        "input_sha256": "9a94f54914cdf91aaa57a58cc317c1e9ed2d06ef3dd0d6405f0e03ccc31154cd",
+        "output_sha256": "9a94f54914cdf91aaa57a58cc317c1e9ed2d06ef3dd0d6405f0e03ccc31154cd",
+        "reason": "unsupported_or_failed",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1154,54 +1055,19 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "C",
-          "D",
-          "M",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "C",
-            "D",
-            "M",
-            "O"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                1.74,
-                2.221
-              ],
-              "radius": 1.739
-            }
-          ]
-        },
-        "candidate_count": 0,
+        "error": "ValueError: unsupported curve syntax",
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1214,22 +1080,28 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T22:53:03"
+      "created_at": "2026-11-11T12:47:24"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "code_agent",
       "method": "tikz generate",
-      "summary": "v1 compiled=True validation=True",
+      "summary": "v1 compiled=False validation=False",
       "payload": {
-        "notes": "Used the program-owned CV coordinates (A, C, D, M, O) by name without redefining them, per the PROGRAM-OWNED block. Frame s=0.014953 cm/px with centre (305.5,213.5). Top line drawn as the measured polyline A-M-O-D (O sits 0.017 cm below the A-D line; kept as measured). Arc centred at O, radius 116 px = 1.739 cm (|OM| in the measured frame), from M through the bottom to angle 0; the arc ends near the D-C side at around x=3.48, which is a small deviation from the source's (538,88) endpoint and worth remeasuring. Right-angle pic at D uses arms A and C with radius 0.344 cm (23 px). Line width 1.2pt, label font 12.5/15pt, round joins per style metrics. Standalone compile needs the program's coordinate insertion; without it the names A, C, D, M, O are undefined.",
+        "notes": "Coordinates A, C, D, M, O are program-owned and not defined here, so this document only compiles once the program inserts them. The arc is drawn as the lower semicircle (image y-down, through the bottom), per the source construction and the image, not the upper half in the instruction. Its centre is O and radius is 1.75 cm (117 px at s=0.014953). The measured OM and OD differ slightly (about 1.739 vs 1.766 cm), so the arc endpoints may miss M and D by about 0.01-0.03 cm; this needs remeasurement, and I did not move the program-owned points. Right-angle pic uses arms A and C at vertex D with radius 0.344 cm (23 px). Labels use the STYLE METRICS font, and the dot at O follows the source. Line width 1.2pt with round joins.",
         "compile": {
-          "compile_ok": true,
-          "validation_passed": true,
-          "errors": [],
+          "compile_ok": false,
+          "validation_passed": false,
+          "errors": [
+            "error: figure.tex:25: Package tikz Error: You need to say \\usetikzlibrary{calc} for coordinate calculation. See the tikz package documentation for explanation.",
+            "error: something bad happened inside XeTeX; its output follows: ===============================================================================",
+            "! Package tikz Error: You need to say \\usetikzlibrary{calc} for coordinate calc ulation.",
+            "l.25 \\draw ($(O)+(180.000:1.750)$)",
+            "error: the XeTeX engine had an unrecoverable error caused by: halted on potentially-recoverable error as specified"
+          ],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": null,
+          "pdf_path": null,
           "checks": [
             {
               "name": "documentclass",
@@ -1253,44 +1125,34 @@
             },
             {
               "name": "compiler_ok",
-              "passed": true,
-              "detail": "returncode=0"
+              "passed": false,
+              "detail": "returncode=1"
             },
             {
               "name": "pdf_created",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.pdf"
+              "passed": false,
+              "detail": "missing"
             },
             {
               "name": "png_rendered",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.png"
+              "passed": false,
+              "detail": "missing"
             },
             {
               "name": "render_not_blank",
-              "passed": true,
-              "detail": "ink_ratio=0.0277"
-            },
-            {
-              "name": "aspect_ratio",
-              "passed": true,
-              "detail": "reference 1.43 vs render 1.20 (delta 0.16)"
-            },
-            {
-              "name": "figure_extent_ratio",
-              "passed": true,
-              "detail": "figure bbox ratio 1.21"
+              "passed": false,
+              "detail": "ink_ratio=n/a"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T22:53:03"
+      "created_at": "2026-11-11T12:47:24"
     },
-    "ev_0008": {
-      "id": "ev_0008",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v2 canvas matched to source [611, 427] (scale 0.8535)",
+      "summary": "v2 canvas matched to source [611, 427] (scale 0.8109)",
       "payload": {
         "ok": true,
         "size": [
@@ -1301,38 +1163,38 @@
           611,
           427
         ],
-        "scale": 0.8535,
+        "scale": 0.8109,
         "offset": [
-          31,
+          45,
           29
         ]
       },
-      "created_at": "2026-11-09T22:53:45"
+      "created_at": "2026-11-11T12:47:43"
     },
-    "ev_0009": {
-      "id": "ev_0009",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v2: no_candidates",
+      "summary": "v2: unsupported_or_failed",
       "payload": {
-        "ok": true,
+        "ok": false,
         "enabled": true,
         "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "3a1f24682aaa796e27570a6a800df59f550dea6258175ad00280492c713b116d",
-        "output_sha256": "3a1f24682aaa796e27570a6a800df59f550dea6258175ad00280492c713b116d",
-        "reason": "no_candidates",
+        "input_sha256": "1da20a713f27d7f7f23557c7456776a25c7fdd4f8e1e56a0a0fe8d16862cc084",
+        "output_sha256": "1da20a713f27d7f7f23557c7456776a25c7fdd4f8e1e56a0a0fe8d16862cc084",
+        "reason": "unsupported_or_failed",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1342,54 +1204,19 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "C",
-          "D",
-          "M",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "C",
-            "D",
-            "M",
-            "O"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                1.736,
-                2.221
-              ],
-              "radius": 1.735
-            }
-          ]
-        },
-        "candidate_count": 0,
+        "error": "ValueError: unsupported curve syntax",
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1402,22 +1229,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T22:53:45"
+      "created_at": "2026-11-11T12:47:43"
     },
-    "ev_0010": {
-      "id": "ev_0010",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "code_agent",
       "method": "tikz repair",
       "summary": "v2 compiled=True validation=True",
       "payload": {
-        "notes": "Arc redrawn as the lower arc around O (radius 116 px * 0.014953 = 1.735 cm), from 180 to 349 deg counter-clockwise through the bottom, ending on DC just below D. Note: radius 1.735 cm caps the arc's rightmost x at about 3.475, slightly left of DC (x≈3.50), so the endpoint lands within ~0.05 units of DC; a remeasurement of the DC x-position or O/D coordinates would be needed for an exact landing. M label moved to above left, still bound to M. Program-owned coordinates A, C, D, M, O are not redefined here (inserted by the program). Lines, dashed O-C, and the right-angle mark at D unchanged; font and line width unchanged.",
+        "notes": "Added \\usetikzlibrary{calc} so the arc start point $(O)+(180:1.750)$ compiles. Arc side: the source construction inventory and the GES both state the semicircle is the lower half (through the region toward C, below line AD), so the 180 to 360 degree range in TikZ coordinates (y up) is kept. All coordinates, radii, line width, scale and label font are unchanged. Notes for remeasurement: the program-owned coordinate block was left in the document as in the previous source; if the program already inserts it, these lines will be duplicates and should be removed by the program. The arc start (-0.010, 2.204) is about 0.011 units from M (0.001, 2.221) because O is 0.017 units below the line AD; this is within the measurement tolerance and was not moved.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1447,220 +1274,32 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.pdf"
+              "detail": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.png"
+              "detail": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.033"
+              "detail": "ink_ratio=0.0325"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.43 vs render 1.49 (delta 0.04)"
+              "detail": "reference 1.43 vs render 1.42 (delta 0.01)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.51"
+              "detail": "figure bbox ratio 1.43"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T22:53:45"
-    },
-    "ev_0011": {
-      "id": "ev_0011",
-      "source": "renderer",
-      "method": "frame_like_original",
-      "summary": "v3 canvas matched to source [611, 427] (scale 0.8535)",
-      "payload": {
-        "ok": true,
-        "size": [
-          611,
-          427
-        ],
-        "reference_size": [
-          611,
-          427
-        ],
-        "scale": 0.8535,
-        "offset": [
-          31,
-          29
-        ]
-      },
-      "created_at": "2026-11-09T22:54:12"
-    },
-    "ev_0012": {
-      "id": "ev_0012",
-      "source": "tikz_constraint_repair",
-      "method": "post-generation joint coordinate projection",
-      "summary": "v3: no_candidates",
-      "payload": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "b16f4d5476a8c08f46e82643b4349d6e21bcdabec1e17f9364ebf57c42e7fe3b",
-        "output_sha256": "b16f4d5476a8c08f46e82643b4349d6e21bcdabec1e17f9364ebf57c42e7fe3b",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "C",
-          "D",
-          "M",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "C",
-            "D",
-            "M",
-            "O"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                1.736,
-                2.221
-              ],
-              "radius": 1.735
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "created_at": "2026-11-09T22:54:12"
-    },
-    "ev_0013": {
-      "id": "ev_0013",
-      "source": "code_agent",
-      "method": "tikz repair",
-      "summary": "v3 compiled=True validation=True",
-      "payload": {
-        "notes": "Repair: added a filled dot at the named coordinate O (\\fill (O) circle (1.2pt);) after the dashed O--C stroke, as the critic requested. Nothing else changed: coordinate frame, named coordinates (program-owned), line width, label font, arc, right-angle pic, and label bindings are identical to the previous source.",
-        "compile": {
-          "compile_ok": true,
-          "validation_passed": true,
-          "errors": [],
-          "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v3\\v3.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v3\\v3.pdf",
-          "checks": [
-            {
-              "name": "documentclass",
-              "passed": true,
-              "detail": "documentclass present"
-            },
-            {
-              "name": "document_environment",
-              "passed": true,
-              "detail": "begin=1 end=1"
-            },
-            {
-              "name": "tikzpicture",
-              "passed": true,
-              "detail": "one balanced tikzpicture"
-            },
-            {
-              "name": "no_shell_escape",
-              "passed": true,
-              "detail": "no \\write18/\\openout primitives"
-            },
-            {
-              "name": "compiler_ok",
-              "passed": true,
-              "detail": "returncode=0"
-            },
-            {
-              "name": "pdf_created",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v3\\v3.pdf"
-            },
-            {
-              "name": "png_rendered",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v3\\v3.png"
-            },
-            {
-              "name": "render_not_blank",
-              "passed": true,
-              "detail": "ink_ratio=0.033"
-            },
-            {
-              "name": "aspect_ratio",
-              "passed": true,
-              "detail": "reference 1.43 vs render 1.49 (delta 0.04)"
-            },
-            {
-              "name": "figure_extent_ratio",
-              "passed": true,
-              "detail": "figure bbox ratio 1.51"
-            }
-          ]
-        }
-      },
-      "created_at": "2026-11-09T22:54:12"
+      "created_at": "2026-11-11T12:47:43"
     }
   },
   "conflicts": [],
@@ -1671,10 +1310,10 @@
     "D": "point_03",
     "C": "point_02"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (-3.559,2.221);\n\\coordinate (C) at (3.502,-2.476);\n\\coordinate (D) at (3.506,2.221);\n\\coordinate (M) at (0.001,2.221);\n\\coordinate (O) at (1.740,2.204);\n\n\n\n\n\n\n\n  \n\n  \n  \\draw (A) -- (M) -- (O) -- (D);\n  \\draw (D) -- (C);\n  \\draw (A) -- (C);\n\n  \n  \\draw[dashed] (O) -- (C);\n\n  \n  \\fill (O) circle (1.200pt);\n\n  \n  \n  \\draw (M) arc[start angle=180.000, end angle=349.000, radius=1.735cm];\n\n  \n  \\draw pic[draw, angle radius=0.344cm] {right angle=A--D--C};\n\n  \n  \\node[left, font=\\fontsize{12.5}{15}\\selectfont] at (A) {$A$};\n  \\node[above left, font=\\fontsize{12.5}{15}\\selectfont] at (M) {$M$};\n  \\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (O) {$O$};\n  \\node[above right, font=\\fontsize{12.5}{15}\\selectfont] at (D) {$D$};\n  \\node[right, font=\\fontsize{12.5}{15}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (-3.559,2.221);\n\\coordinate (C) at (3.502,-2.476);\n\\coordinate (D) at (3.506,2.221);\n\\coordinate (M) at (0.001,2.221);\n\\coordinate (O) at (1.740,2.204);\n\n\n\n\n\n\n\n  \n\n  \n  \\draw (A) -- (M) -- (O) -- (D);\n  \\draw (D) -- (C);\n  \\draw (A) -- (C);\n\n  \n  \\draw[dashed] (O) -- (C);\n\n  \n  \\fill (O) circle (1.200pt);\n\n  \n  \n  \\draw (M) arc[start angle=180.000, end angle=349.000, radius=1.735cm];\n\n  \n  \\draw pic[draw, angle radius=0.344cm] {right angle=A--D--C};\n\n  \n  \\node[left, font=\\fontsize{12.5}{15}\\selectfont] at (A) {$A$};\n  \\node[above left, font=\\fontsize{12.5}{15}\\selectfont] at (M) {$M$};\n  \\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (O) {$O$};\n  \\node[above right, font=\\fontsize{12.5}{15}\\selectfont] at (D) {$D$};\n  \\node[right, font=\\fontsize{12.5}{15}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_version": 3,
-  "best_score": 0.9,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{angles,calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (-3.559,2.221);\n\\coordinate (C) at (3.502,-2.476);\n\\coordinate (D) at (3.506,2.221);\n\\coordinate (M) at (0.001,2.221);\n\\coordinate (O) at (1.740,2.204);\n\n\n\n\n\n\n\n\n\n\\draw (A) -- (M) -- (O) -- (D);\n\\draw (A) -- (C);\n\\draw (C) -- (D);\n\n\n\\draw[dashed] (O) -- (C);\n\n\n\\draw ($(O)+(180.000:1.750)$) arc[start angle=180.000, end angle=360.000, radius=1.750];\n\n\n\\draw pic[draw, angle radius=0.344cm] {right angle=A--D--C};\n\n\\fill (O) circle (1.500pt);\n\n\n\\node[above left, font=\\fontsize{12.5}{15}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (M) {$M$};\n\\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (O) {$O$};\n\\node[above right, font=\\fontsize{12.5}{15}\\selectfont] at (D) {$D$};\n\\node[below right, font=\\fontsize{12.5}{15}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{angles,calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (-3.559,2.221);\n\\coordinate (C) at (3.502,-2.476);\n\\coordinate (D) at (3.506,2.221);\n\\coordinate (M) at (0.001,2.221);\n\\coordinate (O) at (1.740,2.204);\n\n\n\n\n\n\n\n\n\n\\draw (A) -- (M) -- (O) -- (D);\n\\draw (A) -- (C);\n\\draw (C) -- (D);\n\n\n\\draw[dashed] (O) -- (C);\n\n\n\\draw ($(O)+(180.000:1.750)$) arc[start angle=180.000, end angle=360.000, radius=1.750];\n\n\n\\draw pic[draw, angle radius=0.344cm] {right angle=A--D--C};\n\n\\fill (O) circle (1.500pt);\n\n\n\\node[above left, font=\\fontsize{12.5}{15}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (M) {$M$};\n\\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (O) {$O$};\n\\node[above right, font=\\fontsize{12.5}{15}\\selectfont] at (D) {$D$};\n\\node[below right, font=\\fontsize{12.5}{15}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_version": 2,
+  "best_score": 0.92,
   "tikz_versions": [
     {
       "topology_check": {
@@ -1682,231 +1321,27 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (-3.559,2.221);\n\\coordinate (C) at (3.502,-2.476);\n\\coordinate (D) at (3.506,2.221);\n\\coordinate (M) at (0.001,2.221);\n\\coordinate (O) at (1.740,2.204);\n\n  \n  \\draw (A) -- (M) -- (O) -- (D);\n  \n  \\draw (D) -- (C);\n  \\draw (A) -- (C);\n  \n  \\draw[dashed] (O) -- (C);\n  \n  \\draw (M) arc[start angle=180.000, end angle=0.000, radius=1.739cm];\n  \n  \\draw pic[draw, angle radius=0.344cm] {right angle=A--D--C};\n  \n  \\node[left, font=\\fontsize{12.5}{15}\\selectfont] at (A) {$A$};\n  \\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (M) {$M$};\n  \\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (O) {$O$};\n  \\node[above right, font=\\fontsize{12.5}{15}\\selectfont] at (D) {$D$};\n  \\node[right, font=\\fontsize{12.5}{15}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.png",
-      "ok": true,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{angles}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (-3.559,2.221);\n\\coordinate (C) at (3.502,-2.476);\n\\coordinate (D) at (3.506,2.221);\n\\coordinate (M) at (0.001,2.221);\n\\coordinate (O) at (1.740,2.204);\n\n\n\n\n\\draw (A) -- (M) -- (O) -- (D);\n\n\n\\draw (A) -- (C);\n\\draw (C) -- (D);\n\n\n\\draw[dashed] (O) -- (C);\n\n\n\\draw ($(O)+(180.000:1.750)$) arc[start angle=180.000, end angle=360.000, radius=1.750];\n\n\n\\draw pic[draw, angle radius=0.344cm] {right angle=A--D--C};\n\n\n\\fill (O) circle (1.500pt);\n\n\n\\node[above left, font=\\fontsize{12.5}{15}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (M) {$M$};\n\\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (O) {$O$};\n\\node[above right, font=\\fontsize{12.5}{15}\\selectfont] at (D) {$D$};\n\\node[below right, font=\\fontsize{12.5}{15}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": null,
+      "png_path": null,
+      "ok": false,
       "compiled": true,
-      "errors": [],
+      "errors": [
+        "error: figure.tex:25: Package tikz Error: You need to say \\usetikzlibrary{calc} for coordinate calculation. See the tikz package documentation for explanation.",
+        "error: something bad happened inside XeTeX; its output follows: ===============================================================================",
+        "! Package tikz Error: You need to say \\usetikzlibrary{calc} for coordinate calc ulation.",
+        "l.25 \\draw ($(O)+(180.000:1.750)$)",
+        "error: the XeTeX engine had an unrecoverable error caused by: halted on potentially-recoverable error as specified"
+      ],
       "warnings": [],
-      "created_at": "2026-11-09T22:53:01",
+      "created_at": "2026-11-11T12:47:23",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used the program-owned CV coordinates (A, C, D, M, O) by name without redefining them, per the PROGRAM-OWNED block. Frame s=0.014953 cm/px with centre (305.5,213.5). Top line drawn as the measured polyline A-M-O-D (O sits 0.017 cm below the A-D line; kept as measured). Arc centred at O, radius 116 px = 1.739 cm (|OM| in the measured frame), from M through the bottom to angle 0; the arc ends near the D-C side at around x=3.48, which is a small deviation from the source's (538,88) endpoint and worth remeasuring. Right-angle pic at D uses arms A and C with radius 0.344 cm (23 px). Line width 1.2pt, label font 12.5/15pt, round joins per style metrics. Standalone compile needs the program's coordinate insertion; without it the names A, C, D, M, O are undefined.",
-      "compile_seconds": 2.253,
-      "critic_report": {
-        "assessment_score": 0.55,
-        "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The construction is mostly faithful, but the semicircle is drawn on the wrong side of AD (above instead of below) and ends at D rather than on DC, so the arc is a clear geometric error.",
-        "figure_type": {
-          "original": "Right triangle ADC with a semicircle below line AD (centre O, through M), a dashed segment OC, and a right-angle mark at D",
-          "render": "Right triangle ADC with a semicircle above line AD (centre O, through M), ending at D; dashed OC and right-angle mark at D are present"
-        },
-        "issues": [
-          {
-            "type": "arc_error",
-            "severity": "high",
-            "object_ids": [
-              "arc_MOD"
-            ],
-            "bbox": [
-              0.49,
-              0.24,
-              0.9,
-              0.46
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "The arc is drawn above AD. In the original, the semicircle lies below AD, passes under O, and meets DC below D. The TikZ `arc[start angle=180, end angle=0]` runs clockwise through 90 degrees, which places it on the upper side.",
-            "suggestion": "Draw the lower semicircle around O, for example `\\draw (M) arc[start angle=180, end angle=360, radius=1.739cm];`, or equivalently with the angle order reversed, so it passes through the bottom. Confirm the endpoint sits on DC rather than at D."
-          },
-          {
-            "type": "wrong_position",
-            "severity": "medium",
-            "object_ids": [
-              "arc_MOD",
-              "point_03",
-              "seg_DC"
-            ],
-            "bbox": [
-              0.84,
-              0.25,
-              0.92,
-              0.32
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "In the original the arc's right end meets segment DC a short distance below D, at about y=180 in the original panel. The render's arc ends exactly at D, so its right end does not match the source.",
-            "suggestion": "Set the arc's end so it lands on DC at the source intersection, below D. Do not end it at the vertex D."
-          },
-          {
-            "type": "label_error",
-            "severity": "low",
-            "object_ids": [
-              "point_06",
-              "label_01"
-            ],
-            "bbox": [
-              0.46,
-              0.27,
-              0.53,
-              0.33
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "In the render, the M label sits right at the top of the arc's left end, with little clearance from the arc stroke. The original shows clear separation between the label and the stroke.",
-            "suggestion": "Shift the M label further left or up, keeping it bound to M, so it does not touch the arc."
-          }
-        ],
-        "checks": [
-          {
-            "object_id": "arc_MOD",
-            "status": "wrong",
-            "note": "Drawn above AD instead of below; the right end lands at D instead of on DC."
-          },
-          {
-            "object_id": "seg_01",
-            "status": "present",
-            "note": "Diagonal AC is drawn from A to C, matching the original."
-          },
-          {
-            "object_id": "seg_02",
-            "status": "present",
-            "note": "Top line AD is drawn and matches the original."
-          },
-          {
-            "object_id": "seg_03",
-            "status": "present",
-            "note": "Vertical DC is drawn and matches the original."
-          },
-          {
-            "object_id": "seg_04",
-            "status": "present",
-            "note": "Dashed OC chain matches the dashed segment from O to C in the render."
-          },
-          {
-            "object_id": "seg_05",
-            "status": "unclear",
-            "note": "Dashed fragment on the extension of OC above O; the original shows no clear extension beyond O, so it is not verifiable as a separate element."
-          },
-          {
-            "object_id": "seg_06",
-            "status": "present",
-            "note": "Short stroke forming the right-angle mark at D is present."
-          },
-          {
-            "object_id": "seg_AC",
-            "status": "present",
-            "note": "Segment AC is drawn correctly."
-          },
-          {
-            "object_id": "seg_AD",
-            "status": "present",
-            "note": "Segment AD is drawn correctly."
-          },
-          {
-            "object_id": "seg_DC",
-            "status": "present",
-            "note": "Segment DC is drawn correctly."
-          },
-          {
-            "object_id": "seg_OC",
-            "status": "present",
-            "note": "Dashed OC runs from O to C as in the original."
-          },
-          {
-            "object_id": "ra_D",
-            "status": "present",
-            "note": "Right-angle mark at D is in the same quadrant as the original (below AD, left of DC)."
-          },
-          {
-            "object_id": "right_angle_01",
-            "status": "present",
-            "note": "Right-angle marker at D matches the original."
-          },
-          {
-            "object_id": "point_01",
-            "status": "present",
-            "note": "A is drawn and labelled correctly."
-          },
-          {
-            "object_id": "point_02",
-            "status": "present",
-            "note": "C is drawn and labelled correctly."
-          },
-          {
-            "object_id": "point_03",
-            "status": "present",
-            "note": "D is drawn and labelled correctly."
-          },
-          {
-            "object_id": "point_04",
-            "status": "present",
-            "note": "O is labelled; the original shows a dot at O that the render omits."
-          },
-          {
-            "object_id": "point_06",
-            "status": "present",
-            "note": "M is labelled and bound to the correct point on AD."
-          },
-          {
-            "object_id": "point_A",
-            "status": "present",
-            "note": "A is correctly placed and labelled."
-          },
-          {
-            "object_id": "point_C",
-            "status": "present",
-            "note": "C is correctly placed and labelled."
-          },
-          {
-            "object_id": "point_D",
-            "status": "present",
-            "note": "D is correctly placed and labelled."
-          },
-          {
-            "object_id": "point_M",
-            "status": "present",
-            "note": "M is correctly placed on AD."
-          },
-          {
-            "object_id": "point_O",
-            "status": "present",
-            "note": "O is correctly placed on AD, though the render omits the dot marker."
-          }
-        ],
-        "checklist_score": 0.977,
-        "actionable_counts": {
-          "high": 1,
-          "medium": 1,
-          "low": 1
-        },
-        "flaky_count": 0,
-        "must_repair": true,
-        "matches": [
-          "Triangle vertices A, D, C and the straight edges AD, DC, AC are correctly placed and proportioned.",
-          "Dashed segment OC runs from O to C with the correct dash style.",
-          "Right-angle mark at D is in the correct quadrant.",
-          "Labels A, D, C, M and O are present with correct spelling."
-        ],
-        "labels": {
-          "present": [
-            "A",
-            "M",
-            "O",
-            "D",
-            "C"
-          ],
-          "missing": [],
-          "extra": []
-        },
-        "version": 1,
-        "binding_decisions": [],
-        "topology_decisions": [],
-        "raw_meta": "{}"
-      },
-      "critic_score": 0.55
+      "notes": "Coordinates A, C, D, M, O are program-owned and not defined here, so this document only compiles once the program inserts them. The arc is drawn as the lower semicircle (image y-down, through the bottom), per the source construction and the image, not the upper half in the instruction. Its centre is O and radius is 1.75 cm (117 px at s=0.014953). The measured OM and OD differ slightly (about 1.739 vs 1.766 cm), so the arc endpoints may miss M and D by about 0.01-0.03 cm; this needs remeasurement, and I did not move the program-owned points. Right-angle pic uses arms A and C at vertex D with radius 0.344 cm (23 px). Labels use the STYLE METRICS font, and the dot at O follows the source. Line width 1.2pt with round joins.",
+      "compile_seconds": 1.026,
+      "critic_report": null,
+      "critic_score": null
     },
     {
       "topology_check": {
@@ -1914,181 +1349,135 @@
         "missing_edges": []
       },
       "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (-3.559,2.221);\n\\coordinate (C) at (3.502,-2.476);\n\\coordinate (D) at (3.506,2.221);\n\\coordinate (M) at (0.001,2.221);\n\\coordinate (O) at (1.740,2.204);\n\n  \n\n  \n  \\draw (A) -- (M) -- (O) -- (D);\n  \\draw (D) -- (C);\n  \\draw (A) -- (C);\n\n  \n  \\draw[dashed] (O) -- (C);\n\n  \n  \n  \\draw (M) arc[start angle=180.000, end angle=349.000, radius=1.735cm];\n\n  \n  \\draw pic[draw, angle radius=0.344cm] {right angle=A--D--C};\n\n  \n  \\node[left, font=\\fontsize{12.5}{15}\\selectfont] at (A) {$A$};\n  \\node[above left, font=\\fontsize{12.5}{15}\\selectfont] at (M) {$M$};\n  \\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (O) {$O$};\n  \\node[above right, font=\\fontsize{12.5}{15}\\selectfont] at (D) {$D$};\n  \\node[right, font=\\fontsize{12.5}{15}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{angles,calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (-3.559,2.221);\n\\coordinate (C) at (3.502,-2.476);\n\\coordinate (D) at (3.506,2.221);\n\\coordinate (M) at (0.001,2.221);\n\\coordinate (O) at (1.740,2.204);\n\n\n\n\n\n\n\n\n\n\\draw (A) -- (M) -- (O) -- (D);\n\\draw (A) -- (C);\n\\draw (C) -- (D);\n\n\n\\draw[dashed] (O) -- (C);\n\n\n\\draw ($(O)+(180.000:1.750)$) arc[start angle=180.000, end angle=360.000, radius=1.750];\n\n\n\\draw pic[draw, angle radius=0.344cm] {right angle=A--D--C};\n\n\\fill (O) circle (1.500pt);\n\n\n\\node[above left, font=\\fontsize{12.5}{15}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (M) {$M$};\n\\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (O) {$O$};\n\\node[above right, font=\\fontsize{12.5}{15}\\selectfont] at (D) {$D$};\n\\node[below right, font=\\fontsize{12.5}{15}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1204_s_fig1\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1204_s_fig1\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1204_s_fig1\\best.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T22:53:40",
+      "created_at": "2026-11-11T12:47:40",
       "agent": "code_agent",
       "mode": "repair",
-      "notes": "Arc redrawn as the lower arc around O (radius 116 px * 0.014953 = 1.735 cm), from 180 to 349 deg counter-clockwise through the bottom, ending on DC just below D. Note: radius 1.735 cm caps the arc's rightmost x at about 3.475, slightly left of DC (x≈3.50), so the endpoint lands within ~0.05 units of DC; a remeasurement of the DC x-position or O/D coordinates would be needed for an exact landing. M label moved to above left, still bound to M. Program-owned coordinates A, C, D, M, O are not redefined here (inserted by the program). Lines, dashed O-C, and the right-angle mark at D unchanged; font and line width unchanged.",
-      "compile_seconds": 5.3,
+      "notes": "Added \\usetikzlibrary{calc} so the arc start point $(O)+(180:1.750)$ compiles. Arc side: the source construction inventory and the GES both state the semicircle is the lower half (through the region toward C, below line AD), so the 180 to 360 degree range in TikZ coordinates (y up) is kept. All coordinates, radii, line width, scale and label font are unchanged. Notes for remeasurement: the program-owned coordinate block was left in the document as in the previous source; if the program already inserts it, these lines will be duplicates and should be removed by the program. The arc start (-0.010, 2.204) is about 0.011 units from M (0.001, 2.221) because O is 0.017 units below the line AD; this is within the measurement tolerance and was not moved.",
+      "compile_seconds": 2.644,
       "critic_report": {
-        "assessment_score": 0.9,
+        "assessment_score": 0.92,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render closely matches the original: same triangle, dashed O–C line, semicircle on MD with centre O, and right-angle mark at D. The only visible difference is a small point dot at O that the render omits.",
+        "verdict": "The render is faithful to the original: the triangle, right angle at D, semicircle on MD centred at O, and dashed OC all match in position and style.",
         "figure_type": {
-          "original": "Right triangle A-D-C (right angle at D) with a semicircle centred at O on segment AD, from M to the point on DC, and a dashed segment O-C",
-          "render": "Right triangle A-D-C (right angle at D) with a semicircle centred at O on segment AD, from M to the point on DC, and a dashed segment O-C"
+          "original": "Right triangle ADC with right angle at D; points A, M, O, D on the top edge; semicircular arc centred at O from M to the DC side; dashed segment from O to C.",
+          "render": "Right triangle ADC with right angle at D; points A, M, O, D on the top edge; semicircular arc centred at O from M to the DC side; dashed segment from O to C."
         },
-        "issues": [
-          {
-            "type": "other",
-            "severity": "low",
-            "object_ids": [
-              "point_04",
-              "point_O"
-            ],
-            "bbox": [
-              0.67,
-              0.22,
-              0.71,
-              0.28
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "The original marks O with a small filled dot on the baseline; the render shows only the label and no dot.",
-            "suggestion": "Draw a small filled dot at (O), for example \\fill (O) circle (1.2pt);"
-          }
-        ],
+        "issues": [],
         "checks": [
           {
-            "object_id": "arc_MOD",
+            "object_id": "arc_MD",
             "status": "present",
-            "note": "Semicircle from M to the DC side, centred at O, matches the original."
+            "note": "Lower semicircle centred at O from M to the DC side, matching the original's radius and extent."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Hypotenuse A-C is drawn and matches the original."
+            "note": "Diagonal A-C is drawn in the render."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Top line A-M-O-D is drawn as one solid line."
+            "note": "Top edge A to D is drawn in the render."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Side D-C is drawn vertically and matches the original."
+            "note": "Vertical side D to C is drawn in the render."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Dashed O-C line is drawn; this is the dashed chain in the CV output."
+            "note": "Dashed O to C line is drawn in the render."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Same dashed O-C line, second CV fragment."
+            "note": "Dashed O to C line is drawn in the render; the upper portion is covered by the same dashed segment."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Short 22 px stub at D is the right-angle mark's side, which is drawn."
+            "note": "Short arm of the right-angle mark at D is drawn in the render."
           },
           {
             "object_id": "seg_AC",
             "status": "present",
-            "note": "Segment A-C is correct."
+            "note": "Segment A to C is drawn in the render."
           },
           {
             "object_id": "seg_AD",
             "status": "present",
-            "note": "Segment A-D is correct, passing through M and O."
+            "note": "Segment A to D is drawn in the render."
           },
           {
             "object_id": "seg_DC",
             "status": "present",
-            "note": "Segment D-C is correct."
+            "note": "Segment D to C is drawn in the render."
           },
           {
             "object_id": "seg_OC",
             "status": "present",
-            "note": "Dashed O-C is correct and ends at C in both panels."
+            "note": "Dashed segment O to C is drawn in the render."
           },
           {
-            "object_id": "ra_D",
+            "object_id": "ra_01",
             "status": "present",
-            "note": "Right-angle mark at D is drawn in the correct quadrant."
+            "note": "Right-angle square at D sits in the same inner quadrant as the original."
           },
           {
             "object_id": "right_angle_01",
             "status": "present",
-            "note": "Right-angle mark at D is drawn in the correct quadrant."
+            "note": "Right-angle square at D sits in the same inner quadrant as the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label A is bound at the left end of the top line."
+            "note": "Point A is labelled and placed at the left end of the top edge."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label C is bound at the bottom-right vertex."
+            "note": "Point C is labelled and placed at the bottom vertex."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label D is bound at the top-right corner."
+            "note": "Point D is labelled and placed at the top-right corner."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label O is bound at the centre of the semicircle, but the original's dot is missing."
+            "note": "Point O is labelled, marked with a dot, and is the arc centre."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "Label M is bound at the left end of the semicircle."
-          },
-          {
-            "object_id": "point_A",
-            "status": "present",
-            "note": "Vertex A is correct."
-          },
-          {
-            "object_id": "point_C",
-            "status": "present",
-            "note": "Vertex C is correct."
-          },
-          {
-            "object_id": "point_D",
-            "status": "present",
-            "note": "Vertex D is correct."
-          },
-          {
-            "object_id": "point_M",
-            "status": "present",
-            "note": "Vertex M is correct."
-          },
-          {
-            "object_id": "point_O",
-            "status": "present",
-            "note": "Vertex O is correct; only the dot marker is missing."
+            "note": "Point M is labelled and sits at the arc's left end on the top edge."
           }
         ],
         "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
           "medium": 0,
-          "low": 1
+          "low": 0
         },
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Triangle A-D-C with right angle at D",
-          "Top line A-M-O-D",
-          "Vertical side D-C",
-          "Hypotenuse A-C",
-          "Dashed O-C from the centre to C",
-          "Semicircle from M to the DC side with the correct radius and extent",
-          "Right-angle mark at D",
-          "Labels A, M, O, D and C at their vertices"
+          "Overall triangle A-D-C with right angle at D.",
+          "Top edge A-M-O-D with M and O at the correct positions.",
+          "Semicircular arc below the top edge, centred at O, spanning from M toward the DC side.",
+          "Dashed segment from O to C, with the same crossing of the arc.",
+          "Right-angle marker at D in the same inner quadrant.",
+          "Labels A, M, O, D, C are present, correctly spelled, and clear of nearby strokes."
         ],
         "labels": {
           "present": [
@@ -2106,251 +1495,47 @@
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.9
-    },
-    {
-      "topology_check": {
-        "passed": true,
-        "missing_edges": []
-      },
-      "version": 3,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (-3.559,2.221);\n\\coordinate (C) at (3.502,-2.476);\n\\coordinate (D) at (3.506,2.221);\n\\coordinate (M) at (0.001,2.221);\n\\coordinate (O) at (1.740,2.204);\n\n\n\n\n\n\n\n  \n\n  \n  \\draw (A) -- (M) -- (O) -- (D);\n  \\draw (D) -- (C);\n  \\draw (A) -- (C);\n\n  \n  \\draw[dashed] (O) -- (C);\n\n  \n  \\fill (O) circle (1.200pt);\n\n  \n  \n  \\draw (M) arc[start angle=180.000, end angle=349.000, radius=1.735cm];\n\n  \n  \\draw pic[draw, angle radius=0.344cm] {right angle=A--D--C};\n\n  \n  \\node[left, font=\\fontsize{12.5}{15}\\selectfont] at (A) {$A$};\n  \\node[above left, font=\\fontsize{12.5}{15}\\selectfont] at (M) {$M$};\n  \\node[above, font=\\fontsize{12.5}{15}\\selectfont] at (O) {$O$};\n  \\node[above right, font=\\fontsize{12.5}{15}\\selectfont] at (D) {$D$};\n  \\node[right, font=\\fontsize{12.5}{15}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1204_s_fig1\\best.tex",
-      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1204_s_fig1\\best.pdf",
-      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1204_s_fig1\\best.png",
-      "ok": true,
-      "compiled": true,
-      "errors": [],
-      "warnings": [],
-      "created_at": "2026-11-09T22:54:09",
-      "agent": "code_agent",
-      "mode": "repair",
-      "notes": "Repair: added a filled dot at the named coordinate O (\\fill (O) circle (1.2pt);) after the dashed O--C stroke, as the critic requested. Nothing else changed: coordinate frame, named coordinates (program-owned), line width, label font, arc, right-angle pic, and label bindings are identical to the previous source.",
-      "compile_seconds": 3.274,
-      "critic_report": {
-        "assessment_score": 0.9,
-        "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render closely matches the original: the A-M-O-D top line, the D-C side, the A-C hypotenuse, the dashed O-C, the semicircle on MO, the right-angle mark at D and all five labels are present and in the right places.",
-        "figure_type": {
-          "original": "Right triangle ACD (right angle at D) with a semicircle centred at O on segment AD, a dashed line from O to C, and point M on AD",
-          "render": "Right triangle ACD (right angle at D) with a semicircle centred at O on segment AD, a dashed line from O to C, and point M on AD"
-        },
-        "issues": [
-          {
-            "type": "wrong_style",
-            "severity": "low",
-            "object_ids": [
-              "point_04"
-            ],
-            "bbox": [
-              0.66,
-              0.2,
-              0.72,
-              0.27
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "The filled dot at O, which is clearly visible in the original, is not visibly rendered in the RENDER panel. Only the O label appears there.",
-            "suggestion": "Confirm that \\fill (O) circle (1.200pt) is drawn after the paths and is not hidden. Increase the radius slightly if it is too small to see at this scale."
-          }
-        ],
-        "checks": [
-          {
-            "object_id": "arc_MOD",
-            "status": "present",
-            "note": "Semicircle from M through the bottom to the right side near D matches the original's position and radius."
-          },
-          {
-            "object_id": "seg_01",
-            "status": "present",
-            "note": "Hypotenuse A-C is drawn in the correct place."
-          },
-          {
-            "object_id": "seg_02",
-            "status": "present",
-            "note": "Top line A-M-O-D is drawn."
-          },
-          {
-            "object_id": "seg_03",
-            "status": "present",
-            "note": "Vertical side D-C is drawn."
-          },
-          {
-            "object_id": "seg_04",
-            "status": "present",
-            "note": "Dashed O-C segment is drawn, matching the original."
-          },
-          {
-            "object_id": "seg_05",
-            "status": "present",
-            "note": "Same dashed O-C path, as detected in the original."
-          },
-          {
-            "object_id": "seg_06",
-            "status": "present",
-            "note": "Short stub is the right-angle mark's side at D, which is drawn."
-          },
-          {
-            "object_id": "seg_AC",
-            "status": "present",
-            "note": "Segment A-C is drawn."
-          },
-          {
-            "object_id": "seg_AD",
-            "status": "present",
-            "note": "Segment A-D through M and O is drawn."
-          },
-          {
-            "object_id": "seg_DC",
-            "status": "present",
-            "note": "Segment D-C is drawn."
-          },
-          {
-            "object_id": "seg_OC",
-            "status": "present",
-            "note": "Dashed segment O-C is drawn."
-          },
-          {
-            "object_id": "ra_D",
-            "status": "present",
-            "note": "Right-angle mark at D is drawn on the correct quadrant."
-          },
-          {
-            "object_id": "right_angle_01",
-            "status": "present",
-            "note": "Same right-angle mark at D, present in both panels."
-          },
-          {
-            "object_id": "point_01",
-            "status": "present",
-            "note": "Label A is present at the left endpoint."
-          },
-          {
-            "object_id": "point_02",
-            "status": "present",
-            "note": "Label C is present at the bottom vertex."
-          },
-          {
-            "object_id": "point_03",
-            "status": "present",
-            "note": "Label D is present at the top-right vertex."
-          },
-          {
-            "object_id": "point_04",
-            "status": "present",
-            "note": "Label O is present above O. The dot is the minor issue above."
-          },
-          {
-            "object_id": "point_06",
-            "status": "present",
-            "note": "Label M is present above M."
-          },
-          {
-            "object_id": "point_A",
-            "status": "present",
-            "note": "A is present."
-          },
-          {
-            "object_id": "point_C",
-            "status": "present",
-            "note": "C is present."
-          },
-          {
-            "object_id": "point_D",
-            "status": "present",
-            "note": "D is present."
-          },
-          {
-            "object_id": "point_M",
-            "status": "present",
-            "note": "M is present."
-          },
-          {
-            "object_id": "point_O",
-            "status": "present",
-            "note": "O is present as a label. The dot is the minor issue above."
-          }
-        ],
-        "checklist_score": 1.0,
-        "actionable_counts": {
-          "high": 0,
-          "medium": 0,
-          "low": 1
-        },
-        "flaky_count": 0,
-        "must_repair": false,
-        "matches": [
-          "Triangle outline A-D-C with the right angle at D",
-          "Dashed segment from O to C",
-          "Semicircle centred at O through M, with matching radius and extent",
-          "Right-angle mark at D",
-          "Labels A, M, O, D and C at the correct vertices and not overlapping strokes",
-          "Overall aspect ratio and placement"
-        ],
-        "labels": {
-          "present": [
-            "A",
-            "M",
-            "O",
-            "D",
-            "C"
-          ],
-          "missing": [],
-          "extra": []
-        },
-        "version": 3,
-        "binding_decisions": [],
-        "topology_decisions": [],
-        "raw_meta": "{}"
-      },
-      "critic_score": 0.9
+      "critic_score": 0.92
     }
   ],
   "compilation_results": [
     {
       "version": 1,
-      "ok": true,
-      "returncode": 0,
-      "seconds": 2.253,
-      "errors": [],
+      "ok": false,
+      "returncode": 1,
+      "seconds": 1.026,
+      "errors": [
+        "error: figure.tex:25: Package tikz Error: You need to say \\usetikzlibrary{calc} for coordinate calculation. See the tikz package documentation for explanation.",
+        "error: something bad happened inside XeTeX; its output follows: ===============================================================================",
+        "! Package tikz Error: You need to say \\usetikzlibrary{calc} for coordinate calc ulation.",
+        "l.25 \\draw ($(O)+(180.000:1.750)$)",
+        "error: the XeTeX engine had an unrecoverable error caused by: halted on potentially-recoverable error as specified"
+      ],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.083984375 KiB)\nnote: Writing `figure.pdf` (2.6748046875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T22:53:03"
+      "log_tail": " (xcolor.sty (color.cfg)) (pgfcore.code.tex (pgfmath.code.tex\n(pgfmathcalc.code.tex (pgfmathutil.code.tex) (pgfmathparser.code.tex)\n(pgfmathfunctions.code.tex (pgfmathfunctions.basic.code.tex)\n(pgfmathfunctions.trigonometric.code.tex) (pgfmathfunctions.random.code.tex)\n(pgfmathfunctions.comparison.code.tex) (pgfmathfunctions.base.code.tex)\n(pgfmathfunctions.round.code.tex) (pgfmathfunctions.misc.code.tex)\n(pgfmathfunctions.integerarithmetics.code.tex))) (pgfmathfloat.code.tex))\n(pgfint.code.tex) (pgfcorepoints.code.tex) (pgfcorepathconstruct.code.tex)\n(pgfcorepathusage.code.tex) (pgfcorescopes.code.tex)\n(pgfcoregraphicstate.code.tex) (pgfcoretransformations.code.tex)\n(pgfcorequick.code.tex) (pgfcoreobjects.code.tex)\n(pgfcorepathprocessing.code.tex) (pgfcorearrows.code.tex)\n(pgfcoreshade.code.tex) (pgfcoreimage.code.tex (pgfcoreexternal.code.tex))\n(pgfcorelayers.code.tex) (pgfcoretransparency.code.tex)\n(pgfcorepatterns.code.tex) (pgfcorerdf.code.tex))) (pgfmoduleshapes.code.tex)\n(pgfmoduleplot.code.tex) (pgfcomp-version-0-65.sty) (pgfcomp-version-1-18.sty))\n (pgffor.sty (pgfkeys.sty (pgfkeys.code.tex)) (pgfmath.sty (pgfmath.code.tex))\n(pgffor.code.tex (pgfmath.code.tex))) (tikz.code.tex\n(pgflibraryplothandlers.code.tex) (pgfmodulematrix.code.tex)\n(tikzlibrarytopaths.code.tex)))) (amsmath.sty\nFor additional information on amsmath, use the `?' option.\n(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty))\n(tikzlibraryangles.code.tex) (l3backend-xetex.def)\nNo file figure.aux.\n(ts1cmr.fd)\n\n! Package tikz Error: You need to say \\usetikzlibrary{calc} for coordinate calc\nulation.\n\nSee the tikz package documentation for explanation.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.25 \\draw ($(O)+(180.000:1.750)$)\n                                   arc[start angle=180.000, end angle=360.00...\nNo pages of output.\nTranscript written on figure.log.\n===============================================================================\nerror: the XeTeX engine had an unrecoverable error\ncaused by: halted on potentially-recoverable error as specified",
+      "tex_path": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": null,
+      "png_path": null,
+      "created_at": "2026-11-11T12:47:24"
     },
     {
       "version": 2,
       "ok": true,
       "returncode": 0,
-      "seconds": 5.3,
+      "seconds": 2.644,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.6865234375 KiB)\nnote: Writing `figure.log` (11.083984375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T22:53:45"
-    },
-    {
-      "version": 3,
-      "ok": true,
-      "returncode": 0,
-      "seconds": 3.274,
-      "errors": [],
-      "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.7626953125 KiB)\nnote: Writing `figure.log` (11.083984375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v3\\v3.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v3\\v3.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v3\\v3.png",
-      "created_at": "2026-11-09T22:54:12"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.75390625 KiB)\nnote: Writing `figure.log` (12.474609375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-11T12:47:43"
     }
   ],
   "validation_results": [
     {
       "version": 1,
-      "passed": true,
+      "passed": false,
       "checks": [
         {
           "name": "documentclass",
@@ -2374,36 +1559,26 @@
         },
         {
           "name": "compiler_ok",
-          "passed": true,
-          "detail": "returncode=0"
+          "passed": false,
+          "detail": "returncode=1"
         },
         {
           "name": "pdf_created",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.pdf"
+          "passed": false,
+          "detail": "missing"
         },
         {
           "name": "png_rendered",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v1\\v1.png"
+          "passed": false,
+          "detail": "missing"
         },
         {
           "name": "render_not_blank",
-          "passed": true,
-          "detail": "ink_ratio=0.0277"
-        },
-        {
-          "name": "aspect_ratio",
-          "passed": true,
-          "detail": "reference 1.43 vs render 1.20 (delta 0.16)"
-        },
-        {
-          "name": "figure_extent_ratio",
-          "passed": true,
-          "detail": "figure bbox ratio 1.21"
+          "passed": false,
+          "detail": "ink_ratio=n/a"
         }
       ],
-      "created_at": "2026-11-09T22:53:03"
+      "created_at": "2026-11-11T12:47:24"
     },
     {
       "version": 2,
@@ -2437,463 +1612,149 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.pdf"
+          "detail": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.png"
+          "detail": ".cache\\collinear\\batch_work\\1204_s_fig1\\tikz\\v2\\v2.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.033"
+          "detail": "ink_ratio=0.0325"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.43 vs render 1.49 (delta 0.04)"
+          "detail": "reference 1.43 vs render 1.42 (delta 0.01)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.51"
+          "detail": "figure bbox ratio 1.43"
         }
       ],
-      "created_at": "2026-11-09T22:53:45"
-    },
-    {
-      "version": 3,
-      "passed": true,
-      "checks": [
-        {
-          "name": "documentclass",
-          "passed": true,
-          "detail": "documentclass present"
-        },
-        {
-          "name": "document_environment",
-          "passed": true,
-          "detail": "begin=1 end=1"
-        },
-        {
-          "name": "tikzpicture",
-          "passed": true,
-          "detail": "one balanced tikzpicture"
-        },
-        {
-          "name": "no_shell_escape",
-          "passed": true,
-          "detail": "no \\write18/\\openout primitives"
-        },
-        {
-          "name": "compiler_ok",
-          "passed": true,
-          "detail": "returncode=0"
-        },
-        {
-          "name": "pdf_created",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v3\\v3.pdf"
-        },
-        {
-          "name": "png_rendered",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1204_s_fig1\\tikz\\v3\\v3.png"
-        },
-        {
-          "name": "render_not_blank",
-          "passed": true,
-          "detail": "ink_ratio=0.033"
-        },
-        {
-          "name": "aspect_ratio",
-          "passed": true,
-          "detail": "reference 1.43 vs render 1.49 (delta 0.04)"
-        },
-        {
-          "name": "figure_extent_ratio",
-          "passed": true,
-          "detail": "figure bbox ratio 1.51"
-        }
-      ],
-      "created_at": "2026-11-09T22:54:12"
+      "created_at": "2026-11-11T12:47:43"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.55,
+      "assessment_score": 0.92,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The construction is mostly faithful, but the semicircle is drawn on the wrong side of AD (above instead of below) and ends at D rather than on DC, so the arc is a clear geometric error.",
+      "verdict": "The render is faithful to the original: the triangle, right angle at D, semicircle on MD centred at O, and dashed OC all match in position and style.",
       "figure_type": {
-        "original": "Right triangle ADC with a semicircle below line AD (centre O, through M), a dashed segment OC, and a right-angle mark at D",
-        "render": "Right triangle ADC with a semicircle above line AD (centre O, through M), ending at D; dashed OC and right-angle mark at D are present"
+        "original": "Right triangle ADC with right angle at D; points A, M, O, D on the top edge; semicircular arc centred at O from M to the DC side; dashed segment from O to C.",
+        "render": "Right triangle ADC with right angle at D; points A, M, O, D on the top edge; semicircular arc centred at O from M to the DC side; dashed segment from O to C."
       },
-      "issues": [
-        {
-          "type": "arc_error",
-          "severity": "high",
-          "object_ids": [
-            "arc_MOD"
-          ],
-          "bbox": [
-            0.49,
-            0.24,
-            0.9,
-            0.46
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "The arc is drawn above AD. In the original, the semicircle lies below AD, passes under O, and meets DC below D. The TikZ `arc[start angle=180, end angle=0]` runs clockwise through 90 degrees, which places it on the upper side.",
-          "suggestion": "Draw the lower semicircle around O, for example `\\draw (M) arc[start angle=180, end angle=360, radius=1.739cm];`, or equivalently with the angle order reversed, so it passes through the bottom. Confirm the endpoint sits on DC rather than at D."
-        },
-        {
-          "type": "wrong_position",
-          "severity": "medium",
-          "object_ids": [
-            "arc_MOD",
-            "point_03",
-            "seg_DC"
-          ],
-          "bbox": [
-            0.84,
-            0.25,
-            0.92,
-            0.32
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "In the original the arc's right end meets segment DC a short distance below D, at about y=180 in the original panel. The render's arc ends exactly at D, so its right end does not match the source.",
-          "suggestion": "Set the arc's end so it lands on DC at the source intersection, below D. Do not end it at the vertex D."
-        },
-        {
-          "type": "label_error",
-          "severity": "low",
-          "object_ids": [
-            "point_06",
-            "label_01"
-          ],
-          "bbox": [
-            0.46,
-            0.27,
-            0.53,
-            0.33
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "In the render, the M label sits right at the top of the arc's left end, with little clearance from the arc stroke. The original shows clear separation between the label and the stroke.",
-          "suggestion": "Shift the M label further left or up, keeping it bound to M, so it does not touch the arc."
-        }
-      ],
+      "issues": [],
       "checks": [
         {
-          "object_id": "arc_MOD",
-          "status": "wrong",
-          "note": "Drawn above AD instead of below; the right end lands at D instead of on DC."
+          "object_id": "arc_MD",
+          "status": "present",
+          "note": "Lower semicircle centred at O from M to the DC side, matching the original's radius and extent."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Diagonal AC is drawn from A to C, matching the original."
+          "note": "Diagonal A-C is drawn in the render."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Top line AD is drawn and matches the original."
+          "note": "Top edge A to D is drawn in the render."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Vertical DC is drawn and matches the original."
+          "note": "Vertical side D to C is drawn in the render."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Dashed OC chain matches the dashed segment from O to C in the render."
-        },
-        {
-          "object_id": "seg_05",
-          "status": "unclear",
-          "note": "Dashed fragment on the extension of OC above O; the original shows no clear extension beyond O, so it is not verifiable as a separate element."
-        },
-        {
-          "object_id": "seg_06",
-          "status": "present",
-          "note": "Short stroke forming the right-angle mark at D is present."
-        },
-        {
-          "object_id": "seg_AC",
-          "status": "present",
-          "note": "Segment AC is drawn correctly."
-        },
-        {
-          "object_id": "seg_AD",
-          "status": "present",
-          "note": "Segment AD is drawn correctly."
-        },
-        {
-          "object_id": "seg_DC",
-          "status": "present",
-          "note": "Segment DC is drawn correctly."
-        },
-        {
-          "object_id": "seg_OC",
-          "status": "present",
-          "note": "Dashed OC runs from O to C as in the original."
-        },
-        {
-          "object_id": "ra_D",
-          "status": "present",
-          "note": "Right-angle mark at D is in the same quadrant as the original (below AD, left of DC)."
-        },
-        {
-          "object_id": "right_angle_01",
-          "status": "present",
-          "note": "Right-angle marker at D matches the original."
-        },
-        {
-          "object_id": "point_01",
-          "status": "present",
-          "note": "A is drawn and labelled correctly."
-        },
-        {
-          "object_id": "point_02",
-          "status": "present",
-          "note": "C is drawn and labelled correctly."
-        },
-        {
-          "object_id": "point_03",
-          "status": "present",
-          "note": "D is drawn and labelled correctly."
-        },
-        {
-          "object_id": "point_04",
-          "status": "present",
-          "note": "O is labelled; the original shows a dot at O that the render omits."
-        },
-        {
-          "object_id": "point_06",
-          "status": "present",
-          "note": "M is labelled and bound to the correct point on AD."
-        },
-        {
-          "object_id": "point_A",
-          "status": "present",
-          "note": "A is correctly placed and labelled."
-        },
-        {
-          "object_id": "point_C",
-          "status": "present",
-          "note": "C is correctly placed and labelled."
-        },
-        {
-          "object_id": "point_D",
-          "status": "present",
-          "note": "D is correctly placed and labelled."
-        },
-        {
-          "object_id": "point_M",
-          "status": "present",
-          "note": "M is correctly placed on AD."
-        },
-        {
-          "object_id": "point_O",
-          "status": "present",
-          "note": "O is correctly placed on AD, though the render omits the dot marker."
-        }
-      ],
-      "checklist_score": 0.977,
-      "actionable_counts": {
-        "high": 1,
-        "medium": 1,
-        "low": 1
-      },
-      "flaky_count": 0,
-      "must_repair": true,
-      "matches": [
-        "Triangle vertices A, D, C and the straight edges AD, DC, AC are correctly placed and proportioned.",
-        "Dashed segment OC runs from O to C with the correct dash style.",
-        "Right-angle mark at D is in the correct quadrant.",
-        "Labels A, D, C, M and O are present with correct spelling."
-      ],
-      "labels": {
-        "present": [
-          "A",
-          "M",
-          "O",
-          "D",
-          "C"
-        ],
-        "missing": [],
-        "extra": []
-      },
-      "version": 1,
-      "binding_decisions": [],
-      "topology_decisions": [],
-      "raw_meta": "{}"
-    },
-    {
-      "assessment_score": 0.9,
-      "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render closely matches the original: same triangle, dashed O–C line, semicircle on MD with centre O, and right-angle mark at D. The only visible difference is a small point dot at O that the render omits.",
-      "figure_type": {
-        "original": "Right triangle A-D-C (right angle at D) with a semicircle centred at O on segment AD, from M to the point on DC, and a dashed segment O-C",
-        "render": "Right triangle A-D-C (right angle at D) with a semicircle centred at O on segment AD, from M to the point on DC, and a dashed segment O-C"
-      },
-      "issues": [
-        {
-          "type": "other",
-          "severity": "low",
-          "object_ids": [
-            "point_04",
-            "point_O"
-          ],
-          "bbox": [
-            0.67,
-            0.22,
-            0.71,
-            0.28
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "The original marks O with a small filled dot on the baseline; the render shows only the label and no dot.",
-          "suggestion": "Draw a small filled dot at (O), for example \\fill (O) circle (1.2pt);"
-        }
-      ],
-      "checks": [
-        {
-          "object_id": "arc_MOD",
-          "status": "present",
-          "note": "Semicircle from M to the DC side, centred at O, matches the original."
-        },
-        {
-          "object_id": "seg_01",
-          "status": "present",
-          "note": "Hypotenuse A-C is drawn and matches the original."
-        },
-        {
-          "object_id": "seg_02",
-          "status": "present",
-          "note": "Top line A-M-O-D is drawn as one solid line."
-        },
-        {
-          "object_id": "seg_03",
-          "status": "present",
-          "note": "Side D-C is drawn vertically and matches the original."
-        },
-        {
-          "object_id": "seg_04",
-          "status": "present",
-          "note": "Dashed O-C line is drawn; this is the dashed chain in the CV output."
+          "note": "Dashed O to C line is drawn in the render."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Same dashed O-C line, second CV fragment."
+          "note": "Dashed O to C line is drawn in the render; the upper portion is covered by the same dashed segment."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Short 22 px stub at D is the right-angle mark's side, which is drawn."
+          "note": "Short arm of the right-angle mark at D is drawn in the render."
         },
         {
           "object_id": "seg_AC",
           "status": "present",
-          "note": "Segment A-C is correct."
+          "note": "Segment A to C is drawn in the render."
         },
         {
           "object_id": "seg_AD",
           "status": "present",
-          "note": "Segment A-D is correct, passing through M and O."
+          "note": "Segment A to D is drawn in the render."
         },
         {
           "object_id": "seg_DC",
           "status": "present",
-          "note": "Segment D-C is correct."
+          "note": "Segment D to C is drawn in the render."
         },
         {
           "object_id": "seg_OC",
           "status": "present",
-          "note": "Dashed O-C is correct and ends at C in both panels."
+          "note": "Dashed segment O to C is drawn in the render."
         },
         {
-          "object_id": "ra_D",
+          "object_id": "ra_01",
           "status": "present",
-          "note": "Right-angle mark at D is drawn in the correct quadrant."
+          "note": "Right-angle square at D sits in the same inner quadrant as the original."
         },
         {
           "object_id": "right_angle_01",
           "status": "present",
-          "note": "Right-angle mark at D is drawn in the correct quadrant."
+          "note": "Right-angle square at D sits in the same inner quadrant as the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label A is bound at the left end of the top line."
+          "note": "Point A is labelled and placed at the left end of the top edge."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label C is bound at the bottom-right vertex."
+          "note": "Point C is labelled and placed at the bottom vertex."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label D is bound at the top-right corner."
+          "note": "Point D is labelled and placed at the top-right corner."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label O is bound at the centre of the semicircle, but the original's dot is missing."
+          "note": "Point O is labelled, marked with a dot, and is the arc centre."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "Label M is bound at the left end of the semicircle."
-        },
-        {
-          "object_id": "point_A",
-          "status": "present",
-          "note": "Vertex A is correct."
-        },
-        {
-          "object_id": "point_C",
-          "status": "present",
-          "note": "Vertex C is correct."
-        },
-        {
-          "object_id": "point_D",
-          "status": "present",
-          "note": "Vertex D is correct."
-        },
-        {
-          "object_id": "point_M",
-          "status": "present",
-          "note": "Vertex M is correct."
-        },
-        {
-          "object_id": "point_O",
-          "status": "present",
-          "note": "Vertex O is correct; only the dot marker is missing."
+          "note": "Point M is labelled and sits at the arc's left end on the top edge."
         }
       ],
       "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
         "medium": 0,
-        "low": 1
+        "low": 0
       },
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Triangle A-D-C with right angle at D",
-        "Top line A-M-O-D",
-        "Vertical side D-C",
-        "Hypotenuse A-C",
-        "Dashed O-C from the centre to C",
-        "Semicircle from M to the DC side with the correct radius and extent",
-        "Right-angle mark at D",
-        "Labels A, M, O, D and C at their vertices"
+        "Overall triangle A-D-C with right angle at D.",
+        "Top edge A-M-O-D with M and O at the correct positions.",
+        "Semicircular arc below the top edge, centred at O, spanning from M toward the DC side.",
+        "Dashed segment from O to C, with the same crossing of the arc.",
+        "Right-angle marker at D in the same inner quadrant.",
+        "Labels A, M, O, D, C are present, correctly spelled, and clear of nearby strokes."
       ],
       "labels": {
         "present": [
@@ -2907,182 +1768,6 @@
         "extra": []
       },
       "version": 2,
-      "binding_decisions": [],
-      "topology_decisions": [],
-      "raw_meta": "{}"
-    },
-    {
-      "assessment_score": 0.9,
-      "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render closely matches the original: the A-M-O-D top line, the D-C side, the A-C hypotenuse, the dashed O-C, the semicircle on MO, the right-angle mark at D and all five labels are present and in the right places.",
-      "figure_type": {
-        "original": "Right triangle ACD (right angle at D) with a semicircle centred at O on segment AD, a dashed line from O to C, and point M on AD",
-        "render": "Right triangle ACD (right angle at D) with a semicircle centred at O on segment AD, a dashed line from O to C, and point M on AD"
-      },
-      "issues": [
-        {
-          "type": "wrong_style",
-          "severity": "low",
-          "object_ids": [
-            "point_04"
-          ],
-          "bbox": [
-            0.66,
-            0.2,
-            0.72,
-            0.27
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "The filled dot at O, which is clearly visible in the original, is not visibly rendered in the RENDER panel. Only the O label appears there.",
-          "suggestion": "Confirm that \\fill (O) circle (1.200pt) is drawn after the paths and is not hidden. Increase the radius slightly if it is too small to see at this scale."
-        }
-      ],
-      "checks": [
-        {
-          "object_id": "arc_MOD",
-          "status": "present",
-          "note": "Semicircle from M through the bottom to the right side near D matches the original's position and radius."
-        },
-        {
-          "object_id": "seg_01",
-          "status": "present",
-          "note": "Hypotenuse A-C is drawn in the correct place."
-        },
-        {
-          "object_id": "seg_02",
-          "status": "present",
-          "note": "Top line A-M-O-D is drawn."
-        },
-        {
-          "object_id": "seg_03",
-          "status": "present",
-          "note": "Vertical side D-C is drawn."
-        },
-        {
-          "object_id": "seg_04",
-          "status": "present",
-          "note": "Dashed O-C segment is drawn, matching the original."
-        },
-        {
-          "object_id": "seg_05",
-          "status": "present",
-          "note": "Same dashed O-C path, as detected in the original."
-        },
-        {
-          "object_id": "seg_06",
-          "status": "present",
-          "note": "Short stub is the right-angle mark's side at D, which is drawn."
-        },
-        {
-          "object_id": "seg_AC",
-          "status": "present",
-          "note": "Segment A-C is drawn."
-        },
-        {
-          "object_id": "seg_AD",
-          "status": "present",
-          "note": "Segment A-D through M and O is drawn."
-        },
-        {
-          "object_id": "seg_DC",
-          "status": "present",
-          "note": "Segment D-C is drawn."
-        },
-        {
-          "object_id": "seg_OC",
-          "status": "present",
-          "note": "Dashed segment O-C is drawn."
-        },
-        {
-          "object_id": "ra_D",
-          "status": "present",
-          "note": "Right-angle mark at D is drawn on the correct quadrant."
-        },
-        {
-          "object_id": "right_angle_01",
-          "status": "present",
-          "note": "Same right-angle mark at D, present in both panels."
-        },
-        {
-          "object_id": "point_01",
-          "status": "present",
-          "note": "Label A is present at the left endpoint."
-        },
-        {
-          "object_id": "point_02",
-          "status": "present",
-          "note": "Label C is present at the bottom vertex."
-        },
-        {
-          "object_id": "point_03",
-          "status": "present",
-          "note": "Label D is present at the top-right vertex."
-        },
-        {
-          "object_id": "point_04",
-          "status": "present",
-          "note": "Label O is present above O. The dot is the minor issue above."
-        },
-        {
-          "object_id": "point_06",
-          "status": "present",
-          "note": "Label M is present above M."
-        },
-        {
-          "object_id": "point_A",
-          "status": "present",
-          "note": "A is present."
-        },
-        {
-          "object_id": "point_C",
-          "status": "present",
-          "note": "C is present."
-        },
-        {
-          "object_id": "point_D",
-          "status": "present",
-          "note": "D is present."
-        },
-        {
-          "object_id": "point_M",
-          "status": "present",
-          "note": "M is present."
-        },
-        {
-          "object_id": "point_O",
-          "status": "present",
-          "note": "O is present as a label. The dot is the minor issue above."
-        }
-      ],
-      "checklist_score": 1.0,
-      "actionable_counts": {
-        "high": 0,
-        "medium": 0,
-        "low": 1
-      },
-      "flaky_count": 0,
-      "must_repair": false,
-      "matches": [
-        "Triangle outline A-D-C with the right angle at D",
-        "Dashed segment from O to C",
-        "Semicircle centred at O through M, with matching radius and extent",
-        "Right-angle mark at D",
-        "Labels A, M, O, D and C at the correct vertices and not overlapping strokes",
-        "Overall aspect ratio and placement"
-      ],
-      "labels": {
-        "present": [
-          "A",
-          "M",
-          "O",
-          "D",
-          "C"
-        ],
-        "missing": [],
-        "extra": []
-      },
-      "version": 3,
       "binding_decisions": [],
       "topology_decisions": [],
       "raw_meta": "{}"
@@ -3091,27 +1776,23 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "Arc right endpoint: measured near (538,88) on DC; exact termination not confirmed by a CV endpoint (point_07 at (463,176) is the dashed/arc crossing, not an arc endpoint)."
+      "issue": "point_05 (516,65) is unlabeled and lies at the right-angle marker's inner corner; excluded as a figure vertex."
     },
     {
       "source": "geometry_agent",
-      "issue": "Whether the arc is a full semicircle tangent to DC is unverified; treat as meeting DC near y=88."
+      "issue": "Arc endpoint at D is assumed to be exactly D; confirm visually that the arc meets D and not the vertical DC short of D."
     },
     {
       "source": "geometry_agent",
-      "issue": "point_05 (516,65) is an unlabeled spurious point on AD at the right-angle mark edge; not used."
+      "issue": "Dashed OC endpoint at O is inferred from the dashed chain starting at about (418.8,57), near O; confirm dash start."
     },
     {
       "source": "supervisor",
-      "issue": "The arc's right end lands at about x=3.475 versus DC at x=3.50, so it stops slightly short of DC (within about 0.05 units). Its exact termination was not CV-confirmed."
+      "issue": "The Geometry Agent's open endpoint questions (arc meeting D exactly, dash start at O) were not explicitly re-measured; the Critic found no mismatch in them."
     },
     {
       "source": "supervisor",
-      "issue": "The O dot may be faintly visible in the render; the Critic flagged it as low severity."
-    },
-    {
-      "source": "supervisor",
-      "issue": "Arc endpoint on DC was not confirmed by a CV endpoint."
+      "issue": "Arc side (lower half toward C) was chosen by the Code Agent from the geometry notes; the Critic's review reported it as matching the original, but it was not separately verified with inspect_image."
     }
   ],
   "action_history": [
@@ -3157,19 +1838,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 11, 'relations': 5, 'conflicts': 0, 'rejected': []}",
-      "duration_s": 0.0,
-      "token_usage": {},
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 1,
-      "action": "run_critic",
-      "purpose": "review newly compiled version",
-      "params": {},
-      "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.55; issues=3",
+      "result_summary": "ok=True; merged={'objects': 12, 'relations': 7, 'conflicts': 0, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -3178,17 +1847,17 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Build a TikZ figure in image-pixel coordinates flipped to TikZ (y_tikz = -y_px, scale 1 unit = 1 px, or scale ~0.01 cm per px). Points: A=(67.48,65.0), M=(305.59,65.0), O=(421.88,66.09), D=(540.0,65.0",
+      "purpose": "Build a TikZ figure from the measured geometry (image px, y down; flip y for TikZ). Use these verified points: A=(67.5,65.0), D=(540.0,65.0), C=(539.7,379.1), O=(421.9,66.1) (center of arc), M=(305.6,",
       "params": {
         "mode": "generate",
-        "use_image": false,
-        "instruction": "Build a TikZ figure in image-pixel coordinates flipped to TikZ (y_tikz = -y_px, scale 1 unit = 1 px, or scale ~0.01 cm per px). Points: A=(67.48,65.0), M=(305.59,65.0), O=(421.88,66.09), D=(540.0,65.0), C=(539.7,379.07). Draw solid segments A--D (through M and O, collinear on the top line), solid D--C (vertical), solid A--C (diagonal), dashed O--C (dashed line from O to C). Draw the arc centered at O with radius 116 from M going downward (lower half, angle 180 to ~0 deg, ending at the right near DC around (538,88) in pixel coordinates; the arc is a semicircle-like arc from M to the right point near D-C side, drawn solid). Right-angle square mark at D with side 23 px: marks at (517,65),(517,88),(540,88). Labels: A left of A, M above M, O above O, D above-right of D, C right of C. Use a standalone compilable document with tikzpicture."
+        "use_image": null,
+        "instruction": "Build a TikZ figure from the measured geometry (image px, y down; flip y for TikZ). Use these verified points: A=(67.5,65.0), D=(540.0,65.0), C=(539.7,379.1), O=(421.9,66.1) (center of arc), M=(305.6,65.0). Draw: solid segment A--D (horizontal, through O and M, extend to A at left and D at right); solid segment A--C (long diagonal); solid segment D--C (vertical, right side); dashed segment O--C (dashed, from O to C; the dashed chain starts near O). Draw the arc centered at O with radius 117 px, solid, from M to D along the upper half (the arc passes above the line AD, i.e. the upper semicircle between M and D). Add a right-angle square mark at D with side about 23 px, between arms DA (leftward) and DC (downward), i.e. a small square with corners (517,65),(517,88),(540,88). Labels: place A to the left-above of A, M above M, O above O, D above-right of D, C right-below of C, using the label positions from the image (A near (48,66), M near (304,45), O near (421,45), D near (563,65), C near (559,379)). Use the label letters exactly as given. Keep all coordinates from these measurements; do not add extra points. Ensure the code compiles standalone with tikz."
       },
-      "status": "ok",
-      "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 41.88,
+      "status": "error",
+      "result_summary": "ok=False; version=1; compile_ok=False; validation_passed=False; errors=4",
+      "duration_s": 19.06,
       "token_usage": {
-        "delta": 21351
+        "delta": 10684
       },
       "visual_calls": 1,
       "error": null
@@ -3199,7 +1868,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.9; issues=1",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.92",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -3208,66 +1877,35 @@
     {
       "step": 2,
       "action": "run_code_agent",
-      "purpose": "Fix arc_MOD: it must be the LOWER arc centred at O=(421.88,66.09) px, radius 116 px, starting at M (angle 180 deg in pixel-math, i.e. leftmost point) and going counter-clockwise in TikZ's frame throug",
+      "purpose": "Fix the compile error: add \\usetikzlibrary{calc} (or avoid calc by computing the arc start point directly from the O coordinate). Also verify the arc side against the original image: the arc centered ",
       "params": {
         "mode": "repair",
         "use_image": null,
-        "instruction": "Fix arc_MOD: it must be the LOWER arc centred at O=(421.88,66.09) px, radius 116 px, starting at M (angle 180 deg in pixel-math, i.e. leftmost point) and going counter-clockwise in TikZ's frame through the bottom (in TikZ y-up terms, angles 180 -> 270 -> ~349), ending on segment DC just below D at about pixel (538,88) (angle about -10 to -11 deg from O in TikZ frame). Use e.g. \\draw (M) arc[start angle=180, end angle=349, radius=116*s] with s = scale used, or equivalently an arc from 180 to 349 degrees. Do not end the arc at D. Keep A--M--O--D, D--C, A--C solid, O--C dashed, right-angle mark at D unchanged. Move the M label further left/up so it does not touch the arc stroke, staying bound to M."
+        "instruction": "Fix the compile error: add \\usetikzlibrary{calc} (or avoid calc by computing the arc start point directly from the O coordinate). Also verify the arc side against the original image: the arc centered at O (radius 117 px, from M to D) should be the half that the original figure shows; if the original shows the arc below the line AD (toward C), keep the lower half; if above, use the upper half. Keep all other coordinates unchanged."
       },
       "status": "ok",
       "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
-      "duration_s": 29.07,
+      "duration_s": 36.42,
       "token_usage": {
-        "delta": 19660
+        "delta": 20333
       },
       "visual_calls": 1,
       "error": null
     },
     {
       "step": 3,
-      "action": "run_critic",
-      "purpose": "review newly compiled version",
-      "params": {},
-      "status": "ok",
-      "result_summary": "ok=True; version=3; best_version=3; assessment_score=0.9; issues=1",
-      "duration_s": 0.0,
-      "token_usage": {},
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 3,
-      "action": "run_code_agent",
-      "purpose": "Add a small filled dot at O (\\fill (O) circle (1.2pt);) in the existing figure. Change nothing else.",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Add a small filled dot at O (\\fill (O) circle (1.2pt);) in the existing figure. Change nothing else."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=3",
-      "duration_s": 23.49,
-      "token_usage": {
-        "delta": 18217
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 4,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Produced a compiling standalone TikZ figure (version 3, best). It draws the top line A-M-O-D, vertical D-C, solid A-C, dashed O-C, a lower arc centred at O from M to DC just below D, the right-angle mark at D, and labels A, M, O, D, C with a dot at O. Critic score is 0.9 with no must-repair items. Topology check passed.",
+        "summary": "Version 2 compiles (XeTeX, standalone tikz) and passed automatic Critic review with score 0.92, must_repair=false, no issues. The figure contains the segments A–D (horizontal), A–C (diagonal), D–C (vertical), the dashed O–C, a semicircular arc centred at O from M to D, a right-angle mark at D, and labels A, M, O, D, C. Version 1 failed only because the calc TikZ library was missing; the repair added it.",
         "unresolved": [
-          "The arc's right end lands at about x=3.475 versus DC at x=3.50, so it stops slightly short of DC (within about 0.05 units). Its exact termination was not CV-confirmed.",
-          "The O dot may be faintly visible in the render; the Critic flagged it as low severity.",
-          "Arc endpoint on DC was not confirmed by a CV endpoint."
+          "The Geometry Agent's open endpoint questions (arc meeting D exactly, dash start at O) were not explicitly re-measured; the Critic found no mismatch in them.",
+          "Arc side (lower half toward C) was chosen by the Code Agent from the geometry notes; the Critic's review reported it as matching the original, but it was not separately verified with inspect_image."
         ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=3; status=success",
+      "result_summary": "ok=True; best_version=2; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -3314,58 +1952,58 @@
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 11,
-      "visual_calls": 4,
-      "prompt_tokens": 91148,
-      "completion_tokens": 20416,
-      "total_tokens": 111564,
-      "cached_tokens": 29316.0,
-      "cache_write_tokens": 24417.0,
-      "latency_s": 111.02
+      "calls": 7,
+      "visual_calls": 3,
+      "prompt_tokens": 56145,
+      "completion_tokens": 13633,
+      "total_tokens": 69778,
+      "cached_tokens": 16712.0,
+      "cache_write_tokens": 39409.0,
+      "latency_s": 92.35
     },
     "by_agent": {
       "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8915,
-        "latency_s": 13.86
+        "total_tokens": 9647,
+        "latency_s": 21.75
       },
       "supervisor": {
-        "calls": 4,
+        "calls": 3,
         "visual_calls": 0,
-        "total_tokens": 43421,
-        "latency_s": 15.65
+        "total_tokens": 29114,
+        "latency_s": 19.27
       },
       "code_agent:generate": {
         "calls": 1,
-        "visual_calls": 0,
-        "total_tokens": 9965,
-        "latency_s": 18.0
-      },
-      "critic_agent": {
-        "calls": 3,
-        "visual_calls": 3,
-        "total_tokens": 30693,
-        "latency_s": 44.63
+        "visual_calls": 1,
+        "total_tokens": 10684,
+        "latency_s": 17.99
       },
       "code_agent:repair": {
-        "calls": 2,
+        "calls": 1,
         "visual_calls": 0,
-        "total_tokens": 18570,
-        "latency_s": 18.88
+        "total_tokens": 10017,
+        "latency_s": 12.83
+      },
+      "critic_agent": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 10316,
+        "latency_s": 20.5
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 20,
-    "tool_calls_left": 38,
-    "visual_calls_left": 20,
-    "tokens_left": 288436,
+    "steps_left": 21,
+    "tool_calls_left": 41,
+    "visual_calls_left": 21,
+    "tokens_left": 330222,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 111564
+    "total_tokens_used": 69778
   },
   "meta": {
     "topology_plan": {
@@ -3427,15 +2065,15 @@
         },
         {
           "edge": [
-            "C",
-            "D"
+            "A",
+            "C"
           ],
           "style": "solid"
         },
         {
           "edge": [
-            "A",
-            "C"
+            "C",
+            "D"
           ],
           "style": "solid"
         }
@@ -3451,7 +2089,7 @@
       }
     },
     "source_construction": {
-      "summary": "Right triangle-like figure: top horizontal line A-M-O-D (solid), vertical right side D-C (solid), hypotenuse A-C (solid). Dashed segment O-C runs from O down-right to C, crossing the arc near point_07 (463,176). Semicircle (arc) centered at O (421.9,65), radius about 116 px, drawn below AD from M (305.6,65) around the bottom (~422,181) and up to the right, ending on DC near (538,88). Right-angle square mark at D between DA and DC (vertex point_03 at (540,65)). point_05 (516,65) is a spurious point on AD at the mark's left edge, not a label; point_07 is the dashed/arc crossing, unlabeled. No perpendicular feet.",
+      "summary": "Right triangle ACD with right angle at D. Top horizontal line A-M-O-D is solid (A to D, M and O lie on it). Solid segment A-C is the hypotenuse. Solid vertical segment D-C. Dashed segment O-C runs from O down to C and crosses the semicircle at point_07 (463.33,176.05). Semicircle arc centered at O (radius about 117 px) runs from M through the bottom to D, lower half only (visible range 0 to 180 deg in image coords). Right-angle square marker at D sits between rays DA (leftward) and DC (downward). point_05 (516,65) is the inner corner of that square marker, not a figure vertex.",
       "strokes": [
         {
           "edge": [
@@ -3476,15 +2114,15 @@
         },
         {
           "edge": [
-            "C",
-            "D"
+            "A",
+            "C"
           ],
           "style": "solid"
         },
         {
           "edge": [
-            "A",
-            "C"
+            "C",
+            "D"
           ],
           "style": "solid"
         }
@@ -3498,7 +2136,8 @@
           "side_px": 23.0
         }
       },
-      "feet": []
+      "feet": [],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -3575,24 +2214,24 @@
       }
     },
     "constraint_repair": {
-      "ok": true,
+      "ok": false,
       "enabled": true,
       "applied": false,
       "stage": "post_tikz",
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "b16f4d5476a8c08f46e82643b4349d6e21bcdabec1e17f9364ebf57c42e7fe3b",
-      "output_sha256": "b16f4d5476a8c08f46e82643b4349d6e21bcdabec1e17f9364ebf57c42e7fe3b",
-      "reason": "no_candidates",
+      "input_sha256": "1da20a713f27d7f7f23557c7456776a25c7fdd4f8e1e56a0a0fe8d16862cc084",
+      "output_sha256": "1da20a713f27d7f7f23557c7456776a25c7fdd4f8e1e56a0a0fe8d16862cc084",
+      "reason": "unsupported_or_failed",
       "accepted": [],
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -3602,54 +2241,19 @@
         "relation_types": [
           "parallel"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
-      "input_candidates": 0,
-      "preserved_incidence_count": 0,
-      "max_shift_rel": 0.0,
-      "max_length_change_rel": 0.0,
-      "fixed_points": [
-        "C",
-        "D",
-        "M",
-        "O"
-      ],
-      "length_weight": 0.0,
-      "length_scope": "edges",
-      "incidence_mode": "snap",
-      "topology_tol_rel": 0.002,
-      "incidence_strength": 1.0,
-      "curve_policy": "freeze",
-      "curve_anchors": {
-        "fixed_points": [
-          "C",
-          "D",
-          "M",
-          "O"
-        ],
-        "dependencies": [
-          "M"
-        ],
-        "circles": [
-          {
-            "center": [
-              1.736,
-              2.221
-            ],
-            "radius": 1.735
-          }
-        ]
-      },
-      "candidate_count": 0,
+      "error": "ValueError: unsupported curve syntax",
       "curve_options_applied": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -3814,102 +2418,28 @@
           "reference_used": false,
           "coordinate_decimals": 3
         }
-      },
-      "3": {
-        "enabled": true,
-        "schema": "cv-coordinate-contract.v1",
-        "n_points": 5,
-        "reference_used": false,
-        "coordinates": {
-          "schema": "cv-coordinate-contract.v1",
-          "scale": 0.014953,
-          "origin_px": [
-            305.5,
-            213.5
-          ],
-          "points": {
-            "A": {
-              "point_id": "point_01",
-              "px": [
-                67.48,
-                65.0
-              ],
-              "tikz": [
-                -3.559,
-                2.221
-              ]
-            },
-            "C": {
-              "point_id": "point_02",
-              "px": [
-                539.7,
-                379.07
-              ],
-              "tikz": [
-                3.502,
-                -2.476
-              ]
-            },
-            "D": {
-              "point_id": "point_03",
-              "px": [
-                540.0,
-                65.0
-              ],
-              "tikz": [
-                3.506,
-                2.221
-              ]
-            },
-            "M": {
-              "point_id": "point_06",
-              "px": [
-                305.59,
-                65.0
-              ],
-              "tikz": [
-                0.001,
-                2.221
-              ]
-            },
-            "O": {
-              "point_id": "point_04",
-              "px": [
-                421.88,
-                66.09
-              ],
-              "tikz": [
-                1.74,
-                2.204
-              ]
-            }
-          },
-          "skipped": {},
-          "reference_used": false,
-          "coordinate_decimals": 3
-        }
       }
     },
     "tikz_constraint_repairs": {
       "1": {
-        "ok": true,
+        "ok": false,
         "enabled": true,
         "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "e6fccda8375d9dd648223a94ae23b96787a2f1ff03c5c0a01b59c65ccc8603bb",
-        "output_sha256": "e6fccda8375d9dd648223a94ae23b96787a2f1ff03c5c0a01b59c65ccc8603bb",
-        "reason": "no_candidates",
+        "input_sha256": "9a94f54914cdf91aaa57a58cc317c1e9ed2d06ef3dd0d6405f0e03ccc31154cd",
+        "output_sha256": "9a94f54914cdf91aaa57a58cc317c1e9ed2d06ef3dd0d6405f0e03ccc31154cd",
+        "reason": "unsupported_or_failed",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -3919,54 +2449,19 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "C",
-          "D",
-          "M",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "C",
-            "D",
-            "M",
-            "O"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                1.74,
-                2.221
-              ],
-              "radius": 1.739
-            }
-          ]
-        },
-        "candidate_count": 0,
+        "error": "ValueError: unsupported curve syntax",
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -3980,24 +2475,24 @@
         }
       },
       "2": {
-        "ok": true,
+        "ok": false,
         "enabled": true,
         "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "3a1f24682aaa796e27570a6a800df59f550dea6258175ad00280492c713b116d",
-        "output_sha256": "3a1f24682aaa796e27570a6a800df59f550dea6258175ad00280492c713b116d",
-        "reason": "no_candidates",
+        "input_sha256": "1da20a713f27d7f7f23557c7456776a25c7fdd4f8e1e56a0a0fe8d16862cc084",
+        "output_sha256": "1da20a713f27d7f7f23557c7456776a25c7fdd4f8e1e56a0a0fe8d16862cc084",
+        "reason": "unsupported_or_failed",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -4007,142 +2502,19 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "C",
-          "D",
-          "M",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "C",
-            "D",
-            "M",
-            "O"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                1.736,
-                2.221
-              ],
-              "radius": 1.735
-            }
-          ]
-        },
-        "candidate_count": 0,
+        "error": "ValueError: unsupported curve syntax",
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "3": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "b16f4d5476a8c08f46e82643b4349d6e21bcdabec1e17f9364ebf57c42e7fe3b",
-        "output_sha256": "b16f4d5476a8c08f46e82643b4349d6e21bcdabec1e17f9364ebf57c42e7fe3b",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "C",
-          "D",
-          "M",
-          "O"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "C",
-            "D",
-            "M",
-            "O"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                1.736,
-                2.221
-              ],
-              "radius": 1.735
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -4157,7 +2529,7 @@
       }
     },
     "finish": {
-      "summary": "Produced a compiling standalone TikZ figure (version 3, best). It draws the top line A-M-O-D, vertical D-C, solid A-C, dashed O-C, a lower arc centred at O from M to DC just below D, the right-angle mark at D, and labels A, M, O, D, C with a dot at O. Critic score is 0.9 with no must-repair items. Topology check passed.",
+      "summary": "Version 2 compiles (XeTeX, standalone tikz) and passed automatic Critic review with score 0.92, must_repair=false, no issues. The figure contains the segments A–D (horizontal), A–C (diagonal), D–C (vertical), the dashed O–C, a semicircular arc centred at O from M to D, a right-angle mark at D, and labels A, M, O, D, C. Version 1 failed only because the calc TikZ library was missing; the repair added it.",
       "status": "success"
     },
     "stop_reason": "finish"

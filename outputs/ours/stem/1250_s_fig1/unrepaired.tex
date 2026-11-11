@@ -1,7 +1,8 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usepackage{amsmath}
+\usetikzlibrary{angles}
 \begin{document}
-\begin{tikzpicture}[line width=1.4pt, line join=round]
+\begin{tikzpicture}[line width=1.4pt, line join=round,
+  every node/.style={font=\fontsize{13.5}{16.2}\selectfont}]
 \coordinate (A) at (-2.680,3.416);
 \coordinate (B) at (-3.489,1.458);
 \coordinate (C) at (2.984,1.459);
@@ -9,40 +10,33 @@
 \coordinate (F) at (0.567,1.459);
 
 
-\coordinate (E) at (0.565,-3.396);   
-\coordinate (G) at (-1.868,-3.397);  
-\coordinate (H) at (-1.542,1.456);   
+
+
+\coordinate (E) at (0.565,-3.395);
+\coordinate (Ap) at (-1.541,1.459);
+\coordinate (J) at (-1.868,-3.395);
 
 
 \draw (A) -- (D);
 \draw (A) -- (B);
-\draw (D) -- (C);
-
-
-\draw (B) -- (C);
-\draw (B) -- (F);
-\draw (F) -- (C);
-
-
-\draw (B) -- (G);
-\draw (G) -- (E);
+\draw (C) -- (D);
+\draw (B) -- (F) -- (C);
+\draw (B) -- (J) -- (E);
 \draw (B) -- (E);
 \draw (C) -- (E);
-\draw (H) -- (E);
+\draw (Ap) -- (E);
+\draw[dashed, dash pattern=on 5pt off 4pt] (F) -- (E);
 
 
-\draw[dashed] (F) -- (E);
+\draw pic[draw, angle radius=0.326cm] {right angle=B--F--E};
 
 
-\draw (0.237,1.456) -- (0.237,1.130) -- (0.564,1.130);
-
-
-\node[above left] at (A) {\fontsize{13.5}{16.2}\selectfont $A$};
-\node[above right] at (D) {\fontsize{13.5}{16.2}\selectfont $D$};
-\node[left] at (B) {\fontsize{13.5}{16.2}\selectfont $B$};
-\node[right] at (C) {\fontsize{13.5}{16.2}\selectfont $C$};
-\node[above] at (F) {\fontsize{13.5}{16.2}\selectfont $F$};
-\node[above] at (H) {\fontsize{13.5}{16.2}\selectfont $A'$};
-\node[below right] at (E) {\fontsize{13.5}{16.2}\selectfont $E$};
+\node[above left] at (A) {$A$};
+\node[above right] at (D) {$D$};
+\node[left] at (B) {$B$};
+\node[right] at (C) {$C$};
+\node[above] at (F) {$F$};
+\node[below] at (E) {$E$};
+\node[above] at (Ap) {$A'$};
 \end{tikzpicture}
 \end{document}

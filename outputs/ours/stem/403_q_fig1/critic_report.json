@@ -1,150 +1,154 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful: the triangle ABC with D on AB, the dashed E-D-C construction, the right angle at A and all five labels match the original.",
+  "verdict": "The render is faithful to the original: same polygon ABCD, right angle at A, dashed auxiliary lines to E, and label placement. The only visible difference is label font weight.",
   "figure_type": {
-    "original": "Quadrilateral-like figure ABCD with dashed construction to E on the extension of AD, right angle at A, and a dashed tail above E",
-    "render": "Same figure: A-B-C-D outline, dashed D-E and E-C, right angle at A, extension of AD below A and dashed tail above E"
+    "original": "Quadrilateral-style figure A-B-C-D with a right angle at A, a vertical line through A and D extended below A and above D, and dashed auxiliary segments D-E (vertical) and E-C (horizontal) meeting at E.",
+    "render": "Same figure: A-B-C-D with a right angle at A, vertical line through A and D extended below A, and dashed D-E and E-C segments meeting at E."
   },
   "issues": [
     {
-      "type": "wrong_position",
+      "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_03"
+        "point_A",
+        "point_B",
+        "point_C",
+        "junction_seg_03_seg_05",
+        "point_05"
       ],
       "bbox": [
+        0.04,
         0.05,
-        0.05,
-        0.12,
-        0.15
+        0.97,
+        0.95
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The dashed tail above E reaches slightly lower in the render than in the original, where it extends almost to the top of the panel.",
-      "suggestion": "Optionally lengthen the Etop point, e.g. Etop at about (-3.274, 3.95), to match the original's upward extension."
+      "description": "Point labels A, B, C, D, E are drawn in a lighter weight in the render than in the original, where they look bolder. Position and clearance are otherwise correct.",
+      "suggestion": "Optionally switch the label font to a bolder math style (for example \\boldmath or \\mathbf inside the node text) to match the heavier original lettering. Keep the existing node anchors (below left, below, above, left) unchanged."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid C-B side, drawn in the render."
+      "note": "Solid segment C-B matches the original from C down to B."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid A-B base, drawn in the render."
+      "note": "Solid base A-B matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Dashed vertical E-D line with the tail above E; the tail is slightly shorter (low issue)."
+      "note": "Dashed vertical from D upward to the top edge matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid A-D segment on the vertical line through A."
+      "note": "Solid vertical A-D, extended below A, matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Solid D-C side."
+      "note": "Solid segment D-C matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed horizontal E-C line, matching the original."
+      "note": "Dashed horizontal E-C matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Right-angle arm along AB at A."
+      "note": "Horizontal arm of the right-angle square at A is present and in the same position."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Right-angle arm along AD at A."
+      "note": "Vertical arm of the right-angle square at A is present and in the same position."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Solid A-B side is drawn."
+      "note": "Segment AB is drawn solid and matches the original."
     },
     {
       "object_id": "seg_AD",
       "status": "present",
-      "note": "Solid A-D side is drawn."
+      "note": "Segment AD is drawn solid along the vertical and matches the original."
     },
     {
-      "object_id": "seg_CB",
+      "object_id": "seg_BC",
       "status": "present",
-      "note": "Solid C-B side is drawn."
+      "note": "Segment BC is drawn solid and matches the original."
     },
     {
       "object_id": "seg_CD",
       "status": "present",
-      "note": "Solid C-D side is drawn."
+      "note": "Segment CD is drawn solid and matches the original."
     },
     {
       "object_id": "seg_DE",
       "status": "present",
-      "note": "Dashed D-E segment is drawn."
+      "note": "Dashed segment from D continuing up through E level matches the original."
     },
     {
       "object_id": "seg_EC",
       "status": "present",
-      "note": "Dashed E-C segment is drawn."
+      "note": "Dashed segment from E to C matches the original."
     },
     {
-      "object_id": "ra_A",
+      "object_id": "ra_01",
       "status": "present",
-      "note": "Right-angle square at A sits in the same quadrant (above-right of A) as in the original."
+      "note": "Right-angle square at A is drawn in the correct quadrant, between AB and AD."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Same right-angle mark at A, in the correct quadrant."
+      "note": "Same right-angle square at A, matching the original."
     },
     {
       "object_id": "junction_seg_03_seg_05",
       "status": "present",
-      "note": "D is the junction of the vertical line and the D-C side; label D is left of it, as in the original."
+      "note": "D is at the junction of the vertical line and segment DC, with its label on the left, as in the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B label sits at the lower right of B."
+      "note": "B is at the right end of the base, with its label below, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "C label sits above C."
+      "note": "C is at the apex, with its label above, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "A label sits at the lower left of A."
+      "note": "A is at the bottom-left corner, with its label below-left, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "E label sits above-left of E, clear of the strokes."
+      "note": "E is at the left end of the dashed horizontal, with its label to the left, as in the original."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "A label is present."
+      "note": "Label A is present at the correct vertex."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "B label is present."
+      "note": "Label B is present at the correct vertex."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "C label is present."
+      "note": "Label C is present at the correct vertex."
     }
   ],
   "checklist_score": 1.0,
@@ -156,11 +160,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle-like outline A-B-C-D with the same vertex positions relative to the frame.",
-    "Right-angle square at A in the correct quadrant, on both arms.",
-    "Dashed D-E and E-C construction lines with E at the upper left.",
-    "Labels A, B, C, D and E are present, correctly spelled and bound to their vertices.",
-    "Extension of AD below A is present."
+    "Overall polygon shape and proportions match the original.",
+    "Right angle at A is present with the square in the correct quadrant.",
+    "Dashed D-E and E-C segments are present and meet at E.",
+    "The vertical line extends below A and above D as in the original.",
+    "All five labels A, B, C, D, E are present with the correct spelling and placement.",
+    "No label collides with a stroke."
   ],
   "labels": {
     "present": [
@@ -175,15 +180,6 @@
   },
   "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "e8aa53d39e813ccf",
-      "edge": [
-        "C",
-        "E"
-      ],
-      "reason": "In the original, the dashed horizontal stroke runs from E at the left to C at the top, so C-E is joined."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

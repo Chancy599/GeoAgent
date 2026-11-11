@@ -1,152 +1,127 @@
 {
-  "assessment_score": 0.88,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful: all vertices, segments, the dashed CN and the right-angle mark at N match the original; the only visible difference is slightly lighter stroke weight.",
+  "verdict": "The render is geometrically faithful: all segments, the dashed C-N, the right-angle mark at N, and the endpoints at D, E and B match the original.",
   "figure_type": {
-    "original": "Triangle-like polygon A-B-E with interior points N, D, C; dashed CN perpendicular to AB at N; line segments CB, CE, BE, DE, CD, AC, AB; right-angle mark at N",
-    "render": "Same configuration: A-N-D-B line, C-B, C-E, B-E, D-E, C-D, A-C, dashed C-N, right-angle mark at N, labels A, N, D, B, C, E"
+    "original": "Triangle-like figure: A-B baseline with N and D on it, C below A, E below, with dashed altitude CN and right angle at N",
+    "render": "Same configuration: A-B baseline with N and D on it, C below A, E below, dashed CN with right angle at N"
   },
   "issues": [
     {
-      "type": "wrong_style",
+      "type": "label_error",
       "severity": "low",
       "object_ids": [
-        "seg_02",
-        "seg_04",
-        "seg_05"
+        "point_01",
+        "point_06",
+        "point_07"
       ],
       "bbox": [
         0.0,
-        0.1,
+        0.0,
         1.0,
-        0.95
+        1.0
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Render strokes look slightly thinner than the original (original lines appear heavier, e.g. CB and CE).",
-      "suggestion": "Optionally raise line width slightly above 1.4pt; this is cosmetic only."
+      "description": "Point labels C, B and E are set in a bold italic weight in the original but in a regular weight in the render. Geometry and label placement are unaffected.",
+      "suggestion": "Optional: switch the vertex labels to a bold math font (e.g. \\boldmath or \\mathbf inside the node) to match the original's emphasis. No change needed for geometry."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Long A-N-D-B line drawn correctly."
+      "note": "Long A-B baseline drawn across the top edge, ending at B as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Horizontal C-B segment matches."
+      "note": "Horizontal C-B segment matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "D-E segment matches."
+      "note": "D-E segment runs from D to E as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "C-E segment matches."
+      "note": "C-E segment runs from C to E as in the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "B-E segment matches."
+      "note": "B-E segment runs from B to E as in the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "C-D segment matches."
+      "note": "C-D segment matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Vertical A-C segment matches."
+      "note": "Vertical A-C segment matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Dashed C-N segment matches."
+      "note": "Dashed C-N segment matches the original."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "A-B line matches."
-    },
-    {
-      "object_id": "seg_AC",
-      "status": "present",
-      "note": "A-C drawn."
-    },
-    {
-      "object_id": "seg_BE",
-      "status": "present",
-      "note": "B-E drawn."
+      "note": "A-B edge matches the original."
     },
     {
       "object_id": "seg_CB",
       "status": "present",
-      "note": "C-B drawn."
-    },
-    {
-      "object_id": "seg_CD",
-      "status": "present",
-      "note": "C-D drawn."
-    },
-    {
-      "object_id": "seg_CE",
-      "status": "present",
-      "note": "C-E drawn."
+      "note": "C-B edge matches the original."
     },
     {
       "object_id": "seg_CN",
       "status": "present",
-      "note": "Dashed C-N drawn to N."
+      "note": "Dashed C-N segment ends at N as in the original."
     },
     {
-      "object_id": "seg_DE",
+      "object_id": "ra_01",
       "status": "present",
-      "note": "D-E drawn."
-    },
-    {
-      "object_id": "ra_N",
-      "status": "present",
-      "note": "Right-angle mark at N in the render."
+      "note": "Right-angle mark at N is in the same quadrant as the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right-angle mark at N matches the original's orientation."
+      "note": "Right-angle mark at N is in the same quadrant as the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B label at B."
+      "note": "B label sits right of B, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "D label at D."
+      "note": "D label sits above-right of D, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "A label at A."
+      "note": "A label sits left of A, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "N label at N."
+      "note": "N label sits above N, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "C label at C."
+      "note": "C label sits left of C, as in the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "E label at E."
+      "note": "E label sits below E, as in the original."
     }
   ],
   "checklist_score": 1.0,
@@ -158,25 +133,25 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Vertex positions and label placements for A, N, D, B, C, E match the original.",
-    "Dashed CN ends at N on line AB.",
-    "Right-angle mark at N has the correct quadrant.",
-    "Segment D-E, C-E and B-E end at E as in the original.",
-    "Overall aspect ratio and layout are consistent."
+    "Outline A-B, A-C, C-B and the N/D positions on the baseline match the original.",
+    "Dashed C-N with the right-angle mark at N matches the original.",
+    "C-D, D-E, C-E and B-E all terminate at the same vertices as in the original.",
+    "Label set A, N, D, C, B, E is present with correct spelling and vertex binding.",
+    "Overall aspect ratio and proportions match the original."
   ],
   "labels": {
     "present": [
       "A",
       "N",
       "D",
-      "B",
       "C",
+      "B",
       "E"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
   "topology_decisions": [
     {
@@ -185,7 +160,7 @@
         "D",
         "E"
       ],
-      "reason": "Original shows a straight stroke from D down to E."
+      "reason": "In the original, the stroke from D runs straight down to E."
     },
     {
       "case_id": "e01ffa8a9afecbb2",
@@ -193,7 +168,7 @@
         "C",
         "E"
       ],
-      "reason": "Original shows a straight stroke from C to E."
+      "reason": "In the original, the stroke from C runs diagonally down to E."
     },
     {
       "case_id": "44af62f662547442",
@@ -201,7 +176,7 @@
         "B",
         "E"
       ],
-      "reason": "Original shows a straight stroke from B to E."
+      "reason": "In the original, the stroke from B runs down-left to E."
     }
   ],
   "raw_meta": "{}"

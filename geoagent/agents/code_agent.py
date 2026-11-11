@@ -141,6 +141,10 @@ class CodeAgent:
             )
         if contract:
             parts.append(contract_prompt(contract))
+            tails = [[p['extension_from'], name] for name, p in contract['points'].items() if 'extension_from' in p]
+            if tails:
+                parts.append('REQUIRED UNLABELLED SOLID EXTENSIONS: ' + json.dumps(tails)
+                             + '. Connect each pair once and draw no label at a GeoTail coordinate.')
         if mode == "repair":
             if frame_changed:
                 parts.append(
@@ -158,6 +162,9 @@ class CodeAgent:
                 + compact_json(self.state.meta.get("reviewed_bindings", {}), 2000),
                 "UNVERIFIED NAMED EDGES: " + json.dumps(
                     (latest.topology_check or {}).get("missing_edges", []) if latest else []
+                ),
+                "OVERLAPPING SOLID STROKES: " + json.dumps(
+                    (latest.topology_check or {}).get('overlapping_strokes', []) if latest else []
                 ),
                 "Return the complete corrected document via submit_tikz.",
             ]

@@ -1,182 +1,164 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's topology: B–A bend, A–E–D horizontal, D′–C crossing, C–F–D, dashed E–F and the right-angle mark at F are all present, and the A label stays bound to the A vertex.",
+  "verdict": "The render is faithful to the original: all segments, labels, and the right-angle mark at F match in position and topology.",
   "figure_type": {
-    "original": "Planar line diagram with labelled points A, B, C, D, E, F, D′, a dashed perpendicular E–F and a right-angle mark at F",
-    "render": "Same planar line diagram with the same labelled points, segments, dashed E–F and right-angle mark at F"
+    "original": "Planar triangle/quadrilateral construction with point labels B, C, A, E, D, D', F, a dashed perpendicular E-F, and a right-angle mark at F",
+    "render": "Same construction with matching vertices, edges, dashed E-F, and right-angle mark at F"
   },
-  "issues": [
-    {
-      "type": "label_error",
-      "severity": "low",
-      "object_ids": [
-        "point_03"
-      ],
-      "bbox": [
-        0.44,
-        0.44,
-        0.5,
-        0.54
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "The render's A glyph sits close to the D′–C stroke that passes just to its right. The original shows a clearer gap. The label is still bound to A and sits up-left of the bend, so this is only a clearance concern.",
-      "suggestion": "Optionally nudge the A label further up-left (for example with a small xshift/yshift on the node) while keeping it anchored at (A)."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Horizontal A–E–D run at the top is drawn in the render."
+      "note": "Horizontal A-E-D line matches the original, with A and E on it and D at the right end."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Horizontal B–C base is drawn."
+      "note": "Bottom solid line B-C matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Sloped D′–C crossing stroke is drawn."
+      "note": "Segment C-D' matches the original line from D' down to C."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Sloped D′–B stroke is drawn."
+      "note": "Segment B-D' matches the left side of the original triangle."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "D′–E stroke is drawn."
+      "note": "Line C-F-D is continuous and ends at D as in the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "B–A stroke is drawn and meets A."
+      "note": "Segment B-A ends at A as in the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "D′–E stroke is drawn as a separate chord."
+      "note": "Segment D'-E matches the original, ending at E."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "E–C stroke is drawn."
+      "note": "Solid segment E-C matches the original."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Dashed E–F stroke is drawn."
-    },
-    {
-      "object_id": "seg_AE",
-      "status": "present",
-      "note": "A–E horizontal segment is drawn."
-    },
-    {
-      "object_id": "seg_BA",
-      "status": "present",
-      "note": "B–A sloped segment is drawn and meets A."
-    },
-    {
-      "object_id": "seg_BC",
-      "status": "present",
-      "note": "B–C horizontal base is drawn."
-    },
-    {
-      "object_id": "seg_CD",
-      "status": "present",
-      "note": "C–F–D line is drawn through F to D."
-    },
-    {
-      "object_id": "seg_DpB",
-      "status": "present",
-      "note": "D′–B stroke is drawn."
-    },
-    {
-      "object_id": "seg_DpC",
-      "status": "present",
-      "note": "D′–C stroke is drawn."
-    },
-    {
-      "object_id": "seg_DpE",
-      "status": "present",
-      "note": "D′–E stroke is drawn."
-    },
-    {
-      "object_id": "seg_EC",
-      "status": "present",
-      "note": "E–C stroke is drawn."
-    },
-    {
-      "object_id": "seg_ED",
-      "status": "present",
-      "note": "E–D horizontal stroke is drawn."
-    },
-    {
-      "object_id": "seg_EF",
-      "status": "present",
-      "note": "Dashed E–F is drawn."
+      "note": "Dashed segment E-F matches the original dash style and endpoints."
     },
     {
       "object_id": "ra_01",
       "status": "present",
-      "note": "Right-angle mark at F between F–E and F–C is drawn."
+      "note": "Right-angle mark at F appears in the same orientation and position as the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Same right-angle mark at F is drawn."
+      "note": "Same right-angle mark as ra_01, correctly placed at F on the C-D line."
     },
     {
-      "object_id": "point_02",
+      "object_id": "junction_seg_01_seg_05",
       "status": "present",
-      "note": "D label sits at the right end of the A–E–D line, correctly bound."
+      "note": "Label D sits at the right end of the horizontal line, as in the original."
     },
     {
-      "object_id": "point_03",
+      "object_id": "junction_seg_01_seg_06",
       "status": "present",
-      "note": "A label sits up-left of the bend, correctly bound to A."
+      "note": "Label A is at the junction of B-A and the horizontal line."
     },
     {
-      "object_id": "point_04",
+      "object_id": "junction_seg_01_seg_07",
       "status": "present",
-      "note": "E label sits above E, correctly bound."
+      "note": "Label E is at the junction of D'-E, E-C, E-F and the horizontal line."
+    },
+    {
+      "object_id": "junction_seg_02_seg_03",
+      "status": "present",
+      "note": "Label C is at the junction of the bottom line, D'-C, and E-C."
+    },
+    {
+      "object_id": "junction_seg_02_seg_04",
+      "status": "present",
+      "note": "Label B is at the left vertex of the bottom line and B-A, B-D'."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "A is labelled at the correct vertex with clear separation from strokes."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "B is labelled at the correct bottom-left vertex."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "C is labelled below the correct vertex."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "D is labelled to the right of the correct vertex."
+    },
+    {
+      "object_id": "point_Dp",
+      "status": "present",
+      "note": "D' is labelled above and to the left of the top vertex."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "E is labelled above the correct vertex."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "F is labelled below-right of the foot point, as in the original."
+    },
+    {
+      "object_id": "vertex_right_angle_01",
+      "status": "present",
+      "note": "F vertex matches the original foot of the perpendicular."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "B–A sloped stroke meets the horizontal A–E line at A, matching the original bend.",
-    "A–E–D horizontal line and E–D overhang are drawn.",
-    "D′–C crossing and D′–E, D′–B strokes are drawn.",
-    "C–F–D line passes through F and continues to D.",
-    "Dashed E–F with a right-angle mark at F is drawn.",
-    "All seven labels A, B, C, D, E, F, D′ are present and bound to their vertices."
+    "Vertex positions and the overall proportions of B, C, A, E, D, D' match the original.",
+    "Edges B-A, A-E-D, B-C, B-D', D'-C, D'-E, C-E, and C-F-D are all present with the same endpoints.",
+    "The dashed E-F segment has the same style and endpoints as the original.",
+    "The right-angle mark at F is present and oriented like the original.",
+    "All point labels (D', A, E, D, B, C, F) are present, correctly bound, and clear of strokes.",
+    "Aspect ratio and overall scale match the original closely."
   ],
   "labels": {
     "present": [
+      "D'",
       "A",
+      "E",
+      "D",
       "B",
       "C",
-      "D",
-      "E",
-      "F",
-      "D′"
+      "F"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

@@ -1,125 +1,124 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.95,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is a faithful reproduction of the rectangle ABCD with interior segments AE and AC; the only discrepancy is a slightly lighter stroke and label weight.",
+  "verdict": "The render faithfully reproduces rectangle ABCD with E on DC and segments AE and AC from A; only minor label and stroke weight differences remain.",
   "figure_type": {
-    "original": "Rectangle ABCD (drawn as a rectangle, not a diagonal) with point E on top edge DC, and segments AE and AC drawn from corner A.",
-    "render": "Rectangle ABCD with point E on top edge DC, and segments AE and AC drawn from corner A."
+    "original": "Rectangle ABCD with point E on side DC, joined to A by segment AE, plus diagonal AC.",
+    "render": "Rectangle ABCD with point E on side DC, joined to A by segment AE, plus diagonal AC."
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_02",
-        "seg_03",
-        "seg_05",
-        "seg_06",
-        "seg_AE",
-        "seg_AC"
+        "point_01",
+        "point_02",
+        "point_03",
+        "point_04",
+        "point_05"
       ],
       "bbox": [
-        0.04,
-        0.24,
-        0.96,
-        0.74
+        0.0,
+        0.2,
+        1.0,
+        0.8
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Stroke weight of the rectangle edges and the AE/AC segments looks slightly lighter in the render than in the original; label glyphs are also lighter and less bold.",
-      "suggestion": "Optionally raise the line width slightly (e.g. from 1.2pt toward 1.4pt) and use a heavier label font weight; this is cosmetic and not a geometry error."
+      "description": "Point labels A, B, C, D, E are rendered in a lighter weight than the original, which shows bolder italic letters. Stroke weight of the rectangle and diagonals is also slightly thinner in the render than in the original.",
+      "suggestion": "Optionally increase label weight (e.g. \\bfseries or a bolder math font) and line width slightly to match the original; this is cosmetic and not a geometric error."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal AC from A to C is drawn correctly as the long diagonal."
+      "note": "Diagonal from C to A is drawn and matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge DC is drawn between D and C."
+      "note": "Top side DC is drawn and matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Bottom edge AB is drawn correctly."
+      "note": "Bottom side AB is drawn and matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment from A up to E on the top edge matches the original."
+      "note": "Segment AE from A to E on DC is drawn and matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Right edge BC is drawn correctly."
+      "note": "Right side BC is drawn and matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Left edge DA is drawn correctly."
-    },
-    {
-      "object_id": "seg_AB",
-      "status": "present",
-      "note": "Bottom edge AB is correct."
+      "note": "Left side AD is drawn and matches the original."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Diagonal AC ends at C as in the original."
+      "note": "Diagonal AC is drawn and reaches C in both panels."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Left side AD is drawn and matches the original."
     },
     {
       "object_id": "seg_AE",
       "status": "present",
-      "note": "AE ends at E on the top edge as in the original."
+      "note": "Segment AE ends at E on the top side in both panels."
     },
     {
-      "object_id": "seg_BC",
+      "object_id": "seg_BA",
       "status": "present",
-      "note": "Right edge BC is correct."
+      "note": "Bottom side BA is drawn and matches the original."
     },
     {
-      "object_id": "seg_DA",
+      "object_id": "seg_CB",
       "status": "present",
-      "note": "Left edge DA is correct."
+      "note": "Right side CB is drawn and matches the original."
     },
     {
       "object_id": "seg_DE",
       "status": "present",
-      "note": "Top segment DE is drawn between D and E, part of the top edge."
+      "note": "Top segment DE is drawn and matches the original."
     },
     {
       "object_id": "seg_EC",
       "status": "present",
-      "note": "Top segment EC is drawn between E and C, part of the top edge."
+      "note": "Top segment EC is drawn and matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "C is at the top-right corner, bound correctly."
+      "note": "Label C is at the top-right corner in both panels."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "A is at the bottom-left corner, bound correctly."
+      "note": "Label A is at the bottom-left corner in both panels."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "E is on the top edge where AE meets it, bound correctly."
+      "note": "Label E is on the top side at the AE endpoint in both panels."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "D is at the top-left corner, bound correctly."
+      "note": "Label D is at the top-left corner in both panels."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "B is at the bottom-right corner, bound correctly."
+      "note": "Label B is at the bottom-right corner in both panels."
     }
   ],
   "checklist_score": 1.0,
@@ -131,11 +130,12 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle ABCD outline with correct corner positions",
-    "Point E on top edge DC where AE terminates",
-    "Diagonal AC from A to C",
-    "Labels D, E, C, A, B present in correct positions with correct vertex binding",
-    "Overall aspect ratio and layout"
+    "Rectangle ABCD with correct corner positions and aspect ratio",
+    "E lies on side DC at the correct position",
+    "Segment AE runs from A to E and ends at E",
+    "Diagonal AC runs from A to C",
+    "No extra or missing segments",
+    "Labels A, B, C, D, E are present, correctly spelled and correctly bound, with no collisions"
   ],
   "labels": {
     "present": [
@@ -157,7 +157,7 @@
         "A",
         "E"
       ],
-      "reason": "In the original, the stroke runs continuously from A up to E on the top edge DC and stops there, so A-E is the correct connection."
+      "reason": "In the original, the stroke runs from A straight up to E on the top side DC and ends there, so the pending segment joins A and E."
     }
   ],
   "raw_meta": "{}"

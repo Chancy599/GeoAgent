@@ -1,150 +1,143 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is faithful to the original: circle, horizontal diameter A-F-B with O, vertical chord D-E-F-G, the A-E-C line, E-O, and the right-angle mark at F all match in position and topology.",
+  "verdict": "The render is a faithful reproduction of the original: the circle, diameter AB, perpendicular chord DG at F, chord AC through E, segment EO, and the right-angle mark at F all match in position and topology.",
   "figure_type": {
-    "original": "circle with horizontal diameter AB, centre O, vertical chord DG through foot F, chord-like line A-E-C, segment E-O, right-angle marker at F",
-    "render": "same construction: circle, diameter AB, vertical chord DG, line A-E-C, segment E-O, right-angle marker at F"
+    "original": "circle with centre O, diameter AB, perpendicular chord DG meeting AB at F, chord AC through E, segment EO, right-angle mark at F",
+    "render": "same configuration: circle with centre O, diameter AB, perpendicular chord DG at F, chord AC through E, segment EO, right-angle mark at F"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "point_04"
+      ],
+      "bbox": [
+        0.47,
+        0.47,
+        0.53,
+        0.53
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The filled centre dot at O is visibly smaller in the render than in the original (original dot is roughly 1.5 to 2 times the diameter of the render's dot).",
+      "suggestion": "Increase the fill radius at O, e.g. \\fill (O) circle (2.2pt) instead of 1.5pt, if matching the original weight matters."
+    }
+  ],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at O reaches A, B, C, D and G as in the original."
+      "note": "Circle centred at O with matching radius and extent."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Horizontal segment A-F-B drawn across the diameter."
+      "note": "Diameter AB from A to B, matching the original extent."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Line from A through E to C matches the original."
+      "note": "Chord A-E-C ends at C on the circle, passing through E as in the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Vertical line D-E-F-G matches the original, ending on the circle at D and G."
+      "note": "Chord DG is vertical through F, ending on the circle at D and G."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment E-O matches the original."
+      "note": "Segment EO runs from E to O as in the original."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Segment A-B (A-F-B) is drawn; the label AB is not printed in the original, so this refers to the geometric segment."
+      "note": "Same as seg_01; diameter AB is correct."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Segment A-E-C is drawn; the label AC is not printed in the original, so this refers to the geometric segment."
+      "note": "Same as seg_02; chord AC is correct."
     },
     {
       "object_id": "seg_DG",
       "status": "present",
-      "note": "Segment D-E-F-G is drawn; the label DG is not printed in the original, so this refers to the geometric segment."
+      "note": "Same as seg_03; chord DG is correct."
     },
     {
       "object_id": "seg_EO",
       "status": "present",
-      "note": "Segment E-O is drawn; the label EO is not printed in the original, so this refers to the geometric segment."
+      "note": "Same as seg_04; segment EO is correct."
     },
     {
       "object_id": "ra_01",
       "status": "present",
-      "note": "Right-angle mark at F between FD and FO, on the same side as the original."
+      "note": "Right-angle mark at F between FD and FO is present in both panels."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right-angle mark at F matches the original in position and orientation."
+      "note": "Same right-angle mark at F as ra_01; present in both panels."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label A at the left circle intersection with AB, as in the original."
+      "note": "Label A sits left of the circle-AB intersection, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label F below the foot on AB, as in the original."
+      "note": "Label F sits below-right of the foot F, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label E left of the E intersection, as in the original."
+      "note": "Label E sits upper-left of E, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label O below the centre dot, as in the original."
+      "note": "Centre O is marked with a dot and labelled below-right, as in the original (dot size differs slightly, see issue)."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label B right of the circle, as in the original."
+      "note": "Label B sits right of the circle-AB intersection, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label C above-right of the point on the circle, as in the original."
+      "note": "Label C sits upper-right of C on the circle, as in the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label D above the top of the chord, as in the original."
+      "note": "Label D sits above the top of chord DG, as in the original."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "Label G below the bottom of the chord, as in the original."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "Point A is correctly placed at the left circle intersection."
-    },
-    {
-      "object_id": "point_B",
-      "status": "present",
-      "note": "Point B is correctly placed at the right circle intersection."
-    },
-    {
-      "object_id": "point_C",
-      "status": "present",
-      "note": "Point C is correctly placed on the circle."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "Point D is correctly placed at the top of the chord on the circle."
-    },
-    {
-      "object_id": "point_E",
-      "status": "present",
-      "note": "Point E is correctly placed where AC crosses DG."
+      "note": "Label G sits below the bottom of chord DG, as in the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle and centre O match the original.",
-    "Horizontal diameter A-F-B matches.",
-    "Vertical chord D-E-F-G reaches the circle at D and G.",
-    "Line A-E-C crosses the chord at E and meets the circle at C.",
-    "Segment E-O is present and ends at O.",
-    "Right-angle marker at F is present in the same quadrant.",
-    "All eight labels are present with correct spelling and clear of strokes."
+    "Circle size, position and line weight match the original.",
+    "Diameter AB spans the full circle from A to B.",
+    "Chord DG is perpendicular to AB at F and ends on the circle at D and G.",
+    "Chord AC passes through E and ends on the circle at C.",
+    "Segment EO joins E to the centre O.",
+    "Right-angle mark at F is present and in the correct quadrant.",
+    "All eight labels A, B, C, D, E, F, G, O are present, correctly spelled and placed near their vertices with no collisions."
   ],
   "labels": {
     "present": [
@@ -160,7 +153,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 3,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

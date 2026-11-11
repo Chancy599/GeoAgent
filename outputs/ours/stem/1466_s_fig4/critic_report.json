@@ -1,118 +1,96 @@
 {
   "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render faithfully reproduces the original: triangle ABC with F on AB, E on CB, and segment FE ending at E.",
+  "verdict": "Render is geometrically faithful: triangle ABC with E on CB and F on AB, joined by segment FE, with all vertices and bindings matching the original. The only visible difference is label weight.",
   "figure_type": {
-    "original": "Triangle ABC with a segment FE from F on AB to E on BC",
-    "render": "Triangle ABC with a segment FE from F on AB to E on BC"
+    "original": "Triangle ABC (C apex) with point E on side CB and point F on base AB, joined by segment FE; labels A, B, C, E, F.",
+    "render": "Same triangle ABC with E on CB and F on AB, joined by segment FE; labels A, B, C, E, F."
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "label_01",
+        "label_02",
+        "label_03",
+        "label_04",
+        "label_05"
+      ],
+      "bbox": [
+        0.47,
+        0.38,
+        0.54,
+        0.44
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Point labels are bold in the original (especially E, F, B, which read as bold italic) but regular-weight italic in the render. Positions and clearances are otherwise correct.",
+      "suggestion": "If matching the original typography is desired, set the label text to bold, e.g. \\node[above right] at (E) {\\fontsize{10}{12}\\selectfont $\\boldsymbol{E}$}; and similarly for A, B, C, F. Keep the existing node anchors so vertex binding is unchanged."
+    }
+  ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base line AB, with F lying on it, matches the original."
+      "note": "Base AB drawn from A to B; matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment from C to B matches the original."
+      "note": "Side CB drawn from C through E to B; matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment from A to C matches the original."
+      "note": "Side CA drawn from C to A; matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment FE ends at E on CB, as in the original."
-    },
-    {
-      "object_id": "seg_AB",
-      "status": "present",
-      "note": "Segment AB is drawn through F and matches the original."
-    },
-    {
-      "object_id": "seg_AC",
-      "status": "present",
-      "note": "Segment AC matches the original."
-    },
-    {
-      "object_id": "seg_CB",
-      "status": "present",
-      "note": "Segment CB matches the original."
-    },
-    {
-      "object_id": "seg_FE",
-      "status": "present",
-      "note": "Segment FE matches the original, with the correct endpoints F and E."
+      "note": "Segment FE joins F on AB to E on CB; matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B is bound to the correct vertex at the right end of AB."
+      "note": "B is at the right base vertex, labelled B, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label A is bound to the correct vertex at the left end of AB."
+      "note": "A is at the left base vertex, labelled A, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label F is bound to the correct point on AB, below the segment."
+      "note": "F is on AB below the segment FE, labelled F, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label C is bound to the top vertex and sits above it, as in the original."
+      "note": "C is at the apex, labelled C, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label E is bound to the point on CB and sits above-right of it, as in the original."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "Vertex A is correctly placed."
-    },
-    {
-      "object_id": "point_B",
-      "status": "present",
-      "note": "Vertex B is correctly placed."
-    },
-    {
-      "object_id": "point_C",
-      "status": "present",
-      "note": "Vertex C is correctly placed."
-    },
-    {
-      "object_id": "point_E",
-      "status": "present",
-      "note": "Point E lies on CB, as in the original."
-    },
-    {
-      "object_id": "point_F",
-      "status": "present",
-      "note": "Point F lies on AB, as in the original."
+      "note": "E is on CB where FE meets it, labelled E, as in the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle ABC has the correct vertex positions and shape.",
-    "F lies on AB and E lies on CB.",
-    "Segment FE runs from F to E with the same slant and length as the original.",
-    "All five point labels A, B, C, E and F are present and placed near their vertices without collisions.",
-    "Line weights are comparable between the panels."
+    "Triangle vertices A, B, C are in the same relative positions and proportions.",
+    "E lies on side CB and F lies on base AB, with the same relative placement.",
+    "Segment FE ends at E on CB and at F on AB, as in the original.",
+    "Segments CB, CA and AB are drawn with the same topology; no extra or missing strokes.",
+    "All five point labels are present, correctly spelled and bound to their vertices, with no collisions with strokes.",
+    "No right-angle marker is visible at F in the original, and none is drawn in the render."
   ],
   "labels": {
     "present": [
@@ -125,8 +103,17 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
-  "topology_decisions": [],
+  "topology_decisions": [
+    {
+      "case_id": "11969f55fbb83ee2",
+      "edge": [
+        "E",
+        "F"
+      ],
+      "reason": "In the original, the solid stroke runs from F on the base up to E on the side CB, so the connection is E–F as in the source."
+    }
+  ],
   "raw_meta": "{}"
 }

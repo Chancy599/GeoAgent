@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw
 from geoagent.agents.critic_agent import CriticAgent
 from geoagent.orchestration.runner import GeoAgentRunner, _finish_gate_problem
 from geoagent.state.construction import add_construction_candidates, merge_construction_plan
-from geoagent.state.coordinate_contract import build_coordinate_contract
+from geoagent.state.coordinate_contract import apply_coordinate_contract, build_coordinate_contract
 from geoagent.state.schemas import GeometricEvidenceState, GeometryObject
 from geoagent.state.topology import build_topology_plan, check_topology
 
@@ -96,6 +96,9 @@ def test_collinear_named_subdivision_can_satisfy_a_straight_edge():
 """
     assert check_topology(tex, plan)["passed"]
     assert not check_topology(tex.replace("(1,0)", "(1,0.1)"), plan)["passed"]
+    duplicated = check_topology(tex + r'\draw (A)--(B);', plan)
+    assert duplicated['overlapping_strokes'] == [[['A', 'B'], ['A', 'E']], [['A', 'B'], ['B', 'E']]]
+    assert not duplicated['passed']
 
 
 def test_source_square_orientation_at_a_clipped_dashed_foot(tmp_path):
@@ -159,3 +162,38 @@ def test_continuous_source_ink_certifies_overshooting_solid_stroke(tmp_path):
     plan = build_topology_plan(state)
     assert plan["ink_confirmed_edges"] == [["C", "F"]]
     assert plan["required_edges"] == [["C", "F"]]
+
+
+def test_solid_extension_needs_ink_past_the_labelled_junction(tmp_path):
+    path = tmp_path / 'source.png'
+    state = GeometricEvidenceState(image_path=str(path), image_size={'width': 200, 'height': 180})
+    for label, point in {'A': [50, 150], 'D': [50, 100], 'G': [50, 60], 'B': [130, 60]}.items():
+        state.add_object(GeometryObject(id=label, type='point', label=label, coords={'px': point},
+                                        source='cv:bind_point_labels'))
+        state.label_bindings[label] = label
+    state.add_object(GeometryObject(id='vertical', type='segment', source='cv:detect_lines',
+                                    coords={'a_px': [50, 25], 'b_px': [50, 150]}, style={'line': 'solid'}))
+    state.add_object(GeometryObject(id='truncated', type='segment', source='cv:detect_lines',
+                                    coords={'a_px': [50, 60], 'b_px': [50, 130]}, style={'line': 'solid'}))
+    state.add_object(GeometryObject(id='C', type='point', label='C', coords={'px': [130, 100]},
+                                    source='cv:bind_point_labels'))
+    state.label_bindings['C'] = 'C'
+    image = Image.new('L', (200, 180), 255)
+    draw = ImageDraw.Draw(image)
+    draw.line([(50, 60), (50, 150)], fill=0, width=2)
+    draw.line([(50, 60), (130, 60)], fill=0, width=2)
+    draw.line([(50, 100), (130, 100)], fill=0, width=2)
+    image.save(path)
+    merge_construction_plan(state, {'strokes': [{'edge': list(edge), 'style': 'solid'} for edge in ('AD', 'DG', 'GB', 'DC')]})
+    assert state.meta['source_construction']['extensions'] == {}
+    draw.line([(50, 25), (50, 60)], fill=0, width=2)
+    image.save(path)
+    merge_construction_plan(state, {})
+    plan = build_topology_plan(state)
+    contract = build_coordinate_contract(state)
+    assert contract['points']['GeoTailG']['px'] == [50, 25]
+    partial = r'\begin{tikzpicture}\draw (A)--(D)--(G);\draw (G)--(B);\draw (D)--(C);\end{tikzpicture}'
+    without_tail, _ = apply_coordinate_contract(partial, contract)
+    assert ['G', 'GeoTailG'] in check_topology(without_tail, plan)['missing_edges']
+    with_tail, _ = apply_coordinate_contract(partial.replace('(D)--(G);', '(D)--(G)--(GeoTailG);'), contract)
+    assert check_topology(with_tail, plan)['passed']

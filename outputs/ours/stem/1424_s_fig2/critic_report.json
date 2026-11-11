@@ -1,185 +1,167 @@
 {
-  "assessment_score": 0.88,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original closely. CF is a straight stroke through E, E lies on AP, and the E glyph clears the nearby strokes, with only a modest margin to AP.",
+  "verdict": "Render is faithful: all lines, intersections, the C right-angle mark and the labels A, B, C, D, E, F, P match the original; no discrepancies found.",
   "figure_type": {
-    "original": "triangle ACB with cevians AP, CF and segment ED, plus right angles at C and possibly E",
-    "render": "same configuration: triangle ACB with cevians AP, CF, ED and right-angle marks at C and E"
+    "original": "Right triangle ABC with right angle at C; P on CB; F above CB; lines AP, CF, FP, AB and segment DE, with D on AB and FP and E on AP and CF.",
+    "render": "Same configuration: right triangle ABC with right angle at C; P on CB; F above CB; lines AP, CF, FP, AB and segment DE, with D on AB and FP and E on AP and CF."
   },
   "issues": [
     {
-      "type": "label_error",
-      "severity": "low",
+      "type": "missing_element",
+      "severity": "medium",
       "object_ids": [
-        "junction_seg_03_seg_04"
-      ],
-      "bbox": [
-        0.31,
-        0.5,
-        0.44,
-        0.67
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "The E glyph is readable and clears CF, ED and AP, but in the render it sits closer to AP than in the original (roughly 15 px versus about 20 px of clearance). The label is still clearly bound to E.",
-      "suggestion": "Optionally nudge the E label slightly left or down (e.g. use below left or a small xshift), keeping node (E) as the anchor so the binding is unchanged."
-    },
-    {
-      "type": "other",
-      "severity": "low",
-      "object_ids": [
-        "ra_E",
         "right_angle_01"
       ],
       "bbox": [
-        0.31,
-        0.56,
-        0.36,
-        0.62
+        0.33,
+        0.555,
+        0.37,
+        0.595
       ],
       "flaky": false,
-      "source": "vlm",
-      "description": "The render draws a right-angle mark at E for C--E--P. In the original I cannot clearly see a square at E, so its presence there is uncertain. The angle between CF and AP is close to 90 degrees, so the marker may be correct but hard to see in the source.",
-      "suggestion": "Verify against the source at higher zoom. Keep the right-angle pic only if the square is visible in the original; otherwise remove it."
+      "source": "checklist",
+      "description": "Checklist: right-angle mark right_angle_01 is verified by CV on the original but was not located in the render.",
+      "suggestion": "Draw the right-angle square mark at this vertex."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Long diagonal AB-side stroke from A toward B is drawn correctly."
+      "note": "Line A–B (through D) drawn in both panels."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Base CB is drawn along the bottom, from C to B."
+      "note": "Base C–B drawn, P on it, ends at B."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "AP stroke from A down to P is drawn and passes through E."
+      "note": "Line A–E–P drawn; ends at P in both panels."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Stroke from F down toward P (through D) is drawn."
+      "note": "Line C–E–F drawn in both panels."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Stroke from F down to P is drawn."
+      "note": "Line F–D–P drawn; ends at P in both panels."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Vertical AC side is drawn."
+      "note": "Vertical A–C drawn; ends at C with right-angle mark."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Short part of CF near C is drawn."
+      "note": "Part of C–E–F between C and E, drawn in render."
     },
     {
       "object_id": "seg_08",
-      "status": "present",
-      "note": "Short stroke near E is drawn, with the label clearance as in the original."
+      "status": "unclear",
+      "note": "Near-vertical CV fragment at E's right-angle area; no such stroke is distinct in the original, so it is not treated as a missing or wrong drawn element."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "A to B is drawn and passes through D."
-    },
-    {
-      "object_id": "seg_AC",
-      "status": "present",
-      "note": "Vertical side from A to C is drawn."
+      "note": "Line A–B matches original, passing through D."
     },
     {
       "object_id": "seg_AP",
       "status": "present",
-      "note": "A to P passes through E, as in the original."
+      "note": "Line A–P matches original, passing through E."
     },
     {
       "object_id": "seg_CB",
       "status": "present",
-      "note": "Base from C to B is drawn."
+      "note": "Base C–B matches original."
     },
     {
       "object_id": "seg_CF",
       "status": "present",
-      "note": "C to F is a straight stroke through E, matching the original."
-    },
-    {
-      "object_id": "seg_ED",
-      "status": "present",
-      "note": "Short segment from E to D is drawn."
+      "note": "Line C–F matches original, passing through E."
     },
     {
       "object_id": "seg_FP",
       "status": "present",
-      "note": "F to P is drawn and passes through D's area, as in the original."
+      "note": "Line F–P matches original, passing through D."
     },
     {
       "object_id": "ra_C",
       "status": "present",
-      "note": "Right-angle square at C is drawn in both panels."
+      "note": "Square mark at C between CA and CB is drawn in both panels, same quadrant."
     },
     {
-      "object_id": "ra_E",
+      "object_id": "ra_E_cv",
       "status": "unclear",
-      "note": "A square is drawn at E in the render; it is not clearly visible in the original."
+      "note": "No right-angle square at E is visible in the original, and none is drawn in the render; the CV mark is not a real figure element."
     },
     {
       "object_id": "right_angle_01",
       "status": "unclear",
-      "note": "Same right-angle mark at E as ra_E; presence in the original cannot be confirmed at this scale."
+      "note": "CV-detected mark near E is not visible as a square in the original; the render correctly has none there."
     },
     {
-      "object_id": "junction_seg_01_seg_02",
+      "object_id": "point_01",
       "status": "present",
-      "note": "Label B is at the right end of the base, bound correctly."
+      "note": "B labelled at the right end of CB in both panels."
     },
     {
-      "object_id": "junction_seg_01_seg_03",
+      "object_id": "point_02",
       "status": "present",
-      "note": "Label A is at the top-left vertex, bound correctly."
+      "note": "A labelled at the top-left vertex in both panels."
     },
     {
-      "object_id": "junction_seg_01_seg_05",
+      "object_id": "point_04",
       "status": "present",
-      "note": "Label D sits on the AB/FP crossing, as in the original."
+      "note": "D labelled to the right of D on AB/FP in both panels."
     },
     {
-      "object_id": "junction_seg_02_seg_03",
+      "object_id": "point_05",
       "status": "present",
-      "note": "Label P is below the base at the AP foot, as in the original."
+      "note": "P labelled below P on CB in both panels."
     },
     {
-      "object_id": "junction_seg_02_seg_06",
+      "object_id": "point_06",
       "status": "present",
-      "note": "Label C is at the bottom-left corner, as in the original."
+      "note": "C labelled below-left of C in both panels."
     },
     {
-      "object_id": "junction_seg_03_seg_04",
+      "object_id": "point_07",
       "status": "present",
-      "note": "Label E is below-right of the CF/AP crossing and clears the strokes, with slightly less margin than the original."
+      "note": "E labelled below E in both panels, clear of strokes."
+    },
+    {
+      "object_id": "point_08",
+      "status": "present",
+      "note": "F labelled above F in both panels."
+    },
+    {
+      "object_id": "point_11",
+      "status": "unclear",
+      "note": "CV point labelled O at about (319,211) is not visible as a letter in the original, so it cannot be confirmed as a figure element."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
-    "medium": 0,
-    "low": 2
+    "medium": 1,
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": true,
   "matches": [
-    "CF is a straight stroke through E.",
-    "E lies on AP.",
-    "E glyph is clear of CF, ED and AP.",
-    "D lies on AB and on FP.",
-    "Vertices A, B, C, F, P and their labels are placed correctly.",
-    "Right angle at C is drawn in both panels."
+    "Right angle at C with the square inside the angle in both panels.",
+    "Points A, B, C, D, E, F, P are placed at the same relative positions.",
+    "A–D–B collinear, F–D–P collinear, A–E–P collinear and C–E–F collinear as in the original.",
+    "Segment D–E is present and joins the same points.",
+    "Labels A, B, C, D, E, F, P are present, correctly spelled and clear of strokes.",
+    "Overall aspect ratio and proportions match the original."
   ],
   "labels": {
     "present": [
@@ -194,7 +176,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 7,
+  "version": 6,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

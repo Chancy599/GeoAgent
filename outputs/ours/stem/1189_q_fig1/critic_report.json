@@ -1,133 +1,118 @@
 {
   "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful to the original: all six labelled points, the six visible segments, and the arc from E through B and C to F match in position and extent.",
+  "verdict": "Render is faithful to the original: same points, segments, and arc extent; the only visible difference is label typeface weight.",
   "figure_type": {
-    "original": "Arc E-B-C-F (bottom arc about centre D) with chords/segments A-D, D-F, D-E, A-B, D-C, B-C; no right-angle marks",
-    "render": "Arc E-B-C-F (bottom arc about centre D) with chords/segments A-D, D-F, D-E, A-B, D-C, B-C; no right-angle marks"
+    "original": "Circular arc (centre D, radius ~280 px) from E through B and C to F, with chords/segments AD, AB, BC, CD, DE, DF; labels A-F in bold",
+    "render": "Circular arc from E to F through B and C with the same segments; labels A-F in regular weight"
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "label_error",
+      "severity": "low",
+      "object_ids": [
+        "point_08"
+      ],
+      "bbox": [
+        0.914,
+        0.476,
+        0.944,
+        0.522
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "Point labels are set in regular-weight math italic, while the original labels are visibly bold. Position and spelling are correct; only the font weight differs (example: label F).",
+      "suggestion": "If matching the source typography matters, set the label style to bold (e.g. \\boldmath or \\mathbf in the node text, or a bold font in every label/.style), applied to all six labels together."
+    }
+  ],
   "checks": [
     {
       "object_id": "arc_EBCF",
       "status": "present",
-      "note": "Arc runs from E through B and C to F with matching sag and endpoints."
-    },
-    {
-      "object_id": "circle_D",
-      "status": "unclear",
-      "note": "Only the arc is visible in the original; the full circle is a construction and is not drawn."
+      "note": "Arc spans E to F through B and C along the bottom, centred at D, matching the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Segment B-C is drawn horizontally between B and C."
+      "note": "Segment B-C is drawn horizontally between B and C at the same height as the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment A-D is the top horizontal edge, ending at D."
+      "note": "Segment A-D is horizontal along the top, from A to D."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment D-C ends at C on the arc."
+      "note": "Segment C-D runs from D down to C, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment D-E ends at E, which lies on the arc."
+      "note": "Segment D-E runs from D to E, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment D-F ends at F on the arc."
+      "note": "Segment D-F runs from D to F, matching the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment A-B runs from A to B and crosses D-E near E, as in the original."
+      "note": "Segment A-B runs from A to B and crosses D-E near E in the same place as the original."
     },
     {
       "object_id": "seg_07",
-      "status": "unclear",
-      "note": "Collinear fragment lying on the A-B stroke between A and the crossing; a detection duplicate rather than a separate element."
+      "status": "present",
+      "note": "Fragment lies on the A-B line near A (CV duplicate of seg_06); no separate drawn element to fix."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Point C is at the lower-right junction of B-C and D-C on the arc."
+      "note": "Point C is at the right end of segment B-C and on the arc, with the label below right."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Point B is at the lower-left junction of A-B and B-C on the arc."
+      "note": "Point B is where A-B and B-C meet on the arc, with the label below left."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Point D is the top junction of A-D, D-E, D-C and D-F."
+      "note": "Point D is the apex of the fan, with the label above."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Point A is the top-left corner where A-D and A-B meet."
+      "note": "Point A is the top-left corner, with the label above left."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Point E is the left end of D-E on the arc."
+      "note": "Point E is the left end of the arc and of segment D-E, with the label to the left."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "Point F is the right end of D-F on the arc."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "Geometry-agent point A matches the printed A at the top-left corner."
-    },
-    {
-      "object_id": "point_B",
-      "status": "present",
-      "note": "Geometry-agent point B matches the printed B."
-    },
-    {
-      "object_id": "point_C",
-      "status": "present",
-      "note": "Geometry-agent point C matches the printed C."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "Geometry-agent point D matches the printed D."
-    },
-    {
-      "object_id": "point_E",
-      "status": "present",
-      "note": "Geometry-agent point E matches the printed E."
-    },
-    {
-      "object_id": "point_F",
-      "status": "present",
-      "note": "Geometry-agent point F matches the printed F."
+      "note": "Point F is the right end of the arc and of segment D-F, with the label to the right."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Arc from E through B and C to F with matching sag and endpoints",
-    "Segments A-D, D-F, D-E, A-B, D-C and B-C present with correct endpoints",
-    "A-B crosses D-E near E as in the original",
-    "Labels A, B, C, D, E, F present, correctly placed, and clear of strokes",
-    "Overall aspect ratio and proportions match the original"
+    "Vertex positions A, B, C, D, E, F match the original within a few pixels.",
+    "Segment set AD, AB, BC, CD, DE, DF is complete with no extras.",
+    "Arc runs from E to F along the bottom through B and C, with matching curvature and extent.",
+    "Segment DE ends at E and does not overshoot the labelled vertex.",
+    "Crossing of AB and DE near E is in the same place as the original.",
+    "Aspect ratio and overall layout are consistent with the original.",
+    "Stroke weight is comparable between panels."
   ],
   "labels": {
     "present": [
@@ -150,7 +135,7 @@
         "D",
         "E"
       ],
-      "reason": "In the original the straight stroke runs from D and ends at E on the arc, where the E label sits, so the edge is D-E."
+      "reason": "In the original, the stroke from D ends at the E point on the left of the arc, so the endpoint binds to E."
     }
   ],
   "raw_meta": "{}"

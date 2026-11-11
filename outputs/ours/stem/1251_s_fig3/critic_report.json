@@ -1,167 +1,176 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is geometrically faithful: the parallelogram ABCD, points Q, E, P, O, the D–B and Q–E/Q–P lines, and the right angle at D all match the original, with only minor stroke-weight differences.",
+  "verdict": "Render is geometrically faithful: parallelogram ABCD, right angle at D, Q on DC, E and P on AB, and O at the intersection of QP with DB all match the original.",
   "figure_type": {
-    "original": "Parallelogram ABCD with points Q on DC, E and P on AB, O at the intersection of DB and QP, and a right-angle mark at D",
-    "render": "Same parallelogram ABCD with points Q, E, P, O and the right angle at D"
+    "original": "parallelogram ABCD with right-angle marker at D, points E and P on AB, Q on DC, O = QP ∩ DB, segment EQ",
+    "render": "parallelogram ABCD with right-angle marker at D, points E and P on AB, Q on DC, O = QP ∩ DB, segment EQ"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_02"
+        "label_01",
+        "label_02",
+        "label_03",
+        "label_04",
+        "label_05",
+        "label_06",
+        "label_07",
+        "label_08"
       ],
       "bbox": [
-        0.28,
-        0.33,
-        0.9,
-        0.38
+        0.02,
+        0.3,
+        0.97,
+        0.7
       ],
-      "flaky": false,
+      "flaky": true,
       "source": "vlm",
-      "description": "The top edge DC looks heavier in the original than in the render, and the render's diagonal D–B looks slightly heavier than the original's thin line.",
-      "suggestion": "Optionally thicken the DC edge slightly and thin the D–B line to match the original's hierarchy. This is cosmetic and not required for geometric fidelity."
+      "description": "Point labels in the render are thin italic math glyphs, while the original uses heavier, upright bold letters. Positions and vertex bindings are correct.",
+      "suggestion": "Optional: match the original label typeface (e.g. bold upright via \\mathbf or \\textbf) if visual fidelity of lettering matters. Keep the existing node anchors unchanged.",
+      "flaky_reason": "opposite verdict in v2: Vertex labels in the original are bold italic serif, while the render uses a lighter italic math font. Line weights are broadly similar, though the original's D"
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base AB is drawn from A to B in both panels."
+      "note": "Base AB drawn from A through E and P to B, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge DC is drawn; the original stroke is heavier."
+      "note": "Top side DC drawn, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Diagonal D–B is drawn and passes through O in both panels."
+      "note": "Diagonal DB drawn from D to B, passing through O as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Side BC is drawn."
+      "note": "Side BC drawn from B to C."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment QE is drawn from Q to E."
+      "note": "Segment EQ drawn from E up to Q."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment QP is drawn through O to P."
+      "note": "Segment QO/QP from Q through O toward P, matching the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Side DA is drawn."
+      "note": "Side AD drawn from A to D."
     },
     {
       "object_id": "seg_08",
       "status": "unclear",
-      "note": "Short CV fragment near D with no clear counterpart; likely a right-angle or noise artifact, not a distinct line in the original."
+      "note": "Short detector fragment near D; no such stroke is visible in the original, and the render has none there either. Treated as a CV artifact."
     },
     {
       "object_id": "seg_09",
       "status": "unclear",
-      "note": "Short CV fragment near D with no clear counterpart; likely a right-angle or noise artifact, not a distinct line in the original."
+      "note": "Short detector fragment near D; no such stroke is visible in the original, and the render has none there either. Treated as a CV artifact."
     },
     {
       "object_id": "ra_D",
       "status": "present",
-      "note": "Right-angle mark at D between DA and DB is present in both panels."
+      "note": "Right-angle square at D sits between DA and DB, as in the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Same right-angle mark at D is present in both panels."
+      "note": "Same right-angle marker at D; the render matches the original quadrant."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B is labelled at the bottom-right vertex."
+      "note": "B is labelled at the lower-right vertex, matching the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "E is labelled on AB."
+      "note": "E is labelled below its point on AB."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "D is labelled at the top-left vertex."
+      "note": "D is labelled at the upper-left vertex."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "C is labelled at the top-right vertex."
+      "note": "C is labelled at the upper-right vertex."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Q is labelled above the top edge."
+      "note": "Q is labelled above its point on DC."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "O is labelled near the intersection of DB and QP."
+      "note": "O is labelled to the upper-right of the intersection, as in the original."
     },
     {
       "object_id": "point_10",
       "status": "present",
-      "note": "P is labelled on AB."
+      "note": "P is labelled below its point on AB."
     },
     {
       "object_id": "point_11",
       "status": "present",
-      "note": "A is labelled at the bottom-left vertex."
+      "note": "A is labelled at the lower-left vertex."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Label A is present and bound to the bottom-left vertex."
+      "note": "A is present and correctly placed."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Label B is present and bound to the bottom-right vertex."
+      "note": "B is present and correctly placed."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "Label C is present and bound to the top-right vertex."
+      "note": "C is present and correctly placed."
     },
     {
       "object_id": "point_D",
       "status": "present",
-      "note": "Label D is present and bound to the top-left vertex."
+      "note": "D is present and correctly placed."
     },
     {
       "object_id": "point_E",
       "status": "present",
-      "note": "Label E is present and bound to the point on AB."
+      "note": "E is present and correctly placed."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
-  "flaky_count": 0,
+  "flaky_count": 1,
   "must_repair": false,
   "matches": [
-    "Parallelogram ABCD with the correct vertex layout",
-    "Q on DC with segments QE and QP",
-    "O at the intersection of DB and QP",
-    "Right angle at D between DA and DB",
-    "All eight point labels present with correct vertex association",
-    "No label collides with strokes"
+    "Parallelogram ABCD shape and aspect ratio match the original.",
+    "Base A-E-P-B lies on the same line with E and P in the same relative positions.",
+    "Top side DQC and side segments AD and BC are present.",
+    "Diagonal DB runs from D to B and crosses QP at O.",
+    "Segment EQ and segment QP are present and meet at Q.",
+    "Right-angle marker at D is present in the correct quadrant.",
+    "All eight labels (A, B, C, D, E, O, P, Q) are present, correctly spelled, and clear of strokes."
   ],
   "labels": {
     "present": [
@@ -177,7 +186,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 4,
+  "version": 5,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

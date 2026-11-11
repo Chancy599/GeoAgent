@@ -768,7 +768,7 @@
       "relation": "on_segment",
       "object": "seg_AC",
       "source": "geometry_agent",
-      "evidence": "CV seg_02 passes through point_03 within ~0.5px",
+      "evidence": "Interior crossing of the two diagonals; unlabeled junction",
       "status": "candidate"
     },
     "rel_006": {
@@ -777,7 +777,7 @@
       "relation": "on_segment",
       "object": "seg_BD",
       "source": "geometry_agent",
-      "evidence": "CV seg_03 passes through point_03",
+      "evidence": "Interior crossing of the two diagonals; unlabeled junction",
       "status": "candidate"
     }
   },
@@ -793,7 +793,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T22:52:09"
+      "created_at": "2026-11-11T12:47:48"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -806,7 +806,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T22:52:24"
+      "created_at": "2026-11-11T12:47:50"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -819,13 +819,13 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T22:52:29"
+      "created_at": "2026-11-11T12:47:50"
     },
     "ev_0004": {
       "id": "ev_0004",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Trapezoid-like figure with four lettered vertices A (top left), D (top right), B (bottom left), C (bottom right). Six solid straight strokes: AD (top), BC (bottom), AB (left side), DC (right side), diagonals AC and BD crossing at an unlabeled interior junction point_03 (~269.8,155.5). No dashed strokes, no curves, no right-angle marks, no feet.",
+      "summary": "Trapezoid-like quadrilateral ABCD with printed letters A (top left), D (top right), B (bottom left), C (bottom right). Straight solid strokes: AD (top), BC (bottom), AB (left side), DC (right side), plus two full diagonals AC and BD that cross at an unlabeled interior junction point_03 (~269.8,155.5). All strokes are solid; no dashed segments. No right-angle marks are drawn; angle_marks and feet are empty. Existing OCR bindings A->point_04, B->point_02, C->point_01, D->point_05 are correct; no label changes needed.",
       "payload": {
         "merged": {
           "objects": 11,
@@ -847,13 +847,13 @@
           "seg_BD"
         ]
       },
-      "created_at": "2026-11-09T22:52:37"
+      "created_at": "2026-11-11T12:48:01"
     },
     "ev_0005": {
       "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [519, 392] (scale 0.6456)",
+      "summary": "v1 canvas matched to source [519, 392] (scale 0.6726)",
       "payload": {
         "ok": true,
         "size": [
@@ -864,13 +864,13 @@
           519,
           392
         ],
-        "scale": 0.6456,
+        "scale": 0.6726,
         "offset": [
           44,
-          50
+          44
         ]
       },
-      "created_at": "2026-11-09T22:52:50"
+      "created_at": "2026-11-11T12:48:19"
     },
     "ev_0006": {
       "id": "ev_0006",
@@ -885,10 +885,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "cba823ebe71449d41601fcb5763e3b6f7643a28b04840787678ca72bbd0b1dbd",
-        "output_sha256": "50edf6771566d1ad910c5c2b613cca198eab6d57c57024627e0c12d789477ee6",
+        "input_sha256": "05803a247979369c68df718ef9a184ab03da6a7e7f359c4b6921f5c47f396a9d",
+        "output_sha256": "1cf94024557d9e4264deb76b442ec550a883cb46f5e5b02fbf101b7a86f15e5c",
         "reason": "applied",
         "accepted": [
           {
@@ -906,8 +906,8 @@
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -918,13 +918,15 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 1,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.00047054570900155457,
@@ -946,7 +948,7 @@
         "point_count": 4,
         "segment_count": 6
       },
-      "created_at": "2026-11-09T22:52:50"
+      "created_at": "2026-11-11T12:48:19"
     },
     "ev_0007": {
       "id": "ev_0007",
@@ -954,14 +956,14 @@
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used program-owned coordinates A, B, C, D without redefining them. Six solid named edges (AD, BC, AB, DC, AC, BD) drawn between named vertices, line width 1.5pt with round joins from STYLE METRICS. Labels bound to vertices with the specified above-left/above-right/below-left/below-right placements, font 15.5/18.6. The crossing point is unlabeled and left implicit (intersection of the diagonals), no right-angle marks. No calc or other libraries needed.",
+        "notes": "Used program-owned coordinates A, B, C, D by name without redefining them. All six required edges (AB, BC, CD, DA, AC, BD) are solid and drawn between named vertices. Line width 1.5pt with round joins from STYLE METRICS. Labels use the metrics font (15.5/18.6 pt) and sit outside the quadrilateral, matching the source placements (A upper-left, D upper-right, B lower-left, C below). No label for the intersection O, no right-angle marks, no extra libraries. CV coordinates match the pixel conversion (A=(-1.609,2.276) etc.), so no remeasurement is needed.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -991,32 +993,32 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0455"
+              "detail": "ink_ratio=0.0473"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.32 vs render 1.48 (delta 0.12)"
+              "detail": "reference 1.32 vs render 1.42 (delta 0.07)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.49"
+              "detail": "figure bbox ratio 1.43"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T22:52:50"
+      "created_at": "2026-11-11T12:48:19"
     }
   },
   "conflicts": [],
@@ -1026,10 +1028,10 @@
     "B": "point_02",
     "C": "point_01"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-1.609,2.272);\n\\coordinate (B) at (-3.413,-2.238);\n\\coordinate (C) at (3.789,-2.239);\n\\coordinate (D) at (1.988,2.272);\n\n\n\n\n\\draw (A) -- (D);\n\\draw (B) -- (C);\n\\draw (A) -- (B);\n\\draw (D) -- (C);\n\n\n\\draw (A) -- (C);\n\\draw (B) -- (D);\n\n\n\\node[above left]  at (A) {\\fontsize{15.5}{18.6}\\selectfont $A$};\n\\node[above right] at (D) {\\fontsize{15.5}{18.6}\\selectfont $D$};\n\\node[below left]  at (B) {\\fontsize{15.5}{18.6}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{15.5}{18.6}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 d4d7de5cbe4b63ae9a2e6e00a1d2eb7a19d3aedca17c6ec4b9876817ae2e257d\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-1.609,2.272);\n\\coordinate (B) at (-3.413,-2.238);\n\\coordinate (C) at (3.789,-2.239);\n\\coordinate (D) at (1.988,2.272);\n\n\n\n\n\\draw (A) -- (D);\n\\draw (B) -- (C);\n\\draw (A) -- (B);\n\\draw (D) -- (C);\n\n\n\\draw (A) -- (C);\n\\draw (B) -- (D);\n\n\n\\node[above left]  at (A) {\\fontsize{15.5}{18.6}\\selectfont $A$};\n\\node[above right] at (D) {\\fontsize{15.5}{18.6}\\selectfont $D$};\n\\node[below left]  at (B) {\\fontsize{15.5}{18.6}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{15.5}{18.6}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 d4d7de5cbe4b63ae9a2e6e00a1d2eb7a19d3aedca17c6ec4b9876817ae2e257d\n",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-1.609,2.272);\n\\coordinate (B) at (-3.413,-2.238);\n\\coordinate (C) at (3.789,-2.239);\n\\coordinate (D) at (1.988,2.272);\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \\draw (C) -- (D);\n  \\draw (D) -- (A);\n  \n  \\draw (A) -- (C);\n  \\draw (B) -- (D);\n  \n  \\node[above left,  font=\\fontsize{15.5}{18.6}\\selectfont] at (A) {$A$};\n  \\node[above right, font=\\fontsize{15.5}{18.6}\\selectfont] at (D) {$D$};\n  \\node[below left,  font=\\fontsize{15.5}{18.6}\\selectfont] at (B) {$B$};\n  \\node[below,       font=\\fontsize{15.5}{18.6}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 63f49da1f15738b6e22d39efc65893b61cfb11c041c6331ec1d4f19b51077592\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-1.609,2.272);\n\\coordinate (B) at (-3.413,-2.238);\n\\coordinate (C) at (3.789,-2.239);\n\\coordinate (D) at (1.988,2.272);\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \\draw (C) -- (D);\n  \\draw (D) -- (A);\n  \n  \\draw (A) -- (C);\n  \\draw (B) -- (D);\n  \n  \\node[above left,  font=\\fontsize{15.5}{18.6}\\selectfont] at (A) {$A$};\n  \\node[above right, font=\\fontsize{15.5}{18.6}\\selectfont] at (D) {$D$};\n  \\node[below left,  font=\\fontsize{15.5}{18.6}\\selectfont] at (B) {$B$};\n  \\node[below,       font=\\fontsize{15.5}{18.6}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 63f49da1f15738b6e22d39efc65893b61cfb11c041c6331ec1d4f19b51077592\n",
   "best_version": 1,
-  "best_score": 0.93,
+  "best_score": 0.95,
   "tikz_versions": [
     {
       "topology_check": {
@@ -1037,7 +1039,7 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.5pt]\n\\coordinate (A) at (-1.609,2.272);\n\\coordinate (B) at (-3.413,-2.238);\n\\coordinate (C) at (3.789,-2.239);\n\\coordinate (D) at (1.988,2.272);\n\n\n\n\n\\draw (A) -- (D);\n\\draw (B) -- (C);\n\\draw (A) -- (B);\n\\draw (D) -- (C);\n\n\n\\draw (A) -- (C);\n\\draw (B) -- (D);\n\n\n\\node[above left]  at (A) {\\fontsize{15.5}{18.6}\\selectfont $A$};\n\\node[above right] at (D) {\\fontsize{15.5}{18.6}\\selectfont $D$};\n\\node[below left]  at (B) {\\fontsize{15.5}{18.6}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{15.5}{18.6}\\selectfont $C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 d4d7de5cbe4b63ae9a2e6e00a1d2eb7a19d3aedca17c6ec4b9876817ae2e257d\n",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-1.609,2.272);\n\\coordinate (B) at (-3.413,-2.238);\n\\coordinate (C) at (3.789,-2.239);\n\\coordinate (D) at (1.988,2.272);\n\n  \n  \\draw (A) -- (B);\n  \\draw (B) -- (C);\n  \\draw (C) -- (D);\n  \\draw (D) -- (A);\n  \n  \\draw (A) -- (C);\n  \\draw (B) -- (D);\n  \n  \\node[above left,  font=\\fontsize{15.5}{18.6}\\selectfont] at (A) {$A$};\n  \\node[above right, font=\\fontsize{15.5}{18.6}\\selectfont] at (D) {$D$};\n  \\node[below left,  font=\\fontsize{15.5}{18.6}\\selectfont] at (B) {$B$};\n  \\node[below,       font=\\fontsize{15.5}{18.6}\\selectfont] at (C) {$C$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 63f49da1f15738b6e22d39efc65893b61cfb11c041c6331ec1d4f19b51077592\n",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1258_q_fig1\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1258_q_fig1\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1258_q_fig1\\best.png",
@@ -1045,100 +1047,100 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T22:52:49",
+      "created_at": "2026-11-11T12:48:17",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used program-owned coordinates A, B, C, D without redefining them. Six solid named edges (AD, BC, AB, DC, AC, BD) drawn between named vertices, line width 1.5pt with round joins from STYLE METRICS. Labels bound to vertices with the specified above-left/above-right/below-left/below-right placements, font 15.5/18.6. The crossing point is unlabeled and left implicit (intersection of the diagonals), no right-angle marks. No calc or other libraries needed.",
-      "compile_seconds": 1.44,
+      "notes": "Used program-owned coordinates A, B, C, D by name without redefining them. All six required edges (AB, BC, CD, DA, AC, BD) are solid and drawn between named vertices. Line width 1.5pt with round joins from STYLE METRICS. Labels use the metrics font (15.5/18.6 pt) and sit outside the quadrilateral, matching the source placements (A upper-left, D upper-right, B lower-left, C below). No label for the intersection O, no right-angle marks, no extra libraries. CV coordinates match the pixel conversion (A=(-1.609,2.276) etc.), so no remeasurement is needed.",
+      "compile_seconds": 2.255,
       "critic_report": {
-        "assessment_score": 0.93,
+        "assessment_score": 0.95,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render faithfully reproduces the figure: an isosceles trapezoid ABCD with top side AD, bottom side BC, and both diagonals AC and BD crossing unlabelled inside.",
+        "verdict": "Render is faithful: the quadrilateral ABCD with diagonals AC and BD matches the original in topology, proportions, and label placement.",
         "figure_type": {
-          "original": "Isosceles trapezoid ABCD (AD parallel to BC) with both diagonals AC and BD drawn, crossing at an unlabelled interior point",
-          "render": "Isosceles trapezoid ABCD (AD parallel to BC) with both diagonals AC and BD drawn, crossing at an unlabelled interior point"
+          "original": "Quadrilateral ABCD with AD on top, BC on the bottom, and both diagonals AC and BD drawn, crossing inside the figure.",
+          "render": "Quadrilateral ABCD with AD on top, BC on the bottom, and both diagonals AC and BD drawn, crossing inside the figure."
         },
         "issues": [],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Bottom base BC (horizontal, about y=314) is drawn in the render from B to C."
+            "note": "Horizontal base BC (y≈314) matches the original bottom edge."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Diagonal AC from A to C is drawn in the render."
+            "note": "Diagonal from A to C matches the original; ends at the labelled vertices."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Diagonal BD from B to D is drawn in the render."
+            "note": "Diagonal from D to B matches the original; ends at the labelled vertices."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Right leg DC is drawn from D to C in the render."
+            "note": "Right side DC matches the original."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Left leg AB is drawn from A to B in the render."
+            "note": "Left side AB matches the original."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Top base AD (horizontal, about y=77) is drawn from A to D in the render."
+            "note": "Top edge AD matches the original."
           },
           {
             "object_id": "seg_AB",
             "status": "present",
-            "note": "Segment AB is drawn and meets A and B as in the original."
+            "note": "Drawn in the render from A to B, matching the original left side."
           },
           {
             "object_id": "seg_AC",
             "status": "present",
-            "note": "Segment AC is drawn and runs from A to C through the crossing point, as in the original."
+            "note": "Drawn in the render from A to C, matching the original diagonal."
           },
           {
             "object_id": "seg_AD",
             "status": "present",
-            "note": "Segment AD is drawn between the two top vertices, as in the original."
+            "note": "Drawn in the render as the top edge, matching the original."
           },
           {
             "object_id": "seg_BC",
             "status": "present",
-            "note": "Segment BC is drawn between the two bottom vertices, as in the original."
+            "note": "Drawn in the render as the bottom edge, matching the original."
           },
           {
             "object_id": "seg_BD",
             "status": "present",
-            "note": "Segment BD is drawn and crosses AC at the interior point, as in the original."
+            "note": "Drawn in the render from B to D, matching the original diagonal."
           },
           {
             "object_id": "seg_DC",
             "status": "present",
-            "note": "Segment DC is drawn between D and C, as in the original."
+            "note": "Drawn in the render as the right side, matching the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label C is bound at the bottom-right vertex and sits below-right of it, as in the original."
+            "note": "Vertex C is at the bottom-right corner, with its label below it as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label B is bound at the bottom-left vertex and sits below-left of it, as in the original."
+            "note": "Vertex B is at the bottom-left corner, with its label below-left as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label A is bound at the top-left vertex and sits above-left of it, as in the original."
+            "note": "Vertex A is at the top-left corner, with its label above-left as in the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label D is bound at the top-right vertex and sits above-right of it, as in the original."
+            "note": "Vertex D is at the top-right corner, with its label above-right as in the original."
           }
         ],
         "checklist_score": 1.0,
@@ -1150,11 +1152,11 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Four vertices A, B, C, D in the correct trapezoid arrangement with AD on top and BC on the bottom.",
-          "Both diagonals AC and BD are present and cross at the interior point, which is correctly left unlabelled.",
-          "Side legs AB and DC are present and correctly joined to the base vertices.",
+          "All four vertices A, B, C, D are at the correct corners.",
+          "Top edge AD, bottom edge BC, and sides AB and DC match the original.",
+          "Both diagonals AC and BD are drawn and cross at the correct interior point.",
           "Labels A, B, C, D are present, correctly spelled, and clear of the strokes.",
-          "Aspect ratio and overall proportions match the original."
+          "Overall aspect ratio and proportions match the original."
         ],
         "labels": {
           "present": [
@@ -1171,7 +1173,7 @@
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.93
+      "critic_score": 0.95
     }
   ],
   "compilation_results": [
@@ -1179,14 +1181,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.44,
+      "seconds": 2.255,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.3974609375 KiB)\nnote: Writing `figure.log` (11.0009765625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T22:52:50"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.0009765625 KiB)\nnote: Writing `figure.pdf` (2.4033203125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T12:48:19"
     }
   ],
   "validation_results": [
@@ -1222,122 +1224,122 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\1258_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0455"
+          "detail": "ink_ratio=0.0473"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.32 vs render 1.48 (delta 0.12)"
+          "detail": "reference 1.32 vs render 1.42 (delta 0.07)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.49"
+          "detail": "figure bbox ratio 1.43"
         }
       ],
-      "created_at": "2026-11-09T22:52:50"
+      "created_at": "2026-11-11T12:48:19"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.93,
+      "assessment_score": 0.95,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render faithfully reproduces the figure: an isosceles trapezoid ABCD with top side AD, bottom side BC, and both diagonals AC and BD crossing unlabelled inside.",
+      "verdict": "Render is faithful: the quadrilateral ABCD with diagonals AC and BD matches the original in topology, proportions, and label placement.",
       "figure_type": {
-        "original": "Isosceles trapezoid ABCD (AD parallel to BC) with both diagonals AC and BD drawn, crossing at an unlabelled interior point",
-        "render": "Isosceles trapezoid ABCD (AD parallel to BC) with both diagonals AC and BD drawn, crossing at an unlabelled interior point"
+        "original": "Quadrilateral ABCD with AD on top, BC on the bottom, and both diagonals AC and BD drawn, crossing inside the figure.",
+        "render": "Quadrilateral ABCD with AD on top, BC on the bottom, and both diagonals AC and BD drawn, crossing inside the figure."
       },
       "issues": [],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Bottom base BC (horizontal, about y=314) is drawn in the render from B to C."
+          "note": "Horizontal base BC (y≈314) matches the original bottom edge."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Diagonal AC from A to C is drawn in the render."
+          "note": "Diagonal from A to C matches the original; ends at the labelled vertices."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Diagonal BD from B to D is drawn in the render."
+          "note": "Diagonal from D to B matches the original; ends at the labelled vertices."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Right leg DC is drawn from D to C in the render."
+          "note": "Right side DC matches the original."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Left leg AB is drawn from A to B in the render."
+          "note": "Left side AB matches the original."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Top base AD (horizontal, about y=77) is drawn from A to D in the render."
+          "note": "Top edge AD matches the original."
         },
         {
           "object_id": "seg_AB",
           "status": "present",
-          "note": "Segment AB is drawn and meets A and B as in the original."
+          "note": "Drawn in the render from A to B, matching the original left side."
         },
         {
           "object_id": "seg_AC",
           "status": "present",
-          "note": "Segment AC is drawn and runs from A to C through the crossing point, as in the original."
+          "note": "Drawn in the render from A to C, matching the original diagonal."
         },
         {
           "object_id": "seg_AD",
           "status": "present",
-          "note": "Segment AD is drawn between the two top vertices, as in the original."
+          "note": "Drawn in the render as the top edge, matching the original."
         },
         {
           "object_id": "seg_BC",
           "status": "present",
-          "note": "Segment BC is drawn between the two bottom vertices, as in the original."
+          "note": "Drawn in the render as the bottom edge, matching the original."
         },
         {
           "object_id": "seg_BD",
           "status": "present",
-          "note": "Segment BD is drawn and crosses AC at the interior point, as in the original."
+          "note": "Drawn in the render from B to D, matching the original diagonal."
         },
         {
           "object_id": "seg_DC",
           "status": "present",
-          "note": "Segment DC is drawn between D and C, as in the original."
+          "note": "Drawn in the render as the right side, matching the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label C is bound at the bottom-right vertex and sits below-right of it, as in the original."
+          "note": "Vertex C is at the bottom-right corner, with its label below it as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label B is bound at the bottom-left vertex and sits below-left of it, as in the original."
+          "note": "Vertex B is at the bottom-left corner, with its label below-left as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label A is bound at the top-left vertex and sits above-left of it, as in the original."
+          "note": "Vertex A is at the top-left corner, with its label above-left as in the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label D is bound at the top-right vertex and sits above-right of it, as in the original."
+          "note": "Vertex D is at the top-right corner, with its label above-right as in the original."
         }
       ],
       "checklist_score": 1.0,
@@ -1349,11 +1351,11 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Four vertices A, B, C, D in the correct trapezoid arrangement with AD on top and BC on the bottom.",
-        "Both diagonals AC and BD are present and cross at the interior point, which is correctly left unlabelled.",
-        "Side legs AB and DC are present and correctly joined to the base vertices.",
+        "All four vertices A, B, C, D are at the correct corners.",
+        "Top edge AD, bottom edge BC, and sides AB and DC match the original.",
+        "Both diagonals AC and BD are drawn and cross at the correct interior point.",
         "Labels A, B, C, D are present, correctly spelled, and clear of the strokes.",
-        "Aspect ratio and overall proportions match the original."
+        "Overall aspect ratio and proportions match the original."
       ],
       "labels": {
         "present": [
@@ -1373,16 +1375,8 @@
   ],
   "unresolved_issues": [
     {
-      "source": "geometry_agent",
-      "issue": "point_03 is an interior crossing of diagonals AC and BD and carries no printed letter; leave unlabeled."
-    },
-    {
       "source": "supervisor",
-      "issue": "The crossing point of the diagonals is unlabeled, as the source shows no printed letter."
-    },
-    {
-      "source": "supervisor",
-      "issue": "The Code Agent used approximate scaled coordinates (about 1/100 px) rather than exact pixel values; proportions match the Critic's review."
+      "issue": "The interior crossing point of the diagonals (point_03) is not labelled and no dot marker was drawn; the source appears to have no label there, so this was left as is."
     }
   ],
   "action_history": [
@@ -1440,7 +1434,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.93",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.95",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1449,19 +1443,19 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw quadrilateral ABCD with solid edges AD, BC, AB, DC and solid diagonals AC and BD crossing at an unlabeled interior point O (point_03 at px (269.83,155.53)). Use measured pixel coordinates (image ",
+      "purpose": "Draw quadrilateral ABCD with solid edges AB, BC, CD, DA and solid diagonals AC and BD crossing at an interior point O (point_03, approx px (269.83,155.53)). Vertex pixel coordinates (image origin top-",
       "params": {
         "mode": "generate",
-        "use_image": null,
-        "instruction": "Draw quadrilateral ABCD with solid edges AD, BC, AB, DC and solid diagonals AC and BD crossing at an unlabeled interior point O (point_03 at px (269.83,155.53)). Use measured pixel coordinates (image origin top-left, y down; flip y for TikZ, e.g. y_tikz = -y_px scaled, keep consistent scale): A=(175.21,76.79), B=(80.74,313.33), C=(457.93,313.17), D=(363.62,77.21). Labels: A above-left of A, D above-right of D, B below-left of B, C below-right of C. Do not label the crossing point. Use a single coordinate definition per vertex (shared vertices from the same coordinate). Scale about 1 unit = 1/100 px or similar, keep aspect ratio as measured."
+        "use_image": false,
+        "instruction": "Draw quadrilateral ABCD with solid edges AB, BC, CD, DA and solid diagonals AC and BD crossing at an interior point O (point_03, approx px (269.83,155.53)). Vertex pixel coordinates (image origin top-left, y down; flip y for TikZ): A=(175.21,76.79), B=(80.74,313.33), C=(457.93,313.17), D=(363.62,77.21). Label vertices A (top-left), D (top-right), B (bottom-left), C (bottom-right) with the letters placed outside the quadrilateral near each vertex. The intersection point O is unlabeled in the source; do not add a label for it. Use a single coordinate definition per vertex and draw all edges between named vertices. Keep the figure compact, no axes, no grid."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 17.81,
+      "duration_s": 24.2,
       "token_usage": {
-        "delta": 16011
+        "delta": 24446
       },
-      "visual_calls": 2,
+      "visual_calls": 1,
       "error": null
     },
     {
@@ -1469,10 +1463,9 @@
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Version 1 of the TikZ figure compiles and passes topology validation. It draws trapezoid ABCD with solid sides AD, BC, AB, DC and solid diagonals AC and BD crossing at an unlabeled interior point. Labels A, B, C, D are placed at their vertices. The Critic scored it 0.93 with no must-repair issues, and all four labels are present.",
+        "summary": "Produced compilable TikZ (version 1) reconstructing the figure: quadrilateral ABCD with solid sides AB, BC, CD, DA and solid diagonals AC and BD, labels A, B, C, D placed at their vertices. Topology check passed with no missing edges; automatic Critic score 0.95 with no must-repair issues and all four labels present.",
         "unresolved": [
-          "The crossing point of the diagonals is unlabeled, as the source shows no printed letter.",
-          "The Code Agent used approximate scaled coordinates (about 1/100 px) rather than exact pixel values; proportions match the Critic's review."
+          "The interior crossing point of the diagonals (point_03) is not labelled and no dot marker was drawn; the source appears to have no label there, so this was left as is."
         ],
         "status": "success"
       },
@@ -1525,51 +1518,51 @@
   "token_usage": {
     "totals": {
       "calls": 5,
-      "visual_calls": 3,
-      "prompt_tokens": 34123,
-      "completion_tokens": 5499,
-      "total_tokens": 39622,
-      "cached_tokens": 9918.0,
-      "cache_write_tokens": 15393.0,
-      "latency_s": 32.65
+      "visual_calls": 2,
+      "prompt_tokens": 41907,
+      "completion_tokens": 6853,
+      "total_tokens": 48760,
+      "cached_tokens": 10014.0,
+      "cache_write_tokens": 31877.0,
+      "latency_s": 41.76
     },
     "by_agent": {
       "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 7349,
-        "latency_s": 7.85
+        "total_tokens": 7838,
+        "latency_s": 11.21
       },
       "supervisor": {
         "calls": 2,
         "visual_calls": 0,
-        "total_tokens": 16262,
-        "latency_s": 8.81
+        "total_tokens": 16476,
+        "latency_s": 8.85
       },
       "code_agent:generate": {
         "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 7289,
-        "latency_s": 7.33
+        "visual_calls": 0,
+        "total_tokens": 7704,
+        "latency_s": 9.13
       },
       "critic_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8722,
-        "latency_s": 8.65
+        "total_tokens": 16742,
+        "latency_s": 12.57
       }
     }
   },
   "remaining_budget": {
     "steps_left": 22,
     "tool_calls_left": 42,
-    "visual_calls_left": 21,
-    "tokens_left": 360378,
+    "visual_calls_left": 22,
+    "tokens_left": 351240,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 39622
+    "total_tokens_used": 48760
   },
   "meta": {
     "topology_plan": {
@@ -1625,13 +1618,6 @@
         },
         {
           "edge": [
-            "C",
-            "D"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
             "B",
             "C"
           ],
@@ -1641,6 +1627,13 @@
           "edge": [
             "A",
             "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "D"
           ],
           "style": "solid"
         },
@@ -1662,18 +1655,11 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Trapezoid-like figure with four lettered vertices A (top left), D (top right), B (bottom left), C (bottom right). Six solid straight strokes: AD (top), BC (bottom), AB (left side), DC (right side), diagonals AC and BD crossing at an unlabeled interior junction point_03 (~269.8,155.5). No dashed strokes, no curves, no right-angle marks, no feet.",
+      "summary": "Trapezoid-like quadrilateral ABCD with printed letters A (top left), D (top right), B (bottom left), C (bottom right). Straight solid strokes: AD (top), BC (bottom), AB (left side), DC (right side), plus two full diagonals AC and BD that cross at an unlabeled interior junction point_03 (~269.8,155.5). All strokes are solid; no dashed segments. No right-angle marks are drawn; angle_marks and feet are empty. Existing OCR bindings A->point_04, B->point_02, C->point_01, D->point_05 are correct; no label changes needed.",
       "strokes": [
         {
           "edge": [
             "A",
-            "D"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "C",
             "D"
           ],
           "style": "solid"
@@ -1694,6 +1680,13 @@
         },
         {
           "edge": [
+            "C",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
             "A",
             "C"
           ],
@@ -1708,7 +1701,8 @@
         }
       ],
       "marks": {},
-      "feet": []
+      "feet": [],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -1781,10 +1775,10 @@
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "cba823ebe71449d41601fcb5763e3b6f7643a28b04840787678ca72bbd0b1dbd",
-      "output_sha256": "50edf6771566d1ad910c5c2b613cca198eab6d57c57024627e0c12d789477ee6",
+      "input_sha256": "05803a247979369c68df718ef9a184ab03da6a7e7f359c4b6921f5c47f396a9d",
+      "output_sha256": "1cf94024557d9e4264deb76b442ec550a883cb46f5e5b02fbf101b7a86f15e5c",
       "reason": "applied",
       "accepted": [
         {
@@ -1802,8 +1796,8 @@
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.003,
         "incidence_mode": "snap",
         "length_weight": 0.01,
@@ -1814,13 +1808,15 @@
           "parallel",
           "perpendicular"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
+      "source_collinear_candidates": [],
       "input_candidates": 1,
       "preserved_incidence_count": 0,
       "max_shift_rel": 0.00047054570900155457,
@@ -1920,10 +1916,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "cba823ebe71449d41601fcb5763e3b6f7643a28b04840787678ca72bbd0b1dbd",
-        "output_sha256": "50edf6771566d1ad910c5c2b613cca198eab6d57c57024627e0c12d789477ee6",
+        "input_sha256": "05803a247979369c68df718ef9a184ab03da6a7e7f359c4b6921f5c47f396a9d",
+        "output_sha256": "1cf94024557d9e4264deb76b442ec550a883cb46f5e5b02fbf101b7a86f15e5c",
         "reason": "applied",
         "accepted": [
           {
@@ -1941,8 +1937,8 @@
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -1953,13 +1949,15 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 1,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.00047054570900155457,
@@ -1983,7 +1981,7 @@
       }
     },
     "finish": {
-      "summary": "Version 1 of the TikZ figure compiles and passes topology validation. It draws trapezoid ABCD with solid sides AD, BC, AB, DC and solid diagonals AC and BD crossing at an unlabeled interior point. Labels A, B, C, D are placed at their vertices. The Critic scored it 0.93 with no must-repair issues, and all four labels are present.",
+      "summary": "Produced compilable TikZ (version 1) reconstructing the figure: quadrilateral ABCD with solid sides AB, BC, CD, DA and solid diagonals AC and BD, labels A, B, C, D placed at their vertices. Topology check passed with no missing edges; automatic Critic score 0.95 with no must-repair issues and all four labels present.",
       "status": "success"
     },
     "stop_reason": "finish"

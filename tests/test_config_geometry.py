@@ -37,8 +37,9 @@ def test_geometry_repair_is_enabled_by_default(clean_env) -> None:
     assert settings.geometry.enabled is True
     assert settings.geometry.preserve_cv_coordinates is True
     assert settings.geometry.repair_stage == "post_tikz"
-    assert settings.geometry.post_max_shift_rel == 0.005
-    assert settings.geometry.post_max_length_change_rel == 0.01
+    assert settings.geometry.post_max_shift_rel == 0.013
+    assert settings.geometry.post_max_length_change_rel == 0.035
+    assert settings.geometry.post_collinear_max_turn_deg == 8.0
     assert settings.geometry.post_topology_tol_rel == 0.003
     assert settings.geometry.post_incidence_mode == "snap"
     assert settings.geometry.post_curve_policy == "defer"

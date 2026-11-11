@@ -1,148 +1,167 @@
 {
   "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render faithfully reproduces the figure: circumcircle, incircle, triangle ABC, segment AO, radius OF to the perpendicular foot on AB, the tangency points D, E and F, and all seven labels in matching positions.",
+  "verdict": "The render is geometrically faithful: both circles, the triangle, the AO radius and the OF radius match the original in position and proportion. The only discrepancy is the stroke weight of OF.",
   "figure_type": {
-    "original": "Triangle ABC inscribed in a circle, with incircle centred at O, radius OF perpendicular to AB, and tangency points D, E, F",
-    "render": "Same: circumcircle and incircle centred at O, triangle ABC, segment AO, radius OF, tangency points D, E, F with labels"
+    "original": "Triangle ABC inscribed in a circle centred at O, with an incircle tangent at D, E and F, and radii AO and OF.",
+    "render": "Triangle ABC inscribed in a circle centred at O, with an incircle tangent at D, E and F, and radii AO and OF."
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_OF"
+      ],
+      "bbox": [
+        0.31,
+        0.41,
+        0.51,
+        0.53
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The radius OF is drawn at the same heavy weight as the other segments. In the original it is a visibly thinner stroke, roughly half the weight of AB, AC and BC. The render's OF is too thick.",
+      "suggestion": "Give the OF draw command a thinner line width, e.g. \\draw[line width=0.7pt] (O) -- (F);, leaving the other segments at 1.5pt."
+    }
+  ],
   "checks": [
+    {
+      "object_id": "circle_01",
+      "status": "present",
+      "note": "Circumcircle matches the original's radius and centre."
+    },
+    {
+      "object_id": "circle_02",
+      "status": "present",
+      "note": "Incircle matches the original's radius and centre."
+    },
     {
       "object_id": "circle_circum",
       "status": "present",
-      "note": "Outer circle through A, B, C is drawn in both panels with matching extent."
+      "note": "Circumcircle present and correctly placed around O."
     },
     {
       "object_id": "circle_in",
       "status": "present",
-      "note": "Incircle centred at O touches AB, AC and BC at F, E and D, as in the original."
+      "note": "Incircle tangent to AB, AC and BC at F, E and D."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Side of the triangle (A to C) is drawn in the render."
+      "note": "Side AC drawn correctly through E to C."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Side of the triangle (A to B) is drawn in the render."
+      "note": "Side AB drawn correctly through F to B."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Base BC is drawn in the render, ending at B and C."
+      "note": "Base BC drawn correctly through D."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Vertical segment from A down to O is drawn in both panels."
+      "note": "Radius AO drawn from A to O, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Radius from O to the foot F on AB is drawn in both panels."
+      "note": "Radius OF drawn from O to F, placed correctly; only the stroke weight differs."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Side AB is drawn from A to B in the render."
+      "note": "Side AB matches the original."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Side AC is drawn from A to C in the render."
+      "note": "Side AC matches the original."
     },
     {
       "object_id": "seg_AO",
       "status": "present",
-      "note": "Segment AO is visible in both panels; the render line runs from A to O."
+      "note": "AO matches the original in position and length."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Base BC is drawn in the render."
+      "note": "BC matches the original."
     },
     {
       "object_id": "seg_OF",
       "status": "present",
-      "note": "Radius OF ends at F on AB in both panels; no right-angle mark is shown in either."
+      "note": "OF correctly placed; stroke too thick (see issue)."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label A sits above the top vertex in both panels."
+      "note": "A at the apex of the triangle, matching the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label C is below-right of the vertex C in both panels."
+      "note": "C at the lower-right vertex, matching the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label F is left of the foot F on AB in both panels."
+      "note": "F on AB at the tangent point, matching the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label O is placed at lower-right of the centre in both panels."
+      "note": "O at the centre, matching the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label B is below-left of vertex B in both panels."
+      "note": "B at the lower-left vertex, matching the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label E is upper-right of the tangency point on AC in both panels."
+      "note": "E on AC at the tangent point, matching the original."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "Label D is below the tangency point on BC in both panels."
+      "note": "D on BC at the bottom of the incircle, matching the original."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Vertex A is the apex in both panels."
+      "note": "A label present and bound to the apex."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Vertex B is the lower-left vertex in both panels."
+      "note": "B label present and bound to the lower-left vertex."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "Vertex C is the lower-right vertex in both panels."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "D is the tangency point on BC, matching the original."
-    },
-    {
-      "object_id": "point_E",
-      "status": "present",
-      "note": "E is the tangency point on AC, matching the original."
+      "note": "C label present and bound to the lower-right vertex."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 0
+    "low": 1
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circumcircle and incircle are both centred at O with radii matching the original proportions.",
-    "Triangle ABC is drawn with A at the top and B, C on the base, matching the original.",
-    "The vertical segment AO and the radius OF to the foot on AB match the original.",
-    "Tangency points D, E and F lie where the incircle meets the sides in the original.",
-    "All seven labels (A, B, C, D, E, F, O) are present, correctly spelled and placed clear of strokes."
+    "Circumcircle and incircle centred at O with radii in the same ratio as the original",
+    "Triangle ABC vertices A, B, C positioned as in the original",
+    "Incircle tangent to AB at F, AC at E and BC at D",
+    "AO drawn vertically from A to O",
+    "OF drawn from O to F at the same angle as the original",
+    "Labels A, B, C, D, E, F and O are present, correctly spelled and clear of strokes"
   ],
   "labels": {
     "present": [
@@ -157,7 +176,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

@@ -1,161 +1,119 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's configuration: B and C on the base, E and A as the apexes, D as the crossing of BA and EC, and right-angle marks at E and A.",
+  "verdict": "The render matches the original's topology, labelled points and both right-angle markers; no material discrepancies found.",
   "figure_type": {
-    "original": "triangle pair BEC and BAC sharing base BC, with cevians BA and EC crossing at D; right angles at E and A",
-    "render": "same construction: BC, BE, EC through D, BA through D, AC, and right-angle marks at E and A"
+    "original": "Two triangles BAC and BEC sharing base BC, with BA and CE crossing at D; right angles at A and E",
+    "render": "Same: two triangles BAC and BEC sharing base BC, with BA and CE crossing at D; right angles at A and E"
   },
-  "issues": [
-    {
-      "type": "label_error",
-      "severity": "low",
-      "object_ids": [
-        "point_03"
-      ],
-      "bbox": [
-        0.46,
-        0.46,
-        0.52,
-        0.53
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "The D label sits directly below the intersection, while the original places it slightly to the lower right of D. The label is still clearly associated with D and does not collide with any stroke.",
-      "suggestion": "Optionally shift the D label to the lower right (e.g. use 'below right' or 'anchor=north west' on the D node) to match the original. Keep the binding to coordinate D."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base BC is drawn from B to C."
+      "note": "Base BC drawn from B to C, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment BA through D to A is drawn correctly."
+      "note": "Line B-D-A drawn and ends at A, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment EC through D to C is drawn correctly."
+      "note": "Line E-D-C drawn and ends at C, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment BE is drawn correctly."
+      "note": "Side BE drawn from B to E, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment AC is drawn correctly."
+      "note": "Side CA drawn from C to A, matching the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Short detection is a sub-piece of the AC stroke near A, which is drawn correctly."
+      "note": "Fragment lies on the drawn line through A and D; covered by seg_02 in the render."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Short detection is a sub-piece of the BE/EC stroke near E, which is drawn correctly."
+      "note": "Fragment lies on the drawn line through E and D; covered by seg_03 in the render."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Short detection is a sub-piece of the AC stroke near A, which is drawn correctly."
+      "note": "Fragment lies on the drawn side CA; covered by seg_05 in the render."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Short detection is a sub-piece of the BE stroke near E, which is drawn correctly."
+      "note": "Fragment lies on the drawn side EB; covered by seg_04 in the render."
     },
     {
-      "object_id": "seg_AC",
+      "object_id": "ra_01",
       "status": "present",
-      "note": "Segment AC is present."
+      "note": "Right-angle marker at A (angle BAC) present in both panels."
     },
     {
-      "object_id": "seg_BA",
+      "object_id": "ra_02",
       "status": "present",
-      "note": "Segment BA is present through D."
-    },
-    {
-      "object_id": "seg_BC",
-      "status": "present",
-      "note": "Segment BC is present."
-    },
-    {
-      "object_id": "seg_BE",
-      "status": "present",
-      "note": "Segment BE is present."
-    },
-    {
-      "object_id": "seg_EC",
-      "status": "present",
-      "note": "Segment EC is present through D."
-    },
-    {
-      "object_id": "ra_A",
-      "status": "present",
-      "note": "Right-angle mark at A is drawn between AB and AC."
-    },
-    {
-      "object_id": "ra_E",
-      "status": "present",
-      "note": "Right-angle mark at E is drawn between EB and EC."
+      "note": "Right-angle marker at E (angle BEC) present in both panels."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right-angle mark at E is present."
+      "note": "Same right-angle marker at A, correctly placed in the render."
     },
     {
       "object_id": "right_angle_02",
       "status": "present",
-      "note": "Right-angle mark at A is present."
+      "note": "Same right-angle marker at E, correctly placed in the render."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B label is present at the lower-left vertex."
+      "note": "Label B at the lower-left vertex, correctly bound and clear of strokes."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "C label is present at the lower-right vertex."
+      "note": "Label C at the lower-right vertex, correctly bound."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "D label is present at the crossing, slightly lower than the original."
+      "note": "Label D below the crossing point, correctly bound."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "A label is present above the right apex."
+      "note": "Label A above the upper-right vertex, correctly bound."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "E label is present above the left apex."
+      "note": "Label E above the upper-left vertex, correctly bound."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Overall triangle configuration and the crossing point D of BA and EC.",
-    "Base BC is horizontal, with B and C at the same height.",
-    "Right-angle markers at E and A are present in the correct quadrants.",
-    "The labels B, C, E, A and D are all present and bound to the correct vertices.",
-    "Stroke weight and aspect ratio are comparable to the original."
+    "Triangle BAC with base BC and right angle at A",
+    "Triangle BEC with right angle at E",
+    "Lines BA and CE cross at D, with D inside both lines",
+    "Lines end at A, E, B and C as in the original",
+    "Right-angle markers at A and E, with the correct orientation",
+    "Labels B, C, D, A and E present, correctly spelled and bound to their vertices"
   ],
   "labels": {
     "present": [

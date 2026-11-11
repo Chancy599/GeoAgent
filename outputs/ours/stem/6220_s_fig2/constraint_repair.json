@@ -4,12 +4,12 @@
   "applied": false,
   "stage": "post_tikz",
   "constraint_mode": "joint_coordinate_projection",
-  "candidate_source": "generated_tikz",
+  "candidate_source": "generated_tikz_and_original_raster",
   "reference_used": false,
-  "algorithm": "post_tikz.body_candidates.3dp.v3",
+  "algorithm": "post_tikz.source_collinearity.3dp.v4",
   "angle_glyphs_are_candidates": false,
-  "input_sha256": "5a5b6e0b6decb38dfeb091215d972f2524d4d0ee70d0014c4bf482f13ab30186",
-  "output_sha256": "5a5b6e0b6decb38dfeb091215d972f2524d4d0ee70d0014c4bf482f13ab30186",
+  "input_sha256": "d54d12718d4f65d36d12cf2be2f68a498a7d0dccef2ffedd19e3e8dabe96cdf3",
+  "output_sha256": "d54d12718d4f65d36d12cf2be2f68a498a7d0dccef2ffedd19e3e8dabe96cdf3",
   "reason": "all_candidates_rejected",
   "accepted": [],
   "rejected": [
@@ -23,6 +23,7 @@
         "metrics": {
           "parallel_error_deg": 0.13908570155552855,
           "perpendicular_error_deg": 89.86091429844447,
+          "collinear_error_deg": 0.13908570155552855,
           "relative_length_error": 0.3927245998467438,
           "relative_line_offset": 0.32192951750418375,
           "shared_endpoint": false
@@ -40,6 +41,7 @@
         "metrics": {
           "parallel_error_deg": 0.05386025208803316,
           "perpendicular_error_deg": 89.94613974791197,
+          "collinear_error_deg": 0.05386025208803316,
           "relative_length_error": 0.5473044134173507,
           "relative_line_offset": 0.5000000378278648,
           "shared_endpoint": false
@@ -57,6 +59,7 @@
         "metrics": {
           "parallel_error_deg": 0.047239068664193654,
           "perpendicular_error_deg": 89.9527609313358,
+          "collinear_error_deg": 0.047239068664193654,
           "relative_length_error": 0.0005503189350949928,
           "relative_line_offset": 0.4995876292919827,
           "shared_endpoint": false
@@ -74,6 +77,7 @@
         "metrics": {
           "parallel_error_deg": 0.04176794895534242,
           "perpendicular_error_deg": 89.95823205104466,
+          "collinear_error_deg": 0.04176794895534242,
           "relative_length_error": 0.4521449591094029,
           "relative_line_offset": 0.4995876335013328,
           "shared_endpoint": false
@@ -91,6 +95,7 @@
         "metrics": {
           "parallel_error_deg": 0.03385687754231768,
           "perpendicular_error_deg": 89.96614312245768,
+          "collinear_error_deg": 0.03385687754231768,
           "relative_length_error": 0.4517945718963819,
           "relative_line_offset": 0.5003641095557212,
           "shared_endpoint": false
@@ -108,12 +113,13 @@
         "metrics": {
           "parallel_error_deg": 0.03156570466961211,
           "perpendicular_error_deg": 89.96843429533038,
+          "collinear_error_deg": 0.03156570466961211,
           "relative_length_error": 0.0008248172265386066,
           "relative_line_offset": 0.5003441294697801,
           "shared_endpoint": false
         }
       },
-      "reason": "degenerate constraint"
+      "reason": "constraints did not converge"
     },
     {
       "candidate": {
@@ -125,12 +131,13 @@
         "metrics": {
           "parallel_error_deg": 0.028780521428404364,
           "perpendicular_error_deg": 89.9712194785716,
+          "collinear_error_deg": 0.028780521428404364,
           "relative_length_error": 0.5490302443590254,
           "relative_line_offset": 0.5003441255712825,
           "shared_endpoint": false
         }
       },
-      "reason": "degenerate constraint"
+      "reason": "constraints did not converge"
     },
     {
       "candidate": {
@@ -142,6 +149,7 @@
         "metrics": {
           "parallel_error_deg": 0.024305186677151622,
           "perpendicular_error_deg": 89.97569481332285,
+          "collinear_error_deg": 0.024305186677151622,
           "relative_length_error": 0.452738544722014,
           "relative_line_offset": 0.45538255722955506,
           "shared_endpoint": false
@@ -159,18 +167,35 @@
         "metrics": {
           "parallel_error_deg": 0.012545989511625453,
           "perpendicular_error_deg": 89.98745401048838,
+          "collinear_error_deg": 0.012545989511625453,
           "relative_length_error": 0.6281022886018609,
           "relative_line_offset": 0.4553622394545189,
           "shared_endpoint": false
         }
       },
       "reason": "constraints did not converge"
+    },
+    {
+      "candidate": {
+        "type": "collinear",
+        "segments": [
+          "D--G",
+          "C--G"
+        ],
+        "labels": [
+          "D",
+          "G",
+          "C"
+        ],
+        "source_turn_deg": 0.0316
+      },
+      "reason": "constraints did not converge"
     }
   ],
   "limits": {
     "angle_tol_deg": 0.5,
-    "max_shift_rel": 0.005,
-    "max_length_change_rel": 0.01,
+    "max_shift_rel": 0.013,
+    "max_length_change_rel": 0.035,
     "topology_tol_rel": 0.002,
     "incidence_mode": "snap",
     "length_weight": 0.0,
@@ -180,15 +205,42 @@
     "relation_types": [
       "parallel"
     ],
-    "relaxation": 1.0
+    "relaxation": 1.0,
+    "collinear_max_turn_deg": 8.0
   },
   "angle_glyph_exclusion": {
-    "excluded_paths": [],
+    "excluded_paths": [
+      {
+        "paths": [
+          "[line width=0.5pt] (1.531,0.801) -- (1.575,0.920) -- (1.686,0.875)"
+        ],
+        "anchor": [
+          1.6419999999999997,
+          0.7560000000000001
+        ],
+        "strokes": 2
+      }
+    ],
     "excluded_helper_points": [],
-    "excluded_strokes": 0
+    "excluded_strokes": 2
   },
-  "input_candidates": 9,
-  "preserved_incidence_count": 4,
+  "source_collinear_candidates": [
+    {
+      "type": "collinear",
+      "segments": [
+        "D--G",
+        "C--G"
+      ],
+      "labels": [
+        "D",
+        "G",
+        "C"
+      ],
+      "source_turn_deg": 0.0316
+    }
+  ],
+  "input_candidates": 10,
+  "preserved_incidence_count": 5,
   "max_shift_rel": 0.0,
   "max_length_change_rel": 0.0,
   "fixed_points": [
@@ -223,15 +275,15 @@
           -0.004,
           0.003
         ],
-        "radius": 3.68
+        "radius": 3.634
       }
     ]
   },
-  "candidate_count": 9,
+  "candidate_count": 10,
   "curve_options_applied": {
     "angle_tol_deg": 0.5,
-    "max_shift_rel": 0.005,
-    "max_length_change_rel": 0.01,
+    "max_shift_rel": 0.013,
+    "max_length_change_rel": 0.035,
     "topology_tol_rel": 0.002,
     "incidence_mode": "snap",
     "length_weight": 0.0,

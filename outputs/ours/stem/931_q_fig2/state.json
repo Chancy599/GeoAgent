@@ -484,12 +484,12 @@
       "label": "VA",
       "coords": {
         "a_px": [
-          506.0,
-          301.0
+          264.15,
+          300.69
         ],
         "b_px": [
-          23.0,
-          301.0
+          500.46,
+          300.9
         ]
       },
       "normalized": {},
@@ -510,11 +510,11 @@
       "coords": {
         "a_px": [
           264.0,
-          60.0
+          300.0
         ],
         "b_px": [
           264.0,
-          300.0
+          64.59
         ]
       },
       "normalized": {},
@@ -534,12 +534,12 @@
       "label": "CA",
       "coords": {
         "a_px": [
-          506.42,
-          302.4
+          264.0,
+          237.46
         ],
         "b_px": [
-          266.0,
-          238.0
+          500.46,
+          300.9
         ]
       },
       "normalized": {},
@@ -553,8 +553,8 @@
       "notes": [],
       "attributes": {}
     },
-    "arc_BA": {
-      "id": "arc_BA",
+    "arc_AB": {
+      "id": "arc_AB",
       "type": "arc",
       "label": null,
       "coords": {
@@ -562,7 +562,7 @@
           264.15,
           300.69
         ],
-        "radius_px": 240.0,
+        "radius_px": 236.3,
         "visible_ranges_deg": [
           [
             0,
@@ -625,25 +625,34 @@
       "relation": "on_segment",
       "object": "seg_VB",
       "source": "geometry_agent",
-      "evidence": "C lies on the vertical radius at x=264",
+      "evidence": "C at x=264.0 on vertical line VB",
       "status": "candidate"
     },
     "rel_006": {
       "id": "rel_006",
-      "subject": "point_V",
-      "relation": "center_of",
-      "object": "arc_BA",
+      "subject": "point_B",
+      "relation": "on_circle",
+      "object": "arc_AB",
       "source": "geometry_agent",
-      "evidence": "arc is centered at V with radius about 240 px, passing through B and the left end and near A",
+      "evidence": "B at radius ~236 from V",
       "status": "candidate"
     },
     "rel_007": {
       "id": "rel_007",
       "subject": "point_A",
       "relation": "on_circle",
-      "object": "arc_BA",
+      "object": "arc_AB",
       "source": "geometry_agent",
-      "evidence": "A lies at radius about 236 px from V, within measurement tolerance",
+      "evidence": "A at radius ~236 from V on baseline",
+      "status": "candidate"
+    },
+    "rel_008": {
+      "id": "rel_008",
+      "subject": "point_V",
+      "relation": "center_of",
+      "object": "arc_AB",
+      "source": "geometry_agent",
+      "evidence": "Semicircle center at V",
       "status": "candidate"
     }
   },
@@ -659,7 +668,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:07:06"
+      "created_at": "2026-11-11T13:01:19"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -672,7 +681,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:07:14"
+      "created_at": "2026-11-11T13:01:20"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -685,17 +694,17 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:07:16"
+      "created_at": "2026-11-11T13:01:21"
     },
     "ev_0004": {
       "id": "ev_0004",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Semicircle centered at V (264.15,300.69), radius about 240 px, drawn as a solid arc over the diameter from the unlabeled left end (about 23,301) through B (top, 264,60) to A (500.46,300.9). Solid diameter from the left end through V to A. Solid vertical radius V-C-B, where C (264,237.46) lies on VB. Solid chord C-A. All strokes are solid; no dashed segments found. No right-angle marker visible and no feet drawn.",
+      "summary": "Semicircle arc centered at V (point_02, px ~[264.15,300.69]) radius ~236 px, running from A (point_01, right end, on baseline) over top B (point_04) to unlabelled left end at ~[28,301]. Horizontal baseline AV (seg_01) extends from A through V to the unlabelled left end. Vertical radius VB (seg_03) passes through C (point_03) on its way to B. Segment CA (seg_02) connects C to A. All strokes solid, no dashes. No right-angle square marker is drawn at V, so no angle_marks or feet. The OCR bindings B, C, A, V are all correct.",
       "payload": {
         "merged": {
           "objects": 8,
-          "relations": 3,
+          "relations": 4,
           "conflicts": 0,
           "rejected": []
         },
@@ -707,16 +716,34 @@
           "seg_VA",
           "seg_VB",
           "seg_CA",
-          "arc_BA"
+          "arc_AB"
         ]
       },
-      "created_at": "2026-11-09T23:07:26"
+      "created_at": "2026-11-11T13:01:36"
     },
     "ev_0005": {
       "id": "ev_0005",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {
+          "roi": [
+            240,
+            230,
+            300,
+            310
+          ]
+        },
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-11T13:01:53"
+    },
+    "ev_0006": {
+      "id": "ev_0006",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [569, 367] (scale 0.8025)",
+      "summary": "v1 canvas matched to source [569, 367] (scale 0.7975)",
       "payload": {
         "ok": true,
         "size": [
@@ -727,38 +754,38 @@
           569,
           367
         ],
-        "scale": 0.8025,
+        "scale": 0.7975,
         "offset": [
           21,
-          31
+          32
         ]
       },
-      "created_at": "2026-11-09T23:07:53"
+      "created_at": "2026-11-11T13:02:49"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v1: unsupported_or_failed",
+      "summary": "v1: no_candidates",
       "payload": {
-        "ok": false,
+        "ok": true,
         "enabled": true,
         "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "4c87eb64ee65bfc47cb104e139306b589c25a8a586cdf83686322af747bc23d3",
-        "output_sha256": "4c87eb64ee65bfc47cb104e139306b589c25a8a586cdf83686322af747bc23d3",
-        "reason": "unsupported_or_failed",
+        "input_sha256": "2eaa64d22840fbac59c785fc1a3ddeb4ec6d44682d40b0211bcf7c08b47f2d5a",
+        "output_sha256": "2eaa64d22840fbac59c785fc1a3ddeb4ec6d44682d40b0211bcf7c08b47f2d5a",
+        "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -768,18 +795,54 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "error": "ValueError: unsupported curve syntax",
+        "source_collinear_candidates": [],
+        "input_candidates": 0,
+        "preserved_incidence_count": 1,
+        "max_shift_rel": 0.0,
+        "max_length_change_rel": 0.0,
+        "fixed_points": [
+          "A",
+          "B",
+          "V"
+        ],
+        "length_weight": 0.0,
+        "length_scope": "edges",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.002,
+        "incidence_strength": 1.0,
+        "curve_policy": "freeze",
+        "curve_anchors": {
+          "fixed_points": [
+            "A",
+            "B",
+            "V"
+          ],
+          "dependencies": [
+            "A"
+          ],
+          "circles": [
+            {
+              "center": [
+                -0.32299999999999995,
+                -1.863
+              ],
+              "radius": 3.751
+            }
+          ]
+        },
+        "candidate_count": 0,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -792,22 +855,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T23:07:53"
+      "created_at": "2026-11-11T13:02:49"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used the program-owned coordinates A, B, C, V without redefining them. Arc is a solid semicircle (180 to 0 degrees, radius 3.75 about V, matching A's measured radius of about 3.75 units). Left diameter end is derived from V, not labelled. Line width 1.3pt and label font 13/15.6 pt from STYLE METRICS. No right-angle mark, as instructed.",
+        "notes": "Used the program-owned coordinates A, B, C, V, GeoTailV without redefining them. Edges: GeoTailV--V--A polyline (solid baseline), B--V (passes through C), C--A, and a semicircle arc centred at V from A through B to the left end, radius 3.751 (236.3 px at s=0.015873). Labels B (above), C (left), V (below), A (right) in math italic at 13/15.6 pt. No right-angle mark at V. Line width 1.3pt with round joins from STYLE METRICS. Remeasure note: the arc's left end lands at x≈-4.074, while GeoTailV is at x=-4.151 (source left end at px 23 implies radius ~241 px, versus 236.3 px from the right end), so the baseline overhangs the arc by about 0.08 units (~5 px). Left as-is because the program owns the coordinates; flagged for remeasurement.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -837,38 +900,38 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0384"
+              "detail": "ink_ratio=0.0373"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.55 vs render 1.70 (delta 0.10)"
+              "detail": "reference 1.55 vs render 1.71 (delta 0.10)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.73"
+              "detail": "figure bbox ratio 1.74"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T23:07:53"
+      "created_at": "2026-11-11T13:02:49"
     },
-    "ev_0008": {
-      "id": "ev_0008",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v2 canvas matched to source [569, 367] (scale 0.8025)",
+      "summary": "v2 canvas matched to source [569, 367] (scale 0.7975)",
       "payload": {
         "ok": true,
         "size": [
@@ -879,38 +942,56 @@
           569,
           367
         ],
-        "scale": 0.8025,
+        "scale": 0.7975,
         "offset": [
           21,
-          31
+          32
         ]
       },
-      "created_at": "2026-11-09T23:08:17"
+      "created_at": "2026-11-11T13:03:27"
     },
-    "ev_0009": {
-      "id": "ev_0009",
+    "ev_0010": {
+      "id": "ev_0010",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v2: unsupported_or_failed",
+      "summary": "v2: applied",
       "payload": {
-        "ok": false,
+        "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "a2f8d3a3a05cee61ae31affd7c23a372f700aa972f8855cf5f18732c1ae95d81",
-        "output_sha256": "a2f8d3a3a05cee61ae31affd7c23a372f700aa972f8855cf5f18732c1ae95d81",
-        "reason": "unsupported_or_failed",
-        "accepted": [],
+        "input_sha256": "0ac1fbc2dc1e4d4b992e0f5e569fff9eec6f7c1fa0823220c3e183606472fe4d",
+        "output_sha256": "a88a37dbe436c046477f2ae9c77dfe17d676ee1e672b7d675bdc8bdcb67b8609",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "C--V",
+              "B--C"
+            ],
+            "before_error_deg": 0.11424866116690459,
+            "after_error_deg": 0.03624400217092781,
+            "labels": [
+              "V",
+              "C",
+              "B"
+            ],
+            "source_turn_deg": 0.1142,
+            "solver_after_error_deg": 5.191290867543723e-16,
+            "export_tolerance_deg": 0.11031549316885231
+          }
+        ],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -920,18 +1001,76 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "error": "ValueError: unsupported curve syntax",
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "C--V",
+              "B--C"
+            ],
+            "labels": [
+              "V",
+              "C",
+              "B"
+            ],
+            "source_turn_deg": 0.1142
+          }
+        ],
+        "input_candidates": 1,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.0001884863986840571,
+        "max_length_change_rel": 0.0002485894738991634,
+        "fixed_points": [
+          "A",
+          "B",
+          "V"
+        ],
+        "length_weight": 0.0,
+        "length_scope": "edges",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.002,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00013803218689964456,
+        "max_after_error_deg": 0.03624400217092781,
+        "curve_policy": "freeze",
+        "curve_anchors": {
+          "fixed_points": [
+            "A",
+            "B",
+            "V"
+          ],
+          "dependencies": [
+            "A"
+          ],
+          "circles": [
+            {
+              "center": [
+                -0.32299999999999995,
+                -1.863
+              ],
+              "radius": 3.751
+            }
+          ]
+        },
+        "candidate_count": 1,
+        "solver_max_shift_rel": 0.0002760643737992891,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.03624400217092781,
+        "point_count": 4,
+        "segment_count": 4,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -944,22 +1083,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T23:08:17"
+      "created_at": "2026-11-11T13:03:27"
     },
-    "ev_0010": {
-      "id": "ev_0010",
+    "ev_0011": {
+      "id": "ev_0011",
       "source": "code_agent",
       "method": "tikz repair",
       "summary": "v2 compiled=True validation=True",
       "payload": {
-        "notes": "Repair: split the horizontal diameter into two solid strokes: left half from the unlabeled left end (V+(180:3.75)) to V, and an explicit named segment V--A. The upper semicircle arc (centre V, radius 3.75), V--C--B, C--A, labels B/C/A/V, line width and label font are unchanged. Program-owned coordinates were not redefined. No right-angle mark added. Note: the program-owned A coordinate (3.428,-1.863) corresponds to px ~506, which matches the measured A; the CV point A at 500.46 px differs slightly from the segment end at 506 px, so remeasurement of A may be worth checking, but it was not moved.",
+        "notes": "Replaced the single B--V stroke with the explicit named chain (V) -- (C) -- (B), so the checker sees C-V and B-C as edges. B-V is still covered geometrically by this collinear chain. Everything else is unchanged: GeoTailV--V--A baseline, C--A, the semicircle arc centred at V (radius 3.751), labels A, B, C, V, the 1.3pt line width with round joins, the 13/15.6 label font, and no right-angle mark at V. The coordinate definitions are kept identical to the previous compiled version; if the program already inserts them, drop the duplicate block. No measurement was changed.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v2\\v2.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v2\\v2.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v2\\v2.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -989,32 +1128,32 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v2\\v2.pdf"
+              "detail": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v2\\v2.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v2\\v2.png"
+              "detail": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v2\\v2.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0384"
+              "detail": "ink_ratio=0.0373"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.55 vs render 1.70 (delta 0.10)"
+              "detail": "reference 1.55 vs render 1.71 (delta 0.10)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.73"
+              "detail": "figure bbox ratio 1.74"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T23:08:17"
+      "created_at": "2026-11-11T13:03:27"
     }
   },
   "conflicts": [],
@@ -1024,8 +1163,8 @@
     "A": "point_01",
     "V": "point_02"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (3.428,-1.863);\n\\coordinate (B) at (-0.325,1.887);\n\\coordinate (C) at (-0.325,-0.857);\n\\coordinate (V) at (-0.323,-1.860);\n\n\n\n\n\n\n\n\n\\draw ($(V)+(180.000:3.750)$) arc[start angle=180.000, end angle=0.000, radius=3.750];\n\n\n\\draw ($(V)+(180.000:3.750)$) -- (V);\n\n\n\\draw (V) -- (A);\n\n\n\\draw (V) -- (C) -- (B);\n\n\n\\draw (C) -- (A);\n\n\n\\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[left] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\node[below right] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\node[below] at (V) {\\fontsize{13}{15.6}\\selectfont $V$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (3.428,-1.863);\n\\coordinate (B) at (-0.325,1.887);\n\\coordinate (C) at (-0.325,-0.857);\n\\coordinate (V) at (-0.323,-1.860);\n\n\n\n\n\n\n\n\n\\draw ($(V)+(180.000:3.750)$) arc[start angle=180.000, end angle=0.000, radius=3.750];\n\n\n\\draw ($(V)+(180.000:3.750)$) -- (V);\n\n\n\\draw (V) -- (A);\n\n\n\\draw (V) -- (C) -- (B);\n\n\n\\draw (C) -- (A);\n\n\n\\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[left] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\node[below right] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\node[below] at (V) {\\fontsize{13}{15.6}\\selectfont $V$};\n\\end{tikzpicture}\n\\end{document}",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (3.428,-1.863);\n\\coordinate (B) at (-0.325,1.887);\n\\coordinate (C) at (-0.324,-0.857);\n\\coordinate (V) at (-0.323,-1.860);\n\\coordinate (GeoTailV) at (-4.151,-1.865);\n\n\n\n\n\n\n\n\n  \n  \\draw (GeoTailV) -- (V) -- (A);\n\n  \n  \n  \\draw (V) -- (C) -- (B);\n\n  \n  \\draw (C) -- (A);\n\n  \n  \\draw (A) arc[start angle=0.000, end angle=180.000, radius=3.751];\n\n  \n  \\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n  \\node[left]  at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n  \\node[below] at (V) {\\fontsize{13}{15.6}\\selectfont $V$};\n  \\node[right] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 f7a638a681cb069e d0a11ee02861ef75ab87b5e392f8ca155ec8f2a420e6f6887c6f4f0361ae40ed\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (3.428,-1.863);\n\\coordinate (B) at (-0.325,1.887);\n\\coordinate (C) at (-0.324,-0.857);\n\\coordinate (V) at (-0.323,-1.860);\n\\coordinate (GeoTailV) at (-4.151,-1.865);\n\n\n\n\n\n\n\n\n  \n  \\draw (GeoTailV) -- (V) -- (A);\n\n  \n  \n  \\draw (V) -- (C) -- (B);\n\n  \n  \\draw (C) -- (A);\n\n  \n  \\draw (A) arc[start angle=0.000, end angle=180.000, radius=3.751];\n\n  \n  \\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n  \\node[left]  at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n  \\node[below] at (V) {\\fontsize{13}{15.6}\\selectfont $V$};\n  \\node[right] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 f7a638a681cb069e d0a11ee02861ef75ab87b5e392f8ca155ec8f2a420e6f6887c6f4f0361ae40ed\n",
   "best_version": 2,
   "best_score": 0.95,
   "tikz_versions": [
@@ -1034,118 +1173,129 @@
         "passed": false,
         "missing_edges": [
           [
-            "A",
+            "B",
+            "C"
+          ],
+          [
+            "C",
             "V"
           ]
         ],
         "unverified_styles": [
           {
             "edge": [
-              "A",
+              "C",
               "V"
+            ],
+            "style": "solid"
+          },
+          {
+            "edge": [
+              "B",
+              "C"
             ],
             "style": "solid"
           }
         ]
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (3.428,-1.863);\n\\coordinate (B) at (-0.325,1.887);\n\\coordinate (C) at (-0.325,-0.857);\n\\coordinate (V) at (-0.323,-1.860);\n\n\n\n\n\\draw ($(V)+(180.000:3.750)$) arc[start angle=180.000, end angle=0.000, radius=3.750];\n\n\\draw ($(V)+(180.000:3.750)$) -- (V) -- (A);\n\n\\draw (V) -- (C) -- (B);\n\n\\draw (C) -- (A);\n\n\\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[left] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\node[below right] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\node[below] at (V) {\\fontsize{13}{15.6}\\selectfont $V$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (3.428,-1.863);\n\\coordinate (B) at (-0.325,1.887);\n\\coordinate (C) at (-0.325,-0.857);\n\\coordinate (V) at (-0.323,-1.860);\n\\coordinate (GeoTailV) at (-4.151,-1.865);\n\n  \n  \\draw (GeoTailV) -- (V) -- (A);\n  \n  \\draw (B) -- (V);\n  \n  \\draw (C) -- (A);\n  \n  \\draw (A) arc[start angle=0.000, end angle=180.000, radius=3.751];\n  \n  \\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n  \\node[left]  at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n  \\node[below] at (V) {\\fontsize{13}{15.6}\\selectfont $V$};\n  \\node[right] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:07:49",
+      "created_at": "2026-11-11T13:02:45",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used the program-owned coordinates A, B, C, V without redefining them. Arc is a solid semicircle (180 to 0 degrees, radius 3.75 about V, matching A's measured radius of about 3.75 units). Left diameter end is derived from V, not labelled. Line width 1.3pt and label font 13/15.6 pt from STYLE METRICS. No right-angle mark, as instructed.",
-      "compile_seconds": 3.926,
+      "notes": "Used the program-owned coordinates A, B, C, V, GeoTailV without redefining them. Edges: GeoTailV--V--A polyline (solid baseline), B--V (passes through C), C--A, and a semicircle arc centred at V from A through B to the left end, radius 3.751 (236.3 px at s=0.015873). Labels B (above), C (left), V (below), A (right) in math italic at 13/15.6 pt. No right-angle mark at V. Line width 1.3pt with round joins from STYLE METRICS. Remeasure note: the arc's left end lands at x≈-4.074, while GeoTailV is at x=-4.151 (source left end at px 23 implies radius ~241 px, versus 236.3 px from the right end), so the baseline overhangs the arc by about 0.08 units (~5 px). Left as-is because the program owns the coordinates; flagged for remeasurement.",
+      "compile_seconds": 3.593,
       "critic_report": {
-        "assessment_score": 0.94,
+        "assessment_score": 0.95,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render is faithful to the original: the semicircle, diameter VA, vertical VB through C, and segment CA all match, with all four labels correctly placed and bound.",
+        "verdict": "The render is a faithful match: semicircle, vertical chord VB through the centre V, segment CA ending at C on VB, and all four labels are correctly placed and bound.",
         "figure_type": {
-          "original": "semicircle centred at V with diameter through V and A, vertical chord VB with C on it, and segment CA from C to A",
-          "render": "semicircle centred at V with diameter through V and A, vertical chord VB with C on it, and segment CA from C to A"
+          "original": "Semicircle centred at V with diameter from the unlabelled left end through V to A, a vertical chord VB through V to the top point B, and a segment CA from a point C on VB down to A.",
+          "render": "Semicircle centred at V with diameter from the unlabelled left end through V to A, a vertical chord VB through V to the top point B, and a segment CA from a point C on VB down to A."
         },
         "issues": [],
         "checks": [
           {
-            "object_id": "arc_BA",
+            "object_id": "arc_AB",
             "status": "present",
-            "note": "Upper semicircle from the left end through B to A matches the original."
+            "note": "Upper semicircle from A over B to the left end matches the original."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Baseline (diameter) from the left end to A is drawn as in the original."
+            "note": "Baseline from the left end to A is drawn, matching the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Segment CA runs from C to A as in the original."
+            "note": "Segment from C to A ends at A and starts at C as in the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Vertical segment VB through C matches the original."
+            "note": "Vertical segment from V up to B matches the original."
           },
           {
             "object_id": "seg_CA",
             "status": "present",
-            "note": "Segment from C to A is correct."
+            "note": "Segment CA runs from C on VB to A, as in the original."
           },
           {
             "object_id": "seg_VA",
             "status": "present",
-            "note": "Diameter from V to A, with the left extension, matches the original."
+            "note": "Baseline portion from V to A is drawn and ends at A."
           },
           {
             "object_id": "seg_VB",
             "status": "present",
-            "note": "Vertical chord from V to B matches the original."
+            "note": "Chord from V to B is drawn and passes through C."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "A is labelled at the right end of the diameter, below-right, as in the original."
+            "note": "Label A is bound to the point at the right end of the baseline and placed to its right, as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "V is labelled below the centre, as in the original."
+            "note": "Label V sits below the centre point, as in the original."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "C is labelled left of the vertical line, as in the original, with clear separation."
+            "note": "Label C sits left of its point on VB, as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "B is labelled above the top of the semicircle, as in the original."
+            "note": "Label B sits above the top of the arc, as in the original."
           },
           {
             "object_id": "point_A",
             "status": "present",
-            "note": "Same vertex as point_01; correct position."
+            "note": "Point A is at the right end of the diameter and on the arc, as in the original."
           },
           {
             "object_id": "point_B",
             "status": "present",
-            "note": "Same vertex as point_04; correct position."
+            "note": "Point B is at the top of the arc, as in the original."
           },
           {
             "object_id": "point_C",
             "status": "present",
-            "note": "C lies on VB at the same height as in the original."
+            "note": "Point C lies on VB at the same height as in the original."
           },
           {
             "object_id": "point_V",
             "status": "present",
-            "note": "Same vertex as point_02; correct position."
+            "note": "Point V is the centre of the semicircle, as in the original."
           }
         ],
         "checklist_score": 1.0,
@@ -1157,11 +1307,12 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Semicircle arc from the left end through B to A",
-          "Diameter VA along the baseline",
-          "Vertical chord VB through C",
-          "Segment CA from C to A",
-          "Labels B, C, V, A present with correct placement and no collisions"
+          "Semicircle extent and centre match the original.",
+          "Vertical chord VB through V to B matches the original.",
+          "Segment CA starts at C on VB and ends at A, matching the original.",
+          "Baseline runs from the left end through V to A, matching the original.",
+          "Labels A, B, C and V are present, correctly placed, and clear of the strokes.",
+          "Line weights and overall aspect ratio are comparable between panels."
         ],
         "labels": {
           "present": [
@@ -1178,7 +1329,7 @@
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.94
+      "critic_score": 0.95
     },
     {
       "topology_check": {
@@ -1186,7 +1337,7 @@
         "missing_edges": []
       },
       "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (3.428,-1.863);\n\\coordinate (B) at (-0.325,1.887);\n\\coordinate (C) at (-0.325,-0.857);\n\\coordinate (V) at (-0.323,-1.860);\n\n\n\n\n\n\n\n\n\\draw ($(V)+(180.000:3.750)$) arc[start angle=180.000, end angle=0.000, radius=3.750];\n\n\n\\draw ($(V)+(180.000:3.750)$) -- (V);\n\n\n\\draw (V) -- (A);\n\n\n\\draw (V) -- (C) -- (B);\n\n\n\\draw (C) -- (A);\n\n\n\\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[left] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\node[below right] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\node[below] at (V) {\\fontsize{13}{15.6}\\selectfont $V$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (3.428,-1.863);\n\\coordinate (B) at (-0.325,1.887);\n\\coordinate (C) at (-0.324,-0.857);\n\\coordinate (V) at (-0.323,-1.860);\n\\coordinate (GeoTailV) at (-4.151,-1.865);\n\n\n\n\n\n\n\n\n  \n  \\draw (GeoTailV) -- (V) -- (A);\n\n  \n  \n  \\draw (V) -- (C) -- (B);\n\n  \n  \\draw (C) -- (A);\n\n  \n  \\draw (A) arc[start angle=0.000, end angle=180.000, radius=3.751];\n\n  \n  \\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n  \\node[left]  at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n  \\node[below] at (V) {\\fontsize{13}{15.6}\\selectfont $V$};\n  \\node[right] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 f7a638a681cb069e d0a11ee02861ef75ab87b5e392f8ca155ec8f2a420e6f6887c6f4f0361ae40ed\n",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\931_q_fig2\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\931_q_fig2\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\931_q_fig2\\best.png",
@@ -1194,95 +1345,95 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:08:13",
+      "created_at": "2026-11-11T13:03:23",
       "agent": "code_agent",
       "mode": "repair",
-      "notes": "Repair: split the horizontal diameter into two solid strokes: left half from the unlabeled left end (V+(180:3.75)) to V, and an explicit named segment V--A. The upper semicircle arc (centre V, radius 3.75), V--C--B, C--A, labels B/C/A/V, line width and label font are unchanged. Program-owned coordinates were not redefined. No right-angle mark added. Note: the program-owned A coordinate (3.428,-1.863) corresponds to px ~506, which matches the measured A; the CV point A at 500.46 px differs slightly from the segment end at 506 px, so remeasurement of A may be worth checking, but it was not moved.",
-      "compile_seconds": 3.766,
+      "notes": "Replaced the single B--V stroke with the explicit named chain (V) -- (C) -- (B), so the checker sees C-V and B-C as edges. B-V is still covered geometrically by this collinear chain. Everything else is unchanged: GeoTailV--V--A baseline, C--A, the semicircle arc centred at V (radius 3.751), labels A, B, C, V, the 1.3pt line width with round joins, the 13/15.6 label font, and no right-angle mark at V. The coordinate definitions are kept identical to the previous compiled version; if the program already inserts them, drop the duplicate block. No measurement was changed.",
+      "compile_seconds": 3.068,
       "critic_report": {
         "assessment_score": 0.95,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render is faithful to the original: semicircle on diameter VA, vertical chord VB through C, and segment CA, with matching positions and labels.",
+        "verdict": "The render is faithful: the semicircle, the vertical chord V-B through C, the segment C-A, the baseline and all four labels match the original.",
         "figure_type": {
-          "original": "Semicircle (upper half) on horizontal diameter VA, with vertical segment V-B through interior point C and segment C-A",
-          "render": "Semicircle (upper half) on horizontal diameter VA, with vertical segment V-B through interior point C and segment C-A"
+          "original": "Semicircle centred at V with radius VA, vertical chord VB through C, segment CA, baseline from the left end to A, labels B, C, V, A.",
+          "render": "Semicircle centred at V with radius VA, vertical chord VB through C, segment CA, baseline from the left end to A, labels B, C, V, A."
         },
         "issues": [],
         "checks": [
           {
-            "object_id": "arc_BA",
+            "object_id": "arc_AB",
             "status": "present",
-            "note": "Upper semicircle from the left diameter end to A, passing through B, matches the original."
+            "note": "Upper semicircle from the left end through B to A matches the original."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Horizontal diameter from the left end to A is drawn at the same height and extent."
+            "note": "Baseline from the left end to A is drawn as in the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Segment from C to A matches the original's slope and endpoints."
+            "note": "Segment C-A matches the original's endpoints at C and A."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Vertical segment from V up to B, through C, matches the original."
+            "note": "Vertical segment V-B through C matches the original."
           },
           {
             "object_id": "seg_CA",
             "status": "present",
-            "note": "Segment C-A is drawn between the correct labelled points."
+            "note": "Segment CA is drawn from C to A."
           },
           {
             "object_id": "seg_VA",
             "status": "present",
-            "note": "Diameter V-A is drawn along the baseline, ending at A."
+            "note": "Baseline V-A is drawn as part of the baseline."
           },
           {
             "object_id": "seg_VB",
             "status": "present",
-            "note": "Vertical segment V-B passes through C and ends at B."
+            "note": "Vertical segment VB is drawn through C."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label A sits below-right of the endpoint, as in the original."
+            "note": "Point at A is bound to the printed A label."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label V sits below V, as in the original."
+            "note": "Point at V is bound to the printed V label."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label C sits left of C with clearance from the vertical line, as in the original."
+            "note": "Point at C is bound to the printed C label."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label B sits above B, as in the original."
+            "note": "Point at B is bound to the printed B label."
           },
           {
             "object_id": "point_A",
             "status": "present",
-            "note": "Point A is at the correct position on the arc and diameter end."
+            "note": "Vertex A is drawn and labelled correctly."
           },
           {
             "object_id": "point_B",
             "status": "present",
-            "note": "Point B is at the top of the arc on the vertical line."
+            "note": "Vertex B is drawn and labelled correctly."
           },
           {
             "object_id": "point_C",
             "status": "present",
-            "note": "Point C lies on VB at the correct height."
+            "note": "Vertex C lies on the vertical chord and is labelled correctly."
           },
           {
             "object_id": "point_V",
             "status": "present",
-            "note": "Point V is the centre and the bottom of the vertical line, as in the original."
+            "note": "Vertex V is drawn and labelled correctly."
           }
         ],
         "checklist_score": 1.0,
@@ -1294,12 +1445,12 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Upper semicircle arc spanning the full diameter, with B at its apex",
-          "Horizontal diameter V-A along the baseline",
+          "Semicircle arc from the left end through B to A",
           "Vertical chord V-B passing through C",
-          "Segment C-A with matching slope",
-          "Labels B, C, V, A present, correctly bound and clear of strokes",
-          "Overall aspect ratio and positions match the original"
+          "Segment C-A",
+          "Baseline from the left end to A",
+          "Labels B, C, V, A placed at their vertices without collisions",
+          "Aspect ratio and overall extent match"
         ],
         "labels": {
           "present": [
@@ -1324,27 +1475,27 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 3.926,
+      "seconds": 3.593,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.4638671875 KiB)\nnote: Writing `figure.pdf` (2.515625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:07:53"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.5166015625 KiB)\nnote: Writing `figure.log` (11.3779296875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T13:02:49"
     },
     {
       "version": 2,
       "ok": true,
       "returncode": 0,
-      "seconds": 3.766,
+      "seconds": 3.068,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.51953125 KiB)\nnote: Writing `figure.log` (11.4638671875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T23:08:17"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.5234375 KiB)\nnote: Writing `figure.log` (11.3779296875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-11T13:03:27"
     }
   ],
   "validation_results": [
@@ -1380,30 +1531,30 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0384"
+          "detail": "ink_ratio=0.0373"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.55 vs render 1.70 (delta 0.10)"
+          "detail": "reference 1.55 vs render 1.71 (delta 0.10)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.73"
+          "detail": "figure bbox ratio 1.74"
         }
       ],
-      "created_at": "2026-11-09T23:07:53"
+      "created_at": "2026-11-11T13:02:49"
     },
     {
       "version": 2,
@@ -1437,117 +1588,117 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v2\\v2.pdf"
+          "detail": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v2\\v2.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\931_q_fig2\\tikz\\v2\\v2.png"
+          "detail": ".cache\\collinear\\batch_work\\931_q_fig2\\tikz\\v2\\v2.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0384"
+          "detail": "ink_ratio=0.0373"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.55 vs render 1.70 (delta 0.10)"
+          "detail": "reference 1.55 vs render 1.71 (delta 0.10)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.73"
+          "detail": "figure bbox ratio 1.74"
         }
       ],
-      "created_at": "2026-11-09T23:08:17"
+      "created_at": "2026-11-11T13:03:27"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.94,
+      "assessment_score": 0.95,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render is faithful to the original: the semicircle, diameter VA, vertical VB through C, and segment CA all match, with all four labels correctly placed and bound.",
+      "verdict": "The render is a faithful match: semicircle, vertical chord VB through the centre V, segment CA ending at C on VB, and all four labels are correctly placed and bound.",
       "figure_type": {
-        "original": "semicircle centred at V with diameter through V and A, vertical chord VB with C on it, and segment CA from C to A",
-        "render": "semicircle centred at V with diameter through V and A, vertical chord VB with C on it, and segment CA from C to A"
+        "original": "Semicircle centred at V with diameter from the unlabelled left end through V to A, a vertical chord VB through V to the top point B, and a segment CA from a point C on VB down to A.",
+        "render": "Semicircle centred at V with diameter from the unlabelled left end through V to A, a vertical chord VB through V to the top point B, and a segment CA from a point C on VB down to A."
       },
       "issues": [],
       "checks": [
         {
-          "object_id": "arc_BA",
+          "object_id": "arc_AB",
           "status": "present",
-          "note": "Upper semicircle from the left end through B to A matches the original."
+          "note": "Upper semicircle from A over B to the left end matches the original."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Baseline (diameter) from the left end to A is drawn as in the original."
+          "note": "Baseline from the left end to A is drawn, matching the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Segment CA runs from C to A as in the original."
+          "note": "Segment from C to A ends at A and starts at C as in the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Vertical segment VB through C matches the original."
+          "note": "Vertical segment from V up to B matches the original."
         },
         {
           "object_id": "seg_CA",
           "status": "present",
-          "note": "Segment from C to A is correct."
+          "note": "Segment CA runs from C on VB to A, as in the original."
         },
         {
           "object_id": "seg_VA",
           "status": "present",
-          "note": "Diameter from V to A, with the left extension, matches the original."
+          "note": "Baseline portion from V to A is drawn and ends at A."
         },
         {
           "object_id": "seg_VB",
           "status": "present",
-          "note": "Vertical chord from V to B matches the original."
+          "note": "Chord from V to B is drawn and passes through C."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "A is labelled at the right end of the diameter, below-right, as in the original."
+          "note": "Label A is bound to the point at the right end of the baseline and placed to its right, as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "V is labelled below the centre, as in the original."
+          "note": "Label V sits below the centre point, as in the original."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "C is labelled left of the vertical line, as in the original, with clear separation."
+          "note": "Label C sits left of its point on VB, as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "B is labelled above the top of the semicircle, as in the original."
+          "note": "Label B sits above the top of the arc, as in the original."
         },
         {
           "object_id": "point_A",
           "status": "present",
-          "note": "Same vertex as point_01; correct position."
+          "note": "Point A is at the right end of the diameter and on the arc, as in the original."
         },
         {
           "object_id": "point_B",
           "status": "present",
-          "note": "Same vertex as point_04; correct position."
+          "note": "Point B is at the top of the arc, as in the original."
         },
         {
           "object_id": "point_C",
           "status": "present",
-          "note": "C lies on VB at the same height as in the original."
+          "note": "Point C lies on VB at the same height as in the original."
         },
         {
           "object_id": "point_V",
           "status": "present",
-          "note": "Same vertex as point_02; correct position."
+          "note": "Point V is the centre of the semicircle, as in the original."
         }
       ],
       "checklist_score": 1.0,
@@ -1559,11 +1710,12 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Semicircle arc from the left end through B to A",
-        "Diameter VA along the baseline",
-        "Vertical chord VB through C",
-        "Segment CA from C to A",
-        "Labels B, C, V, A present with correct placement and no collisions"
+        "Semicircle extent and centre match the original.",
+        "Vertical chord VB through V to B matches the original.",
+        "Segment CA starts at C on VB and ends at A, matching the original.",
+        "Baseline runs from the left end through V to A, matching the original.",
+        "Labels A, B, C and V are present, correctly placed, and clear of the strokes.",
+        "Line weights and overall aspect ratio are comparable between panels."
       ],
       "labels": {
         "present": [
@@ -1583,87 +1735,87 @@
     {
       "assessment_score": 0.95,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render is faithful to the original: semicircle on diameter VA, vertical chord VB through C, and segment CA, with matching positions and labels.",
+      "verdict": "The render is faithful: the semicircle, the vertical chord V-B through C, the segment C-A, the baseline and all four labels match the original.",
       "figure_type": {
-        "original": "Semicircle (upper half) on horizontal diameter VA, with vertical segment V-B through interior point C and segment C-A",
-        "render": "Semicircle (upper half) on horizontal diameter VA, with vertical segment V-B through interior point C and segment C-A"
+        "original": "Semicircle centred at V with radius VA, vertical chord VB through C, segment CA, baseline from the left end to A, labels B, C, V, A.",
+        "render": "Semicircle centred at V with radius VA, vertical chord VB through C, segment CA, baseline from the left end to A, labels B, C, V, A."
       },
       "issues": [],
       "checks": [
         {
-          "object_id": "arc_BA",
+          "object_id": "arc_AB",
           "status": "present",
-          "note": "Upper semicircle from the left diameter end to A, passing through B, matches the original."
+          "note": "Upper semicircle from the left end through B to A matches the original."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Horizontal diameter from the left end to A is drawn at the same height and extent."
+          "note": "Baseline from the left end to A is drawn as in the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Segment from C to A matches the original's slope and endpoints."
+          "note": "Segment C-A matches the original's endpoints at C and A."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Vertical segment from V up to B, through C, matches the original."
+          "note": "Vertical segment V-B through C matches the original."
         },
         {
           "object_id": "seg_CA",
           "status": "present",
-          "note": "Segment C-A is drawn between the correct labelled points."
+          "note": "Segment CA is drawn from C to A."
         },
         {
           "object_id": "seg_VA",
           "status": "present",
-          "note": "Diameter V-A is drawn along the baseline, ending at A."
+          "note": "Baseline V-A is drawn as part of the baseline."
         },
         {
           "object_id": "seg_VB",
           "status": "present",
-          "note": "Vertical segment V-B passes through C and ends at B."
+          "note": "Vertical segment VB is drawn through C."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label A sits below-right of the endpoint, as in the original."
+          "note": "Point at A is bound to the printed A label."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label V sits below V, as in the original."
+          "note": "Point at V is bound to the printed V label."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label C sits left of C with clearance from the vertical line, as in the original."
+          "note": "Point at C is bound to the printed C label."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label B sits above B, as in the original."
+          "note": "Point at B is bound to the printed B label."
         },
         {
           "object_id": "point_A",
           "status": "present",
-          "note": "Point A is at the correct position on the arc and diameter end."
+          "note": "Vertex A is drawn and labelled correctly."
         },
         {
           "object_id": "point_B",
           "status": "present",
-          "note": "Point B is at the top of the arc on the vertical line."
+          "note": "Vertex B is drawn and labelled correctly."
         },
         {
           "object_id": "point_C",
           "status": "present",
-          "note": "Point C lies on VB at the correct height."
+          "note": "Vertex C lies on the vertical chord and is labelled correctly."
         },
         {
           "object_id": "point_V",
           "status": "present",
-          "note": "Point V is the centre and the bottom of the vertical line, as in the original."
+          "note": "Vertex V is drawn and labelled correctly."
         }
       ],
       "checklist_score": 1.0,
@@ -1675,12 +1827,12 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Upper semicircle arc spanning the full diameter, with B at its apex",
-        "Horizontal diameter V-A along the baseline",
+        "Semicircle arc from the left end through B to A",
         "Vertical chord V-B passing through C",
-        "Segment C-A with matching slope",
-        "Labels B, C, V, A present, correctly bound and clear of strokes",
-        "Overall aspect ratio and positions match the original"
+        "Segment C-A",
+        "Baseline from the left end to A",
+        "Labels B, C, V, A placed at their vertices without collisions",
+        "Aspect ratio and overall extent match"
       ],
       "labels": {
         "present": [
@@ -1701,23 +1853,23 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "Left end of diameter/arc is unlabeled; no point ID exists for it."
+      "issue": "Left end of the semicircle/baseline (~[23-28,301]) is unlabelled; no point ID exists for it."
     },
     {
       "source": "geometry_agent",
-      "issue": "A's radius (236) differs slightly from B's (240) and left end (241); treated as within tolerance."
+      "issue": "No right-angle square marker is visible at V; the angle BVA is drawn without a marker."
     },
     {
       "source": "geometry_agent",
-      "issue": "No right-angle marker was found in the figure, so none is listed."
+      "issue": "Arc direction sign in image coordinates: visible range [0,180] assumes angle measured from A through B to left end."
     },
     {
       "source": "supervisor",
-      "issue": "The left diameter end is unlabeled, consistent with the original image."
+      "issue": "The left end of the baseline is unlabelled, as in the original, so no point name is assigned to it."
     },
     {
       "source": "supervisor",
-      "issue": "Radius estimates differ slightly (236 to 241 px); treated as within tolerance."
+      "issue": "The arc's visible range [0,180] was set from the measured endpoints; the arc direction was not separately verified beyond the critic's review."
     }
   ],
   "action_history": [
@@ -1763,7 +1915,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 8, 'relations': 3, 'conflicts': 0, 'rejected': []}",
+      "result_summary": "ok=True; merged={'objects': 8, 'relations': 4, 'conflicts': 0, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1771,11 +1923,63 @@
     },
     {
       "step": 1,
+      "action": "mcp__gateway_er_placeholder__call",
+      "purpose": "",
+      "params": {},
+      "status": "error",
+      "result_summary": "ok=False; error=unknown action mcp__gateway_er_placeholder__call",
+      "duration_s": 0.0,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": "unknown action mcp__gateway_er_placeholder__call"
+    },
+    {
+      "step": 2,
+      "action": "mcp__gateway_57ec35db529c__call_cv_tool",
+      "purpose": "",
+      "params": {},
+      "status": "error",
+      "result_summary": "ok=False; error=unknown action mcp__gateway_57ec35db529c__call_cv_tool",
+      "duration_s": 0.0,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": "unknown action mcp__gateway_57ec35db529c__call_cv_tool"
+    },
+    {
+      "step": 3,
+      "action": "call_cv_tool:detect_right_angle_marker",
+      "purpose": "",
+      "params": {
+        "tool_name": "detect_right_angle_marker",
+        "params": {
+          "roi": [
+            240,
+            230,
+            300,
+            310
+          ]
+        }
+      },
+      "status": "ok",
+      "result_summary": "ok=True; count=0",
+      "duration_s": 2.71,
+      "token_usage": {
+        "delta": 0
+      },
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 4,
       "action": "inspect_image",
-      "purpose": "Read every visible letter label in the figure, especially any label near the left end of the horizontal diameter (around x=20-40, y=300) and any right-angle mark near C (around x=264, y=238). Report e",
+      "purpose": "Describe the full figure: the labels (letters) and their positions, whether there is a small right-angle square mark at the junction near V (around x=264,y=301), and whether the semicircle's left end ",
       "params": {
         "region": null,
-        "question": "Read every visible letter label in the figure, especially any label near the left end of the horizontal diameter (around x=20-40, y=300) and any right-angle mark near C (around x=264, y=238). Report each label and its approximate location."
+        "question": "Describe the full figure: the labels (letters) and their positions, whether there is a small right-angle square mark at the junction near V (around x=264,y=301), and whether the semicircle's left end near x=23 has an unlabelled endpoint."
       },
       "status": "ok",
       "result_summary": "ok=True",
@@ -1787,37 +1991,37 @@
       "error": null
     },
     {
-      "step": 2,
+      "step": 5,
       "action": "run_critic",
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.94",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.95",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
       "error": null
     },
     {
-      "step": 2,
+      "step": 5,
       "action": "run_code_agent",
-      "purpose": "Draw a semicircle figure in TikZ using measured pixel coordinates (origin top-left, y down; convert to TikZ with y flipped, e.g. use \\begin{tikzpicture}[x=1pt,y=-1pt] with pixel coords directly, then ",
+      "purpose": "Reconstruct the figure as TikZ using measured pixel coordinates (image y is DOWN; flip y for TikZ, e.g. y_tikz = -(y_px) scaled consistently). Measured points: V=(264.15,300.69) center of the semicirc",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Draw a semicircle figure in TikZ using measured pixel coordinates (origin top-left, y down; convert to TikZ with y flipped, e.g. use \\begin{tikzpicture}[x=1pt,y=-1pt] with pixel coords directly, then scale to fit ~ 0.9 scale). Points: V=(264,301) center; A=(506,301) right end of diameter, on the circle; L=(23,301) unlabeled left end of diameter, on the circle; B=(264,60) top of circle on vertical; C=(264,237.5) on segment VB. Radius 240. Draw: (1) the horizontal diameter segment L--A solid; (2) the upper semicircular arc from L to A through B (center V, radius 240, a solid arc, not a full circle); (3) the vertical segment V--B solid passing through C; (4) segment C--A solid. Labels (math mode italic): B above the top point, C to the left of C, A to the lower-right of A, V below V. Do NOT add any label at L and do NOT add a right-angle mark. Use the same single coordinate definitions for shared vertices."
+        "instruction": "Reconstruct the figure as TikZ using measured pixel coordinates (image y is DOWN; flip y for TikZ, e.g. y_tikz = -(y_px) scaled consistently). Measured points: V=(264.15,300.69) center of the semicircle; A=(500.46,300.9) right end of the diameter; B=(264.0,64.59) top of the arc on the vertical line; C=(264.0,237.46) lies on segment VB. Left end of the diameter is unlabelled at about (23,301) (seg_01 spans x=23 to 506 at y=301; use the measured left endpoint, no label). Edges: (1) the horizontal diameter/baseline from the unlabelled left end through V to A (solid); (2) the vertical solid segment V-B passing through C; (3) segment C-A (solid); (4) the upper semicircular arc from A through B to the left end, centre V, radius about 236.3 px, solid, visible range 0 to 180 deg. Labels: B above the top point, C to the left of C, V below V, A to the right of A (italic math letters, as in the original). Do NOT draw a right-angle square mark at V: the original shows none. Keep one coordinate definition per point and reuse it for shared vertices."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 21.8,
+      "duration_s": 57.43,
       "token_usage": {
-        "delta": 15546
+        "delta": 24563
       },
       "visual_calls": 2,
       "error": null
     },
     {
-      "step": 3,
+      "step": 6,
       "action": "run_critic",
       "purpose": "review newly compiled version",
       "params": {},
@@ -1829,32 +2033,32 @@
       "error": null
     },
     {
-      "step": 3,
+      "step": 6,
       "action": "run_code_agent",
-      "purpose": "Make the horizontal diameter an explicit named path between the existing coordinates V and A: draw (V) -- (A) as its own solid segment (in addition to the left half from the unlabeled left end to V, o",
+      "purpose": "Repair: the vertical solid line is one straight edge through C. Draw it as explicit named solid segments V--C and C--B using the existing coordinates (V=(-0.323,-1.860), C=(-0.325,-0.857), B=(-0.325,1",
       "params": {
         "mode": "repair",
         "use_image": null,
-        "instruction": "Make the horizontal diameter an explicit named path between the existing coordinates V and A: draw (V) -- (A) as its own solid segment (in addition to the left half from the unlabeled left end to V, or as one path from the left end through V to A). Keep all other elements unchanged: the upper semicircle arc (solid, center V, radius 3.75), vertical V--B through C, C--A, labels B, C, A, V only, no label at the left end, no right-angle mark."
+        "instruction": "Repair: the vertical solid line is one straight edge through C. Draw it as explicit named solid segments V--C and C--B using the existing coordinates (V=(-0.323,-1.860), C=(-0.325,-0.857), B=(-0.325,1.887)), so the topology checker sees edges B-C and C-V. Keep everything else unchanged: baseline GeoTailV--V--A, C--A, semicircle arc centred at V from A through B to the left end, labels A, B, C, V, no right-angle mark at V."
       },
       "status": "ok",
       "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
-      "duration_s": 21.37,
+      "duration_s": 25.31,
       "token_usage": {
-        "delta": 15521
+        "delta": 16476
       },
       "visual_calls": 1,
       "error": null
     },
     {
-      "step": 4,
+      "step": 7,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Produced a compiled TikZ reconstruction (version 2) of the semicircle figure: solid upper semicircle centred at V with radius 240 px (3.75 units), diameter from the unlabeled left end through V to A, vertical V–B passing through C, segment C–A, and labels A, B, C, V. Critic score 0.95 with must_repair=false and topology check passing. No right-angle mark (none visible in the original, confirmed by inspection). No label at the left diameter end (none visible in the original).",
+        "summary": "Produced compiled TikZ version 2 for the semicircle figure. It has a baseline from an unlabelled left end through V to A, a vertical chord V–C–B, segment C–A, and a solid upper semicircle arc centred at V from A through B to the left end. Labels A, B, C, V are placed correctly. The critic scored it 0.95 with no must-repair issues, and the topology check passes. No right-angle mark is drawn at V, since the original shows none.",
         "unresolved": [
-          "The left diameter end is unlabeled, consistent with the original image.",
-          "Radius estimates differ slightly (236 to 241 px); treated as within tolerance."
+          "The left end of the baseline is unlabelled, as in the original, so no point name is assigned to it.",
+          "The arc's visible range [0,180] was set from the measured endpoints; the arc direction was not separately verified beyond the critic's review."
         ],
         "status": "success"
       },
@@ -1901,63 +2105,79 @@
       "count": 0,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {
+        "roi": [
+          240,
+          230,
+          300,
+          310
+        ]
+      },
+      "purpose": "",
+      "ok": true,
+      "count": 0,
+      "visualization": ".cache\\collinear\\batch_work\\931_q_fig2\\cv\\detect_right_angle_marker.png",
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 9,
+      "calls": 12,
       "visual_calls": 7,
-      "prompt_tokens": 61263,
-      "completion_tokens": 10085,
-      "total_tokens": 71348,
-      "cached_tokens": 22862.0,
-      "cache_write_tokens": 12896.0,
-      "latency_s": 63.74
+      "prompt_tokens": 95237,
+      "completion_tokens": 13468,
+      "total_tokens": 108705,
+      "cached_tokens": 45706.0,
+      "cache_write_tokens": 45223.0,
+      "latency_s": 126.38
     },
     "by_agent": {
       "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 7028,
-        "latency_s": 9.89
+        "total_tokens": 7781,
+        "latency_s": 15.05
       },
       "supervisor": {
-        "calls": 4,
+        "calls": 7,
         "visual_calls": 3,
-        "total_tokens": 33253,
-        "latency_s": 19.53
+        "total_tokens": 59885,
+        "latency_s": 35.99
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 7632,
-        "latency_s": 9.92
+        "total_tokens": 16024,
+        "latency_s": 37.74
       },
       "critic_agent": {
         "calls": 2,
         "visual_calls": 2,
-        "total_tokens": 15904,
-        "latency_s": 15.09
+        "total_tokens": 16481,
+        "latency_s": 23.29
       },
       "code_agent:repair": {
         "calls": 1,
         "visual_calls": 0,
-        "total_tokens": 7531,
-        "latency_s": 9.3
+        "total_tokens": 8534,
+        "latency_s": 14.31
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 20,
-    "tool_calls_left": 40,
+    "steps_left": 17,
+    "tool_calls_left": 39,
     "visual_calls_left": 17,
-    "tokens_left": 328652,
+    "tokens_left": 291295,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 71348
+    "total_tokens_used": 108705
   },
   "meta": {
     "topology_plan": {
@@ -1980,6 +2200,10 @@
         ],
         [
           "C",
+          "V"
+        ],
+        [
+          "GeoTailV",
           "V"
         ]
       ],
@@ -2010,8 +2234,22 @@
         },
         {
           "edge": [
+            "B",
+            "V"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
             "A",
             "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "GeoTailV",
+            "V"
           ],
           "style": "solid"
         }
@@ -2019,7 +2257,7 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Semicircle centered at V (264.15,300.69), radius about 240 px, drawn as a solid arc over the diameter from the unlabeled left end (about 23,301) through B (top, 264,60) to A (500.46,300.9). Solid diameter from the left end through V to A. Solid vertical radius V-C-B, where C (264,237.46) lies on VB. Solid chord C-A. All strokes are solid; no dashed segments found. No right-angle marker visible and no feet drawn.",
+      "summary": "Semicircle arc centered at V (point_02, px ~[264.15,300.69]) radius ~236 px, running from A (point_01, right end, on baseline) over top B (point_04) to unlabelled left end at ~[28,301]. Horizontal baseline AV (seg_01) extends from A through V to the unlabelled left end. Vertical radius VB (seg_03) passes through C (point_03) on its way to B. Segment CA (seg_02) connects C to A. All strokes solid, no dashes. No right-angle square marker is drawn at V, so no angle_marks or feet. The OCR bindings B, C, A, V are all correct.",
       "strokes": [
         {
           "edge": [
@@ -2044,6 +2282,13 @@
         },
         {
           "edge": [
+            "B",
+            "V"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
             "A",
             "C"
           ],
@@ -2051,12 +2296,22 @@
         }
       ],
       "marks": {},
-      "feet": []
+      "feet": [],
+      "extensions": {
+        "V": {
+          "anchor": "V",
+          "px": [
+            23.0,
+            301.0
+          ],
+          "stroke_id": "seg_01"
+        }
+      }
     },
     "coordinate_contract": {
       "enabled": true,
       "schema": "cv-coordinate-contract.v1",
-      "n_points": 4,
+      "n_points": 5,
       "reference_used": false,
       "coordinates": {
         "schema": "cv-coordinate-contract.v1",
@@ -2109,6 +2364,18 @@
               -0.323,
               -1.86
             ]
+          },
+          "GeoTailV": {
+            "px": [
+              23.0,
+              301.0
+            ],
+            "point_id": "seg_01",
+            "extension_from": "V",
+            "tikz": [
+              -4.151,
+              -1.865
+            ]
           }
         },
         "skipped": {},
@@ -2117,24 +2384,42 @@
       }
     },
     "constraint_repair": {
-      "ok": false,
+      "ok": true,
       "enabled": true,
-      "applied": false,
+      "applied": true,
       "stage": "post_tikz",
       "constraint_mode": "joint_coordinate_projection",
-      "candidate_source": "generated_tikz",
+      "candidate_source": "generated_tikz_and_original_raster",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "a2f8d3a3a05cee61ae31affd7c23a372f700aa972f8855cf5f18732c1ae95d81",
-      "output_sha256": "a2f8d3a3a05cee61ae31affd7c23a372f700aa972f8855cf5f18732c1ae95d81",
-      "reason": "unsupported_or_failed",
-      "accepted": [],
+      "input_sha256": "0ac1fbc2dc1e4d4b992e0f5e569fff9eec6f7c1fa0823220c3e183606472fe4d",
+      "output_sha256": "a88a37dbe436c046477f2ae9c77dfe17d676ee1e672b7d675bdc8bdcb67b8609",
+      "reason": "applied",
+      "accepted": [
+        {
+          "type": "collinear",
+          "segments": [
+            "C--V",
+            "B--C"
+          ],
+          "before_error_deg": 0.11424866116690459,
+          "after_error_deg": 0.03624400217092781,
+          "labels": [
+            "V",
+            "C",
+            "B"
+          ],
+          "source_turn_deg": 0.1142,
+          "solver_after_error_deg": 5.191290867543723e-16,
+          "export_tolerance_deg": 0.11031549316885231
+        }
+      ],
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2144,18 +2429,76 @@
         "relation_types": [
           "parallel"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
-      "error": "ValueError: unsupported curve syntax",
+      "source_collinear_candidates": [
+        {
+          "type": "collinear",
+          "segments": [
+            "C--V",
+            "B--C"
+          ],
+          "labels": [
+            "V",
+            "C",
+            "B"
+          ],
+          "source_turn_deg": 0.1142
+        }
+      ],
+      "input_candidates": 1,
+      "preserved_incidence_count": 0,
+      "max_shift_rel": 0.0001884863986840571,
+      "max_length_change_rel": 0.0002485894738991634,
+      "fixed_points": [
+        "A",
+        "B",
+        "V"
+      ],
+      "length_weight": 0.0,
+      "length_scope": "edges",
+      "incidence_mode": "snap",
+      "topology_tol_rel": 0.002,
+      "incidence_strength": 1.0,
+      "rms_shift_rel": 0.00013803218689964456,
+      "max_after_error_deg": 0.03624400217092781,
+      "curve_policy": "freeze",
+      "curve_anchors": {
+        "fixed_points": [
+          "A",
+          "B",
+          "V"
+        ],
+        "dependencies": [
+          "A"
+        ],
+        "circles": [
+          {
+            "center": [
+              -0.32299999999999995,
+              -1.863
+            ],
+            "radius": 3.751
+          }
+        ]
+      },
+      "candidate_count": 1,
+      "solver_max_shift_rel": 0.0002760643737992891,
+      "coordinate_decimals": 3,
+      "export_verified": true,
+      "max_export_error_deg": 0.03624400217092781,
+      "point_count": 4,
+      "segment_count": 4,
       "curve_options_applied": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2176,7 +2519,7 @@
       "1": {
         "enabled": true,
         "schema": "cv-coordinate-contract.v1",
-        "n_points": 4,
+        "n_points": 5,
         "reference_used": false,
         "coordinates": {
           "schema": "cv-coordinate-contract.v1",
@@ -2228,6 +2571,18 @@
               "tikz": [
                 -0.323,
                 -1.86
+              ]
+            },
+            "GeoTailV": {
+              "px": [
+                23.0,
+                301.0
+              ],
+              "point_id": "seg_01",
+              "extension_from": "V",
+              "tikz": [
+                -4.151,
+                -1.865
               ]
             }
           },
@@ -2239,7 +2594,7 @@
       "2": {
         "enabled": true,
         "schema": "cv-coordinate-contract.v1",
-        "n_points": 4,
+        "n_points": 5,
         "reference_used": false,
         "coordinates": {
           "schema": "cv-coordinate-contract.v1",
@@ -2292,6 +2647,18 @@
                 -0.323,
                 -1.86
               ]
+            },
+            "GeoTailV": {
+              "px": [
+                23.0,
+                301.0
+              ],
+              "point_id": "seg_01",
+              "extension_from": "V",
+              "tikz": [
+                -4.151,
+                -1.865
+              ]
             }
           },
           "skipped": {},
@@ -2302,24 +2669,24 @@
     },
     "tikz_constraint_repairs": {
       "1": {
-        "ok": false,
+        "ok": true,
         "enabled": true,
         "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "4c87eb64ee65bfc47cb104e139306b589c25a8a586cdf83686322af747bc23d3",
-        "output_sha256": "4c87eb64ee65bfc47cb104e139306b589c25a8a586cdf83686322af747bc23d3",
-        "reason": "unsupported_or_failed",
+        "input_sha256": "2eaa64d22840fbac59c785fc1a3ddeb4ec6d44682d40b0211bcf7c08b47f2d5a",
+        "output_sha256": "2eaa64d22840fbac59c785fc1a3ddeb4ec6d44682d40b0211bcf7c08b47f2d5a",
+        "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2329,18 +2696,54 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "error": "ValueError: unsupported curve syntax",
+        "source_collinear_candidates": [],
+        "input_candidates": 0,
+        "preserved_incidence_count": 1,
+        "max_shift_rel": 0.0,
+        "max_length_change_rel": 0.0,
+        "fixed_points": [
+          "A",
+          "B",
+          "V"
+        ],
+        "length_weight": 0.0,
+        "length_scope": "edges",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.002,
+        "incidence_strength": 1.0,
+        "curve_policy": "freeze",
+        "curve_anchors": {
+          "fixed_points": [
+            "A",
+            "B",
+            "V"
+          ],
+          "dependencies": [
+            "A"
+          ],
+          "circles": [
+            {
+              "center": [
+                -0.32299999999999995,
+                -1.863
+              ],
+              "radius": 3.751
+            }
+          ]
+        },
+        "candidate_count": 0,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2354,24 +2757,42 @@
         }
       },
       "2": {
-        "ok": false,
+        "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "a2f8d3a3a05cee61ae31affd7c23a372f700aa972f8855cf5f18732c1ae95d81",
-        "output_sha256": "a2f8d3a3a05cee61ae31affd7c23a372f700aa972f8855cf5f18732c1ae95d81",
-        "reason": "unsupported_or_failed",
-        "accepted": [],
+        "input_sha256": "0ac1fbc2dc1e4d4b992e0f5e569fff9eec6f7c1fa0823220c3e183606472fe4d",
+        "output_sha256": "a88a37dbe436c046477f2ae9c77dfe17d676ee1e672b7d675bdc8bdcb67b8609",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "C--V",
+              "B--C"
+            ],
+            "before_error_deg": 0.11424866116690459,
+            "after_error_deg": 0.03624400217092781,
+            "labels": [
+              "V",
+              "C",
+              "B"
+            ],
+            "source_turn_deg": 0.1142,
+            "solver_after_error_deg": 5.191290867543723e-16,
+            "export_tolerance_deg": 0.11031549316885231
+          }
+        ],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2381,18 +2802,76 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "error": "ValueError: unsupported curve syntax",
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "C--V",
+              "B--C"
+            ],
+            "labels": [
+              "V",
+              "C",
+              "B"
+            ],
+            "source_turn_deg": 0.1142
+          }
+        ],
+        "input_candidates": 1,
+        "preserved_incidence_count": 0,
+        "max_shift_rel": 0.0001884863986840571,
+        "max_length_change_rel": 0.0002485894738991634,
+        "fixed_points": [
+          "A",
+          "B",
+          "V"
+        ],
+        "length_weight": 0.0,
+        "length_scope": "edges",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.002,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00013803218689964456,
+        "max_after_error_deg": 0.03624400217092781,
+        "curve_policy": "freeze",
+        "curve_anchors": {
+          "fixed_points": [
+            "A",
+            "B",
+            "V"
+          ],
+          "dependencies": [
+            "A"
+          ],
+          "circles": [
+            {
+              "center": [
+                -0.32299999999999995,
+                -1.863
+              ],
+              "radius": 3.751
+            }
+          ]
+        },
+        "candidate_count": 1,
+        "solver_max_shift_rel": 0.0002760643737992891,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.03624400217092781,
+        "point_count": 4,
+        "segment_count": 4,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2407,7 +2886,7 @@
       }
     },
     "finish": {
-      "summary": "Produced a compiled TikZ reconstruction (version 2) of the semicircle figure: solid upper semicircle centred at V with radius 240 px (3.75 units), diameter from the unlabeled left end through V to A, vertical V–B passing through C, segment C–A, and labels A, B, C, V. Critic score 0.95 with must_repair=false and topology check passing. No right-angle mark (none visible in the original, confirmed by inspection). No label at the left diameter end (none visible in the original).",
+      "summary": "Produced compiled TikZ version 2 for the semicircle figure. It has a baseline from an unlabelled left end through V to A, a vertical chord V–C–B, segment C–A, and a solid upper semicircle arc centred at V from A through B to the left end. Labels A, B, C, V are placed correctly. The critic scored it 0.95 with no must-repair issues, and the topology check passes. No right-angle mark is drawn at V, since the original shows none.",
       "status": "success"
     },
     "stop_reason": "finish"

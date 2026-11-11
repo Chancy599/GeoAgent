@@ -77,8 +77,8 @@ class GeometrySettings:
     enabled: bool = True
     preserve_cv_coordinates: bool = True
     repair_stage: str = "post_tikz"  # post_tikz | pre_ges (legacy experiment)
-    post_max_shift_rel: float = 0.005
-    post_max_length_change_rel: float = 0.01
+    post_max_shift_rel: float = 0.013
+    post_max_length_change_rel: float = 0.035
     post_topology_tol_rel: float = 0.003
     post_incidence_mode: str = "snap"
     post_length_weight: float = 0.01
@@ -87,8 +87,9 @@ class GeometrySettings:
     post_incidence_strength: float = 1.0
     post_relation_types: tuple[str, ...] = ("parallel", "perpendicular")
     post_relaxation: float = 1.0
+    post_collinear_max_turn_deg: float = 8.0
     post_curve_options: dict[str, Any] | None = field(default_factory=lambda: {
-        "angle_tol_deg":0.5,"max_shift_rel":0.005,"max_length_change_rel":0.01,
+        "angle_tol_deg":0.5,"max_shift_rel":0.013,"max_length_change_rel":0.035,
         "topology_tol_rel":0.002,"incidence_mode":"snap","length_weight":0.0,
         "length_scope":"edges","curve_policy":"freeze","incidence_strength":1.0,
         "relation_types":["parallel"],"relaxation":1.0,
@@ -256,6 +257,7 @@ def _build_geometry(run_overrides: dict[str, Any] | None = None) -> GeometrySett
         "post_max_length_change_rel": ("GEOAGENT_POST_MAX_LENGTH_CHANGE_REL", float),
         "post_topology_tol_rel": ("GEOAGENT_POST_TOPOLOGY_TOL_REL", float),
         "post_length_weight": ("GEOAGENT_POST_LENGTH_WEIGHT", float),
+        "post_collinear_max_turn_deg": ("GEOAGENT_POST_COLLINEAR_MAX_TURN_DEG", float),
         "max_relations": ("GEOAGENT_GEOM_REPAIR_MAX_RELATIONS", int),
         "angle_tol_deg": ("GEOAGENT_GEOM_REPAIR_ANGLE_TOL_DEG", float),
         "equal_length_rel_tol": ("GEOAGENT_GEOM_REPAIR_EQ_TOL", float),

@@ -362,7 +362,8 @@ class GeoAgentRunner:
         }
 
     def _refresh_topology(self) -> dict:
-        plan = build_topology_plan(self.state)
+        settings = getattr(self, 'settings', None)
+        plan = build_topology_plan(self.state, include_extensions=(settings is None or settings.geometry.preserve_cv_coordinates))
         changed = plan != self.state.meta.get("topology_plan")
         if changed:
             self.state.meta["topology_plan"] = plan
@@ -510,6 +511,7 @@ class GeoAgentRunner:
         tex = raw_tex
         post_report = None
         if geometry.repair_stage == "post_tikz":
+            coordinate_frame = (result.get('coordinate_contract') or {}).get('coordinates')
             tex, post_report = repair_tikz_constraints(
                 raw_tex, enabled=bool(geometry.enabled),
                 angle_tol_deg=float(geometry.angle_tol_deg),
@@ -524,6 +526,9 @@ class GeoAgentRunner:
                 relation_types=tuple(geometry.post_relation_types),
                 relaxation=float(geometry.post_relaxation),
                 curve_options=geometry.post_curve_options,
+                collinear_max_turn_deg=float(geometry.post_collinear_max_turn_deg),
+                source_image=self.image_path if coordinate_frame else None,
+                source_coordinates=coordinate_frame,
             )
             self.state.meta["constraint_repair"] = post_report
             self.state.meta["rectification"] = {
@@ -864,7 +869,8 @@ def _unverified_geometry(report: dict) -> str:
     return (f"Unverified named edges: {report['missing_edges']}. "
             f"Unverified corrected bindings: {report.get('unverified_bindings', [])}. "
             f"Unverified stroke styles: {report.get('unverified_styles', [])}. "
-            f"Unverified right-angle rays: {report.get('unverified_marks', [])}.")
+            f"Unverified right-angle rays: {report.get('unverified_marks', [])}. "
+            f"Overlapping solid strokes: {report.get('overlapping_strokes', [])}.")
 
 
 def _file_digest(path: str | Path) -> str:

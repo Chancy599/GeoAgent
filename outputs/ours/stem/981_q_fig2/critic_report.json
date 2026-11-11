@@ -1,150 +1,141 @@
 {
   "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful: square ABCD, diagonal B–M–D, E on AB, and the triangle E–M–C all match the original, with correct vertex labels.",
+  "verdict": "Faithful render: all six vertices, the square, the diagonal BD through M, and the E–M, E–C and M–C segments match the original; the only visible difference is the heavier diagonal stroke in the original.",
   "figure_type": {
-    "original": "Square ABCD with diagonal BD through interior point M; E on side AB; segments EM, EC, MC drawn as a triangle-like web inside the square",
-    "render": "Square ABCD with diagonal B–M–D through M; E on side AB; segments EM, EC, MC drawn inside the square"
+    "original": "square ABCD with point E on side AB and point M on diagonal BD; segments EM, MC, EC drawn",
+    "render": "square ABCD with point E on side AB and point M on diagonal BD; segments EM, MC, EC drawn"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_01"
+        "seg_01",
+        "seg_BD"
       ],
       "bbox": [
         0.14,
-        0.14,
-        0.85,
-        0.85
+        0.1,
+        0.86,
+        0.86
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The diagonal B–M–D is drawn at the same weight as the other strokes; in the original this diagonal appears noticeably heavier than EM, EC and MC.",
-      "suggestion": "Optionally draw \\draw[line width=3pt] (B) -- (M) -- (D); to match the heavier diagonal in the original. Otherwise leave as is."
+      "description": "The diagonal BD (B through M to D) is drawn noticeably heavier than the other strokes in the original, but in the render it has the same weight as the square sides and the interior segments.",
+      "suggestion": "Optionally draw the diagonal B--D with a thicker line (e.g. \\draw[line width=3.2pt] (B)--(M)--(D);) while keeping the other segments at 2.1pt."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diagonal B–M–D matches the original line through M to D; weight is lighter than the original diagonal."
+      "note": "Diagonal from B to D through M is drawn; weight is lighter than the original's heavy diagonal."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Left side AB is drawn and matches the original."
+      "note": "Left side A to B passes through E, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Bottom side BC is drawn and matches the original."
+      "note": "Bottom side B to C matches."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Top side AD is drawn and matches the original."
+      "note": "Top side A to D matches."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Right side DC is drawn and matches the original."
+      "note": "Right side D to C matches."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Line E–C is drawn and matches the original."
+      "note": "Line from E to C matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Segment E–M is drawn and joins E to M as in the original."
+      "note": "Segment E to M matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Segment M–C is drawn and matches the original."
+      "note": "Segment M to C matches the original."
     },
     {
       "object_id": "seg_09",
-      "status": "unclear",
-      "note": "Short CV fragment near C lies on the E–C line; it is not a separate element in either panel."
+      "status": "present",
+      "note": "Sub-piece of the M–C stroke near C; drawn as part of MC."
     },
     {
       "object_id": "seg_BD",
       "status": "present",
-      "note": "Diagonal B–M–D is drawn through M to D."
-    },
-    {
-      "object_id": "seg_EC",
-      "status": "present",
-      "note": "Segment E–C is drawn."
-    },
-    {
-      "object_id": "seg_EM",
-      "status": "present",
-      "note": "Segment E–M is drawn."
-    },
-    {
-      "object_id": "seg_MC",
-      "status": "present",
-      "note": "Segment M–C is drawn."
+      "note": "Diagonal labelled BD is drawn through M in both panels."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B is at vertex B (69.33, 301.33) in both panels."
+      "note": "Label B present at the bottom-left vertex."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label D is at vertex D (305.33, 65.33) in both panels."
+      "note": "Label D present at the top-right vertex."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label M is at point M on the diagonal in both panels."
+      "note": "Label M present on the diagonal, clear of strokes."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label A is at vertex A (69, 65) in both panels."
+      "note": "Label A present at the top-left vertex."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label E is at point E on AB in both panels."
+      "note": "Label E present on the left side."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Label C is at vertex C (304.66, 301.4) in both panels."
+      "note": "Label C present at the bottom-right vertex."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Label A is drawn above-left of its vertex, as in the original."
+      "note": "Label A present."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Label B is drawn below-left of its vertex, as in the original."
+      "note": "Label B present."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "Label C is drawn below-right of its vertex, as in the original."
+      "note": "Label C present."
     },
     {
       "object_id": "point_D",
       "status": "present",
-      "note": "Label D is drawn above-right of its vertex, as in the original."
+      "note": "Label D present."
     },
     {
       "object_id": "point_E",
       "status": "present",
-      "note": "Label E is drawn left of its vertex, as in the original."
+      "note": "Label E present."
+    },
+    {
+      "object_id": "point_M",
+      "status": "present",
+      "note": "Label M present and lies on the diagonal."
     }
   ],
   "checklist_score": 1.0,
@@ -156,12 +147,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Square ABCD with correct vertex positions and proportions",
-    "Diagonal B–M–D passes through M and reaches D",
-    "E lies on side AB at the same height as in the original",
-    "Segments E–M, E–C and M–C are all present with the right endpoints",
-    "All six labels A, B, C, D, E, M are present, correctly spelled and bound to their vertices",
-    "No label crosses a stroke; label placements are clear of lines"
+    "Square ABCD with correct corner labels A (top-left), D (top-right), B (bottom-left), C (bottom-right)",
+    "E on the left side AB, with the side passing through E",
+    "M on diagonal BD, with the diagonal passing through M",
+    "Segments EM, MC, EC present with correct endpoints",
+    "Label placement and clearance for A, B, C, D, E and M"
   ],
   "labels": {
     "present": [
@@ -184,7 +174,7 @@
         "E",
         "M"
       ],
-      "reason": "In the original, a thin straight stroke runs from E on AB up to M on the diagonal, so the pending stroke joins E and M."
+      "reason": "In the original, the stroke from E rises straight to M, which lies on the diagonal, so the segment joins E and M."
     }
   ],
   "raw_meta": "{}"

@@ -20,7 +20,7 @@ def pair_metrics(points, first, second):
     if min(lu,lv) <= span*1e-9:
         raise ValueError("degenerate segment")
     angle = math.degrees(math.atan2(abs(u[0]*v[1]-u[1]*v[0]), abs(u[0]*v[0]+u[1]*v[1])))
-    return {"parallel_error_deg":angle, "perpendicular_error_deg":90-angle,
+    return {"parallel_error_deg":angle, "perpendicular_error_deg":90-angle, "collinear_error_deg":angle,
             "relative_length_error":abs(lu-lv)/max(lu,lv),
             "relative_line_offset":abs(u[0]*(c[1]-a[1])-u[1]*(c[0]-a[0]))/lu/span,
             "shared_endpoint":bool(set(first)&set(second))}

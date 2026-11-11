@@ -1,155 +1,155 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the original outline A-B-D-F-E-C-A topology, with the same horizontal top, diagonal shoulders, vertical sides and flat base. Only a minor label font-weight difference is visible.",
+  "verdict": "The render reproduces the original hexagonal outline A-B-D-F-E-C with the same topology, proportions and segment endpoints; only the label typeface differs.",
   "figure_type": {
-    "original": "closed trapezoid-like outline (funnel shape) with vertices A, B, D, F, E, C; top edge AB horizontal, base EF horizontal, shoulders AC and DB at 45 degrees, sides CE and DF vertical",
-    "render": "same closed funnel outline with the same vertex order and the same angles"
+    "original": "Hexagonal funnel outline: horizontal top AB, diagonals AC and BD, verticals CE and DF, horizontal base EF, with italic serif math labels",
+    "render": "Hexagonal funnel outline: horizontal top AB, diagonals AC and BD, verticals CE and DF, horizontal base EF, with upright bold labels"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "point_A",
-        "point_B",
-        "point_C",
-        "point_D",
-        "point_E",
-        "point_F"
+        "point_01",
+        "point_02",
+        "point_03",
+        "point_04",
+        "point_05",
+        "point_06"
       ],
       "bbox": [
         0.02,
-        0.12,
-        0.97,
-        0.87
+        0.15,
+        0.98,
+        0.85
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Point labels A-F are rendered in a regular-weight math italic. In the original they look heavier (bold-italic style), so the render's labels look lighter than the source.",
-      "suggestion": "Optionally use \\boldsymbol or \\mathbf-style bold for the label glyphs (e.g. $\\boldsymbol{A}$) to match the source weight. This is cosmetic and not required for geometric faithfulness."
+      "description": "Point label glyphs are upright bold (\\mathbf) while the original labels are italic serif math letters; the label glyph style is lighter in slant than the original. Stroke weights of the outline match the original.",
+      "suggestion": "If matching the original is required, change the label commands from \\mathbf{X} to italic math \\mathit{X} or plain $X$ (keep the same node anchors so vertex binding is unchanged)."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "CV top edge between A and B, drawn as AB in the render."
+      "note": "Top edge AB is horizontal and spans A to B as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Left vertical side from C down to E is drawn."
+      "note": "Left vertical CE runs from C down to E as in the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right vertical side from D up to F is drawn."
+      "note": "Right vertical DF runs from D down to F as in the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Bottom edge from E to F is drawn."
+      "note": "Base EF closes the bottom between E and F as in the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Right shoulder from B down to D is drawn."
+      "note": "Diagonal BD meets B and D with the same slope as the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Left shoulder from A down to C is drawn."
+      "note": "Diagonal AC meets A and C with the same slope as the original."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Top edge matches the original."
+      "note": "Top edge AB matches the original."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Left shoulder matches the original."
+      "note": "Diagonal AC matches the original."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Diagonal BD matches the original."
     },
     {
       "object_id": "seg_CE",
       "status": "present",
-      "note": "Left vertical side matches the original."
+      "note": "Vertical CE matches the original."
     },
     {
-      "object_id": "seg_DB",
+      "object_id": "seg_DF",
       "status": "present",
-      "note": "Right shoulder matches the original."
+      "note": "Vertical DF matches the original."
     },
     {
       "object_id": "seg_EF",
       "status": "present",
-      "note": "Base matches the original."
-    },
-    {
-      "object_id": "seg_FD",
-      "status": "present",
-      "note": "Right vertical side matches the original."
+      "note": "Base EF matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label B is at the top-right vertex, placed above-right as in the original."
+      "note": "Label B is present at the top-right vertex."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label A is at the top-left vertex, placed above-left as in the original."
+      "note": "Label A is present at the top-left vertex."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label E is at the bottom-left vertex, placed below-left as in the original."
+      "note": "Label E is present at the bottom-left vertex."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label C is at the left shoulder vertex, placed left as in the original."
+      "note": "Label C is present at the left inner vertex."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label F is at the bottom-right vertex, placed below-right as in the original."
+      "note": "Label F is present at the bottom-right vertex."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label D is at the right shoulder vertex, placed right as in the original."
+      "note": "Label D is present at the right inner vertex."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Vertex A is present and bound to the top-left corner."
+      "note": "Vertex A is drawn and labelled correctly."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Vertex B is present and bound to the top-right corner."
+      "note": "Vertex B is drawn and labelled correctly."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "Vertex C is present on the left shoulder."
+      "note": "Vertex C is drawn and labelled correctly."
     },
     {
       "object_id": "point_D",
       "status": "present",
-      "note": "Vertex D is present on the right shoulder."
+      "note": "Vertex D is drawn and labelled correctly."
     },
     {
       "object_id": "point_E",
       "status": "present",
-      "note": "Vertex E is present at the bottom-left corner."
+      "note": "Vertex E is drawn and labelled correctly."
     },
     {
       "object_id": "point_F",
       "status": "present",
-      "note": "Vertex F is present at the bottom-right corner."
+      "note": "Vertex F is drawn and labelled correctly."
     }
   ],
   "checklist_score": 1.0,
@@ -161,11 +161,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Top edge AB is horizontal and spans the same width.",
-    "Left and right shoulders AC and DB run at 45 degrees and meet the vertical sides at C and D.",
-    "Vertical sides CE and DF and the base EF match the original.",
-    "All six labels A, B, C, D, E, F are present with the same vertex association and similar placement; none collide with strokes.",
-    "Aspect ratio and overall proportions match the original."
+    "Hexagon topology A-B-D-F-E-C with a horizontal top, two symmetric diagonals, two vertical sides and a horizontal base.",
+    "Vertex positions and proportions match the original after the panel offset.",
+    "Each diagonal and vertical meets its vertex without overshoot or gap.",
+    "All six labels A-F are present, correctly spelled and placed beside their vertices with clear separation from strokes.",
+    "Outline stroke weight is comparable to the original."
   ],
   "labels": {
     "present": [
@@ -179,25 +179,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "91cf04d886b0da1c",
-      "edge": [
-        "C",
-        "E"
-      ],
-      "reason": "In the original, the vertical stroke runs from C down to E and joins at E, so the connection is C-E."
-    },
-    {
-      "case_id": "4c9fd707b25c3012",
-      "edge": [
-        "E",
-        "F"
-      ],
-      "reason": "In the original, the horizontal base joins E and F, so the connection is E-F."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

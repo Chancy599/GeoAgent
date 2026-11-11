@@ -1,109 +1,149 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Geometry matches the original: trapezoid ABCD with solid base and sides and dashed extensions DE and CE meeting at apex E. The only visible difference is the label font style.",
+  "verdict": "Geometry is faithful: trapezoid ABCD, solid DC, and dashed DE and CE meeting at E all match the original. Only the label weight differs.",
   "figure_type": {
-    "original": "Trapezoid ABCD (AB base, DC top, AD and BC legs) with dashed segments DE and CE meeting at apex E above the top side",
-    "render": "Same trapezoid with solid AB, DC, AD, BC and dashed DE, CE meeting at E"
+    "original": "trapezoid ABCD with top side DC, dashed extensions DE and CE meeting at apex E above",
+    "render": "trapezoid ABCD with top side DC, dashed extensions DE and CE meeting at apex E above"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "point_01",
-        "point_02",
-        "point_03",
-        "point_04",
-        "point_E_inferred"
+        "point_A",
+        "point_B",
+        "point_C",
+        "point_D",
+        "point_E"
       ],
       "bbox": [
         0.03,
-        0.28,
+        0.3,
         0.97,
-        0.7
+        0.72
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Point labels differ in font shape: the render uses bold upright letters (\\mathbf), while the original uses italic math letters (A, B, C, D, E) with normal weight. Positions and binding are correct.",
-      "suggestion": "Change the label text from \\mathbf{X} to an italic math letter, e.g. $X$ (no \\mathbf), keeping the same below/above node anchors."
+      "description": "Vertex labels A, B, E (and C, D) are drawn in a heavier, bold-looking math font in the original; in the render they are lighter and thinner.",
+      "suggestion": "If matching the original is desired, bold the vertex labels, e.g. use \\textbf{$A$} or \\bfseries inside the node text, keeping the same node anchors."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base AB drawn solid between A and B, matching the original."
+      "note": "Dashed CE from E down-right to C is drawn correctly."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top side DC drawn solid between D and C, matching the original."
+      "note": "Dashed DE from D up-right to E is drawn correctly."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right leg BC is drawn solid from B to C, matching the original."
+      "note": "Solid top side DC is present and spans D to C."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left leg AD is drawn solid from A to D, matching the original."
+      "note": "Short dashed CE tail at C matches the original; the CV interruption is a label-contact artifact."
+    },
+    {
+      "object_id": "seg_05",
+      "status": "present",
+      "note": "Dashed DE start at D matches the original; CV marked it uncertain due to label contact."
+    },
+    {
+      "object_id": "seg_06",
+      "status": "unclear",
+      "note": "Short horizontal fragment at the E label glyph; this is text ink, not geometry."
+    },
+    {
+      "object_id": "seg_07",
+      "status": "unclear",
+      "note": "Short stroke inside the E label glyph; this is text ink, not geometry."
+    },
+    {
+      "object_id": "seg_08",
+      "status": "unclear",
+      "note": "Short stroke inside the E label glyph; this is text ink, not geometry."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "AB present and in the correct position."
+      "note": "Solid base AB is present and matches the original."
     },
     {
       "object_id": "seg_AD",
       "status": "present",
-      "note": "AD present, solid, ending at D."
+      "note": "Solid side AD is present and matches the original."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "BC present, solid, ending at C."
+      "note": "Solid side BC is present and matches the original."
     },
     {
       "object_id": "seg_CE",
       "status": "present",
-      "note": "Dashed CE from C to apex E matches the original."
+      "note": "Dashed CE is present and ends at C and E as in the original."
     },
     {
       "object_id": "seg_DC",
       "status": "present",
-      "note": "DC present, solid, between D and C."
+      "note": "Solid DC is present and matches the original."
     },
     {
       "object_id": "seg_DE",
       "status": "present",
-      "note": "Dashed DE from D to apex E matches the original."
+      "note": "Dashed DE is present and ends at D and E as in the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex B at bottom right with its label, correctly bound."
+      "note": "B is correctly placed at the bottom-right vertex."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex A at bottom left with its label, correctly bound."
+      "note": "A is correctly placed at the bottom-left vertex."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex C on the upper right with its label, correctly bound."
+      "note": "C is correctly placed at the top-right vertex of DC."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Vertex D on the upper left with its label, correctly bound."
+      "note": "D is correctly placed at the top-left vertex of DC."
     },
     {
-      "object_id": "point_E_inferred",
+      "object_id": "point_A",
       "status": "present",
-      "note": "Apex E is drawn where the original places it, with its label above."
+      "note": "Vertex A matches the original."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Vertex B matches the original."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Vertex C matches the original."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Vertex D matches the original."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Apex E is at the same position as in the original, within about 1 px."
     }
   ],
   "checklist_score": 1.0,
@@ -115,12 +155,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Trapezoid vertex positions and proportions match the original",
-    "Solid base AB and top DC",
-    "Solid legs AD and BC",
-    "Dashed extensions DE and CE meeting at E",
-    "Label presence and placement for A, B, C, D, E",
-    "Label bindings to A, B, C, D and E are correct"
+    "Trapezoid ABCD outline with A and B at the base and C and D at the top.",
+    "Solid top side DC and solid legs AD and BC.",
+    "Dashed DE and CE meeting at apex E, with endpoints at D and C.",
+    "Label positions for A, B, C, D, E are correct and clear of strokes.",
+    "Aspect ratio and overall proportions match."
   ],
   "labels": {
     "present": [
@@ -133,7 +172,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 3,
+  "version": 2,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

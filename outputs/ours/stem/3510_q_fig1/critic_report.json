@@ -1,93 +1,72 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is a faithful parallelogram ABCD with correct topology, labels and proportions; the only discrepancy is an overall scale difference of about 9%.",
+  "verdict": "The render is a faithful parallelogram ABCD with matching vertex positions, edge extents, and labels A, B, C, D bound to their vertices.",
   "figure_type": {
-    "original": "parallelogram ABCD (top side AD and bottom side BC horizontal, slanted sides AB and CD)",
-    "render": "parallelogram ABCD (top side AD and bottom side BC horizontal, slanted sides AB and CD)"
+    "original": "parallelogram ABCD, solid outline, horizontal top and bottom edges with slanted sides",
+    "render": "parallelogram ABCD, solid outline, horizontal top and bottom edges with slanted sides"
   },
-  "issues": [
-    {
-      "type": "layout_error",
-      "severity": "low",
-      "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_04"
-      ],
-      "bbox": [
-        0.06,
-        0.31,
-        0.93,
-        0.69
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "The render is about 9% smaller than the original (roughly 400 px wide versus 438 px in the original panel, for the same vertex geometry). Aspect ratio and slant match, so the shape is correct and only the absolute size differs.",
-      "suggestion": "If the figure size must match the original, scale the coordinates or the tikzpicture (for example with scale=1.09) so the rendered extent matches the original."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom horizontal side BC at y≈355 is drawn and spans from B to C."
+      "note": "Bottom edge at y≈355 (BC) is drawn in the render with matching extent from B to C."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top horizontal side DA at y≈119 is drawn and spans from A to D."
+      "note": "Top edge at y≈119 (DA) is drawn in the render with matching extent from A to D."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Left slanted side AB is drawn and meets A and B."
+      "note": "Left slanted side (AB) is drawn in the render, joining A and B at the original angle."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Right slanted side CD is drawn and meets C and D."
+      "note": "Right slanted side (CD) is drawn in the render, joining C and D at the original angle."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Left slanted side AB joins A to B, with the same slope as the original."
+      "note": "Edge AB runs from A to B in the render, matching the original."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Bottom side BC joins B to C with no overhang."
+      "note": "Edge BC runs from B to C in the render, matching the original."
     },
     {
       "object_id": "seg_CD",
       "status": "present",
-      "note": "Right slanted side CD joins C to D with the same slope as the original."
+      "note": "Edge CD runs from C to D in the render, matching the original."
     },
     {
       "object_id": "seg_DA",
       "status": "present",
-      "note": "Top side DA joins D to A with no overhang."
+      "note": "Edge DA runs from D to A in the render, matching the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex B is drawn at the lower-left corner with its label B below-left, as in the original."
+      "note": "Vertex B is at the bottom-left corner in both panels with its label below-left."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex C is drawn at the lower-right corner with its label C below-right, as in the original."
+      "note": "Vertex C is at the bottom-right corner in both panels with its label below-left."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex A is drawn at the upper-left corner with its label A above-left, as in the original."
+      "note": "Vertex A is at the top-left corner in both panels with its label above-right."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Vertex D is drawn at the upper-right corner with its label D above-right, as in the original."
+      "note": "Vertex D is at the top-right corner in both panels with its label above."
     }
   ],
   "checklist_score": 1.0,
@@ -99,12 +78,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Four vertices A, B, C, D are present in the correct positions, forming a parallelogram.",
-    "Top and bottom sides are horizontal and parallel; the slanted sides AB and CD are parallel with matching slope.",
-    "All sides meet cleanly at the vertices with no overhangs or gaps.",
-    "Labels A, B, C, D are spelled correctly, bound to the correct vertices, and clear of the strokes.",
-    "Aspect ratio (about 2:1) and slant match the original.",
-    "Line weight is visually comparable to the original."
+    "Four vertices A, B, C, D sit at the same relative positions in both panels.",
+    "Top and bottom edges are horizontal with matching lengths.",
+    "Both slanted sides meet the vertices at the same angle; the shape is not warped.",
+    "Labels A, B, C, D are present, spelled correctly, and clear of the strokes.",
+    "Stroke weight appears comparable between panels with no obvious difference."
   ],
   "labels": {
     "present": [

@@ -1,155 +1,156 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render faithfully reproduces the figure's topology, apex E, crossing O, D-Q-C path and right-angle mark; the only visible difference is stroke weight.",
+  "verdict": "The render closely matches the original: every line is drawn once, the right angle at D is in the same quadrant, and the O label clears the D--O--B and A--O--C lines. The only visible difference is label font weight.",
   "figure_type": {
-    "original": "parallelogram ABCD-style quadrilateral with apex E, interior crossing O, dashed diagonal A-O-C and right-angle mark at D",
-    "render": "same parallelogram with apex E, crossing O, dashed diagonal A-O-C and right-angle mark at D"
+    "original": "Planar line figure: parallelogram-like outline A-B-C-D with interior segments, a dashed diagonal A-O-C, a thin D-O-B line, and a right-angle mark at D.",
+    "render": "Same planar line figure with matching vertices, segment structure, dashed diagonal, thin D-O-B line and right-angle mark at D."
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_01",
-        "seg_03",
-        "seg_04",
-        "seg_07",
-        "seg_08",
-        "seg_09"
+        "point_01",
+        "point_02",
+        "point_03",
+        "point_04",
+        "point_05",
+        "point_06",
+        "point_08"
       ],
       "bbox": [
         0.02,
         0.2,
-        0.48,
-        0.8
+        0.99,
+        0.95
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Solid strokes in the ORIGINAL panel are heavier than the RENDER strokes (arc-free lines look roughly bold in the original and thinner in the render).",
-      "suggestion": "Optionally increase the global line width (currently 1.0pt) slightly, e.g. to about 1.2pt, if matching weight is desired. Geometry needs no change."
+      "description": "Point labels (E, Q, C, D, O, A, P, B) are rendered in a regular-weight italic serif. In the original they look heavier, closer to bold italic for A, P, B and E.",
+      "suggestion": "Optionally switch the label font to a bold italic math style (e.g. \\boldmath or \\mathbf inside the $...$) for A, B, E and P to match the original's weight. This is cosmetic and not required for geometric fidelity."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Top edge D-Q-C drawn at the same height and extent."
+      "note": "Horizontal D-Q-C top edge is drawn once and matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "P-Q diagonal through O matches the original."
+      "note": "Q-O-P diagonal is drawn once, passes through O, and ends at P as in the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Bottom edge A-P-B matches."
+      "note": "Bottom edge A-P-B matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "E-D-P stroke; slight bend at D is preserved in the render."
+      "note": "E-D-P line matches the original; it runs from E through D to P."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Dashed diagonal segment toward C matches the original dashed A-O-C."
+      "note": "Dashed A-O-C diagonal is present and matches the original's dash pattern and endpoints."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed diagonal toward A matches the original."
+      "note": "Dashed A-O-C diagonal is the same stroke as seg_05; drawn once in the render."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Q-to-D/B line through O matches."
+      "note": "Q-to-P-side diagonal matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "E-Q segment ends at Q as in the original."
+      "note": "E-Q line matches the original."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "C-B edge matches."
+      "note": "C-B edge matches the original."
     },
     {
       "object_id": "seg_10",
       "status": "present",
-      "note": "D-A edge matches."
+      "note": "D-A edge matches the original."
     },
     {
       "object_id": "seg_11",
       "status": "present",
-      "note": "Short A-P bottom segment matches."
+      "note": "Short bottom-left segment near A-P matches the original."
     },
     {
-      "object_id": "ra_D",
+      "object_id": "ra_01",
       "status": "present",
-      "note": "Right-angle square at D is drawn in the same quadrant as the original."
+      "note": "Right-angle mark at D sits in the same quadrant as the original (between DA and DB)."
+    },
+    {
+      "object_id": "right_angle_01",
+      "status": "present",
+      "note": "Same right-angle mark at D as ra_01; the single pic is correct."
     },
     {
       "object_id": "junction_seg_04_seg_08",
       "status": "present",
-      "note": "Apex E is drawn at the same position with both arms meeting there; labelled E above."
+      "note": "E label sits above the apex E, which joins E-D-P and E-Q, as in the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "D label present, left of vertex D, clear of strokes."
+      "note": "D label is at the left of D, matching the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "C label present above-right of vertex C."
+      "note": "C label sits above-right of C, matching the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Q label present above Q, clear of strokes."
+      "note": "Q label sits above-right of Q, matching the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "B label present below-right of vertex B."
+      "note": "B label sits below-right of B, matching the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "O label present near the crossing, sitting just below the dashed line as in the original."
+      "note": "O label sits below the intersection with clear space from D-O-B and A-O-C, matching the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "P label present below vertex P."
+      "note": "P label is below P, matching the original."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "A label present below-left of vertex A."
+      "note": "A label sits below-left of A, matching the original."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "A label matches the original."
+      "note": "Alias of point_08 (label A); the A label is visible and correctly placed in both panels."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "B label matches the original."
+      "note": "Alias of point_04 (label B); the B label is visible and correctly placed in both panels."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "C label matches the original."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "D label matches the original."
+      "note": "Alias of point_02 (label C); the C label is visible and correctly placed in both panels."
     }
   ],
   "checklist_score": 1.0,
@@ -161,29 +162,29 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Apex E and its two strokes E-Q and E-D-P meet at the same point as the original, with no visible kink beyond the original's slight bend at D.",
-    "Crossing O lies where P-Q, D-B and dashed A-C meet in the original; the render places it the same way.",
-    "Top path D-Q-C is a single continuous stroke with no duplicate fragments.",
-    "Dashed A-O-C diagonal runs from A to C through O with matching dash style.",
-    "Right-angle square at D is present in the same quadrant as the original.",
-    "All eight point labels (E, D, Q, C, A, P, B, O) are present, correctly spelled and bound to their vertices, with no stroke crossing a glyph.",
-    "Overall aspect ratio and proportions of the parallelogram match."
+    "Segments E-Q, E-D-P, D-Q-C, Q-O-P, C-B, A-P-B and A-D are all drawn once with correct endpoints.",
+    "Dashed diagonal A-O-C is present with the same extent as the original.",
+    "Thin D-O-B line is present and ends at B as in the original.",
+    "Right-angle mark at D is in the correct quadrant with the same orientation.",
+    "O label has a clear gap from the D-O-B and A-O-C lines.",
+    "All eight point labels (E, Q, C, D, O, A, P, B) are present with correct spelling and vertex binding.",
+    "No duplicate fragments around the diagonal between O and P or the baseline left of P."
   ],
   "labels": {
     "present": [
       "E",
-      "D",
       "Q",
       "C",
+      "D",
+      "O",
       "A",
       "P",
-      "B",
-      "O"
+      "B"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 10,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

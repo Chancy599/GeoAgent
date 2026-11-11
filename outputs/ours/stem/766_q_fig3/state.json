@@ -436,29 +436,48 @@
         ]
       }
     },
-    "point_M2": {
-      "id": "point_M2",
-      "type": "point",
-      "label": "M2",
+    "circle_01": {
+      "id": "circle_01",
+      "type": "circle",
+      "label": null,
       "coords": {
-        "px": [
-          178.12,
-          221.02
-        ]
+        "center_px": [
+          177.73,
+          221.16
+        ],
+        "radius_px": 118.03,
+        "visible_ranges_deg": [
+          [
+            0.0,
+            360.0
+          ]
+        ],
+        "visible_span_deg": 360.0
       },
-      "normalized": {},
+      "normalized": {
+        "center": [
+          0.4978,
+          0.601
+        ],
+        "radius": 0.3207
+      },
       "style": {},
-      "source": "geometry_agent",
-      "status": "confirmed",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "source": "cv:detect_circles",
+      "status": "candidate",
+      "confidence_kind": "heuristic",
       "confidence": null,
-      "notes": [],
-      "attributes": {}
+      "notes": [
+        "skeleton RANSAC + Kasa refit"
+      ],
+      "attributes": {
+        "ink_coverage": 1.0,
+        "angle_frame": "image pixel frame (x right, y down); flip y for TikZ"
+      }
     },
     "point_A1": {
       "id": "point_A1",
       "type": "point",
-      "label": "A1",
+      "label": "A_1",
       "coords": {
         "px": [
           79.43,
@@ -477,7 +496,7 @@
     "point_B1": {
       "id": "point_B1",
       "type": "point",
-      "label": "B1",
+      "label": "B_1",
       "coords": {
         "px": [
           275.56,
@@ -493,10 +512,29 @@
       "notes": [],
       "attributes": {}
     },
+    "point_M2": {
+      "id": "point_M2",
+      "type": "point",
+      "label": "M_2",
+      "coords": {
+        "px": [
+          178.12,
+          221.02
+        ]
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
     "seg_A1B1": {
       "id": "seg_A1B1",
       "type": "segment",
-      "label": "A1B1",
+      "label": "A_1B_1",
       "coords": {
         "a_px": [
           79.43,
@@ -521,7 +559,7 @@
     "seg_A1M2": {
       "id": "seg_A1M2",
       "type": "segment",
-      "label": "A1M2",
+      "label": "A_1M_2",
       "coords": {
         "a_px": [
           79.43,
@@ -546,7 +584,7 @@
     "seg_B1M2": {
       "id": "seg_B1M2",
       "type": "segment",
-      "label": "B1M2",
+      "label": "B_1M_2",
       "coords": {
         "a_px": [
           275.56,
@@ -561,26 +599,6 @@
       "style": {
         "line": "solid"
       },
-      "source": "geometry_agent",
-      "status": "candidate",
-      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
-      "confidence": null,
-      "notes": [],
-      "attributes": {}
-    },
-    "circle_M2": {
-      "id": "circle_M2",
-      "type": "circle",
-      "label": null,
-      "coords": {
-        "center_px": [
-          178.12,
-          221.02
-        ],
-        "radius_px": 118.0
-      },
-      "normalized": {},
-      "style": {},
       "source": "geometry_agent",
       "status": "candidate",
       "confidence_kind": "heuristic-evidence (not a calibrated probability)",
@@ -603,45 +621,27 @@
       "id": "rel_002",
       "subject": "point_M2",
       "relation": "center_of",
-      "object": "circle_M2",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "Circle centred at the apex M2, passing through point_04 and point_05 on the two slanted strokes",
+      "evidence": "detect_circles center (177.7,221.2) matches apex point_01 within ~0.5 px",
       "status": "candidate"
     },
     "rel_003": {
       "id": "rel_003",
       "subject": "point_04",
       "relation": "on_circle",
-      "object": "circle_M2",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "Intersection of seg_A1M2 with circle",
+      "evidence": "ray A_1M_2 crosses circle at (119.75,118.35)",
       "status": "candidate"
     },
     "rel_004": {
       "id": "rel_004",
       "subject": "point_05",
       "relation": "on_circle",
-      "object": "circle_M2",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "Intersection of seg_B1M2 with circle",
-      "status": "candidate"
-    },
-    "rel_005": {
-      "id": "rel_005",
-      "subject": "point_04",
-      "relation": "on_segment",
-      "object": "seg_A1M2",
-      "source": "geometry_agent",
-      "evidence": "Collinear with A1 and M2 (x=119.3 at y=118 on line)",
-      "status": "candidate"
-    },
-    "rel_006": {
-      "id": "rel_006",
-      "subject": "point_05",
-      "relation": "on_segment",
-      "object": "seg_B1M2",
-      "source": "geometry_agent",
-      "evidence": "Collinear with B1 and M2",
+      "evidence": "ray B_1M_2 crosses circle at (235.98,118.5)",
       "status": "candidate"
     }
   },
@@ -657,7 +657,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:06:33"
+      "created_at": "2026-11-11T13:00:42"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -670,7 +670,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:06:42"
+      "created_at": "2026-11-11T13:00:43"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -683,36 +683,56 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:06:49"
+      "created_at": "2026-11-11T13:00:43"
     },
     "ev_0004": {
       "id": "ev_0004",
-      "source": "geometry_agent",
-      "method": "geometry agent submission",
-      "summary": "Triangle-like figure: horizontal top segment A1-B1 (point_02 to point_03, y=48). Two solid straight strokes run from A1 down to apex M2 (point_01, ~(178,221)) and from B1 down to M2. A solid circle is centred at M2 (radius ~118 px, spanning x~60-296, y~102-340); it crosses A1-M2 at point_04 and B1-M2 at point_05. All strokes are solid. No right-angle marks, no feet, no dashed strokes. The short segment seg_04 and junction_seg_01_seg_04 / junction_seg_02_seg_04 lie inside the M2 glyph and are not geometry.",
+      "source": "cv_tool",
+      "method": "detect_circles",
+      "summary": "detect_circles produced 1 result(s)",
       "payload": {
-        "merged": {
-          "objects": 9,
-          "relations": 5,
-          "conflicts": 2,
-          "rejected": []
-        },
-        "object_ids": [
-          "point_M2",
-          "point_A1",
-          "point_B1",
-          "point_04",
-          "point_05",
-          "seg_A1B1",
-          "seg_A1M2",
-          "seg_B1M2",
-          "circle_M2"
-        ]
+        "params": {},
+        "tool": "detect_circles"
       },
-      "created_at": "2026-11-09T23:07:02"
+      "created_at": "2026-11-11T13:00:53"
     },
     "ev_0005": {
       "id": "ev_0005",
+      "source": "cv_tool",
+      "method": "detect_right_angle_marker",
+      "summary": "detect_right_angle_marker produced 0 result(s)",
+      "payload": {
+        "params": {},
+        "tool": "detect_right_angle_marker"
+      },
+      "created_at": "2026-11-11T13:00:54"
+    },
+    "ev_0006": {
+      "id": "ev_0006",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Figure: triangle-like open construction. Top horizontal segment A_1–B_1 at y≈48 (point_02 to point_03). Two straight rays from apex M_2 (point_01, ≈(178,221)) rise to A_1 and B_1 (seg_01, seg_02), all solid. A full solid circle_01 centered at M_2 with radius ≈118 px; the rays cross it at point_04 (≈(120,118)) and point_05 (≈(236,118)). No dashed strokes. No right-angle marks (detect_right_angle_marker returned 0). No feet. seg_04 (≈(183,231)-(179,249)) is ink from the 'M_2' glyph, not geometry; excluded.",
+      "payload": {
+        "merged": {
+          "objects": 7,
+          "relations": 3,
+          "conflicts": 1,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_A1",
+          "point_B1",
+          "point_M2",
+          "seg_A1B1",
+          "seg_A1M2",
+          "seg_B1M2",
+          "circle_01"
+        ]
+      },
+      "created_at": "2026-11-11T13:01:06"
+    },
+    "ev_0007": {
+      "id": "ev_0007",
       "source": "renderer",
       "method": "frame_like_original",
       "summary": "v1 canvas matched to source [357, 368] (scale 0.4904)",
@@ -732,10 +752,10 @@
           32
         ]
       },
-      "created_at": "2026-11-09T23:07:25"
+      "created_at": "2026-11-11T13:01:27"
     },
-    "ev_0006": {
-      "id": "ev_0006",
+    "ev_0008": {
+      "id": "ev_0008",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
       "summary": "v1: no_candidates",
@@ -747,17 +767,17 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "19274749474e6173941ffa617fb4ad92fc7c080c66c1563dd6ff6317d3c69a12",
-        "output_sha256": "19274749474e6173941ffa617fb4ad92fc7c080c66c1563dd6ff6317d3c69a12",
+        "input_sha256": "a79021c3858120f634f159b8c8ab09a68aff0c975ccfc6b1b02b7895224bb7b2",
+        "output_sha256": "a79021c3858120f634f159b8c8ab09a68aff0c975ccfc6b1b02b7895224bb7b2",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -767,13 +787,15 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 0,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
@@ -800,15 +822,15 @@
                 -0.01,
                 -0.971
               ],
-              "radius": 3.095
+              "radius": 3.096
             }
           ]
         },
         "candidate_count": 0,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -821,22 +843,22 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T23:07:25"
+      "created_at": "2026-11-11T13:01:27"
     },
-    "ev_0007": {
-      "id": "ev_0007",
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "code_agent",
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "A is taken from the program-owned coordinate block (not redefined). B1 and M2 are defined in the same frame using the stated scale s=0.02623. Circle is a full circle of radius 3.095 cm centred at M2. Labels use left/right/below placement with 14pt font; line width 1.5pt with round joins. No right-angle marks or dashed styles are required.",
+        "notes": "A is the program-owned coordinate (A_1) and is not redefined. B_1 and M_2 are converted with the same frame as the metrics block: x=(px-178.5)*0.02623, y=(184-py)*0.02623. Circle radius is 118.03 px*0.02623 = 3.096 cm. Line width 1.5pt with round joins and 14pt labels follow STYLE METRICS. Only solid strokes are drawn, with no right-angle marks or the M_2 glyph ink. Program-owned coordinate A must match (-2.599,3.567), which it does.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\766_q_fig3\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\766_q_fig3\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -866,12 +888,12 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\766_q_fig3\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\766_q_fig3\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
@@ -891,374 +913,21 @@
           ]
         }
       },
-      "created_at": "2026-11-09T23:07:25"
-    },
-    "ev_0008": {
-      "id": "ev_0008",
-      "source": "tikz_constraint_repair",
-      "method": "post-generation joint coordinate projection",
-      "summary": "v2: no_candidates",
-      "payload": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "59b3f44046a7c596b47f754002763ca7017e020591b0b64b3dd2a602ca8c6859",
-        "output_sha256": "59b3f44046a7c596b47f754002763ca7017e020591b0b64b3dd2a602ca8c6859",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "M"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "M"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                -0.01,
-                -0.971
-              ],
-              "radius": 3.095
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "created_at": "2026-11-09T23:07:55"
-    },
-    "ev_0009": {
-      "id": "ev_0009",
-      "source": "code_agent",
-      "method": "tikz repair",
-      "summary": "v2 compiled=False validation=False",
-      "payload": {
-        "notes": "Kept all geometry, the program-owned coordinate frame, the full circle centred at M2, and the topology unchanged. Only the label styling changed: A_1, B_1, M_2 are now bold math (\\boldmath with \\mathbf) at 16pt on a 19.2pt leading, still bound to their vertices with the same left/right/below placements. Did not alter the stroke width or the coordinate scale.",
-        "compile": {
-          "compile_ok": false,
-          "validation_passed": false,
-          "errors": [
-            "error: figure.tex:22: Use of \\reserved@a doesn't match its definition error: something bad happened inside XeTeX; its output follows:",
-            "error: something bad happened inside XeTeX; its output follows: ===============================================================================",
-            "! Use of \\reserved@a doesn't match its definition. \\reserved@b ->\\relax",
-            "l.22 ...6}{19.2}\\selectfont $\\boldmath\\mathbf{B_1}",
-            "error: the XeTeX engine had an unrecoverable error caused by: halted on potentially-recoverable error as specified"
-          ],
-          "warnings": [],
-          "png_path": null,
-          "pdf_path": null,
-          "checks": [
-            {
-              "name": "documentclass",
-              "passed": true,
-              "detail": "documentclass present"
-            },
-            {
-              "name": "document_environment",
-              "passed": true,
-              "detail": "begin=1 end=1"
-            },
-            {
-              "name": "tikzpicture",
-              "passed": true,
-              "detail": "one balanced tikzpicture"
-            },
-            {
-              "name": "no_shell_escape",
-              "passed": true,
-              "detail": "no \\write18/\\openout primitives"
-            },
-            {
-              "name": "compiler_ok",
-              "passed": false,
-              "detail": "returncode=1"
-            },
-            {
-              "name": "pdf_created",
-              "passed": false,
-              "detail": "missing"
-            },
-            {
-              "name": "png_rendered",
-              "passed": false,
-              "detail": "missing"
-            },
-            {
-              "name": "render_not_blank",
-              "passed": false,
-              "detail": "ink_ratio=n/a"
-            }
-          ]
-        }
-      },
-      "created_at": "2026-11-09T23:07:55"
-    },
-    "ev_0010": {
-      "id": "ev_0010",
-      "source": "renderer",
-      "method": "frame_like_original",
-      "summary": "v3 canvas matched to source [357, 368] (scale 0.4888)",
-      "payload": {
-        "ok": true,
-        "size": [
-          357,
-          368
-        ],
-        "reference_size": [
-          357,
-          368
-        ],
-        "scale": 0.4888,
-        "offset": [
-          42,
-          32
-        ]
-      },
-      "created_at": "2026-11-09T23:08:12"
-    },
-    "ev_0011": {
-      "id": "ev_0011",
-      "source": "tikz_constraint_repair",
-      "method": "post-generation joint coordinate projection",
-      "summary": "v3: no_candidates",
-      "payload": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "6b2bb20fb5428df984f8cc1bf827d433c1c27d46c6273b44397da00c84e78200",
-        "output_sha256": "6b2bb20fb5428df984f8cc1bf827d433c1c27d46c6273b44397da00c84e78200",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "M"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "M"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                -0.01,
-                -0.971
-              ],
-              "radius": 3.095
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "created_at": "2026-11-09T23:08:12"
-    },
-    "ev_0012": {
-      "id": "ev_0012",
-      "source": "code_agent",
-      "method": "tikz repair",
-      "summary": "v3 compiled=True validation=True",
-      "payload": {
-        "notes": "Removed \\boldmath (the cause of the XeTeX error) and switched to \\mathbf{A_1}, \\mathbf{B_1}, \\mathbf{M_2} inside \\fontsize{16}{19.2}\\selectfont, as instructed. Geometry, coordinates, the full circle centred at M, line width 1.5pt and topology are unchanged. Label placements (left of A, right of B, below M) are kept. Note: STYLE METRICS suggested 14/16.8pt; I followed the explicit repair instruction of 16/19.2pt. The program-owned coordinate definitions are left as provided, and the program-inserted definitions were not re-emitted beyond the frame reference comment.",
-        "compile": {
-          "compile_ok": true,
-          "validation_passed": true,
-          "errors": [],
-          "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v3\\v3.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v3\\v3.pdf",
-          "checks": [
-            {
-              "name": "documentclass",
-              "passed": true,
-              "detail": "documentclass present"
-            },
-            {
-              "name": "document_environment",
-              "passed": true,
-              "detail": "begin=1 end=1"
-            },
-            {
-              "name": "tikzpicture",
-              "passed": true,
-              "detail": "one balanced tikzpicture"
-            },
-            {
-              "name": "no_shell_escape",
-              "passed": true,
-              "detail": "no \\write18/\\openout primitives"
-            },
-            {
-              "name": "compiler_ok",
-              "passed": true,
-              "detail": "returncode=0"
-            },
-            {
-              "name": "pdf_created",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v3\\v3.pdf"
-            },
-            {
-              "name": "png_rendered",
-              "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v3\\v3.png"
-            },
-            {
-              "name": "render_not_blank",
-              "passed": true,
-              "detail": "ink_ratio=0.0405"
-            },
-            {
-              "name": "aspect_ratio",
-              "passed": true,
-              "detail": "reference 0.97 vs render 0.87 (delta 0.10)"
-            },
-            {
-              "name": "figure_extent_ratio",
-              "passed": true,
-              "detail": "figure bbox ratio 0.86"
-            }
-          ]
-        }
-      },
-      "created_at": "2026-11-09T23:08:12"
+      "created_at": "2026-11-11T13:01:27"
     }
   },
   "conflicts": [
     {
       "id": "conflict_001",
-      "topic": "Letter at point_02",
+      "topic": "Letter identity of top-left vertex",
       "claims": [
         {
-          "source": "OCR bind_point_labels",
+          "source": "bind_point_labels OCR",
           "claim": "A"
         },
         {
-          "source": "visual inspection",
-          "claim": "A with subscript 1 (A1)"
-        }
-      ],
-      "status": "unresolved",
-      "resolution": null
-    },
-    {
-      "id": "conflict_002",
-      "topic": "Letter at point_03 and point_01",
-      "claims": [
-        {
-          "source": "OCR bind_point_labels",
-          "claim": "unlabelled"
-        },
-        {
-          "source": "visual inspection",
-          "claim": "B1 and M2 printed"
+          "source": "visual inspection of figure",
+          "claim": "A_1 (subscript 1)"
         }
       ],
       "status": "unresolved",
@@ -1268,9 +937,9 @@
   "label_bindings": {
     "A": "point_02"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-2.599,3.567);\n\n\n\n\\coordinate (B) at (2.546,3.567);\n\\coordinate (M) at (-0.010,-0.971);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (M);\n\\draw (B) -- (M);\n\n\n\\draw (M) circle (3.095);\n\n\n\\node[left] at (A) {\\fontsize{16}{19.2}\\selectfont $\\mathbf{A_1}$};\n\\node[right] at (B) {\\fontsize{16}{19.2}\\selectfont $\\mathbf{B_1}$};\n\\node[below] at (M) {\\fontsize{16}{19.2}\\selectfont $\\mathbf{M_2}$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-2.599,3.567);\n\n\n\n\\coordinate (B) at (2.546,3.567);\n\\coordinate (M) at (-0.010,-0.971);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (M);\n\\draw (B) -- (M);\n\n\n\\draw (M) circle (3.095);\n\n\n\\node[left] at (A) {\\fontsize{16}{19.2}\\selectfont $\\mathbf{A_1}$};\n\\node[right] at (B) {\\fontsize{16}{19.2}\\selectfont $\\mathbf{B_1}$};\n\\node[below] at (M) {\\fontsize{16}{19.2}\\selectfont $\\mathbf{M_2}$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_version": 3,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-2.599,3.567);\n\n\n\n\\coordinate (B) at (2.546,3.567);   \n\\coordinate (M) at (-0.010,-0.971); \n\n\n\\draw (A) -- (B);\n\\draw (A) -- (M);\n\\draw (B) -- (M);\n\n\n\\draw (M) circle (3.096);\n\n\n\\node[left] at (A) {\\fontsize{14}{16.8}\\selectfont $A_1$};\n\\node[right] at (B) {\\fontsize{14}{16.8}\\selectfont $B_1$};\n\\node[below] at (M) {\\fontsize{14}{16.8}\\selectfont $M_2$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-2.599,3.567);\n\n\n\n\\coordinate (B) at (2.546,3.567);   \n\\coordinate (M) at (-0.010,-0.971); \n\n\n\\draw (A) -- (B);\n\\draw (A) -- (M);\n\\draw (B) -- (M);\n\n\n\\draw (M) circle (3.096);\n\n\n\\node[left] at (A) {\\fontsize{14}{16.8}\\selectfont $A_1$};\n\\node[right] at (B) {\\fontsize{14}{16.8}\\selectfont $B_1$};\n\\node[below] at (M) {\\fontsize{14}{16.8}\\selectfont $M_2$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_version": 1,
   "best_score": 0.9,
   "tikz_versions": [
     {
@@ -1279,193 +948,7 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-2.599,3.567);\n\n\n\n\\coordinate (B) at (2.546,3.567);   \n\\coordinate (M) at (-0.010,-0.971); \n\n\n\\draw (A) -- (B);\n\\draw (A) -- (M);\n\\draw (B) -- (M);\n\n\n\\draw (M) circle (3.095);\n\n\n\\node[left] at (A) {\\fontsize{14}{16.8}\\selectfont $A_1$};\n\\node[right] at (B) {\\fontsize{14}{16.8}\\selectfont $B_1$};\n\\node[below] at (M) {\\fontsize{14}{16.8}\\selectfont $M_2$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.png",
-      "ok": true,
-      "compiled": true,
-      "errors": [],
-      "warnings": [],
-      "created_at": "2026-11-09T23:07:19",
-      "agent": "code_agent",
-      "mode": "generate",
-      "notes": "A is taken from the program-owned coordinate block (not redefined). B1 and M2 are defined in the same frame using the stated scale s=0.02623. Circle is a full circle of radius 3.095 cm centred at M2. Labels use left/right/below placement with 14pt font; line width 1.5pt with round joins. No right-angle marks or dashed styles are required.",
-      "compile_seconds": 5.528,
-      "critic_report": {
-        "assessment_score": 0.9,
-        "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render reproduces the triangle A1B1M2 and the circle centred at M2 with matching proportions and intersections; the only visible difference is the lighter, smaller label typography.",
-        "figure_type": {
-          "original": "Equilateral-style triangle A1B1M2 (apex M2 at circle centre) with a circle centred at M2; A1B1 horizontal top side; labels A1, B1, M2",
-          "render": "Triangle A1B1M2 with apex M2 at circle centre and a circle centred at M2; horizontal top side A1B1; labels A1, B1, M2"
-        },
-        "issues": [
-          {
-            "type": "wrong_style",
-            "severity": "low",
-            "object_ids": [
-              "point_A1",
-              "point_B1",
-              "point_M2"
-            ],
-            "bbox": [
-              0.09,
-              0.06,
-              0.92,
-              0.13
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "Point labels A1, B1 in the render are set in a smaller, lighter weight than the original, where the labels are larger and bold. The M2 label is also lighter in the render than in the original.",
-            "suggestion": "Use a larger bold math font for the labels, e.g. \\fontsize{14}{16.8}\\selectfont with \\boldmath or \\mathbf for A_1, B_1, M_2, to match the original weight."
-          },
-          {
-            "type": "wrong_style",
-            "severity": "low",
-            "object_ids": [
-              "point_M2"
-            ],
-            "bbox": [
-              0.44,
-              0.62,
-              0.56,
-              0.7
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "The M2 label in the render is light and smaller than the original's bold M2 placed just below the apex. Its placement and clearance from the circle and legs are otherwise faithful.",
-            "suggestion": "Keep the node below M2 with \\node[below] and make the text bold and slightly larger to match the original."
-          }
-        ],
-        "checks": [
-          {
-            "object_id": "circle_M2",
-            "status": "present",
-            "note": "Circle centred at M2 with the same extent as the original; the radius differs by only a few pixels, which is within estimation tolerance."
-          },
-          {
-            "object_id": "seg_01",
-            "status": "present",
-            "note": "Left leg from A1 to M2 is drawn and ends at the apex as in the original."
-          },
-          {
-            "object_id": "seg_02",
-            "status": "present",
-            "note": "Right leg from B1 to M2 is drawn and ends at the apex as in the original."
-          },
-          {
-            "object_id": "seg_03",
-            "status": "present",
-            "note": "Top side A1B1 is horizontal and spans the same width as the original."
-          },
-          {
-            "object_id": "seg_04",
-            "status": "present",
-            "note": "CV fragment treated as M2 glyph debris; no stroke in the original corresponds to it, and nothing is expected in the render."
-          },
-          {
-            "object_id": "seg_A1B1",
-            "status": "present",
-            "note": "Top side A1B1 is drawn from A1 to B1 as in the original."
-          },
-          {
-            "object_id": "seg_A1M2",
-            "status": "present",
-            "note": "Segment from A1 to M2 is drawn and meets the circle at the same intersection point as the original."
-          },
-          {
-            "object_id": "seg_B1M2",
-            "status": "present",
-            "note": "Segment from B1 to M2 is drawn and meets the circle at the same intersection point as the original."
-          },
-          {
-            "object_id": "point_02",
-            "status": "present",
-            "note": "The labelled vertex at the top-left corner is drawn as A1 in the render; the OCR letter A is the base of the printed A_1 label."
-          },
-          {
-            "object_id": "point_A1",
-            "status": "present",
-            "note": "A1 label is placed at the top-left vertex with clear separation from the top side, as in the original."
-          },
-          {
-            "object_id": "point_B1",
-            "status": "present",
-            "note": "B1 label is placed at the top-right vertex, as in the original."
-          },
-          {
-            "object_id": "point_M2",
-            "status": "present",
-            "note": "M2 label is drawn below the apex at the circle centre, as in the original."
-          }
-        ],
-        "checklist_score": 1.0,
-        "actionable_counts": {
-          "high": 0,
-          "medium": 0,
-          "low": 2
-        },
-        "flaky_count": 0,
-        "must_repair": true,
-        "matches": [
-          "Triangle A1B1M2 has the same shape and proportions as the original, with the apex at the circle centre.",
-          "The circle is centred at M2 and spans the same horizontal and vertical extent as the original.",
-          "Both legs cross the circle at the same points, and the top side A1B1 is horizontal with matching length.",
-          "Labels A1, B1 and M2 are present with correct subscripts and placement relative to their vertices.",
-          "No extra strokes or labels appear in the render."
-        ],
-        "labels": {
-          "present": [
-            "A1",
-            "B1",
-            "M2"
-          ],
-          "missing": [],
-          "extra": []
-        },
-        "version": 1,
-        "binding_decisions": [],
-        "topology_decisions": [],
-        "raw_meta": "{}"
-      },
-      "critic_score": 0.9
-    },
-    {
-      "topology_check": {
-        "passed": true,
-        "missing_edges": []
-      },
-      "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-2.599,3.567);\n\n\n\n\\coordinate (B) at (2.546,3.567);\n\\coordinate (M) at (-0.010,-0.971);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (M);\n\\draw (B) -- (M);\n\n\n\\draw (M) circle (3.095);\n\n\n\\node[left] at (A) {\\fontsize{16}{19.2}\\selectfont $\\boldmath\\mathbf{A_1}$};\n\\node[right] at (B) {\\fontsize{16}{19.2}\\selectfont $\\boldmath\\mathbf{B_1}$};\n\\node[below] at (M) {\\fontsize{16}{19.2}\\selectfont $\\boldmath\\mathbf{M_2}$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v2\\v2.tex",
-      "pdf_path": null,
-      "png_path": null,
-      "ok": false,
-      "compiled": true,
-      "errors": [
-        "error: figure.tex:22: Use of \\reserved@a doesn't match its definition error: something bad happened inside XeTeX; its output follows:",
-        "error: something bad happened inside XeTeX; its output follows: ===============================================================================",
-        "! Use of \\reserved@a doesn't match its definition. \\reserved@b ->\\relax",
-        "l.22 ...6}{19.2}\\selectfont $\\boldmath\\mathbf{B_1}",
-        "error: the XeTeX engine had an unrecoverable error caused by: halted on potentially-recoverable error as specified"
-      ],
-      "warnings": [],
-      "created_at": "2026-11-09T23:07:53",
-      "agent": "code_agent",
-      "mode": "repair",
-      "notes": "Kept all geometry, the program-owned coordinate frame, the full circle centred at M2, and the topology unchanged. Only the label styling changed: A_1, B_1, M_2 are now bold math (\\boldmath with \\mathbf) at 16pt on a 19.2pt leading, still bound to their vertices with the same left/right/below placements. Did not alter the stroke width or the coordinate scale.",
-      "compile_seconds": 2.366,
-      "critic_report": null,
-      "critic_score": null
-    },
-    {
-      "topology_check": {
-        "passed": true,
-        "missing_edges": []
-      },
-      "version": 3,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-2.599,3.567);\n\n\n\n\\coordinate (B) at (2.546,3.567);\n\\coordinate (M) at (-0.010,-0.971);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (M);\n\\draw (B) -- (M);\n\n\n\\draw (M) circle (3.095);\n\n\n\\node[left] at (A) {\\fontsize{16}{19.2}\\selectfont $\\mathbf{A_1}$};\n\\node[right] at (B) {\\fontsize{16}{19.2}\\selectfont $\\mathbf{B_1}$};\n\\node[below] at (M) {\\fontsize{16}{19.2}\\selectfont $\\mathbf{M_2}$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.5pt, line join=round]\n\\coordinate (A) at (-2.599,3.567);\n\n\n\n\\coordinate (B) at (2.546,3.567);   \n\\coordinate (M) at (-0.010,-0.971); \n\n\n\\draw (A) -- (B);\n\\draw (A) -- (M);\n\\draw (B) -- (M);\n\n\n\\draw (M) circle (3.096);\n\n\n\\node[left] at (A) {\\fontsize{14}{16.8}\\selectfont $A_1$};\n\\node[right] at (B) {\\fontsize{14}{16.8}\\selectfont $B_1$};\n\\node[below] at (M) {\\fontsize{14}{16.8}\\selectfont $M_2$};\n\\end{tikzpicture}\n\\end{document}",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\766_q_fig3\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\766_q_fig3\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\766_q_fig3\\best.png",
@@ -1473,100 +956,100 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:08:07",
+      "created_at": "2026-11-11T13:01:25",
       "agent": "code_agent",
-      "mode": "repair",
-      "notes": "Removed \\boldmath (the cause of the XeTeX error) and switched to \\mathbf{A_1}, \\mathbf{B_1}, \\mathbf{M_2} inside \\fontsize{16}{19.2}\\selectfont, as instructed. Geometry, coordinates, the full circle centred at M, line width 1.5pt and topology are unchanged. Label placements (left of A, right of B, below M) are kept. Note: STYLE METRICS suggested 14/16.8pt; I followed the explicit repair instruction of 16/19.2pt. The program-owned coordinate definitions are left as provided, and the program-inserted definitions were not re-emitted beyond the frame reference comment.",
-      "compile_seconds": 4.069,
+      "mode": "generate",
+      "notes": "A is the program-owned coordinate (A_1) and is not redefined. B_1 and M_2 are converted with the same frame as the metrics block: x=(px-178.5)*0.02623, y=(184-py)*0.02623. Circle radius is 118.03 px*0.02623 = 3.096 cm. Line width 1.5pt with round joins and 14pt labels follow STYLE METRICS. Only solid strokes are drawn, with no right-angle marks or the M_2 glyph ink. Program-owned coordinate A must match (-2.599,3.567), which it does.",
+      "compile_seconds": 2.336,
       "critic_report": {
         "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render reproduces the original triangle A1B1M2 and the circle centred at M2 faithfully; the only visible difference is the lighter, smaller label typography.",
+        "verdict": "The render is faithful: the triangle A_1B_1M_2 and the circle centred on M_2 match the original in geometry and intersections; only the label size and the bold M_2 differ.",
         "figure_type": {
-          "original": "Isosceles triangle A1B1M2 with horizontal top side A1B1 and apex M2 at the centre of a circle that crosses both slanted sides",
-          "render": "Same triangle A1B1M2 with a circle centred at M2 crossing both slanted sides"
+          "original": "Isosceles triangle A_1B_1M_2 (apex M_2) with a circle centred at M_2 that crosses both legs; top side horizontal",
+          "render": "Isosceles triangle A_1B_1M_2 (apex M_2) with a circle centred at M_2 that crosses both legs; top side horizontal"
         },
         "issues": [
           {
-            "type": "wrong_style",
+            "type": "label_error",
             "severity": "low",
             "object_ids": [
+              "point_M2",
               "point_A1",
-              "point_B1",
-              "point_M2"
+              "point_B1"
             ],
             "bbox": [
-              0.45,
-              0.6,
+              0.44,
+              0.61,
               0.56,
-              0.7
+              0.71
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Point labels A1, B1 and M2 are set in a lighter, smaller weight in the render than the bold labels in the original. The M2 label in the original is bold and sits just below the apex with clear separation; the render's M2 is light. Placement and vertex association are correct.",
-            "suggestion": "Optionally bold the subscripts and the M2 label (e.g. \\mathbf{M_2} is already used; check that the fontsize/weight matches the original). Keep the node placement below M2 and the binding to the vertex unchanged."
+            "description": "Point labels are smaller and lighter than in the original. The original M_2 is bold and noticeably larger; the render uses a regular-weight, smaller M_2. The A_1 and B_1 labels are also somewhat smaller. Clearances from the strokes are fine.",
+            "suggestion": "Optionally match the original label size and weight, e.g. use \\boldmath or \\mathbf for M_2 and increase the font size for all three labels. This is cosmetic only."
           }
         ],
         "checks": [
           {
-            "object_id": "circle_M2",
+            "object_id": "circle_01",
             "status": "present",
-            "note": "Circle centred at M2 with matching radius; crosses both slanted sides at the same places as the original."
+            "note": "Circle centred at M_2 with radius about 217 px in the panel, matching the original; crosses both legs at the same places."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Left slanted side from A1 down to M2 is drawn in the same position."
+            "note": "Left leg from A_1 to M_2 is drawn and ends at M_2 as in the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Right slanted side from B1 down to M2 is drawn in the same position."
+            "note": "Right leg from B_1 to M_2 is drawn and ends at M_2 as in the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Horizontal top side A1B1 matches the original."
+            "note": "Top side A_1B_1 is horizontal and spans the same extent as the original."
           },
           {
             "object_id": "seg_04",
             "status": "unclear",
-            "note": "Short fragment just below the apex is not a visible separate stroke in the original; it is the M2 glyph region, so there is no segment to draw."
+            "note": "No separate stroke is visible near the M_2 glyph in either panel. It is likely a CV artefact from the M_2 text and should not be drawn."
           },
           {
             "object_id": "seg_A1B1",
             "status": "present",
-            "note": "Top side from A1 to B1 matches the original."
+            "note": "Top side drawn between the two top vertices."
           },
           {
             "object_id": "seg_A1M2",
             "status": "present",
-            "note": "Segment from A1 to M2 matches the original."
+            "note": "Left leg drawn from A_1 to M_2."
           },
           {
             "object_id": "seg_B1M2",
             "status": "present",
-            "note": "Segment from B1 to M2 matches the original."
+            "note": "Right leg drawn from B_1 to M_2."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label A is bound to the top-left vertex, which matches the original's A1 corner."
+            "note": "This is the top-left vertex, drawn at the correct location. The printed letter in the original is A_1 (subscript visible), so the binding should be corrected to A_1."
           },
           {
             "object_id": "point_A1",
             "status": "present",
-            "note": "A1 label sits at the top-left vertex with clear separation."
+            "note": "A_1 label is present at the top-left vertex, placed left of the vertex as in the original."
           },
           {
             "object_id": "point_B1",
             "status": "present",
-            "note": "B1 label sits at the top-right vertex with clear separation."
+            "note": "B_1 label is present at the top-right vertex, placed right of the vertex as in the original."
           },
           {
             "object_id": "point_M2",
             "status": "present",
-            "note": "M2 label is below the apex at the circle centre, as in the original."
+            "note": "M_2 label is present below the apex and bound to the centre, as in the original. It is lighter and smaller than the original."
           }
         ],
         "checklist_score": 1.0,
@@ -1578,22 +1061,29 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Triangle vertices and side directions match the original.",
-          "Circle centre at M2 and radius match; circle crosses both slanted sides at the same places.",
-          "Label positions for A1, B1 and M2 match the original.",
-          "Stroke weights of the lines are comparable."
+          "Triangle vertices and side lengths match the original.",
+          "The circle is centred at M_2 with a matching radius and passes through the same leg crossings.",
+          "Labels A_1, B_1 and M_2 are present with correct spelling and placement relative to their vertices.",
+          "No extra strokes are drawn."
         ],
         "labels": {
           "present": [
-            "A1",
-            "B1",
-            "M2"
+            "A_1",
+            "B_1",
+            "M_2"
           ],
           "missing": [],
           "extra": []
         },
-        "version": 3,
-        "binding_decisions": [],
+        "version": 1,
+        "binding_decisions": [
+          {
+            "label": "A_1",
+            "point_id": "point_02",
+            "reason": "The top-left vertex in the original is labelled with a visible subscript 1 (A_1). OCR read only 'A'.",
+            "replaces": "A"
+          }
+        ],
         "topology_decisions": [],
         "raw_meta": "{}"
       },
@@ -1605,46 +1095,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 5.528,
+      "seconds": 2.336,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.6611328125 KiB)\nnote: Writing `figure.pdf` (3.3984375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:07:25"
-    },
-    {
-      "version": 2,
-      "ok": false,
-      "returncode": 1,
-      "seconds": 2.366,
-      "errors": [
-        "error: figure.tex:22: Use of \\reserved@a doesn't match its definition error: something bad happened inside XeTeX; its output follows:",
-        "error: something bad happened inside XeTeX; its output follows: ===============================================================================",
-        "! Use of \\reserved@a doesn't match its definition. \\reserved@b ->\\relax",
-        "l.22 ...6}{19.2}\\selectfont $\\boldmath\\mathbf{B_1}",
-        "error: the XeTeX engine had an unrecoverable error caused by: halted on potentially-recoverable error as specified"
-      ],
-      "warnings": [],
-      "log_tail": "\nLaTeX Font Warning: Font shape `OML/cmm/m/it' in size <16> not available\n(Font)              size <17.28> substituted on input line 21.\n\n\nLaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <16> not available\n(Font)              size <17.28> substituted on input line 21.\n\n\nLaTeX Font Warning: Font shape `OMX/cmex/m/n' in size <16> not available\n(Font)              size <17.28> substituted on input line 21.\n\n\nLaTeX Font Warning: Command \\boldmath invalid in math mode on input line 21.\n\n\nLaTeX Font Warning: Command \\mathversion invalid in math mode on input line 21.\n\n\n\nLaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <16> not available\n(Font)              size <17.28> substituted on input line 21.\n\n\nLaTeX Font Warning: Command \\boldmath invalid in math mode on input line 22.\n\n\nLaTeX Font Warning: Command \\mathversion invalid in math mode on input line 22.\n\n\n! Use of \\reserved@a doesn't match its definition.\n\\reserved@b ->\\relax \n                     \\ifmmode \\else \\non@alpherr \\mathbf  \\fi \\use@mathgroup...\nl.22 ...6}{19.2}\\selectfont $\\boldmath\\mathbf{B_1}\n                                                  $};\nNo pages of output.\nTranscript written on figure.log.\n===============================================================================\nerror: the XeTeX engine had an unrecoverable error\ncaused by: halted on potentially-recoverable error as specified",
-      "tex_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v2\\v2.tex",
-      "pdf_path": null,
-      "png_path": null,
-      "created_at": "2026-11-09T23:07:55"
-    },
-    {
-      "version": 3,
-      "ok": true,
-      "returncode": 0,
-      "seconds": 4.069,
-      "errors": [],
-      "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (12.4384765625 KiB)\nnote: Writing `figure.pdf` (3.2666015625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v3\\v3.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v3\\v3.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v3\\v3.png",
-      "created_at": "2026-11-09T23:08:12"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.3974609375 KiB)\nnote: Writing `figure.log` (10.4833984375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\766_q_fig3\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\766_q_fig3\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\766_q_fig3\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T13:01:27"
     }
   ],
   "validation_results": [
@@ -1680,12 +1138,12 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\766_q_fig3\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\766_q_fig3\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
@@ -1703,340 +1161,99 @@
           "detail": "figure bbox ratio 0.82"
         }
       ],
-      "created_at": "2026-11-09T23:07:25"
-    },
-    {
-      "version": 2,
-      "passed": false,
-      "checks": [
-        {
-          "name": "documentclass",
-          "passed": true,
-          "detail": "documentclass present"
-        },
-        {
-          "name": "document_environment",
-          "passed": true,
-          "detail": "begin=1 end=1"
-        },
-        {
-          "name": "tikzpicture",
-          "passed": true,
-          "detail": "one balanced tikzpicture"
-        },
-        {
-          "name": "no_shell_escape",
-          "passed": true,
-          "detail": "no \\write18/\\openout primitives"
-        },
-        {
-          "name": "compiler_ok",
-          "passed": false,
-          "detail": "returncode=1"
-        },
-        {
-          "name": "pdf_created",
-          "passed": false,
-          "detail": "missing"
-        },
-        {
-          "name": "png_rendered",
-          "passed": false,
-          "detail": "missing"
-        },
-        {
-          "name": "render_not_blank",
-          "passed": false,
-          "detail": "ink_ratio=n/a"
-        }
-      ],
-      "created_at": "2026-11-09T23:07:55"
-    },
-    {
-      "version": 3,
-      "passed": true,
-      "checks": [
-        {
-          "name": "documentclass",
-          "passed": true,
-          "detail": "documentclass present"
-        },
-        {
-          "name": "document_environment",
-          "passed": true,
-          "detail": "begin=1 end=1"
-        },
-        {
-          "name": "tikzpicture",
-          "passed": true,
-          "detail": "one balanced tikzpicture"
-        },
-        {
-          "name": "no_shell_escape",
-          "passed": true,
-          "detail": "no \\write18/\\openout primitives"
-        },
-        {
-          "name": "compiler_ok",
-          "passed": true,
-          "detail": "returncode=0"
-        },
-        {
-          "name": "pdf_created",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v3\\v3.pdf"
-        },
-        {
-          "name": "png_rendered",
-          "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\766_q_fig3\\tikz\\v3\\v3.png"
-        },
-        {
-          "name": "render_not_blank",
-          "passed": true,
-          "detail": "ink_ratio=0.0405"
-        },
-        {
-          "name": "aspect_ratio",
-          "passed": true,
-          "detail": "reference 0.97 vs render 0.87 (delta 0.10)"
-        },
-        {
-          "name": "figure_extent_ratio",
-          "passed": true,
-          "detail": "figure bbox ratio 0.86"
-        }
-      ],
-      "created_at": "2026-11-09T23:08:12"
+      "created_at": "2026-11-11T13:01:27"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render reproduces the triangle A1B1M2 and the circle centred at M2 with matching proportions and intersections; the only visible difference is the lighter, smaller label typography.",
+      "verdict": "The render is faithful: the triangle A_1B_1M_2 and the circle centred on M_2 match the original in geometry and intersections; only the label size and the bold M_2 differ.",
       "figure_type": {
-        "original": "Equilateral-style triangle A1B1M2 (apex M2 at circle centre) with a circle centred at M2; A1B1 horizontal top side; labels A1, B1, M2",
-        "render": "Triangle A1B1M2 with apex M2 at circle centre and a circle centred at M2; horizontal top side A1B1; labels A1, B1, M2"
+        "original": "Isosceles triangle A_1B_1M_2 (apex M_2) with a circle centred at M_2 that crosses both legs; top side horizontal",
+        "render": "Isosceles triangle A_1B_1M_2 (apex M_2) with a circle centred at M_2 that crosses both legs; top side horizontal"
       },
       "issues": [
         {
-          "type": "wrong_style",
+          "type": "label_error",
           "severity": "low",
           "object_ids": [
+            "point_M2",
             "point_A1",
-            "point_B1",
-            "point_M2"
-          ],
-          "bbox": [
-            0.09,
-            0.06,
-            0.92,
-            0.13
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "Point labels A1, B1 in the render are set in a smaller, lighter weight than the original, where the labels are larger and bold. The M2 label is also lighter in the render than in the original.",
-          "suggestion": "Use a larger bold math font for the labels, e.g. \\fontsize{14}{16.8}\\selectfont with \\boldmath or \\mathbf for A_1, B_1, M_2, to match the original weight."
-        },
-        {
-          "type": "wrong_style",
-          "severity": "low",
-          "object_ids": [
-            "point_M2"
+            "point_B1"
           ],
           "bbox": [
             0.44,
-            0.62,
+            0.61,
             0.56,
-            0.7
+            0.71
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "The M2 label in the render is light and smaller than the original's bold M2 placed just below the apex. Its placement and clearance from the circle and legs are otherwise faithful.",
-          "suggestion": "Keep the node below M2 with \\node[below] and make the text bold and slightly larger to match the original."
+          "description": "Point labels are smaller and lighter than in the original. The original M_2 is bold and noticeably larger; the render uses a regular-weight, smaller M_2. The A_1 and B_1 labels are also somewhat smaller. Clearances from the strokes are fine.",
+          "suggestion": "Optionally match the original label size and weight, e.g. use \\boldmath or \\mathbf for M_2 and increase the font size for all three labels. This is cosmetic only."
         }
       ],
       "checks": [
         {
-          "object_id": "circle_M2",
+          "object_id": "circle_01",
           "status": "present",
-          "note": "Circle centred at M2 with the same extent as the original; the radius differs by only a few pixels, which is within estimation tolerance."
+          "note": "Circle centred at M_2 with radius about 217 px in the panel, matching the original; crosses both legs at the same places."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Left leg from A1 to M2 is drawn and ends at the apex as in the original."
+          "note": "Left leg from A_1 to M_2 is drawn and ends at M_2 as in the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Right leg from B1 to M2 is drawn and ends at the apex as in the original."
+          "note": "Right leg from B_1 to M_2 is drawn and ends at M_2 as in the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Top side A1B1 is horizontal and spans the same width as the original."
-        },
-        {
-          "object_id": "seg_04",
-          "status": "present",
-          "note": "CV fragment treated as M2 glyph debris; no stroke in the original corresponds to it, and nothing is expected in the render."
-        },
-        {
-          "object_id": "seg_A1B1",
-          "status": "present",
-          "note": "Top side A1B1 is drawn from A1 to B1 as in the original."
-        },
-        {
-          "object_id": "seg_A1M2",
-          "status": "present",
-          "note": "Segment from A1 to M2 is drawn and meets the circle at the same intersection point as the original."
-        },
-        {
-          "object_id": "seg_B1M2",
-          "status": "present",
-          "note": "Segment from B1 to M2 is drawn and meets the circle at the same intersection point as the original."
-        },
-        {
-          "object_id": "point_02",
-          "status": "present",
-          "note": "The labelled vertex at the top-left corner is drawn as A1 in the render; the OCR letter A is the base of the printed A_1 label."
-        },
-        {
-          "object_id": "point_A1",
-          "status": "present",
-          "note": "A1 label is placed at the top-left vertex with clear separation from the top side, as in the original."
-        },
-        {
-          "object_id": "point_B1",
-          "status": "present",
-          "note": "B1 label is placed at the top-right vertex, as in the original."
-        },
-        {
-          "object_id": "point_M2",
-          "status": "present",
-          "note": "M2 label is drawn below the apex at the circle centre, as in the original."
-        }
-      ],
-      "checklist_score": 1.0,
-      "actionable_counts": {
-        "high": 0,
-        "medium": 0,
-        "low": 2
-      },
-      "flaky_count": 0,
-      "must_repair": true,
-      "matches": [
-        "Triangle A1B1M2 has the same shape and proportions as the original, with the apex at the circle centre.",
-        "The circle is centred at M2 and spans the same horizontal and vertical extent as the original.",
-        "Both legs cross the circle at the same points, and the top side A1B1 is horizontal with matching length.",
-        "Labels A1, B1 and M2 are present with correct subscripts and placement relative to their vertices.",
-        "No extra strokes or labels appear in the render."
-      ],
-      "labels": {
-        "present": [
-          "A1",
-          "B1",
-          "M2"
-        ],
-        "missing": [],
-        "extra": []
-      },
-      "version": 1,
-      "binding_decisions": [],
-      "topology_decisions": [],
-      "raw_meta": "{}"
-    },
-    {
-      "assessment_score": 0.9,
-      "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render reproduces the original triangle A1B1M2 and the circle centred at M2 faithfully; the only visible difference is the lighter, smaller label typography.",
-      "figure_type": {
-        "original": "Isosceles triangle A1B1M2 with horizontal top side A1B1 and apex M2 at the centre of a circle that crosses both slanted sides",
-        "render": "Same triangle A1B1M2 with a circle centred at M2 crossing both slanted sides"
-      },
-      "issues": [
-        {
-          "type": "wrong_style",
-          "severity": "low",
-          "object_ids": [
-            "point_A1",
-            "point_B1",
-            "point_M2"
-          ],
-          "bbox": [
-            0.45,
-            0.6,
-            0.56,
-            0.7
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "Point labels A1, B1 and M2 are set in a lighter, smaller weight in the render than the bold labels in the original. The M2 label in the original is bold and sits just below the apex with clear separation; the render's M2 is light. Placement and vertex association are correct.",
-          "suggestion": "Optionally bold the subscripts and the M2 label (e.g. \\mathbf{M_2} is already used; check that the fontsize/weight matches the original). Keep the node placement below M2 and the binding to the vertex unchanged."
-        }
-      ],
-      "checks": [
-        {
-          "object_id": "circle_M2",
-          "status": "present",
-          "note": "Circle centred at M2 with matching radius; crosses both slanted sides at the same places as the original."
-        },
-        {
-          "object_id": "seg_01",
-          "status": "present",
-          "note": "Left slanted side from A1 down to M2 is drawn in the same position."
-        },
-        {
-          "object_id": "seg_02",
-          "status": "present",
-          "note": "Right slanted side from B1 down to M2 is drawn in the same position."
-        },
-        {
-          "object_id": "seg_03",
-          "status": "present",
-          "note": "Horizontal top side A1B1 matches the original."
+          "note": "Top side A_1B_1 is horizontal and spans the same extent as the original."
         },
         {
           "object_id": "seg_04",
           "status": "unclear",
-          "note": "Short fragment just below the apex is not a visible separate stroke in the original; it is the M2 glyph region, so there is no segment to draw."
+          "note": "No separate stroke is visible near the M_2 glyph in either panel. It is likely a CV artefact from the M_2 text and should not be drawn."
         },
         {
           "object_id": "seg_A1B1",
           "status": "present",
-          "note": "Top side from A1 to B1 matches the original."
+          "note": "Top side drawn between the two top vertices."
         },
         {
           "object_id": "seg_A1M2",
           "status": "present",
-          "note": "Segment from A1 to M2 matches the original."
+          "note": "Left leg drawn from A_1 to M_2."
         },
         {
           "object_id": "seg_B1M2",
           "status": "present",
-          "note": "Segment from B1 to M2 matches the original."
+          "note": "Right leg drawn from B_1 to M_2."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label A is bound to the top-left vertex, which matches the original's A1 corner."
+          "note": "This is the top-left vertex, drawn at the correct location. The printed letter in the original is A_1 (subscript visible), so the binding should be corrected to A_1."
         },
         {
           "object_id": "point_A1",
           "status": "present",
-          "note": "A1 label sits at the top-left vertex with clear separation."
+          "note": "A_1 label is present at the top-left vertex, placed left of the vertex as in the original."
         },
         {
           "object_id": "point_B1",
           "status": "present",
-          "note": "B1 label sits at the top-right vertex with clear separation."
+          "note": "B_1 label is present at the top-right vertex, placed right of the vertex as in the original."
         },
         {
           "object_id": "point_M2",
           "status": "present",
-          "note": "M2 label is below the apex at the circle centre, as in the original."
+          "note": "M_2 label is present below the apex and bound to the centre, as in the original. It is lighter and smaller than the original."
         }
       ],
       "checklist_score": 1.0,
@@ -2048,22 +1265,29 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Triangle vertices and side directions match the original.",
-        "Circle centre at M2 and radius match; circle crosses both slanted sides at the same places.",
-        "Label positions for A1, B1 and M2 match the original.",
-        "Stroke weights of the lines are comparable."
+        "Triangle vertices and side lengths match the original.",
+        "The circle is centred at M_2 with a matching radius and passes through the same leg crossings.",
+        "Labels A_1, B_1 and M_2 are present with correct spelling and placement relative to their vertices.",
+        "No extra strokes are drawn."
       ],
       "labels": {
         "present": [
-          "A1",
-          "B1",
-          "M2"
+          "A_1",
+          "B_1",
+          "M_2"
         ],
         "missing": [],
         "extra": []
       },
-      "version": 3,
-      "binding_decisions": [],
+      "version": 1,
+      "binding_decisions": [
+        {
+          "label": "A_1",
+          "point_id": "point_02",
+          "reason": "The top-left vertex in the original is labelled with a visible subscript 1 (A_1). OCR read only 'A'.",
+          "replaces": "A"
+        }
+      ],
       "topology_decisions": [],
       "raw_meta": "{}"
     }
@@ -2071,23 +1295,19 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "Circle radius and centre estimated from the image (not CV-fitted); verify against render."
+      "issue": "Subscript '1' on A and B is read visually; OCR only reports A. Critic should confirm A_1/B_1 labels."
     },
     {
       "source": "geometry_agent",
-      "issue": "Subscripts 1 and 2 are read visually; OCR did not confirm them."
+      "issue": "seg_04 (short ink near M_2 glyph) treated as glyph, not geometry; confirm no extra stroke."
     },
     {
       "source": "geometry_agent",
-      "issue": "seg_04 and its junctions were treated as glyph fragments of M2 and excluded."
+      "issue": "Circle radius 118 px vs rays of length ~220 px: both rays from M_2 are radii cut by circle at point_04/point_05 only; ensure circle is drawn fully."
     },
     {
       "source": "supervisor",
-      "issue": "Label weight/size is only approximately matched (one low-severity critic note)."
-    },
-    {
-      "source": "supervisor",
-      "issue": "Circle radius and centre were estimated by the Geometry Agent rather than CV-fitted, although the render matches the original proportions."
+      "issue": "Label font size and weight are smaller/lighter than the original (cosmetic, low severity; M_2 is bold in the original)."
     }
   ],
   "action_history": [
@@ -2133,7 +1353,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 9, 'relations': 5, 'conflicts': 2, 'rejected': []}",
+      "result_summary": "ok=True; merged={'objects': 7, 'relations': 3, 'conflicts': 1, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -2142,10 +1362,10 @@
     {
       "step": 1,
       "action": "inspect_image",
-      "purpose": "Describe the figure: points, letter labels (exact letters and subscripts), which segments are drawn solid/dashed, and the circle/arc present. Give approximate pixel positions of each label.",
+      "purpose": "Read all visible labels (letters/subscripts) and describe the figure: triangle vertices, circle, any dashed lines, short tick near bottom vertex, and any right-angle marks.",
       "params": {
         "region": null,
-        "question": "Describe the figure: points, letter labels (exact letters and subscripts), which segments are drawn solid/dashed, and the circle/arc present. Give approximate pixel positions of each label."
+        "question": "Read all visible labels (letters/subscripts) and describe the figure: triangle vertices, circle, any dashed lines, short tick near bottom vertex, and any right-angle marks."
       },
       "status": "ok",
       "result_summary": "ok=True",
@@ -2162,7 +1382,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=2",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.9; issues=1",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -2171,104 +1391,34 @@
     {
       "step": 2,
       "action": "run_code_agent",
-      "purpose": "Draw a figure from image pixel coordinates (origin top-left, y down; flip y for TikZ, e.g. y_tikz = -(y_px)/100 scaled consistently). Use these measured points: A1=(79.4,48.0), B1=(275.6,48.0), M2=(17",
+      "purpose": "Draw the figure with measured pixel coordinates (image origin top-left, y down; convert to TikZ with y_tikz = -y_px, scale 1 unit = 1 px or scale to 0.01 cm equivalent, keep proportions). Points: A_1 ",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Draw a figure from image pixel coordinates (origin top-left, y down; flip y for TikZ, e.g. y_tikz = -(y_px)/100 scaled consistently). Use these measured points: A1=(79.4,48.0), B1=(275.6,48.0), M2=(178.1,221.0). Draw solid segments A1B1 (top horizontal), A1M2, and B1M2 (the two slanted sides meeting at M2). Draw a FULL solid circle centred at M2 with radius 118 px (it is a full circle, not an arc; it crosses segments A1M2 and B1M2 at about (119.8,118.4) and (236.0,118.5)). Do not label the circle-crossing points. Labels: A_1 to the left of A1 (approx px (49,47)), B_1 to the right of B1 (approx px (300,47)), M_2 below M2 (approx px (178,240)). Use $A_1$, $B_1$, $M_2$ in math mode. Use a standalone or tikzpicture with no extra decoration, black lines, and keep the aspect ratio of the pixel coordinates."
+        "instruction": "Draw the figure with measured pixel coordinates (image origin top-left, y down; convert to TikZ with y_tikz = -y_px, scale 1 unit = 1 px or scale to 0.01 cm equivalent, keep proportions). Points: A_1 at (79.43, 48.0), B_1 at (275.56, 48.0), M_2 at (178.12, 221.02) which is the center of a full solid circle of radius 118.03 px. Draw solid segments A_1B_1 (horizontal top edge), A_1M_2 and B_1M_2 (two radii that stop at the circle's interior; they cross the circle at approx (119.75,118.35) and (235.98,118.5)). Draw the full circle centered at M_2 with radius 118.03 as a solid line. Label A_1 to the left of A_1, B_1 to the right of B_1 (math mode, subscript 1), and M_2 below the center (subscript 2). No dashed lines, no right-angle marks, ignore the short glyph stroke near M_2. Use only these measured coordinates."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 31.45,
+      "duration_s": 32.36,
       "token_usage": {
-        "delta": 16521
+        "delta": 17462
       },
       "visual_calls": 2,
       "error": null
     },
     {
       "step": 3,
-      "action": "run_code_agent",
-      "purpose": "Repair: make the labels match the original more closely. Set A_1, B_1, M_2 in bold math (e.g. \\boldmath or \\mathbf) at a slightly larger size (about 16pt). Keep all geometry, coordinates, the full cir",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Repair: make the labels match the original more closely. Set A_1, B_1, M_2 in bold math (e.g. \\boldmath or \\mathbf) at a slightly larger size (about 16pt). Keep all geometry, coordinates, the full circle centred at M2 and the topology exactly as they are."
-      },
-      "status": "error",
-      "result_summary": "ok=False; version=2; compile_ok=False; validation_passed=False; best_version=1; errors=4",
-      "duration_s": 7.69,
-      "token_usage": {
-        "delta": 7182
-      },
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 4,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Version 1 compiled and was critic-reviewed (score 0.9). It reproduces triangle A1B1M2 with the top side A1B1 horizontal, the two slanted sides A1M2 and B1M2, and a full circle centred at M2 with radius about 118 px that crosses the slanted sides. Labels A_1, B_1, M_2 are placed at their vertices. A repair attempt to bold the labels (v2) failed to compile due to \\boldmath, so v1 is the best version.",
+        "summary": "Version 1 compiles and passed validation and topology check. It draws the triangle-like figure A_1B_1 top edge, radii A_1M_2 and B_1M_2, and a solid circle centred at M_2 (radius 118 px scaled to 3.096 cm). Labels A_1, B_1, M_2 are present. Critic score 0.9, must_repair=false.",
         "unresolved": [
-          "Labels are lighter and smaller than in the original (low-severity critic note); the bold repair (v2) did not compile.",
-          "Circle radius and centre were estimated by the Geometry Agent and not CV-fitted, though the render matches the original proportions."
-        ],
-        "status": "success"
-      },
-      "status": "error",
-      "result_summary": "ok=False; error=finish blocked: best version 1 still has 0 high, 0 medium and 2 low actionable critic issues (must_repair=true); run_code_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)",
-      "duration_s": 0.0,
-      "token_usage": {
-        "delta": 0
-      },
-      "visual_calls": 0,
-      "error": "finish blocked: best version 1 still has 0 high, 0 medium and 2 low actionable critic issues (must_repair=true); run_code_agent(mode=repair) with them, then run_critic, then finish (explain in unresolved if they are not fixable)"
-    },
-    {
-      "step": 5,
-      "action": "run_critic",
-      "purpose": "review newly compiled version",
-      "params": {},
-      "status": "ok",
-      "result_summary": "ok=True; version=3; best_version=3; assessment_score=0.9; issues=1",
-      "duration_s": 0.0,
-      "token_usage": {},
-      "visual_calls": 0,
-      "error": null
-    },
-    {
-      "step": 5,
-      "action": "run_code_agent",
-      "purpose": "Repair: make the labels bolder without \\boldmath, which broke compilation. Use $\\mathbf{A_1}$, $\\mathbf{B_1}$, $\\mathbf{M_2}$ inside \\fontsize{16}{19.2}\\selectfont (or \\large). Keep all geometry, coor",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Repair: make the labels bolder without \\boldmath, which broke compilation. Use $\\mathbf{A_1}$, $\\mathbf{B_1}$, $\\mathbf{M_2}$ inside \\fontsize{16}{19.2}\\selectfont (or \\large). Keep all geometry, coordinates, the full circle centred at M2, and the topology exactly as in version 1. Ensure the document compiles."
-      },
-      "status": "ok",
-      "result_summary": "ok=True; version=3; compile_ok=True; validation_passed=True; best_version=3",
-      "duration_s": 20.78,
-      "token_usage": {
-        "delta": 16331
-      },
-      "visual_calls": 1,
-      "error": null
-    },
-    {
-      "step": 6,
-      "action": "finish",
-      "purpose": "finish run",
-      "params": {
-        "summary": "Version 3 compiles and was critic-reviewed (score 0.9, must_repair=false). It reproduces triangle A1B1M2 with horizontal top side A1B1, slanted sides A1M2 and B1M2, and a full circle centred at M2 (radius about 118 px) crossing the slanted sides. Labels A_1, B_1, M_2 are bold math at their vertices.",
-        "unresolved": [
-          "Label weight/size is only approximately matched (one low-severity critic note).",
-          "Circle radius and centre were estimated by the Geometry Agent rather than CV-fitted, although the render matches the original proportions."
+          "Label font size and weight are smaller/lighter than the original (cosmetic, low severity; M_2 is bold in the original)."
         ],
         "status": "success"
       },
       "status": "ok",
-      "result_summary": "ok=True; best_version=3; status=success",
+      "result_summary": "ok=True; best_version=1; status=success",
       "duration_s": 0.0,
       "token_usage": {
         "delta": 0
@@ -2310,63 +1460,75 @@
       "count": 0,
       "visualization": null,
       "error": null
+    },
+    {
+      "tool": "detect_circles",
+      "params": {},
+      "purpose": null,
+      "ok": true,
+      "count": 1,
+      "visualization": ".cache\\collinear\\batch_work\\766_q_fig3\\cv\\detect_circles.png",
+      "error": null
+    },
+    {
+      "tool": "detect_right_angle_marker",
+      "params": {},
+      "purpose": null,
+      "ok": true,
+      "count": 0,
+      "visualization": ".cache\\collinear\\batch_work\\766_q_fig3\\cv\\detect_right_angle_marker.png",
+      "error": null
     }
   ],
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 12,
-      "visual_calls": 9,
-      "prompt_tokens": 90084,
-      "completion_tokens": 13675,
-      "total_tokens": 103759,
-      "cached_tokens": 56338.0,
-      "cache_write_tokens": 19706.0,
-      "latency_s": 83.12
+      "calls": 7,
+      "visual_calls": 6,
+      "prompt_tokens": 46521,
+      "completion_tokens": 9227,
+      "total_tokens": 55748,
+      "cached_tokens": 16792.0,
+      "cache_write_tokens": 29705.0,
+      "latency_s": 62.69
     },
     "by_agent": {
       "geometry_agent": {
-        "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 8019,
-        "latency_s": 13.39
+        "calls": 2,
+        "visual_calls": 2,
+        "total_tokens": 14481,
+        "latency_s": 20.8
       },
       "supervisor": {
-        "calls": 6,
-        "visual_calls": 5,
-        "total_tokens": 55706,
-        "latency_s": 23.28
+        "calls": 3,
+        "visual_calls": 2,
+        "total_tokens": 23805,
+        "latency_s": 12.23
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 7104,
-        "latency_s": 7.45
+        "total_tokens": 7384,
+        "latency_s": 9.56
       },
       "critic_agent": {
-        "calls": 2,
-        "visual_calls": 2,
-        "total_tokens": 18251,
-        "latency_s": 28.78
-      },
-      "code_agent:repair": {
-        "calls": 2,
-        "visual_calls": 0,
-        "total_tokens": 14679,
-        "latency_s": 10.21
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 10078,
+        "latency_s": 20.1
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 18,
-    "tool_calls_left": 39,
-    "visual_calls_left": 15,
-    "tokens_left": 296241,
+    "steps_left": 21,
+    "tool_calls_left": 40,
+    "visual_calls_left": 18,
+    "tokens_left": 344252,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 103759
+    "total_tokens_used": 55748
   },
   "meta": {
     "topology_plan": {
@@ -2376,10 +1538,11 @@
       "ink_confirmed_edges": []
     },
     "source_construction": {
-      "summary": "Triangle-like figure: horizontal top segment A1-B1 (point_02 to point_03, y=48). Two solid straight strokes run from A1 down to apex M2 (point_01, ~(178,221)) and from B1 down to M2. A solid circle is centred at M2 (radius ~118 px, spanning x~60-296, y~102-340); it crosses A1-M2 at point_04 and B1-M2 at point_05. All strokes are solid. No right-angle marks, no feet, no dashed strokes. The short segment seg_04 and junction_seg_01_seg_04 / junction_seg_02_seg_04 lie inside the M2 glyph and are not geometry.",
+      "summary": "Figure: triangle-like open construction. Top horizontal segment A_1–B_1 at y≈48 (point_02 to point_03). Two straight rays from apex M_2 (point_01, ≈(178,221)) rise to A_1 and B_1 (seg_01, seg_02), all solid. A full solid circle_01 centered at M_2 with radius ≈118 px; the rays cross it at point_04 (≈(120,118)) and point_05 (≈(236,118)). No dashed strokes. No right-angle marks (detect_right_angle_marker returned 0). No feet. seg_04 (≈(183,231)-(179,249)) is ink from the 'M_2' glyph, not geometry; excluded.",
       "strokes": [],
       "marks": {},
-      "feet": []
+      "feet": [],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -2419,17 +1582,17 @@
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "6b2bb20fb5428df984f8cc1bf827d433c1c27d46c6273b44397da00c84e78200",
-      "output_sha256": "6b2bb20fb5428df984f8cc1bf827d433c1c27d46c6273b44397da00c84e78200",
+      "input_sha256": "a79021c3858120f634f159b8c8ab09a68aff0c975ccfc6b1b02b7895224bb7b2",
+      "output_sha256": "a79021c3858120f634f159b8c8ab09a68aff0c975ccfc6b1b02b7895224bb7b2",
       "reason": "no_candidates",
       "accepted": [],
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2439,13 +1602,15 @@
         "relation_types": [
           "parallel"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
+      "source_collinear_candidates": [],
       "input_candidates": 0,
       "preserved_incidence_count": 0,
       "max_shift_rel": 0.0,
@@ -2472,15 +1637,15 @@
               -0.01,
               -0.971
             ],
-            "radius": 3.095
+            "radius": 3.096
           }
         ]
       },
       "candidate_count": 0,
       "curve_options_applied": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2527,66 +1692,6 @@
           "reference_used": false,
           "coordinate_decimals": 3
         }
-      },
-      "2": {
-        "enabled": true,
-        "schema": "cv-coordinate-contract.v1",
-        "n_points": 1,
-        "reference_used": false,
-        "coordinates": {
-          "schema": "cv-coordinate-contract.v1",
-          "scale": 0.02623,
-          "origin_px": [
-            178.5,
-            184.0
-          ],
-          "points": {
-            "A": {
-              "point_id": "point_02",
-              "px": [
-                79.43,
-                48.0
-              ],
-              "tikz": [
-                -2.599,
-                3.567
-              ]
-            }
-          },
-          "skipped": {},
-          "reference_used": false,
-          "coordinate_decimals": 3
-        }
-      },
-      "3": {
-        "enabled": true,
-        "schema": "cv-coordinate-contract.v1",
-        "n_points": 1,
-        "reference_used": false,
-        "coordinates": {
-          "schema": "cv-coordinate-contract.v1",
-          "scale": 0.02623,
-          "origin_px": [
-            178.5,
-            184.0
-          ],
-          "points": {
-            "A": {
-              "point_id": "point_02",
-              "px": [
-                79.43,
-                48.0
-              ],
-              "tikz": [
-                -2.599,
-                3.567
-              ]
-            }
-          },
-          "skipped": {},
-          "reference_used": false,
-          "coordinate_decimals": 3
-        }
       }
     },
     "tikz_constraint_repairs": {
@@ -2598,17 +1703,17 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "19274749474e6173941ffa617fb4ad92fc7c080c66c1563dd6ff6317d3c69a12",
-        "output_sha256": "19274749474e6173941ffa617fb4ad92fc7c080c66c1563dd6ff6317d3c69a12",
+        "input_sha256": "a79021c3858120f634f159b8c8ab09a68aff0c975ccfc6b1b02b7895224bb7b2",
+        "output_sha256": "a79021c3858120f634f159b8c8ab09a68aff0c975ccfc6b1b02b7895224bb7b2",
         "reason": "no_candidates",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2618,13 +1723,15 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
+        "source_collinear_candidates": [],
         "input_candidates": 0,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.0,
@@ -2651,179 +1758,15 @@
                 -0.01,
                 -0.971
               ],
-              "radius": 3.095
+              "radius": 3.096
             }
           ]
         },
         "candidate_count": 0,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "2": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "59b3f44046a7c596b47f754002763ca7017e020591b0b64b3dd2a602ca8c6859",
-        "output_sha256": "59b3f44046a7c596b47f754002763ca7017e020591b0b64b3dd2a602ca8c6859",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "M"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "M"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                -0.01,
-                -0.971
-              ],
-              "radius": 3.095
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        }
-      },
-      "3": {
-        "ok": true,
-        "enabled": true,
-        "applied": false,
-        "stage": "post_tikz",
-        "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
-        "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
-        "angle_glyphs_are_candidates": false,
-        "input_sha256": "6b2bb20fb5428df984f8cc1bf827d433c1c27d46c6273b44397da00c84e78200",
-        "output_sha256": "6b2bb20fb5428df984f8cc1bf827d433c1c27d46c6273b44397da00c84e78200",
-        "reason": "no_candidates",
-        "accepted": [],
-        "rejected": [],
-        "limits": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
-          "topology_tol_rel": 0.002,
-          "incidence_mode": "snap",
-          "length_weight": 0.0,
-          "length_scope": "edges",
-          "curve_policy": "freeze",
-          "incidence_strength": 1.0,
-          "relation_types": [
-            "parallel"
-          ],
-          "relaxation": 1.0
-        },
-        "angle_glyph_exclusion": {
-          "excluded_paths": [],
-          "excluded_helper_points": [],
-          "excluded_strokes": 0
-        },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
-        "max_shift_rel": 0.0,
-        "max_length_change_rel": 0.0,
-        "fixed_points": [
-          "M"
-        ],
-        "length_weight": 0.0,
-        "length_scope": "edges",
-        "incidence_mode": "snap",
-        "topology_tol_rel": 0.002,
-        "incidence_strength": 1.0,
-        "curve_policy": "freeze",
-        "curve_anchors": {
-          "fixed_points": [
-            "M"
-          ],
-          "dependencies": [
-            "M"
-          ],
-          "circles": [
-            {
-              "center": [
-                -0.01,
-                -0.971
-              ],
-              "radius": 3.095
-            }
-          ]
-        },
-        "candidate_count": 0,
-        "curve_options_applied": {
-          "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2838,7 +1781,7 @@
       }
     },
     "finish": {
-      "summary": "Version 3 compiles and was critic-reviewed (score 0.9, must_repair=false). It reproduces triangle A1B1M2 with horizontal top side A1B1, slanted sides A1M2 and B1M2, and a full circle centred at M2 (radius about 118 px) crossing the slanted sides. Labels A_1, B_1, M_2 are bold math at their vertices.",
+      "summary": "Version 1 compiles and passed validation and topology check. It draws the triangle-like figure A_1B_1 top edge, radii A_1M_2 and B_1M_2, and a solid circle centred at M_2 (radius 118 px scaled to 3.096 cm). Labels A_1, B_1, M_2 are present. Critic score 0.9, must_repair=false.",
       "status": "success"
     },
     "stop_reason": "finish"

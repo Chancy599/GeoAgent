@@ -1,9 +1,7 @@
 \documentclass[tikz,border=10pt]{standalone}
-\usepackage{amsmath}
-\usetikzlibrary{calc,angles,quotes}
+\usetikzlibrary{angles}
 \begin{document}
-\begin{tikzpicture}[line join=round, line width=1.0pt,
-  lbl/.style={font=\fontsize{13.5}{16.2}\selectfont}]
+\begin{tikzpicture}[line width=1.4pt, line join=round]
 \coordinate (A) at (-3.496,-2.101);
 \coordinate (B) at (2.097,-2.112);
 \coordinate (C) at (3.484,0.316);
@@ -15,29 +13,31 @@
 
 
 
-
-\draw (A)--(P)--(B)--(C)--(Q)--(D)--(A);
-
-\draw (D)--(O)--(B);
-
-\draw (P)--(O)--(Q);
-
-\draw (E)--(Q);
-\draw (E)--(D)--(P);
-
-\draw[dashed] (A)--(O)--(C);
+\draw (E) -- (Q);
+\draw (E) -- (D) -- (P);
+\draw (D) -- (Q) -- (C);
+\draw (Q) -- (O) -- (P);
+\draw (C) -- (B);
+\draw (A) -- (P) -- (B);
+\draw (A) -- (D);
 
 
-\draw pic[draw,angle radius=0.300cm] {right angle=A--D--O};
+\draw[line width=0.7pt] (D) -- (O) -- (B);
 
 
-\node[lbl,above] at (E) {$E$};
-\node[lbl,left] at (D) {$D$};
-\node[lbl,above] at (Q) {$Q$};
-\node[lbl,above right] at (C) {$C$};
-\node[lbl,below left] at (A) {$A$};
-\node[lbl,below] at (P) {$P$};
-\node[lbl,below right] at (B) {$B$};
-\node[lbl,below left] at (O) {$O$};
+\draw[dashed] (A) -- (O) -- (C);
+
+
+\draw pic[draw, angle radius=0.354cm] {right angle=A--D--O};
+
+
+\node[above] at (E) {\fontsize{13.5}{16.2}\selectfont $E$};
+\node[above right] at (Q) {\fontsize{13.5}{16.2}\selectfont $Q$};
+\node[above right] at (C) {\fontsize{13.5}{16.2}\selectfont $C$};
+\node[left] at (D) {\fontsize{13.5}{16.2}\selectfont $D$};
+\node[below, yshift=-2pt] at (O) {\fontsize{13.5}{16.2}\selectfont $O$};
+\node[below left] at (A) {\fontsize{13.5}{16.2}\selectfont $A$};
+\node[below] at (P) {\fontsize{13.5}{16.2}\selectfont $P$};
+\node[below right] at (B) {\fontsize{13.5}{16.2}\selectfont $B$};
 \end{tikzpicture}
 \end{document}

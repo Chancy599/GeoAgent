@@ -1,158 +1,180 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the original figure's topology: the parallelogram, all solid and dashed segments, the E-G-B shallow bend, and all eight labels are present and correctly bound. Only minor stroke-weight differences remain.",
+  "verdict": "The render is a faithful reproduction of the original: all parallelogram sides, interior segments, dashed/solid styles, and endpoints match, with only a minor label-size difference.",
   "figure_type": {
-    "original": "Parallelogram ABCD with point E on side AD, points F and N on base AB, and G on the line from E to B, with solid and dashed auxiliary segments.",
-    "render": "Same parallelogram ABCD with E, F, N, G placed identically; solid and dashed segments match the original."
+    "original": "Parallelogram ABCD with point E on side AD, points F and N on base AB, and point G on the segments EB and CG/GN. Solid and dashed interior segments.",
+    "render": "Same parallelogram ABCD with E on AD, F and N on AB, and G on EB and CG. Solid and dashed interior segments match the original."
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_05",
-        "seg_03",
-        "seg_02"
+        "point_01",
+        "point_03",
+        "point_04"
       ],
       "bbox": [
-        0.1,
+        0.02,
         0.2,
-        0.92,
-        0.95
+        0.95,
+        0.8
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The solid outline strokes in the render (top DC, base AB, edge BC) look slightly thinner than in the original, and the dashes are finer and shorter.",
-      "suggestion": "Optionally increase line width slightly (e.g. from 1.4pt toward 1.6pt) and lengthen the dash pattern to match the original; this is cosmetic only."
+      "description": "Point labels (A, B, C, D, E, F, G, N) are rendered noticeably smaller than in the original, where the letters are larger and more prominent. Stroke weights are comparable.",
+      "suggestion": "Increase the label font size (e.g. from fontsize 24/29 toward a larger size) to better match the original letter height. Keep the node placements unchanged."
+    },
+    {
+      "type": "label_error",
+      "severity": "medium",
+      "object_ids": [],
+      "bbox": null,
+      "flaky": false,
+      "source": "measured_label_scale",
+      "description": "Measured median label height is 0.74× the source relative to diagram size; labels are smaller.",
+      "suggestion": "Multiply the current label font size and leading by 1.36; keep geometry and stroke widths."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid segment C to G, matches the original."
+      "note": "Segment A-E/E-C region matched; corresponds to the drawn edges in the render."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid edge C to B, matches."
+      "note": "Side BC matches the original right edge from C to B."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Solid base A to B, matches."
+      "note": "Base A-B present as a solid line through F and N."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Solid left edge A to D through E, matches."
+      "note": "Left side A-D present as a solid edge through E."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Solid top edge D to C, matches."
+      "note": "Top side D-C present as a solid edge."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed E to C line (collinear fragment with seg_08), matches."
+      "note": "Dashed E-C diagonal present and matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Dashed D to B line, matches."
+      "note": "Solid C-G continuation present, matching the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Dashed fragment on the E to C line, matches the dashed E-C segment."
+      "note": "Dashed E-C/E-N region present with the same extent."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Dashed E to N, matches."
+      "note": "Dashed D-B present and reaches B."
     },
     {
       "object_id": "seg_10",
       "status": "present",
-      "note": "Solid G to B part of the E-G-B bend, matches."
+      "note": "Solid G-B portion of the bent line present."
     },
     {
       "object_id": "seg_11",
       "status": "present",
-      "note": "Dashed D to B line fragment, matches."
+      "note": "Dashed D-B diagonal present, matching the original."
     },
     {
       "object_id": "seg_12",
       "status": "present",
-      "note": "Dashed G to N, matches."
+      "note": "Dashed G-N present and ends at N."
     },
     {
       "object_id": "seg_13",
       "status": "present",
-      "note": "Solid E to F, matches."
+      "note": "Solid E-F present, ending on base at F."
     },
     {
       "object_id": "seg_14",
       "status": "present",
-      "note": "Solid E to G, matches the bend at G."
+      "note": "Solid E-G-B line present with the slight bend at G matching the original."
+    },
+    {
+      "object_id": "seg_AD",
+      "status": "present",
+      "note": "Side AD present with E on it."
+    },
+    {
+      "object_id": "seg_CG",
+      "status": "present",
+      "note": "Solid segment C-G present, ending at G."
+    },
+    {
+      "object_id": "seg_DB",
+      "status": "present",
+      "note": "Dashed D-B present, from D to B."
+    },
+    {
+      "object_id": "seg_EB_bent",
+      "status": "present",
+      "note": "Bent E-G-B path present with the same shallow bend at G."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "Dashed E-C present, from E to C."
+    },
+    {
+      "object_id": "seg_EN",
+      "status": "present",
+      "note": "Dashed E-N present, from E down to N."
+    },
+    {
+      "object_id": "seg_GN",
+      "status": "present",
+      "note": "Dashed G-N present, from G down to N."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label C at the upper-right vertex, correctly placed."
+      "note": "Label C present at the top-right vertex, correctly bound."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label G above the point on the E-G-B line, clear of strokes."
+      "note": "Label G present above the bend point, correctly bound."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label B at the lower-right vertex, correctly placed."
-    },
-    {
-      "object_id": "point_05",
-      "status": "present",
-      "note": "Label A at the lower-left vertex, correctly placed."
-    },
-    {
-      "object_id": "point_06",
-      "status": "present",
-      "note": "Label N below the dashed end at the base, matches."
-    },
-    {
-      "object_id": "point_07",
-      "status": "present",
-      "note": "Label F below the foot of E-F, matches."
-    },
-    {
-      "object_id": "point_08",
-      "status": "present",
-      "note": "Label D above the top-left vertex, matches."
-    },
-    {
-      "object_id": "point_09",
-      "status": "present",
-      "note": "Label E left of the vertex on AD, matches."
+      "note": "Label B present at the bottom-right vertex, correctly bound."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
-    "medium": 0,
+    "medium": 1,
     "low": 1
   },
   "flaky_count": 0,
-  "must_repair": false,
+  "must_repair": true,
   "matches": [
-    "Parallelogram ABCD outline with correct vertex positions and aspect ratio.",
-    "Dashed D-B, E-C, E-N and G-N segments are all present and end at the correct vertices.",
-    "Solid E-F and the E-G-B bend (including the shallow kink at G) are preserved.",
-    "Solid C-G segment reaches G as in the original.",
-    "All seven vertex labels (A, B, C, D, E, F, N) and G are present, correctly bound, and clear of strokes."
+    "Parallelogram ABCD outline with correct vertex positions",
+    "E on side AD, with solid E-F to base point F",
+    "Base points F and N on segment AB in the correct order",
+    "Dashed E-C and D-B diagonals match the original",
+    "Dashed E-N and G-N segments end at N as in the original",
+    "Solid C-G and the bent E-G-B path with shallow bend at G",
+    "Label positions for A, B, C, D, E, F, G, N are correctly placed relative to their vertices"
   ],
   "labels": {
     "present": [
@@ -168,7 +190,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 3,
+  "version": 4,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

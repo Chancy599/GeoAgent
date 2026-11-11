@@ -2,7 +2,9 @@
 \usepackage{amsmath}
 \usetikzlibrary{angles,quotes}
 \begin{document}
-\begin{tikzpicture}[line width=0.9pt, line join=round]
+\begin{tikzpicture}[line join=round, line width=0.9pt,
+  lbl/.style={font=\fontsize{11.5}{13.8}\selectfont},
+  dashedge/.style={dash pattern=on 3pt off 2pt}]
 \coordinate (A) at (-0.008,3.492);
 \coordinate (B) at (-3.541,-1.557);
 \coordinate (C) at (3.533,-1.562);
@@ -23,45 +25,39 @@
 
 
 
-\draw (O) circle[radius=3.760];
+\draw (O) circle[radius=3.777];
 
 
-\draw[line width=1.1pt] (A) -- (B);
-\draw[line width=1.1pt] (A) -- (E) -- (C);
-\draw[line width=1.1pt] (B) -- (C);
-\draw (A) -- (D);
-\draw (A) -- (O);
-\draw (D) -- (O);
-\draw (B) -- (D);
-\draw (C) -- (D);
+\draw[line width=1.4pt] (A) -- (B);
+\draw[line width=1.4pt] (A) -- (E) -- (C);
+\draw[line width=1.4pt] (B) -- (D) -- (C);
 
 
-\draw (B) -- (F);
-\draw (B) -- (E) -- (H) -- (F);
-\draw (B) -- (O);
-\draw (E) -- (O);
-\draw (H) -- (O);
+\draw (A) -- (O) -- (D);
+
+
+\draw (B) -- (O) -- (E) -- (H) -- (F);
+
+
 \draw (C) -- (O);
 
 
-\draw[dashed] (F) -- (C);
-\draw[dashed] (H) -- (C);
+\draw[dashedge] (F) -- (C);
+\draw[dashedge] (H) -- (C);
 
 
-\draw pic[draw, angle radius=0.244cm] {right angle=C--H--F};
+\draw pic[draw, angle radius=0.244cm] {right angle=F--H--C};
 
-\fill (O) circle[radius=1.200pt];
-\fill (C) circle[radius=1.200pt];
-\fill (B) circle[radius=1.200pt];
+\fill (O) circle (1.400pt);
 
-\fontsize{11.5}{13.8}\selectfont
-\node[above] at (A) {$A$};
-\node[left] at (B) {$B$};
-\node[right] at (C) {$C$};
-\node[below] at (D) {$D$};
-\node[above right, xshift=2pt, yshift=2pt] at (E) {$E$};
-\node[right] at (F) {$F$};
-\node[above right] at (H) {$H$};
-\node[above left] at (O) {$O$};
+
+\node[lbl, above] at (A) {$A$};
+\node[lbl, left] at (B) {$B$};
+\node[lbl, right] at (C) {$C$};
+\node[lbl, below] at (D) {$D$};
+\node[lbl, above right] at (E) {$E$};
+\node[lbl, above right] at (F) {$F$};
+\node[lbl, above] at (H) {$H$};
+\node[lbl, left] at (O) {$O$};
 \end{tikzpicture}
 \end{document}

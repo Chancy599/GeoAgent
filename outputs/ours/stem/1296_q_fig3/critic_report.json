@@ -1,150 +1,186 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.88,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is faithful to the original: same figure type, segment topology, dashed styles, right-angle markers, and label placement. Only a small global vertical offset between panels, which is cropping and not a geometry error.",
+  "verdict": "The render is faithful in topology and labelling; the one real discrepancy is a short stub protruding below F that is absent from the original.",
   "figure_type": {
-    "original": "Circle centred at B with radius through F and E; triangle-like outline A-C-D with chords, perpendicular dashed segments FN and BM, and right-angle markers at N and M.",
-    "render": "Circle centred at B with radius through F and E; the same triangle-like outline, chords, dashed FN and BM, and right-angle markers at N and M."
+    "original": "Circle centred at B through E and F, with chords and dashed perpendiculars; right angles marked at M and N; A-C-D-B horizontal baseline. Planar line figure with a filled dot at B.",
+    "render": "Same construction: circle centred at B, same chords, dashed F-N and B-M, right-angle markers at M and N, same labels. Extra short tail below F."
   },
-  "issues": [],
+  "issues": [
+    {
+      "type": "wrong_position",
+      "severity": "medium",
+      "object_ids": [],
+      "bbox": [
+        0.41,
+        0.64,
+        0.47,
+        0.71
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "A short stroke protrudes from F below and to the right of the vertex, past the baseline. The original ends the A-F line and the F-E baseline at F with no tail. This comes from the GeoTailF segment (F to (-0.366,-1.867)).",
+      "suggestion": "Remove the line `\\draw (F) -- (GeoTailF);` and the GeoTailF coordinate, or shorten it so it does not extend beyond F."
+    },
+    {
+      "type": "wrong_style",
+      "severity": "low",
+      "object_ids": [
+        "seg_09",
+        "seg_08"
+      ],
+      "bbox": [
+        0.33,
+        0.27,
+        0.7,
+        0.75
+      ],
+      "flaky": false,
+      "source": "vlm",
+      "description": "The dashed perpendiculars look slightly lighter than in the original, where the dashes read as heavier. This is a minor difference and may be within rendering tolerance.",
+      "suggestion": "Optionally use a slightly thicker dash pattern (e.g. line width 1.0pt on the dashed draws). No change required."
+    }
+  ],
   "checks": [
     {
-      "object_id": "circle_B",
+      "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at B passes through F and E in both panels; left and right extents match."
+      "note": "Centred at B, radius and extent match the original; passes through E and F."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Solid segment A-B drawn in both panels and ends at B."
+      "note": "A-B line matches the original and ends at B."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Solid segment A-F drawn in both panels."
+      "note": "A-F line matches the original and ends at F; the extra GeoTailF tail beyond F is not in the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Horizontal solid segment C-D-B drawn in both panels."
+      "note": "Horizontal C-B baseline through D matches."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Bottom solid segment F-M-E drawn in both panels."
+      "note": "F-E baseline matches."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Solid segment B-F drawn in both panels."
+      "note": "B-F segment matches."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Solid segment B-E drawn in both panels; bend at B is preserved."
+      "note": "B-E segment matches."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Vertical solid segment A-C drawn in both panels."
+      "note": "Vertical A-C segment matches."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Dashed segment F-N drawn in both panels, ending at the perpendicular foot N."
+      "note": "Dashed F-N perpendicular matches in position and extent."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Dashed segment B-M drawn in both panels, perpendicular to FE at M."
+      "note": "Dashed B-M perpendicular matches in position and extent."
     },
     {
-      "object_id": "ra_M",
-      "status": "present",
-      "note": "Right-angle marker at M is visible in both panels."
+      "object_id": "ra_01",
+      "status": "unclear",
+      "note": "Identifier not resolvable from the truncated state; the right angle at N is present in the render."
     },
     {
-      "object_id": "ra_N",
-      "status": "present",
-      "note": "Right-angle marker at N on line AB is visible in both panels."
+      "object_id": "ra_02",
+      "status": "unclear",
+      "note": "Identifier not resolvable from the truncated state; the right angle at M is present in the render."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right-angle marker at M (vertex B-M-E) is visible in both panels."
+      "note": "Right-angle square at M, B-M perpendicular to M-E, is present and in the correct quadrant."
     },
     {
       "object_id": "junction_seg_01_seg_08",
       "status": "present",
-      "note": "Label N sits above the foot point of the dashed FN perpendicular in both panels."
+      "note": "N label sits above the A-B line at the dashed foot, matching the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex A and its label are present in both panels."
+      "note": "A label present at upper left of A."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex B (centre, with dot) and its label are present in both panels."
+      "note": "B label present; the filled dot at B is present."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex D on line CB and its label are present in both panels."
+      "note": "D label present above the baseline."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Vertex F on the circle and its label are present in both panels."
+      "note": "F label present below-left of F."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Vertex C and its label are present in both panels."
+      "note": "C label present below C."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "Vertex E on the circle and its label are present in both panels."
+      "note": "E label present below-right of E."
     },
     {
       "object_id": "point_08",
       "status": "present",
-      "note": "Vertex M on FE and its label are present in both panels."
+      "note": "M label present below M."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Vertex A visible in both panels; id is not in the geometry state, so matched by label."
+      "note": "A label present."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Vertex B visible in both panels; id is not in the geometry state, so matched by label."
+      "note": "B label present."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "Vertex C visible in both panels; id is not in the geometry state, so matched by label."
+      "note": "C label present."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
-    "medium": 0,
-    "low": 0
+    "medium": 1,
+    "low": 1
   },
   "flaky_count": 0,
-  "must_repair": false,
+  "must_repair": true,
   "matches": [
-    "Circle centred at B with radius through F and E matches the original.",
-    "Outline A-C-D-B and chords A-B, A-F, B-F, B-E, E-F all match.",
-    "Dashed FN (perpendicular to AB at N) and dashed BM (perpendicular to FE at M) match.",
-    "Right-angle markers at N and M are present with correct orientation.",
-    "Shallow bend at B along A-B-E is preserved in the render.",
-    "All eight point labels (A, B, C, D, E, F, M, N) are present, correctly spelled and placed near their vertices without collisions.",
-    "No extra labels or stray strokes in the render."
+    "Circle centred at B with radius passing through E and F.",
+    "A-B-E straight line with a shallow bend at B preserved as in the original.",
+    "A-D-F line passing through D on the baseline.",
+    "Horizontal C-D-B baseline ending at B.",
+    "F-E baseline ending at E.",
+    "Dashed perpendicular F-N with right-angle marker at N.",
+    "Dashed perpendicular B-M with right-angle marker at M.",
+    "All labels A, B, C, D, E, F, M, N present with correct vertex binding and no collisions with strokes.",
+    "Overall aspect ratio and scale match."
   ],
   "labels": {
     "present": [

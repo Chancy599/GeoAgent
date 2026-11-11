@@ -1,176 +1,141 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.95,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render is geometrically faithful: circle, diameter AB, the two chords PC and PD, and all six labels sit where they do in the original. Remaining differences are stroke weight and point-marker styling.",
+  "verdict": "The render faithfully reproduces the circle, diameter AB with O and P on it, and chords PC and PD meeting at P; the only discrepancy is a CV binding error at point_06, which is D, not O.",
   "figure_type": {
-    "original": "Circle with horizontal diameter AB, centre O, point P on AB between O and B, chords PC and PD meeting at P with C and D on the upper arc",
-    "render": "Circle with horizontal diameter AB, centre O, point P on AB between O and B, chords PC and PD meeting at P with C and D on the upper arc"
+    "original": "circle with diameter AB, interior point P on AB, and segments PC and PD from P to circle points C and D",
+    "render": "circle with diameter AB, interior point P on AB, and segments PC and PD from P to circle points C and D"
   },
   "issues": [
     {
-      "type": "wrong_style",
+      "type": "wrong_position",
       "severity": "low",
       "object_ids": [
-        "seg_01"
+        "point_06"
       ],
       "bbox": [
-        0.05,
-        0.47,
-        0.9,
-        0.53
+        0.779,
+        0.295,
+        0.819,
+        0.335
       ],
       "flaky": false,
-      "source": "vlm",
-      "description": "The diameter AB is drawn at the same weight as the circle and chords (1.7pt). In the original it is visibly thinner than the circle arc, so the render's AB is too heavy.",
-      "suggestion": "Draw the AB segment with a thinner line width (for example 0.8-1pt) while keeping the circle and PC/PD at about 1.7pt."
-    },
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "point_O"
-      ],
-      "bbox": [
-        0.48,
-        0.47,
-        0.52,
-        0.53
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "The centre O is a bold filled dot in the original, but the render draws it as a small dot.",
-      "suggestion": "Increase the radius of the fill at O to match the original (roughly the size of the P marker), or keep it as is if small-dot styling is preferred."
-    },
-    {
-      "type": "other",
-      "severity": "low",
-      "object_ids": [
-        "point_A",
-        "point_B"
-      ],
-      "bbox": [
-        0.1,
-        0.47,
-        0.13,
-        0.53
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "The render puts filled dots at A and B where the original has only the line ending on the circle with no visible marker.",
-      "suggestion": "Remove the fill for A and B, or leave them if the dots are judged harmless for the figure."
+      "source": "checklist",
+      "description": "Checklist: point point_06 is visible but misplaced.",
+      "suggestion": "Move this element to match the original."
     }
   ],
   "checks": [
     {
-      "object_id": "circle_O",
+      "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at O passing through A, B, C and D matches the original."
+      "note": "Circle centre and radius match the original; outline is consistent in both panels."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diameter AB is drawn from A to B through O and P. Its weight is heavier than the original."
+      "note": "Diameter AB is drawn from A to B through O and P, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Chord PC runs from P up-left to C on the arc, matching the original."
+      "note": "Segment PC runs from P to C on the circle, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Chord PD runs from P up-right to D on the arc, matching the original."
+      "note": "Segment PD runs from P to D on the circle, matching the original."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "AB is drawn as the diameter with the correct endpoints."
+      "note": "Diameter AB ends on the circle at A and B as in the original."
     },
     {
       "object_id": "seg_PC",
       "status": "present",
-      "note": "PC is drawn from P to the arc at C."
+      "note": "PC joins P and the circle at C in both panels."
     },
     {
       "object_id": "seg_PD",
       "status": "present",
-      "note": "PD is drawn from P to the arc at D."
+      "note": "PD joins P and the circle at D in both panels; the endpoint is on the circle, not overshooting."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label P is bound to the point on AB, right of O, as in the original."
+      "note": "P is labelled correctly and sits on AB, with its label placed directly below as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label O sits at the centre, below the diameter, as in the original."
+      "note": "O is labelled correctly at the centre of the circle, and its label sits below as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label B is at the right end of the diameter on the circle."
+      "note": "B is at the right end of the diameter, matching the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label A is at the left end of the diameter on the circle."
+      "note": "A is at the left end of the diameter, matching the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label C is at the upper-left arc point where PC meets the circle."
+      "note": "C is at the circle contact of PC, with its label above-left as in the original."
     },
     {
       "object_id": "point_06",
-      "status": "unclear",
-      "note": "This CV point labelled O at about (360,122) has no counterpart in the original. The original shows no O there, so it is a stray detection and should not be drawn."
+      "status": "wrong",
+      "note": "This CV point sits at the circle contact of PD, which is D's position in the original. It is bound to the OCR letter O, but no printed O appears there. The printed letter is D."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "A is at the left end of the diameter on the circle."
+      "note": "A is at the left end of the diameter."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "B is at the right end of the diameter on the circle."
+      "note": "B is at the right end of the diameter."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "C is at the upper-left arc point where PC meets the circle."
+      "note": "C is at the upper-left circle contact of PC."
     },
     {
       "object_id": "point_D",
       "status": "present",
-      "note": "D is at the upper-right arc point where PD meets the circle, with a label in the same position."
+      "note": "D is at the upper-right circle contact of PD, matching the original and the render."
     },
     {
       "object_id": "point_O",
       "status": "present",
-      "note": "O is the centre of the circle."
+      "note": "O is the centre of the circle, matching the original."
     },
     {
       "object_id": "point_P",
       "status": "present",
-      "note": "P is on AB between O and B, and PC and PD meet there."
+      "note": "P lies on AB between O and B, matching the original."
     }
   ],
-  "checklist_score": 1.0,
+  "checklist_score": 0.974,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 3
+    "low": 1
   },
   "flaky_count": 0,
-  "must_repair": true,
+  "must_repair": false,
   "matches": [
-    "Circle centre, radius and position match the original.",
-    "A, B, C, D, O and P sit at the same relative positions as in the original.",
-    "Chords PC and PD meet at P with the same angular configuration.",
-    "Label placement and spelling for A, B, C, D, O and P match the original.",
-    "Labels do not collide with strokes."
+    "Circle size and position match the original.",
+    "Diameter AB runs through O and P with the correct endpoints A and B.",
+    "PC and PD both meet at P and end on the circle at C and D.",
+    "The P, O, A, B, C and D labels are present and placed as in the original with clear separation from strokes.",
+    "No right-angle marker is drawn at P in either panel, so none is missing."
   ],
   "labels": {
     "present": [
@@ -182,10 +147,19 @@
       "P"
     ],
     "missing": [],
-    "extra": []
+    "extra": [
+      "O bound to point_06 (CV label_02) is a misread of the printed D"
+    ]
   },
-  "version": 1,
-  "binding_decisions": [],
+  "version": 4,
+  "binding_decisions": [
+    {
+      "label": "D",
+      "point_id": "point_06",
+      "reason": "In the original, the printed letter D sits just outside the upper-right circle contact of PD. That contact is at the same angle (about 30 degrees above horizontal from O) as point_06, which is on the circle. The render also draws D there.",
+      "replaces": "O"
+    }
+  ],
   "topology_decisions": [],
   "raw_meta": "{}"
 }

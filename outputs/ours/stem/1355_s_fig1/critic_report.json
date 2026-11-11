@@ -1,173 +1,148 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.93,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Render is geometrically faithful: all segments, dashed extensions, right-angle mark and labels match the original; the only notable difference is stroke weight.",
+  "verdict": "Render is faithful to the original: same parallelogram outline, interior segments, dashed F-M-D extension, right-angle marker at E and all seven labels in matching positions.",
   "figure_type": {
-    "original": "Quadrilateral ABCD with points E on AB and F on AD, segments EC, FC and EF, dashed extensions FM and DM meeting at M, and a right angle at E between EB and EC",
-    "render": "Same configuration: quadrilateral ABCD with E, F, dashed FM and DM, and the right-angle mark at E"
+    "original": "Quadrilateral ABCD (parallelogram-like) with points E on AB and F on AD, segments EF, FC, EC, a right angle at E, and dashed extension F-M-D beyond D",
+    "render": "Same quadrilateral ABCD with E, F, the right angle at E, and dashed F-M-D extension"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_04",
-        "seg_05",
-        "seg_07",
-        "seg_08"
-      ],
-      "bbox": [
-        0.03,
-        0.2,
-        0.98,
-        0.72
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Solid strokes in the render are visibly thinner than in the original (original strokes look heavier at the same scale). Direction: render strokes too thin.",
-      "suggestion": "Optionally increase line width from 0.8pt to roughly 1.0-1.2pt to match the heavier original weight. Not required for geometric faithfulness."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Top side AD drawn from A to D, passing through F, matches original."
+      "note": "Top side A-F-D drawn solid from A to D, passing through F, as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Bottom side BC matches original."
+      "note": "Bottom side B-C matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment EC from E to C matches original."
+      "note": "Segment E-C matches; the right angle sits at E on the same arms."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment EF from E to F matches original."
+      "note": "Segment E-F matches the original, ending at F."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment FC from F to C matches original."
+      "note": "Segment F-C matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed extension from F toward M is present with matching direction and extent."
+      "note": "Dashed F-M extension matches in direction and endpoints."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Side DC from D to C matches original."
+      "note": "Right side D-C matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Side AB through E to B matches original."
+      "note": "Left side A-B passes through E, as in the original."
     },
     {
       "object_id": "seg_09",
       "status": "present",
-      "note": "Short dashed segment from D toward M matches original."
+      "note": "Short dashed M-D stub matches the original."
+    },
+    {
+      "object_id": "seg_AB",
+      "status": "present",
+      "note": "A-E-B side matches the original."
     },
     {
       "object_id": "seg_AD",
       "status": "present",
-      "note": "Top segment AD is drawn and matches original."
+      "note": "Top side A-F-D matches the original."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Bottom segment BC is drawn and matches original."
+      "note": "Bottom side matches the original."
+    },
+    {
+      "object_id": "seg_DC",
+      "status": "present",
+      "note": "Right side matches the original."
     },
     {
       "object_id": "seg_DM",
       "status": "present",
-      "note": "Dashed DM is drawn from D to M as in original."
+      "note": "Dashed M-D stub matches the original."
+    },
+    {
+      "object_id": "seg_EC",
+      "status": "present",
+      "note": "Matches the original."
+    },
+    {
+      "object_id": "seg_EF",
+      "status": "present",
+      "note": "Matches the original."
+    },
+    {
+      "object_id": "seg_FC",
+      "status": "present",
+      "note": "Matches the original."
     },
     {
       "object_id": "seg_FM",
       "status": "present",
-      "note": "Dashed FM is drawn from F to M as in original."
+      "note": "Dashed F-M matches the original."
     },
     {
-      "object_id": "ra_E",
+      "object_id": "ra_01",
       "status": "present",
-      "note": "Right-angle mark at E is drawn in the same quadrant as the original (between EB and EC)."
+      "note": "Right-angle marker at E is drawn on the B-E-C corner, as in the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Same right-angle marker at E; orientation matches original."
+      "note": "Same right-angle marker at E; placement matches."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "F label is placed above F, matching original."
+      "note": "F is at the intersection of the top side and E-F/F-C, matching the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "D label is placed right of D, matching original."
+      "note": "D is at the top-right corner, matching the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "A label is placed above-left of A, matching original."
+      "note": "A is at the top-left corner, matching the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "C label is placed below-right of C, matching original."
-    },
-    {
-      "object_id": "point_05",
-      "status": "present",
-      "note": "B label is placed below-left of B, matching original."
-    },
-    {
-      "object_id": "point_06",
-      "status": "present",
-      "note": "E label is placed left of E, matching original."
-    },
-    {
-      "object_id": "point_07",
-      "status": "present",
-      "note": "M label is placed upper-right of M, matching original."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "Vertex A and its label are correct."
-    },
-    {
-      "object_id": "point_B",
-      "status": "present",
-      "note": "Vertex B and its label are correct."
+      "note": "C is at the bottom-right vertex, matching the original."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Quadrilateral ABCD has the correct shape and proportions.",
-    "E lies on AB and F lies on AD at the same relative positions as the original.",
-    "Segments EC, FC and EF meet at the correct vertices.",
-    "Dashed extensions FM and DM meet at M with matching direction and length.",
-    "Right-angle mark at E is present in the correct quadrant.",
-    "All seven labels A, B, C, D, E, F, M are present, correctly spelled and clear of strokes."
+    "Overall parallelogram outline ABCD with the same proportions and aspect ratio",
+    "Point E on AB, F on AD, and their connections EF, FC, EC",
+    "Right-angle marker at E on the B-E-C corner",
+    "Dashed extension F-M and M-D with M above and right of D at the same relative offset",
+    "Labels A, B, C, D, E, F and M present, correctly bound and clear of strokes"
   ],
   "labels": {
     "present": [
@@ -182,7 +157,7 @@
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 3,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

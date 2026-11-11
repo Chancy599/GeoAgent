@@ -1,153 +1,133 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the quadrilateral ABCD with correct vertex positions, both right-angle markers at A and C, and all four labels; the only visible difference is stroke weight.",
+  "verdict": "The render matches the original quadrilateral ABCD: vertices, both right-angle markers at A and C, and the label placement are faithful, with only a minor stroke-weight difference.",
   "figure_type": {
-    "original": "Quadrilateral ABCD with right angles at A (angle DAB) and C (angle BCD), drawn as a closed outline with small square right-angle markers",
-    "render": "Quadrilateral ABCD with right-angle markers at A and C, drawn as a closed outline"
+    "original": "Quadrilateral ABCD with right angles at A and C, drawn as a closed outline with right-angle squares at A (inside angle DAB) and C (inside angle BCD)",
+    "render": "Quadrilateral ABCD with right angles at A and C, drawn as a closed outline with matching right-angle squares at A and C"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_04"
+        "seg_AB",
+        "seg_BC",
+        "seg_CD",
+        "seg_DA"
       ],
       "bbox": [
         0.05,
-        0.21,
-        0.95,
-        0.81
+        0.22,
+        0.46,
+        0.76
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Outline strokes in the render (line width 1.2pt) look visibly thinner than the heavier strokes of the original figure.",
-      "suggestion": "Increase the outline line width, e.g. to about 1.6pt or 2pt, to match the original stroke weight."
+      "description": "Outline strokes in the render are visibly lighter than in the original; the original's edges look heavier (about 2-3 px) than the render's (about 1.5 px) at the same scale.",
+      "suggestion": "Increase the global line width from 1.2pt to about 1.6pt in the tikzpicture options, keeping the geometry unchanged."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom side CB drawn from C to B, matching the original."
+      "note": "Bottom edge CB is drawn from C to B, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Upper side DA drawn from D to A, matching the original."
+      "note": "Edge DA is drawn from D to A, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Side AB drawn from A to B, matching the original."
+      "note": "Edge AB is drawn from A to B, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Vertical side DC drawn from D down to C, matching the original."
+      "note": "Left edge CD is drawn vertically from C to D, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Short arm of the right-angle marker at A, present in both panels."
+      "note": "Right-angle square side at A is present in the render, matching the original marker."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Second arm of the right-angle marker at A, present in both panels."
+      "note": "Second right-angle square side at A is present in the render, matching the original marker."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Arm of the right-angle marker at C, present in both panels."
+      "note": "Right-angle square side at C is present in the render, matching the original marker."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Arm of the right-angle marker at C, present in both panels."
+      "note": "Second right-angle square side at C is present in the render, matching the original marker."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Side AB is correct."
+      "note": "Segment AB is drawn and joins A to B in the render."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Side BC is correct."
+      "note": "Segment BC is drawn and joins B to C in the render."
     },
     {
       "object_id": "seg_CD",
       "status": "present",
-      "note": "Side CD is correct."
+      "note": "Segment CD is drawn and joins C to D in the render."
     },
     {
       "object_id": "seg_DA",
       "status": "present",
-      "note": "Side DA is correct."
+      "note": "Segment DA is drawn and joins D to A in the render."
     },
     {
       "object_id": "ra_A",
       "status": "present",
-      "note": "Right-angle marker at A is drawn on the same interior side as the original."
+      "note": "Right-angle square at A is present and inside angle DAB, as in the original."
     },
     {
       "object_id": "ra_C",
       "status": "present",
-      "note": "Right-angle marker at C is drawn in the same position as the original."
+      "note": "Right-angle square at C is present and inside angle BCD, as in the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right-angle marker at C matches the original."
+      "note": "Right-angle mark at vertex C is correctly placed and oriented in the render."
     },
     {
       "object_id": "right_angle_02",
       "status": "present",
-      "note": "Right-angle marker at A matches the original."
+      "note": "Right-angle mark at vertex A is correctly placed and oriented in the render."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B is labelled at the lower-right vertex, as in the original."
+      "note": "Vertex B is at the lower-right endpoint, labelled B, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "C is labelled at the lower-left vertex, as in the original."
+      "note": "Vertex C is at the bottom-left corner, labelled C, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "A is labelled at the upper vertex, as in the original."
+      "note": "Vertex A is at the top, labelled A, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "D is labelled at the left vertex, as in the original."
-    },
-    {
-      "object_id": "point_A",
-      "status": "present",
-      "note": "Label A is present and correctly placed."
-    },
-    {
-      "object_id": "point_B",
-      "status": "present",
-      "note": "Label B is present and correctly placed."
-    },
-    {
-      "object_id": "point_C",
-      "status": "present",
-      "note": "Label C is present and correctly placed."
-    },
-    {
-      "object_id": "point_D",
-      "status": "present",
-      "note": "Label D is present and correctly placed."
+      "note": "Vertex D is on the left edge, labelled D, as in the original."
     }
   ],
   "checklist_score": 1.0,
@@ -159,11 +139,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Vertex positions and overall quadrilateral shape match the original.",
-    "Right-angle marker at A is present, on the interior side, and matches the original.",
-    "Right-angle marker at C is present and matches the original.",
-    "Labels A, B, C and D are present, correctly spelled, and clear of the strokes.",
-    "The closed outline has no gaps or overhangs."
+    "Vertex positions of A, B, C, D match the original proportions and aspect ratio.",
+    "Right-angle marker at C sits in the same quadrant (inside angle BCD) as in the original.",
+    "Right-angle marker at A sits in the same quadrant (inside angle DAB) as in the original.",
+    "Edge topology is preserved: closed quadrilateral with no extra or missing segments.",
+    "Labels A, B, C, D are present, correctly spelled, and clear of strokes."
   ],
   "labels": {
     "present": [

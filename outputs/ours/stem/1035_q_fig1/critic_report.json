@@ -1,143 +1,137 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render matches the original's geometry and labels: a semicircle MN with centre O, P at the top, A on OP, and B on the arc joined to O and A. The only visible difference is that the small point dots are absent.",
+  "verdict": "Render matches the original semicircle, radii, chord, and labels; the only discrepancy is the missing small filled dots at O, A and B.",
   "figure_type": {
-    "original": "semicircle MN with centre O, top point P, interior point A on OP, and B on the arc, with segments OB and AB",
-    "render": "semicircle MN with centre O, top point P, interior point A on OP, and B on the arc, with segments OB and AB"
+    "original": "semicircle MN with centre O, radius OP, interior point A on OP, and point B on the arc with segments OB and AB",
+    "render": "semicircle MN with centre O, radius OP, interior point A on OP, and point B on the arc with segments OB and AB"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "point_01",
-        "point_02",
-        "point_03",
-        "point_06"
+        "point_O",
+        "point_A",
+        "point_B"
       ],
       "bbox": [
-        0.46,
-        0.22,
-        0.95,
-        0.86
+        0.48,
+        0.4,
+        0.84,
+        0.85
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "The original shows small filled dots at O, A, B and P. The render shows no visible dots at these vertices, so the points are less emphasised than in the original.",
-      "suggestion": "Increase the radius of the \\fill circles (for example to about 0.04-0.05) or draw them with a visible size so the vertex dots appear as in the original."
+      "description": "Small filled dots marking O, A and B are visible in the original but do not appear in the render. Stroke geometry and label positions are otherwise faithful.",
+      "suggestion": "Confirm the \\fill[black] (O/A/B) circle (1.2pt) commands are rasterised; if they are still missing, increase the radius (e.g. 1.5pt) or draw them with \\filldraw[black] to make them visible."
     }
   ],
   "checks": [
     {
-      "object_id": "arc_MPN",
+      "object_id": "arc_MNP",
       "status": "present",
-      "note": "Upper semicircle from M through P to N matches the original."
-    },
-    {
-      "object_id": "circle_O",
-      "status": "unclear",
-      "note": "The original shows only the upper semicircle, not a full circle. The arc is present, so the full-circle object is not separately visible in the original."
+      "note": "Semicircle from M through P to N, centred at O, matches the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Diameter MN is drawn as a horizontal line from M to N, matching the original."
+      "note": "Baseline MN matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Segment OB runs from O to B, matching the original."
+      "note": "Segment OB from O to B matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment OP runs vertically from O through A to P, matching the original."
+      "note": "Vertical radius OP through A matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment AB runs from A to B, matching the original."
+      "note": "Segment AB from A to B matches the original."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Segment AB is drawn from A to B as in the original."
+      "note": "AB matches the original."
     },
     {
       "object_id": "seg_MN",
       "status": "present",
-      "note": "Segment MN is drawn and labelled correctly."
+      "note": "MN matches the original."
     },
     {
       "object_id": "seg_OB",
       "status": "present",
-      "note": "Segment OB is drawn and labelled correctly."
+      "note": "OB matches the original."
     },
     {
       "object_id": "seg_OP",
       "status": "present",
-      "note": "Segment OP is drawn and labelled correctly."
+      "note": "OP matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Label O is placed below the vertex at the centre, as in the original. The vertex dot is not visible in the render."
+      "note": "Label O correctly placed below O; the dot is not drawn (see style issue)."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Label B sits above-right of the arc point, as in the original. The vertex dot is not visible in the render."
+      "note": "Label B correctly placed above-right of B; the dot is not drawn."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Label A sits left of the point on OP, as in the original. The vertex dot is not visible in the render."
+      "note": "Label A correctly placed left of A; the dot is not drawn."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Label N is placed below the right endpoint, as in the original."
+      "note": "Label N correctly placed below N."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "Label M is placed below the left endpoint, as in the original."
+      "note": "Label M correctly placed below M."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "Label P sits above the top point of the arc, as in the original. The vertex dot is not visible in the render."
+      "note": "Label P correctly placed above P."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "A is on segment OP at the position shown in the original."
+      "note": "A lies on OP at the midpoint, as in the original."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "B is on the arc at the position shown in the original."
+      "note": "B lies on the arc at the correct position; dot not drawn."
     },
     {
       "object_id": "point_M",
       "status": "present",
-      "note": "M is the left end of the diameter, as in the original."
+      "note": "M is at the left end of the baseline."
     },
     {
       "object_id": "point_N",
       "status": "present",
-      "note": "N is the right end of the diameter, as in the original."
+      "note": "N is at the right end of the baseline."
     },
     {
       "object_id": "point_O",
       "status": "present",
-      "note": "O is the centre on the diameter, as in the original."
+      "note": "O is the centre at the baseline; dot not drawn."
     },
     {
       "object_id": "point_P",
       "status": "present",
-      "note": "P is the top of the arc on the vertical through O, as in the original."
+      "note": "P is the top of the arc on OP."
     }
   ],
   "checklist_score": 1.0,
@@ -149,20 +143,21 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Semicircle arc from M through P to N with the same extent and aspect ratio.",
-    "Diameter MN is horizontal with O at its midpoint.",
-    "Vertical segment OP passes through A, and A is at the same relative height.",
-    "Segments OB and AB meet at B on the arc, matching the original.",
-    "All six labels M, N, O, P, A, B are present with correct spelling and placement."
+    "Semicircle arc from M through P to N with centre O",
+    "Baseline MN",
+    "Vertical radius OP passing through A",
+    "Segment OB from O to the arc point B",
+    "Segment AB from A to B",
+    "Labels P, B, A, O, M, N present with correct placement and no collisions with strokes"
   ],
   "labels": {
     "present": [
-      "M",
-      "N",
-      "O",
       "P",
+      "B",
       "A",
-      "B"
+      "O",
+      "M",
+      "N"
     ],
     "missing": [],
     "extra": []

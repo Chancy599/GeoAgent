@@ -750,11 +750,11 @@
       "label": "BC",
       "coords": {
         "a_px": [
-          75.0,
+          479.0,
           549.0
         ],
         "b_px": [
-          479.0,
+          75.0,
           549.0
         ]
       },
@@ -837,29 +837,29 @@
     },
     "rel_006": {
       "id": "rel_006",
-      "subject": "point_05",
-      "relation": "on_segment",
-      "object": "seg_BC",
-      "source": "geometry_agent",
-      "evidence": "E lies on base at x=316",
-      "status": "candidate"
-    },
-    "rel_007": {
-      "id": "rel_007",
-      "subject": "point_04",
-      "relation": "on_segment",
-      "object": "seg_BC",
-      "source": "geometry_agent",
-      "evidence": "D lies on base at x=238",
-      "status": "candidate"
-    },
-    "rel_008": {
-      "id": "rel_008",
       "subject": "seg_AE",
       "relation": "perpendicular",
       "object": "seg_BC",
       "source": "geometry_agent",
-      "evidence": "right_angle_01 at E, verified square mark in upper-right quadrant",
+      "evidence": "detect_lines angle 90.0 and right_angle_01 at E",
+      "status": "candidate"
+    },
+    "rel_007": {
+      "id": "rel_007",
+      "subject": "point_05",
+      "relation": "on_segment",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "E at y=549 on base line between D and C",
+      "status": "candidate"
+    },
+    "rel_008": {
+      "id": "rel_008",
+      "subject": "point_04",
+      "relation": "on_segment",
+      "object": "seg_BC",
+      "source": "geometry_agent",
+      "evidence": "D at y=549 on base line",
       "status": "candidate"
     }
   },
@@ -875,7 +875,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:01:28"
+      "created_at": "2026-11-11T12:56:06"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -888,7 +888,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:01:33"
+      "created_at": "2026-11-11T12:56:07"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -901,13 +901,13 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:01:36"
+      "created_at": "2026-11-11T12:56:07"
     },
     "ev_0004": {
       "id": "ev_0004",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Triangle ABC with apex A; D and E lie on base BC in order B, D, E, C. Solid edges AB, AC, AD. Dashed altitude AE from A to foot E on BC. Right-angle square at E between rays EA (up) and EC (right). Base BC is one solid line through D and E, drawn as subedges BD, DE, EC.",
+      "summary": "Triangle ABC with apex A above base BC (B left, C right). D lies on BC between B and E. Solid edges: AB, AC, AD, and base B-D-E-C (solid). Dashed altitude AE runs vertically from A down to foot E on BC (E at x=316, the foot of the perpendicular). Right-angle square marker sits at E in the quadrant between ray E->A (up) and ray E->C (right), so it is drawn at E with sides along EA and EC. Labels A,B,C,D,E all match the measured points; no binding changes needed.",
       "payload": {
         "merged": {
           "objects": 11,
@@ -929,13 +929,13 @@
           "ra_01"
         ]
       },
-      "created_at": "2026-11-09T23:01:49"
+      "created_at": "2026-11-11T12:56:19"
     },
     "ev_0005": {
       "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [555, 627] (scale 0.8426)",
+      "summary": "v1 canvas matched to source [555, 627] (scale 0.8413)",
       "payload": {
         "ok": true,
         "size": [
@@ -946,13 +946,13 @@
           555,
           627
         ],
-        "scale": 0.8426,
+        "scale": 0.8413,
         "offset": [
           44,
           41
         ]
       },
-      "created_at": "2026-11-09T23:02:08"
+      "created_at": "2026-11-11T12:56:42"
     },
     "ev_0006": {
       "id": "ev_0006",
@@ -967,10 +967,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "b80ed196f4a94089127391d2aeb98cb64a33a523f85c6d0685270dac1715013f",
-        "output_sha256": "265e886c56cf3cdcfcfea774bd981f98beaae05894006c2e26b06cd5205a89f6",
+        "input_sha256": "0f15690e34567f915badbd075d1d18174cd858e88f82be85e83fe0dc808324f2",
+        "output_sha256": "434b7534d286c83a245743e7573d1b8771edf052903a3b095d35283b941101a3",
         "reason": "applied",
         "accepted": [
           {
@@ -988,8 +988,8 @@
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -1000,13 +1000,26 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
-          "excluded_paths": [],
+          "excluded_paths": [
+            {
+              "paths": [
+                " ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$)"
+              ],
+              "anchor": [
+                0.581,
+                -3.555
+              ],
+              "strokes": 2
+            }
+          ],
           "excluded_helper_points": [],
-          "excluded_strokes": 0
+          "excluded_strokes": 2
         },
+        "source_collinear_candidates": [],
         "input_candidates": 1,
         "preserved_incidence_count": 2,
         "max_shift_rel": 0.00010789424715392926,
@@ -1028,7 +1041,7 @@
         "point_count": 5,
         "segment_count": 5
       },
-      "created_at": "2026-11-09T23:02:08"
+      "created_at": "2026-11-11T12:56:42"
     },
     "ev_0007": {
       "id": "ev_0007",
@@ -1036,14 +1049,14 @@
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used program-owned coordinates A, B, C, D without redefinition. E defined by projection-consistent frame x=0.581, y=-3.555 (matches D's frame). Right-angle drawn as pic between arms E-A and E-C, radius 0.287 cm (19 px * 0.015094). Base drawn as one solid B--C line covering B-D-E-C. Line width 1.2pt, labels 12.5/15 pt per STYLE METRICS.",
+        "notes": "Coordinates A, B, C, D are left to the program-owned CV block (not redefined here), so this standalone file will only compile once the program inserts them at the start of the tikzpicture. E is defined in the same frame: x=(316-277.5)*0.015094=0.581, y=(313.5-549)*0.015094=-3.555. Right-angle mark is drawn explicitly as the two strokes opposite E (up and right), side 19 px = 0.287 cm, sitting between the dashed AE and base EC. Edges AB, AC, AD, and base BC are drawn as named-coordinate segments; BC covers BD and DE. The AE dashed style uses a dash pattern of on 4pt off 3pt. Line width 1.2pt with round joins from STYLE METRICS. Labels use the 12.5/15 pt font from the metrics block, placed above A, below-left B, below-right C, below D and E. No remeasurement issues were found in the supplied coordinates.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1073,17 +1086,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0302"
+              "detail": "ink_ratio=0.0306"
             },
             {
               "name": "aspect_ratio",
@@ -1098,7 +1111,7 @@
           ]
         }
       },
-      "created_at": "2026-11-09T23:02:08"
+      "created_at": "2026-11-11T12:56:42"
     },
     "ev_0008": {
       "id": "ev_0008",
@@ -1111,23 +1124,23 @@
             "A",
             "E"
           ],
-          "reason": "The original shows a dashed vertical stroke running from the apex A straight down to E on the base, so the junction joins A and E."
+          "reason": "The original shows a single dashed vertical stroke from A straight down to the base at E, with no extension below the base."
         },
         "992195eb7a54c8f0": {
           "edge": [
             "C",
             "E"
           ],
-          "reason": "The base stroke is continuous from C through E, and E is the right-angle arm point on that stroke, so the segment E-C is part of the base that joins C and E."
+          "reason": "The base BC is one continuous stroke from B through E to C, so the arm from E to C is physically part of the drawn base, and the right-angle arms meet at E."
         }
       },
-      "created_at": "2026-11-09T23:02:25"
+      "created_at": "2026-11-11T12:56:59"
     },
     "ev_0009": {
       "id": "ev_0009",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v2 canvas matched to source [555, 627] (scale 0.8426)",
+      "summary": "v2 canvas matched to source [555, 627] (scale 0.8413)",
       "payload": {
         "ok": true,
         "size": [
@@ -1138,13 +1151,13 @@
           555,
           627
         ],
-        "scale": 0.8426,
+        "scale": 0.8413,
         "offset": [
           44,
           41
         ]
       },
-      "created_at": "2026-11-09T23:02:51"
+      "created_at": "2026-11-11T12:57:18"
     },
     "ev_0010": {
       "id": "ev_0010",
@@ -1159,10 +1172,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "3b6d38b10e7244e7e77715a86e54adbd8c5acbf82d7fe3a5441784484118730d",
-        "output_sha256": "6d207b15232ee5bd7c1d97966979ae7cc288c25e80dd8baf8c2a4f88edcb1abb",
+        "input_sha256": "57d06cff8f55d7d36faeb979577610d1e2fa381706e223d73070a842c242e374",
+        "output_sha256": "98e4c7f58337343c77c4830f8ca5e0a9bfffc77d2c731e9344b860da46d60045",
         "reason": "applied",
         "accepted": [
           {
@@ -1202,8 +1215,8 @@
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -1214,13 +1227,26 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
-          "excluded_paths": [],
+          "excluded_paths": [
+            {
+              "paths": [
+                " ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$)"
+              ],
+              "anchor": [
+                0.581,
+                -3.555
+              ],
+              "strokes": 2
+            }
+          ],
           "excluded_helper_points": [],
-          "excluded_strokes": 0
+          "excluded_strokes": 2
         },
+        "source_collinear_candidates": [],
         "input_candidates": 3,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.00010789424715392926,
@@ -1242,7 +1268,7 @@
         "point_count": 5,
         "segment_count": 7
       },
-      "created_at": "2026-11-09T23:02:52"
+      "created_at": "2026-11-11T12:57:18"
     },
     "ev_0011": {
       "id": "ev_0011",
@@ -1250,14 +1276,14 @@
       "method": "tikz repair",
       "summary": "v2 compiled=True validation=True",
       "payload": {
-        "notes": "Replaced the single base B--C with named subedges B--D, D--E, E--C so the base is continuous through D and E. Added the missing named edges B-D and C-E (E-C drawn as a segment from E). Altitude A-E now uses dash pattern on 6pt off 4pt. Right-angle pic at E (A--E--C) and all labels A-E kept. Removed the literal redefinitions of A, B, C, D because the program owns those coordinates; E stays defined in the same frame (0.581,-3.555). Coordinates were not changed.",
+        "notes": "Replaced the single \\draw (B) -- (C) with the explicit named path (B) -- (D) -- (E) -- (C) so B--D and C--E are drawn as solid base segments. Kept AB, AC, AD, the dashed AE, the right-angle mark at E, labels, font and line width unchanged. Per the PROGRAM-OWNED CV COORDINATES block, A, B, C, D are not redefined here; the program inserts them at the start of the tikzpicture. E is kept as a locally defined vertex at (0.581,-3.555), which matches the source frame (x=(316-277.5)*0.015094, y=(313.5-549)*0.015094). No extension below the base was added. Note: because A-D come from the program, this standalone file will not compile on its own without that insertion.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v2\\v2.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v2\\v2.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v2\\v2.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1287,17 +1313,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v2\\v2.pdf"
+              "detail": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v2\\v2.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v2\\v2.png"
+              "detail": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v2\\v2.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0307"
+              "detail": "ink_ratio=0.0306"
             },
             {
               "name": "aspect_ratio",
@@ -1312,7 +1338,7 @@
           ]
         }
       },
-      "created_at": "2026-11-09T23:02:52"
+      "created_at": "2026-11-11T12:57:18"
     }
   },
   "conflicts": [],
@@ -1323,10 +1349,10 @@
     "D": "point_04",
     "E": "point_05"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (0.583,3.568);\n\\coordinate (B) at (-2.974,-3.554);\n\\coordinate (C) at (2.956,-3.556);\n\\coordinate (D) at (-0.596,-3.555);\n\n\n\n\\coordinate (E) at (0.581,-3.555);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (D);\n\n\n\\draw (B) -- (D);\n\\draw (D) -- (E);\n\\draw (E) -- (C);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (A) -- (E);\n\n\n\\draw pic[draw, angle radius=0.287cm] {right angle=A--E--C};\n\n\n\\node[above] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[right] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[below] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 0104fe34ac7b70b795b27f7c3964416cfb426f6027f784f7971149b582a51c5d\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (0.583,3.568);\n\\coordinate (B) at (-2.974,-3.554);\n\\coordinate (C) at (2.956,-3.556);\n\\coordinate (D) at (-0.596,-3.555);\n\n\n\n\\coordinate (E) at (0.581,-3.555);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (D);\n\n\n\\draw (B) -- (D);\n\\draw (D) -- (E);\n\\draw (E) -- (C);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (A) -- (E);\n\n\n\\draw pic[draw, angle radius=0.287cm] {right angle=A--E--C};\n\n\n\\node[above] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[right] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[below] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 0104fe34ac7b70b795b27f7c3964416cfb426f6027f784f7971149b582a51c5d\n",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (0.583,3.568);\n\\coordinate (B) at (-2.974,-3.554);\n\\coordinate (C) at (2.956,-3.556);\n\\coordinate (D) at (-0.596,-3.555);\n\n\n\n\\coordinate (E) at (0.581,-3.555);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (D);\n\n\n\\draw (B) -- (D) -- (E) -- (C);\n\n\n\\draw[dash pattern=on 4pt off 3pt] (A) -- (E);\n\n\n\\draw ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$);\n\n\n\\node[above] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[below left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[below] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 ab3d6c0ce87e02f4067c3920717627dbdcf6e8e51e887086e57ea2dbbec56ecc\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (0.583,3.568);\n\\coordinate (B) at (-2.974,-3.554);\n\\coordinate (C) at (2.956,-3.556);\n\\coordinate (D) at (-0.596,-3.555);\n\n\n\n\\coordinate (E) at (0.581,-3.555);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (D);\n\n\n\\draw (B) -- (D) -- (E) -- (C);\n\n\n\\draw[dash pattern=on 4pt off 3pt] (A) -- (E);\n\n\n\\draw ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$);\n\n\n\\node[above] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[below left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[below] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 ab3d6c0ce87e02f4067c3920717627dbdcf6e8e51e887086e57ea2dbbec56ecc\n",
   "best_version": 2,
-  "best_score": 0.93,
+  "best_score": 0.95,
   "tikz_versions": [
     {
       "topology_check": {
@@ -1352,149 +1378,130 @@
         ]
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (0.583,3.568);\n\\coordinate (B) at (-2.974,-3.554);\n\\coordinate (C) at (2.956,-3.556);\n\\coordinate (D) at (-0.596,-3.555);\n\n  \n  \n  \\coordinate (E) at (0.581,-3.555);\n\n  \n  \\draw (A) -- (B);\n  \\draw (A) -- (C);\n  \\draw (A) -- (D);\n  \n  \\draw (B) -- (C);\n\n  \n  \\draw[dashed] (A) -- (E);\n\n  \n  \\draw pic[draw, angle radius=0.287cm] {right angle=A--E--C};\n\n  \n  \\node[above] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n  \\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n  \\node[right] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n  \\node[below] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n  \\node[below] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 abd13d3b5144c48094a706c30e4a91d46bea032964bf204b30771f83ad806064\n",
-      "tex_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (0.583,3.568);\n\\coordinate (B) at (-2.974,-3.554);\n\\coordinate (C) at (2.956,-3.556);\n\\coordinate (D) at (-0.596,-3.555);\n\n\n\n\\coordinate (E) at (0.581,-3.555);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (D);\n\\draw (B) -- (C);\n\n\n\\draw[dash pattern=on 4pt off 3pt] (A) -- (E);\n\n\n\\draw ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$);\n\n\n\\node[above] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[below left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[below] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 afa5891f98c77dc7b56b68fd58d6a4f668f0450d200575edd83a49c191a8eab2\n",
+      "tex_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:02:05",
+      "created_at": "2026-11-11T12:56:40",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used program-owned coordinates A, B, C, D without redefinition. E defined by projection-consistent frame x=0.581, y=-3.555 (matches D's frame). Right-angle drawn as pic between arms E-A and E-C, radius 0.287 cm (19 px * 0.015094). Base drawn as one solid B--C line covering B-D-E-C. Line width 1.2pt, labels 12.5/15 pt per STYLE METRICS.",
-      "compile_seconds": 2.107,
+      "notes": "Coordinates A, B, C, D are left to the program-owned CV block (not redefined here), so this standalone file will only compile once the program inserts them at the start of the tikzpicture. E is defined in the same frame: x=(316-277.5)*0.015094=0.581, y=(313.5-549)*0.015094=-3.555. Right-angle mark is drawn explicitly as the two strokes opposite E (up and right), side 19 px = 0.287 cm, sitting between the dashed AE and base EC. Edges AB, AC, AD, and base BC are drawn as named-coordinate segments; BC covers BD and DE. The AE dashed style uses a dash pattern of on 4pt off 3pt. Line width 1.2pt with round joins from STYLE METRICS. Labels use the 12.5/15 pt font from the metrics block, placed above A, below-left B, below-right C, below D and E. No remeasurement issues were found in the supplied coordinates.",
+      "compile_seconds": 2.516,
       "critic_report": {
-        "assessment_score": 0.93,
+        "assessment_score": 0.94,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render is geometrically faithful: all vertices, segments, the dashed altitude AE and the right-angle mark at E match the original. The only visible difference is the dash pattern on AE.",
+        "verdict": "Faithful render: the triangle ABC, cevian AD, dashed altitude AE with right-angle mark at E, and all five labels match the original.",
         "figure_type": {
-          "original": "Isosceles triangle ABC with apex A, base BC, cevian AD and altitude AE (dashed) with a right-angle mark at E on BC",
-          "render": "Same triangle ABC with cevian AD, dashed altitude AE and right-angle mark at E on BC"
+          "original": "Isosceles triangle ABC with apex A on a horizontal base BC; D on BC; dashed altitude AE to foot E with right-angle marker at E.",
+          "render": "Isosceles triangle ABC with apex A on a horizontal base BC; D on BC; dashed altitude AE to foot E with right-angle marker at E."
         },
-        "issues": [
-          {
-            "type": "wrong_style",
-            "severity": "low",
-            "object_ids": [
-              "seg_AE",
-              "seg_04"
-            ],
-            "bbox": [
-              0.55,
-              0.11,
-              0.59,
-              0.89
-            ],
-            "flaky": false,
-            "source": "vlm",
-            "description": "The dashed altitude AE is drawn with a finer, shorter-dash pattern in the render than the longer dashes in the original, so it reads as dotted. Positions and endpoints are correct.",
-            "suggestion": "Use a longer dash pattern for AE, e.g. \\draw[dash pattern=on 6pt off 4pt] (A) -- (E); or \\draw[dashed, dash expression={on 6pt off 4pt}] (A) -- (E);, to match the original dash length."
-          }
-        ],
+        "issues": [],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Left side AB, drawn from A to B, matches the original."
+            "note": "Side AB drawn from A to B, matching the original."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Right side AC, drawn from A to C, matches the original."
+            "note": "Side AC drawn from A to C, matching the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Cevian AD, from A to D on BC, matches the original."
+            "note": "Cevian AD drawn from A to D on the base, matching the original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Altitude AE is present and correctly placed as a dashed segment; dash length is finer than the original (see issue)."
+            "note": "Dashed altitude AE from A down to the base at E, matching the original."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Base BC is drawn between B and C and passes through D and E, as in the original."
+            "note": "Base BC is continuous from B to C through D and E, matching the original."
           },
           {
             "object_id": "seg_AB",
             "status": "present",
-            "note": "Matches seg_01 and the original left side."
+            "note": "Same stroke as seg_01; correctly drawn."
           },
           {
             "object_id": "seg_AC",
             "status": "present",
-            "note": "Matches seg_02 and the original right side."
+            "note": "Same stroke as seg_02; correctly drawn."
           },
           {
             "object_id": "seg_AD",
             "status": "present",
-            "note": "Matches seg_03 and the original cevian."
+            "note": "Same stroke as seg_03; correctly drawn."
           },
           {
             "object_id": "seg_AE",
             "status": "present",
-            "note": "Dashed from A to E on the base, endpoints correct; dash style slightly finer than the original."
+            "note": "Dashed altitude ends on the base at E, as in the original; no extension below BC is shown in either panel."
           },
           {
             "object_id": "seg_BC",
             "status": "present",
-            "note": "Base line from B to C is present and correct."
+            "note": "Base runs from B to C, matching the original."
           },
           {
             "object_id": "ra_01",
             "status": "present",
-            "note": "Right-angle mark at E sits in the same quadrant (between EA and EC) as in the original."
+            "note": "Right-angle mark at E, in the same quadrant (above base, toward C) as the original."
           },
           {
             "object_id": "right_angle_01",
             "status": "present",
-            "note": "Same right-angle mark at vertex E, same quadrant as the original."
+            "note": "Same right-angle marker as ra_01; present and correctly oriented."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Apex labelled A at the top vertex, matching the original."
+            "note": "Point A is at the apex, labelled A above it, as in the original."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Vertex B at the lower-left of the base, labelled correctly."
+            "note": "Point B is at the lower-left base vertex, labelled B, as in the original."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Vertex C at the lower-right of the base, labelled correctly."
+            "note": "Point C is at the lower-right base vertex, labelled C, as in the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Vertex D on the base between B and E, labelled correctly."
+            "note": "Point D is on the base, labelled D below it, as in the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Vertex E at the foot of the altitude, labelled correctly."
+            "note": "Point E is at the altitude foot, labelled E below it, as in the original."
           }
         ],
         "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
           "medium": 0,
-          "low": 1
+          "low": 0
         },
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Triangle outline ABC with apex A and base BC",
-          "Cevian AD from A to D on BC",
-          "Dashed altitude AE from A to the foot E on BC",
-          "Right-angle mark at E in the same quadrant as the original",
-          "Point labels A, B, C, D, E present and bound to the correct vertices",
-          "Overall proportions and aspect ratio match"
+          "Triangle ABC shape and proportions match the original.",
+          "Cevian AD lands at the same position on the base relative to E.",
+          "Dashed altitude AE runs from A to the base at E, with the same endpoints.",
+          "Right-angle marker at E is in the same quadrant and size as in the original.",
+          "All five labels are present, correctly spelled, and clear of the strokes.",
+          "Label placements (A above, B lower-left, C lower-right, D and E below) match the original."
         ],
         "labels": {
           "present": [
@@ -1516,7 +1523,7 @@
               "A",
               "E"
             ],
-            "reason": "The original shows a dashed vertical stroke running from the apex A straight down to E on the base, so the junction joins A and E."
+            "reason": "The original shows a single dashed vertical stroke from A straight down to the base at E, with no extension below the base."
           },
           {
             "case_id": "992195eb7a54c8f0",
@@ -1524,12 +1531,12 @@
               "C",
               "E"
             ],
-            "reason": "The base stroke is continuous from C through E, and E is the right-angle arm point on that stroke, so the segment E-C is part of the base that joins C and E."
+            "reason": "The base BC is one continuous stroke from B through E to C, so the arm from E to C is physically part of the drawn base, and the right-angle arms meet at E."
           }
         ],
         "raw_meta": "{}"
       },
-      "critic_score": 0.93
+      "critic_score": 0.94
     },
     {
       "topology_check": {
@@ -1537,7 +1544,7 @@
         "missing_edges": []
       },
       "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (0.583,3.568);\n\\coordinate (B) at (-2.974,-3.554);\n\\coordinate (C) at (2.956,-3.556);\n\\coordinate (D) at (-0.596,-3.555);\n\n\n\n\\coordinate (E) at (0.581,-3.555);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (D);\n\n\n\\draw (B) -- (D);\n\\draw (D) -- (E);\n\\draw (E) -- (C);\n\n\n\\draw[dash pattern=on 6pt off 4pt] (A) -- (E);\n\n\n\\draw pic[draw, angle radius=0.287cm] {right angle=A--E--C};\n\n\n\\node[above] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[right] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[below] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 732da5aaa6106a12 0104fe34ac7b70b795b27f7c3964416cfb426f6027f784f7971149b582a51c5d\n",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (0.583,3.568);\n\\coordinate (B) at (-2.974,-3.554);\n\\coordinate (C) at (2.956,-3.556);\n\\coordinate (D) at (-0.596,-3.555);\n\n\n\n\\coordinate (E) at (0.581,-3.555);\n\n\n\\draw (A) -- (B);\n\\draw (A) -- (C);\n\\draw (A) -- (D);\n\n\n\\draw (B) -- (D) -- (E) -- (C);\n\n\n\\draw[dash pattern=on 4pt off 3pt] (A) -- (E);\n\n\n\\draw ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$);\n\n\n\\node[above] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[below left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[below right] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[below] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 ab3d6c0ce87e02f4067c3920717627dbdcf6e8e51e887086e57ea2dbbec56ecc\n",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\31_q_fig2\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\31_q_fig2\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\31_q_fig2\\best.png",
@@ -1545,105 +1552,105 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:02:49",
+      "created_at": "2026-11-11T12:57:15",
       "agent": "code_agent",
       "mode": "repair",
-      "notes": "Replaced the single base B--C with named subedges B--D, D--E, E--C so the base is continuous through D and E. Added the missing named edges B-D and C-E (E-C drawn as a segment from E). Altitude A-E now uses dash pattern on 6pt off 4pt. Right-angle pic at E (A--E--C) and all labels A-E kept. Removed the literal redefinitions of A, B, C, D because the program owns those coordinates; E stays defined in the same frame (0.581,-3.555). Coordinates were not changed.",
-      "compile_seconds": 1.813,
+      "notes": "Replaced the single \\draw (B) -- (C) with the explicit named path (B) -- (D) -- (E) -- (C) so B--D and C--E are drawn as solid base segments. Kept AB, AC, AD, the dashed AE, the right-angle mark at E, labels, font and line width unchanged. Per the PROGRAM-OWNED CV COORDINATES block, A, B, C, D are not redefined here; the program inserts them at the start of the tikzpicture. E is kept as a locally defined vertex at (0.581,-3.555), which matches the source frame (x=(316-277.5)*0.015094, y=(313.5-549)*0.015094). No extension below the base was added. Note: because A-D come from the program, this standalone file will not compile on its own without that insertion.",
+      "compile_seconds": 3.118,
       "critic_report": {
-        "assessment_score": 0.93,
+        "assessment_score": 0.95,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render closely matches the original: the same triangle ABC, with D on BC, the dashed altitude AE, and the right-angle mark at E on the same side. Labels are correctly placed and bound.",
+        "verdict": "The render is a faithful match: the triangle, the cevian AD, the dashed altitude AE with its right-angle mark at E, and all five labels agree with the original.",
         "figure_type": {
-          "original": "Isosceles-style triangle ABC with apex A, base BC horizontal, cevian AD to a point D on BC, and dashed altitude AE with a right-angle mark at foot E.",
-          "render": "Same configuration: triangle ABC, cevian AD, dashed altitude AE, right-angle mark at E, labels A, B, C, D, E."
+          "original": "Isosceles-style triangle ABC with apex A, cevian AD to base point D, and dashed altitude AE to foot E with a right-angle mark at E",
+          "render": "Triangle ABC with apex A, cevian AD, dashed altitude AE, and a right-angle mark at E on the base"
         },
         "issues": [],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Matches side AB of the original, running from B up to apex A."
+            "note": "Segment AB matches the original left side ending at B."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Matches side AC of the original, running from C up to apex A."
+            "note": "Segment AC matches the original right side ending at C."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Matches cevian AD of the original, ending at D on BC."
+            "note": "Segment AD matches the original cevian ending at D on the base."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Dashed altitude AE is drawn from A to E with the same dashed style and position as the original."
+            "note": "Dashed altitude AE runs from A to E on the base, matching the original."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Base BC is drawn as a horizontal line from B to C, matching the original."
+            "note": "Base BC runs from B to C, with D and E on it, as in the original."
           },
           {
             "object_id": "seg_AB",
             "status": "present",
-            "note": "Solid segment AB is correctly drawn in the render."
+            "note": "Solid line from A to B, correctly drawn."
           },
           {
             "object_id": "seg_AC",
             "status": "present",
-            "note": "Solid segment AC is correctly drawn in the render."
+            "note": "Solid line from A to C, correctly drawn."
           },
           {
             "object_id": "seg_AD",
             "status": "present",
-            "note": "Segment AD ends at D on the base, matching the original."
+            "note": "Solid line from A to D, correctly drawn."
           },
           {
             "object_id": "seg_AE",
             "status": "present",
-            "note": "Dashed altitude AE lands on E on the base, as in the original."
+            "note": "Dashed line from A to E, ending on the base at E as in the original."
           },
           {
             "object_id": "seg_BC",
             "status": "present",
-            "note": "Base BC spans B to C, matching the original."
+            "note": "Base line from B to C, correctly drawn."
           },
           {
             "object_id": "ra_01",
             "status": "present",
-            "note": "Right-angle mark at E is on the same side (toward C) as in the original."
+            "note": "Right-angle mark at E sits above the base, to the right of AE, matching the original."
           },
           {
             "object_id": "right_angle_01",
             "status": "present",
-            "note": "Right-angle mark at E is drawn with the same orientation as the original."
+            "note": "Same right-angle mark at E; the square is in the same quadrant as in the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label A sits above apex A, as in the original."
+            "note": "Point A is at the apex, labelled above it."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label B sits left of vertex B, as in the original."
+            "note": "Point B is at the lower-left end of the base, labelled below-left."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label C sits right of vertex C, as in the original."
+            "note": "Point C is at the lower-right end of the base, labelled below-right."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label D sits below D on the base, as in the original."
+            "note": "Point D is on the base between B and E, labelled below."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label E sits below E on the base, as in the original."
+            "note": "Point E is the foot of the altitude on the base, labelled below."
           }
         ],
         "checklist_score": 1.0,
@@ -1655,12 +1662,11 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Triangle apex A and base vertices B and C match the original.",
-          "Cevian AD ends at D on base BC.",
-          "Dashed altitude AE drops from A to foot E on BC.",
-          "Right-angle mark at E is present and oriented correctly.",
-          "All five point labels A, B, C, D, E are present, correctly placed and bound to their vertices.",
-          "No extra labels or elements appear in the render."
+          "Apex A and the base B-C are in the same positions and proportions.",
+          "Cevian AD lands on the base at D between B and E, matching the original.",
+          "Dashed altitude AE ends at E on the base and does not extend below it, matching the original.",
+          "Right-angle mark at E is in the same quadrant and size as in the original.",
+          "Labels A, B, C, D, E are present, correctly spelled, and clear of strokes."
         ],
         "labels": {
           "present": [
@@ -1678,7 +1684,7 @@
         "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.93
+      "critic_score": 0.95
     }
   ],
   "compilation_results": [
@@ -1686,27 +1692,27 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.107,
+      "seconds": 2.516,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.654296875 KiB)\nnote: Writing `figure.log` (11.1728515625 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:02:08"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.080078125 KiB)\nnote: Writing `figure.pdf` (2.6376953125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T12:56:42"
     },
     {
       "version": 2,
       "ok": true,
       "returncode": 0,
-      "seconds": 1.813,
+      "seconds": 3.118,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.1728515625 KiB)\nnote: Writing `figure.pdf` (2.669921875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T23:02:51"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.080078125 KiB)\nnote: Writing `figure.pdf` (2.64453125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-11T12:57:18"
     }
   ],
   "validation_results": [
@@ -1742,17 +1748,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0302"
+          "detail": "ink_ratio=0.0306"
         },
         {
           "name": "aspect_ratio",
@@ -1765,7 +1771,7 @@
           "detail": "figure bbox ratio 0.86"
         }
       ],
-      "created_at": "2026-11-09T23:02:08"
+      "created_at": "2026-11-11T12:56:42"
     },
     {
       "version": 2,
@@ -1799,17 +1805,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v2\\v2.pdf"
+          "detail": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v2\\v2.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\31_q_fig2\\tikz\\v2\\v2.png"
+          "detail": ".cache\\collinear\\batch_work\\31_q_fig2\\tikz\\v2\\v2.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0307"
+          "detail": "ink_ratio=0.0306"
         },
         {
           "name": "aspect_ratio",
@@ -1822,140 +1828,121 @@
           "detail": "figure bbox ratio 0.86"
         }
       ],
-      "created_at": "2026-11-09T23:02:51"
+      "created_at": "2026-11-11T12:57:18"
     }
   ],
   "critic_reports": [
     {
-      "assessment_score": 0.93,
+      "assessment_score": 0.94,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render is geometrically faithful: all vertices, segments, the dashed altitude AE and the right-angle mark at E match the original. The only visible difference is the dash pattern on AE.",
+      "verdict": "Faithful render: the triangle ABC, cevian AD, dashed altitude AE with right-angle mark at E, and all five labels match the original.",
       "figure_type": {
-        "original": "Isosceles triangle ABC with apex A, base BC, cevian AD and altitude AE (dashed) with a right-angle mark at E on BC",
-        "render": "Same triangle ABC with cevian AD, dashed altitude AE and right-angle mark at E on BC"
+        "original": "Isosceles triangle ABC with apex A on a horizontal base BC; D on BC; dashed altitude AE to foot E with right-angle marker at E.",
+        "render": "Isosceles triangle ABC with apex A on a horizontal base BC; D on BC; dashed altitude AE to foot E with right-angle marker at E."
       },
-      "issues": [
-        {
-          "type": "wrong_style",
-          "severity": "low",
-          "object_ids": [
-            "seg_AE",
-            "seg_04"
-          ],
-          "bbox": [
-            0.55,
-            0.11,
-            0.59,
-            0.89
-          ],
-          "flaky": false,
-          "source": "vlm",
-          "description": "The dashed altitude AE is drawn with a finer, shorter-dash pattern in the render than the longer dashes in the original, so it reads as dotted. Positions and endpoints are correct.",
-          "suggestion": "Use a longer dash pattern for AE, e.g. \\draw[dash pattern=on 6pt off 4pt] (A) -- (E); or \\draw[dashed, dash expression={on 6pt off 4pt}] (A) -- (E);, to match the original dash length."
-        }
-      ],
+      "issues": [],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Left side AB, drawn from A to B, matches the original."
+          "note": "Side AB drawn from A to B, matching the original."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Right side AC, drawn from A to C, matches the original."
+          "note": "Side AC drawn from A to C, matching the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Cevian AD, from A to D on BC, matches the original."
+          "note": "Cevian AD drawn from A to D on the base, matching the original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Altitude AE is present and correctly placed as a dashed segment; dash length is finer than the original (see issue)."
+          "note": "Dashed altitude AE from A down to the base at E, matching the original."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Base BC is drawn between B and C and passes through D and E, as in the original."
+          "note": "Base BC is continuous from B to C through D and E, matching the original."
         },
         {
           "object_id": "seg_AB",
           "status": "present",
-          "note": "Matches seg_01 and the original left side."
+          "note": "Same stroke as seg_01; correctly drawn."
         },
         {
           "object_id": "seg_AC",
           "status": "present",
-          "note": "Matches seg_02 and the original right side."
+          "note": "Same stroke as seg_02; correctly drawn."
         },
         {
           "object_id": "seg_AD",
           "status": "present",
-          "note": "Matches seg_03 and the original cevian."
+          "note": "Same stroke as seg_03; correctly drawn."
         },
         {
           "object_id": "seg_AE",
           "status": "present",
-          "note": "Dashed from A to E on the base, endpoints correct; dash style slightly finer than the original."
+          "note": "Dashed altitude ends on the base at E, as in the original; no extension below BC is shown in either panel."
         },
         {
           "object_id": "seg_BC",
           "status": "present",
-          "note": "Base line from B to C is present and correct."
+          "note": "Base runs from B to C, matching the original."
         },
         {
           "object_id": "ra_01",
           "status": "present",
-          "note": "Right-angle mark at E sits in the same quadrant (between EA and EC) as in the original."
+          "note": "Right-angle mark at E, in the same quadrant (above base, toward C) as the original."
         },
         {
           "object_id": "right_angle_01",
           "status": "present",
-          "note": "Same right-angle mark at vertex E, same quadrant as the original."
+          "note": "Same right-angle marker as ra_01; present and correctly oriented."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Apex labelled A at the top vertex, matching the original."
+          "note": "Point A is at the apex, labelled A above it, as in the original."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Vertex B at the lower-left of the base, labelled correctly."
+          "note": "Point B is at the lower-left base vertex, labelled B, as in the original."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Vertex C at the lower-right of the base, labelled correctly."
+          "note": "Point C is at the lower-right base vertex, labelled C, as in the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Vertex D on the base between B and E, labelled correctly."
+          "note": "Point D is on the base, labelled D below it, as in the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Vertex E at the foot of the altitude, labelled correctly."
+          "note": "Point E is at the altitude foot, labelled E below it, as in the original."
         }
       ],
       "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
         "medium": 0,
-        "low": 1
+        "low": 0
       },
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Triangle outline ABC with apex A and base BC",
-        "Cevian AD from A to D on BC",
-        "Dashed altitude AE from A to the foot E on BC",
-        "Right-angle mark at E in the same quadrant as the original",
-        "Point labels A, B, C, D, E present and bound to the correct vertices",
-        "Overall proportions and aspect ratio match"
+        "Triangle ABC shape and proportions match the original.",
+        "Cevian AD lands at the same position on the base relative to E.",
+        "Dashed altitude AE runs from A to the base at E, with the same endpoints.",
+        "Right-angle marker at E is in the same quadrant and size as in the original.",
+        "All five labels are present, correctly spelled, and clear of the strokes.",
+        "Label placements (A above, B lower-left, C lower-right, D and E below) match the original."
       ],
       "labels": {
         "present": [
@@ -1977,7 +1964,7 @@
             "A",
             "E"
           ],
-          "reason": "The original shows a dashed vertical stroke running from the apex A straight down to E on the base, so the junction joins A and E."
+          "reason": "The original shows a single dashed vertical stroke from A straight down to the base at E, with no extension below the base."
         },
         {
           "case_id": "992195eb7a54c8f0",
@@ -1985,105 +1972,105 @@
             "C",
             "E"
           ],
-          "reason": "The base stroke is continuous from C through E, and E is the right-angle arm point on that stroke, so the segment E-C is part of the base that joins C and E."
+          "reason": "The base BC is one continuous stroke from B through E to C, so the arm from E to C is physically part of the drawn base, and the right-angle arms meet at E."
         }
       ],
       "raw_meta": "{}"
     },
     {
-      "assessment_score": 0.93,
+      "assessment_score": 0.95,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render closely matches the original: the same triangle ABC, with D on BC, the dashed altitude AE, and the right-angle mark at E on the same side. Labels are correctly placed and bound.",
+      "verdict": "The render is a faithful match: the triangle, the cevian AD, the dashed altitude AE with its right-angle mark at E, and all five labels agree with the original.",
       "figure_type": {
-        "original": "Isosceles-style triangle ABC with apex A, base BC horizontal, cevian AD to a point D on BC, and dashed altitude AE with a right-angle mark at foot E.",
-        "render": "Same configuration: triangle ABC, cevian AD, dashed altitude AE, right-angle mark at E, labels A, B, C, D, E."
+        "original": "Isosceles-style triangle ABC with apex A, cevian AD to base point D, and dashed altitude AE to foot E with a right-angle mark at E",
+        "render": "Triangle ABC with apex A, cevian AD, dashed altitude AE, and a right-angle mark at E on the base"
       },
       "issues": [],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Matches side AB of the original, running from B up to apex A."
+          "note": "Segment AB matches the original left side ending at B."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Matches side AC of the original, running from C up to apex A."
+          "note": "Segment AC matches the original right side ending at C."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Matches cevian AD of the original, ending at D on BC."
+          "note": "Segment AD matches the original cevian ending at D on the base."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Dashed altitude AE is drawn from A to E with the same dashed style and position as the original."
+          "note": "Dashed altitude AE runs from A to E on the base, matching the original."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Base BC is drawn as a horizontal line from B to C, matching the original."
+          "note": "Base BC runs from B to C, with D and E on it, as in the original."
         },
         {
           "object_id": "seg_AB",
           "status": "present",
-          "note": "Solid segment AB is correctly drawn in the render."
+          "note": "Solid line from A to B, correctly drawn."
         },
         {
           "object_id": "seg_AC",
           "status": "present",
-          "note": "Solid segment AC is correctly drawn in the render."
+          "note": "Solid line from A to C, correctly drawn."
         },
         {
           "object_id": "seg_AD",
           "status": "present",
-          "note": "Segment AD ends at D on the base, matching the original."
+          "note": "Solid line from A to D, correctly drawn."
         },
         {
           "object_id": "seg_AE",
           "status": "present",
-          "note": "Dashed altitude AE lands on E on the base, as in the original."
+          "note": "Dashed line from A to E, ending on the base at E as in the original."
         },
         {
           "object_id": "seg_BC",
           "status": "present",
-          "note": "Base BC spans B to C, matching the original."
+          "note": "Base line from B to C, correctly drawn."
         },
         {
           "object_id": "ra_01",
           "status": "present",
-          "note": "Right-angle mark at E is on the same side (toward C) as in the original."
+          "note": "Right-angle mark at E sits above the base, to the right of AE, matching the original."
         },
         {
           "object_id": "right_angle_01",
           "status": "present",
-          "note": "Right-angle mark at E is drawn with the same orientation as the original."
+          "note": "Same right-angle mark at E; the square is in the same quadrant as in the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label A sits above apex A, as in the original."
+          "note": "Point A is at the apex, labelled above it."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label B sits left of vertex B, as in the original."
+          "note": "Point B is at the lower-left end of the base, labelled below-left."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label C sits right of vertex C, as in the original."
+          "note": "Point C is at the lower-right end of the base, labelled below-right."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label D sits below D on the base, as in the original."
+          "note": "Point D is on the base between B and E, labelled below."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label E sits below E on the base, as in the original."
+          "note": "Point E is the foot of the altitude on the base, labelled below."
         }
       ],
       "checklist_score": 1.0,
@@ -2095,12 +2082,11 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Triangle apex A and base vertices B and C match the original.",
-        "Cevian AD ends at D on base BC.",
-        "Dashed altitude AE drops from A to foot E on BC.",
-        "Right-angle mark at E is present and oriented correctly.",
-        "All five point labels A, B, C, D, E are present, correctly placed and bound to their vertices.",
-        "No extra labels or elements appear in the render."
+        "Apex A and the base B-C are in the same positions and proportions.",
+        "Cevian AD lands on the base at D between B and E, matching the original.",
+        "Dashed altitude AE ends at E on the base and does not extend below it, matching the original.",
+        "Right-angle mark at E is in the same quadrant and size as in the original.",
+        "Labels A, B, C, D, E are present, correctly spelled, and clear of strokes."
       ],
       "labels": {
         "present": [
@@ -2122,19 +2108,11 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "Base line seg_05 extends about 5 px beyond B (75 vs 80.5) and beyond C (479 vs 473.3); drawn as BC between B and C endpoints."
-    },
-    {
-      "source": "geometry_agent",
-      "issue": "Apex line endpoints differ slightly (AB starts at 319.2,71.7; AC at 314.6,71.7; A at 316.2,77.1); treated as one apex A at point_01 per the converging strokes."
+      "issue": "Dashed AE ends at E on the base; no extension below BC is drawn."
     },
     {
       "source": "supervisor",
-      "issue": "Base line endpoints were measured at B (80.5) and C (473.3) by CV, while the source line overshoots slightly (75 and 479); drawn between the labelled points, so the small overshoot is not reproduced."
-    },
-    {
-      "source": "supervisor",
-      "issue": "The dash pattern of A-E was set manually to on 6pt off 4pt, not measured from the image; the critic reported no issues after the change."
+      "issue": "Dashed AE is drawn only to the base at E; no extension below BC, which matches the source per Critic."
     }
   ],
   "action_history": [
@@ -2192,7 +2170,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.93; issues=1",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.94",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -2201,78 +2179,59 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw a TikZ figure with a single apex A (use point_01 at px (316.2,77.1)) above a horizontal base. Base points B (80.5,549), D (238,549), E (316,549), C (473.3,549) on one line BC (solid). Solid edges",
+      "purpose": "Reconstruct the figure as compilable TikZ using the measured geometry (image px, origin top-left; flip y for TikZ). Points: A=(316.2,77.1) apex; B=(80.5,549.0); C=(473.3,549.0); D=(238.0,549.0) on bas",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Draw a TikZ figure with a single apex A (use point_01 at px (316.2,77.1)) above a horizontal base. Base points B (80.5,549), D (238,549), E (316,549), C (473.3,549) on one line BC (solid). Solid edges: A-B, A-C, A-D. Dashed vertical segment A-E perpendicular to BC, with a right-angle square mark at E (vertex 316,549; marks at (316,530),(335,530),(335,549)), i.e., the square lies to the upper-right of E in image coordinates. Labels: A above apex, B left of B, C right of C, D below D, E below E. Convert image y to TikZ y by flipping (y_tikz = -y_px, scale consistently, e.g. scale 0.01 or use 1pt per px with y negated). Use the same coordinate definition for shared vertices."
+        "instruction": "Reconstruct the figure as compilable TikZ using the measured geometry (image px, origin top-left; flip y for TikZ). Points: A=(316.2,77.1) apex; B=(80.5,549.0); C=(473.3,549.0); D=(238.0,549.0) on base; E=(316.0,549.0) on base. Solid edges: AB (A to B, from B end ~(78,554)), AC, AD, and base BC (B to C, solid horizontal). Dashed segment AE from A straight down to E on the base (dashed, ends at E). Right-angle mark at E: square of side 19 px with vertices (316,530),(335,530),(335,549), i.e. the mark sits above-right of E between the dashed AE and the base EC. Label A, B, C, D, E at their measured positions just outside each point (A above, B left-below, C right-below, D below, E below). Use shared vertex definitions so all edges reference the same named coordinates. Do not add extensions beyond the measured endpoints."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 30.13,
+      "duration_s": 33.02,
       "token_usage": {
-        "delta": 18777
+        "delta": 19732
       },
       "visual_calls": 2,
       "error": null
     },
     {
       "step": 2,
-      "action": "run_code_agent",
-      "purpose": "Topology check failed: missing named edges B-D and C-E. Replace the single base \\draw (B) -- (C) with explicit named path segments along the same horizontal base: \\draw (B) -- (D); and \\draw (E) -- (C",
-      "params": {
-        "mode": "repair",
-        "use_image": null,
-        "instruction": "Topology check failed: missing named edges B-D and C-E. Replace the single base \\draw (B) -- (C) with explicit named path segments along the same horizontal base: \\draw (B) -- (D); and \\draw (E) -- (C); (keep D and E on the base, with the base stroke continuous from B through D and E to C). Keep all coordinates unchanged. Change the dashed altitude A-E to a longer dash pattern, e.g. \\draw[dash pattern=on 6pt off 4pt] (A) -- (E); to match the original dash length. Keep the right-angle mark at E and labels A, B, C, D, E."
-      },
-      "status": "error",
-      "result_summary": "ok=False; error=RuntimeError: LLM request failed after 4 attempts: RateLimitError: Error code: 429 - {'error': {'message': '当前分组 claude_max 上游模型 claude-haiku-5-5 负载已饱和，请稍后再试！ (request id: 2026110923024370829450761723540)', 'type': 'rate_limit_error', 'param': None, 'code': None}}",
-      "duration_s": 9.87,
-      "token_usage": {
-        "delta": 0
-      },
-      "visual_calls": 0,
-      "error": "RuntimeError: LLM request failed after 4 attempts: RateLimitError: Error code: 429 - {'error': {'message': '当前分组 claude_max 上游模型 claude-haiku-5-5 负载已饱和，请稍后再试！ (request id: 2026110923024370829450761723540)', 'type': 'rate_limit_error', 'param': None, 'code': None}}"
-    },
-    {
-      "step": 3,
       "action": "run_critic",
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.93",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.95",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
       "error": null
     },
     {
-      "step": 3,
+      "step": 2,
       "action": "run_code_agent",
-      "purpose": "Topology check failed: missing named edges B-D and C-E. Replace the single base \\draw (B) -- (C) with explicit named path segments along the same horizontal base: \\draw (B) -- (D); and \\draw (E) -- (C",
+      "purpose": "Repair: the topology check reports missing unverified edges B--D and C--E. The base is one continuous solid stroke from B through D and E to C. Replace the single \\draw (B) -- (C) with an explicit nam",
       "params": {
         "mode": "repair",
         "use_image": null,
-        "instruction": "Topology check failed: missing named edges B-D and C-E. Replace the single base \\draw (B) -- (C) with explicit named path segments along the same horizontal base: \\draw (B) -- (D); and \\draw (E) -- (C); (keep D and E on the base, base continuous from B through D and E to C). Keep all coordinates unchanged. Change the dashed altitude A-E to a longer dash pattern, e.g. \\draw[dash pattern=on 6pt off 4pt] (A) -- (E); Keep the right-angle mark at E and labels A, B, C, D, E."
+        "instruction": "Repair: the topology check reports missing unverified edges B--D and C--E. The base is one continuous solid stroke from B through D and E to C. Replace the single \\draw (B) -- (C) with an explicit named path along the base: \\draw (B) -- (D) -- (E) -- (C); keep all other edges (AB, AC, AD, dashed AE with its right-angle mark at E) unchanged, and keep the shared coordinates A,B,C,D,E. Do not add any extension below the base."
       },
       "status": "ok",
       "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
-      "duration_s": 19.33,
+      "duration_s": 27.7,
       "token_usage": {
-        "delta": 17498
+        "delta": 18795
       },
       "visual_calls": 1,
       "error": null
     },
     {
-      "step": 4,
+      "step": 3,
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Produced compiled TikZ (version 2) reconstructing the figure: apex A with solid edges A-B, A-C, A-D; dashed altitude A-E perpendicular to base; base split into named edges B-D, D-E, E-C; right-angle mark at E; labels A, B, C, D, E. Automatic critic review scored 0.93 with no issues, must_repair=false, topology check passed.",
+        "summary": "Version 2 compiles and passes topology check (B–D–E–C base, AB, AC, AD solid; dashed AE ending at E on the base with a right-angle mark at E). All five labels A–E are present. Critic score 0.95, must_repair false, no open issues.",
         "unresolved": [
-          "Base line endpoints were measured at B (80.5) and C (473.3) by CV, while the source line overshoots slightly (75 and 479); drawn between the labelled points, so the small overshoot is not reproduced.",
-          "The dash pattern of A-E was set manually to on 6pt off 4pt, not measured from the image; the critic reported no issues after the change."
+          "Dashed AE is drawn only to the base at E; no extension below BC, which matches the source per Critic."
         ],
         "status": "success"
       },
@@ -2324,58 +2283,58 @@
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 9,
+      "calls": 8,
       "visual_calls": 4,
-      "prompt_tokens": 72066,
-      "completion_tokens": 11423,
-      "total_tokens": 83489,
-      "cached_tokens": 30248.0,
-      "cache_write_tokens": 25119.0,
-      "latency_s": 67.62
+      "prompt_tokens": 61942,
+      "completion_tokens": 12391,
+      "total_tokens": 74333,
+      "cached_tokens": 16167.0,
+      "cache_write_tokens": 45747.0,
+      "latency_s": 77.56
     },
     "by_agent": {
       "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8535,
-        "latency_s": 13.03
+        "total_tokens": 8158,
+        "latency_s": 11.82
       },
       "supervisor": {
-        "calls": 4,
+        "calls": 3,
         "visual_calls": 0,
-        "total_tokens": 38679,
-        "latency_s": 13.56
+        "total_tokens": 27648,
+        "latency_s": 11.67
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 8106,
-        "latency_s": 10.1
+        "total_tokens": 9525,
+        "latency_s": 13.83
       },
       "critic_agent": {
         "calls": 2,
         "visual_calls": 2,
-        "total_tokens": 19596,
-        "latency_s": 24.06
+        "total_tokens": 19598,
+        "latency_s": 26.85
       },
       "code_agent:repair": {
         "calls": 1,
         "visual_calls": 0,
-        "total_tokens": 8573,
-        "latency_s": 6.87
+        "total_tokens": 9404,
+        "latency_s": 13.39
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 20,
-    "tool_calls_left": 39,
+    "steps_left": 21,
+    "tool_calls_left": 40,
     "visual_calls_left": 20,
-    "tokens_left": 316511,
+    "tokens_left": 325667,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 83489
+    "total_tokens_used": 74333
   },
   "meta": {
     "topology_plan": {
@@ -2417,7 +2376,7 @@
             "A",
             "E"
           ],
-          "reason": "The original shows a dashed vertical stroke running from the apex A straight down to E on the base, so the junction joins A and E."
+          "reason": "The original shows a single dashed vertical stroke from A straight down to the base at E, with no extension below the base."
         },
         {
           "case_id": "992195eb7a54c8f0",
@@ -2425,7 +2384,7 @@
             "C",
             "E"
           ],
-          "reason": "The base stroke is continuous from C through E, and E is the right-angle arm point on that stroke, so the segment E-C is part of the base that joins C and E."
+          "reason": "The base BC is one continuous stroke from B through E to C, so the arm from E to C is physically part of the drawn base, and the right-angle arms meet at E."
         }
       ],
       "ink_confirmed_edges": [],
@@ -2462,7 +2421,7 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Triangle ABC with apex A; D and E lie on base BC in order B, D, E, C. Solid edges AB, AC, AD. Dashed altitude AE from A to foot E on BC. Right-angle square at E between rays EA (up) and EC (right). Base BC is one solid line through D and E, drawn as subedges BD, DE, EC.",
+      "summary": "Triangle ABC with apex A above base BC (B left, C right). D lies on BC between B and E. Solid edges: AB, AC, AD, and base B-D-E-C (solid). Dashed altitude AE runs vertically from A down to foot E on BC (E at x=316, the foot of the perpendicular). Right-angle square marker sits at E in the quadrant between ray E->A (up) and ray E->C (right), so it is drawn at E with sides along EA and EC. Labels A,B,C,D,E all match the measured points; no binding changes needed.",
       "strokes": [
         {
           "edge": [
@@ -2530,7 +2489,8 @@
           "B",
           "C"
         ]
-      ]
+      ],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -2605,10 +2565,10 @@
       "constraint_mode": "joint_coordinate_projection",
       "candidate_source": "generated_tikz",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "3b6d38b10e7244e7e77715a86e54adbd8c5acbf82d7fe3a5441784484118730d",
-      "output_sha256": "6d207b15232ee5bd7c1d97966979ae7cc288c25e80dd8baf8c2a4f88edcb1abb",
+      "input_sha256": "57d06cff8f55d7d36faeb979577610d1e2fa381706e223d73070a842c242e374",
+      "output_sha256": "98e4c7f58337343c77c4830f8ca5e0a9bfffc77d2c731e9344b860da46d60045",
       "reason": "applied",
       "accepted": [
         {
@@ -2648,8 +2608,8 @@
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.003,
         "incidence_mode": "snap",
         "length_weight": 0.01,
@@ -2660,13 +2620,26 @@
           "parallel",
           "perpendicular"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
-        "excluded_paths": [],
+        "excluded_paths": [
+          {
+            "paths": [
+              " ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$)"
+            ],
+            "anchor": [
+              0.581,
+              -3.555
+            ],
+            "strokes": 2
+          }
+        ],
         "excluded_helper_points": [],
-        "excluded_strokes": 0
+        "excluded_strokes": 2
       },
+      "source_collinear_candidates": [],
       "input_candidates": 3,
       "preserved_incidence_count": 0,
       "max_shift_rel": 0.00010789424715392926,
@@ -2833,10 +2806,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "b80ed196f4a94089127391d2aeb98cb64a33a523f85c6d0685270dac1715013f",
-        "output_sha256": "265e886c56cf3cdcfcfea774bd981f98beaae05894006c2e26b06cd5205a89f6",
+        "input_sha256": "0f15690e34567f915badbd075d1d18174cd858e88f82be85e83fe0dc808324f2",
+        "output_sha256": "434b7534d286c83a245743e7573d1b8771edf052903a3b095d35283b941101a3",
         "reason": "applied",
         "accepted": [
           {
@@ -2854,8 +2827,8 @@
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -2866,13 +2839,26 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
-          "excluded_paths": [],
+          "excluded_paths": [
+            {
+              "paths": [
+                " ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$)"
+              ],
+              "anchor": [
+                0.581,
+                -3.555
+              ],
+              "strokes": 2
+            }
+          ],
           "excluded_helper_points": [],
-          "excluded_strokes": 0
+          "excluded_strokes": 2
         },
+        "source_collinear_candidates": [],
         "input_candidates": 1,
         "preserved_incidence_count": 2,
         "max_shift_rel": 0.00010789424715392926,
@@ -2902,10 +2888,10 @@
         "constraint_mode": "joint_coordinate_projection",
         "candidate_source": "generated_tikz",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "3b6d38b10e7244e7e77715a86e54adbd8c5acbf82d7fe3a5441784484118730d",
-        "output_sha256": "6d207b15232ee5bd7c1d97966979ae7cc288c25e80dd8baf8c2a4f88edcb1abb",
+        "input_sha256": "57d06cff8f55d7d36faeb979577610d1e2fa381706e223d73070a842c242e374",
+        "output_sha256": "98e4c7f58337343c77c4830f8ca5e0a9bfffc77d2c731e9344b860da46d60045",
         "reason": "applied",
         "accepted": [
           {
@@ -2945,8 +2931,8 @@
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -2957,13 +2943,26 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
-          "excluded_paths": [],
+          "excluded_paths": [
+            {
+              "paths": [
+                " ($(E)+(0.000,0.287)$) -- ($(E)+(0.287,0.287)$) -- ($(E)+(0.287,0.000)$)"
+              ],
+              "anchor": [
+                0.581,
+                -3.555
+              ],
+              "strokes": 2
+            }
+          ],
           "excluded_helper_points": [],
-          "excluded_strokes": 0
+          "excluded_strokes": 2
         },
+        "source_collinear_candidates": [],
         "input_candidates": 3,
         "preserved_incidence_count": 0,
         "max_shift_rel": 0.00010789424715392926,
@@ -2992,18 +2991,18 @@
           "A",
           "E"
         ],
-        "reason": "The original shows a dashed vertical stroke running from the apex A straight down to E on the base, so the junction joins A and E."
+        "reason": "The original shows a single dashed vertical stroke from A straight down to the base at E, with no extension below the base."
       },
       "992195eb7a54c8f0": {
         "edge": [
           "C",
           "E"
         ],
-        "reason": "The base stroke is continuous from C through E, and E is the right-angle arm point on that stroke, so the segment E-C is part of the base that joins C and E."
+        "reason": "The base BC is one continuous stroke from B through E to C, so the arm from E to C is physically part of the drawn base, and the right-angle arms meet at E."
       }
     },
     "finish": {
-      "summary": "Produced compiled TikZ (version 2) reconstructing the figure: apex A with solid edges A-B, A-C, A-D; dashed altitude A-E perpendicular to base; base split into named edges B-D, D-E, E-C; right-angle mark at E; labels A, B, C, D, E. Automatic critic review scored 0.93 with no issues, must_repair=false, topology check passed.",
+      "summary": "Version 2 compiles and passes topology check (B–D–E–C base, AB, AC, AD solid; dashed AE ending at E on the base with a right-angle mark at E). All five labels A–E are present. Critic score 0.95, must_repair false, no open issues.",
       "status": "success"
     },
     "stop_reason": "finish"

@@ -1111,6 +1111,106 @@
         }
       }
     },
+    "seg_AE": {
+      "id": "seg_AE",
+      "type": "segment",
+      "label": "AE",
+      "coords": {
+        "a_px": [
+          68.0,
+          65.0
+        ],
+        "b_px": [
+          209.5,
+          349.0
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_BF": {
+      "id": "seg_BF",
+      "type": "segment",
+      "label": "BF",
+      "coords": {
+        "a_px": [
+          68.0,
+          349.0
+        ],
+        "b_px": [
+          446.67,
+          159.22
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_MN": {
+      "id": "seg_MN",
+      "type": "segment",
+      "label": "MN",
+      "coords": {
+        "a_px": [
+          163.01,
+          65.0
+        ],
+        "b_px": [
+          304.38,
+          348.93
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_FN": {
+      "id": "seg_FN",
+      "type": "segment",
+      "label": "FN",
+      "coords": {
+        "a_px": [
+          446.67,
+          159.22
+        ],
+        "b_px": [
+          304.38,
+          348.93
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "confirmed",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
     "ra_01": {
       "id": "ra_01",
       "type": "right_angle",
@@ -1124,7 +1224,7 @@
       "normalized": {},
       "style": {},
       "source": "geometry_agent",
-      "status": "confirmed",
+      "status": "candidate",
       "confidence_kind": "heuristic-evidence (not a calibrated probability)",
       "confidence": null,
       "notes": [],
@@ -1215,29 +1315,74 @@
     },
     "rel_010": {
       "id": "rel_010",
-      "subject": "point_03",
-      "relation": "on_segment",
-      "object": "seg_AE",
+      "subject": "seg_AE",
+      "relation": "perpendicular",
+      "object": "seg_BF",
       "source": "geometry_agent",
-      "evidence": "AE ∩ BF",
+      "evidence": "right-angle mark at point_03 between ray to A and ray to F",
       "status": "candidate"
     },
     "rel_011": {
       "id": "rel_011",
-      "subject": "seg_BF",
-      "relation": "perpendicular",
-      "object": "seg_AE",
+      "subject": "seg_AE",
+      "relation": "parallel",
+      "object": "seg_MN",
       "source": "geometry_agent",
-      "evidence": "direction dot product ~0 and square mark at point_03",
+      "evidence": "both slope about 2.0 in pixel space",
       "status": "candidate"
     },
     "rel_012": {
       "id": "rel_012",
+      "subject": "point_03",
+      "relation": "on_segment",
+      "object": "seg_AE",
+      "source": "geometry_agent",
+      "evidence": "intersection of AE and BF",
+      "status": "candidate"
+    },
+    "rel_013": {
+      "id": "rel_013",
+      "subject": "point_03",
+      "relation": "on_segment",
+      "object": "seg_BF",
+      "source": "geometry_agent",
+      "evidence": "intersection of AE and BF",
+      "status": "candidate"
+    },
+    "rel_014": {
+      "id": "rel_014",
       "subject": "point_02",
       "relation": "on_segment",
       "object": "seg_MN",
       "source": "geometry_agent",
-      "evidence": "O is intersection of BF and MN",
+      "evidence": "O labels crossing of BF and MN",
+      "status": "candidate"
+    },
+    "rel_015": {
+      "id": "rel_015",
+      "subject": "point_02",
+      "relation": "on_segment",
+      "object": "seg_BF",
+      "source": "geometry_agent",
+      "evidence": "O labels crossing of BF and MN",
+      "status": "candidate"
+    },
+    "rel_016": {
+      "id": "rel_016",
+      "subject": "point_09",
+      "relation": "on_segment",
+      "object": "seg_AE",
+      "source": "geometry_agent",
+      "evidence": "E is endpoint of AE on BC",
+      "status": "candidate"
+    },
+    "rel_017": {
+      "id": "rel_017",
+      "subject": "point_08",
+      "relation": "endpoint_of",
+      "object": "seg_MN",
+      "source": "geometry_agent",
+      "evidence": "N endpoint on BC",
       "status": "candidate"
     }
   },
@@ -1253,7 +1398,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T22:58:19"
+      "created_at": "2026-11-11T12:53:32"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -1266,7 +1411,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T22:58:57"
+      "created_at": "2026-11-11T12:53:34"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -1279,26 +1424,39 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T22:59:34"
+      "created_at": "2026-11-11T12:53:35"
     },
     "ev_0004": {
       "id": "ev_0004",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Rectangle ABCD: A(68,65), D(446,65), C(446,349), B(68,349) with solid sides. M on AD (point_05), E on BC (point_09), N on BC (point_08), F on DC (point_04). Solid line AE runs A to E. Solid line MN runs M to N and crosses BF at O (point_02). Solid line BF runs from B through O and the unlabeled crossing point_03 to F. Solid segment FN runs F to N. All strokes are solid; no dashed strokes found. Junction point_03 = AE ∩ BF, unlabeled interior point, and BF is perpendicular to AE there. Right-angle square at point_03 lies between ray toward F and ray toward A. Foot of perpendicular from B onto AE is point_03.",
+      "summary": "Rectangle ABCD (A top-left, D top-right, C bottom-right, B bottom-left). E and N lie on BC with B-E-N-C order. M lies on AD. F lies on DC. O is the printed letter beside the crossing of BF with MN (point_02). Line AE is parallel to MN and perpendicular to BF; their foot/crossing is unlabeled point_03 (181.16,292.12), the right-angle vertex, with the square between ray to A and ray to F. All strokes appear solid; no dashed segments detected. Edges: rectangle sides AB, BC, CD, DA; AE from A to E; BF through O from B to F; MN through O from M to N; FN from F to N; DF and FC on the right side.",
       "payload": {
         "merged": {
-          "objects": 2,
-          "relations": 3,
-          "conflicts": 0,
+          "objects": 15,
+          "relations": 8,
+          "conflicts": 1,
           "rejected": []
         },
         "object_ids": [
+          "point_01",
+          "point_06",
+          "point_07",
+          "point_10",
+          "point_09",
+          "point_08",
+          "point_04",
+          "point_05",
+          "point_02",
           "point_03",
+          "seg_AE",
+          "seg_BF",
+          "seg_MN",
+          "seg_FN",
           "ra_01"
         ]
       },
-      "created_at": "2026-11-09T22:59:50"
+      "created_at": "2026-11-11T12:54:00"
     },
     "ev_0005": {
       "id": "ev_0005",
@@ -1321,32 +1479,379 @@
           30
         ]
       },
-      "created_at": "2026-11-09T23:00:22"
+      "created_at": "2026-11-11T12:54:24"
     },
     "ev_0006": {
       "id": "ev_0006",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v1: unsupported_or_failed",
+      "summary": "v1: applied",
       "payload": {
-        "ok": false,
+        "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "0a86320ff7cb9c5aa990c83a7c3ba1f22d8425f260a0e37d6dfe161c694a3761",
-        "output_sha256": "0a86320ff7cb9c5aa990c83a7c3ba1f22d8425f260a0e37d6dfe161c694a3761",
-        "reason": "unsupported_or_failed",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "d387d4dbc2a886c1958f6ff36a644627ca66d1c06c5f97f4df2fed3fbb05464b",
+        "output_sha256": "5a1f43fd83329b5ce3cb571c354ce2bfbcd991993482557c758135063bb63c79",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "F--O"
+            ],
+            "before_error_deg": 0.1467713287481945,
+            "after_error_deg": 0.013434179103284231,
+            "labels": [
+              "B",
+              "O",
+              "F"
+            ],
+            "source_turn_deg": 0.0475,
+            "solver_after_error_deg": 3.4536934252033377e-15,
+            "export_tolerance_deg": 0.04221814748962715
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "D--F",
+              "C--F"
+            ],
+            "before_error_deg": 0.6521634737512381,
+            "after_error_deg": 0.03356518626753472,
+            "labels": [
+              "D",
+              "F",
+              "C"
+            ],
+            "source_turn_deg": 0.4921,
+            "solver_after_error_deg": 7.217622643505843e-15,
+            "export_tolerance_deg": 0.07098678049554769
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "A--D"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.002773514021029655,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.02753907932837431
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "B--C"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.002773514021029655,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.02753907932837431
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--B",
+              "C--D"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 4.9409967434488946e-15,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.031458877359154674
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--D",
+              "B--C"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 3.707657473774546e-15,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.023619281297593952
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--D",
+              "C--D"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.002773514021043866,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.02753907932837431
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--C",
+              "C--D"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.002773514021029655,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.02753907932837431
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--E",
+              "M--O"
+            ],
+            "before_error_deg": 0.006876708281021897,
+            "after_error_deg": 0.01126569505438463,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.03522987161818601
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--B",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.43582841883568074,
+                "perpendicular_error_deg": 89.56417158116432,
+                "collinear_error_deg": 0.43582841883568074,
+                "relative_length_error": 0.6682745645566499,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--C",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.7507584303041942,
+                "relative_line_offset": 0.5999627345829411,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--D",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.7507584303041942,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--O",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.74013386859443,
+                "perpendicular_error_deg": 0.25986613140557324,
+                "collinear_error_deg": 89.74013386859443,
+                "relative_length_error": 0.49866064094885315,
+                "relative_line_offset": 0.22419879803483012,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--C",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.4978817934282295,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--D",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.4978817934282295,
+                "relative_line_offset": 0.5999627345829411,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--B",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.21633505491555732,
+                "perpendicular_error_deg": 89.78366494508444,
+                "collinear_error_deg": 0.21633505491555732,
+                "relative_length_error": 0.3317110748325641,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--O",
+                "M--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.7862204833548,
+                "perpendicular_error_deg": 0.21377951664520367,
+                "collinear_error_deg": 89.7862204833548,
+                "relative_length_error": 0.0030291238048093037,
+                "relative_line_offset": 0.4458465333425763,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--E",
+                "B--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.79309719163584,
+                "perpendicular_error_deg": 0.20690280836416264,
+                "collinear_error_deg": 89.79309719163584,
+                "relative_length_error": 0.33284029034550194,
+                "relative_line_offset": 0.26756076670965395,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "F--O",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.88690519734263,
+                "perpendicular_error_deg": 0.11309480265737193,
+                "collinear_error_deg": 89.88690519734263,
+                "relative_length_error": 0.4991843471138258,
+                "relative_line_offset": 0.22420066727958526,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "F--O",
+                "M--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.932991812103,
+                "perpendicular_error_deg": 0.06700818789700236,
+                "collinear_error_deg": 89.932991812103,
+                "relative_length_error": 0.004070573642599385,
+                "relative_line_offset": 0.4458493318851352,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--E",
+                "F--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.93986852038401,
+                "perpendicular_error_deg": 0.06013147961598975,
+                "collinear_error_deg": 89.93986852038401,
+                "relative_length_error": 0.33214263712529235,
+                "relative_line_offset": 0.6273122631237457,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--E",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.052963323041402784,
+                "perpendicular_error_deg": 89.9470366769586,
+                "collinear_error_deg": 0.052963323041402784,
+                "relative_length_error": 0.6655265787770647,
+                "relative_line_offset": 0.1794333433931678,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -1357,11 +1862,64 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
-        "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "F--O"
+            ],
+            "labels": [
+              "B",
+              "O",
+              "F"
+            ],
+            "source_turn_deg": 0.0475
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "D--F",
+              "C--F"
+            ],
+            "labels": [
+              "D",
+              "F",
+              "C"
+            ],
+            "source_turn_deg": 0.4921
+          }
+        ],
+        "input_candidates": 22,
+        "preserved_incidence_count": 7,
+        "max_shift_rel": 0.001054521279149622,
+        "max_length_change_rel": 0.0019765789713097615,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00040162526201995913,
+        "max_after_error_deg": 0.03356518626753472,
+        "curve_policy": "defer",
+        "candidate_count": 22,
+        "solver_max_shift_rel": 0.0010263137468915124,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.03356518626753472,
+        "point_count": 10,
+        "segment_count": 12
       },
-      "created_at": "2026-11-09T23:00:22"
+      "created_at": "2026-11-11T12:54:24"
     },
     "ev_0007": {
       "id": "ev_0007",
@@ -1369,14 +1927,14 @@
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Used program-owned coordinates A,B,C,D,F,M,N,O unchanged. E is not program-owned, so it was defined in the same source frame from its measured pixel position (209.5,349). point_03 is defined as the projection of B onto AE via calc, so BF is perpendicular to AE there. Right-angle pic uses arms A and F (the source square sits toward A and F). Rectangle drawn as a closed path covering AB, BC, CD, DA; all strokes solid, line width 1.0pt, labels at 14.5/17.4pt.",
+        "notes": "Used program-owned A,B,C,D,F,M,N,O unchanged. Defined helper E=(-0.889,-2.567) and right-angle vertex P=(-1.403,-1.535) in the same source frame (x=(px-258.5)*0.018141, y=(207.5-py)*0.018141). Right angle drawn with a pic on arms F--P--A (ray to A and ray to F), radius 0.327 cm (18.05 px * scale); angles library loaded. Rectangle drawn as a closed outline; DF and FC lie on the right side, so they are drawn as the same stroke. BF and MN are drawn through O as collinear polylines. Line width 1.0pt, round joins, 14.5pt labels per STYLE METRICS. Label positions follow the source offsets.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1406,17 +1964,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0454"
+              "detail": "ink_ratio=0.0428"
             },
             {
               "name": "aspect_ratio",
@@ -1431,13 +1989,29 @@
           ]
         }
       },
-      "created_at": "2026-11-09T23:00:22"
+      "created_at": "2026-11-11T12:54:24"
     },
     "ev_0008": {
       "id": "ev_0008",
+      "source": "critic_agent",
+      "method": "endpoint_review",
+      "summary": "Reviewed 1 CV endpoint case(s)",
+      "payload": {
+        "3c601fd8894a0c4f": {
+          "edge": [
+            "A",
+            "E"
+          ],
+          "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on BC, and the right-angle mark sits on it where it crosses BF. The stroke joins A and E."
+        }
+      },
+      "created_at": "2026-11-11T12:54:58"
+    },
+    "ev_0009": {
+      "id": "ev_0009",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v2 canvas matched to source [517, 415] (scale 0.7072)",
+      "summary": "v2 canvas matched to source [517, 415] (scale 0.7087)",
       "payload": {
         "ok": true,
         "size": [
@@ -1448,38 +2022,590 @@
           517,
           415
         ],
-        "scale": 0.7072,
+        "scale": 0.7087,
         "offset": [
           32,
           30
         ]
       },
-      "created_at": "2026-11-09T23:00:50"
+      "created_at": "2026-11-11T12:55:17"
     },
-    "ev_0009": {
-      "id": "ev_0009",
+    "ev_0010": {
+      "id": "ev_0010",
       "source": "tikz_constraint_repair",
       "method": "post-generation joint coordinate projection",
-      "summary": "v2: unsupported_or_failed",
+      "summary": "v2: applied",
       "payload": {
-        "ok": false,
+        "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
-        "output_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
-        "reason": "unsupported_or_failed",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "ad3d5d871679327bd9bec12bb80af95762f57a4840e1cc63448efa2b18a1e7ac",
+        "output_sha256": "bbe92da6febac5f75bb62e1a4ca209b3979bd523fe3dc2c7000f18fac5cdbbfa",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "F--O"
+            ],
+            "before_error_deg": 0.1467713287481945,
+            "after_error_deg": 0.013434179103284231,
+            "labels": [
+              "B",
+              "O",
+              "F"
+            ],
+            "source_turn_deg": 0.0475,
+            "solver_after_error_deg": 1.0360107627515684e-14,
+            "export_tolerance_deg": 0.04221616629509417
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "D--F",
+              "C--F"
+            ],
+            "before_error_deg": 0.6521634737512381,
+            "after_error_deg": 0.016909129789917796,
+            "labels": [
+              "D",
+              "F",
+              "C"
+            ],
+            "source_turn_deg": 0.4921,
+            "solver_after_error_deg": 1.0449613770637861e-14,
+            "export_tolerance_deg": 0.07098501153743138
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "A--M"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.011123234089154721,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.06274358501991517
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "D--M"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.011123234089154721,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.03149681536672422
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "E--N"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.011123234089154721,
+            "solver_after_error_deg": 2.842170943040401e-14,
+            "export_tolerance_deg": 0.06279080455780471
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--M",
+              "E--N"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 2.621837002355351e-14,
+            "export_tolerance_deg": 0.0940769118687062
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "D--M",
+              "E--N"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 2.5381293918428007e-14,
+            "export_tolerance_deg": 0.06283014221551525
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--E",
+              "M--O"
+            ],
+            "before_error_deg": 0.011316479699400734,
+            "after_error_deg": 0.01126569505438463,
+            "solver_after_error_deg": 9.232896822504843e-15,
+            "export_tolerance_deg": 0.03523101626819143
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "C--N",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.54186882654413,
+                "perpendicular_error_deg": 0.4581311734558682,
+                "collinear_error_deg": 89.54186882654413,
+                "relative_length_error": 0.3347414114729376,
+                "relative_line_offset": 0.5999626891295781,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--B",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.43582841883568074,
+                "perpendicular_error_deg": 89.56417158116432,
+                "collinear_error_deg": 0.43582841883568074,
+                "relative_length_error": 0.6682745645566499,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "D--F",
+                "E--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.00694396083431737,
+                "relative_line_offset": 0.5041290890423933,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "D--F",
+                "D--M"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.6670466698998364,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--M",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.008672016586925804,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--E",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.5864917122959,
+                "perpendicular_error_deg": 0.4135082877041043,
+                "collinear_error_deg": 89.5864917122959,
+                "relative_length_error": 0.33422309554959617,
+                "relative_line_offset": 0.5996516201043044,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--O",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.74013386859443,
+                "perpendicular_error_deg": 0.25986613140557324,
+                "collinear_error_deg": 89.74013386859443,
+                "relative_length_error": 0.49866064094885315,
+                "relative_line_offset": 0.22419879803483012,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--E",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.76134481395287,
+                "perpendicular_error_deg": 0.23865518604712577,
+                "collinear_error_deg": 89.76134481395287,
+                "relative_length_error": 0.25443453477568306,
+                "relative_line_offset": 0.00031106895441886014,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "C--F",
+                "E--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.5001487852395465,
+                "relative_line_offset": 0.49957764943737015,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "C--F",
+                "D--M"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.32923737727203783,
+                "relative_line_offset": 0.0022653093097035623,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--M",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.49927745831085313,
+                "relative_line_offset": 0.599962734582941,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--B",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.21633505491555732,
+                "perpendicular_error_deg": 89.78366494508444,
+                "collinear_error_deg": 0.21633505491555732,
+                "relative_length_error": 0.3317110748325641,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--O",
+                "M--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.7862204833548,
+                "perpendicular_error_deg": 0.21377951664520367,
+                "collinear_error_deg": 89.7862204833548,
+                "relative_length_error": 0.0030291238048093037,
+                "relative_line_offset": 0.4458465333425763,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--E",
+                "B--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.7975369630542,
+                "perpendicular_error_deg": 0.20246303694580092,
+                "collinear_error_deg": 89.7975369630542,
+                "relative_length_error": 0.33273653526039443,
+                "relative_line_offset": 0.26760237712125357,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "C--F",
+                "C--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.80596769970464,
+                "perpendicular_error_deg": 0.1940323002953619,
+                "collinear_error_deg": 89.80596769970464,
+                "relative_length_error": 0.25385365020059647,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "F--O",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.88690519734263,
+                "perpendicular_error_deg": 0.11309480265737193,
+                "collinear_error_deg": 89.88690519734263,
+                "relative_length_error": 0.4991843471138258,
+                "relative_line_offset": 0.22420066727958526,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "F--O",
+                "M--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.932991812103,
+                "perpendicular_error_deg": 0.06700818789700236,
+                "collinear_error_deg": 89.932991812103,
+                "relative_length_error": 0.004070573642599385,
+                "relative_line_offset": 0.4458493318851352,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--E",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.057403094459777246,
+                "perpendicular_error_deg": 89.94259690554023,
+                "collinear_error_deg": 0.057403094459777246,
+                "relative_length_error": 0.6654745622691987,
+                "relative_line_offset": 0.1793744837480722,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--E",
+                "F--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.9443082918024,
+                "perpendicular_error_deg": 0.05569170819759961,
+                "collinear_error_deg": 89.9443082918024,
+                "relative_length_error": 0.33203877354282174,
+                "relative_line_offset": 0.6272708115691443,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--B",
+                "B--E"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.97767986886842,
+                "perpendicular_error_deg": 0.022320131131579046,
+                "collinear_error_deg": 89.97767986886842,
+                "relative_length_error": 0.5017468566032819,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "B--E",
+                "D--M"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.02232013113157758,
+                "perpendicular_error_deg": 89.97767986886842,
+                "collinear_error_deg": 0.02232013113157758,
+                "relative_length_error": 0.4999025531307439,
+                "relative_line_offset": 0.5996516201043044,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--M",
+                "B--E"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.02232013113157758,
+                "perpendicular_error_deg": 89.97767986886842,
+                "collinear_error_deg": 0.02232013113157758,
+                "relative_length_error": 0.3283989601925897,
+                "relative_line_offset": 0.599962734582941,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "C--N",
+                "D--M"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.022302754620191007,
+                "perpendicular_error_deg": 89.97769724537982,
+                "collinear_error_deg": 0.022302754620191007,
+                "relative_length_error": 0.4995129174696566,
+                "relative_line_offset": 0.5999626891295781,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--M",
+                "C--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.022302754620191007,
+                "perpendicular_error_deg": 89.97769724537982,
+                "collinear_error_deg": 0.022302754620191007,
+                "relative_length_error": 0.32892181028056655,
+                "relative_line_offset": 0.599962734582941,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--B",
+                "C--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.97769724537982,
+                "perpendicular_error_deg": 0.022302754620184828,
+                "collinear_error_deg": 89.97769724537982,
+                "relative_length_error": 0.501358657874951,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -1490,26 +2616,79 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
-        "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "D--F",
+              "C--F"
+            ],
+            "labels": [
+              "D",
+              "F",
+              "C"
+            ],
+            "source_turn_deg": 0.4921
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "F--O"
+            ],
+            "labels": [
+              "B",
+              "O",
+              "F"
+            ],
+            "source_turn_deg": 0.0475
+          }
+        ],
+        "input_candidates": 33,
+        "preserved_incidence_count": 6,
+        "max_shift_rel": 0.001054521279149622,
+        "max_length_change_rel": 0.0019765789713097615,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00039764317624921047,
+        "max_after_error_deg": 0.016909129789917796,
+        "curve_policy": "defer",
+        "candidate_count": 33,
+        "solver_max_shift_rel": 0.0010057858773859572,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.016909129789917796,
+        "point_count": 10,
+        "segment_count": 14
       },
-      "created_at": "2026-11-09T23:00:50"
+      "created_at": "2026-11-11T12:55:17"
     },
-    "ev_0010": {
-      "id": "ev_0010",
+    "ev_0011": {
+      "id": "ev_0011",
       "source": "code_agent",
       "method": "tikz repair",
       "summary": "v2 compiled=True validation=True",
       "payload": {
-        "notes": "Repair: top boundary now explicit named path A--M--D and right boundary D--F--C; rectangle sides drawn as named solid paths (A--M, M--D, D--F, F--C, C--B, B--A). Line width set to 1.3pt per the critic/instruction (the metrics block suggested 1.0pt; the explicit request was followed). Program-owned coordinates are no longer redefined. E and P remain unmeasured helpers in the same frame. Right-angle pic, labels, and font are unchanged.",
+        "notes": "Rebuilt rectangle outline as explicit named paths: top (A)-(M)-(D), bottom (B)-(E)-(N)-(C), right (D)-(F)-(C), left (A)-(B), so C--N and D--M are drawn edges. Outline stroke raised to 1.2pt; interior strokes stay at 1.0pt. Removed separate C--D/C--F/D--F draws that duplicated the outline. Kept A--E, B-O-F, M-O-N, F--N and the right-angle pic at P. Program-owned coordinates are not redefined; E and P remain as measured in the same frame. Labels and font unchanged.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1539,17 +2718,17 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf"
+              "detail": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png"
+              "detail": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0547"
+              "detail": "ink_ratio=0.0482"
             },
             {
               "name": "aspect_ratio",
@@ -1559,31 +2738,32 @@
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.28"
+              "detail": "figure bbox ratio 1.29"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T23:00:50"
-    },
-    "ev_0011": {
-      "id": "ev_0011",
-      "source": "critic_agent",
-      "method": "endpoint_review",
-      "summary": "Reviewed 1 CV endpoint case(s)",
-      "payload": {
-        "3c601fd8894a0c4f": {
-          "edge": [
-            "A",
-            "E"
-          ],
-          "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
-        }
-      },
-      "created_at": "2026-11-09T23:01:10"
+      "created_at": "2026-11-11T12:55:17"
     }
   },
-  "conflicts": [],
+  "conflicts": [
+    {
+      "id": "conflict_001",
+      "topic": "point_11 (172.86,275.47)",
+      "claims": [
+        {
+          "source": "bind_point_labels",
+          "claim": "unlabeled vertex"
+        },
+        {
+          "source": "geometry check",
+          "claim": "lies on AE but not on BF; not the right-angle vertex; excluded"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
+    }
+  ],
   "label_bindings": {
     "A": "point_06",
     "M": "point_05",
@@ -1595,62 +2775,84 @@
     "E": "point_09",
     "N": "point_08"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.456,-2.567);\n\\coordinate (C) at (3.401,-2.567);\n\\coordinate (D) at (3.401,2.585);\n\\coordinate (F) at (3.414,0.876);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.025,-0.842);\n\n\n\n\n\\coordinate (E) at (-0.889,-2.567);\n\\coordinate (P) at ($(A)!(B)!(E)$);\n\n\n\\draw (A)--(M)--(D);\n\n\\draw (D)--(F)--(C);\n\n\\draw (C)--(B)--(A);\n\n\n\\draw (A)--(E);\n\\draw (M)--(N);\n\\draw (B)--(F);\n\\draw (F)--(N);\n\n\n\\draw pic[draw, angle radius=0.330cm] {right angle=A--P--F};\n\n\n\\node[above left, font=\\fontsize{14.5}{17.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{14.5}{17.4}\\selectfont] at (M) {$M$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (D) {$D$};\n\\node[right, font=\\fontsize{14.5}{17.4}\\selectfont] at (F) {$F$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (O) {$O$};\n\\node[below right, font=\\fontsize{14.5}{17.4}\\selectfont] at (C) {$C$};\n\\node[below left, font=\\fontsize{14.5}{17.4}\\selectfont] at (B) {$B$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (E) {$E$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (N) {$N$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.456,-2.567);\n\\coordinate (C) at (3.401,-2.567);\n\\coordinate (D) at (3.401,2.585);\n\\coordinate (F) at (3.414,0.876);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.025,-0.842);\n\n\n\n\n\\coordinate (E) at (-0.889,-2.567);\n\\coordinate (P) at ($(A)!(B)!(E)$);\n\n\n\\draw (A)--(M)--(D);\n\n\\draw (D)--(F)--(C);\n\n\\draw (C)--(B)--(A);\n\n\n\\draw (A)--(E);\n\\draw (M)--(N);\n\\draw (B)--(F);\n\\draw (F)--(N);\n\n\n\\draw pic[draw, angle radius=0.330cm] {right angle=A--P--F};\n\n\n\\node[above left, font=\\fontsize{14.5}{17.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{14.5}{17.4}\\selectfont] at (M) {$M$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (D) {$D$};\n\\node[right, font=\\fontsize{14.5}{17.4}\\selectfont] at (F) {$F$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (O) {$O$};\n\\node[below right, font=\\fontsize{14.5}{17.4}\\selectfont] at (C) {$C$};\n\\node[below left, font=\\fontsize{14.5}{17.4}\\selectfont] at (B) {$B$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (E) {$E$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (N) {$N$};\n\\end{tikzpicture}\n\\end{document}",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.0pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.457,-2.566);\n\\coordinate (C) at (3.404,-2.567);\n\\coordinate (D) at (3.406,2.585);\n\\coordinate (F) at (3.405,0.877);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.024,-0.844);\n\n\n\n\n\\coordinate (E) at (-0.889,-2.566);\n\\coordinate (P) at (-1.403,-1.536);\n\n\n\\draw[line width=1.2pt] (A) -- (M) -- (D);          \n\\draw[line width=1.2pt] (B) -- (E) -- (N) -- (C);   \n\\draw[line width=1.2pt] (D) -- (F) -- (C);          \n\\draw[line width=1.2pt] (A) -- (B);                 \n\n\n\\draw (A) -- (E);\n\\draw (B) -- (O) -- (F);\n\\draw (M) -- (O) -- (N);\n\\draw (F) -- (N);\n\n\n\\draw pic[draw, angle radius=0.327cm] {right angle=F--P--A};\n\n\n\\node[above left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n\\node[above]       at (M) {\\fontsize{14.5}{17.4}\\selectfont $M$};\n\\node[above right] at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\node[right]       at (F) {\\fontsize{14.5}{17.4}\\selectfont $F$};\n\\node[above right] at (O) {\\fontsize{14.5}{17.4}\\selectfont $O$};\n\\node[below right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n\\node[below left]  at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n\\node[below]       at (E) {\\fontsize{14.5}{17.4}\\selectfont $E$};\n\\node[below]       at (N) {\\fontsize{14.5}{17.4}\\selectfont $N$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 f9c0b23e90eb51645773864ace4824a9d8c0021efa5c88bf8e3e28f2a8d29b4a\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.0pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.457,-2.566);\n\\coordinate (C) at (3.404,-2.567);\n\\coordinate (D) at (3.406,2.585);\n\\coordinate (F) at (3.405,0.877);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.024,-0.844);\n\n\n\n\n\\coordinate (E) at (-0.889,-2.566);\n\\coordinate (P) at (-1.403,-1.536);\n\n\n\\draw[line width=1.2pt] (A) -- (M) -- (D);          \n\\draw[line width=1.2pt] (B) -- (E) -- (N) -- (C);   \n\\draw[line width=1.2pt] (D) -- (F) -- (C);          \n\\draw[line width=1.2pt] (A) -- (B);                 \n\n\n\\draw (A) -- (E);\n\\draw (B) -- (O) -- (F);\n\\draw (M) -- (O) -- (N);\n\\draw (F) -- (N);\n\n\n\\draw pic[draw, angle radius=0.327cm] {right angle=F--P--A};\n\n\n\\node[above left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n\\node[above]       at (M) {\\fontsize{14.5}{17.4}\\selectfont $M$};\n\\node[above right] at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\node[right]       at (F) {\\fontsize{14.5}{17.4}\\selectfont $F$};\n\\node[above right] at (O) {\\fontsize{14.5}{17.4}\\selectfont $O$};\n\\node[below right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n\\node[below left]  at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n\\node[below]       at (E) {\\fontsize{14.5}{17.4}\\selectfont $E$};\n\\node[below]       at (N) {\\fontsize{14.5}{17.4}\\selectfont $N$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 f9c0b23e90eb51645773864ace4824a9d8c0021efa5c88bf8e3e28f2a8d29b4a\n",
   "best_version": 2,
-  "best_score": 0.95,
+  "best_score": 0.9,
   "tikz_versions": [
     {
       "topology_check": {
         "passed": false,
         "missing_edges": [
           [
-            "A",
-            "M"
+            "C",
+            "N"
           ],
           [
             "D",
-            "F"
+            "M"
           ]
         ],
         "unverified_styles": [
           {
             "edge": [
-              "A",
-              "M"
+              "C",
+              "N"
             ],
             "style": "solid"
           },
           {
             "edge": [
               "D",
-              "F"
+              "M"
             ],
             "style": "solid"
           }
+        ],
+        "overlapping_strokes": [
+          [
+            [
+              "C",
+              "D"
+            ],
+            [
+              "C",
+              "F"
+            ]
+          ],
+          [
+            [
+              "C",
+              "D"
+            ],
+            [
+              "D",
+              "F"
+            ]
+          ]
         ]
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.0pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.456,-2.567);\n\\coordinate (C) at (3.401,-2.567);\n\\coordinate (D) at (3.401,2.585);\n\\coordinate (F) at (3.414,0.876);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.025,-0.842);\n\n\n\n\\coordinate (E) at (-0.889,-2.567);\n\n\\coordinate (P) at ($(A)!(B)!(E)$);\n\n\n\\draw (A)--(B)--(C)--(D)--cycle;\n\n\n\\draw (A)--(E);\n\\draw (M)--(N);\n\\draw (B)--(F);\n\\draw (F)--(N);\n\n\n\\draw pic[draw, angle radius=0.330cm] {right angle=A--P--F};\n\n\n\\node[above left, font=\\fontsize{14.5}{17.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{14.5}{17.4}\\selectfont] at (M) {$M$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (D) {$D$};\n\\node[right, font=\\fontsize{14.5}{17.4}\\selectfont] at (F) {$F$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (O) {$O$};\n\\node[below right, font=\\fontsize{14.5}{17.4}\\selectfont] at (C) {$C$};\n\\node[below left, font=\\fontsize{14.5}{17.4}\\selectfont] at (B) {$B$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (E) {$E$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (N) {$N$};\n\\end{tikzpicture}\n\\end{document}",
-      "tex_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.0pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.457,-2.566);\n\\coordinate (C) at (3.405,-2.567);\n\\coordinate (D) at (3.406,2.584);\n\\coordinate (F) at (3.405,0.877);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.567);\n\\coordinate (O) at (-0.024,-0.844);\n\n\n\n\\coordinate (E) at (-0.889,-2.566);\n\n\\coordinate (P) at (-1.403,-1.535);\n\n\n\\draw (A) -- (B) -- (C) -- (D) -- cycle;\n\n\n\\draw (A) -- (E);          \n\\draw (B) -- (O) -- (F);   \n\\draw (M) -- (O) -- (N);   \n\\draw (F) -- (N);          \n\\draw (D) -- (F);          \n\\draw (C) -- (F);          \n\n\n\\draw pic[draw, angle radius=0.327cm] {right angle=F--P--A};\n\n\n\\node[above left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n\\node[above]       at (M) {\\fontsize{14.5}{17.4}\\selectfont $M$};\n\\node[above right] at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\node[right]       at (F) {\\fontsize{14.5}{17.4}\\selectfont $F$};\n\\node[above right] at (O) {\\fontsize{14.5}{17.4}\\selectfont $O$};\n\\node[below right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n\\node[below left]  at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n\\node[below]       at (E) {\\fontsize{14.5}{17.4}\\selectfont $E$};\n\\node[below]       at (N) {\\fontsize{14.5}{17.4}\\selectfont $N$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 dd145c9ba81b5b952f5885c3ea2d1fbb80aba7632ff11a33823842933f33c01e\n",
+      "tex_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png",
       "ok": true,
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:00:18",
+      "created_at": "2026-11-11T12:54:22",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Used program-owned coordinates A,B,C,D,F,M,N,O unchanged. E is not program-owned, so it was defined in the same source frame from its measured pixel position (209.5,349). point_03 is defined as the projection of B onto AE via calc, so BF is perpendicular to AE there. Right-angle pic uses arms A and F (the source square sits toward A and F). Rectangle drawn as a closed path covering AB, BC, CD, DA; all strokes solid, line width 1.0pt, labels at 14.5/17.4pt.",
-      "compile_seconds": 4.438,
+      "notes": "Used program-owned A,B,C,D,F,M,N,O unchanged. Defined helper E=(-0.889,-2.567) and right-angle vertex P=(-1.403,-1.535) in the same source frame (x=(px-258.5)*0.018141, y=(207.5-py)*0.018141). Right angle drawn with a pic on arms F--P--A (ray to A and ray to F), radius 0.327 cm (18.05 px * scale); angles library loaded. Rectangle drawn as a closed outline; DF and FC lie on the right side, so they are drawn as the same stroke. BF and MN are drawn through O as collinear polylines. Line width 1.0pt, round joins, 14.5pt labels per STYLE METRICS. Label positions follow the source offsets.",
+      "compile_seconds": 2.494,
       "critic_report": {
         "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render reproduces the original's topology and labels faithfully: rectangle, the two parallel diagonals AE and MN, BF, FN, the foot-of-perpendicular right angle at E, and all point labels are in the right places. The main difference is stroke weight.",
+        "verdict": "Render is geometrically faithful: all vertices, segments, the O intersection, and the right-angle marker match the original. The only visible difference is that the render's strokes are thinner.",
         "figure_type": {
-          "original": "Rectangle ABCD with interior points E, M, N, F, O; segments AE and MN parallel, BF through O, FN; right-angle mark at the foot on BF.",
-          "render": "Same rectangle and interior segments; right-angle mark sits in the same quadrant near BF/AE; labels match."
+          "original": "Rectangle ABCD with interior segments AE, MN, BF, FN, plus a right-angle marker at the AE/BF intersection",
+          "render": "Rectangle ABCD with interior segments AE, MN, BF, FN, plus a right-angle marker at the AE/BF intersection"
         },
         "issues": [
           {
@@ -1660,122 +2862,140 @@
               "seg_02",
               "seg_03",
               "seg_06",
-              "seg_07",
-              "seg_05",
-              "seg_04"
+              "seg_07"
             ],
             "bbox": [
-              0.1,
-              0.12,
-              0.92,
-              0.8
+              0.05,
+              0.15,
+              0.95,
+              0.85
             ],
             "flaky": false,
             "source": "vlm",
-            "description": "Stroke weight of the rectangle edges and the diagonals is lighter in the render than in the original, which shows bolder lines at the same scale.",
-            "suggestion": "Increase the global line width slightly (e.g. from 1.0pt to about 1.3pt) so the rectangle edges and diagonals match the original's visual weight."
+            "description": "Rectangle edges (AD, BC, AB, DC) are drawn thinner in the render than in the original, where the outline looks heavier. Interior segments are close in weight.",
+            "suggestion": "Optionally raise the outline stroke width slightly (e.g. line width 1.2pt for the rectangle sides) to match the original's heavier outline. Low priority."
           }
         ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Segment B to F drawn through O, matching the original."
+            "note": "Segment BF from B through O to F is drawn correctly."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Top edge A to D present."
+            "note": "Top edge AD is present; render stroke is thinner than original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Bottom edge B to C present."
+            "note": "Bottom edge BC is present; render stroke is thinner than original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Segment M to N drawn with the same extent as the original."
+            "note": "Segment MN from M to N is drawn and meets BF at O."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Segment A to E present, ending at E on BC."
+            "note": "Segment AE from A to E is drawn correctly."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Left edge A to B present."
+            "note": "Left edge AB is present."
           },
           {
             "object_id": "seg_07",
             "status": "present",
-            "note": "Right edge D to C present."
+            "note": "Right edge DC is present with F on it."
           },
           {
             "object_id": "seg_08",
             "status": "present",
-            "note": "Segment F to N present."
+            "note": "Segment FN from F to N is drawn correctly."
           },
           {
             "object_id": "seg_09",
             "status": "unclear",
-            "note": "Short fragment near the right-angle mark; its coordinates do not clearly match a drawn stroke in the original, so it cannot be confirmed separately."
+            "note": "Short stub near (169-194, 266-277) is not a visible separate stroke in the original; likely a detection artifact, not a figure element."
+          },
+          {
+            "object_id": "seg_AE",
+            "status": "present",
+            "note": "AE matches the original, ending at E on BC."
+          },
+          {
+            "object_id": "seg_BF",
+            "status": "present",
+            "note": "BF matches the original, passing through O and ending at F."
+          },
+          {
+            "object_id": "seg_FN",
+            "status": "present",
+            "note": "FN matches the original."
+          },
+          {
+            "object_id": "seg_MN",
+            "status": "present",
+            "note": "MN matches the original, with M on AD and N on BC."
           },
           {
             "object_id": "ra_01",
             "status": "present",
-            "note": "Right-angle mark at the foot of the perpendicular from E onto BF is drawn in the same quadrant as the original."
+            "note": "Right-angle marker sits in the same quadrant (between the A-arm of AE and the F-arm of BF) as in the original."
           },
           {
             "object_id": "right_angle_01",
             "status": "present",
-            "note": "Same right-angle mark as ra_01; the render shows one square at the same location."
+            "note": "Same right-angle marker, consistent with the source pic F--P--A with P on both AE and BF."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "B is at the bottom-left corner, as in the original."
+            "note": "B is at the bottom-left corner, labelled correctly."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "O is labelled on the intersection of BF and MN, above-right, as in the original."
+            "note": "O is at the BF/MN intersection with the same label offset as the original."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "F is labelled to the right of the point on DC, as in the original."
+            "note": "F is on DC at the correct height, labelled correctly."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "M is labelled above the top edge on MN, as in the original."
+            "note": "M is on AD at about 25% of the width, matching the original."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "A is labelled at the top-left corner."
+            "note": "A is at the top-left corner, labelled correctly."
           },
           {
             "object_id": "point_07",
             "status": "present",
-            "note": "D is labelled at the top-right corner."
+            "note": "D is at the top-right corner, labelled correctly."
           },
           {
             "object_id": "point_08",
             "status": "present",
-            "note": "N is labelled below BC, as in the original."
+            "note": "N is on BC at about 62% of the width, matching the original."
           },
           {
             "object_id": "point_09",
             "status": "present",
-            "note": "E is labelled below BC, as in the original."
+            "note": "E is on BC at about 37% of the width, matching the original."
           },
           {
             "object_id": "point_10",
             "status": "present",
-            "note": "C is labelled at the bottom-right corner."
+            "note": "C is at the bottom-right corner, labelled correctly."
           }
         ],
         "checklist_score": 1.0,
@@ -1787,11 +3007,12 @@
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Rectangle ABCD with correct corners and proportions.",
-          "Segments AE and MN are parallel and end at the correct points on BC and the top edge.",
-          "BF passes through O, and FN is drawn.",
-          "The right-angle mark at the foot on BF is in the correct quadrant.",
-          "All point labels A, B, C, D, E, F, M, N, O are present with correct placement and no collisions."
+          "Rectangle ABCD with the correct corner labels and aspect ratio.",
+          "M on AD, E and N on BC, and F on DC are at the same relative positions as in the original.",
+          "AE, MN, BF, FN and the DC/AB edges all end at the same vertices as the original.",
+          "O is the intersection of MN and BF, with the label placed up-right of the intersection, as in the original.",
+          "Right-angle marker at the AE/BF intersection is in the same quadrant as the original.",
+          "All point labels A, B, C, D, E, F, M, N, O are present, correctly spelled, and clear of strokes."
         ],
         "labels": {
           "present": [
@@ -1810,7 +3031,16 @@
         },
         "version": 1,
         "binding_decisions": [],
-        "topology_decisions": [],
+        "topology_decisions": [
+          {
+            "case_id": "3c601fd8894a0c4f",
+            "edge": [
+              "A",
+              "E"
+            ],
+            "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on BC, and the right-angle mark sits on it where it crosses BF. The stroke joins A and E."
+          }
+        ],
         "raw_meta": "{}"
       },
       "critic_score": 0.9
@@ -1821,7 +3051,7 @@
         "missing_edges": []
       },
       "version": 2,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.3pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.456,-2.567);\n\\coordinate (C) at (3.401,-2.567);\n\\coordinate (D) at (3.401,2.585);\n\\coordinate (F) at (3.414,0.876);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.025,-0.842);\n\n\n\n\n\\coordinate (E) at (-0.889,-2.567);\n\\coordinate (P) at ($(A)!(B)!(E)$);\n\n\n\\draw (A)--(M)--(D);\n\n\\draw (D)--(F)--(C);\n\n\\draw (C)--(B)--(A);\n\n\n\\draw (A)--(E);\n\\draw (M)--(N);\n\\draw (B)--(F);\n\\draw (F)--(N);\n\n\n\\draw pic[draw, angle radius=0.330cm] {right angle=A--P--F};\n\n\n\\node[above left, font=\\fontsize{14.5}{17.4}\\selectfont] at (A) {$A$};\n\\node[above, font=\\fontsize{14.5}{17.4}\\selectfont] at (M) {$M$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (D) {$D$};\n\\node[right, font=\\fontsize{14.5}{17.4}\\selectfont] at (F) {$F$};\n\\node[above right, font=\\fontsize{14.5}{17.4}\\selectfont] at (O) {$O$};\n\\node[below right, font=\\fontsize{14.5}{17.4}\\selectfont] at (C) {$C$};\n\\node[below left, font=\\fontsize{14.5}{17.4}\\selectfont] at (B) {$B$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (E) {$E$};\n\\node[below, font=\\fontsize{14.5}{17.4}\\selectfont] at (N) {$N$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.0pt, line join=round]\n\\coordinate (A) at (-3.456,2.585);\n\\coordinate (B) at (-3.457,-2.566);\n\\coordinate (C) at (3.404,-2.567);\n\\coordinate (D) at (3.406,2.585);\n\\coordinate (F) at (3.405,0.877);\n\\coordinate (M) at (-1.732,2.585);\n\\coordinate (N) at (0.832,-2.566);\n\\coordinate (O) at (-0.024,-0.844);\n\n\n\n\n\\coordinate (E) at (-0.889,-2.566);\n\\coordinate (P) at (-1.403,-1.536);\n\n\n\\draw[line width=1.2pt] (A) -- (M) -- (D);          \n\\draw[line width=1.2pt] (B) -- (E) -- (N) -- (C);   \n\\draw[line width=1.2pt] (D) -- (F) -- (C);          \n\\draw[line width=1.2pt] (A) -- (B);                 \n\n\n\\draw (A) -- (E);\n\\draw (B) -- (O) -- (F);\n\\draw (M) -- (O) -- (N);\n\\draw (F) -- (N);\n\n\n\\draw pic[draw, angle radius=0.327cm] {right angle=F--P--A};\n\n\n\\node[above left]  at (A) {\\fontsize{14.5}{17.4}\\selectfont $A$};\n\\node[above]       at (M) {\\fontsize{14.5}{17.4}\\selectfont $M$};\n\\node[above right] at (D) {\\fontsize{14.5}{17.4}\\selectfont $D$};\n\\node[right]       at (F) {\\fontsize{14.5}{17.4}\\selectfont $F$};\n\\node[above right] at (O) {\\fontsize{14.5}{17.4}\\selectfont $O$};\n\\node[below right] at (C) {\\fontsize{14.5}{17.4}\\selectfont $C$};\n\\node[below left]  at (B) {\\fontsize{14.5}{17.4}\\selectfont $B$};\n\\node[below]       at (E) {\\fontsize{14.5}{17.4}\\selectfont $E$};\n\\node[below]       at (N) {\\fontsize{14.5}{17.4}\\selectfont $N$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 f9c0b23e90eb51645773864ace4824a9d8c0021efa5c88bf8e3e28f2a8d29b4a\n",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1618_q_fig1\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1618_q_fig1\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\1618_q_fig1\\best.png",
@@ -1829,138 +3059,179 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:00:48",
+      "created_at": "2026-11-11T12:55:14",
       "agent": "code_agent",
       "mode": "repair",
-      "notes": "Repair: top boundary now explicit named path A--M--D and right boundary D--F--C; rectangle sides drawn as named solid paths (A--M, M--D, D--F, F--C, C--B, B--A). Line width set to 1.3pt per the critic/instruction (the metrics block suggested 1.0pt; the explicit request was followed). Program-owned coordinates are no longer redefined. E and P remain unmeasured helpers in the same frame. Right-angle pic, labels, and font are unchanged.",
-      "compile_seconds": 2.222,
+      "notes": "Rebuilt rectangle outline as explicit named paths: top (A)-(M)-(D), bottom (B)-(E)-(N)-(C), right (D)-(F)-(C), left (A)-(B), so C--N and D--M are drawn edges. Outline stroke raised to 1.2pt; interior strokes stay at 1.0pt. Removed separate C--D/C--F/D--F draws that duplicated the outline. Kept A--E, B-O-F, M-O-N, F--N and the right-angle pic at P. Program-owned coordinates are not redefined; E and P remain as measured in the same frame. Labels and font unchanged.",
+      "compile_seconds": 2.481,
       "critic_report": {
-        "assessment_score": 0.95,
+        "assessment_score": 0.9,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "Render is faithful: rectangle, interior segments, endpoints, labels and right-angle mark match the original.",
+        "verdict": "The render reproduces the rectangle, the segments AE, MN, BF, FN and DF/FC, the right-angle mark at the AE/BF foot, and all nine labels in the correct positions. The only discrepancy is that the strokes are visibly lighter than the original.",
         "figure_type": {
-          "original": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing.",
-          "render": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing."
+          "original": "Rectangle ABCD with points M on AD, E and N on BC, and F on DC. Segments AE and MN are parallel. BF passes through O and crosses AE at a right angle. FN and BN/F-to-N are drawn. Right-angle marker at the AE/BF intersection.",
+          "render": "Same rectangle with the same points, segments and right-angle marker at the AE/BF intersection, with matching label placement."
         },
-        "issues": [],
+        "issues": [
+          {
+            "type": "wrong_style",
+            "severity": "low",
+            "object_ids": [
+              "seg_02",
+              "seg_03",
+              "seg_06",
+              "seg_07"
+            ],
+            "bbox": [
+              0.1,
+              0.2,
+              0.89,
+              0.8
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "Rectangle outline strokes (AD, BC, AB, DC) are noticeably thinner in the render than in the original. The original outline reads as heavier than the render.",
+            "suggestion": "Increase the width of the outer rectangle strokes (the 1.2pt paths for A-M-D and B-E-N-C, and the A-B edge) to about 1.5pt or more, keeping the internal lines at their current weight."
+          }
+        ],
         "checks": [
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Diagonal B–F drawn from B to F as in the original."
+            "note": "Long diagonal B-O-F matches the original and passes through O."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Top edge AD drawn, with M on it."
+            "note": "Top edge AD is drawn, though thinner than the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Bottom edge BC drawn, with E and N on it."
+            "note": "Bottom edge BC is drawn, though thinner than the original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Segment MN drawn from M on the top edge to N on the bottom edge."
+            "note": "Segment matching MN, which runs from M down to N across the figure."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Segment AE drawn from A to E, both ends matching the original."
+            "note": "Segment matching AE, running from A to E."
           },
           {
             "object_id": "seg_06",
             "status": "present",
-            "note": "Left edge AB drawn."
+            "note": "Left edge AB is drawn, though thinner than the original."
           },
           {
             "object_id": "seg_07",
             "status": "present",
-            "note": "Right edge DC drawn, with F on it."
+            "note": "Right edge DC is drawn, though thinner than the original."
           },
           {
             "object_id": "seg_08",
             "status": "present",
-            "note": "Segment FN drawn from F to N as in the original."
+            "note": "Segment matching FN, from F to N."
           },
           {
             "object_id": "seg_09",
             "status": "unclear",
-            "note": "Short CV fragment lying on BF near point_03; the original shows no separate stroke there, so it appears to be a detection artifact of BF rather than a distinct element."
+            "note": "Short CV fragment near the right-angle marker; it does not correspond to a distinct stroke in the original, so it is not assessed."
+          },
+          {
+            "object_id": "seg_AE",
+            "status": "present",
+            "note": "A to E is drawn and ends at E on BC, as in the original."
+          },
+          {
+            "object_id": "seg_BF",
+            "status": "present",
+            "note": "B to F passes through O and ends at F on DC, as in the original."
+          },
+          {
+            "object_id": "seg_FN",
+            "status": "present",
+            "note": "F to N is drawn and ends at N, as in the original."
+          },
+          {
+            "object_id": "seg_MN",
+            "status": "present",
+            "note": "M to N is drawn, with M on AD and N on BC, as in the original."
           },
           {
             "object_id": "ra_01",
             "status": "present",
-            "note": "Right-angle mark at the AE/BF foot is drawn on the same side as the original."
+            "note": "Right-angle marker sits at the AE/BF intersection on the same side as the original."
           },
           {
             "object_id": "right_angle_01",
             "status": "present",
-            "note": "Same right-angle mark as ra_01; present in both panels."
+            "note": "Same right-angle marker, in the same quadrant and orientation as the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "B labelled at the bottom-left vertex, below-left as in the original."
+            "note": "B is at the bottom-left corner with its label placed below-left."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "O labelled at the MN/BF crossing, above-right as in the original."
+            "note": "O is on BF and MN, with its label placed upper-right, clear of the strokes."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "F labelled on the right edge, right of the vertex, as in the original."
+            "note": "F is on the right edge with its label to the right."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "M labelled above the top edge at the MN endpoint."
+            "note": "M is on the top edge with its label above."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "A labelled above-left of the top-left vertex."
+            "note": "A is at the top-left corner with its label above-left."
           },
           {
             "object_id": "point_07",
             "status": "present",
-            "note": "D labelled above-right of the top-right vertex."
+            "note": "D is at the top-right corner with its label above-right."
           },
           {
             "object_id": "point_08",
             "status": "present",
-            "note": "N labelled below the bottom-edge endpoint of MN and FN."
+            "note": "N is on the bottom edge with its label below."
           },
           {
             "object_id": "point_09",
             "status": "present",
-            "note": "E labelled below the bottom-edge endpoint of AE."
+            "note": "E is on the bottom edge with its label below."
           },
           {
             "object_id": "point_10",
             "status": "present",
-            "note": "C labelled below-right of the bottom-right vertex."
+            "note": "C is at the bottom-right corner with its label below-right."
           }
         ],
         "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
           "medium": 0,
-          "low": 0
+          "low": 1
         },
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Rectangle proportions and aspect ratio match the original.",
-          "E and N sit at the same relative positions along BC (about 0.37 and 0.62 of its length).",
-          "F sits at the same height on DC.",
-          "M sits at the same relative position on AD.",
-          "Segments AE, MN, BF and FN have the same endpoints and crossings as in the original.",
-          "The right-angle mark is at the AE/BF foot on the same side as in the original.",
-          "All nine labels are present, correctly spelled and placed clear of strokes."
+          "Rectangle ABCD with correct corner labels",
+          "Points M, E, N, F and O are on the correct edges and lines",
+          "Segments AE and MN are parallel, and both end at the correct base points",
+          "BF passes through O and ends at F on the right edge",
+          "FN and DF/FC are present with correct endpoints",
+          "Right-angle marker at the AE/BF foot is present in the same quadrant as the original",
+          "All nine labels are present with no extras and no label/stroke collisions"
         ],
         "labels": {
           "present": [
@@ -1979,19 +3250,10 @@
         },
         "version": 2,
         "binding_decisions": [],
-        "topology_decisions": [
-          {
-            "case_id": "3c601fd8894a0c4f",
-            "edge": [
-              "A",
-              "E"
-            ],
-            "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
-          }
-        ],
+        "topology_decisions": [],
         "raw_meta": "{}"
       },
-      "critic_score": 0.95
+      "critic_score": 0.9
     }
   ],
   "compilation_results": [
@@ -1999,27 +3261,27 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 4.438,
+      "seconds": 2.494,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (11.92578125 KiB)\nnote: Writing `figure.pdf` (3.2529296875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:00:22"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.294921875 KiB)\nnote: Writing `figure.log` (10.5810546875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T12:54:24"
     },
     {
       "version": 2,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.222,
+      "seconds": 2.481,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.26953125 KiB)\nnote: Writing `figure.log` (11.92578125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png",
-      "created_at": "2026-11-09T23:00:50"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (10.5810546875 KiB)\nnote: Writing `figure.pdf` (3.3095703125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png",
+      "created_at": "2026-11-11T12:55:17"
     }
   ],
   "validation_results": [
@@ -2055,17 +3317,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0454"
+          "detail": "ink_ratio=0.0428"
         },
         {
           "name": "aspect_ratio",
@@ -2078,7 +3340,7 @@
           "detail": "figure bbox ratio 1.29"
         }
       ],
-      "created_at": "2026-11-09T23:00:22"
+      "created_at": "2026-11-11T12:54:24"
     },
     {
       "version": 2,
@@ -2112,17 +3374,17 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf"
+          "detail": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png"
+          "detail": ".cache\\collinear\\batch_work\\1618_q_fig1\\tikz\\v2\\v2.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0547"
+          "detail": "ink_ratio=0.0482"
         },
         {
           "name": "aspect_ratio",
@@ -2132,20 +3394,20 @@
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.28"
+          "detail": "figure bbox ratio 1.29"
         }
       ],
-      "created_at": "2026-11-09T23:00:50"
+      "created_at": "2026-11-11T12:55:17"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render reproduces the original's topology and labels faithfully: rectangle, the two parallel diagonals AE and MN, BF, FN, the foot-of-perpendicular right angle at E, and all point labels are in the right places. The main difference is stroke weight.",
+      "verdict": "Render is geometrically faithful: all vertices, segments, the O intersection, and the right-angle marker match the original. The only visible difference is that the render's strokes are thinner.",
       "figure_type": {
-        "original": "Rectangle ABCD with interior points E, M, N, F, O; segments AE and MN parallel, BF through O, FN; right-angle mark at the foot on BF.",
-        "render": "Same rectangle and interior segments; right-angle mark sits in the same quadrant near BF/AE; labels match."
+        "original": "Rectangle ABCD with interior segments AE, MN, BF, FN, plus a right-angle marker at the AE/BF intersection",
+        "render": "Rectangle ABCD with interior segments AE, MN, BF, FN, plus a right-angle marker at the AE/BF intersection"
       },
       "issues": [
         {
@@ -2155,122 +3417,140 @@
             "seg_02",
             "seg_03",
             "seg_06",
-            "seg_07",
-            "seg_05",
-            "seg_04"
+            "seg_07"
           ],
           "bbox": [
-            0.1,
-            0.12,
-            0.92,
-            0.8
+            0.05,
+            0.15,
+            0.95,
+            0.85
           ],
           "flaky": false,
           "source": "vlm",
-          "description": "Stroke weight of the rectangle edges and the diagonals is lighter in the render than in the original, which shows bolder lines at the same scale.",
-          "suggestion": "Increase the global line width slightly (e.g. from 1.0pt to about 1.3pt) so the rectangle edges and diagonals match the original's visual weight."
+          "description": "Rectangle edges (AD, BC, AB, DC) are drawn thinner in the render than in the original, where the outline looks heavier. Interior segments are close in weight.",
+          "suggestion": "Optionally raise the outline stroke width slightly (e.g. line width 1.2pt for the rectangle sides) to match the original's heavier outline. Low priority."
         }
       ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Segment B to F drawn through O, matching the original."
+          "note": "Segment BF from B through O to F is drawn correctly."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Top edge A to D present."
+          "note": "Top edge AD is present; render stroke is thinner than original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Bottom edge B to C present."
+          "note": "Bottom edge BC is present; render stroke is thinner than original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Segment M to N drawn with the same extent as the original."
+          "note": "Segment MN from M to N is drawn and meets BF at O."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Segment A to E present, ending at E on BC."
+          "note": "Segment AE from A to E is drawn correctly."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Left edge A to B present."
+          "note": "Left edge AB is present."
         },
         {
           "object_id": "seg_07",
           "status": "present",
-          "note": "Right edge D to C present."
+          "note": "Right edge DC is present with F on it."
         },
         {
           "object_id": "seg_08",
           "status": "present",
-          "note": "Segment F to N present."
+          "note": "Segment FN from F to N is drawn correctly."
         },
         {
           "object_id": "seg_09",
           "status": "unclear",
-          "note": "Short fragment near the right-angle mark; its coordinates do not clearly match a drawn stroke in the original, so it cannot be confirmed separately."
+          "note": "Short stub near (169-194, 266-277) is not a visible separate stroke in the original; likely a detection artifact, not a figure element."
+        },
+        {
+          "object_id": "seg_AE",
+          "status": "present",
+          "note": "AE matches the original, ending at E on BC."
+        },
+        {
+          "object_id": "seg_BF",
+          "status": "present",
+          "note": "BF matches the original, passing through O and ending at F."
+        },
+        {
+          "object_id": "seg_FN",
+          "status": "present",
+          "note": "FN matches the original."
+        },
+        {
+          "object_id": "seg_MN",
+          "status": "present",
+          "note": "MN matches the original, with M on AD and N on BC."
         },
         {
           "object_id": "ra_01",
           "status": "present",
-          "note": "Right-angle mark at the foot of the perpendicular from E onto BF is drawn in the same quadrant as the original."
+          "note": "Right-angle marker sits in the same quadrant (between the A-arm of AE and the F-arm of BF) as in the original."
         },
         {
           "object_id": "right_angle_01",
           "status": "present",
-          "note": "Same right-angle mark as ra_01; the render shows one square at the same location."
+          "note": "Same right-angle marker, consistent with the source pic F--P--A with P on both AE and BF."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "B is at the bottom-left corner, as in the original."
+          "note": "B is at the bottom-left corner, labelled correctly."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "O is labelled on the intersection of BF and MN, above-right, as in the original."
+          "note": "O is at the BF/MN intersection with the same label offset as the original."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "F is labelled to the right of the point on DC, as in the original."
+          "note": "F is on DC at the correct height, labelled correctly."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "M is labelled above the top edge on MN, as in the original."
+          "note": "M is on AD at about 25% of the width, matching the original."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "A is labelled at the top-left corner."
+          "note": "A is at the top-left corner, labelled correctly."
         },
         {
           "object_id": "point_07",
           "status": "present",
-          "note": "D is labelled at the top-right corner."
+          "note": "D is at the top-right corner, labelled correctly."
         },
         {
           "object_id": "point_08",
           "status": "present",
-          "note": "N is labelled below BC, as in the original."
+          "note": "N is on BC at about 62% of the width, matching the original."
         },
         {
           "object_id": "point_09",
           "status": "present",
-          "note": "E is labelled below BC, as in the original."
+          "note": "E is on BC at about 37% of the width, matching the original."
         },
         {
           "object_id": "point_10",
           "status": "present",
-          "note": "C is labelled at the bottom-right corner."
+          "note": "C is at the bottom-right corner, labelled correctly."
         }
       ],
       "checklist_score": 1.0,
@@ -2282,11 +3562,12 @@
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Rectangle ABCD with correct corners and proportions.",
-        "Segments AE and MN are parallel and end at the correct points on BC and the top edge.",
-        "BF passes through O, and FN is drawn.",
-        "The right-angle mark at the foot on BF is in the correct quadrant.",
-        "All point labels A, B, C, D, E, F, M, N, O are present with correct placement and no collisions."
+        "Rectangle ABCD with the correct corner labels and aspect ratio.",
+        "M on AD, E and N on BC, and F on DC are at the same relative positions as in the original.",
+        "AE, MN, BF, FN and the DC/AB edges all end at the same vertices as the original.",
+        "O is the intersection of MN and BF, with the label placed up-right of the intersection, as in the original.",
+        "Right-angle marker at the AE/BF intersection is in the same quadrant as the original.",
+        "All point labels A, B, C, D, E, F, M, N, O are present, correctly spelled, and clear of strokes."
       ],
       "labels": {
         "present": [
@@ -2305,136 +3586,186 @@
       },
       "version": 1,
       "binding_decisions": [],
-      "topology_decisions": [],
+      "topology_decisions": [
+        {
+          "case_id": "3c601fd8894a0c4f",
+          "edge": [
+            "A",
+            "E"
+          ],
+          "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on BC, and the right-angle mark sits on it where it crosses BF. The stroke joins A and E."
+        }
+      ],
       "raw_meta": "{}"
     },
     {
-      "assessment_score": 0.95,
+      "assessment_score": 0.9,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "Render is faithful: rectangle, interior segments, endpoints, labels and right-angle mark match the original.",
+      "verdict": "The render reproduces the rectangle, the segments AE, MN, BF, FN and DF/FC, the right-angle mark at the AE/BF foot, and all nine labels in the correct positions. The only discrepancy is that the strokes are visibly lighter than the original.",
       "figure_type": {
-        "original": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing.",
-        "render": "Rectangle ABCD with points M, F, E, N on its edges; segments AE, MN, BF, FN; right-angle mark at the AE/BF intersection; O at the MN/BF crossing."
+        "original": "Rectangle ABCD with points M on AD, E and N on BC, and F on DC. Segments AE and MN are parallel. BF passes through O and crosses AE at a right angle. FN and BN/F-to-N are drawn. Right-angle marker at the AE/BF intersection.",
+        "render": "Same rectangle with the same points, segments and right-angle marker at the AE/BF intersection, with matching label placement."
       },
-      "issues": [],
+      "issues": [
+        {
+          "type": "wrong_style",
+          "severity": "low",
+          "object_ids": [
+            "seg_02",
+            "seg_03",
+            "seg_06",
+            "seg_07"
+          ],
+          "bbox": [
+            0.1,
+            0.2,
+            0.89,
+            0.8
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "Rectangle outline strokes (AD, BC, AB, DC) are noticeably thinner in the render than in the original. The original outline reads as heavier than the render.",
+          "suggestion": "Increase the width of the outer rectangle strokes (the 1.2pt paths for A-M-D and B-E-N-C, and the A-B edge) to about 1.5pt or more, keeping the internal lines at their current weight."
+        }
+      ],
       "checks": [
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Diagonal B–F drawn from B to F as in the original."
+          "note": "Long diagonal B-O-F matches the original and passes through O."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Top edge AD drawn, with M on it."
+          "note": "Top edge AD is drawn, though thinner than the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Bottom edge BC drawn, with E and N on it."
+          "note": "Bottom edge BC is drawn, though thinner than the original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Segment MN drawn from M on the top edge to N on the bottom edge."
+          "note": "Segment matching MN, which runs from M down to N across the figure."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Segment AE drawn from A to E, both ends matching the original."
+          "note": "Segment matching AE, running from A to E."
         },
         {
           "object_id": "seg_06",
           "status": "present",
-          "note": "Left edge AB drawn."
+          "note": "Left edge AB is drawn, though thinner than the original."
         },
         {
           "object_id": "seg_07",
           "status": "present",
-          "note": "Right edge DC drawn, with F on it."
+          "note": "Right edge DC is drawn, though thinner than the original."
         },
         {
           "object_id": "seg_08",
           "status": "present",
-          "note": "Segment FN drawn from F to N as in the original."
+          "note": "Segment matching FN, from F to N."
         },
         {
           "object_id": "seg_09",
           "status": "unclear",
-          "note": "Short CV fragment lying on BF near point_03; the original shows no separate stroke there, so it appears to be a detection artifact of BF rather than a distinct element."
+          "note": "Short CV fragment near the right-angle marker; it does not correspond to a distinct stroke in the original, so it is not assessed."
+        },
+        {
+          "object_id": "seg_AE",
+          "status": "present",
+          "note": "A to E is drawn and ends at E on BC, as in the original."
+        },
+        {
+          "object_id": "seg_BF",
+          "status": "present",
+          "note": "B to F passes through O and ends at F on DC, as in the original."
+        },
+        {
+          "object_id": "seg_FN",
+          "status": "present",
+          "note": "F to N is drawn and ends at N, as in the original."
+        },
+        {
+          "object_id": "seg_MN",
+          "status": "present",
+          "note": "M to N is drawn, with M on AD and N on BC, as in the original."
         },
         {
           "object_id": "ra_01",
           "status": "present",
-          "note": "Right-angle mark at the AE/BF foot is drawn on the same side as the original."
+          "note": "Right-angle marker sits at the AE/BF intersection on the same side as the original."
         },
         {
           "object_id": "right_angle_01",
           "status": "present",
-          "note": "Same right-angle mark as ra_01; present in both panels."
+          "note": "Same right-angle marker, in the same quadrant and orientation as the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "B labelled at the bottom-left vertex, below-left as in the original."
+          "note": "B is at the bottom-left corner with its label placed below-left."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "O labelled at the MN/BF crossing, above-right as in the original."
+          "note": "O is on BF and MN, with its label placed upper-right, clear of the strokes."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "F labelled on the right edge, right of the vertex, as in the original."
+          "note": "F is on the right edge with its label to the right."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "M labelled above the top edge at the MN endpoint."
+          "note": "M is on the top edge with its label above."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "A labelled above-left of the top-left vertex."
+          "note": "A is at the top-left corner with its label above-left."
         },
         {
           "object_id": "point_07",
           "status": "present",
-          "note": "D labelled above-right of the top-right vertex."
+          "note": "D is at the top-right corner with its label above-right."
         },
         {
           "object_id": "point_08",
           "status": "present",
-          "note": "N labelled below the bottom-edge endpoint of MN and FN."
+          "note": "N is on the bottom edge with its label below."
         },
         {
           "object_id": "point_09",
           "status": "present",
-          "note": "E labelled below the bottom-edge endpoint of AE."
+          "note": "E is on the bottom edge with its label below."
         },
         {
           "object_id": "point_10",
           "status": "present",
-          "note": "C labelled below-right of the bottom-right vertex."
+          "note": "C is at the bottom-right corner with its label below-right."
         }
       ],
       "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
         "medium": 0,
-        "low": 0
+        "low": 1
       },
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Rectangle proportions and aspect ratio match the original.",
-        "E and N sit at the same relative positions along BC (about 0.37 and 0.62 of its length).",
-        "F sits at the same height on DC.",
-        "M sits at the same relative position on AD.",
-        "Segments AE, MN, BF and FN have the same endpoints and crossings as in the original.",
-        "The right-angle mark is at the AE/BF foot on the same side as in the original.",
-        "All nine labels are present, correctly spelled and placed clear of strokes."
+        "Rectangle ABCD with correct corner labels",
+        "Points M, E, N, F and O are on the correct edges and lines",
+        "Segments AE and MN are parallel, and both end at the correct base points",
+        "BF passes through O and ends at F on the right edge",
+        "FN and DF/FC are present with correct endpoints",
+        "Right-angle marker at the AE/BF foot is present in the same quadrant as the original",
+        "All nine labels are present with no extras and no label/stroke collisions"
       ],
       "labels": {
         "present": [
@@ -2453,35 +3784,22 @@
       },
       "version": 2,
       "binding_decisions": [],
-      "topology_decisions": [
-        {
-          "case_id": "3c601fd8894a0c4f",
-          "edge": [
-            "A",
-            "E"
-          ],
-          "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
-        }
-      ],
+      "topology_decisions": [],
       "raw_meta": "{}"
     }
   ],
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "point_11 (172.86,275.47) and point_03 are near each other; point_11 treated as noise, not a vertex."
+      "issue": "point_03 has no printed letter; angle mark and foot use its ID rather than a letter"
     },
     {
       "source": "geometry_agent",
-      "issue": "Whether BF extends beyond F or B is not ambiguous; treated as B to F."
+      "issue": "Dashed styles not detected; all strokes judged solid from image"
     },
     {
       "source": "supervisor",
-      "issue": "point_11 (172.9,275.5) treated as noise and omitted, per the Geometry Agent."
-    },
-    {
-      "source": "supervisor",
-      "issue": "Whether BF extends beyond F or B was not verified; drawn as B to F."
+      "issue": "Rectangle outline stroke is slightly lighter than the original (low severity, critic-reported); the 1.2pt outline was not raised further."
     }
   ],
   "action_history": [
@@ -2527,7 +3845,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 2, 'relations': 3, 'conflicts': 0, 'rejected': []}",
+      "result_summary": "ok=True; merged={'objects': 15, 'relations': 8, 'conflicts': 1, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -2548,17 +3866,17 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Build TikZ from the measured geometry. Use a rectangle A(68,65)-D(446,65)-C(446,349)-B(68,349) with image y flipped to TikZ y. Solid edges: AD, DC, CB, BA. Points on the boundary: M on AD at (163,65),",
+      "purpose": "Draw rectangle ABCD with A=(68,65) top-left, D=(446,65) top-right, C=(446,349) bottom-right, B=(68,349) bottom-left (image px, y down; flip y for TikZ). M is on top edge AD at (163,65); E on bottom ed",
       "params": {
         "mode": "generate",
-        "use_image": null,
-        "instruction": "Build TikZ from the measured geometry. Use a rectangle A(68,65)-D(446,65)-C(446,349)-B(68,349) with image y flipped to TikZ y. Solid edges: AD, DC, CB, BA. Points on the boundary: M on AD at (163,65), E on BC at (209.5,349), N on BC at (304.4,349), F on DC at (446.7,159.2). Solid segments: A--E (through point_03 at (181.2,292.1)), M--N, F--N, F--B (BF passes through point_03 and is perpendicular to AE; draw a right-angle square mark at point_03 with arms along AE and BF). O is point_02 at (257.1,254) lying on MN; label O there. Keep point_11 (172.9,275.5) out as noise. Label every visible letter A, B, C, D, E, F, M, N, O at its binding point, placed outside the boundary as appropriate. Use named endpoint pairs for every edge."
+        "use_image": true,
+        "instruction": "Draw rectangle ABCD with A=(68,65) top-left, D=(446,65) top-right, C=(446,349) bottom-right, B=(68,349) bottom-left (image px, y down; flip y for TikZ). M is on top edge AD at (163,65); E on bottom edge BC at (209.5,349); N on bottom edge at (304.4,349); F on right edge CD at (446.7,159.2). Solid segments: AE, BF, MN, FN (N to F). Also O at (257.1,253.9) is the intersection of MN and BF, label O. Point (181.2,292.1) is intersection of AE and BF with a right-angle square mark between AE and BF. Keep all labels A,B,C,D,E,F,M,N,O visible. Rectangle sides solid black, thin lines."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 37.24,
+      "duration_s": 53.1,
       "token_usage": {
-        "delta": 21123
+        "delta": 25696
       },
       "visual_calls": 2,
       "error": null
@@ -2569,7 +3887,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.95",
+      "result_summary": "ok=True; version=2; best_version=2; assessment_score=0.9; issues=1",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -2578,17 +3896,17 @@
     {
       "step": 2,
       "action": "run_code_agent",
-      "purpose": "Topology check reports missing solid edges A-M and D-F. Draw the top boundary as an explicit named path A--M--D (M lies on AD at (163,65)) and the right boundary as explicit path D--F--C (F lies on DC",
+      "purpose": "Repair: topology check reports unverified solid edges C--N and D--M. Draw the rectangle sides as explicit named paths that pass through the points: top edge as (A) -- (M) -- (D), bottom edge as (B) --",
       "params": {
         "mode": "repair",
         "use_image": null,
-        "instruction": "Topology check reports missing solid edges A-M and D-F. Draw the top boundary as an explicit named path A--M--D (M lies on AD at (163,65)) and the right boundary as explicit path D--F--C (F lies on DC at (446.7,159.2)). Keep the rectangle edges as solid named paths: A--M, M--D, D--F, F--C, C--B, B--A. Also use line width about 1.3pt to match the original stroke weight. Keep all other elements unchanged."
+        "instruction": "Repair: topology check reports unverified solid edges C--N and D--M. Draw the rectangle sides as explicit named paths that pass through the points: top edge as (A) -- (M) -- (D), bottom edge as (B) -- (E) -- (N) -- (C), right edge as (D) -- (F) -- (C), left edge (A) -- (B), so that C--N and D--M appear as drawn edges. Keep all other geometry unchanged. Increase the rectangle outline stroke slightly to about 1.2pt to match the heavier original outline. Keep the right-angle mark at P and the A--E, B--F, M--N, F--N segments."
       },
       "status": "ok",
       "result_summary": "ok=True; version=2; compile_ok=True; validation_passed=True; best_version=2",
-      "duration_s": 29.64,
+      "duration_s": 33.79,
       "token_usage": {
-        "delta": 21490
+        "delta": 22404
       },
       "visual_calls": 1,
       "error": null
@@ -2598,10 +3916,9 @@
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "TikZ version 2 compiles, passes topology check (no missing edges), and received a critic score of 0.95 with no must-repair issues. It draws rectangle ABCD with M on AD, F on DC, E and N on BC, segments AE, MN, BF, FN, a right-angle mark at the foot of the perpendicular on AE, and labels A–F, M, N, O. Line width is 1.3pt.",
+        "summary": "Produced compilable TikZ version 2 of the figure: rectangle ABCD with points M (on AD), E and N (on BC), F (on CD), O (intersection of MN and BF), solid segments AE, BF, MN, FN, and a right-angle mark at the AE/BF foot. Topology check passes (C–N and D–M drawn as explicit outline paths). Critic score 0.9, must_repair=false, all nine labels present.",
         "unresolved": [
-          "point_11 (172.9,275.5) treated as noise and omitted, per the Geometry Agent.",
-          "Whether BF extends beyond F or B was not verified; drawn as B to F."
+          "Rectangle outline stroke is slightly lighter than the original (low severity, critic-reported); the 1.2pt outline was not raised further."
         ],
         "status": "success"
       },
@@ -2655,43 +3972,43 @@
     "totals": {
       "calls": 8,
       "visual_calls": 4,
-      "prompt_tokens": 68540,
-      "completion_tokens": 14878,
-      "total_tokens": 83418,
-      "cached_tokens": 18810.0,
-      "cache_write_tokens": 16392.0,
-      "latency_s": 88.87
+      "prompt_tokens": 71422,
+      "completion_tokens": 20500,
+      "total_tokens": 91922,
+      "cached_tokens": 16970.0,
+      "cache_write_tokens": 54424.0,
+      "latency_s": 118.0
     },
     "by_agent": {
       "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 10141,
-        "latency_s": 14.24
+        "total_tokens": 12127,
+        "latency_s": 24.3
       },
       "supervisor": {
         "calls": 3,
         "visual_calls": 0,
-        "total_tokens": 30664,
-        "latency_s": 16.18
+        "total_tokens": 31695,
+        "latency_s": 14.32
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 10654,
-        "latency_s": 17.84
+        "total_tokens": 11138,
+        "latency_s": 15.9
       },
       "critic_agent": {
         "calls": 2,
         "visual_calls": 2,
-        "total_tokens": 21888,
-        "latency_s": 33.26
+        "total_tokens": 25956,
+        "latency_s": 54.82
       },
       "code_agent:repair": {
         "calls": 1,
         "visual_calls": 0,
-        "total_tokens": 10071,
-        "latency_s": 7.34
+        "total_tokens": 11006,
+        "latency_s": 8.65
       }
     }
   },
@@ -2699,12 +4016,12 @@
     "steps_left": 21,
     "tool_calls_left": 40,
     "visual_calls_left": 20,
-    "tokens_left": 316582,
+    "tokens_left": 308078,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 83418
+    "total_tokens_used": 91922
   },
   "meta": {
     "topology_plan": {
@@ -2722,10 +4039,6 @@
           "E"
         ],
         [
-          "A",
-          "M"
-        ],
-        [
           "B",
           "C"
         ],
@@ -2734,20 +4047,48 @@
           "F"
         ],
         [
+          "B",
+          "O"
+        ],
+        [
           "C",
           "D"
+        ],
+        [
+          "C",
+          "F"
+        ],
+        [
+          "C",
+          "N"
         ],
         [
           "D",
           "F"
         ],
         [
+          "D",
+          "M"
+        ],
+        [
           "F",
           "N"
         ],
         [
+          "F",
+          "O"
+        ],
+        [
           "M",
           "N"
+        ],
+        [
+          "M",
+          "O"
+        ],
+        [
+          "N",
+          "O"
         ]
       ],
       "pending": [],
@@ -2758,7 +4099,7 @@
             "A",
             "E"
           ],
-          "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
+          "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on BC, and the right-angle mark sits on it where it crosses BF. The stroke joins A and E."
         }
       ],
       "ink_confirmed_edges": [
@@ -2770,34 +4111,6 @@
       "required_styles": [
         {
           "edge": [
-            "M",
-            "N"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "B",
-            "F"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "F",
-            "N"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "A",
-            "M"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
             "A",
             "B"
           ],
@@ -2805,8 +4118,8 @@
         },
         {
           "edge": [
-            "B",
-            "C"
+            "C",
+            "N"
           ],
           "style": "solid"
         },
@@ -2819,7 +4132,63 @@
         },
         {
           "edge": [
+            "A",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
             "D",
+            "M"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "M",
+            "O"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "N",
+            "O"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "O"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "F",
+            "O"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "F",
+            "N"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "F"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
             "F"
           ],
           "style": "solid"
@@ -2828,8 +4197,71 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Rectangle ABCD: A(68,65), D(446,65), C(446,349), B(68,349) with solid sides. M on AD (point_05), E on BC (point_09), N on BC (point_08), F on DC (point_04). Solid line AE runs A to E. Solid line MN runs M to N and crosses BF at O (point_02). Solid line BF runs from B through O and the unlabeled crossing point_03 to F. Solid segment FN runs F to N. All strokes are solid; no dashed strokes found. Junction point_03 = AE ∩ BF, unlabeled interior point, and BF is perpendicular to AE there. Right-angle square at point_03 lies between ray toward F and ray toward A. Foot of perpendicular from B onto AE is point_03.",
+      "summary": "Rectangle ABCD (A top-left, D top-right, C bottom-right, B bottom-left). E and N lie on BC with B-E-N-C order. M lies on AD. F lies on DC. O is the printed letter beside the crossing of BF with MN (point_02). Line AE is parallel to MN and perpendicular to BF; their foot/crossing is unlabeled point_03 (181.16,292.12), the right-angle vertex, with the square between ray to A and ray to F. All strokes appear solid; no dashed segments detected. Edges: rectangle sides AB, BC, CD, DA; AE from A to E; BF through O from B to F; MN through O from M to N; FN from F to N; DF and FC on the right side.",
       "strokes": [
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "E",
+            "N"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "N"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "D",
+            "M"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "M",
+            "O"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "N",
+            "O"
+          ],
+          "style": "solid"
+        },
         {
           "edge": [
             "A",
@@ -2839,15 +4271,15 @@
         },
         {
           "edge": [
-            "M",
-            "N"
+            "B",
+            "O"
           ],
           "style": "solid"
         },
         {
           "edge": [
-            "B",
-            "F"
+            "F",
+            "O"
           ],
           "style": "solid"
         },
@@ -2860,42 +4292,22 @@
         },
         {
           "edge": [
-            "A",
-            "M"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "A",
-            "B"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "B",
-            "C"
+            "D",
+            "F"
           ],
           "style": "solid"
         },
         {
           "edge": [
             "C",
-            "D"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "D",
             "F"
           ],
           "style": "solid"
         }
       ],
       "marks": {},
-      "feet": []
+      "feet": [],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -3007,24 +4419,576 @@
       }
     },
     "constraint_repair": {
-      "ok": false,
+      "ok": true,
       "enabled": true,
-      "applied": false,
+      "applied": true,
       "stage": "post_tikz",
       "constraint_mode": "joint_coordinate_projection",
-      "candidate_source": "generated_tikz",
+      "candidate_source": "generated_tikz_and_original_raster",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
-      "output_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
-      "reason": "unsupported_or_failed",
-      "accepted": [],
-      "rejected": [],
+      "input_sha256": "ad3d5d871679327bd9bec12bb80af95762f57a4840e1cc63448efa2b18a1e7ac",
+      "output_sha256": "bbe92da6febac5f75bb62e1a4ca209b3979bd523fe3dc2c7000f18fac5cdbbfa",
+      "reason": "applied",
+      "accepted": [
+        {
+          "type": "collinear",
+          "segments": [
+            "B--O",
+            "F--O"
+          ],
+          "before_error_deg": 0.1467713287481945,
+          "after_error_deg": 0.013434179103284231,
+          "labels": [
+            "B",
+            "O",
+            "F"
+          ],
+          "source_turn_deg": 0.0475,
+          "solver_after_error_deg": 1.0360107627515684e-14,
+          "export_tolerance_deg": 0.04221616629509417
+        },
+        {
+          "type": "collinear",
+          "segments": [
+            "D--F",
+            "C--F"
+          ],
+          "before_error_deg": 0.6521634737512381,
+          "after_error_deg": 0.016909129789917796,
+          "labels": [
+            "D",
+            "F",
+            "C"
+          ],
+          "source_turn_deg": 0.4921,
+          "solver_after_error_deg": 1.0449613770637861e-14,
+          "export_tolerance_deg": 0.07098501153743138
+        },
+        {
+          "type": "perpendicular",
+          "segments": [
+            "A--B",
+            "A--M"
+          ],
+          "before_error_deg": 0.0,
+          "after_error_deg": 0.011123234089154721,
+          "solver_after_error_deg": 0.0,
+          "export_tolerance_deg": 0.06274358501991517
+        },
+        {
+          "type": "perpendicular",
+          "segments": [
+            "A--B",
+            "D--M"
+          ],
+          "before_error_deg": 0.0,
+          "after_error_deg": 0.011123234089154721,
+          "solver_after_error_deg": 0.0,
+          "export_tolerance_deg": 0.03149681536672422
+        },
+        {
+          "type": "perpendicular",
+          "segments": [
+            "A--B",
+            "E--N"
+          ],
+          "before_error_deg": 0.0,
+          "after_error_deg": 0.011123234089154721,
+          "solver_after_error_deg": 2.842170943040401e-14,
+          "export_tolerance_deg": 0.06279080455780471
+        },
+        {
+          "type": "parallel",
+          "segments": [
+            "A--M",
+            "E--N"
+          ],
+          "before_error_deg": 0.0,
+          "after_error_deg": 0.0,
+          "solver_after_error_deg": 2.621837002355351e-14,
+          "export_tolerance_deg": 0.0940769118687062
+        },
+        {
+          "type": "parallel",
+          "segments": [
+            "D--M",
+            "E--N"
+          ],
+          "before_error_deg": 0.0,
+          "after_error_deg": 0.0,
+          "solver_after_error_deg": 2.5381293918428007e-14,
+          "export_tolerance_deg": 0.06283014221551525
+        },
+        {
+          "type": "parallel",
+          "segments": [
+            "A--E",
+            "M--O"
+          ],
+          "before_error_deg": 0.011316479699400734,
+          "after_error_deg": 0.01126569505438463,
+          "solver_after_error_deg": 9.232896822504843e-15,
+          "export_tolerance_deg": 0.03523101626819143
+        }
+      ],
+      "rejected": [
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "C--N",
+              "D--F"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.54186882654413,
+              "perpendicular_error_deg": 0.4581311734558682,
+              "collinear_error_deg": 89.54186882654413,
+              "relative_length_error": 0.3347414114729376,
+              "relative_line_offset": 0.5999626891295781,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "parallel",
+            "segments": [
+              "A--B",
+              "D--F"
+            ],
+            "metrics": {
+              "parallel_error_deg": 0.43582841883568074,
+              "perpendicular_error_deg": 89.56417158116432,
+              "collinear_error_deg": 0.43582841883568074,
+              "relative_length_error": 0.6682745645566499,
+              "relative_line_offset": 0.7985140665829245,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "D--F",
+              "E--N"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.56417158116433,
+              "perpendicular_error_deg": 0.43582841883566914,
+              "collinear_error_deg": 89.56417158116433,
+              "relative_length_error": 0.00694396083431737,
+              "relative_line_offset": 0.5041290890423933,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "D--F",
+              "D--M"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.56417158116433,
+              "perpendicular_error_deg": 0.43582841883566914,
+              "collinear_error_deg": 89.56417158116433,
+              "relative_length_error": 0.6670466698998364,
+              "relative_line_offset": 0.0,
+              "shared_endpoint": true
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "A--M",
+              "D--F"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.56417158116433,
+              "perpendicular_error_deg": 0.43582841883566914,
+              "collinear_error_deg": 89.56417158116433,
+              "relative_length_error": 0.008672016586925804,
+              "relative_line_offset": 0.0,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "B--E",
+              "D--F"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.5864917122959,
+              "perpendicular_error_deg": 0.4135082877041043,
+              "collinear_error_deg": 89.5864917122959,
+              "relative_length_error": 0.33422309554959617,
+              "relative_line_offset": 0.5996516201043044,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "B--O",
+              "N--O"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.74013386859443,
+              "perpendicular_error_deg": 0.25986613140557324,
+              "collinear_error_deg": 89.74013386859443,
+              "relative_length_error": 0.49866064094885315,
+              "relative_line_offset": 0.22419879803483012,
+              "shared_endpoint": true
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "B--E",
+              "C--F"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.76134481395287,
+              "perpendicular_error_deg": 0.23865518604712577,
+              "collinear_error_deg": 89.76134481395287,
+              "relative_length_error": 0.25443453477568306,
+              "relative_line_offset": 0.00031106895441886014,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "C--F",
+              "E--N"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.78366494508444,
+              "perpendicular_error_deg": 0.21633505491556093,
+              "collinear_error_deg": 89.78366494508444,
+              "relative_length_error": 0.5001487852395465,
+              "relative_line_offset": 0.49957764943737015,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "C--F",
+              "D--M"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.78366494508444,
+              "perpendicular_error_deg": 0.21633505491556093,
+              "collinear_error_deg": 89.78366494508444,
+              "relative_length_error": 0.32923737727203783,
+              "relative_line_offset": 0.0022653093097035623,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "A--M",
+              "C--F"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.78366494508444,
+              "perpendicular_error_deg": 0.21633505491556093,
+              "collinear_error_deg": 89.78366494508444,
+              "relative_length_error": 0.49927745831085313,
+              "relative_line_offset": 0.599962734582941,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "parallel",
+            "segments": [
+              "A--B",
+              "C--F"
+            ],
+            "metrics": {
+              "parallel_error_deg": 0.21633505491555732,
+              "perpendicular_error_deg": 89.78366494508444,
+              "collinear_error_deg": 0.21633505491555732,
+              "relative_length_error": 0.3317110748325641,
+              "relative_line_offset": 0.7985140665829245,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "B--O",
+              "M--O"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.7862204833548,
+              "perpendicular_error_deg": 0.21377951664520367,
+              "collinear_error_deg": 89.7862204833548,
+              "relative_length_error": 0.0030291238048093037,
+              "relative_line_offset": 0.4458465333425763,
+              "shared_endpoint": true
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "A--E",
+              "B--O"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.7975369630542,
+              "perpendicular_error_deg": 0.20246303694580092,
+              "collinear_error_deg": 89.7975369630542,
+              "relative_length_error": 0.33273653526039443,
+              "relative_line_offset": 0.26760237712125357,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "C--F",
+              "C--N"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.80596769970464,
+              "perpendicular_error_deg": 0.1940323002953619,
+              "collinear_error_deg": 89.80596769970464,
+              "relative_length_error": 0.25385365020059647,
+              "relative_line_offset": 0.0,
+              "shared_endpoint": true
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "F--O",
+              "N--O"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.88690519734263,
+              "perpendicular_error_deg": 0.11309480265737193,
+              "collinear_error_deg": 89.88690519734263,
+              "relative_length_error": 0.4991843471138258,
+              "relative_line_offset": 0.22420066727958526,
+              "shared_endpoint": true
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "F--O",
+              "M--O"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.932991812103,
+              "perpendicular_error_deg": 0.06700818789700236,
+              "collinear_error_deg": 89.932991812103,
+              "relative_length_error": 0.004070573642599385,
+              "relative_line_offset": 0.4458493318851352,
+              "shared_endpoint": true
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "parallel",
+            "segments": [
+              "A--E",
+              "N--O"
+            ],
+            "metrics": {
+              "parallel_error_deg": 0.057403094459777246,
+              "perpendicular_error_deg": 89.94259690554023,
+              "collinear_error_deg": 0.057403094459777246,
+              "relative_length_error": 0.6654745622691987,
+              "relative_line_offset": 0.1793744837480722,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "A--E",
+              "F--O"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.9443082918024,
+              "perpendicular_error_deg": 0.05569170819759961,
+              "collinear_error_deg": 89.9443082918024,
+              "relative_length_error": 0.33203877354282174,
+              "relative_line_offset": 0.6272708115691443,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "B--E"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.97767986886842,
+              "perpendicular_error_deg": 0.022320131131579046,
+              "collinear_error_deg": 89.97767986886842,
+              "relative_length_error": 0.5017468566032819,
+              "relative_line_offset": 0.0,
+              "shared_endpoint": true
+            }
+          },
+          "reason": "degenerate constraint"
+        },
+        {
+          "candidate": {
+            "type": "parallel",
+            "segments": [
+              "B--E",
+              "D--M"
+            ],
+            "metrics": {
+              "parallel_error_deg": 0.02232013113157758,
+              "perpendicular_error_deg": 89.97767986886842,
+              "collinear_error_deg": 0.02232013113157758,
+              "relative_length_error": 0.4999025531307439,
+              "relative_line_offset": 0.5996516201043044,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "degenerate constraint"
+        },
+        {
+          "candidate": {
+            "type": "parallel",
+            "segments": [
+              "A--M",
+              "B--E"
+            ],
+            "metrics": {
+              "parallel_error_deg": 0.02232013113157758,
+              "perpendicular_error_deg": 89.97767986886842,
+              "collinear_error_deg": 0.02232013113157758,
+              "relative_length_error": 0.3283989601925897,
+              "relative_line_offset": 0.599962734582941,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "degenerate constraint"
+        },
+        {
+          "candidate": {
+            "type": "parallel",
+            "segments": [
+              "C--N",
+              "D--M"
+            ],
+            "metrics": {
+              "parallel_error_deg": 0.022302754620191007,
+              "perpendicular_error_deg": 89.97769724537982,
+              "collinear_error_deg": 0.022302754620191007,
+              "relative_length_error": 0.4995129174696566,
+              "relative_line_offset": 0.5999626891295781,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "parallel",
+            "segments": [
+              "A--M",
+              "C--N"
+            ],
+            "metrics": {
+              "parallel_error_deg": 0.022302754620191007,
+              "perpendicular_error_deg": 89.97769724537982,
+              "collinear_error_deg": 0.022302754620191007,
+              "relative_length_error": 0.32892181028056655,
+              "relative_line_offset": 0.599962734582941,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        },
+        {
+          "candidate": {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "C--N"
+            ],
+            "metrics": {
+              "parallel_error_deg": 89.97769724537982,
+              "perpendicular_error_deg": 0.022302754620184828,
+              "collinear_error_deg": 89.97769724537982,
+              "relative_length_error": 0.501358657874951,
+              "relative_line_offset": 0.7985140665829245,
+              "shared_endpoint": false
+            }
+          },
+          "reason": "constraints did not converge"
+        }
+      ],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.003,
         "incidence_mode": "snap",
         "length_weight": 0.01,
@@ -3035,9 +4999,62 @@
           "parallel",
           "perpendicular"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
-      "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
+      "angle_glyph_exclusion": {
+        "excluded_paths": [],
+        "excluded_helper_points": [],
+        "excluded_strokes": 0
+      },
+      "source_collinear_candidates": [
+        {
+          "type": "collinear",
+          "segments": [
+            "D--F",
+            "C--F"
+          ],
+          "labels": [
+            "D",
+            "F",
+            "C"
+          ],
+          "source_turn_deg": 0.4921
+        },
+        {
+          "type": "collinear",
+          "segments": [
+            "B--O",
+            "F--O"
+          ],
+          "labels": [
+            "B",
+            "O",
+            "F"
+          ],
+          "source_turn_deg": 0.0475
+        }
+      ],
+      "input_candidates": 33,
+      "preserved_incidence_count": 6,
+      "max_shift_rel": 0.001054521279149622,
+      "max_length_change_rel": 0.0019765789713097615,
+      "fixed_points": [],
+      "length_weight": 0.01,
+      "length_scope": "all_pairs",
+      "incidence_mode": "snap",
+      "topology_tol_rel": 0.003,
+      "incidence_strength": 1.0,
+      "rms_shift_rel": 0.00039764317624921047,
+      "max_after_error_deg": 0.016909129789917796,
+      "curve_policy": "defer",
+      "candidate_count": 33,
+      "solver_max_shift_rel": 0.0010057858773859572,
+      "coordinate_decimals": 3,
+      "export_verified": true,
+      "max_export_error_deg": 0.016909129789917796,
+      "point_count": 10,
+      "segment_count": 14
     },
     "rectification": {
       "applied": false,
@@ -3265,24 +5282,371 @@
     },
     "tikz_constraint_repairs": {
       "1": {
-        "ok": false,
+        "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "0a86320ff7cb9c5aa990c83a7c3ba1f22d8425f260a0e37d6dfe161c694a3761",
-        "output_sha256": "0a86320ff7cb9c5aa990c83a7c3ba1f22d8425f260a0e37d6dfe161c694a3761",
-        "reason": "unsupported_or_failed",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "d387d4dbc2a886c1958f6ff36a644627ca66d1c06c5f97f4df2fed3fbb05464b",
+        "output_sha256": "5a1f43fd83329b5ce3cb571c354ce2bfbcd991993482557c758135063bb63c79",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "F--O"
+            ],
+            "before_error_deg": 0.1467713287481945,
+            "after_error_deg": 0.013434179103284231,
+            "labels": [
+              "B",
+              "O",
+              "F"
+            ],
+            "source_turn_deg": 0.0475,
+            "solver_after_error_deg": 3.4536934252033377e-15,
+            "export_tolerance_deg": 0.04221814748962715
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "D--F",
+              "C--F"
+            ],
+            "before_error_deg": 0.6521634737512381,
+            "after_error_deg": 0.03356518626753472,
+            "labels": [
+              "D",
+              "F",
+              "C"
+            ],
+            "source_turn_deg": 0.4921,
+            "solver_after_error_deg": 7.217622643505843e-15,
+            "export_tolerance_deg": 0.07098678049554769
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "A--D"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.002773514021029655,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.02753907932837431
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "B--C"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.002773514021029655,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.02753907932837431
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--B",
+              "C--D"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 4.9409967434488946e-15,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.031458877359154674
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--D",
+              "B--C"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 3.707657473774546e-15,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.023619281297593952
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--D",
+              "C--D"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.002773514021043866,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.02753907932837431
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "B--C",
+              "C--D"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.002773514021029655,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.02753907932837431
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--E",
+              "M--O"
+            ],
+            "before_error_deg": 0.006876708281021897,
+            "after_error_deg": 0.01126569505438463,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.03522987161818601
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--B",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.43582841883568074,
+                "perpendicular_error_deg": 89.56417158116432,
+                "collinear_error_deg": 0.43582841883568074,
+                "relative_length_error": 0.6682745645566499,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--C",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.7507584303041942,
+                "relative_line_offset": 0.5999627345829411,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--D",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.7507584303041942,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--O",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.74013386859443,
+                "perpendicular_error_deg": 0.25986613140557324,
+                "collinear_error_deg": 89.74013386859443,
+                "relative_length_error": 0.49866064094885315,
+                "relative_line_offset": 0.22419879803483012,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--C",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.4978817934282295,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--D",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.4978817934282295,
+                "relative_line_offset": 0.5999627345829411,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--B",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.21633505491555732,
+                "perpendicular_error_deg": 89.78366494508444,
+                "collinear_error_deg": 0.21633505491555732,
+                "relative_length_error": 0.3317110748325641,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--O",
+                "M--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.7862204833548,
+                "perpendicular_error_deg": 0.21377951664520367,
+                "collinear_error_deg": 89.7862204833548,
+                "relative_length_error": 0.0030291238048093037,
+                "relative_line_offset": 0.4458465333425763,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--E",
+                "B--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.79309719163584,
+                "perpendicular_error_deg": 0.20690280836416264,
+                "collinear_error_deg": 89.79309719163584,
+                "relative_length_error": 0.33284029034550194,
+                "relative_line_offset": 0.26756076670965395,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "F--O",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.88690519734263,
+                "perpendicular_error_deg": 0.11309480265737193,
+                "collinear_error_deg": 89.88690519734263,
+                "relative_length_error": 0.4991843471138258,
+                "relative_line_offset": 0.22420066727958526,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "F--O",
+                "M--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.932991812103,
+                "perpendicular_error_deg": 0.06700818789700236,
+                "collinear_error_deg": 89.932991812103,
+                "relative_length_error": 0.004070573642599385,
+                "relative_line_offset": 0.4458493318851352,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--E",
+                "F--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.93986852038401,
+                "perpendicular_error_deg": 0.06013147961598975,
+                "collinear_error_deg": 89.93986852038401,
+                "relative_length_error": 0.33214263712529235,
+                "relative_line_offset": 0.6273122631237457,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--E",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.052963323041402784,
+                "perpendicular_error_deg": 89.9470366769586,
+                "collinear_error_deg": 0.052963323041402784,
+                "relative_length_error": 0.6655265787770647,
+                "relative_line_offset": 0.1794333433931678,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -3293,29 +5657,634 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
-        "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "F--O"
+            ],
+            "labels": [
+              "B",
+              "O",
+              "F"
+            ],
+            "source_turn_deg": 0.0475
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "D--F",
+              "C--F"
+            ],
+            "labels": [
+              "D",
+              "F",
+              "C"
+            ],
+            "source_turn_deg": 0.4921
+          }
+        ],
+        "input_candidates": 22,
+        "preserved_incidence_count": 7,
+        "max_shift_rel": 0.001054521279149622,
+        "max_length_change_rel": 0.0019765789713097615,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00040162526201995913,
+        "max_after_error_deg": 0.03356518626753472,
+        "curve_policy": "defer",
+        "candidate_count": 22,
+        "solver_max_shift_rel": 0.0010263137468915124,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.03356518626753472,
+        "point_count": 10,
+        "segment_count": 12
       },
       "2": {
-        "ok": false,
+        "ok": true,
         "enabled": true,
-        "applied": false,
+        "applied": true,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
-        "output_sha256": "adbd589d2477ca799c4012bedefbe415d660a9b4aba816106557d673e2c9dfe3",
-        "reason": "unsupported_or_failed",
-        "accepted": [],
-        "rejected": [],
+        "input_sha256": "ad3d5d871679327bd9bec12bb80af95762f57a4840e1cc63448efa2b18a1e7ac",
+        "output_sha256": "bbe92da6febac5f75bb62e1a4ca209b3979bd523fe3dc2c7000f18fac5cdbbfa",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "F--O"
+            ],
+            "before_error_deg": 0.1467713287481945,
+            "after_error_deg": 0.013434179103284231,
+            "labels": [
+              "B",
+              "O",
+              "F"
+            ],
+            "source_turn_deg": 0.0475,
+            "solver_after_error_deg": 1.0360107627515684e-14,
+            "export_tolerance_deg": 0.04221616629509417
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "D--F",
+              "C--F"
+            ],
+            "before_error_deg": 0.6521634737512381,
+            "after_error_deg": 0.016909129789917796,
+            "labels": [
+              "D",
+              "F",
+              "C"
+            ],
+            "source_turn_deg": 0.4921,
+            "solver_after_error_deg": 1.0449613770637861e-14,
+            "export_tolerance_deg": 0.07098501153743138
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "A--M"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.011123234089154721,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.06274358501991517
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "D--M"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.011123234089154721,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.03149681536672422
+          },
+          {
+            "type": "perpendicular",
+            "segments": [
+              "A--B",
+              "E--N"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.011123234089154721,
+            "solver_after_error_deg": 2.842170943040401e-14,
+            "export_tolerance_deg": 0.06279080455780471
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--M",
+              "E--N"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 2.621837002355351e-14,
+            "export_tolerance_deg": 0.0940769118687062
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "D--M",
+              "E--N"
+            ],
+            "before_error_deg": 0.0,
+            "after_error_deg": 0.0,
+            "solver_after_error_deg": 2.5381293918428007e-14,
+            "export_tolerance_deg": 0.06283014221551525
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--E",
+              "M--O"
+            ],
+            "before_error_deg": 0.011316479699400734,
+            "after_error_deg": 0.01126569505438463,
+            "solver_after_error_deg": 9.232896822504843e-15,
+            "export_tolerance_deg": 0.03523101626819143
+          }
+        ],
+        "rejected": [
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "C--N",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.54186882654413,
+                "perpendicular_error_deg": 0.4581311734558682,
+                "collinear_error_deg": 89.54186882654413,
+                "relative_length_error": 0.3347414114729376,
+                "relative_line_offset": 0.5999626891295781,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--B",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.43582841883568074,
+                "perpendicular_error_deg": 89.56417158116432,
+                "collinear_error_deg": 0.43582841883568074,
+                "relative_length_error": 0.6682745645566499,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "D--F",
+                "E--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.00694396083431737,
+                "relative_line_offset": 0.5041290890423933,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "D--F",
+                "D--M"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.6670466698998364,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--M",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.56417158116433,
+                "perpendicular_error_deg": 0.43582841883566914,
+                "collinear_error_deg": 89.56417158116433,
+                "relative_length_error": 0.008672016586925804,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--E",
+                "D--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.5864917122959,
+                "perpendicular_error_deg": 0.4135082877041043,
+                "collinear_error_deg": 89.5864917122959,
+                "relative_length_error": 0.33422309554959617,
+                "relative_line_offset": 0.5996516201043044,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--O",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.74013386859443,
+                "perpendicular_error_deg": 0.25986613140557324,
+                "collinear_error_deg": 89.74013386859443,
+                "relative_length_error": 0.49866064094885315,
+                "relative_line_offset": 0.22419879803483012,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--E",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.76134481395287,
+                "perpendicular_error_deg": 0.23865518604712577,
+                "collinear_error_deg": 89.76134481395287,
+                "relative_length_error": 0.25443453477568306,
+                "relative_line_offset": 0.00031106895441886014,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "C--F",
+                "E--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.5001487852395465,
+                "relative_line_offset": 0.49957764943737015,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "C--F",
+                "D--M"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.32923737727203783,
+                "relative_line_offset": 0.0022653093097035623,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--M",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.78366494508444,
+                "perpendicular_error_deg": 0.21633505491556093,
+                "collinear_error_deg": 89.78366494508444,
+                "relative_length_error": 0.49927745831085313,
+                "relative_line_offset": 0.599962734582941,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--B",
+                "C--F"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.21633505491555732,
+                "perpendicular_error_deg": 89.78366494508444,
+                "collinear_error_deg": 0.21633505491555732,
+                "relative_length_error": 0.3317110748325641,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "B--O",
+                "M--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.7862204833548,
+                "perpendicular_error_deg": 0.21377951664520367,
+                "collinear_error_deg": 89.7862204833548,
+                "relative_length_error": 0.0030291238048093037,
+                "relative_line_offset": 0.4458465333425763,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--E",
+                "B--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.7975369630542,
+                "perpendicular_error_deg": 0.20246303694580092,
+                "collinear_error_deg": 89.7975369630542,
+                "relative_length_error": 0.33273653526039443,
+                "relative_line_offset": 0.26760237712125357,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "C--F",
+                "C--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.80596769970464,
+                "perpendicular_error_deg": 0.1940323002953619,
+                "collinear_error_deg": 89.80596769970464,
+                "relative_length_error": 0.25385365020059647,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "F--O",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.88690519734263,
+                "perpendicular_error_deg": 0.11309480265737193,
+                "collinear_error_deg": 89.88690519734263,
+                "relative_length_error": 0.4991843471138258,
+                "relative_line_offset": 0.22420066727958526,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "F--O",
+                "M--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.932991812103,
+                "perpendicular_error_deg": 0.06700818789700236,
+                "collinear_error_deg": 89.932991812103,
+                "relative_length_error": 0.004070573642599385,
+                "relative_line_offset": 0.4458493318851352,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--E",
+                "N--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.057403094459777246,
+                "perpendicular_error_deg": 89.94259690554023,
+                "collinear_error_deg": 0.057403094459777246,
+                "relative_length_error": 0.6654745622691987,
+                "relative_line_offset": 0.1793744837480722,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--E",
+                "F--O"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.9443082918024,
+                "perpendicular_error_deg": 0.05569170819759961,
+                "collinear_error_deg": 89.9443082918024,
+                "relative_length_error": 0.33203877354282174,
+                "relative_line_offset": 0.6272708115691443,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--B",
+                "B--E"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.97767986886842,
+                "perpendicular_error_deg": 0.022320131131579046,
+                "collinear_error_deg": 89.97767986886842,
+                "relative_length_error": 0.5017468566032819,
+                "relative_line_offset": 0.0,
+                "shared_endpoint": true
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "B--E",
+                "D--M"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.02232013113157758,
+                "perpendicular_error_deg": 89.97767986886842,
+                "collinear_error_deg": 0.02232013113157758,
+                "relative_length_error": 0.4999025531307439,
+                "relative_line_offset": 0.5996516201043044,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--M",
+                "B--E"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.02232013113157758,
+                "perpendicular_error_deg": 89.97767986886842,
+                "collinear_error_deg": 0.02232013113157758,
+                "relative_length_error": 0.3283989601925897,
+                "relative_line_offset": 0.599962734582941,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "degenerate constraint"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "C--N",
+                "D--M"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.022302754620191007,
+                "perpendicular_error_deg": 89.97769724537982,
+                "collinear_error_deg": 0.022302754620191007,
+                "relative_length_error": 0.4995129174696566,
+                "relative_line_offset": 0.5999626891295781,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "parallel",
+              "segments": [
+                "A--M",
+                "C--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 0.022302754620191007,
+                "perpendicular_error_deg": 89.97769724537982,
+                "collinear_error_deg": 0.022302754620191007,
+                "relative_length_error": 0.32892181028056655,
+                "relative_line_offset": 0.599962734582941,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          },
+          {
+            "candidate": {
+              "type": "perpendicular",
+              "segments": [
+                "A--B",
+                "C--N"
+              ],
+              "metrics": {
+                "parallel_error_deg": 89.97769724537982,
+                "perpendicular_error_deg": 0.022302754620184828,
+                "collinear_error_deg": 89.97769724537982,
+                "relative_length_error": 0.501358657874951,
+                "relative_line_offset": 0.7985140665829245,
+                "shared_endpoint": false
+              }
+            },
+            "reason": "constraints did not converge"
+          }
+        ],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.003,
           "incidence_mode": "snap",
           "length_weight": 0.01,
@@ -3326,9 +6295,62 @@
             "parallel",
             "perpendicular"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
-        "error": "ValueError: unsupported coordinate P: ($(A)!(B)!(E)$)"
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "D--F",
+              "C--F"
+            ],
+            "labels": [
+              "D",
+              "F",
+              "C"
+            ],
+            "source_turn_deg": 0.4921
+          },
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "F--O"
+            ],
+            "labels": [
+              "B",
+              "O",
+              "F"
+            ],
+            "source_turn_deg": 0.0475
+          }
+        ],
+        "input_candidates": 33,
+        "preserved_incidence_count": 6,
+        "max_shift_rel": 0.001054521279149622,
+        "max_length_change_rel": 0.0019765789713097615,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.00039764317624921047,
+        "max_after_error_deg": 0.016909129789917796,
+        "curve_policy": "defer",
+        "candidate_count": 33,
+        "solver_max_shift_rel": 0.0010057858773859572,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.016909129789917796,
+        "point_count": 10,
+        "segment_count": 14
       }
     },
     "topology_decisions": {
@@ -3337,11 +6359,11 @@
           "A",
           "E"
         ],
-        "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on the bottom edge, so the A–E option is supported."
+        "reason": "In the original, a single straight stroke runs from the top-left corner A down to E on BC, and the right-angle mark sits on it where it crosses BF. The stroke joins A and E."
       }
     },
     "finish": {
-      "summary": "TikZ version 2 compiles, passes topology check (no missing edges), and received a critic score of 0.95 with no must-repair issues. It draws rectangle ABCD with M on AD, F on DC, E and N on BC, segments AE, MN, BF, FN, a right-angle mark at the foot of the perpendicular on AE, and labels A–F, M, N, O. Line width is 1.3pt.",
+      "summary": "Produced compilable TikZ version 2 of the figure: rectangle ABCD with points M (on AD), E and N (on BC), F (on CD), O (intersection of MN and BF), solid segments AE, BF, MN, FN, and a right-angle mark at the AE/BF foot. Topology check passes (C–N and D–M drawn as explicit outline paths). Critic score 0.9, must_repair=false, all nine labels present.",
       "status": "success"
     },
     "stop_reason": "finish"

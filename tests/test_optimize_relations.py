@@ -6,9 +6,11 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from PIL import Image, ImageDraw
 
 from geoagent.state.optimize_relations import optimize_coordinates
 from geoagent.state.relation_candidates import numeric_candidates
+from geoagent.state.tikz_repair import repair_tikz_constraints
 
 spec=importlib.util.spec_from_file_location("optimize_pilot",Path(__file__).resolve().parents[1]/"scripts/test_optimize_relations.py")
 pilot=importlib.util.module_from_spec(spec)
@@ -18,6 +20,40 @@ spec.loader.exec_module(pilot)
 def rectangle():
     return {"points":{"A":[0,0],"B":[4,0.01],"C":[4.01,3],"D":[0.01,3.01]},
             "segments":{"AB":["A","B"],"BC":["B","C"],"CD":["C","D"],"AD":["A","D"]}}
+
+
+@pytest.mark.parametrize('source_bends', [False, True])
+def test_collinear_repair_uses_source_ink_and_preserves_a_real_bend(tmp_path, source_bends):
+    image = Image.new('L', (200, 130), 255)
+    middle = (90, 64 if source_bends else 60)
+    draw = ImageDraw.Draw(image)
+    draw.line([(20, 60), middle], fill=0, width=2)
+    for start in range(90, 160, 12):
+        end = min(start + 7, 160)
+        y = lambda x: middle[1] + (60-middle[1])*(x-90)/70
+        draw.line([(start, y(start)), (end, y(end))], fill=0, width=2)
+    path = tmp_path / 'source.png'
+    image.save(path)
+    tex = r'''
+\begin{tikzpicture}
+\coordinate (A) at (.800,-2.400);
+\coordinate (B) at (3.600,-2.560);
+\coordinate (C) at (6.400,-2.400);
+\draw (A)--(B);
+\draw[dashed] (B)--(C);
+\end{tikzpicture}
+'''
+    options = dict(source_image=path, source_coordinates={'origin_px': [0, 0], 'scale': .04},
+                   max_shift_rel=.025, collinear_max_turn_deg=8, relation_types=())
+    assert repair_tikz_constraints(tex, enabled=False, **options)[0] == tex
+    output, report = repair_tikz_constraints(tex, **options)
+    if source_bends:
+        assert output == tex and not report['source_collinear_candidates']
+    else:
+        assert report['applied']
+        assert report['accepted'][0]['type'] == 'collinear'
+        assert report['accepted'][0]['after_error_deg'] < .05
+        assert r'\draw[dashed] (B)--(C);' in output
 
 
 def test_joint_rectangle_and_redundant_constraints():
@@ -64,7 +100,7 @@ def test_conflicting_candidates_reject_weaker_hypothesis():
 
 
 def test_equal_length_is_not_accepted():
-    with pytest.raises(ValueError,match="Only parallel/perpendicular"):
+    with pytest.raises(ValueError,match="Unknown directional constraint"):
         optimize_coordinates(rectangle(),[{"type":"equal_length","segments":["AB","CD"]}])
 
 

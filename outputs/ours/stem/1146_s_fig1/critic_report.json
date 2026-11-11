@@ -1,181 +1,167 @@
 {
   "assessment_score": 0.92,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the original configuration: circle through A, B, D with centre O, the dashed OD, the collinear F-A-O-B and F-D-E lines, and the B-E-C and A-D-C lines all match, with labels in the same positions.",
+  "verdict": "The render is a faithful reproduction: the circle, the collinear F-A-O-B and A-D-C and F-D-E chains, B-D, B-E-C, the dashed O-D, and all seven labels match the original.",
   "figure_type": {
-    "original": "Circle with centre O and points A, B, D on it; lines F-A-O-B, F-D-E, B-E-C, B-D, A-D-C, dashed O-D; point labels O, A, B, D, E, C, F.",
-    "render": "Same construction: circle centred at O through A, B, D; the same segments; dashed O-D; the same labelled points."
+    "original": "Circle with centre O and chords/tangent-like segments through A, B, D; secant lines to F, C, E",
+    "render": "Circle with centre O and the same chords and segments through A, B, D, E, F, C; dashed O-D"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "circle_01",
-        "seg_FAOB",
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_04"
-      ],
-      "bbox": [
-        0.1,
-        0.2,
-        0.95,
-        0.9
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Strokes in the render look slightly thinner than in the original (the original's solid lines and circle read as bolder at the same scale).",
-      "suggestion": "Optionally raise the global line width from 0.8pt to about 1.0pt. This is cosmetic and not needed for geometric faithfulness."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "circle_01",
       "status": "present",
-      "note": "Circle centred at O passing through A, B, D is drawn with matching position and radius."
+      "note": "Circle centred at O passes through A, B and D, matching the original."
     },
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Line F-D-E is drawn; F, D and E are collinear in both panels."
+      "note": "Line through F, D and E is drawn, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Line F-A-O-B is drawn and is nearly straight in both panels."
+      "note": "Line F-A-O-B is drawn as one continuous stroke, matching the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Line A-D-C is drawn with the same direction in both panels."
+      "note": "Line A-D-C is drawn and ends at C, matching the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Line B-E-C is drawn with the same bend location in both panels."
+      "note": "Line B-E-C is drawn and ends at C, matching the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment B-D is drawn in both panels."
+      "note": "Solid chord B-D is drawn, matching the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Dashed segment O-D is drawn in both panels."
+      "note": "Dashed O-D is drawn from O to D, matching the original."
     },
     {
-      "object_id": "seg_FAOB",
+      "object_id": "seg_AC",
       "status": "present",
-      "note": "Solid F-A-O-B path is drawn, labelled FB in the checklist."
+      "note": "A-D-C path is drawn; A to C is present."
+    },
+    {
+      "object_id": "seg_BC",
+      "status": "present",
+      "note": "B-E-C path is drawn; B to C is present."
+    },
+    {
+      "object_id": "seg_BD",
+      "status": "present",
+      "note": "Solid B-D chord is drawn."
+    },
+    {
+      "object_id": "seg_FB",
+      "status": "present",
+      "note": "F-A-O-B line is drawn, so F to B is present."
+    },
+    {
+      "object_id": "seg_FE",
+      "status": "present",
+      "note": "F-D-E path is drawn; F to E is present."
     },
     {
       "object_id": "seg_OD",
       "status": "present",
-      "note": "Dashed O-D is drawn from the centre O to D."
+      "note": "Dashed O-D is drawn and ends at D."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "F is labelled below-left of its vertex in both panels."
+      "note": "F is labelled at the lower-left endpoint, as in the original."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "D is labelled below its vertex in both panels."
+      "note": "D is labelled below the vertex, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "E is labelled above-right of its vertex in both panels."
+      "note": "E is labelled above-right of the vertex, as in the original."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "A is labelled left of its vertex in both panels."
+      "note": "A is labelled left of the vertex, as in the original."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "B is labelled above its vertex in both panels."
+      "note": "B is labelled above the vertex, as in the original."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "O is labelled above-left of the centre dot in both panels."
+      "note": "O is labelled above-left of the centre dot, as in the original."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "C is labelled right of its vertex in both panels."
+      "note": "C is labelled right of the vertex, as in the original."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "A lies on the circle and on F-A-O-B in both panels."
+      "note": "Vertex A is on the circle and at the junction of the drawn lines."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "B lies on the circle and on the B-E-C line in both panels."
+      "note": "Vertex B is on the circle and at the junction of the drawn lines."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "C is the common end of A-D-C and B-E-C in both panels."
+      "note": "Vertex C is the endpoint of the A-D-C and B-E-C paths."
     },
     {
       "object_id": "point_D",
       "status": "present",
-      "note": "D lies on the circle with F-D-E and A-D-C passing through it in both panels."
-    },
-    {
-      "object_id": "point_E",
-      "status": "present",
-      "note": "E lies on B-E-C and F-D-E in both panels."
-    },
-    {
-      "object_id": "point_F",
-      "status": "present",
-      "note": "F is the common end of F-A-O-B and F-D-E in both panels."
-    },
-    {
-      "object_id": "point_O",
-      "status": "present",
-      "note": "O is the centre dot, with the dashed OD starting from it, in both panels."
+      "note": "Vertex D is on the circle and at the junction of the drawn lines."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Circle through A, B, D with centre O and matching radius",
-    "Collinear F-A-O-B and F-D-E lines",
-    "B-E-C and A-D-C polylines with matching bends",
-    "Solid B-D and dashed O-D",
-    "All seven point labels present, correctly placed and bound to their vertices"
+    "Circle centred at O with radius passing through A, B and D",
+    "F-A-O-B line is continuous through A and O, as in the original",
+    "A-D-C line, with D on it, matches the original",
+    "F-D-E line, with D on it, matches the original",
+    "B-E-C line, with E on it, matches the original",
+    "Solid chord B-D matches the original",
+    "Dashed O-D from centre to D matches the original",
+    "Labels F, A, B, O, D, E, C are present with placement close to the original",
+    "Overall aspect ratio and scale match the original"
   ],
   "labels": {
     "present": [
-      "O",
       "A",
       "B",
+      "C",
       "D",
       "E",
-      "C",
-      "F"
+      "F",
+      "O"
     ],
     "missing": [],
     "extra": []
   },
-  "version": 2,
+  "version": 1,
   "binding_decisions": [],
   "topology_decisions": [],
   "raw_meta": "{}"

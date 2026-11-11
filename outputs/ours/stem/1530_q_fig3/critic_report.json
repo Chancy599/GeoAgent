@@ -1,10 +1,10 @@
 {
-  "assessment_score": 0.82,
+  "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the right triangle with the correct right angle at C, the same vertex labels and placement, and matching proportions. The main discrepancy is that the render's strokes are noticeably thinner than the original's.",
+  "verdict": "The render reproduces the right triangle with the correct vertices, labels and right-angle mark; the only notable difference is that its strokes are thinner than the original's.",
   "figure_type": {
-    "original": "Right triangle ABC with right angle at C, thick solid strokes, right-angle square marker at C, labels B (upper-left), C (lower-left), A (lower-right)",
-    "render": "Right triangle ABC with right angle at C, thin solid strokes, right-angle square marker at C, labels B (upper-left), C (lower-left), A (lower-right)"
+    "original": "right triangle ABC with right angle at C, C at bottom-left, A at bottom-right, B at top-left",
+    "render": "right triangle ABC with right angle at C, C at bottom-left, A at bottom-right, B at top-left"
   },
   "issues": [
     {
@@ -12,86 +12,86 @@
       "severity": "low",
       "object_ids": [
         "seg_AB",
-        "seg_BC",
-        "seg_CA"
+        "seg_CA",
+        "seg_CB"
       ],
       "bbox": [
-        0.1,
-        0.25,
-        0.9,
+        0.05,
+        0.2,
+        0.95,
         0.75
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Triangle side strokes are thinner in the render than in the original; the original lines look roughly twice as heavy at the same panel scale.",
-      "suggestion": "Increase the stroke width for the triangle, for example \\draw[line width=2.2pt] for the triangle path, or raise the global line width from 1.2pt."
+      "description": "Triangle side strokes in the render (line width about 1.2pt) are visibly thinner than the strokes in the original, which look heavier when both panels are compared at the same scale.",
+      "suggestion": "Increase the line width for the triangle sides, e.g. use line width=1.8pt or 2pt instead of 1.2pt, and keep the right-angle mark's stroke consistent with it."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Hypotenuse AB, detected as a single segment, matches the original."
+      "note": "Hypotenuse AB is drawn from B to A in both panels; the CV overshoot past A is an artifact and the render ends at A as in the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Bottom side CA matches the original."
+      "note": "Bottom side CA is drawn from C to A in both panels."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Vertical side BC matches the original."
+      "note": "Vertical side CB is drawn from C up to B in both panels."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Horizontal edge of the right-angle square at C, visible in both panels."
+      "note": "Top arm of the right-angle mark at C is visible in both panels, drawn by the right-angle pic."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Vertical edge of the right-angle square at C, visible in both panels."
+      "note": "Right arm of the right-angle mark at C is visible in both panels, drawn by the right-angle pic."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Hypotenuse from B to A is drawn correctly."
-    },
-    {
-      "object_id": "seg_BC",
-      "status": "present",
-      "note": "Leg from C up to B is drawn correctly."
+      "note": "Segment AB matches the original hypotenuse."
     },
     {
       "object_id": "seg_CA",
       "status": "present",
-      "note": "Leg from C to A is drawn correctly."
+      "note": "Segment CA matches the original base."
     },
     {
-      "object_id": "ra_C",
+      "object_id": "seg_CB",
       "status": "present",
-      "note": "Right-angle marker at C is present and in the correct quadrant (above CA, right of BC)."
+      "note": "Segment CB matches the original vertical side."
+    },
+    {
+      "object_id": "ra_01",
+      "status": "present",
+      "note": "Right angle at C is drawn in the render, opening into the triangle as in the original."
     },
     {
       "object_id": "right_angle_01",
       "status": "present",
-      "note": "Right-angle square at C is visible in both panels in the same quadrant."
+      "note": "Right-angle square at C is visible in both panels with the same quadrant and size."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex A is at the lower-right end of CA and is labelled A there."
+      "note": "Label A sits below-right of vertex A in both panels."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex B is at the top of BC and is labelled B at the upper-left."
+      "note": "Label B sits above-right of vertex B in both panels."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex C is at the lower-left corner and is labelled C below-left."
+      "note": "Label C sits below-left of vertex C in both panels."
     }
   ],
   "checklist_score": 1.0,
@@ -103,10 +103,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Triangle vertex positions and proportions match the original.",
-    "Right angle at C is marked with a square in the same quadrant.",
-    "Labels A, B, C are present, correctly spelled and placed on their vertices with no collisions.",
-    "Segment connectivity: AB, BC and CA meet at the correct vertices and the leg CA is horizontal."
+    "Figure type and vertex layout: right angle at C, A to the right on the baseline, B directly above C.",
+    "All three sides AB, CA and CB are present and end at the correct vertices.",
+    "Right-angle mark at C is present, in the correct quadrant, and of similar size.",
+    "Labels A, B and C are present, correctly spelled, bound to their vertices, and clear of the strokes.",
+    "Aspect ratio and proportions match the original."
   ],
   "labels": {
     "present": [

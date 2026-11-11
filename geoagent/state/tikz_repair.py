@@ -14,8 +14,9 @@ from .tikz_geometry import clean, extract_geometry, has_curves, rewrite_tex
 from .curve_anchors import curve_anchors, rewrite_with_frozen_curves
 from .angle_glyphs import marker_paths
 from .coordinate_precision import number, quantize_tex, QUANTUM
+from .source_collinearity import source_collinear_candidates
 
-REPAIR_ALGORITHM = 'post_tikz.body_candidates.3dp.v3'
+REPAIR_ALGORITHM = 'post_tikz.source_collinearity.3dp.v4'
 
 
 def repair_tikz_constraints(
@@ -34,10 +35,14 @@ def repair_tikz_constraints(
     relation_types: tuple[str, ...] = ("parallel", "perpendicular"),
     relaxation: float = 1.0,
     curve_options: dict[str, Any] | None = None,
+    collinear_max_turn_deg: float = 0.0,
+    source_image=None,
+    source_coordinates: dict[str, Any] | None = None,
 ) -> tuple[str, dict[str, Any]]:
     """Jointly project named vertices, then verify the exported coordinate table.
 
-    Parallel/perpendicular candidates are derived only from this program.
+    Parallel/perpendicular candidates come from the program. Collinearity
+    requires the original raster and the coordinate frame used for the program.
     Existing incidence is preserved, and equal lengths are not inferred.
     Unsupported sources and failed guards return the exact original string.
     """
@@ -55,7 +60,7 @@ def repair_tikz_constraints(
     if not enabled:
         return tex, report
     limits = (angle_tol_deg, max_shift_rel, max_length_change_rel, topology_tol_rel, length_weight,
-              incidence_strength, relaxation)
+              incidence_strength, relaxation, collinear_max_turn_deg)
     if (not all(np.isfinite(value) and value >= 0 for value in limits)
             or curve_policy not in ("defer","freeze") or incidence_strength>1 or not 0<relaxation<=1
             or any(kind not in ("parallel","perpendicular") for kind in relation_types)):
@@ -64,7 +69,8 @@ def repair_tikz_constraints(
     text = clean(tex)
     report["limits"].update(topology_tol_rel=topology_tol_rel,incidence_mode=incidence_mode,
         length_weight=length_weight,length_scope=length_scope,curve_policy=curve_policy,
-        incidence_strength=incidence_strength,relation_types=list(relation_types),relaxation=relaxation)
+        incidence_strength=incidence_strength,relation_types=list(relation_types),relaxation=relaxation,
+        collinear_max_turn_deg=collinear_max_turn_deg)
     profile=hashlib.sha256(json.dumps({'algorithm': REPAIR_ALGORITHM, 'limits': report['limits']},sort_keys=True).encode()).hexdigest()[:16]
     content_hash=hashlib.sha256(text.strip().encode("utf-8")).hexdigest()
     if re.search(r"% GEOAGENT_REPAIR_V1 "+profile+" "+content_hash+r"\b",tex):
@@ -77,12 +83,13 @@ def repair_tikz_constraints(
             max_length_change_rel=max_length_change_rel,topology_tol_rel=topology_tol_rel,
             incidence_mode=incidence_mode,length_weight=length_weight,length_scope=length_scope,
             curve_policy=curve_policy,incidence_strength=incidence_strength,
-            relation_types=relation_types,relaxation=relaxation)
+            relation_types=relation_types,relaxation=relaxation,collinear_max_turn_deg=collinear_max_turn_deg)
         if any(key not in options for key in curve_options):
             report.update(ok=False,reason="invalid_curve_options")
             return tex,report
         options.update(curve_options)
-        emitted,nested=repair_tikz_constraints(tex,enabled=enabled,**options)
+        emitted,nested=repair_tikz_constraints(tex,enabled=enabled,source_image=source_image,
+                                              source_coordinates=source_coordinates,**options)
         nested["curve_options_applied"]=curve_options
         return emitted,nested
     if curved and curve_policy=="defer":
@@ -123,6 +130,11 @@ def repair_tikz_constraints(
             "angle_deg": angle_tol_deg, "relative_distance": 0.005,
         })
         candidates=[r for r in candidates if r["type"] in relation_types]
+        collinear = source_collinear_candidates(before, source_image, source_coordinates, collinear_max_turn_deg)
+        candidates.extend(collinear)
+        if collinear:
+            report['candidate_source'] = 'generated_tikz_and_original_raster'
+        report['source_collinear_candidates'] = collinear
         after, result = optimize_coordinates(
             before, candidates, max_shift_rel=max_shift_rel,
             max_length_change_rel=max_length_change_rel,
@@ -189,7 +201,8 @@ def repair_tikz_constraints(
             lengths=[np.linalg.norm(np.subtract(after['points'][b],after['points'][a]))
                      for a,b in (after['segments'][s] for s in candidate['segments'])]
             rounding_bound=sum(np.degrees(np.arcsin(min(1.,np.sqrt(2)*QUANTUM/length))) for length in lengths)
-            export_limits.append(min(angle_tol_deg, rounding_bound+(1-relaxation)*candidate['before_error_deg']+1e-7))
+            angle_limit = collinear_max_turn_deg if candidate['type'] == 'collinear' else angle_tol_deg
+            export_limits.append(min(angle_limit, rounding_bound+(1-relaxation)*candidate['before_error_deg']+1e-7))
         if any(error>limit for error,limit in zip(errors,export_limits)):
             raise ValueError("exported constraints exceed angle tolerance")
         for candidate,error,limit in zip(report['accepted'],errors,export_limits):
@@ -209,7 +222,7 @@ def repair_tikz_constraints(
             emitted=emitted.rstrip()+f"\n% GEOAGENT_REPAIR_V1 {profile} {clean_hash}\n"
         report["output_sha256"] = hashlib.sha256(emitted.encode("utf-8")).hexdigest()
         return emitted, report
-    except (ValueError, KeyError, TypeError, np.linalg.LinAlgError) as exc:
+    except (OSError, ValueError, KeyError, TypeError, np.linalg.LinAlgError) as exc:
         report.update(ok=False, applied=False, reason="unsupported_or_failed",
                       error=f"{type(exc).__name__}: {exc}", output_sha256=digest)
         return tex, report

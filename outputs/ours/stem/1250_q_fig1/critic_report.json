@@ -1,93 +1,93 @@
 {
   "assessment_score": 0.9,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the parallelogram ABCD with the same vertex layout and label placement; the only clear difference is heavier stroke weight.",
+  "verdict": "The render reproduces the parallelogram ABCD with correct vertex positions, edge connections, and label placement; the only visible difference is a heavier stroke weight.",
   "figure_type": {
-    "original": "Parallelogram ABCD drawn as four straight sides with vertex labels A, B, C, D (A top-left, D top-right, B bottom-left, C bottom-right).",
-    "render": "Parallelogram ABCD drawn as four straight sides with vertex labels A, B, C, D in the same arrangement."
+    "original": "parallelogram ABCD with vertices labelled at the corners (top edge AD, bottom edge BC, slanted sides AB and CD)",
+    "render": "parallelogram ABCD with vertices labelled at the corners (top edge AD, bottom edge BC, slanted sides AB and CD)"
   },
   "issues": [
     {
       "type": "wrong_style",
       "severity": "low",
       "object_ids": [
-        "seg_AD",
-        "seg_DC",
-        "seg_CB",
-        "seg_BA"
+        "seg_AB",
+        "seg_BC",
+        "seg_CD",
+        "seg_DA"
       ],
       "bbox": [
         0.06,
-        0.35,
-        0.95,
-        0.65
+        0.36,
+        0.88,
+        0.64
       ],
       "flaky": false,
       "source": "vlm",
-      "description": "Side strokes of the parallelogram are heavier in the render than in the original (render stroke is roughly 2.2pt, original looks like a thin line); the render looks bolder at equal scale.",
-      "suggestion": "Reduce the global line width (e.g. from line width=2.2pt to about 1.0-1.2pt) if matching the original weight is desired."
+      "description": "The rendered sides are noticeably heavier than the original outline (the render uses line width 2.2pt; the original strokes look roughly 1.5 to 2px at this scale).",
+      "suggestion": "If matching the original more closely is desired, reduce the \\draw line width, for example to about 1.2pt, keeping line join=round."
     }
   ],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Bottom side CB, horizontal, drawn correctly from B to C."
+      "note": "Bottom edge at y=150 is present in the original and in the render as the BC side."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top side AD, horizontal, drawn correctly from A to D."
+      "note": "Top edge at y=32 is present in the original and in the render as the AD side."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Right slanted side DC, drawn correctly from D down to C."
+      "note": "Right slanted side CD is present and joins D and C in both panels; the CV extended endpoints are Hough noise past the vertices."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Left slanted side BA, drawn correctly from B up to A."
+      "note": "Left slanted side AB is present and joins A and B in both panels; the CV extended endpoints are Hough noise past the vertices."
     },
     {
-      "object_id": "seg_AD",
+      "object_id": "seg_AB",
       "status": "present",
-      "note": "Top side present and spans A to D as in the original."
+      "note": "Side AB is drawn from A to B and matches the original."
     },
     {
-      "object_id": "seg_BA",
+      "object_id": "seg_BC",
       "status": "present",
-      "note": "Left side present and spans B to A as in the original."
+      "note": "Side BC is drawn from B to C and matches the original."
     },
     {
-      "object_id": "seg_CB",
+      "object_id": "seg_CD",
       "status": "present",
-      "note": "Bottom side present and spans C to B as in the original."
+      "note": "Side CD is drawn from C to D and matches the original."
     },
     {
-      "object_id": "seg_DC",
+      "object_id": "seg_DA",
       "status": "present",
-      "note": "Right side present and spans D to C as in the original."
+      "note": "Side DA is drawn from D to A and matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "Vertex C at bottom-right, label C placed below-right of the vertex as in the original."
+      "note": "Vertex C is at the lower-right corner of the bottom edge in both panels, with its label bound to it."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "Vertex B at bottom-left, label B placed below-left as in the original."
+      "note": "Vertex B is at the lower-left corner in both panels, with its label bound to it."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "Vertex D at top-right, label D placed above-right as in the original."
+      "note": "Vertex D is at the upper-right corner in both panels, with its label bound to it."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "Vertex A at top-left, label A placed above-left as in the original."
+      "note": "Vertex A is at the upper-left corner in both panels, with its label bound to it."
     }
   ],
   "checklist_score": 1.0,
@@ -99,10 +99,11 @@
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Four-sided parallelogram shape and proportions match the original.",
-    "Vertex positions A, B, C, D match the original.",
-    "Label letters and their placement relative to vertices match the original.",
-    "Top and bottom sides are horizontal and the slanted sides have the same slant."
+    "Four vertices A, B, C, D are at the correct corners of the parallelogram.",
+    "Top and bottom edges are horizontal and the slanted sides have the same slant direction as the original.",
+    "All four sides meet at their vertices with no gaps or overhangs.",
+    "Labels A, B, C, D are present, correctly spelled, and sit at their vertices with clear separation from the strokes.",
+    "Overall aspect ratio and proportions match the original closely."
   ],
   "labels": {
     "present": [

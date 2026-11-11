@@ -1,167 +1,139 @@
 {
-  "assessment_score": 0.92,
+  "assessment_score": 0.95,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "The render reproduces the original's rectangle ABCD, the interior segments BE, EF, FG and GB, and all seven labels at the correct vertices. The only visible difference is stroke weight.",
+  "verdict": "The render is faithful: rectangle ABCD, the B-E, E-F, F-G and G-B strokes, the B-F base line and all seven point labels match the original, with no geometric discrepancies found.",
   "figure_type": {
-    "original": "Rectangle ABCD with interior triangle-like path B-E-F and quadrilateral kite to G, drawn as straight line segments with labelled vertices",
-    "render": "Same rectangle ABCD with segments BE, EF, FG, GB and BF drawn as straight lines with labelled vertices"
+    "original": "Rectangle ABCD with interior quadrilateral/triangle path B-E-F-G, a horizontal base B-F, and a folded point G below BF",
+    "render": "Rectangle ABCD with interior path B-E-F-G, horizontal base B-F, and point G below BF"
   },
-  "issues": [
-    {
-      "type": "wrong_style",
-      "severity": "low",
-      "object_ids": [
-        "seg_01",
-        "seg_02",
-        "seg_03",
-        "seg_05",
-        "seg_06",
-        "seg_07",
-        "seg_08"
-      ],
-      "bbox": [
-        0.03,
-        0.22,
-        0.97,
-        0.92
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "Stroke weight of the render is visibly lighter than the original; the original lines look heavier, roughly 0.6pt versus a bolder weight in the source.",
-      "suggestion": "Increase the global line width (for example from 0.6pt to about 0.8-1.0pt) and re-check against the original."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Horizontal base line B-F-C at y≈301 drawn across the figure as in the original."
+      "note": "Horizontal B-to-C base line at the bottom of the rectangle, drawn as B-F plus F-C, matches the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top edge A-D matches the original."
+      "note": "Top side A-D matches the original."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment B-E matches the original diagonal."
+      "note": "Diagonal B-E from B to the top side at E matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment G-B matches the lower-left arm to G."
+      "note": "G-B edge from G up to B matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment E-F matches the original."
+      "note": "E-F edge from the top side down to F matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Left edge A-B matches the original."
+      "note": "Left side A-B matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Right edge D-C matches the original."
+      "note": "Right side D-C matches the original."
     },
     {
       "object_id": "seg_08",
       "status": "present",
-      "note": "Segment F-G matches the lower-right arm to G."
-    },
-    {
-      "object_id": "seg_AB",
-      "status": "present",
-      "note": "Left edge labelled AB is correct."
-    },
-    {
-      "object_id": "seg_AD",
-      "status": "present",
-      "note": "Top edge labelled AD is correct."
-    },
-    {
-      "object_id": "seg_BE",
-      "status": "present",
-      "note": "Diagonal from B to E is correct."
-    },
-    {
-      "object_id": "seg_BF",
-      "status": "present",
-      "note": "Base from B to F is correct."
-    },
-    {
-      "object_id": "seg_DC",
-      "status": "present",
-      "note": "Right edge labelled DC is correct."
-    },
-    {
-      "object_id": "seg_EF",
-      "status": "present",
-      "note": "Segment E-F is correct."
-    },
-    {
-      "object_id": "seg_FG",
-      "status": "present",
-      "note": "Segment F-G is correct."
-    },
-    {
-      "object_id": "seg_GB",
-      "status": "present",
-      "note": "Segment G-B is correct."
+      "note": "F-G edge matches the original."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "B is at the bottom-left corner, matching the original."
+      "note": "Point B is at the expected location, labelled B below-left."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "F is on the base line, matching the original."
+      "note": "Point F is at the expected location, labelled F below-right."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "C is at the bottom-right corner, matching the original."
+      "note": "Point C is at the right side, labelled C to the right."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "E is on the top edge, matching the original."
+      "note": "Point E is on the top side, labelled E above."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "A is at the top-left corner, matching the original."
+      "note": "Point A is at the top-left corner, labelled A above-left."
     },
     {
       "object_id": "point_06",
       "status": "present",
-      "note": "D is at the top-right corner, matching the original."
+      "note": "Point D is at the top-right corner, labelled D above-right."
     },
     {
       "object_id": "point_07",
       "status": "present",
-      "note": "G is at the lower vertex, matching the original."
+      "note": "Point G is below the BF base, labelled G below."
+    },
+    {
+      "object_id": "point_A",
+      "status": "present",
+      "note": "Binding A matches the top-left corner."
+    },
+    {
+      "object_id": "point_B",
+      "status": "present",
+      "note": "Binding B matches the left base corner."
+    },
+    {
+      "object_id": "point_C",
+      "status": "present",
+      "note": "Binding C matches the bottom-right corner."
+    },
+    {
+      "object_id": "point_D",
+      "status": "present",
+      "note": "Binding D matches the top-right corner."
+    },
+    {
+      "object_id": "point_E",
+      "status": "present",
+      "note": "Binding E matches the point on the top side."
+    },
+    {
+      "object_id": "point_F",
+      "status": "present",
+      "note": "Binding F matches the point on the base."
+    },
+    {
+      "object_id": "point_G",
+      "status": "present",
+      "note": "Binding G matches the point below the base."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "Rectangle ABCD with A top-left, D top-right, C bottom-right, B bottom-left.",
-    "Diagonal B-E and segment E-F meet at E on the top edge, as in the original.",
-    "Base line through F and C, with F on the base and the lower kite arms F-G and G-B.",
-    "All seven labels A-G are present, correctly placed beside their vertices, and do not collide with strokes.",
-    "Aspect ratio and overall layout match the original."
+    "Rectangle ABCD outline with correct corner positions and proportions",
+    "Diagonal B-E from the bottom-left corner to the point E on the top side",
+    "E-F segment from E down to F on the base",
+    "Base line B-F-C along the bottom of the rectangle, with F lying on it",
+    "F-G and G-B edges forming the point G below the base",
+    "All seven labels (A, B, C, D, E, F, G) present, correctly spelled and placed with clear separation from strokes"
   ],
   "labels": {
     "present": [
@@ -176,25 +148,8 @@
     "missing": [],
     "extra": []
   },
-  "version": 1,
+  "version": 2,
   "binding_decisions": [],
-  "topology_decisions": [
-    {
-      "case_id": "cf12fcbeb468822e",
-      "edge": [
-        "B",
-        "E"
-      ],
-      "reason": "In the original, a single straight stroke runs from B up to E on the top edge."
-    },
-    {
-      "case_id": "8401bae6d4ba3a99",
-      "edge": [
-        "E",
-        "F"
-      ],
-      "reason": "In the original, a single straight stroke runs from E down to F on the base line."
-    }
-  ],
+  "topology_decisions": [],
   "raw_meta": "{}"
 }

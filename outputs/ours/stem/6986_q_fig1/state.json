@@ -834,6 +834,26 @@
       "notes": [],
       "attributes": {}
     },
+    "circle_01": {
+      "id": "circle_01",
+      "type": "circle",
+      "label": null,
+      "coords": {
+        "center_px": [
+          304.41,
+          346.62
+        ],
+        "radius_px": 236
+      },
+      "normalized": {},
+      "style": {},
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
     "arc_BD": {
       "id": "arc_BD",
       "type": "arc",
@@ -852,9 +872,7 @@
         ]
       },
       "normalized": {},
-      "style": {
-        "line": "solid"
-      },
+      "style": {},
       "source": "geometry_agent",
       "status": "candidate",
       "confidence_kind": "heuristic-evidence (not a calibrated probability)",
@@ -962,18 +980,18 @@
       "notes": [],
       "attributes": {}
     },
-    "seg_OA": {
-      "id": "seg_OA",
+    "seg_AO": {
+      "id": "seg_AO",
       "type": "segment",
-      "label": "OA",
+      "label": "AO",
       "coords": {
         "a_px": [
-          304.41,
-          346.62
-        ],
-        "b_px": [
           456.57,
           166.03
+        ],
+        "b_px": [
+          304.41,
+          346.62
         ]
       },
       "normalized": {},
@@ -987,8 +1005,8 @@
       "notes": [],
       "attributes": {}
     },
-    "ra_C": {
-      "id": "ra_C",
+    "ra_01": {
+      "id": "ra_01",
       "type": "right_angle",
       "label": null,
       "coords": {
@@ -1006,8 +1024,8 @@
       "notes": [],
       "attributes": {}
     },
-    "ra_A": {
-      "id": "ra_A",
+    "ra_02": {
+      "id": "ra_02",
       "type": "right_angle",
       "label": null,
       "coords": {
@@ -1087,52 +1105,79 @@
       "relation": "midpoint",
       "object": "seg_BD",
       "source": "geometry_agent",
-      "evidence": "O is the centre of the semicircle on diameter BD",
+      "evidence": "O at 304.4 is midpoint of B(68.7) and D(540.5); radius equals B-O distance",
       "status": "candidate"
     },
     "rel_008": {
       "id": "rel_008",
-      "subject": "point_A",
-      "relation": "on_circle",
-      "object": "arc_BD",
+      "subject": "point_E",
+      "relation": "on_segment",
+      "object": "seg_BC",
       "source": "geometry_agent",
-      "evidence": "distance from O about 236 px",
+      "evidence": "E lies on the straight line from B to C (CV seg_03 passes through E)",
       "status": "candidate"
     },
     "rel_009": {
       "id": "rel_009",
       "subject": "point_E",
       "relation": "on_circle",
-      "object": "arc_BD",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "distance from O about 236 px",
+      "evidence": "|OE| about 236.6 vs radius 236",
       "status": "candidate"
     },
     "rel_010": {
       "id": "rel_010",
-      "subject": "point_E",
-      "relation": "on_segment",
-      "object": "seg_BC",
+      "subject": "point_A",
+      "relation": "on_circle",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "E lies on line B-C within a pixel",
+      "evidence": "|OA| about 236.3 vs radius 236",
       "status": "candidate"
     },
     "rel_011": {
       "id": "rel_011",
-      "subject": "seg_OA",
-      "relation": "perpendicular",
-      "object": "seg_CA",
+      "subject": "point_B",
+      "relation": "on_circle",
+      "object": "circle_01",
       "source": "geometry_agent",
-      "evidence": "right-angle marker at A; CA tangent to circle at A",
+      "evidence": "B is diameter endpoint",
       "status": "candidate"
     },
     "rel_012": {
       "id": "rel_012",
+      "subject": "point_D",
+      "relation": "on_circle",
+      "object": "circle_01",
+      "source": "geometry_agent",
+      "evidence": "D is diameter endpoint",
+      "status": "candidate"
+    },
+    "rel_013": {
+      "id": "rel_013",
+      "subject": "seg_CA",
+      "relation": "tangent",
+      "object": "circle_01",
+      "source": "geometry_agent",
+      "evidence": "CA meets circle at A and right-angle mark at A between AC and AO",
+      "status": "candidate"
+    },
+    "rel_014": {
+      "id": "rel_014",
+      "subject": "seg_AO",
+      "relation": "perpendicular",
+      "object": "seg_CA",
+      "source": "geometry_agent",
+      "evidence": "ra_02 mark at A between rays AC and AO",
+      "status": "candidate"
+    },
+    "rel_015": {
+      "id": "rel_015",
       "subject": "seg_BC",
       "relation": "perpendicular",
       "object": "seg_CA",
       "source": "geometry_agent",
-      "evidence": "right-angle marker at C",
+      "evidence": "ra_01 mark at C between rays CB and CA",
       "status": "candidate"
     }
   },
@@ -1148,7 +1193,7 @@
         },
         "tool": "detect_lines"
       },
-      "created_at": "2026-11-09T23:04:57"
+      "created_at": "2026-11-11T12:59:30"
     },
     "ev_0002": {
       "id": "ev_0002",
@@ -1161,7 +1206,7 @@
         },
         "tool": "bind_point_labels"
       },
-      "created_at": "2026-11-09T23:05:23"
+      "created_at": "2026-11-11T12:59:33"
     },
     "ev_0003": {
       "id": "ev_0003",
@@ -1174,17 +1219,17 @@
         },
         "tool": "detect_right_angle_marker"
       },
-      "created_at": "2026-11-09T23:05:41"
+      "created_at": "2026-11-11T12:59:35"
     },
     "ev_0004": {
       "id": "ev_0004",
       "source": "geometry_agent",
       "method": "geometry agent submission",
-      "summary": "Semicircle centred at O (point_02) with diameter BD on the horizontal baseline (B=point_01 at left, D=point_05 at right; O is the interior midpoint). Radius about 236 px; the arc runs from B over the top to D and passes through E (point_06) and A (point_03). Straight strokes: B-O-D along the baseline (solid), B-A (solid chord), B-E-C as one solid line (E lies on BC between B and C), C-A (solid, tangent at A), and O-A (solid radius). Right angle at C between CB and CA (marker verified). Right angle at A between AC and AO (marker verified; CA is tangent to the circle at A, so OA is perpendicular to CA). All OCR bindings match the glyph positions; no dashed strokes detected.",
+      "summary": "Semicircle with diameter BD, center O (midpoint of BD), radius about 236 px; upper arc from B to D passes through E and A. Secant B-E-C: line from B through E (on circle) to C (outside circle). C-A is tangent to the circle at A. Chord B-A and radius A-O are drawn. Right angles: at C between CB and CA (ray C->B, ray C->A); at A between AC and AO (tangent-radius). All drawn strokes solid per CV (seg_01..seg_05). Feet: none.",
       "payload": {
         "merged": {
-          "objects": 14,
-          "relations": 6,
+          "objects": 15,
+          "relations": 9,
           "conflicts": 0,
           "rejected": []
         },
@@ -1195,23 +1240,24 @@
           "point_A",
           "point_C",
           "point_E",
+          "circle_01",
           "arc_BD",
           "seg_BD",
           "seg_BC",
           "seg_CA",
           "seg_BA",
-          "seg_OA",
-          "ra_C",
-          "ra_A"
+          "seg_AO",
+          "ra_01",
+          "ra_02"
         ]
       },
-      "created_at": "2026-11-09T23:06:02"
+      "created_at": "2026-11-11T12:59:57"
     },
     "ev_0005": {
       "id": "ev_0005",
       "source": "renderer",
       "method": "frame_like_original",
-      "summary": "v1 canvas matched to source [612, 413] (scale 0.8441)",
+      "summary": "v1 canvas matched to source [612, 413] (scale 0.8521)",
       "payload": {
         "ok": true,
         "size": [
@@ -1222,13 +1268,13 @@
           612,
           413
         ],
-        "scale": 0.8441,
+        "scale": 0.8521,
         "offset": [
           31,
-          30
+          28
         ]
       },
-      "created_at": "2026-11-09T23:06:29"
+      "created_at": "2026-11-11T13:00:24"
     },
     "ev_0006": {
       "id": "ev_0006",
@@ -1241,19 +1287,19 @@
         "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "d84584f02e01dc5cc0560b4e94ddcaeac69715836a0f8881136943e4ba9dcff0",
-        "output_sha256": "d84584f02e01dc5cc0560b4e94ddcaeac69715836a0f8881136943e4ba9dcff0",
+        "input_sha256": "c8ae52062d30cacdd8c22bd513bd72d63e358c745aa4b3e41091da226e6e011b",
+        "output_sha256": "c8ae52062d30cacdd8c22bd513bd72d63e358c745aa4b3e41091da226e6e011b",
         "reason": "all_points_fixed",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1263,15 +1309,31 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "D--O"
+            ],
+            "labels": [
+              "B",
+              "O",
+              "D"
+            ],
+            "source_turn_deg": 0.2274
+          }
+        ],
+        "input_candidates": 1,
+        "preserved_incidence_count": 1,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
@@ -1298,23 +1360,23 @@
             "O"
           ],
           "dependencies": [
-            "B"
+            "D"
           ],
           "circles": [
             {
               "center": [
-                -0.020000000000000018,
-                -2.1030000000000006
+                -0.02300000000000013,
+                -2.101
               ],
               "radius": 3.529
             }
           ]
         },
-        "candidate_count": 0,
+        "candidate_count": 1,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -1327,7 +1389,7 @@
           "relaxation": 1.0
         }
       },
-      "created_at": "2026-11-09T23:06:29"
+      "created_at": "2026-11-11T13:00:24"
     },
     "ev_0007": {
       "id": "ev_0007",
@@ -1335,14 +1397,14 @@
       "method": "tikz generate",
       "summary": "v1 compiled=True validation=True",
       "payload": {
-        "notes": "Omitted the program-owned coordinate definitions for A, B, C, D, O (inserted by the program). Defined E as an unmeasured helper in the same frame, projected onto BC (it lies on the line within a pixel). Semicircle drawn as an arc centred at O with radius 3.529 units from B over the top to D. Right-angle pics at C (arms A,B; 0.194 cm) and at A (arms C,O; 0.164 cm). Line width 1.2pt, labels 12.5/15 pt. Label placements follow the source: B below-left, D below-right, O below, A right, C above, E left.",
+        "notes": "Coordinates A, B, C, D, O are program-owned and not redefined; E is defined in the shared frame from its measured pixel position (-0.201, 1.432). The semicircle is drawn from D with start angle 0 to end angle 180 and radius 3.529 cm (236 px x 0.014953), so it ends at B. B--E--C keeps E on the secant. Right-angle pics use arms A--C--B at C (radius 0.194 cm, 13 px) and C--A--O at A (radius 0.165 cm, 11 px). Labels use the 12.5/15 pt font from STYLE METRICS, with positions following the source (B left, D right, O below, A upper-right, C above, E left). Line width 1.2 pt with round joins. The standalone file only compiles when the program inserts the A, B, C, D, O definitions, as the frame requires.",
         "compile": {
           "compile_ok": true,
           "validation_passed": true,
           "errors": [],
           "warnings": [],
-          "png_path": ".cache\\redesign_150\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.png",
-          "pdf_path": ".cache\\redesign_150\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.pdf",
+          "png_path": ".cache\\collinear\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.png",
+          "pdf_path": ".cache\\collinear\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.pdf",
           "checks": [
             {
               "name": "documentclass",
@@ -1372,32 +1434,32 @@
             {
               "name": "pdf_created",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.pdf"
+              "detail": ".cache\\collinear\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.pdf"
             },
             {
               "name": "png_rendered",
               "passed": true,
-              "detail": ".cache\\redesign_150\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.png"
+              "detail": ".cache\\collinear\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.png"
             },
             {
               "name": "render_not_blank",
               "passed": true,
-              "detail": "ink_ratio=0.0436"
+              "detail": "ink_ratio=0.044"
             },
             {
               "name": "aspect_ratio",
               "passed": true,
-              "detail": "reference 1.48 vs render 1.56 (delta 0.05)"
+              "detail": "reference 1.48 vs render 1.55 (delta 0.04)"
             },
             {
               "name": "figure_extent_ratio",
               "passed": true,
-              "detail": "figure bbox ratio 1.58"
+              "detail": "figure bbox ratio 1.57"
             }
           ]
         }
       },
-      "created_at": "2026-11-09T23:06:29"
+      "created_at": "2026-11-11T13:00:24"
     }
   },
   "conflicts": [],
@@ -1409,8 +1471,8 @@
     "D": "point_05",
     "O": "point_02"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (2.251,0.605);\n\\coordinate (B) at (-3.549,-2.103);\n\\coordinate (C) at (0.447,2.115);\n\\coordinate (D) at (3.506,-2.101);\n\\coordinate (O) at (-0.024,-2.095);\n\n\n\n\\coordinate (E) at (-0.201,1.432);\n\n\n\\draw (B) -- (O) -- (D);\n\n\n\\draw (B) arc[start angle=180.000, end angle=0.000, radius=3.529];\n\n\n\\draw (B) -- (E) -- (C);\n\\draw (C) -- (A);\n\\draw (B) -- (A);\n\\draw (O) -- (A);\n\n\n\\draw pic[draw, angle radius=0.194cm] {right angle=A--C--B};\n\\draw pic[draw, angle radius=0.164cm] {right angle=C--A--O};\n\n\n\\fill (O) circle (1.500pt);\n\n\n\\node[left=1pt, below left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[right=1pt, below right] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (O) {\\fontsize{12.5}{15}\\selectfont $O$};\n\\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[left] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (2.251,0.605);\n\\coordinate (B) at (-3.549,-2.103);\n\\coordinate (C) at (0.447,2.115);\n\\coordinate (D) at (3.506,-2.101);\n\\coordinate (O) at (-0.024,-2.095);\n\n\n\n\\coordinate (E) at (-0.201,1.432);\n\n\n\\draw (B) -- (O) -- (D);\n\n\n\\draw (B) arc[start angle=180.000, end angle=0.000, radius=3.529];\n\n\n\\draw (B) -- (E) -- (C);\n\\draw (C) -- (A);\n\\draw (B) -- (A);\n\\draw (O) -- (A);\n\n\n\\draw pic[draw, angle radius=0.194cm] {right angle=A--C--B};\n\\draw pic[draw, angle radius=0.164cm] {right angle=C--A--O};\n\n\n\\fill (O) circle (1.500pt);\n\n\n\\node[left=1pt, below left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[right=1pt, below right] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (O) {\\fontsize{12.5}{15}\\selectfont $O$};\n\\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[left] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}",
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes,calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (2.251,0.605);\n\\coordinate (B) at (-3.549,-2.103);\n\\coordinate (C) at (0.447,2.115);\n\\coordinate (D) at (3.506,-2.101);\n\\coordinate (O) at (-0.024,-2.095);\n\n\n\n\n\\coordinate (E) at (-0.201,1.432);\n\n\n\\draw (D) arc[start angle=0.000, end angle=180.000, radius=3.529];\n\n\n\\draw (B) -- (O) -- (D);\n\n\n\\draw (B) -- (E) -- (C);\n\n\n\\draw (B) -- (A);\n\\draw (C) -- (A);\n\\draw (A) -- (O);\n\n\n\\draw pic[draw, angle radius=0.194cm] {right angle=A--C--B};\n\\draw pic[draw, angle radius=0.165cm] {right angle=C--A--O};\n\n\n\\fill (O) circle (1.600pt);\n\n\n\\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont$B$};\n\\node[right] at (D) {\\fontsize{12.5}{15}\\selectfont$D$};\n\\node[below] at (O) {\\fontsize{12.5}{15}\\selectfont$O$};\n\\node[above right] at (A) {\\fontsize{12.5}{15}\\selectfont$A$};\n\\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont$C$};\n\\node[left] at (E) {\\fontsize{12.5}{15}\\selectfont$E$};\n\\end{tikzpicture}\n\\end{document}",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes,calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (2.251,0.605);\n\\coordinate (B) at (-3.549,-2.103);\n\\coordinate (C) at (0.447,2.115);\n\\coordinate (D) at (3.506,-2.101);\n\\coordinate (O) at (-0.024,-2.095);\n\n\n\n\n\\coordinate (E) at (-0.201,1.432);\n\n\n\\draw (D) arc[start angle=0.000, end angle=180.000, radius=3.529];\n\n\n\\draw (B) -- (O) -- (D);\n\n\n\\draw (B) -- (E) -- (C);\n\n\n\\draw (B) -- (A);\n\\draw (C) -- (A);\n\\draw (A) -- (O);\n\n\n\\draw pic[draw, angle radius=0.194cm] {right angle=A--C--B};\n\\draw pic[draw, angle radius=0.165cm] {right angle=C--A--O};\n\n\n\\fill (O) circle (1.600pt);\n\n\n\\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont$B$};\n\\node[right] at (D) {\\fontsize{12.5}{15}\\selectfont$D$};\n\\node[below] at (O) {\\fontsize{12.5}{15}\\selectfont$O$};\n\\node[above right] at (A) {\\fontsize{12.5}{15}\\selectfont$A$};\n\\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont$C$};\n\\node[left] at (E) {\\fontsize{12.5}{15}\\selectfont$E$};\n\\end{tikzpicture}\n\\end{document}",
   "best_version": 1,
   "best_score": 0.92,
   "tikz_versions": [
@@ -1420,7 +1482,7 @@
         "missing_edges": []
       },
       "version": 1,
-      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{calc,angles,quotes}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (2.251,0.605);\n\\coordinate (B) at (-3.549,-2.103);\n\\coordinate (C) at (0.447,2.115);\n\\coordinate (D) at (3.506,-2.101);\n\\coordinate (O) at (-0.024,-2.095);\n\n\n\n\\coordinate (E) at (-0.201,1.432);\n\n\n\\draw (B) -- (O) -- (D);\n\n\n\\draw (B) arc[start angle=180.000, end angle=0.000, radius=3.529];\n\n\n\\draw (B) -- (E) -- (C);\n\\draw (C) -- (A);\n\\draw (B) -- (A);\n\\draw (O) -- (A);\n\n\n\\draw pic[draw, angle radius=0.194cm] {right angle=A--C--B};\n\\draw pic[draw, angle radius=0.164cm] {right angle=C--A--O};\n\n\n\\fill (O) circle (1.500pt);\n\n\n\\node[left=1pt, below left] at (B) {\\fontsize{12.5}{15}\\selectfont $B$};\n\\node[right=1pt, below right] at (D) {\\fontsize{12.5}{15}\\selectfont $D$};\n\\node[below] at (O) {\\fontsize{12.5}{15}\\selectfont $O$};\n\\node[right] at (A) {\\fontsize{12.5}{15}\\selectfont $A$};\n\\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont $C$};\n\\node[left] at (E) {\\fontsize{12.5}{15}\\selectfont $E$};\n\\end{tikzpicture}\n\\end{document}",
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usetikzlibrary{angles,quotes,calc}\n\\begin{document}\n\\begin{tikzpicture}[line width=1.2pt, line join=round]\n\\coordinate (A) at (2.251,0.605);\n\\coordinate (B) at (-3.549,-2.103);\n\\coordinate (C) at (0.447,2.115);\n\\coordinate (D) at (3.506,-2.101);\n\\coordinate (O) at (-0.024,-2.095);\n\n\n\n\n\\coordinate (E) at (-0.201,1.432);\n\n\n\\draw (D) arc[start angle=0.000, end angle=180.000, radius=3.529];\n\n\n\\draw (B) -- (O) -- (D);\n\n\n\\draw (B) -- (E) -- (C);\n\n\n\\draw (B) -- (A);\n\\draw (C) -- (A);\n\\draw (A) -- (O);\n\n\n\\draw pic[draw, angle radius=0.194cm] {right angle=A--C--B};\n\\draw pic[draw, angle radius=0.165cm] {right angle=C--A--O};\n\n\n\\fill (O) circle (1.600pt);\n\n\n\\node[left] at (B) {\\fontsize{12.5}{15}\\selectfont$B$};\n\\node[right] at (D) {\\fontsize{12.5}{15}\\selectfont$D$};\n\\node[below] at (O) {\\fontsize{12.5}{15}\\selectfont$O$};\n\\node[above right] at (A) {\\fontsize{12.5}{15}\\selectfont$A$};\n\\node[above] at (C) {\\fontsize{12.5}{15}\\selectfont$C$};\n\\node[left] at (E) {\\fontsize{12.5}{15}\\selectfont$E$};\n\\end{tikzpicture}\n\\end{document}",
       "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6986_q_fig1\\best.tex",
       "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6986_q_fig1\\best.pdf",
       "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\6986_q_fig1\\best.png",
@@ -1428,157 +1490,175 @@
       "compiled": true,
       "errors": [],
       "warnings": [],
-      "created_at": "2026-11-09T23:06:25",
+      "created_at": "2026-11-11T13:00:22",
       "agent": "code_agent",
       "mode": "generate",
-      "notes": "Omitted the program-owned coordinate definitions for A, B, C, D, O (inserted by the program). Defined E as an unmeasured helper in the same frame, projected onto BC (it lies on the line within a pixel). Semicircle drawn as an arc centred at O with radius 3.529 units from B over the top to D. Right-angle pics at C (arms A,B; 0.194 cm) and at A (arms C,O; 0.164 cm). Line width 1.2pt, labels 12.5/15 pt. Label placements follow the source: B below-left, D below-right, O below, A right, C above, E left.",
-      "compile_seconds": 2.731,
+      "notes": "Coordinates A, B, C, D, O are program-owned and not redefined; E is defined in the shared frame from its measured pixel position (-0.201, 1.432). The semicircle is drawn from D with start angle 0 to end angle 180 and radius 3.529 cm (236 px x 0.014953), so it ends at B. B--E--C keeps E on the secant. Right-angle pics use arms A--C--B at C (radius 0.194 cm, 13 px) and C--A--O at A (radius 0.165 cm, 11 px). Labels use the 12.5/15 pt font from STYLE METRICS, with positions following the source (B left, D right, O below, A upper-right, C above, E left). Line width 1.2 pt with round joins. The standalone file only compiles when the program inserts the A, B, C, D, O definitions, as the frame requires.",
+      "compile_seconds": 2.237,
       "critic_report": {
         "assessment_score": 0.92,
         "score_kind": "heuristic visual similarity (not a calibrated probability)",
-        "verdict": "The render is faithful: semicircle on BD, chords BC through E, CA, BA and OA, both right-angle marks and all six labels match the original, with no material geometric or labelling differences.",
+        "verdict": "The render faithfully reproduces the semicircle, the chords and segments, both right-angle markers and all six labels; the only discrepancy is the placement of the E label, which sits lower and closer to the strokes than in the original.",
         "figure_type": {
-          "original": "Semicircle with centre O on diameter BD; chords BE-C, CA, BA and OA; right angles at C and at A; labels B, O, D, A, C, E.",
-          "render": "Same semicircle (arc from B to D over the top), with lines B-E-C, C-A, B-A, O-A; right-angle marks at C and A; labels B, O, D, A, C, E."
+          "original": "Semicircle on diameter BD with centre O; points B, O, D on the baseline; E on the arc; C above the arc with segments B-E-C and C-A; A on the arc with segments B-A and A-O; right angles at C and at A.",
+          "render": "Same construction: upper semicircle on BD with centre O, B-E-C, C-A, B-A, A-O, and right-angle markers at C and A."
         },
-        "issues": [],
+        "issues": [
+          {
+            "type": "label_error",
+            "severity": "low",
+            "object_ids": [
+              "point_06",
+              "label_03"
+            ],
+            "bbox": [
+              0.448,
+              0.167,
+              0.48,
+              0.213
+            ],
+            "flaky": false,
+            "source": "vlm",
+            "description": "The E label is placed at the lower-left of the E vertex, close to where the B-C stroke and the arc cross. In the original, E sits higher and further left, clear of both strokes. The render gap is smaller, though the glyph does not touch a stroke.",
+            "suggestion": "Move the E node up and left, for example with 'above left' instead of 'left', so it matches the original and clears the B-C stroke and the arc."
+          }
+        ],
         "checks": [
           {
             "object_id": "arc_BD",
             "status": "present",
-            "note": "Semicircular arc from B to D passes through E, matching the original."
+            "note": "Upper semicircle from B to D with centre O matches the original."
+          },
+          {
+            "object_id": "circle_01",
+            "status": "unclear",
+            "note": "The full circle is not visible in the original; only the upper semicircle is drawn, and the render matches that."
           },
           {
             "object_id": "seg_01",
             "status": "present",
-            "note": "Baseline BD is drawn from B to D through O."
+            "note": "Baseline B-O-D is drawn in both panels."
           },
           {
             "object_id": "seg_02",
             "status": "present",
-            "note": "Segment BA matches the original."
+            "note": "Segment from B to A matches the original."
           },
           {
             "object_id": "seg_03",
             "status": "present",
-            "note": "Segment BC through E matches the original."
+            "note": "Segment from B through E to C matches the original."
           },
           {
             "object_id": "seg_04",
             "status": "present",
-            "note": "Segment OA matches the original."
+            "note": "Segment from A to O matches the original."
           },
           {
             "object_id": "seg_05",
             "status": "present",
-            "note": "Segment CA matches the original."
+            "note": "Segment from C to A matches the original."
+          },
+          {
+            "object_id": "seg_AO",
+            "status": "present",
+            "note": "Segment A-O is drawn and ends at A and O, as in the original."
           },
           {
             "object_id": "seg_BA",
             "status": "present",
-            "note": "Drawn from B to A as in the original."
+            "note": "Segment B-A is drawn and ends at A, as in the original."
           },
           {
             "object_id": "seg_BC",
             "status": "present",
-            "note": "Drawn from B through E to C as in the original."
+            "note": "B-E-C line is present and reaches C in both panels."
           },
           {
             "object_id": "seg_BD",
             "status": "present",
-            "note": "Diameter BD matches the original."
+            "note": "Baseline BD is present and matches."
           },
           {
             "object_id": "seg_CA",
             "status": "present",
-            "note": "Drawn from C to A as in the original."
+            "note": "C-A segment matches the original."
           },
           {
-            "object_id": "seg_OA",
+            "object_id": "ra_01",
             "status": "present",
-            "note": "Drawn from O to A as in the original."
+            "note": "Right-angle marker at C is present in both panels, between CA and CB."
           },
           {
-            "object_id": "ra_A",
+            "object_id": "ra_02",
             "status": "present",
-            "note": "Right-angle mark at A is visible in both panels."
-          },
-          {
-            "object_id": "ra_C",
-            "status": "present",
-            "note": "Right-angle mark at C is visible in both panels."
+            "note": "Right-angle marker at A is present in both panels, between AC and AO."
           },
           {
             "object_id": "right_angle_01",
             "status": "present",
-            "note": "Right angle at C is drawn in the render."
+            "note": "Marker at vertex C matches the original."
           },
           {
             "object_id": "right_angle_02",
             "status": "present",
-            "note": "Right angle at A is drawn in the render."
+            "note": "Marker at vertex A matches the original."
           },
           {
             "object_id": "point_01",
             "status": "present",
-            "note": "Label B is bound to the B vertex."
+            "note": "Point B is drawn and labelled B at the left end of the baseline."
           },
           {
             "object_id": "point_02",
             "status": "present",
-            "note": "Label O is bound to the O vertex."
+            "note": "Point O is drawn at the centre and labelled O below it."
           },
           {
             "object_id": "point_03",
             "status": "present",
-            "note": "Label A is bound to the A vertex."
+            "note": "Point A is on the arc and labelled A upper-right."
           },
           {
             "object_id": "point_04",
             "status": "present",
-            "note": "Label C is bound to the C vertex."
+            "note": "Point C is labelled above the vertex, as in the original."
           },
           {
             "object_id": "point_05",
             "status": "present",
-            "note": "Label D is bound to the D vertex."
+            "note": "Point D is labelled at the right end of the baseline."
           },
           {
             "object_id": "point_06",
             "status": "present",
-            "note": "Label E sits at the arc crossing, with clear separation from the BC stroke."
+            "note": "E is on the arc and labelled, though the label sits closer to the strokes than in the original (see issue)."
           },
           {
             "object_id": "point_A",
             "status": "present",
-            "note": "Point A is at the correct position."
+            "note": "Point A matches the original."
           },
           {
             "object_id": "point_B",
             "status": "present",
-            "note": "Point B is at the correct position."
-          },
-          {
-            "object_id": "point_C",
-            "status": "present",
-            "note": "Point C is at the correct position."
+            "note": "Point B matches the original."
           }
         ],
         "checklist_score": 1.0,
         "actionable_counts": {
           "high": 0,
           "medium": 0,
-          "low": 0
+          "low": 1
         },
         "flaky_count": 0,
         "must_repair": false,
         "matches": [
-          "Semicircle arc and its intersection with E",
-          "Chords BE-C, CA, BA and OA",
-          "Right angles at C and A",
-          "All six labels B, O, D, A, C, E with correct binding",
-          "Point O dot",
-          "Stroke weight and overall aspect ratio are comparable"
+          "Semicircle arc from B to D with centre O and the correct extent (upper half only).",
+          "Segments B-E-C, C-A, B-A and A-O have correct endpoints and end at the same vertices as the original.",
+          "The right angle at C and the right angle at A are present, with markers in the correct quadrants.",
+          "Vertex bindings for B, O, D, A, C and E agree with the original.",
+          "Overall aspect ratio and proportions of the figure match."
         ],
         "labels": {
           "present": [
@@ -1605,14 +1685,14 @@
       "version": 1,
       "ok": true,
       "returncode": 0,
-      "seconds": 2.731,
+      "seconds": 2.237,
       "errors": [],
       "warnings": [],
-      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.log` (12.5634765625 KiB)\nnote: Writing `figure.pdf` (2.9609375 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
-      "tex_path": ".cache\\redesign_150\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.tex",
-      "pdf_path": ".cache\\redesign_150\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.pdf",
-      "png_path": ".cache\\redesign_150\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.png",
-      "created_at": "2026-11-09T23:06:29"
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (2.9609375 KiB)\nnote: Writing `figure.log` (11.2578125 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\collinear\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.tex",
+      "pdf_path": ".cache\\collinear\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.pdf",
+      "png_path": ".cache\\collinear\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.png",
+      "created_at": "2026-11-11T13:00:24"
     }
   ],
   "validation_results": [
@@ -1648,179 +1728,197 @@
         {
           "name": "pdf_created",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.pdf"
+          "detail": ".cache\\collinear\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.pdf"
         },
         {
           "name": "png_rendered",
           "passed": true,
-          "detail": ".cache\\redesign_150\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.png"
+          "detail": ".cache\\collinear\\batch_work\\6986_q_fig1\\tikz\\v1\\v1.png"
         },
         {
           "name": "render_not_blank",
           "passed": true,
-          "detail": "ink_ratio=0.0436"
+          "detail": "ink_ratio=0.044"
         },
         {
           "name": "aspect_ratio",
           "passed": true,
-          "detail": "reference 1.48 vs render 1.56 (delta 0.05)"
+          "detail": "reference 1.48 vs render 1.55 (delta 0.04)"
         },
         {
           "name": "figure_extent_ratio",
           "passed": true,
-          "detail": "figure bbox ratio 1.58"
+          "detail": "figure bbox ratio 1.57"
         }
       ],
-      "created_at": "2026-11-09T23:06:28"
+      "created_at": "2026-11-11T13:00:24"
     }
   ],
   "critic_reports": [
     {
       "assessment_score": 0.92,
       "score_kind": "heuristic visual similarity (not a calibrated probability)",
-      "verdict": "The render is faithful: semicircle on BD, chords BC through E, CA, BA and OA, both right-angle marks and all six labels match the original, with no material geometric or labelling differences.",
+      "verdict": "The render faithfully reproduces the semicircle, the chords and segments, both right-angle markers and all six labels; the only discrepancy is the placement of the E label, which sits lower and closer to the strokes than in the original.",
       "figure_type": {
-        "original": "Semicircle with centre O on diameter BD; chords BE-C, CA, BA and OA; right angles at C and at A; labels B, O, D, A, C, E.",
-        "render": "Same semicircle (arc from B to D over the top), with lines B-E-C, C-A, B-A, O-A; right-angle marks at C and A; labels B, O, D, A, C, E."
+        "original": "Semicircle on diameter BD with centre O; points B, O, D on the baseline; E on the arc; C above the arc with segments B-E-C and C-A; A on the arc with segments B-A and A-O; right angles at C and at A.",
+        "render": "Same construction: upper semicircle on BD with centre O, B-E-C, C-A, B-A, A-O, and right-angle markers at C and A."
       },
-      "issues": [],
+      "issues": [
+        {
+          "type": "label_error",
+          "severity": "low",
+          "object_ids": [
+            "point_06",
+            "label_03"
+          ],
+          "bbox": [
+            0.448,
+            0.167,
+            0.48,
+            0.213
+          ],
+          "flaky": false,
+          "source": "vlm",
+          "description": "The E label is placed at the lower-left of the E vertex, close to where the B-C stroke and the arc cross. In the original, E sits higher and further left, clear of both strokes. The render gap is smaller, though the glyph does not touch a stroke.",
+          "suggestion": "Move the E node up and left, for example with 'above left' instead of 'left', so it matches the original and clears the B-C stroke and the arc."
+        }
+      ],
       "checks": [
         {
           "object_id": "arc_BD",
           "status": "present",
-          "note": "Semicircular arc from B to D passes through E, matching the original."
+          "note": "Upper semicircle from B to D with centre O matches the original."
+        },
+        {
+          "object_id": "circle_01",
+          "status": "unclear",
+          "note": "The full circle is not visible in the original; only the upper semicircle is drawn, and the render matches that."
         },
         {
           "object_id": "seg_01",
           "status": "present",
-          "note": "Baseline BD is drawn from B to D through O."
+          "note": "Baseline B-O-D is drawn in both panels."
         },
         {
           "object_id": "seg_02",
           "status": "present",
-          "note": "Segment BA matches the original."
+          "note": "Segment from B to A matches the original."
         },
         {
           "object_id": "seg_03",
           "status": "present",
-          "note": "Segment BC through E matches the original."
+          "note": "Segment from B through E to C matches the original."
         },
         {
           "object_id": "seg_04",
           "status": "present",
-          "note": "Segment OA matches the original."
+          "note": "Segment from A to O matches the original."
         },
         {
           "object_id": "seg_05",
           "status": "present",
-          "note": "Segment CA matches the original."
+          "note": "Segment from C to A matches the original."
+        },
+        {
+          "object_id": "seg_AO",
+          "status": "present",
+          "note": "Segment A-O is drawn and ends at A and O, as in the original."
         },
         {
           "object_id": "seg_BA",
           "status": "present",
-          "note": "Drawn from B to A as in the original."
+          "note": "Segment B-A is drawn and ends at A, as in the original."
         },
         {
           "object_id": "seg_BC",
           "status": "present",
-          "note": "Drawn from B through E to C as in the original."
+          "note": "B-E-C line is present and reaches C in both panels."
         },
         {
           "object_id": "seg_BD",
           "status": "present",
-          "note": "Diameter BD matches the original."
+          "note": "Baseline BD is present and matches."
         },
         {
           "object_id": "seg_CA",
           "status": "present",
-          "note": "Drawn from C to A as in the original."
+          "note": "C-A segment matches the original."
         },
         {
-          "object_id": "seg_OA",
+          "object_id": "ra_01",
           "status": "present",
-          "note": "Drawn from O to A as in the original."
+          "note": "Right-angle marker at C is present in both panels, between CA and CB."
         },
         {
-          "object_id": "ra_A",
+          "object_id": "ra_02",
           "status": "present",
-          "note": "Right-angle mark at A is visible in both panels."
-        },
-        {
-          "object_id": "ra_C",
-          "status": "present",
-          "note": "Right-angle mark at C is visible in both panels."
+          "note": "Right-angle marker at A is present in both panels, between AC and AO."
         },
         {
           "object_id": "right_angle_01",
           "status": "present",
-          "note": "Right angle at C is drawn in the render."
+          "note": "Marker at vertex C matches the original."
         },
         {
           "object_id": "right_angle_02",
           "status": "present",
-          "note": "Right angle at A is drawn in the render."
+          "note": "Marker at vertex A matches the original."
         },
         {
           "object_id": "point_01",
           "status": "present",
-          "note": "Label B is bound to the B vertex."
+          "note": "Point B is drawn and labelled B at the left end of the baseline."
         },
         {
           "object_id": "point_02",
           "status": "present",
-          "note": "Label O is bound to the O vertex."
+          "note": "Point O is drawn at the centre and labelled O below it."
         },
         {
           "object_id": "point_03",
           "status": "present",
-          "note": "Label A is bound to the A vertex."
+          "note": "Point A is on the arc and labelled A upper-right."
         },
         {
           "object_id": "point_04",
           "status": "present",
-          "note": "Label C is bound to the C vertex."
+          "note": "Point C is labelled above the vertex, as in the original."
         },
         {
           "object_id": "point_05",
           "status": "present",
-          "note": "Label D is bound to the D vertex."
+          "note": "Point D is labelled at the right end of the baseline."
         },
         {
           "object_id": "point_06",
           "status": "present",
-          "note": "Label E sits at the arc crossing, with clear separation from the BC stroke."
+          "note": "E is on the arc and labelled, though the label sits closer to the strokes than in the original (see issue)."
         },
         {
           "object_id": "point_A",
           "status": "present",
-          "note": "Point A is at the correct position."
+          "note": "Point A matches the original."
         },
         {
           "object_id": "point_B",
           "status": "present",
-          "note": "Point B is at the correct position."
-        },
-        {
-          "object_id": "point_C",
-          "status": "present",
-          "note": "Point C is at the correct position."
+          "note": "Point B matches the original."
         }
       ],
       "checklist_score": 1.0,
       "actionable_counts": {
         "high": 0,
         "medium": 0,
-        "low": 0
+        "low": 1
       },
       "flaky_count": 0,
       "must_repair": false,
       "matches": [
-        "Semicircle arc and its intersection with E",
-        "Chords BE-C, CA, BA and OA",
-        "Right angles at C and A",
-        "All six labels B, O, D, A, C, E with correct binding",
-        "Point O dot",
-        "Stroke weight and overall aspect ratio are comparable"
+        "Semicircle arc from B to D with centre O and the correct extent (upper half only).",
+        "Segments B-E-C, C-A, B-A and A-O have correct endpoints and end at the same vertices as the original.",
+        "The right angle at C and the right angle at A are present, with markers in the correct quadrants.",
+        "Vertex bindings for B, O, D, A, C and E agree with the original.",
+        "Overall aspect ratio and proportions of the figure match."
       ],
       "labels": {
         "present": [
@@ -1843,19 +1941,15 @@
   "unresolved_issues": [
     {
       "source": "geometry_agent",
-      "issue": "Whether the C-E-B line is one stroke ending at C versus ending at E is not visible from the raster; treated as one continuous solid line B-E-C."
+      "issue": "Whether arc passes exactly through E (E sits at top-left of arc; CV distance supports it)"
     },
     {
       "source": "geometry_agent",
-      "issue": "The semicircle is drawn solid from B to D; endpoints at B and D sit on the baseline."
+      "issue": "Right-angle mark at C: CV mark points lie between rays CB and CA; ray CB passes through E"
     },
     {
       "source": "supervisor",
-      "issue": "Whether the B–E–C line is one stroke or two segments ending at E is not determinable from the raster; it was drawn as one continuous path through E."
-    },
-    {
-      "source": "supervisor",
-      "issue": "The semicircle endpoints B and D sit on the baseline; drawn as solid per CV style."
+      "issue": "Low severity: the E label sits slightly low and close to the B-C stroke and arc; 'above left' placement would match the original better. Not repaired."
     }
   ],
   "action_history": [
@@ -1901,7 +1995,7 @@
       "purpose": "source construction",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; merged={'objects': 14, 'relations': 6, 'conflicts': 0, 'rejected': []}",
+      "result_summary": "ok=True; merged={'objects': 15, 'relations': 9, 'conflicts': 0, 'rejected': []}",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1913,7 +2007,7 @@
       "purpose": "review newly compiled version",
       "params": {},
       "status": "ok",
-      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.92",
+      "result_summary": "ok=True; version=1; best_version=1; assessment_score=0.92; issues=1",
       "duration_s": 0.0,
       "token_usage": {},
       "visual_calls": 0,
@@ -1922,17 +2016,17 @@
     {
       "step": 1,
       "action": "run_code_agent",
-      "purpose": "Draw a figure using CV pixel coordinates (origin top-left, y down; convert with TikZ y = -y_px, use scale 0.01 or equivalent, all coordinates from these measurements): B=(68.65,347.17), O=(304.41,346.",
+      "purpose": "Reconstruct the figure as TikZ with image pixel coordinates converted to TikZ (y flipped: y_tikz = -y_px, scale consistently e.g. 0.01 cm per px or use a shared scale). Use these verified points: B(68",
       "params": {
         "mode": "generate",
         "use_image": null,
-        "instruction": "Draw a figure using CV pixel coordinates (origin top-left, y down; convert with TikZ y = -y_px, use scale 0.01 or equivalent, all coordinates from these measurements): B=(68.65,347.17), O=(304.41,346.62), D=(540.45,347.0), A=(456.57,166.03), C=(335.88,65.07), E=(292.54,110.74). Draw: solid baseline segment B-O-D (diameter BD, O is midpoint). Solid semicircular arc centered at O radius 236 px from B to D over the upper side (visible range 0-180 deg). Solid path B--E--C (E lies on segment BC; keep it as one stroke through E). Solid segments C--A, B--A, O--A. Right-angle square marks at C (between CB and CA) and at A (between AO and AC), side about 12 px. Label the points with their letters placed outside: B left-below, D right-below, O below, A right, C above, E left. Use a standalone compilable document with tikz."
+        "instruction": "Reconstruct the figure as TikZ with image pixel coordinates converted to TikZ (y flipped: y_tikz = -y_px, scale consistently e.g. 0.01 cm per px or use a shared scale). Use these verified points: B(68.65,347.17), O(304.41,346.62), D(540.45,347.00), A(456.57,166.03), C(335.88,65.07), E(292.54,110.74). Draw the semicircle arc centered at O with radius 236 px from B to D along the upper half (0 to 180 deg), with the diameter BD as a solid segment. Draw solid segments BC, CA, BA, AO, and E lies on segment BC (draw BC through E as one path B--E--C, do not replace with a shortcut). Draw right-angle marks at C (between rays CB and CA, side ~13 px) and at A (between rays AC and AO, side ~11 px). Labels: B left of B, D right of D, O below O, A upper-right of A, C above C, E left/above E. Keep the point labels visible. Compile with standalone or tikzpicture only."
       },
       "status": "ok",
       "result_summary": "ok=True; version=1; compile_ok=True; validation_passed=True; best_version=1",
-      "duration_s": 32.91,
+      "duration_s": 46.03,
       "token_usage": {
-        "delta": 19521
+        "delta": 22106
       },
       "visual_calls": 2,
       "error": null
@@ -1942,10 +2036,9 @@
       "action": "finish",
       "purpose": "finish run",
       "params": {
-        "summary": "Version 1 compiled and passed validation and topology checks. Critic score 0.92, must_repair false. The figure shows a semicircle on diameter BD with center O, chords B–E–C, C–A, B–A and O–A, right-angle marks at C and A, and labels A, B, C, D, E, O.",
+        "summary": "TikZ version 1 compiled and passed topology validation. It reproduces the semicircle arc centred at O (radius 236 px) from B to D, the diameter BD, the path B--E--C, segments BA, CA and AO, right-angle marks at C and A, and all six labels (A, B, C, D, E, O). Critic score 0.92, must_repair=false.",
         "unresolved": [
-          "Whether the B–E–C line is one stroke or two segments ending at E is not determinable from the raster; it was drawn as one continuous path through E.",
-          "The semicircle endpoints B and D sit on the baseline; drawn as solid per CV style."
+          "Low severity: the E label sits slightly low and close to the B-C stroke and arc; 'above left' placement would match the original better. Not repaired."
         ],
         "status": "success"
       },
@@ -1999,37 +2092,37 @@
     "totals": {
       "calls": 5,
       "visual_calls": 3,
-      "prompt_tokens": 37899,
-      "completion_tokens": 9326,
-      "total_tokens": 47225,
-      "cached_tokens": 12173.0,
-      "cache_write_tokens": 9367.0,
-      "latency_s": 53.79
+      "prompt_tokens": 39512,
+      "completion_tokens": 11886,
+      "total_tokens": 51398,
+      "cached_tokens": 0.0,
+      "cache_write_tokens": 39494.0,
+      "latency_s": 76.26
     },
     "by_agent": {
       "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 9601,
-        "latency_s": 17.9
+        "total_tokens": 10273,
+        "latency_s": 21.87
       },
       "supervisor": {
         "calls": 2,
         "visual_calls": 0,
-        "total_tokens": 18103,
-        "latency_s": 13.96
+        "total_tokens": 19019,
+        "latency_s": 10.95
       },
       "code_agent:generate": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 9779,
-        "latency_s": 11.15
+        "total_tokens": 10262,
+        "latency_s": 17.68
       },
       "critic_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 9742,
-        "latency_s": 10.78
+        "total_tokens": 11844,
+        "latency_s": 25.76
       }
     }
   },
@@ -2037,12 +2130,12 @@
     "steps_left": 22,
     "tool_calls_left": 42,
     "visual_calls_left": 21,
-    "tokens_left": 352775,
+    "tokens_left": 348602,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 47225
+    "total_tokens_used": 51398
   },
   "meta": {
     "topology_plan": {
@@ -2100,6 +2193,13 @@
         {
           "edge": [
             "B",
+            "D"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
             "O"
           ],
           "style": "solid"
@@ -2114,14 +2214,14 @@
         {
           "edge": [
             "A",
-            "B"
+            "C"
           ],
           "style": "solid"
         },
         {
           "edge": [
             "A",
-            "C"
+            "B"
           ],
           "style": "solid"
         },
@@ -2151,8 +2251,15 @@
       }
     },
     "source_construction": {
-      "summary": "Semicircle centred at O (point_02) with diameter BD on the horizontal baseline (B=point_01 at left, D=point_05 at right; O is the interior midpoint). Radius about 236 px; the arc runs from B over the top to D and passes through E (point_06) and A (point_03). Straight strokes: B-O-D along the baseline (solid), B-A (solid chord), B-E-C as one solid line (E lies on BC between B and C), C-A (solid, tangent at A), and O-A (solid radius). Right angle at C between CB and CA (marker verified). Right angle at A between AC and AO (marker verified; CA is tangent to the circle at A, so OA is perpendicular to CA). All OCR bindings match the glyph positions; no dashed strokes detected.",
+      "summary": "Semicircle with diameter BD, center O (midpoint of BD), radius about 236 px; upper arc from B to D passes through E and A. Secant B-E-C: line from B through E (on circle) to C (outside circle). C-A is tangent to the circle at A. Chord B-A and radius A-O are drawn. Right angles: at C between CB and CA (ray C->B, ray C->A); at A between AC and AO (tangent-radius). All drawn strokes solid per CV (seg_01..seg_05). Feet: none.",
       "strokes": [
+        {
+          "edge": [
+            "B",
+            "D"
+          ],
+          "style": "solid"
+        },
         {
           "edge": [
             "B",
@@ -2164,13 +2271,6 @@
           "edge": [
             "D",
             "O"
-          ],
-          "style": "solid"
-        },
-        {
-          "edge": [
-            "A",
-            "B"
           ],
           "style": "solid"
         },
@@ -2198,6 +2298,13 @@
         {
           "edge": [
             "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
             "O"
           ],
           "style": "solid"
@@ -2219,7 +2326,8 @@
           "side_px": 11.0
         }
       },
-      "feet": []
+      "feet": [],
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
@@ -2303,19 +2411,19 @@
       "applied": false,
       "stage": "post_tikz",
       "constraint_mode": "joint_coordinate_projection",
-      "candidate_source": "generated_tikz",
+      "candidate_source": "generated_tikz_and_original_raster",
       "reference_used": false,
-      "algorithm": "post_tikz.body_candidates.3dp.v3",
+      "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "d84584f02e01dc5cc0560b4e94ddcaeac69715836a0f8881136943e4ba9dcff0",
-      "output_sha256": "d84584f02e01dc5cc0560b4e94ddcaeac69715836a0f8881136943e4ba9dcff0",
+      "input_sha256": "c8ae52062d30cacdd8c22bd513bd72d63e358c745aa4b3e41091da226e6e011b",
+      "output_sha256": "c8ae52062d30cacdd8c22bd513bd72d63e358c745aa4b3e41091da226e6e011b",
       "reason": "all_points_fixed",
       "accepted": [],
       "rejected": [],
       "limits": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2325,15 +2433,31 @@
         "relation_types": [
           "parallel"
         ],
-        "relaxation": 1.0
+        "relaxation": 1.0,
+        "collinear_max_turn_deg": 8.0
       },
       "angle_glyph_exclusion": {
         "excluded_paths": [],
         "excluded_helper_points": [],
         "excluded_strokes": 0
       },
-      "input_candidates": 0,
-      "preserved_incidence_count": 0,
+      "source_collinear_candidates": [
+        {
+          "type": "collinear",
+          "segments": [
+            "B--O",
+            "D--O"
+          ],
+          "labels": [
+            "B",
+            "O",
+            "D"
+          ],
+          "source_turn_deg": 0.2274
+        }
+      ],
+      "input_candidates": 1,
+      "preserved_incidence_count": 1,
       "max_shift_rel": 0.0,
       "max_length_change_rel": 0.0,
       "fixed_points": [
@@ -2360,23 +2484,23 @@
           "O"
         ],
         "dependencies": [
-          "B"
+          "D"
         ],
         "circles": [
           {
             "center": [
-              -0.020000000000000018,
-              -2.1030000000000006
+              -0.02300000000000013,
+              -2.101
             ],
             "radius": 3.529
           }
         ]
       },
-      "candidate_count": 0,
+      "candidate_count": 1,
       "curve_options_applied": {
         "angle_tol_deg": 0.5,
-        "max_shift_rel": 0.005,
-        "max_length_change_rel": 0.01,
+        "max_shift_rel": 0.013,
+        "max_length_change_rel": 0.035,
         "topology_tol_rel": 0.002,
         "incidence_mode": "snap",
         "length_weight": 0.0,
@@ -2478,19 +2602,19 @@
         "applied": false,
         "stage": "post_tikz",
         "constraint_mode": "joint_coordinate_projection",
-        "candidate_source": "generated_tikz",
+        "candidate_source": "generated_tikz_and_original_raster",
         "reference_used": false,
-        "algorithm": "post_tikz.body_candidates.3dp.v3",
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
         "angle_glyphs_are_candidates": false,
-        "input_sha256": "d84584f02e01dc5cc0560b4e94ddcaeac69715836a0f8881136943e4ba9dcff0",
-        "output_sha256": "d84584f02e01dc5cc0560b4e94ddcaeac69715836a0f8881136943e4ba9dcff0",
+        "input_sha256": "c8ae52062d30cacdd8c22bd513bd72d63e358c745aa4b3e41091da226e6e011b",
+        "output_sha256": "c8ae52062d30cacdd8c22bd513bd72d63e358c745aa4b3e41091da226e6e011b",
         "reason": "all_points_fixed",
         "accepted": [],
         "rejected": [],
         "limits": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2500,15 +2624,31 @@
           "relation_types": [
             "parallel"
           ],
-          "relaxation": 1.0
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
         },
         "angle_glyph_exclusion": {
           "excluded_paths": [],
           "excluded_helper_points": [],
           "excluded_strokes": 0
         },
-        "input_candidates": 0,
-        "preserved_incidence_count": 0,
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--O",
+              "D--O"
+            ],
+            "labels": [
+              "B",
+              "O",
+              "D"
+            ],
+            "source_turn_deg": 0.2274
+          }
+        ],
+        "input_candidates": 1,
+        "preserved_incidence_count": 1,
         "max_shift_rel": 0.0,
         "max_length_change_rel": 0.0,
         "fixed_points": [
@@ -2535,23 +2675,23 @@
             "O"
           ],
           "dependencies": [
-            "B"
+            "D"
           ],
           "circles": [
             {
               "center": [
-                -0.020000000000000018,
-                -2.1030000000000006
+                -0.02300000000000013,
+                -2.101
               ],
               "radius": 3.529
             }
           ]
         },
-        "candidate_count": 0,
+        "candidate_count": 1,
         "curve_options_applied": {
           "angle_tol_deg": 0.5,
-          "max_shift_rel": 0.005,
-          "max_length_change_rel": 0.01,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
           "topology_tol_rel": 0.002,
           "incidence_mode": "snap",
           "length_weight": 0.0,
@@ -2566,7 +2706,7 @@
       }
     },
     "finish": {
-      "summary": "Version 1 compiled and passed validation and topology checks. Critic score 0.92, must_repair false. The figure shows a semicircle on diameter BD with center O, chords B–E–C, C–A, B–A and O–A, right-angle marks at C and A, and labels A, B, C, D, E, O.",
+      "summary": "TikZ version 1 compiled and passed topology validation. It reproduces the semicircle arc centred at O (radius 236 px) from B to D, the diameter BD, the path B--E--C, segments BA, CA and AO, right-angle marks at C and A, and all six labels (A, B, C, D, E, O). Critic score 0.92, must_repair=false.",
       "status": "success"
     },
     "stop_reason": "finish"
