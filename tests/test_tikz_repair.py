@@ -7,6 +7,7 @@ import pytest
 
 from geoagent.config import load_settings
 from geoagent.orchestration.runner import GeoAgentRunner
+from geoagent.state.repair_pipeline import repair_generated_tikz
 from geoagent.state.schemas import GeometricEvidenceState, GeometryObject
 from geoagent.state.tikz_geometry import extract_geometry
 from geoagent.state.tikz_repair import repair_tikz_constraints
@@ -138,7 +139,8 @@ def make_runner(tmp_path):
     runner.run_dir = tmp_path
     runner.state = GeometricEvidenceState(image_path="original.png", image_size={"width":400,"height":300})
     runner.state.add_object(GeometryObject(id="A", type="point", coords={"px":[0,0]}))
-    runner.settings = load_settings({"geometry_repair_stage":"post_tikz", "geometry_repair":True})
+    runner.settings = load_settings({"geometry_repair_stage":"post_tikz", "geometry_repair":True,
+                                     "post_repair_mode":"legacy"})
     runner.tikz_agent = SimpleNamespace(run=lambda *args, **kwargs: {"ok":True,"tex":DOC})
     return runner
 
@@ -174,3 +176,84 @@ def test_failed_repaired_compile_falls_back_to_same_original(tmp_path):
     assert len(attempted)==2 and attempted[-1]==DOC
     assert runner.state.latest_version().tex==DOC
     assert runner.state.meta["constraint_repair"]["reason"]=="compile_fallback"
+
+
+def test_runner_default_exports_engine_verified_geometry(tmp_path, monkeypatch):
+    runner = make_runner(tmp_path)
+    runner.settings = load_settings({"geometry_repair": True, "post_repair_mode": "extended_hybrid"})
+    monkeypatch.setattr(runner, "_budget_stop", lambda: None)
+    runner._compile_version = lambda n: {
+        "compile_ok": True, "validation_passed": True, "errors": [], "warnings": [], "png_path": None,
+    }
+    assert runner._do_tikz_agent({"use_image": False})["ok"]
+    version = runner.state.latest_version()
+    report = runner.state.meta["constraint_repair"]
+    assert report["algorithm"] == "post_tikz.extended_hybrid.v1"
+    assert report["extended_hybrid"]["exact"] == len(report["accepted"]) == 6
+    assert "pt," in version.tex and "GEOINT:" not in version.tex
+    assert repair_generated_tikz(version.tex, runner.settings).tex == version.tex
+
+
+def test_extended_repair_falls_back_when_probe_fails():
+    settings = load_settings({"geometry_repair": True, "post_repair_mode": "extended_hybrid"})
+
+    def unavailable(_tex, _names):
+        raise ValueError("missing compiled points")
+
+    result = repair_generated_tikz(DOC, settings, probe=unavailable)
+    assert result.tex == result.legacy_tex != DOC
+    assert result.report["extended_hybrid"]["mode"] == "legacy_fallback"
+    assert result.report["output_sha256"] == hashlib.sha256(result.tex.encode()).hexdigest()
+
+
+def test_strict_repair_is_default_and_requires_engine_exactness():
+    settings = load_settings({"geometry_repair": True, "post_repair_mode": "strict"})
+    assert load_settings().geometry.post_repair_mode == "strict"
+    result = repair_generated_tikz(DOC, settings)
+    assert result.tex != DOC and result.report["applied"], result.report
+    assert len(result.report["accepted"]) == 6
+    assert all(row["engine_integer_exact"] for row in result.report["accepted"])
+    assert repair_generated_tikz(result.tex, settings).tex == result.tex
+
+
+def test_strict_repair_rolls_back_if_final_compile_rejects_result(tmp_path, monkeypatch):
+    runner = make_runner(tmp_path)
+    runner.settings = load_settings({"geometry_repair": True, "post_repair_mode": "strict"})
+    monkeypatch.setattr(runner, "_budget_stop", lambda: None)
+    attempted = []
+
+    def compile_version(n):
+        tex = runner.state.get_version(n).tex
+        attempted.append(tex)
+        ok = tex == DOC
+        return {"compile_ok": ok, "validation_passed": ok, "errors": [] if ok else ["bad export"],
+                "warnings": [], "png_path": None}
+
+    runner._compile_version = compile_version
+    assert runner._do_tikz_agent({"use_image": False})["ok"]
+    assert len(attempted) == 2 and attempted[0] != DOC and attempted[-1] == DOC
+    report = runner.state.meta["constraint_repair"]
+    assert report["reason"] == "compile_fallback" and report["accepted"] == []
+
+
+def test_strict_repair_retains_boundary_when_readback_fails():
+    settings = load_settings({"geometry_repair": True, "post_repair_mode": "strict"})
+
+    def unavailable(_tex, _names):
+        raise ValueError("missing compiled points")
+
+    result = repair_generated_tikz(DOC, settings, probe=unavailable)
+    assert result.tex == DOC and result.legacy_tex != DOC
+    assert not result.report["applied"] and result.report["accepted"] == []
+    assert result.report["output_sha256"] == hashlib.sha256(DOC.encode()).hexdigest()
+
+
+def test_preservation_blocks_lost_midpoint_and_new_crossing():
+    from geoagent.state.strict_relations import validate_relations
+
+    before = {"A": (0, 0), "B": (8, 0), "M": (4, 0), "C": (2, 1), "D": (3, 4)}
+    edges = {"A--B": ("A", "B"), "C--D": ("C", "D")}
+    with pytest.raises(ValueError, match="midpoint changed"):
+        validate_relations(before, {**before, "M": (5, 0)}, edges, [], .003)
+    with pytest.raises(ValueError, match="proper crossing changed"):
+        validate_relations(before, {**before, "C": (2, -1)}, edges, [], .003)

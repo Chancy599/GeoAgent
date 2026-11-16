@@ -6,6 +6,17 @@ DECIMALS = 3
 QUANTUM = 10 ** -DECIMALS
 NUM = r'[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?'
 VALUE = r'('+NUM+r')(\s*(?:cm|mm|pt|in|em|ex)\b)?'
+PT_PER_CM = 72.27 / 2.54
+_CARTESIAN = re.compile(r'\s*(' + NUM + r')\s*(pt)?\s*,\s*(' + NUM + r')\s*(pt)?\s*')
+
+
+def cartesian_values(token):
+    """Parse a plain Cartesian pair or a pair of explicit TeX pt dimensions."""
+    match = _CARTESIAN.fullmatch(token)
+    if match is None or match[2] != match[4]:
+        return None
+    scale = PT_PER_CM if match[2] else 1
+    return [float(match[1]) / scale, float(match[3]) / scale]
 
 
 def number(value):

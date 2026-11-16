@@ -333,11 +333,14 @@ def apply_reference_corrections(graph, spec, source_hash):
             first, second = construction['segments']
             a, b, c, d = (get(name) for name in (*first, *second))
             u, v = b-a, d-c
+            through = construction.get('second_parallel_through')
+            if through is not None:
+                c = get(through)
             system = np.column_stack((u, -v))
             if abs(np.linalg.det(system)) <= 1e-10 * max(float(np.linalg.norm(u)*np.linalg.norm(v)), 1e-12):
                 raise ValueError('Reference segments do not have a unique intersection')
             t, s = np.linalg.solve(system, c-a)
-            if not all(-1e-9 <= parameter <= 1+1e-9 for parameter in (t, s)):
+            if not (-1e-9 <= t <= 1+1e-9 and (through is not None or -1e-9 <= s <= 1+1e-9)):
                 raise ValueError('Reference intersection lies outside a segment')
             point = a + t*u
         else:
@@ -381,10 +384,11 @@ def apply_reference_corrections(graph, spec, source_hash):
         graph.extraction_audit['reviewed_reference_corrections'] = corrections
 
 
-def _reference_intersection_order(path, spec, source_hash):
-    """Select the execution-verified order of an implicitly ordered reference path."""
+def _reviewed_reference_source(path, spec, source_hash):
+    """Apply reviewed TeX input fixes before dependent constructions are parsed."""
     orders = (spec or {}).get('intersection_order', [])
-    if not orders:
+    overrides = (spec or {}).get('coordinate_overrides', {})
+    if not orders and not overrides:
         return None
     if spec['source_sha256'] != source_hash:
         raise ValueError('Reference correction source hash changed; review correction')
@@ -398,6 +402,13 @@ def _reference_intersection_order(path, spec, source_hash):
         text, count = re.subn(pattern, lambda match: match[1] + f'sort by={sort_by}, ', text)
         if count != 1:
             raise ValueError('Expected one matching implicitly ordered reference intersection')
+    for label, xy in overrides.items():
+        if not re.fullmatch(r'[A-Z]', label) or len(xy) != 2 or not np.isfinite(xy).all():
+            raise ValueError('Invalid reviewed coordinate override')
+        pattern = rf'(\\coordinate\s*\({label}\)\s*at\s*)\([-+\d.,\s]+\)(?=\s*;)'
+        text, count = re.subn(pattern, lambda match: match[1] + f'({xy[0]},{xy[1]})', text)
+        if count != 1:
+            raise ValueError('Expected one matching literal coordinate for reference override')
     return text
 
 
@@ -405,14 +416,20 @@ def freeze_reference(path, corrections=None):
     path = Path(path)
     source_hash = hashlib.sha256(path.read_bytes()).hexdigest()
     spec = (corrections or {}).get(path.stem)
-    source_text = _reference_intersection_order(path, spec, source_hash)
+    source_text = _reviewed_reference_source(path, spec, source_hash)
     graph = make_graph(_drawing(path, source_text=source_text))
     apply_reference_corrections(graph, spec, source_hash)
     if source_text is not None:
-        graph.extraction_audit['reviewed_reference_corrections'] = [
-            *graph.extraction_audit.get('reviewed_reference_corrections', []),
-            {'type': 'intersection_order', 'orders': spec['intersection_order'], 'reason': spec['reason']},
-        ]
+        audit = graph.extraction_audit.setdefault('reviewed_reference_corrections', [])
+        if 'intersection_order' in spec:
+            audit.append({'type': 'intersection_order', 'orders': spec['intersection_order'], 'reason': spec['reason']})
+        if 'coordinate_overrides' in spec:
+            original = make_graph(_drawing(path))
+            for label in spec['coordinate_overrides']:
+                old_xy, new_xy = original.bindings[label]['xy'], graph.bindings[label]['xy']
+                graph.bindings[label]['source_xy'] = old_xy
+                audit.append({'type': 'coordinate_override', 'label': label, 'source_xy': old_xy,
+                              'corrected_xy': new_xy, 'reason': spec['reason']})
     items = reference_items(graph)
     identity = score(graph, graph, items)
     names = graph.label_names

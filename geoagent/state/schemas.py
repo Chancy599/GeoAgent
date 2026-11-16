@@ -331,7 +331,8 @@ class GeometricEvidenceState(BaseModel):
     def update_best(self, *, allow_unscored: bool = True) -> int | None:
         """Pick the best compiled version.
 
-        Prefer versions with fewer high/medium actionable issues, then the
+        Prefer verified topology. Among partial versions prefer fewer duplicate
+        strokes, then fewer high/medium actionable issues, then the
         deterministic checklist score, then the VLM critic score, then the
         newest version.
         """
@@ -345,6 +346,7 @@ class GeometricEvidenceState(BaseModel):
             best = max(
                 scored,
                 key=lambda v: (
+                    -len((v.topology_check or {}).get('overlapping_strokes', [])),
                     -_serious_issue_count(v.critic_report),
                     _checklist_value(v.critic_report),
                     float(v.critic_score or 0),

@@ -1,0 +1,33 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (9,0);
+    \coordinate (C) at (6,5);
+    \coordinate (D) at (3,0);
+    % E is the foot of the perpendicular from D to AC
+    % Line AC: y = 5/6 x
+    % Line DE: y - 0 = -6/5 (x - 3)
+    % Intersection: 5/6 x = -1.2 x + 3.6 => (5/6 + 6/5)x = 3.6 => 61/30 x = 3.6 => x = 108/61
+    % y = 5/6 * 108/61 = 90/61
+    \coordinate (E) at (108/61, 90/61);
+
+    \draw (A) -- (B) -- (C) -- cycle;
+    \draw (C) -- (D);
+    \draw (D) -- (E);
+
+    % Right angle mark at E
+    \coordinate (P1) at ($(E)!0.2cm!(A)$);
+    \coordinate (P2) at ($(E)!0.2cm!(D)$);
+    \draw (P1) -- ($(P1) + (P2) - (E)$) -- (P2);
+
+    \node[below left] at (A) {$A$};
+    \node[below right] at (B) {$B$};
+    \node[above] at (C) {$C$};
+    \node[below] at (D) {$D$};
+    \node[above left] at (E) {$E$};
+\end{tikzpicture}
+\end{document}

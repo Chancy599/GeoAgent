@@ -27,6 +27,14 @@ def test_free_endpoints_bind_visible_labels_without_pulling_junctions():
     assert result['params']['free_endpoint_candidates']>=2
 
 
+def test_free_endpoint_recovery_ignores_strokes_inside_the_letter():
+    from geoagent.cv_tools.label_detection import bind_point_labels
+    source = Path(__file__).resolve().parents[1] / 'data/test/image/7017_q_fig1.png'
+    result = bind_point_labels(source, visualize=False)
+    binding = next(b for b in result['results']['bindings'] if b['char'] == 'M')
+    assert binding['point_px'] == pytest.approx([518, 66], abs=3)
+
+
 @pytest.fixture(scope="module")
 def circles_payload(tmp_path_factory, semicircle_item):
     out = tmp_path_factory.mktemp("cv_circles")

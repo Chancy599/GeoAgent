@@ -10,6 +10,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from geoagent.evaluation.geometry_quality import QUALITY_POLICY, summarize_geometry_quality
+from scripts.evaluate_reference_constraints import DIAGRAM_THRESHOLDS
+from scripts.evaluate_structure_ab import paired_geometry
 
 FULL_COHORT_ERROR_CAPS = {'angle': 180., 'ratio': 1.}
 
@@ -107,6 +109,7 @@ def main():
     parser.add_argument('--qwen', type=Path, default=ROOT/'outputs/baseline/qwen3.5-plus')
     parser.add_argument('--glm', type=Path, default=ROOT/'outputs/baseline/glm-5.3-flash')
     parser.add_argument('--reference-dir', type=Path, default=ROOT/'data/test/geometry_reference')
+    parser.add_argument('--diagram-details', type=Path, help='per-image compiled diagram checks')
     parser.add_argument('--geometry-only', action='store_true', help='report geometry without running or reusing visual metrics')
     parser.add_argument('--no-readme', action='store_true', help='stage reports without editing README')
     args = parser.parse_args()
@@ -137,7 +140,14 @@ def main():
     if set(structure['groups']) != set(archives) or (visual is not None and set(visual['groups']) != set(archives)):
         raise ValueError('Evaluated results must contain the same supported methods')
     per_group = {name: group['per_stem'] for name, group in structure['groups'].items()}
-    geometry = full_cohort_geometry(per_group, stems)
+    geometry = paired_geometry(per_group, list(archives), stems)
+    diagram_path = args.diagram_details or out/'reference_constraints_details.json'
+    diagram_groups = None
+    if args.diagram_details is not None or diagram_path.is_file():
+        paths['diagram_details'] = diagram_path
+        diagram_groups = read(diagram_path)['groups']
+    if not args.no_readme and diagram_groups is None:
+        parser.error('provide compiled whole-diagram results with --diagram-details to update README')
     quality_policy = structure.get('geometry_quality_protocol')
     if quality_policy is not None and quality_policy != QUALITY_POLICY:
         raise ValueError('Geometry quality protocol changed; re-run structural evaluation')
@@ -160,7 +170,9 @@ def main():
                 or (visual_group is not None and [row['stem'] for row in visual_group['per_stem']] != stems)):
             raise ValueError(f'Incomplete per-image results: {name}')
         coverage = structure['groups'][name]['summary']
-        published = Path('outputs/ours') if name == 'ours' else Path('outputs/baseline')/name
+        published = archive.resolve()
+        if published.is_relative_to(ROOT):
+            published = published.relative_to(ROOT)
         hashes = {'images': {}, 'programs': {}}
         for stem in stems:
             image_hash = sha(archive/'image'/f'{stem}.png')
@@ -174,8 +186,8 @@ def main():
             protected[(published/'latex'/f'{stem}.tex').as_posix()] = tex_hash
         values[name] = {
             **(visual_group['summary'] if visual_group is not None else {}),
-            'angle_mae_with_missing_deg': geometry['angle']['means'][name],
-            'ratio_mre_capped_with_missing': geometry['ratio']['means'][name],
+            'angle_mae_common_deg': geometry['angle']['means'][name],
+            'ratio_mre_common': geometry['ratio']['means'][name],
             'coverage': {key: coverage[key] for key in ('coverage', 'angle_coverage', 'ratio_coverage')},
             'n_unparseable': coverage['n_unparseable'],
             'input_sha256': hashes,
@@ -185,17 +197,25 @@ def main():
             if quality['point_images'] != len(stems):
                 raise ValueError(f'Expected point error on the complete cohort: {name}')
             values[name]['geometry_quality'] = quality
+        if diagram_groups is not None:
+            checks = diagram_groups[name]
+            if set(checks) != set(stems) or any(checks[s]['program_sha256'] != hashes['programs'][s] for s in stems):
+                raise ValueError(f'Whole-diagram results differ from evaluated outputs: {name}')
+            if any(len(checks[stem]['diagram_pass']) != len(DIAGRAM_THRESHOLDS) for stem in stems):
+                raise ValueError(f'Unexpected whole-diagram threshold count: {name}')
+            values[name]['diagram_pass'] = [sum(checks[s]['diagram_pass'][i] for s in stems)
+                                            for i in range(len(DIAGRAM_THRESHOLDS))]
 
     result = {
-        'schema': 'model-comparison-geometry.v1' if args.geometry_only else 'model-comparison-five-metrics.v4',
+        'schema': 'model-comparison-common-geometry.v1',
         'visual_evaluated': visual is not None,
         'count': len(stems),
         'shared_stems': stems,
         'reference_manifest_sha256': sha(manifest_path),
-        'geometry_full_cohort': geometry,
+        'geometry_common': geometry,
         'groups': values,
         'source_sha256': {name: sha(path) for name, path in paths.items()},
-        'geometry_aggregation': f'All reference items on the fixed {len(stems)} images. Unavailable items receive the error cap; errors are averaged within each image, then across images.',
+        'geometry_aggregation': 'MAE/MRE use the same measurable items for all compared groups, with no missing-item penalty or error cap. Average within each image, then across images with common items.',
     }
     if quality_policy is not None:
         result['geometry_quality_protocol'] = quality_policy
@@ -205,34 +225,29 @@ def main():
     def metric(value, scale, digits):
         return '—' if value is None else f'{value*scale:.{digits}f}'
 
-    headers = ['方法', '角度 MAE（含缺测，°）↓', '比例 MRE（含缺测及封顶，%）↓']
+    headers = ['方法', '角度 MAE（共同可测，°）↓', '比例 MRE（共同可测，%）↓']
     visual_keys = ('ssim', 'clip', 'dino') if visual is not None else ()
     if visual_keys:
         headers[1:1] = ['SSIM ×100 ↑', 'CLIP ×100 ↑', 'DINO ×100 ↑']
+    if quality_policy is not None:
+        headers += ['**线段 F1（%）↑**', '**对齐后点位误差（%）↓**']
+    if diagram_groups is not None:
+        headers += [f'**整图通过率（{a:g}° / {r*100:g}%）↑**' for a,r in DIAGRAM_THRESHOLDS]
     lines = ['| ' + ' | '.join(headers) + ' |', '|---|' + '---:|' * (len(headers) - 1)]
     for name, row in values.items():
         fields = [metric(row[key], 100, 4) for key in visual_keys]
-        fields.extend((metric(row['angle_mae_with_missing_deg'], 1, 6),
-                       metric(row['ratio_mre_capped_with_missing'], 100, 6)))
+        fields.extend((metric(row['angle_mae_common_deg'], 1, 6),
+                       metric(row['ratio_mre_common'], 100, 6)))
+        if quality_policy is not None:
+            fields.extend(metric(row['geometry_quality'][key], 100, 4) for key in ('edge_f1', 'point_error'))
+        if diagram_groups is not None:
+            fields.extend(f'{n}/{len(stems)}（{n/len(stems)*100:.2f}%）' for n in row['diagram_pass'])
         lines.append('| ' + ' | '.join([name, *fields]) + ' |')
     angle, ratio = geometry['angle'], geometry['ratio']
-    lines += ['', f"几何指标纳入全部 {angle['n_images']} 张图、{angle['n_items']} 个参考角度和 "
-              f"{ratio['n_items']} 个参考比例。缺测角度计 {angle['missing_error']:g}°，缺测比例计 "
-              f"{ratio['missing_error']*100:g}%，可测比例误差同样封顶 {ratio['error_cap']*100:g}%。"
-              f"先在各图内平均，再等权平均 {len(stems)} 张图。", '',
-              '| 方法 | 线段覆盖率（%）↑ | 角度覆盖率（%）↑ | 比例覆盖率（%）↑ |',
-              '|---|---:|---:|---:|']
-    for name, row in values.items():
-        fields = [metric(row['coverage'][key], 100, 4) for key in ('coverage', 'angle_coverage', 'ratio_coverage')]
-        lines.append('| ' + ' | '.join([name, *fields]) + ' |')
-    if quality_policy is not None:
-        lines += ['', f'线段和点位指标同样对全部 {len(stems)} 张图等权平均。点位误差以参考标签点集的直径为单位，表中显示百分比。', '',
-                  '| 方法 | 线段精确率（%）↑ | 线段 F1（%）↑ | 对齐后点位误差（%）↓ |',
-                  '|---|---:|---:|---:|']
-        for name, row in values.items():
-            quality = row['geometry_quality']
-            fields = [metric(quality[key], 100, 4) for key in ('edge_precision', 'edge_f1', 'point_error')]
-            lines.append('| ' + ' | '.join([name, *fields]) + ' |')
+    lines += ['', f"MAE 使用 {angle['n_images']} 张图的 {angle['n_items']:,} 个共同可测角度，"
+              f"MRE 使用 {ratio['n_images']} 张图的 {ratio['n_items']:,} 个共同可测长度比。"
+              "先在每张图内平均，再对有共同项的图等权平均。缺测项不计入，误差不封顶。",
+              f"其他列基于全部 {len(stems)} 张图。"]
     (out/'comparison.md').write_text('\n'.join(lines)+'\n', encoding='utf-8')
     generation_path = out/'input_manifest.json'
     generation = read(generation_path).get('groups', {}) if generation_path.is_file() else {}

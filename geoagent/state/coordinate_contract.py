@@ -15,6 +15,7 @@ from .coordinate_precision import number, quantize_tex
 from .schemas import Relation
 
 MEASURED_POINT_SOURCES = {'cv:bind_point_labels', 'cv:construction_intersection', 'cv:construction_mark_vertex'}
+MEASURED_LABEL = r'[A-Z][0-9]*'
 
 def binding_review_points(state):
     """Existing CV vertices and current assignments available for visual review."""
@@ -72,7 +73,7 @@ def apply_reviewed_bindings(state, proposals, *, source='critic_agent'):
             continue
         old = state.label_bindings.get(label)
         owner = next((name for name, key in state.label_bindings.items() if key == point_id), None)
-        if (not re.fullmatch("[A-Z]", label) or old == point_id or label in accepted
+        if (not re.fullmatch(MEASURED_LABEL, label) or old == point_id or label in accepted
                 or point_id not in measured or not reason.strip()
                 or (owner is not None and owner != row.get("replaces"))
                 or state.objects[point_id].label not in (None, label, owner)):
@@ -104,12 +105,14 @@ def build_coordinate_contract(state, metrics=None):
     points = {}
     skipped = {}
     for label, point_id in sorted(state.label_bindings.items()):
-        # Restrict this first implementation to ordinary single-letter labels.
-        if not re.fullmatch('[A-Z]', label):
+        if not re.fullmatch(MEASURED_LABEL, label):
             continue
         obj = state.objects.get(point_id)
         review = state.meta.get("reviewed_bindings", {}).get(label, {})
         verified = bool(obj and review.get("point_id") == point_id and review.get("px") == obj.coords.get("px"))
+        if len(label) > 1 and not verified:
+            skipped[label] = 'unreviewed_subscript_binding'
+            continue
         labels = [o for o in state.objects.values() if o.type == 'label' and o.label == label
                   and o.status != 'rejected']
         if (obj is None or obj.type != 'point' or obj.label != label or obj.source not in MEASURED_POINT_SOURCES
@@ -180,7 +183,7 @@ def apply_coordinate_contract(tex, contract):
         raise ValueError('CV coordinate contract requires one picture without coordinate transforms/scopes')
     # Model definitions may only repeat the exact supplied measurement. Incorrect
     # frames/rounding are rejected, rather than silently changing curve radii etc.
-    pattern = r'\\coordinate\s*\(([A-Z]|GeoTail[A-Z])\)\s*at\s*(.*?);'
+    pattern = rf'\\coordinate\s*\(((?:GeoTail)?{MEASURED_LABEL})\)\s*at\s*(.*?);'
     seen = set()
     def remove_definition(match):
         label = match[1]
@@ -203,12 +206,16 @@ def apply_coordinate_contract(tex, contract):
             raise ValueError(f'Coordinate {label} may not be redefined by a node/path')
         if point.get('extension_from'):
             continue
+        printed = label
+        if len(label) > 1:
+            letter, digits = label[0], label[1:]
+            printed = rf'{letter}(?:{digits}|_\s*(?:{digits}|\{{\s*{digits}\s*\}}))'
         found = False
         for node in nodes:
             text = re.sub(r'\\fontsize\s*\{[^{}]*\}\s*\{[^{}]*\}', '', node)
             text = re.sub(r'\\(?:selectfont|bfseries|itshape|rmfamily)\b', '', text)
             text = re.sub(r'\\(?:mathrm|mathit|mathbf|text)\s*\{([A-Z])\}', r'\1', text)
-            if not re.search(r'\{\s*\$?'+label+r'\$?\s*\}\s*;', text):
+            if not re.search(r'\{\s*\$?'+printed+r'\$?\s*\}\s*;', text):
                 continue
             found = True
             if not re.search(r'\bat\s*\(\s*'+label+r'\s*\)', node):

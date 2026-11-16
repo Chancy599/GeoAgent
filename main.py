@@ -34,6 +34,7 @@ def _settings(args: argparse.Namespace):
         "timeout_seconds": args.timeout_seconds,
         "geometry_repair": args.geometry_repair,
         "geometry_repair_stage": args.geometry_repair_stage,
+        "post_repair_mode": args.geometry_repair_mode,
         "rectify": args.right_angle_rectify,
         "right_angle_mode": args.right_angle_mode,
     }
@@ -317,6 +318,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     batch.add_argument("--archive-dir", default="outputs/ours", help="where successful runs are archived")
     batch.add_argument("--geometry-repair-stage", choices=("post_tikz", "pre_ges"), default=None)
+    for command in (run, batch):
+        command.add_argument("--geometry-repair-mode", choices=("strict", "extended_hybrid", "legacy"),
+                             help="post-TikZ export mode (default: strict)")
     batch.add_argument("--no-archive", action="store_true", help="keep the temporary run directories")
     batch.set_defaults(func=cmd_batch)
     return parser

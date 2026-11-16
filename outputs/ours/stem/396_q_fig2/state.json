@@ -539,7 +539,7 @@
     "point_01": {
       "id": "point_01",
       "type": "point",
-      "label": null,
+      "label": "A1",
       "coords": {
         "px": [
           80.16,
@@ -596,7 +596,7 @@
     "point_04": {
       "id": "point_04",
       "type": "point",
-      "label": null,
+      "label": "B1",
       "coords": {
         "px": [
           339.54,
@@ -653,7 +653,7 @@
     "point_07": {
       "id": "point_07",
       "type": "point",
-      "label": null,
+      "label": "C1",
       "coords": {
         "px": [
           492.65,
@@ -1099,6 +1099,81 @@
       "confidence": null,
       "notes": [],
       "attributes": {}
+    },
+    "seg_BEB1": {
+      "id": "seg_BEB1",
+      "type": "segment",
+      "label": "BEB1",
+      "coords": {
+        "a_px": [
+          278.93,
+          135.71
+        ],
+        "b_px": [
+          339.54,
+          278.06
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_C1B1": {
+      "id": "seg_C1B1",
+      "type": "segment",
+      "label": "C1B1",
+      "coords": {
+        "a_px": [
+          492.65,
+          159.72
+        ],
+        "b_px": [
+          339.54,
+          278.06
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
+    },
+    "seg_AA1": {
+      "id": "seg_AA1",
+      "type": "segment",
+      "label": "AA1",
+      "coords": {
+        "a_px": [
+          139.0,
+          136.0
+        ],
+        "b_px": [
+          80.16,
+          278.04
+        ]
+      },
+      "normalized": {},
+      "style": {
+        "line": "solid"
+      },
+      "source": "geometry_agent",
+      "status": "candidate",
+      "confidence_kind": "heuristic-evidence (not a calibrated probability)",
+      "confidence": null,
+      "notes": [],
+      "attributes": {}
     }
   },
   "relations": {
@@ -1182,6 +1257,78 @@
       "source": "geometry_agent",
       "evidence": "seg_04 ends at C1.",
       "status": "candidate"
+    },
+    "rel_010": {
+      "id": "rel_010",
+      "subject": "point_03",
+      "relation": "on_segment",
+      "object": "seg_A1C",
+      "source": "geometry_agent",
+      "evidence": "B lies on straight line A1-B-C (slope ~-0.71 then ~-0.73)",
+      "status": "candidate"
+    },
+    "rel_011": {
+      "id": "rel_011",
+      "subject": "point_06",
+      "relation": "on_segment",
+      "object": "seg_BEB1",
+      "source": "geometry_agent",
+      "evidence": "E lies on straight line B-E-B1 (slopes ~2.32 and ~2.33)",
+      "status": "candidate"
+    },
+    "rel_012": {
+      "id": "rel_012",
+      "subject": "point_06",
+      "relation": "on_segment",
+      "object": "seg_CE",
+      "source": "geometry_agent",
+      "evidence": "E is endpoint of C-E stroke",
+      "status": "candidate"
+    },
+    "rel_013": {
+      "id": "rel_013",
+      "subject": "point_06",
+      "relation": "on_segment",
+      "object": "seg_A1E",
+      "source": "geometry_agent",
+      "evidence": "E is endpoint of A1-E stroke",
+      "status": "candidate"
+    },
+    "rel_014": {
+      "id": "rel_014",
+      "subject": "point_07",
+      "relation": "endpoint_of",
+      "object": "seg_C1B1",
+      "source": "geometry_agent",
+      "evidence": "C1 is right corner joining C-C1 and C1-B1",
+      "status": "candidate"
+    },
+    "rel_label_A1": {
+      "id": "rel_label_A1",
+      "subject": "label_A1",
+      "relation": "labels_point",
+      "object": "point_01",
+      "source": "geometry_agent",
+      "evidence": "Subscripted label at lower-left vertex where A1-A, A1-B, A1-E, A1-B1 meet; supervisor verified",
+      "status": "confirmed"
+    },
+    "rel_label_B1": {
+      "id": "rel_label_B1",
+      "subject": "label_B1",
+      "relation": "labels_point",
+      "object": "point_04",
+      "source": "geometry_agent",
+      "evidence": "Subscripted label at lower-middle vertex where bottom line ends and B-E-B1 ends; supervisor verified",
+      "status": "confirmed"
+    },
+    "rel_label_C1": {
+      "id": "rel_label_C1",
+      "subject": "label_C1",
+      "relation": "labels_point",
+      "object": "point_07",
+      "source": "geometry_agent",
+      "evidence": "Subscripted label at right corner where C-C1 and C1-B1 meet; supervisor verified",
+      "status": "confirmed"
     }
   },
   "evidence": {
@@ -2018,6 +2165,303 @@
         }
       },
       "created_at": "2026-11-11T13:00:18"
+    },
+    "ev_0018": {
+      "id": "ev_0018",
+      "source": "geometry_agent",
+      "method": "geometry agent submission",
+      "summary": "Points: A1=point_01 (80.16,278.04), A=point_09, B=point_03 (278.93,135.71), C=point_02 (374.78,66.18), E=point_06 (315.86,221.88), B1=point_04 (339.54,278.06), C1=point_07 (492.65,159.72). Line A1-B-C is one straight solid line from A1 through B to C. Line B-E-B1 is one straight solid line from B through E to B1 (ends at B1). Bottom solid line A1-B1 ends at B1. Other solid strokes: A1-A, A-B, C-C1, C1-B1, A1-E, C-E. All strokes solid, no dashed strokes. point_05 (357,278) and point_08 (361.66,261) are spurious and not drawn. No right-angle marks visible; no feet.",
+      "payload": {
+        "merged": {
+          "objects": 16,
+          "relations": 5,
+          "conflicts": 1,
+          "rejected": []
+        },
+        "object_ids": [
+          "point_01",
+          "point_09",
+          "point_03",
+          "point_02",
+          "point_06",
+          "point_04",
+          "point_07",
+          "seg_A1C",
+          "seg_BEB1",
+          "seg_A1B1",
+          "seg_CC1",
+          "seg_C1B1",
+          "seg_A1E",
+          "seg_CE",
+          "seg_AA1",
+          "seg_AB"
+        ]
+      },
+      "created_at": "2026-11-11T15:10:38"
+    },
+    "ev_0019": {
+      "id": "ev_0019",
+      "source": "geometry_agent",
+      "method": "measured_label_rebinding",
+      "summary": "Corrected 3 source label bindings",
+      "payload": {
+        "A1": {
+          "point_id": "point_01",
+          "px": [
+            80.16,
+            278.04
+          ],
+          "previous_point_id": null,
+          "reason": "Subscripted label at lower-left vertex where A1-A, A1-B, A1-E, A1-B1 meet; supervisor verified",
+          "source": "geometry_agent"
+        },
+        "B1": {
+          "point_id": "point_04",
+          "px": [
+            339.54,
+            278.06
+          ],
+          "previous_point_id": null,
+          "reason": "Subscripted label at lower-middle vertex where bottom line ends and B-E-B1 ends; supervisor verified",
+          "source": "geometry_agent"
+        },
+        "C1": {
+          "point_id": "point_07",
+          "px": [
+            492.65,
+            159.72
+          ],
+          "previous_point_id": null,
+          "reason": "Subscripted label at right corner where C-C1 and C1-B1 meet; supervisor verified",
+          "source": "geometry_agent"
+        }
+      },
+      "created_at": "2026-11-11T15:10:38"
+    },
+    "ev_0020": {
+      "id": "ev_0020",
+      "source": "renderer",
+      "method": "frame_like_original",
+      "summary": "v5 canvas matched to source [573, 349] (scale 0.8013)",
+      "payload": {
+        "ok": true,
+        "size": [
+          573,
+          349
+        ],
+        "reference_size": [
+          573,
+          349
+        ],
+        "scale": 0.8013,
+        "offset": [
+          32,
+          30
+        ]
+      },
+      "created_at": "2026-11-11T15:10:57"
+    },
+    "ev_0021": {
+      "id": "ev_0021",
+      "source": "tikz_constraint_repair",
+      "method": "post-generation joint coordinate projection",
+      "summary": "v5: applied",
+      "payload": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz_and_original_raster",
+        "reference_used": false,
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "9a5cd605ec70d66d523240cc9cbd28ecb004b5311641f3f6d9bf743fcf068d98",
+        "output_sha256": "1f9ee71c36bb0e77ef64b3eecb63f0aa818d665a084198a86115093b9fa4c537",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--E",
+              "B1--E"
+            ],
+            "before_error_deg": 0.38186437724510475,
+            "after_error_deg": 0.058466512130942054,
+            "labels": [
+              "B",
+              "E",
+              "B1"
+            ],
+            "source_turn_deg": 0.0167,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.13584395400880017
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--B",
+              "A1--B1"
+            ],
+            "before_error_deg": 0.1403161756358419,
+            "after_error_deg": 0.015654401011518188,
+            "solver_after_error_deg": 1.5925357423860313e-15,
+            "export_tolerance_deg": 0.0551403325151194
+          }
+        ],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
+          ],
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--E",
+              "B1--E"
+            ],
+            "labels": [
+              "B",
+              "E",
+              "B1"
+            ],
+            "source_turn_deg": 0.0167
+          }
+        ],
+        "input_candidates": 2,
+        "preserved_incidence_count": 1,
+        "max_shift_rel": 0.000421901443285337,
+        "max_length_change_rel": 0.0018596720484829188,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.0002505372855382801,
+        "max_after_error_deg": 0.058466512130942054,
+        "curve_policy": "defer",
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.0003635983994632233,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.058466512130942054,
+        "point_count": 7,
+        "segment_count": 11
+      },
+      "created_at": "2026-11-11T15:10:57"
+    },
+    "ev_0022": {
+      "id": "ev_0022",
+      "source": "code_agent",
+      "method": "tikz repair",
+      "summary": "v5 compiled=True validation=True",
+      "payload": {
+        "notes": "Removed GeoTailB and the duplicate B-C/A1-B strokes. A1-B-C is drawn once as a single path, and A-A1 and A-B share the same path. B-E-B1 is one straight solid path ending at B1. A1-E, C-E, A1-B1, B1-C1 and C1-C are kept. Labels use A1, B1, C1 bindings with the requested placements (B above-left). The program-owned coordinates A, A1, B, B1, C, C1 are not emitted here. Their values differ slightly from the previous source (for example A at y 0.622 vs 0.625), so the program's values are used. E is defined in the source frame at (0.475,-0.766). Line width 1.3pt, line join round, and 13/15.6 pt labels follow STYLE METRICS.",
+        "compile": {
+          "compile_ok": true,
+          "validation_passed": true,
+          "errors": [],
+          "warnings": [],
+          "png_path": ".cache\\metric_followup\\work\\396_q_fig2\\tikz\\v5\\v5.png",
+          "pdf_path": ".cache\\metric_followup\\work\\396_q_fig2\\tikz\\v5\\v5.pdf",
+          "checks": [
+            {
+              "name": "documentclass",
+              "passed": true,
+              "detail": "documentclass present"
+            },
+            {
+              "name": "document_environment",
+              "passed": true,
+              "detail": "begin=1 end=1"
+            },
+            {
+              "name": "tikzpicture",
+              "passed": true,
+              "detail": "one balanced tikzpicture"
+            },
+            {
+              "name": "no_shell_escape",
+              "passed": true,
+              "detail": "no \\write18/\\openout primitives"
+            },
+            {
+              "name": "compiler_ok",
+              "passed": true,
+              "detail": "returncode=0"
+            },
+            {
+              "name": "pdf_created",
+              "passed": true,
+              "detail": ".cache\\metric_followup\\work\\396_q_fig2\\tikz\\v5\\v5.pdf"
+            },
+            {
+              "name": "png_rendered",
+              "passed": true,
+              "detail": ".cache\\metric_followup\\work\\396_q_fig2\\tikz\\v5\\v5.png"
+            },
+            {
+              "name": "render_not_blank",
+              "passed": true,
+              "detail": "ink_ratio=0.0462"
+            },
+            {
+              "name": "aspect_ratio",
+              "passed": true,
+              "detail": "reference 1.64 vs render 1.77 (delta 0.08)"
+            },
+            {
+              "name": "figure_extent_ratio",
+              "passed": true,
+              "detail": "figure bbox ratio 1.80"
+            }
+          ]
+        }
+      },
+      "created_at": "2026-11-11T15:10:57"
+    },
+    "ev_0023": {
+      "id": "ev_0023",
+      "source": "critic_agent",
+      "method": "endpoint_review",
+      "summary": "Reviewed 2 CV endpoint case(s)",
+      "payload": {
+        "8a21bdaddcf06eab": {
+          "edge": [
+            "A1",
+            "C"
+          ],
+          "reason": "In the original, the stroke from A1 runs straight through B and continues to C, so A1-C is one continuous stroke"
+        },
+        "b549b3550973a62c": {
+          "edge": [
+            "A1",
+            "E"
+          ],
+          "reason": "In the original, the stroke from A1 ends at E, which is the labelled interior point"
+        }
+      },
+      "created_at": "2026-11-11T15:11:13"
     }
   },
   "conflicts": [
@@ -2036,18 +2480,37 @@
       ],
       "status": "unresolved",
       "resolution": null
+    },
+    {
+      "id": "conflict_002",
+      "topic": "bottom line extent",
+      "claims": [
+        {
+          "source": "cv detect_lines seg_02",
+          "claim": "bottom line extends to x=373 beyond B1"
+        },
+        {
+          "source": "image",
+          "claim": "bottom line ends at B1 (340,278)"
+        }
+      ],
+      "status": "unresolved",
+      "resolution": null
     }
   ],
   "label_bindings": {
     "C": "point_02",
     "A": "point_09",
     "B": "point_03",
-    "E": "point_06"
+    "E": "point_06",
+    "A1": "point_01",
+    "B1": "point_04",
+    "C1": "point_07"
   },
-  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.3pt]\n\\coordinate (A) at (-2.384,0.625);\n\\coordinate (B) at (-0.122,0.626);\n\\coordinate (C) at (1.427,1.750);\n\\coordinate (GeoTailB) at (-3.413,-1.724);\n\n\n\n\n\\coordinate (A1) at (-3.335,-1.675);\n\\coordinate (B1) at (0.859,-1.672);\n\\coordinate (C1) at (3.332,0.239);\n\\coordinate (E) at (0.472,-0.767);\n\n\n\\draw (A) -- (B);                 \n\\draw (A1) -- (B) -- (C);         \n\\draw (A1) -- (A);                \n\\draw (A1) -- (E);                \n\\draw (C) -- (E);                 \n\\draw (B) -- (E) -- (B1);         \n\\draw (A1) -- (B1);               \n\\draw (B1) -- (C1);               \n\\draw (C) -- (C1);                \n\\draw (B) -- (GeoTailB);          \n\n\n\\node[above] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[above] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\node[right] at (E) {\\fontsize{13}{15.6}\\selectfont $E$};\n\\node[below left] at (A1) {\\fontsize{13}{15.6}\\selectfont $A_1$};\n\\node[below right] at (B1) {\\fontsize{13}{15.6}\\selectfont $B_1$};\n\\node[right] at (C1) {\\fontsize{13}{15.6}\\selectfont $C_1$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 46e8fdea13a70fe275d7988276b9224b44f9dcc714b0baffd7dbe10976e7c1b0\n",
-  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.3pt]\n\\coordinate (A) at (-2.384,0.625);\n\\coordinate (B) at (-0.122,0.626);\n\\coordinate (C) at (1.427,1.750);\n\\coordinate (GeoTailB) at (-3.413,-1.724);\n\n\n\n\\coordinate (A1) at (-3.335,-1.675);   \n\\coordinate (B1) at (0.858,-1.672);    \n\\coordinate (C1) at (3.332,0.239);     \n\\coordinate (E) at (0.472,-0.767);    \n\n\n\\draw (A) -- (B);            \n\\draw (B) -- (C);            \n\\draw (B) -- (GeoTailB);     \n\\draw (A1) -- (A);           \n\\draw (A1) -- (B);           \n\\draw (B) -- (C);            \n\\draw (A1) -- (E);           \n\\draw (C) -- (E);            \n\\draw (B) -- (E);            \n\\draw (E) -- (B1);           \n\\draw (A1) -- (B1);          \n\\draw (B1) -- (C1);          \n\\draw (C) -- (C1);           \n\n\n\\node[above] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\node[above] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[above] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\node[right] at (E) {\\fontsize{13}{15.6}\\selectfont $E$};\n\\node[below left] at (A1) {\\fontsize{13}{15.6}\\selectfont $A_1$};\n\\node[below right] at (B1) {\\fontsize{13}{15.6}\\selectfont $B_1$};\n\\node[right] at (C1) {\\fontsize{13}{15.6}\\selectfont $C_1$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 3924a8caff9318c050915bb3a3a8cab2d2078f715a6d3b2747048a65b72d5033\n",
-  "best_version": 1,
-  "best_score": 0.94,
+  "current_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.3pt]\n\\coordinate (A) at (-2.384,0.625);\n\\coordinate (A1) at (-3.335,-1.675);\n\\coordinate (B) at (-0.122,0.626);\n\\coordinate (B1) at (0.859,-1.672);\n\\coordinate (C) at (1.427,1.750);\n\\coordinate (C1) at (3.332,0.239);\n\n\n\n\\coordinate (E) at (0.472,-0.767);\n\n\n\\draw (B) -- (A) -- (A1) -- (B) -- (C);\n\n\n\\draw (B) -- (E) -- (B1);\n\n\n\\draw (A1) -- (E) -- (C);\n\n\n\\draw (A1) -- (B1) -- (C1) -- (C);\n\n\n\\node[above] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\node[above left] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[above] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\node[right] at (E) {\\fontsize{13}{15.6}\\selectfont $E$};\n\\node[below left] at (A1) {\\fontsize{13}{15.6}\\selectfont $A_1$};\n\\node[below right] at (B1) {\\fontsize{13}{15.6}\\selectfont $B_1$};\n\\node[right] at (C1) {\\fontsize{13}{15.6}\\selectfont $C_1$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 afa69268ea4690332c8ff8cd1cf913aa49d0b3536d0bd90918918a20f3cdbdd0\n",
+  "best_tikz": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.3pt]\n\\coordinate (A) at (-2.384,0.625);\n\\coordinate (A1) at (-3.335,-1.675);\n\\coordinate (B) at (-0.122,0.626);\n\\coordinate (B1) at (0.859,-1.672);\n\\coordinate (C) at (1.427,1.750);\n\\coordinate (C1) at (3.332,0.239);\n\n\n\n\\coordinate (E) at (0.472,-0.767);\n\n\n\\draw (B) -- (A) -- (A1) -- (B) -- (C);\n\n\n\\draw (B) -- (E) -- (B1);\n\n\n\\draw (A1) -- (E) -- (C);\n\n\n\\draw (A1) -- (B1) -- (C1) -- (C);\n\n\n\\node[above] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\node[above left] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[above] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\node[right] at (E) {\\fontsize{13}{15.6}\\selectfont $E$};\n\\node[below left] at (A1) {\\fontsize{13}{15.6}\\selectfont $A_1$};\n\\node[below right] at (B1) {\\fontsize{13}{15.6}\\selectfont $B_1$};\n\\node[right] at (C1) {\\fontsize{13}{15.6}\\selectfont $C_1$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 afa69268ea4690332c8ff8cd1cf913aa49d0b3536d0bd90918918a20f3cdbdd0\n",
+  "best_version": 5,
+  "best_score": 0.93,
   "tikz_versions": [
     {
       "topology_check": {
@@ -2074,6 +2537,11 @@
               "C"
             ]
           ]
+        ],
+        "unverified_bindings": [
+          "A1",
+          "B1",
+          "C1"
         ]
       },
       "version": 1,
@@ -2265,20 +2733,11 @@
     {
       "topology_check": {
         "passed": false,
-        "missing_edges": [
-          [
-            "B",
-            "GeoTailB"
-          ]
-        ],
-        "unverified_styles": [
-          {
-            "edge": [
-              "B",
-              "GeoTailB"
-            ],
-            "style": "solid"
-          }
+        "missing_edges": [],
+        "unverified_bindings": [
+          "A1",
+          "B1",
+          "C1"
         ]
       },
       "version": 2,
@@ -2462,20 +2921,11 @@
     {
       "topology_check": {
         "passed": false,
-        "missing_edges": [
-          [
-            "B",
-            "GeoTailB"
-          ]
-        ],
-        "unverified_styles": [
-          {
-            "edge": [
-              "B",
-              "GeoTailB"
-            ],
-            "style": "solid"
-          }
+        "missing_edges": [],
+        "unverified_bindings": [
+          "A1",
+          "B1",
+          "C1"
         ]
       },
       "version": 3,
@@ -2667,6 +3117,11 @@
               "GeoTailB"
             ]
           ]
+        ],
+        "unverified_bindings": [
+          "A1",
+          "B1",
+          "C1"
         ]
       },
       "version": 4,
@@ -2842,6 +3297,208 @@
         "raw_meta": "{}"
       },
       "critic_score": 0.93
+    },
+    {
+      "topology_check": {
+        "passed": true,
+        "missing_edges": []
+      },
+      "version": 5,
+      "tex": "\\documentclass[tikz,border=10pt]{standalone}\n\\usepackage{amsmath}\n\\begin{document}\n\\begin{tikzpicture}[line join=round, line width=1.3pt]\n\\coordinate (A) at (-2.384,0.625);\n\\coordinate (A1) at (-3.335,-1.675);\n\\coordinate (B) at (-0.122,0.626);\n\\coordinate (B1) at (0.859,-1.672);\n\\coordinate (C) at (1.427,1.750);\n\\coordinate (C1) at (3.332,0.239);\n\n\n\n\\coordinate (E) at (0.472,-0.767);\n\n\n\\draw (B) -- (A) -- (A1) -- (B) -- (C);\n\n\n\\draw (B) -- (E) -- (B1);\n\n\n\\draw (A1) -- (E) -- (C);\n\n\n\\draw (A1) -- (B1) -- (C1) -- (C);\n\n\n\\node[above] at (A) {\\fontsize{13}{15.6}\\selectfont $A$};\n\\node[above left] at (B) {\\fontsize{13}{15.6}\\selectfont $B$};\n\\node[above] at (C) {\\fontsize{13}{15.6}\\selectfont $C$};\n\\node[right] at (E) {\\fontsize{13}{15.6}\\selectfont $E$};\n\\node[below left] at (A1) {\\fontsize{13}{15.6}\\selectfont $A_1$};\n\\node[below right] at (B1) {\\fontsize{13}{15.6}\\selectfont $B_1$};\n\\node[right] at (C1) {\\fontsize{13}{15.6}\\selectfont $C_1$};\n\\end{tikzpicture}\n\\end{document}\n% GEOAGENT_REPAIR_V1 61ac219ade9a9c18 afa69268ea4690332c8ff8cd1cf913aa49d0b3536d0bd90918918a20f3cdbdd0\n",
+      "tex_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\396_q_fig2\\best.tex",
+      "pdf_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\396_q_fig2\\best.pdf",
+      "png_path": "D:\\Users\\18217\\Desktop\\我的文件\\GeoAgent\\outputs\\ours\\stem\\396_q_fig2\\best.png",
+      "ok": true,
+      "compiled": true,
+      "errors": [],
+      "warnings": [],
+      "created_at": "2026-11-11T15:10:55",
+      "agent": "code_agent",
+      "mode": "repair",
+      "notes": "Removed GeoTailB and the duplicate B-C/A1-B strokes. A1-B-C is drawn once as a single path, and A-A1 and A-B share the same path. B-E-B1 is one straight solid path ending at B1. A1-E, C-E, A1-B1, B1-C1 and C1-C are kept. Labels use A1, B1, C1 bindings with the requested placements (B above-left). The program-owned coordinates A, A1, B, B1, C, C1 are not emitted here. Their values differ slightly from the previous source (for example A at y 0.622 vs 0.625), so the program's values are used. E is defined in the source frame at (0.475,-0.766). Line width 1.3pt, line join round, and 13/15.6 pt labels follow STYLE METRICS.",
+      "compile_seconds": 2.043,
+      "critic_report": {
+        "assessment_score": 0.93,
+        "score_kind": "heuristic visual similarity (not a calibrated probability)",
+        "verdict": "The render matches the original closely: A1-B-C reads as one straight stroke with no overshoot or duplicate at BC, and E, B, B1 and C1 sit at the original positions.",
+        "figure_type": {
+          "original": "Planar line diagram: quadrilateral A-B-C region with A1, B1, C1 outer vertices, interior point E, all straight segments",
+          "render": "Same planar line diagram with matching vertex layout and straight segments"
+        },
+        "issues": [],
+        "checks": [
+          {
+            "object_id": "seg_01",
+            "status": "present",
+            "note": "A1 to C stroke drawn as one straight line passing through B, as in the original"
+          },
+          {
+            "object_id": "seg_02",
+            "status": "present",
+            "note": "Bottom edge A1 to B1 drawn horizontally at the same height"
+          },
+          {
+            "object_id": "seg_03",
+            "status": "present",
+            "note": "A1 to E line matches the original"
+          },
+          {
+            "object_id": "seg_04",
+            "status": "present",
+            "note": "B1 to C1 edge matches the original"
+          },
+          {
+            "object_id": "seg_05",
+            "status": "present",
+            "note": "C to E segment matches the original"
+          },
+          {
+            "object_id": "seg_06",
+            "status": "present",
+            "note": "B to E to B1 path matches the original"
+          },
+          {
+            "object_id": "seg_07",
+            "status": "present",
+            "note": "C to C1 edge matches the original"
+          },
+          {
+            "object_id": "seg_08",
+            "status": "present",
+            "note": "A to A1 edge matches the original"
+          },
+          {
+            "object_id": "seg_09",
+            "status": "present",
+            "note": "A to B top edge matches the original"
+          },
+          {
+            "object_id": "seg_10",
+            "status": "present",
+            "note": "Short stub near B1 on the B-E-B1 path is present"
+          },
+          {
+            "object_id": "seg_A1A",
+            "status": "present",
+            "note": "Edge A1 to A drawn"
+          },
+          {
+            "object_id": "seg_A1B1",
+            "status": "present",
+            "note": "Bottom edge drawn"
+          },
+          {
+            "object_id": "seg_A1C",
+            "status": "present",
+            "note": "A1-B-C single straight stroke, no overshoot at A1 or C"
+          },
+          {
+            "object_id": "seg_A1E",
+            "status": "present",
+            "note": "A1 to E drawn to the correct point"
+          },
+          {
+            "object_id": "seg_AA1",
+            "status": "present",
+            "note": "Same edge as A to A1"
+          },
+          {
+            "object_id": "seg_AB",
+            "status": "present",
+            "note": "Top edge A to B drawn"
+          },
+          {
+            "object_id": "seg_B1C1",
+            "status": "present",
+            "note": "B1 to C1 edge drawn"
+          },
+          {
+            "object_id": "seg_BB1",
+            "status": "present",
+            "note": "B to B1 through E drawn"
+          },
+          {
+            "object_id": "seg_BEB1",
+            "status": "present",
+            "note": "B-E-B1 path drawn"
+          },
+          {
+            "object_id": "seg_C1B1",
+            "status": "present",
+            "note": "C1 to B1 edge drawn"
+          },
+          {
+            "object_id": "seg_CC1",
+            "status": "present",
+            "note": "C to C1 edge drawn"
+          },
+          {
+            "object_id": "seg_CE",
+            "status": "present",
+            "note": "C to E segment drawn"
+          },
+          {
+            "object_id": "point_01",
+            "status": "present",
+            "note": "A1 is bound to the correct point at the lower-left vertex"
+          },
+          {
+            "object_id": "point_02",
+            "status": "present",
+            "note": "C is bound to the correct top apex"
+          }
+        ],
+        "checklist_score": 1.0,
+        "actionable_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        },
+        "flaky_count": 0,
+        "must_repair": false,
+        "matches": [
+          "Single straight A1-B-C stroke with no overshoot at A1 and no duplicate stroke at BC",
+          "E interior point position and its A1-E and C-E segments",
+          "B and B1 positions and the B-E-B1 path",
+          "C1 position and the B1-C1 and C-C1 edges",
+          "Labels A, B, C, E, A1, B1, C1 present with correct spelling and clear of strokes"
+        ],
+        "labels": {
+          "present": [
+            "A",
+            "B",
+            "C",
+            "E",
+            "A1",
+            "B1",
+            "C1"
+          ],
+          "missing": [],
+          "extra": []
+        },
+        "version": 5,
+        "binding_decisions": [],
+        "topology_decisions": [
+          {
+            "case_id": "8a21bdaddcf06eab",
+            "edge": [
+              "A1",
+              "C"
+            ],
+            "reason": "In the original, the stroke from A1 runs straight through B and continues to C, so A1-C is one continuous stroke"
+          },
+          {
+            "case_id": "b549b3550973a62c",
+            "edge": [
+              "A1",
+              "E"
+            ],
+            "reason": "In the original, the stroke from A1 ends at E, which is the labelled interior point"
+          }
+        ],
+        "raw_meta": "{}"
+      },
+      "critic_score": 0.93
     }
   ],
   "compilation_results": [
@@ -2896,6 +3553,19 @@
       "pdf_path": ".cache\\collinear\\batch_work\\396_q_fig2\\tikz\\v4\\v4.pdf",
       "png_path": ".cache\\collinear\\batch_work\\396_q_fig2\\tikz\\v4\\v4.png",
       "created_at": "2026-11-11T13:00:18"
+    },
+    {
+      "version": 5,
+      "ok": true,
+      "returncode": 0,
+      "seconds": 2.043,
+      "errors": [],
+      "warnings": [],
+      "log_tail": "note: Running TeX ...\nnote: Rerunning TeX because \"figure.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `figure.pdf` (3.447265625 KiB)\nnote: Writing `figure.log` (12.685546875 KiB)\nnote: Skipped writing 1 intermediate files (use --keep-intermediates to keep them)\n\nFontconfig error: Cannot load default config file: No such file: (null)",
+      "tex_path": ".cache\\metric_followup\\work\\396_q_fig2\\tikz\\v5\\v5.tex",
+      "pdf_path": ".cache\\metric_followup\\work\\396_q_fig2\\tikz\\v5\\v5.pdf",
+      "png_path": ".cache\\metric_followup\\work\\396_q_fig2\\tikz\\v5\\v5.png",
+      "created_at": "2026-11-11T15:10:57"
     }
   ],
   "validation_results": [
@@ -3126,6 +3796,63 @@
         }
       ],
       "created_at": "2026-11-11T13:00:18"
+    },
+    {
+      "version": 5,
+      "passed": true,
+      "checks": [
+        {
+          "name": "documentclass",
+          "passed": true,
+          "detail": "documentclass present"
+        },
+        {
+          "name": "document_environment",
+          "passed": true,
+          "detail": "begin=1 end=1"
+        },
+        {
+          "name": "tikzpicture",
+          "passed": true,
+          "detail": "one balanced tikzpicture"
+        },
+        {
+          "name": "no_shell_escape",
+          "passed": true,
+          "detail": "no \\write18/\\openout primitives"
+        },
+        {
+          "name": "compiler_ok",
+          "passed": true,
+          "detail": "returncode=0"
+        },
+        {
+          "name": "pdf_created",
+          "passed": true,
+          "detail": ".cache\\metric_followup\\work\\396_q_fig2\\tikz\\v5\\v5.pdf"
+        },
+        {
+          "name": "png_rendered",
+          "passed": true,
+          "detail": ".cache\\metric_followup\\work\\396_q_fig2\\tikz\\v5\\v5.png"
+        },
+        {
+          "name": "render_not_blank",
+          "passed": true,
+          "detail": "ink_ratio=0.0462"
+        },
+        {
+          "name": "aspect_ratio",
+          "passed": true,
+          "detail": "reference 1.64 vs render 1.77 (delta 0.08)"
+        },
+        {
+          "name": "figure_extent_ratio",
+          "passed": true,
+          "detail": "figure bbox ratio 1.80"
+        }
+      ],
+      "created_at": "2026-11-11T15:10:57"
     }
   ],
   "critic_reports": [
@@ -3776,6 +4503,187 @@
       "binding_decisions": [],
       "topology_decisions": [],
       "raw_meta": "{}"
+    },
+    {
+      "assessment_score": 0.93,
+      "score_kind": "heuristic visual similarity (not a calibrated probability)",
+      "verdict": "The render matches the original closely: A1-B-C reads as one straight stroke with no overshoot or duplicate at BC, and E, B, B1 and C1 sit at the original positions.",
+      "figure_type": {
+        "original": "Planar line diagram: quadrilateral A-B-C region with A1, B1, C1 outer vertices, interior point E, all straight segments",
+        "render": "Same planar line diagram with matching vertex layout and straight segments"
+      },
+      "issues": [],
+      "checks": [
+        {
+          "object_id": "seg_01",
+          "status": "present",
+          "note": "A1 to C stroke drawn as one straight line passing through B, as in the original"
+        },
+        {
+          "object_id": "seg_02",
+          "status": "present",
+          "note": "Bottom edge A1 to B1 drawn horizontally at the same height"
+        },
+        {
+          "object_id": "seg_03",
+          "status": "present",
+          "note": "A1 to E line matches the original"
+        },
+        {
+          "object_id": "seg_04",
+          "status": "present",
+          "note": "B1 to C1 edge matches the original"
+        },
+        {
+          "object_id": "seg_05",
+          "status": "present",
+          "note": "C to E segment matches the original"
+        },
+        {
+          "object_id": "seg_06",
+          "status": "present",
+          "note": "B to E to B1 path matches the original"
+        },
+        {
+          "object_id": "seg_07",
+          "status": "present",
+          "note": "C to C1 edge matches the original"
+        },
+        {
+          "object_id": "seg_08",
+          "status": "present",
+          "note": "A to A1 edge matches the original"
+        },
+        {
+          "object_id": "seg_09",
+          "status": "present",
+          "note": "A to B top edge matches the original"
+        },
+        {
+          "object_id": "seg_10",
+          "status": "present",
+          "note": "Short stub near B1 on the B-E-B1 path is present"
+        },
+        {
+          "object_id": "seg_A1A",
+          "status": "present",
+          "note": "Edge A1 to A drawn"
+        },
+        {
+          "object_id": "seg_A1B1",
+          "status": "present",
+          "note": "Bottom edge drawn"
+        },
+        {
+          "object_id": "seg_A1C",
+          "status": "present",
+          "note": "A1-B-C single straight stroke, no overshoot at A1 or C"
+        },
+        {
+          "object_id": "seg_A1E",
+          "status": "present",
+          "note": "A1 to E drawn to the correct point"
+        },
+        {
+          "object_id": "seg_AA1",
+          "status": "present",
+          "note": "Same edge as A to A1"
+        },
+        {
+          "object_id": "seg_AB",
+          "status": "present",
+          "note": "Top edge A to B drawn"
+        },
+        {
+          "object_id": "seg_B1C1",
+          "status": "present",
+          "note": "B1 to C1 edge drawn"
+        },
+        {
+          "object_id": "seg_BB1",
+          "status": "present",
+          "note": "B to B1 through E drawn"
+        },
+        {
+          "object_id": "seg_BEB1",
+          "status": "present",
+          "note": "B-E-B1 path drawn"
+        },
+        {
+          "object_id": "seg_C1B1",
+          "status": "present",
+          "note": "C1 to B1 edge drawn"
+        },
+        {
+          "object_id": "seg_CC1",
+          "status": "present",
+          "note": "C to C1 edge drawn"
+        },
+        {
+          "object_id": "seg_CE",
+          "status": "present",
+          "note": "C to E segment drawn"
+        },
+        {
+          "object_id": "point_01",
+          "status": "present",
+          "note": "A1 is bound to the correct point at the lower-left vertex"
+        },
+        {
+          "object_id": "point_02",
+          "status": "present",
+          "note": "C is bound to the correct top apex"
+        }
+      ],
+      "checklist_score": 1.0,
+      "actionable_counts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "flaky_count": 0,
+      "must_repair": false,
+      "matches": [
+        "Single straight A1-B-C stroke with no overshoot at A1 and no duplicate stroke at BC",
+        "E interior point position and its A1-E and C-E segments",
+        "B and B1 positions and the B-E-B1 path",
+        "C1 position and the B1-C1 and C-C1 edges",
+        "Labels A, B, C, E, A1, B1, C1 present with correct spelling and clear of strokes"
+      ],
+      "labels": {
+        "present": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "A1",
+          "B1",
+          "C1"
+        ],
+        "missing": [],
+        "extra": []
+      },
+      "version": 5,
+      "binding_decisions": [],
+      "topology_decisions": [
+        {
+          "case_id": "8a21bdaddcf06eab",
+          "edge": [
+            "A1",
+            "C"
+          ],
+          "reason": "In the original, the stroke from A1 runs straight through B and continues to C, so A1-C is one continuous stroke"
+        },
+        {
+          "case_id": "b549b3550973a62c",
+          "edge": [
+            "A1",
+            "E"
+          ],
+          "reason": "In the original, the stroke from A1 ends at E, which is the labelled interior point"
+        }
+      ],
+      "raw_meta": "{}"
     }
   ],
   "unresolved_issues": [
@@ -3806,6 +4714,14 @@
     {
       "source": "topology",
       "issue": "Unverified named edges: []. Unverified corrected bindings: []. Unverified stroke styles: []. Unverified right-angle rays: []. Overlapping solid strokes: [[['A1', 'B'], ['B', 'GeoTailB']], [['B', 'C'], ['B', 'C']]]."
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "point_05 and point_08 are spurious candidates, not drawn vertices"
+    },
+    {
+      "source": "geometry_agent",
+      "issue": "No right-angle marks visible"
     }
   ],
   "action_history": [
@@ -4020,6 +4936,42 @@
       },
       "visual_calls": 0,
       "error": null
+    },
+    {
+      "step": 7,
+      "action": "run_geometry_agent",
+      "purpose": "Use the original raster to verify the three printed subscripted labels, then submit their measured bindings. A1 at lower left is point_01 (80.16,278.04); B1 at the lower middle vertex is point_04 (339.54,278.06); C1 at the right corner is point_07 (492.65,159.72). Use names A1/B1/C1. Submit the real source stroke inventory: A1-B-C is one straight line and stops at A1; B-E-B1 ends at B1. Other solid strokes A1-A, A-B, A1-B1, C-C1, C1-B1, A1-E, C-E. Keep A/B/C/E bindings.",
+      "params": {},
+      "status": "ok",
+      "result_summary": "{'ok': True, 'merged': {'objects': 16, 'relations': 5, 'conflicts': 1, 'rejected': []}, 'summary': 'Points: A1=point_01 (80.16,278.04), A=point_09, B=point_03 (278.93,135.71), C=point_02 (374.78,66.18), E=point_06 (315.86,221.88), B1=point_04 (339.54,278.06), C1=point_07 (492.65,159.72). Line A1-B-C is one straight solid line from A1 through B to C. Line B-E-B1 is one straight solid line from B through E to B1 (ends at B1). Bottom solid line A1-B1 ends at B1. Other solid strokes: A1-A, A-B, C-C1, C1-B1, A1-E, C-E. All strokes solid, no dashed strokes. point_05 (357,278) and point_08 (361.66,26', 'cv_calls': 0, 'usage': {'prompt_tokens': 8351,",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 8,
+      "action": "run_code_agent",
+      "purpose": "Rebuild the straight-line paths of the original using shared points. Use a SINGLE solid A1--B--C path; do not draw BC or A1B a second time. Delete the old GeoTailB and any GeoTailE; the source ends at A1 and B1. Keep A1--A--B, B--E--B1, A1--E, C--E, A1--B1, B1--C1, and C1--C. Use (A1), (B1), (C1) for the measured subscripted vertices, and label them $A_1$, $B_1$, $C_1$. Match the source label locations, with B above-left of the junction.",
+      "params": {},
+      "status": "ok",
+      "result_summary": "{'ok': True, 'version': 5, 'latest_version': 5, 'mode': 'repair', 'compile_ok': True, 'validation_passed': True, 'topology_check': {'passed': True, 'missing_edges': []}, 'errors': [], 'warnings': [], 'png_path': '.cache\\\\metric_followup\\\\work\\\\396_q_fig2\\\\tikz\\\\v5\\\\v5.png', 'best_version': 5, 'next_step_hint': 'critique passed version or repair remaining issues', 'tex_preview': '\\\\documentclass[tikz,border=10pt]{standalone}\\n\\\\usepackage{amsmath}\\n\\\\begin{document}\\n\\\\begin{tikzpicture}[line join=round, line width=1.3pt]\\n\\\\coordinate (A) at (-2.384,0.625);\\n\\\\coordinate (A1) at (-3.335,-1.675);\\n\\\\coordinate (B) at (-0.122,0.626);\\n\\\\coordin",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
+    },
+    {
+      "step": 9,
+      "action": "run_critic",
+      "purpose": "Check there is one single straight A1--B--C stroke, with no overshoot at A1 or B1 and no duplicate stroke at BC. Check A1/B1/C1 and the positions of E and B against the original.",
+      "params": {},
+      "status": "ok",
+      "result_summary": "{'ok': True, 'version': 5, 'assessment_score': 0.93, 'verdict': 'The render matches the original closely: A1-B-C reads as one straight stroke with no overshoot or duplicate at BC, and E, B, B1 and C1 sit at the original positions.', 'issues': [], 'checks_pending': [], 'checklist_score': 1.0, 'actionable_counts': {'high': 0, 'medium': 0, 'low': 0}, 'flaky_count': 0, 'topology_decisions': [{'case_id': '8a21bdaddcf06eab', 'edge': ['A1', 'C'], 'reason': 'In the original, the stroke from A1 runs straight through B and continues to C, so A1-C is one continuous stroke'}, {'case_id': 'b549b3550973a62c', 'edge': ['A1', 'E'], 'reason': 'In the original",
+      "duration_s": 0.0,
+      "token_usage": {},
+      "visual_calls": 0,
+      "error": null
     }
   ],
   "cv_runs": [
@@ -4060,73 +5012,89 @@
   "regions": {},
   "token_usage": {
     "totals": {
-      "calls": 15,
-      "visual_calls": 6,
-      "prompt_tokens": 140859,
-      "completion_tokens": 35219,
-      "total_tokens": 176078,
-      "cached_tokens": 50594.0,
-      "cache_write_tokens": 90215.0,
-      "latency_s": 191.44
+      "calls": 3,
+      "visual_calls": 3,
+      "prompt_tokens": 25913,
+      "completion_tokens": 8891,
+      "total_tokens": 34804,
+      "cached_tokens": 0.0,
+      "cache_write_tokens": 25901.0,
+      "latency_s": 47.4
     },
     "by_agent": {
       "geometry_agent": {
         "calls": 1,
         "visual_calls": 1,
-        "total_tokens": 12125,
-        "latency_s": 25.43
-      },
-      "supervisor": {
-        "calls": 6,
-        "visual_calls": 0,
-        "total_tokens": 73466,
-        "latency_s": 27.09
-      },
-      "code_agent:generate": {
-        "calls": 1,
-        "visual_calls": 1,
-        "total_tokens": 10973,
-        "latency_s": 16.08
-      },
-      "critic_agent": {
-        "calls": 4,
-        "visual_calls": 4,
-        "total_tokens": 44399,
-        "latency_s": 71.47
+        "total_tokens": 11439,
+        "latency_s": 15.03
       },
       "code_agent:repair": {
-        "calls": 3,
-        "visual_calls": 0,
-        "total_tokens": 35115,
-        "latency_s": 51.36
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 12325,
+        "latency_s": 17.4
+      },
+      "critic_agent": {
+        "calls": 1,
+        "visual_calls": 1,
+        "total_tokens": 11040,
+        "latency_s": 14.97
       }
     }
   },
   "remaining_budget": {
-    "steps_left": 18,
-    "tool_calls_left": 36,
-    "visual_calls_left": 18,
-    "tokens_left": 223922,
+    "steps_left": 17,
+    "tool_calls_left": 48,
+    "visual_calls_left": 21,
+    "tokens_left": 365196,
     "max_steps": 24,
     "max_tool_calls": 48,
     "max_visual_calls": 24,
     "max_total_tokens": 400000,
-    "total_tokens_used": 176078
+    "total_tokens_used": 34804
   },
   "meta": {
     "topology_plan": {
       "required_edges": [
         [
           "A",
+          "A1"
+        ],
+        [
+          "A",
           "B"
+        ],
+        [
+          "A1",
+          "B"
+        ],
+        [
+          "A1",
+          "B1"
+        ],
+        [
+          "A1",
+          "C"
+        ],
+        [
+          "A1",
+          "E"
+        ],
+        [
+          "B",
+          "B1"
         ],
         [
           "B",
           "C"
         ],
         [
-          "B",
-          "GeoTailB"
+          "B1",
+          "C1"
+        ],
+        [
+          "C",
+          "C1"
         ],
         [
           "C",
@@ -4135,6 +5103,22 @@
       ],
       "pending": [],
       "adjudicated": [
+        {
+          "case_id": "8a21bdaddcf06eab",
+          "edge": [
+            "A1",
+            "C"
+          ],
+          "reason": "In the original, the stroke from A1 runs straight through B and continues to C, so A1-C is one continuous stroke"
+        },
+        {
+          "case_id": "b549b3550973a62c",
+          "edge": [
+            "A1",
+            "E"
+          ],
+          "reason": "In the original, the stroke from A1 ends at E, which is the labelled interior point"
+        },
         {
           "case_id": "bdf9a5b127d9b84a",
           "edge": [
@@ -4148,12 +5132,34 @@
         [
           "A",
           "B"
+        ],
+        [
+          "B1",
+          "C1"
+        ],
+        [
+          "C",
+          "C1"
         ]
       ],
       "required_styles": [
         {
           "edge": [
             "A",
+            "A1"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A1",
             "B"
           ],
           "style": "solid"
@@ -4167,8 +5173,22 @@
         },
         {
           "edge": [
-            "B",
-            "GeoTailB"
+            "A1",
+            "B1"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "C1"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B1",
+            "C1"
           ],
           "style": "solid"
         }
@@ -4176,8 +5196,15 @@
       "required_marks": {}
     },
     "source_construction": {
-      "summary": "Figure is all solid lines, no dashed strokes, no right-angle marks, no feet. Labelled points: A1 (bottom-left), A, B, C, E, B1, C1. Collinear chains: A1-B-C (one line, B lies on it), B-E-B1 (E lies on it), and A1-E. Other strokes: A1-A, A-B, C-E, B1-C1, C-C1, A1-B1 (bottom). point_05 (357,278) and point_08 (361.66,261) are not vertices and are not drawn. Curve extent: none.",
+      "summary": "Points: A1=point_01 (80.16,278.04), A=point_09, B=point_03 (278.93,135.71), C=point_02 (374.78,66.18), E=point_06 (315.86,221.88), B1=point_04 (339.54,278.06), C1=point_07 (492.65,159.72). Line A1-B-C is one straight solid line from A1 through B to C. Line B-E-B1 is one straight solid line from B through E to B1 (ends at B1). Bottom solid line A1-B1 ends at B1. Other solid strokes: A1-A, A-B, C-C1, C1-B1, A1-E, C-E. All strokes solid, no dashed strokes. point_05 (357,278) and point_08 (361.66,261) are spurious and not drawn. No right-angle marks visible; no feet.",
       "strokes": [
+        {
+          "edge": [
+            "A",
+            "A1"
+          ],
+          "style": "solid"
+        },
         {
           "edge": [
             "A",
@@ -4187,8 +5214,57 @@
         },
         {
           "edge": [
+            "A1",
+            "B"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
             "B",
             "C"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B1",
+            "E"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A1",
+            "B1"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "C",
+            "C1"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "B1",
+            "C1"
+          ],
+          "style": "solid"
+        },
+        {
+          "edge": [
+            "A1",
+            "E"
           ],
           "style": "solid"
         },
@@ -4198,40 +5274,16 @@
             "E"
           ],
           "style": "solid"
-        },
-        {
-          "edge": [
-            "B",
-            "E"
-          ],
-          "style": "solid"
         }
       ],
       "marks": {},
       "feet": [],
-      "extensions": {
-        "B": {
-          "anchor": "B",
-          "px": [
-            75.31,
-            281.07
-          ],
-          "stroke_id": "seg_01"
-        },
-        "E": {
-          "anchor": "E",
-          "px": [
-            341.72,
-            283.45
-          ],
-          "stroke_id": "seg_06"
-        }
-      }
+      "extensions": {}
     },
     "coordinate_contract": {
       "enabled": true,
       "schema": "cv-coordinate-contract.v1",
-      "n_points": 4,
+      "n_points": 6,
       "reference_used": false,
       "coordinates": {
         "schema": "cv-coordinate-contract.v1",
@@ -4252,6 +5304,18 @@
               0.622
             ]
           },
+          "A1": {
+            "point_id": "point_01",
+            "px": [
+              80.16,
+              278.04
+            ],
+            "reviewed": true,
+            "tikz": [
+              -3.335,
+              -1.673
+            ]
+          },
           "B": {
             "point_id": "point_03",
             "px": [
@@ -4261,6 +5325,18 @@
             "tikz": [
               -0.122,
               0.627
+            ]
+          },
+          "B1": {
+            "point_id": "point_04",
+            "px": [
+              339.54,
+              278.06
+            ],
+            "reviewed": true,
+            "tikz": [
+              0.857,
+              -1.674
             ]
           },
           "C": {
@@ -4274,16 +5350,16 @@
               1.751
             ]
           },
-          "GeoTailB": {
+          "C1": {
+            "point_id": "point_07",
             "px": [
-              75.31,
-              281.07
+              492.65,
+              159.72
             ],
-            "point_id": "seg_01",
-            "extension_from": "B",
+            "reviewed": true,
             "tikz": [
-              -3.413,
-              -1.722
+              3.332,
+              0.239
             ]
           }
         },
@@ -4304,8 +5380,8 @@
       "reference_used": false,
       "algorithm": "post_tikz.source_collinearity.3dp.v4",
       "angle_glyphs_are_candidates": false,
-      "input_sha256": "0dddb984bf1bdce2321e1c175252ca8e80e8c92e0099d93c50b4efd5ccd5b91d",
-      "output_sha256": "407aa54c167527b791d55c4639f7fd5c3dfc975d509e8dea4185ad67d2afc856",
+      "input_sha256": "9a5cd605ec70d66d523240cc9cbd28ecb004b5311641f3f6d9bf743fcf068d98",
+      "output_sha256": "1f9ee71c36bb0e77ef64b3eecb63f0aa818d665a084198a86115093b9fa4c537",
       "reason": "applied",
       "accepted": [
         {
@@ -4664,6 +5740,96 @@
           "reference_used": false,
           "coordinate_decimals": 3
         }
+      },
+      "5": {
+        "enabled": true,
+        "schema": "cv-coordinate-contract.v1",
+        "n_points": 6,
+        "reference_used": false,
+        "coordinates": {
+          "schema": "cv-coordinate-contract.v1",
+          "scale": 0.016162,
+          "origin_px": [
+            286.5,
+            174.5
+          ],
+          "points": {
+            "A": {
+              "point_id": "point_09",
+              "px": [
+                139.0,
+                136.0
+              ],
+              "tikz": [
+                -2.384,
+                0.622
+              ]
+            },
+            "A1": {
+              "point_id": "point_01",
+              "px": [
+                80.16,
+                278.04
+              ],
+              "reviewed": true,
+              "tikz": [
+                -3.335,
+                -1.673
+              ]
+            },
+            "B": {
+              "point_id": "point_03",
+              "px": [
+                278.93,
+                135.71
+              ],
+              "tikz": [
+                -0.122,
+                0.627
+              ]
+            },
+            "B1": {
+              "point_id": "point_04",
+              "px": [
+                339.54,
+                278.06
+              ],
+              "reviewed": true,
+              "tikz": [
+                0.857,
+                -1.674
+              ]
+            },
+            "C": {
+              "point_id": "point_02",
+              "px": [
+                374.78,
+                66.18
+              ],
+              "tikz": [
+                1.427,
+                1.751
+              ]
+            },
+            "C1": {
+              "point_id": "point_07",
+              "px": [
+                492.65,
+                159.72
+              ],
+              "reviewed": true,
+              "tikz": [
+                3.332,
+                0.239
+              ]
+            }
+          },
+          "skipped": {
+            "E": "missing_or_ambiguous_cv_binding"
+          },
+          "reference_used": false,
+          "coordinate_decimals": 3
+        }
       }
     },
     "tikz_constraint_repairs": {
@@ -5012,6 +6178,108 @@
         "max_export_error_deg": 0.058466512130942054,
         "point_count": 7,
         "segment_count": 11
+      },
+      "5": {
+        "ok": true,
+        "enabled": true,
+        "applied": true,
+        "stage": "post_tikz",
+        "constraint_mode": "joint_coordinate_projection",
+        "candidate_source": "generated_tikz_and_original_raster",
+        "reference_used": false,
+        "algorithm": "post_tikz.source_collinearity.3dp.v4",
+        "angle_glyphs_are_candidates": false,
+        "input_sha256": "9a5cd605ec70d66d523240cc9cbd28ecb004b5311641f3f6d9bf743fcf068d98",
+        "output_sha256": "1f9ee71c36bb0e77ef64b3eecb63f0aa818d665a084198a86115093b9fa4c537",
+        "reason": "applied",
+        "accepted": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--E",
+              "B1--E"
+            ],
+            "before_error_deg": 0.38186437724510475,
+            "after_error_deg": 0.058466512130942054,
+            "labels": [
+              "B",
+              "E",
+              "B1"
+            ],
+            "source_turn_deg": 0.0167,
+            "solver_after_error_deg": 0.0,
+            "export_tolerance_deg": 0.13584395400880017
+          },
+          {
+            "type": "parallel",
+            "segments": [
+              "A--B",
+              "A1--B1"
+            ],
+            "before_error_deg": 0.1403161756358419,
+            "after_error_deg": 0.015654401011518188,
+            "solver_after_error_deg": 1.5925357423860313e-15,
+            "export_tolerance_deg": 0.0551403325151194
+          }
+        ],
+        "rejected": [],
+        "limits": {
+          "angle_tol_deg": 0.5,
+          "max_shift_rel": 0.013,
+          "max_length_change_rel": 0.035,
+          "topology_tol_rel": 0.003,
+          "incidence_mode": "snap",
+          "length_weight": 0.01,
+          "length_scope": "all_pairs",
+          "curve_policy": "defer",
+          "incidence_strength": 1.0,
+          "relation_types": [
+            "parallel",
+            "perpendicular"
+          ],
+          "relaxation": 1.0,
+          "collinear_max_turn_deg": 8.0
+        },
+        "angle_glyph_exclusion": {
+          "excluded_paths": [],
+          "excluded_helper_points": [],
+          "excluded_strokes": 0
+        },
+        "source_collinear_candidates": [
+          {
+            "type": "collinear",
+            "segments": [
+              "B--E",
+              "B1--E"
+            ],
+            "labels": [
+              "B",
+              "E",
+              "B1"
+            ],
+            "source_turn_deg": 0.0167
+          }
+        ],
+        "input_candidates": 2,
+        "preserved_incidence_count": 1,
+        "max_shift_rel": 0.000421901443285337,
+        "max_length_change_rel": 0.0018596720484829188,
+        "fixed_points": [],
+        "length_weight": 0.01,
+        "length_scope": "all_pairs",
+        "incidence_mode": "snap",
+        "topology_tol_rel": 0.003,
+        "incidence_strength": 1.0,
+        "rms_shift_rel": 0.0002505372855382801,
+        "max_after_error_deg": 0.058466512130942054,
+        "curve_policy": "defer",
+        "candidate_count": 2,
+        "solver_max_shift_rel": 0.0003635983994632233,
+        "coordinate_decimals": 3,
+        "export_verified": true,
+        "max_export_error_deg": 0.058466512130942054,
+        "point_count": 7,
+        "segment_count": 11
       }
     },
     "topology_decisions": {
@@ -5021,12 +6289,58 @@
           "E"
         ],
         "reason": "In the original, the stroke runs from C down to E and stops at E, so C–E is the correct binding."
+      },
+      "8a21bdaddcf06eab": {
+        "edge": [
+          "A1",
+          "C"
+        ],
+        "reason": "In the original, the stroke from A1 runs straight through B and continues to C, so A1-C is one continuous stroke"
+      },
+      "b549b3550973a62c": {
+        "edge": [
+          "A1",
+          "E"
+        ],
+        "reason": "In the original, the stroke from A1 ends at E, which is the labelled interior point"
       }
     },
     "finish": {
       "summary": "Compiled TikZ reconstruction exists. The Critic rates the renders 0.93-0.94 and reports no visual or label mismatches; all named edges (A-B, A1-B-C, A1-A, A1-E, C-E, B-E-B1, A1-B1, B1-C1, C-C1) are drawn. Remaining issue is a topology artifact: a spurious GeoTailB point, injected by the geometry-agent/code pipeline, produces a B--GeoTailB stroke overlapping A1-B. Four repair attempts did not remove it because the code agent keeps re-emitting it from program-owned coordinates. v1 is the best-scored version. Its overlap is an artifact, not a visible line. Unverified named edges: []. Unverified corrected bindings: []. Unverified stroke styles: []. Unverified right-angle rays: []. Overlapping solid strokes: [[['A1', 'B'], ['B', 'GeoTailB']], [['B', 'C'], ['B', 'C']]].",
       "status": "partial"
     },
-    "stop_reason": "finish"
+    "stop_reason": "source_topology_followup",
+    "reviewed_bindings": {
+      "A1": {
+        "point_id": "point_01",
+        "px": [
+          80.16,
+          278.04
+        ],
+        "previous_point_id": null,
+        "reason": "Subscripted label at lower-left vertex where A1-A, A1-B, A1-E, A1-B1 meet; supervisor verified",
+        "source": "geometry_agent"
+      },
+      "B1": {
+        "point_id": "point_04",
+        "px": [
+          339.54,
+          278.06
+        ],
+        "previous_point_id": null,
+        "reason": "Subscripted label at lower-middle vertex where bottom line ends and B-E-B1 ends; supervisor verified",
+        "source": "geometry_agent"
+      },
+      "C1": {
+        "point_id": "point_07",
+        "px": [
+          492.65,
+          159.72
+        ],
+        "previous_point_id": null,
+        "reason": "Subscripted label at right corner where C-C1 and C1-B1 meet; supervisor verified",
+        "source": "geometry_agent"
+      }
+    }
   }
 }

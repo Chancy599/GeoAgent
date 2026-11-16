@@ -9,11 +9,11 @@ import numpy as np
 
 from ..cv_tools.common import load_ink
 from ..cv_tools.right_angle import locate_foot_square
-from .coordinate_contract import MEASURED_POINT_SOURCES, apply_reviewed_bindings
+from .coordinate_contract import MEASURED_LABEL, MEASURED_POINT_SOURCES, apply_reviewed_bindings
 from .schemas import GeometryObject
 
 
-_LETTER = re.compile(r'[A-Z]')
+_LABEL = re.compile(MEASURED_LABEL)
 
 
 def _rows(submission, key):
@@ -49,7 +49,7 @@ def add_construction_candidates(state):
                                         source='cv:construction_mark_vertex', status='candidate',
                                         attributes={'marker_id': mark.id}))
         existing.append(vertex)
-    for (left, a, b, _), (right, c, d, _) in combinations(lines, 2):
+    for (left, a, b, left_style), (right, c, d, right_style) in combinations(lines, 2):
         vectors = np.column_stack((b-a, c-d))
         lengths = np.linalg.norm(vectors, axis=0)
         if abs(np.linalg.det(vectors)) < .15 * math.prod(lengths):
@@ -58,6 +58,14 @@ def add_construction_candidates(state):
         if any(not -margin <= p*length <= length+margin for p, length in zip((t, u), lengths)):
             continue
         point = a + t*(b-a)
+        # Extrapolation can recover an intersection at a clipped solid end,
+        # provided the original ink actually continues across the extension.
+        if any(style == 'solid' and np.linalg.norm(point-tip) >= 10
+               and not _supported_stroke(tip, point, 'solid', lines, mask)
+               for tip, style, parameter in ((a if t < 0 else b, left_style, t),
+                                              (c if u < 0 else d, right_style, u))
+               if not 0 <= parameter <= 1):
+            continue
         x, y = np.rint(point).astype(int)
         if not (0 <= x < w and 0 <= y < h and mask[max(0,y-3):y+4,max(0,x-3):x+4].any()):
             continue
@@ -173,7 +181,7 @@ def merge_construction_plan(state, submission):
     """Record the proposed source construction and promote supported requirements."""
     apply_reviewed_bindings(state, submission.get('bindings'), source='geometry_agent')
     points = {n: np.asarray(state.objects[key].coords['px'],float) for n,key in state.label_bindings.items()
-              if _LETTER.fullmatch(n) and key in state.objects and 'px' in state.objects[key].coords}
+              if _LABEL.fullmatch(n) and key in state.objects and 'px' in state.objects[key].coords}
     if not points:
         return
     lines = list(_lines(state))

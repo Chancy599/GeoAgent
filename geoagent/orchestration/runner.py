@@ -30,7 +30,7 @@ from ..state.construction import add_construction_candidates, merge_construction
 from ..state.coordinate_contract import apply_reviewed_bindings
 from ..state.evidence_store import EvidenceStore
 from ..state.rectify import rectify_right_angles
-from ..state.tikz_repair import repair_tikz_constraints
+from ..state.repair_pipeline import read_compiled_points, repair_generated_tikz, strict_rollback
 from ..state.topology import MAX_ENDPOINT_CASES, build_topology_plan, check_topology, validate_endpoint_decisions
 from ..state.schemas import ActionRecord, GeometricEvidenceState
 from ..tools import compile_tikz, frame_like_original, render_pdf, validate_compilation
@@ -512,24 +512,18 @@ class GeoAgentRunner:
         post_report = None
         if geometry.repair_stage == "post_tikz":
             coordinate_frame = (result.get('coordinate_contract') or {}).get('coordinates')
-            tex, post_report = repair_tikz_constraints(
-                raw_tex, enabled=bool(geometry.enabled),
-                angle_tol_deg=float(geometry.angle_tol_deg),
-                max_shift_rel=float(geometry.post_max_shift_rel),
-                max_length_change_rel=float(geometry.post_max_length_change_rel),
-                topology_tol_rel=float(geometry.post_topology_tol_rel),
-                incidence_mode=str(geometry.post_incidence_mode),
-                length_weight=float(geometry.post_length_weight),
-                length_scope=str(geometry.post_length_scope),
-                curve_policy=str(geometry.post_curve_policy),
-                incidence_strength=float(geometry.post_incidence_strength),
-                relation_types=tuple(geometry.post_relation_types),
-                relaxation=float(geometry.post_relaxation),
-                curve_options=geometry.post_curve_options,
-                collinear_max_turn_deg=float(geometry.post_collinear_max_turn_deg),
+            def probe(candidate, names):
+                if self._budget_stop():
+                    raise ValueError("run budget exhausted before coordinate probe")
+                return read_compiled_points(candidate, names, self.settings,
+                                            physical=geometry.post_repair_mode == "strict")
+
+            repair = repair_generated_tikz(
+                raw_tex, self.settings, plan=plan, probe=probe,
                 source_image=self.image_path if coordinate_frame else None,
                 source_coordinates=coordinate_frame,
             )
+            tex, post_report = repair.tex, repair.report
             self.state.meta["constraint_repair"] = post_report
             self.state.meta["rectification"] = {
                 "applied": False, "reason": "moved_to_post_tikz",
@@ -546,6 +540,20 @@ class GeoAgentRunner:
             (folder / 'coordinate_contract.json').write_text(
                 json.dumps(result['coordinate_contract'], ensure_ascii=False, indent=2), encoding='utf-8')
         if post_report is not None:
+            if geometry.post_repair_mode == "strict" and post_report["applied"] and (
+                not compile_info["compile_ok"] or not compile_info["validation_passed"]
+            ):
+                post_report = strict_rollback(post_report, "compile_fallback", errors=compile_info["errors"])
+                version.tex = raw_tex
+                compile_info = self._compile_version(version.version)
+            if (geometry.post_repair_mode != "strict" and not compile_info["compile_ok"]
+                    and repair.tex != repair.legacy_tex):
+                post_report = {**repair.legacy_report, "extended_hybrid": {
+                    "mode": "legacy_fallback", "reason": "compile_fallback",
+                    "errors": compile_info["errors"],
+                }}
+                version.tex = repair.legacy_tex
+                compile_info = self._compile_version(version.version)
             if post_report["applied"] and not compile_info["compile_ok"]:
                 post_report.update(
                     applied=False, reason="compile_fallback",
@@ -554,6 +562,7 @@ class GeoAgentRunner:
                 )
                 version.tex = raw_tex
                 compile_info = self._compile_version(version.version)
+            self.state.meta["constraint_repair"] = post_report
             self.state.meta.setdefault("tikz_constraint_repairs", {})[str(version.version)] = post_report
             if getattr(self, "run_dir", None) is not None:
                 folder = self.run_dir / "tikz" / f"v{version.version}"

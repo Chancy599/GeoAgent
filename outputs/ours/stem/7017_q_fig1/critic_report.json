@@ -1,168 +1,148 @@
 {
-  "assessment_score": 0.9,
+  "assessment_score": 0.95,
   "score_kind": "heuristic visual similarity (not a calibrated probability)",
-  "verdict": "Faithful reconstruction: all segments, intersections, and labels match the original. The only differences are a slight tilt of the BC and AM baselines in the render, which the original draws horizontal.",
+  "verdict": "The render is faithful: all six labelled points, both horizontal lines, and all seven connecting segments match the original in position and endpoint.",
   "figure_type": {
-    "original": "Quadrilateral-based construction: triangle-like figure with base BC, top line AM through D, interior segments AP, AC, DP, AB, DC, and point P on BC",
-    "render": "Same construction: base BC, top line A-D-M, interior segments AP, AC, DP, AB, DC, and point P on BC"
+    "original": "Straight-line geometry diagram: baseline B-P-C and top line A-D-M, with segments AB, AP, AC, DP, DC and the top-line overhang past D to M.",
+    "render": "Same straight-line diagram: baseline B-P-C, top line A-D-M, segments AB, AP, AC, DP, DC, with matching overhang to M."
   },
-  "issues": [
-    {
-      "type": "wrong_position",
-      "severity": "low",
-      "object_ids": [
-        "seg_02",
-        "seg_01"
-      ],
-      "bbox": [
-        0.05,
-        0.25,
-        0.97,
-        0.72
-      ],
-      "flaky": false,
-      "source": "vlm",
-      "description": "In the render, the top line A-D-M slopes slightly downward from A to M (A at y≈200, M at y≈206 in the right panel), and the base B-P-C slopes slightly downward from B to C (y≈413 to y≈417). In the original, both AM and BC are horizontal.",
-      "suggestion": "Make A and D share the same y-coordinate and make M lie on that same horizontal line. Make B and C share the same y-coordinate, and place P on that line. Current coordinates: A(-2.063,1.627), D(1.561,1.586), M(3.862,1.560), B(-3.515,-1.595), C(2.286,-1.661). Set A.y = D.y = M.y and B.y = P.y = C.y."
-    }
-  ],
+  "issues": [],
   "checks": [
     {
       "object_id": "seg_01",
       "status": "present",
-      "note": "Base BC drawn with P on it; slight tilt noted in issues."
+      "note": "Baseline B-P-C drawn from B to C through P, matching the original."
     },
     {
       "object_id": "seg_02",
       "status": "present",
-      "note": "Top line AM through D present; slight tilt noted in issues."
+      "note": "Top line A-D-M drawn from A to M, with the overhang past D to M intact."
     },
     {
       "object_id": "seg_03",
       "status": "present",
-      "note": "Segment CA present, endpoints match A and C."
+      "note": "Diagonal A to C matches the original."
     },
     {
       "object_id": "seg_04",
       "status": "present",
-      "note": "Segment DP present, endpoints match D and P."
+      "note": "Diagonal D to P matches the original."
     },
     {
       "object_id": "seg_05",
       "status": "present",
-      "note": "Segment AB present, endpoints match A and B."
+      "note": "Left side A to B matches the original."
     },
     {
       "object_id": "seg_06",
       "status": "present",
-      "note": "Segment AP present, endpoints match A and P."
+      "note": "Segment A to P matches the original."
     },
     {
       "object_id": "seg_07",
       "status": "present",
-      "note": "Segment DC present, endpoints match D and C."
+      "note": "Right side D to C matches the original."
     },
     {
       "object_id": "seg_08",
-      "status": "present",
-      "note": "Short CV stub near M (553,57)-(549,75) is not drawn in the original as a separate segment and is not needed in the render; treated as an artifact of the CV pass."
+      "status": "unclear",
+      "note": "Short CV fragment at the M label glyph; there is no stroke at this location in the original, so it is text ink rather than a figure segment."
     },
     {
       "object_id": "seg_AB",
       "status": "present",
-      "note": "Drawn as A to B; matches seg_05."
+      "note": "Segment AB is drawn and endpoints match."
     },
     {
       "object_id": "seg_AC",
       "status": "present",
-      "note": "Drawn as A to C; matches seg_03."
+      "note": "Segment AC is drawn and endpoints match."
     },
     {
       "object_id": "seg_AM",
       "status": "present",
-      "note": "Top line from A through D to M; matches seg_02 and the A-D stretch, with slight tilt noted."
+      "note": "Top line from A through D to M is drawn."
     },
     {
       "object_id": "seg_AP",
       "status": "present",
-      "note": "Drawn as A to P; matches seg_06."
+      "note": "Segment AP is drawn and endpoints match."
     },
     {
       "object_id": "seg_BC",
       "status": "present",
-      "note": "Base from B through P to C; matches seg_01, with slight tilt noted."
+      "note": "Baseline BC is drawn and passes through P."
     },
     {
       "object_id": "seg_DC",
       "status": "present",
-      "note": "Drawn as D to C; matches seg_07."
+      "note": "Segment DC is drawn and endpoints match."
     },
     {
-      "object_id": "seg_PD",
+      "object_id": "seg_DP",
       "status": "present",
-      "note": "Drawn as P to D; matches seg_04."
+      "note": "Segment DP is drawn and endpoints match."
     },
     {
       "object_id": "point_01",
       "status": "present",
-      "note": "C label and vertex correctly placed at the lower-right end of the base."
+      "note": "C is at the right end of the baseline with the correct label."
     },
     {
       "object_id": "point_02",
       "status": "present",
-      "note": "P label below the base, where the AP and DP segments meet BC."
+      "note": "P lies on the baseline with the label below it, as in the original."
     },
     {
       "object_id": "point_03",
       "status": "present",
-      "note": "B label at the lower-left vertex."
+      "note": "B is at the left end of the baseline with the label lower left."
     },
     {
       "object_id": "point_04",
       "status": "present",
-      "note": "A label above-left of the top-left vertex."
+      "note": "A is at the top-left vertex with the label above."
     },
     {
       "object_id": "point_05",
       "status": "present",
-      "note": "D label above the top vertex where the line to M passes through."
+      "note": "D is on the top line with the label above."
     },
     {
       "object_id": "point_17",
       "status": "present",
-      "note": "M label to the right of the end of the top line."
+      "note": "M is at the right end of the top line with the label to the right."
     },
     {
       "object_id": "point_A",
       "status": "present",
-      "note": "Letter A is visible at the top-left vertex in both panels. The ID is not in the geometry state; it corresponds to point_04."
+      "note": "Alias for A; matches point_04."
     },
     {
       "object_id": "point_B",
       "status": "present",
-      "note": "Letter B is visible at the lower-left vertex in both panels. The ID is not in the geometry state; it corresponds to point_03."
+      "note": "Alias for B; matches point_03."
     },
     {
       "object_id": "point_C",
       "status": "present",
-      "note": "Letter C is visible at the lower-right vertex in both panels. The ID is not in the geometry state; it corresponds to point_01."
+      "note": "Alias for C; matches point_01."
     }
   ],
   "checklist_score": 1.0,
   "actionable_counts": {
     "high": 0,
     "medium": 0,
-    "low": 1
+    "low": 0
   },
   "flaky_count": 0,
   "must_repair": false,
   "matches": [
-    "All six labels A, B, C, D, P, M are present, correctly spelled, and bound to their vertices with clear clearance from strokes.",
-    "Segment topology matches: AB, AP, AC, DP, DC, and the top line through D to M.",
-    "Intersection of AC and DP lies in the interior at the same relative location as in the original.",
-    "P sits on the base between B and C at the same relative position.",
-    "Overall aspect ratio and proportions of the figure are consistent with the original.",
-    "Stroke weights and label sizes are comparable between panels."
+    "Baseline B-P-C with P interior to BC, matching the original.",
+    "Top line A-D-M, including the overhang past D to M.",
+    "Segments AB, AP, AC, DP and DC, with the same crossings near the centre.",
+    "Labels A, B, C, D, M and P present, correctly placed and clear of strokes.",
+    "Overall aspect ratio and relative proportions match the original."
   ],
   "labels": {
     "present": [
@@ -170,8 +150,8 @@
       "B",
       "C",
       "D",
-      "P",
-      "M"
+      "M",
+      "P"
     ],
     "missing": [],
     "extra": []

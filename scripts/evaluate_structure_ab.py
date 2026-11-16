@@ -106,8 +106,8 @@ def _group_summary(per_stem: dict[str, dict]) -> dict:
     return summary
 
 
-def _paired_geometry(per_group: dict[str, dict[str, dict]], names: list[str], shared: list[str]) -> dict:
-    """geom2code ``paired_geometry``: common items only, image mean then image average."""
+def paired_geometry(per_group: dict[str, dict[str, dict]], names: list[str], shared: list[str]) -> dict:
+    """Average uncapped errors on items measurable in every compared group."""
     result: dict[str, dict] = {}
     for key, label in (("angle_checks", "angle"), ("ratio_checks", "ratio")):
         totals: dict[str, list[float]] = {name: [] for name in names}
@@ -116,12 +116,18 @@ def _paired_geometry(per_group: dict[str, dict[str, dict]], names: list[str], sh
             if any(not per_group[name][stem]["compiled"] for name in names):
                 continue
             groups = [per_group[name][stem][key] for name in names]
-            assert len({len(group) for group in groups}) == 1
+            if len({len(group) for group in groups}) != 1:
+                raise ValueError(f"Item count mismatch: {stem}/{label}")
             common = []
             for items in zip(*groups):
-                assert all(item["target"] == items[0]["target"] for item in items)
+                identity = (items[0]["labels"], items[0]["target"])
+                if any((item["labels"], item["target"]) != identity for item in items):
+                    raise ValueError(f"Item identity mismatch: {stem}/{label}")
                 if all(item["error"] is not None for item in items):
-                    common.append([item["error"] for item in items])
+                    errors = [item["error"] for item in items]
+                    if not all(np.isfinite(error) and error >= 0 for error in errors):
+                        raise ValueError(f"Invalid error: {stem}/{label}")
+                    common.append(errors)
             if common:
                 item_count += len(common)
                 for i, name in enumerate(names):
@@ -225,7 +231,7 @@ def main() -> int:
             f"{100 * s['ratio_mre']:>10.4f}% {s['ratio_images']:>5}"
         )
 
-    paired = _paired_geometry(per_group, names, shared)
+    paired = paired_geometry(per_group, names, shared)
     print("\npaired (common items available in every group; image mean then image average):")
     for key, label in (("angle", "angle MAE (deg)"), ("ratio", "ratio MRE (pp)")):
         entry = paired[key]

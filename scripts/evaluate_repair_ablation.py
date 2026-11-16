@@ -18,7 +18,8 @@ from geoagent.config import load_settings
 from geoagent.state.tikz_repair import repair_tikz_constraints
 from geoagent.tools.compiler import compile_tikz
 from geoagent.tools.renderer import frame_like_original, render_pdf
-from scripts.merge_evaluation_results import build_ablation, full_cohort_geometry, read, sha
+from scripts.evaluate_structure_ab import paired_geometry
+from scripts.merge_evaluation_results import build_ablation, read, sha
 
 
 def save(path, value):
@@ -68,7 +69,7 @@ def summarize(structure, visual, pairs):
     if stems != visual['shared_stems'] or stems != [row['stem'] for row in pairs]:
         raise ValueError('The two groups must cover the same frozen image set')
     per_group = {n: g['per_stem'] for n, g in structure['groups'].items()}
-    errors = full_cohort_geometry(per_group, stems)
+    errors = paired_geometry(per_group, list(per_group), stems)
     common, _ = build_ablation(structure)
     groups = {}
     for name, group in structure['groups'].items():
@@ -82,13 +83,13 @@ def summarize(structure, visual, pairs):
                     or visual['evaluated_image_sha256']['reference'][stem] != row['original_image_sha256']):
                 raise ValueError(f'Evaluated input changed for {name}/{stem}')
         groups[name] = {**visual['groups'][name]['summary'], **summary['geometry_quality'],
-                        'angle_mae_with_missing_deg': errors['angle']['means'][name],
-                        'ratio_mre_capped_with_missing': errors['ratio']['means'][name],
+                        'angle_mae_common_deg': errors['angle']['means'][name],
+                        'ratio_mre_common': errors['ratio']['means'][name],
                         'angle_coverage': summary['angle_coverage'], 'ratio_coverage': summary['ratio_coverage']}
-    return {'schema': 'paired-post-tikz-ablation.v1', 'count': len(stems),
+    return {'schema': 'paired-post-tikz-ablation.v2', 'count': len(stems),
             'reference_manifest_sha256': structure['reference_manifest_sha256'],
             'selection': 'Same selected Code Agent program and coordinate contract; toggle only the post-TikZ solver.',
-            'groups': groups, 'common_available_items': common, 'pairs': pairs,
+            'groups': groups, 'geometry_common': errors, 'common_available_items': common, 'pairs': pairs,
             'repair_applied_images': sum(r['repair_applied'] for r in pairs),
             'collinearity_applied_images': sum(r['collinearity_applied'] for r in pairs)}
 
@@ -99,8 +100,8 @@ def markdown(result):
              '两组共享坐标传递和同一批选中版本。该实验估计后修复步骤的影响。', '',
              '| 设置 | SSIM ×100 ↑ | CLIP ×100 ↑ | DINO ×100 ↑ | 角度 MAE（°）↓ | 长度比 MRE（%）↓ |',
              '|---|---:|---:|---:|---:|---:|']
-    quality = [('ssim', 100), ('clip', 100), ('dino', 100), ('angle_mae_with_missing_deg', 1),
-               ('ratio_mre_capped_with_missing', 100)]
+    quality = [('ssim', 100), ('clip', 100), ('dino', 100), ('angle_mae_common_deg', 1),
+               ('ratio_mre_common', 100)]
     coverage = [('edge_recall', 100), ('angle_coverage', 100), ('ratio_coverage', 100),
                 ('edge_precision', 100), ('edge_f1', 100), ('point_error', 100)]
 
@@ -113,7 +114,7 @@ def markdown(result):
     lines.extend(['', '| 设置 | 线段覆盖率（%）↑ | 角度覆盖率（%）↑ | 比例覆盖率（%）↑ | 线段精确率（%）↑ | 线段 F1（%）↑ | 点位误差（%）↓ |',
                   '|---|---:|---:|---:|---:|---:|---:|'])
     lines.extend(rows(coverage))
-    lines += ['', '角度和长度比按主表口径计入缺测。逐图结果见 [structure.json](structure.json) 和 [visual.json](visual.json)。', '',
+    lines += ['', 'MAE 和 MRE 使用两组共同可测项，先在每张图内平均，再对图等权平均。逐图结果见 [structure.json](structure.json) 和 [visual.json](visual.json)。', '',
               f"后修复实际修改 {result['repair_applied_images']} 张，其中 {result['collinearity_applied_images']} 张接受了共线约束。",
               '两组共同可测项的误差、覆盖率和输入哈希见 [comparison.json](comparison.json)。', '']
     return '\n'.join(lines)

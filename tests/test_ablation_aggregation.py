@@ -4,6 +4,7 @@ from copy import deepcopy
 import pytest
 
 from scripts.merge_evaluation_results import build_ablation
+from scripts.evaluate_structure_ab import paired_geometry
 
 
 def example():
@@ -35,3 +36,13 @@ def test_pairing_rejects_different_labels_even_with_same_target():
     structure['groups']['post']['per_stem']['small']['angle_checks'][0]['labels'] = ['other']
     with pytest.raises(AssertionError, match='Item identity mismatch'):
         build_ablation(structure)
+
+
+def test_common_geometry_uses_same_items_and_equal_image_weights_without_caps():
+    structure = example()
+    groups = {name: group['per_stem'] for name, group in structure['groups'].items()}
+    paired = paired_geometry(groups, list(groups), structure['shared_stems'])
+    for metric in ('angle', 'ratio'):
+        assert paired[metric]['n_items'] == 3
+        assert paired[metric]['n_images'] == 2
+        assert paired[metric]['means'] == pytest.approx({'raw': 5.0, 'post': 2.0})

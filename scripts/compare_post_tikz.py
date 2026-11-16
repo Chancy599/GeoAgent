@@ -269,7 +269,7 @@ def main():
     save(out/"repair_manifest.json",{"reports":reports,"reference_used_for_repair":False})
     print("All output programs frozen. Starting evaluation-only reference access.",flush=True)
     # This local parser and scorer never call an LLM.
-    from scripts.evaluate_structure_ab import (_group_summary,_paired_geometry,_item_deltas,_delta_summary)
+    from scripts.evaluate_structure_ab import (_group_summary, paired_geometry, _item_deltas, _delta_summary)
     groups={"raw":{},"post":{}}
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         futures={pool.submit(evaluate_one,s,source,out,items[s].latex_path):s for s in stems}
@@ -279,7 +279,7 @@ def main():
             if n%10==0:print(f"Geometry evaluated {n}/{len(stems)}",flush=True)
     structure={"geometry_protocol":PROTOCOL,
         "groups":{name:{"summary":_group_summary(rows),"per_stem":rows} for name,rows in groups.items()},
-        "paired_geometry":_paired_geometry(groups,["raw","post"],stems),
+        "paired_geometry":paired_geometry(groups,["raw","post"],stems),
         "item_paired":{key:_delta_summary(_item_deltas(groups,"raw","post",field)) for key,field in (("angle","angle_checks"),("ratio","ratio_checks"))},
         "paired_relations":paired_relations(groups,stems),
         "paired_distributions":paired_distributions(groups,stems)}

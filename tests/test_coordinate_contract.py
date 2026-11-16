@@ -48,6 +48,18 @@ def test_ambiguous_and_rejected_bindings_are_not_frozen():
     assert list(contract['points']) == ['A']
 
 
+def test_reviewed_subscript_uses_the_same_measured_vertex_for_label_and_strokes():
+    s = state()
+    s.add_object(dict(id='corner', type='point', coords={'px': [55., 250.]}, source='cv:bind_point_labels'))
+    assert apply_reviewed_bindings(s, [{'label': 'A1', 'point_id': 'corner', 'reason': 'visible A subscript 1'}])
+    contract = build_coordinate_contract(s)
+    assert contract['points']['A1']['px'] == [55., 250.]
+    tex, _ = apply_coordinate_contract(doc(r'\draw(A)--(A1);\node at(A1){$A_{1}$};'), contract)
+    assert extract_geometry(tex)['segments']['A--A1'] == ['A', 'A1']
+    with pytest.raises(ValueError, match='Visible label A1 must use'):
+        apply_coordinate_contract(doc(r'\node at(A){$A_1$};'), contract)
+
+
 def test_reviewed_binding_can_move_a_letter_and_correct_ocr_without_moving_pixels():
     s = state()
     s.add_object(dict(id='apex', type='point', coords={'px': [250., 20.]}, source='cv:bind_point_labels'))

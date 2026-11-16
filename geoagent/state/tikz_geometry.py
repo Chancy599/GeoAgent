@@ -9,7 +9,7 @@ import math
 import re
 import numpy as np
 from .angle_glyphs import marker_paths
-from .coordinate_precision import number
+from .coordinate_precision import cartesian_values, number
 
 NAME = r"[A-Za-z][A-Za-z0-9_']*"
 
@@ -30,10 +30,10 @@ def extract_geometry(tex, *, annotation_audit=None):
             continue
         if not (re.fullmatch(r"[A-Z]",name) or name in labels):
             continue  # exclude marker helpers and unlabelled stubs
-        cart = re.fullmatch(r"\s*\(\s*([-+\d.eE]+)\s*,\s*([-+\d.eE]+)\s*\)\s*",expr)
+        cart = cartesian_values(expr.strip()[1:-1]) if expr.strip().startswith("(") and expr.strip().endswith(")") else None
         polar = re.fullmatch(r"\s*\(\s*([-+\d.eE]+)\s*:\s*([-+\d.eE]+)\s*\)\s*",expr)
-        if cart:
-            xy = [float(x) for x in cart.groups()]
+        if cart is not None:
+            xy = cart
         elif polar:
             angle,radius = map(float,polar.groups())
             xy = [radius*math.cos(math.radians(angle)),radius*math.sin(math.radians(angle))]

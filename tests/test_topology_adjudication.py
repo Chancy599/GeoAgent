@@ -9,6 +9,25 @@ from geoagent.state.schemas import GeometricEvidenceState, GeometryObject
 from geoagent.state.topology import build_topology_plan, check_topology
 
 
+def test_solid_junction_extrapolation_requires_ink_across_the_gap(tmp_path):
+    source = tmp_path / 'source.png'
+    state = GeometricEvidenceState(image_path=str(source), image_size={'width': 200, 'height': 120})
+    for name, a, b in [('body', [20, 50], [120, 50]), ('fragment', [134, 40], [134, 60])]:
+        state.add_object(GeometryObject(id=name, type='segment', source='cv:detect_lines',
+                                        coords={'a_px': a, 'b_px': b}, style={'line': 'solid'}))
+    image = Image.new('L', (200, 120), 255)
+    draw = ImageDraw.Draw(image)
+    draw.line([(20, 50), (120, 50)], fill=0, width=2)
+    draw.line([(134, 40), (134, 60)], fill=0, width=2)
+    image.save(source)
+    add_construction_candidates(state)
+    assert 'junction_body_fragment' not in state.objects
+    draw.line([(120, 50), (134, 50)], fill=0, width=2)
+    image.save(source)
+    add_construction_candidates(state)
+    assert state.objects['junction_body_fragment'].coords['px'] == [134, 50]
+
+
 def test_critic_confirms_current_cv_candidate_and_rechecks_the_render(tmp_path):
     state = GeometricEvidenceState(image_path="source.png", image_size={"width": 400, "height": 300})
     for label, point in {"G": [80, 100], "N": [180, 100]}.items():
@@ -99,6 +118,19 @@ def test_collinear_named_subdivision_can_satisfy_a_straight_edge():
     duplicated = check_topology(tex + r'\draw (A)--(B);', plan)
     assert duplicated['overlapping_strokes'] == [[['A', 'B'], ['A', 'E']], [['A', 'B'], ['B', 'E']]]
     assert not duplicated['passed']
+
+
+def test_partial_version_selection_prefers_a_single_stroke_over_redrawing():
+    state = GeometricEvidenceState(image_path='source.png')
+    plan = {'required_edges': [['A', 'B'], ['A', 'C']]}
+    tex = r'\coordinate (A) at (0,0);\coordinate (B) at (1,0);\draw (A)--(B);'
+    for body, score in [(tex + r'\draw (B)--(A);', .94), (tex, .93)]:
+        version = state.add_tikz_version(body)
+        version.ok, version.png_path = True, 'render.png'
+        version.topology_check = check_topology(body, plan)
+        assert not version.topology_check['passed']
+        state.attach_critic(version.version, {}, score)
+    assert state.update_best() == 2
 
 
 def test_source_square_orientation_at_a_clipped_dashed_foot(tmp_path):

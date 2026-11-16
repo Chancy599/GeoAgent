@@ -77,6 +77,7 @@ class GeometrySettings:
     enabled: bool = True
     preserve_cv_coordinates: bool = True
     repair_stage: str = "post_tikz"  # post_tikz | pre_ges (legacy experiment)
+    post_repair_mode: str = "strict"
     post_max_shift_rel: float = 0.013
     post_max_length_change_rel: float = 0.035
     post_topology_tol_rel: float = 0.003
@@ -242,6 +243,8 @@ def _build_geometry(run_overrides: dict[str, Any] | None = None) -> GeometrySett
     preserve = _env_bool("GEOAGENT_PRESERVE_CV_COORDINATES")
     if preserve is not None:
         values["preserve_cv_coordinates"] = preserve
+    if mode := os.environ.get("GEOAGENT_POST_REPAIR_MODE"):
+        values["post_repair_mode"] = mode.strip().lower()
     rectify = _env_bool("GEOAGENT_RIGHT_ANGLE_RECTIFY")
     if rectify is not None:
         values["rectify_enabled"] = rectify
@@ -281,6 +284,8 @@ def _build_geometry(run_overrides: dict[str, Any] | None = None) -> GeometrySett
         stage = run_overrides.get("geometry_repair_stage")
         if stage is not None:
             values["repair_stage"] = str(stage)
+        if post_mode := run_overrides.get("post_repair_mode"):
+            values["post_repair_mode"] = str(post_mode)
         if repair is not None:
             values["enabled"] = bool(repair)
         rectify = run_overrides.get("rectify")
@@ -291,6 +296,8 @@ def _build_geometry(run_overrides: dict[str, Any] | None = None) -> GeometrySett
             values["right_angle_mode"] = str(mode).strip().lower()
     if values["repair_stage"] not in ("post_tikz", "pre_ges"):
         raise ValueError("geometry repair_stage must be post_tikz or pre_ges")
+    if values["post_repair_mode"] not in ("strict", "extended_hybrid", "legacy"):
+        raise ValueError("post_repair_mode must be strict, extended_hybrid or legacy")
     values["post_relation_types"]=tuple(values["post_relation_types"])
     return GeometrySettings(**values)
 

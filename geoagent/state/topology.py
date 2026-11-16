@@ -12,7 +12,8 @@ from pathlib import Path
 import numpy as np
 
 from ..cv_tools.common import load_ink
-from .coordinate_contract import MEASURED_POINT_SOURCES, build_coordinate_contract
+from .coordinate_contract import MEASURED_LABEL, MEASURED_POINT_SOURCES, build_coordinate_contract
+from .coordinate_precision import cartesian_values
 from .measured_topology import measured_topology
 from .schemas import GeometricEvidenceState
 from .tikz_geometry import NAME, clean
@@ -54,7 +55,7 @@ def build_topology_plan(state: GeometricEvidenceState, *, include_extensions: bo
     points, point_ids = {}, set()
     for label, key in state.label_bindings.items():
         obj = state.objects.get(key)
-        if (not re.fullmatch("[A-Z]", label) or obj is None or obj.type != "point"
+        if (not re.fullmatch(MEASURED_LABEL, label) or obj is None or obj.type != "point"
                 or obj.label != label or obj.source not in MEASURED_POINT_SOURCES
                 or obj.status in ("rejected", "conflict")):
             continue
@@ -219,7 +220,6 @@ def validate_endpoint_decisions(plan: dict, rows) -> dict:
 _VERTEX = rf"\(\s*({NAME})\s*\)"
 _CHAIN = re.compile(rf"{_VERTEX}(?:\s*--\s*{_VERTEX})+(?:\s*--\s*cycle)?")
 _DRAW = re.compile(r"\\(?:draw|filldraw)\b\s*(?:\[([^\[\]]*)\]\s*)?([^;]*);")
-_CARTESIAN = re.compile(r"\s*\(\s*([-+\d.eE]+)\s*,\s*([-+\d.eE]+)\s*\)\s*")
 _NON_DRAWING_OR_LOCAL = re.compile(
     r"(?:\bdraw\s*=\s*none\b|\b(?:draw\s+)?opacity\s*=\s*0(?:\.0*)?\s*(?:,|$)"
     r"|\b(?:shift|[xy]shift|scale|[xy]scale|rotate|cm|transform\s+canvas|shorten\s*[<>])\s*=)"
@@ -292,8 +292,9 @@ def check_topology(tex: str, plan: dict) -> dict:
     defined = {name for name, count in counts.items() if count == 1}
     points = {}
     for name, expr in definitions:
-        match = _CARTESIAN.fullmatch(expr)
-        if name in defined and match and (point := _xy(match.groups())) is not None:
+        expr = expr.strip()
+        cart = cartesian_values(expr[1:-1]) if expr.startswith("(") and expr.endswith(")") else None
+        if name in defined and (point := _xy(cart)) is not None:
             points[name] = point
     for options, path in _DRAW.findall(text):
         if _NON_DRAWING_OR_LOCAL.search(options) or not _CHAIN.fullmatch(path.strip()):

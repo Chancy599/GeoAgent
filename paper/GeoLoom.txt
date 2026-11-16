@@ -1,0 +1,1898 @@
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+XiaoJing Wei 1 Ting Zhang 1 Wei He 2 Jingdong Wang 2 Hua Huang 1
+Abstract
+High-quality geometric diagram generation
+presents both a challenge and an opportunity:
+it demands strict spatial accuracy while offer-
+ing well-defined constraints to guide generation.
+Inspired by recent advances in geometry prob-
+lem solving that employ formal languages and
+symbolic solvers for enhanced correctness and
+interpretability, we propose GeoLoom, a novel
+framework for text-to-diagram generation in ge-
+ometric domains. GeoLoom comprises two core
+components: an autoformalization module that
+translates natural language into a specifically de-
+signed generation-oriented formal language Ge-
+oLingua, and a coordinate solver that maps for-
+mal constraints to precise coordinates using the
+efficient Monte Carlo optimization. To support
+this framework, we introduce GeoNF, a dataset
+aligning natural language geometric descriptions
+with formal GeoLingua descriptions. We further
+propose a constraint-based evaluation metric that
+quantifies structural deviation, offering mathe-
+matically grounded supervision for iterative re-
+finement. Empirical results demonstrate that Ge-
+oLoom significantly outperforms state-of-the-art
+baselines in structural fidelity, providing a princi-
+pled foundation for interpretable and scalable dia-
+gram generation. The dataset is publicly available
+at:github.com/BNU-ERC-ITEA/GeoNF.
+1. Introduction
+Geometric diagrams play a crucial role in mathematical ed-
+ucation, scientific research, and engineering design, serving
+as the core medium for concept visualization and knowl-
+edge transfer. Despite their significance, diagram generation
+remains predominantly manual and labor-intensive (Zhang
+1 School of Artificial Intelligence, BeiJing Normal University,
+China 2BaiDu, China. Correspondence to: Ting Zhang <zhangt-
+ing@bnu.edu.cn>, Hua Huang<huahuang@bnu.edu.cn>.
+Proceedings of the 43 rd International Conference on Machine
+Learning, Seoul, South Korea. PMLR 306, 2026. Copyright 2026
+by the author(s).
+et al., 2007; Yu et al., 2015). Conventional methods, primar-
+ily rule-based or interactive tools (Yu et al., 2015), depend
+heavily on user input and domain expertise, resulting in
+limited efficiency and scalability. These approaches typi-
+cally require explicit specification of geometric primitives
+and constraints, rendering them inadequate for large-scale
+content creation. This highlights that automated models are
+urgently needed to convert natural language into accurate
+geometric diagrams.
+In recent years, text-to-image generation models (Zhang
+et al., 2023; Jia et al., 2024), such as Stable Diffusion (Rom-
+bach et al., 2022), DALL·E (Ramesh et al., 2022), and their
+successors (Jiahui et al., 2022; Chang et al., 2023; Saharia
+et al., 2022; Ren et al., 2025; Mi et al., 2025; Kou et al.,
+2025), have achieved significant progress in synthesizing
+high-fidelity natural images from textual prompts. However,
+these models remain inadequate for generating geometric di-
+agrams, primarily due to the sparse and highly structured na-
+ture of such visuals. Even with domain-specific fine-tuning,
+current models exhibit poor spatial accuracy, rendering the
+outputs unsuitable for educational contexts. This failure
+stems from a fundamental mismatch between the stochastic
+nature of generic diffusion models and the rigorous require-
+ments of geometry, further exacerbated by the absence of
+high-quality paired datasets that align textual descriptions
+with precise diagrammatic data.
+The core of the problem lies in the fact that geometric di-
+agrams, unlike natural images, can not be evaluated based
+on subjective perceptual quality (Radford et al., 2021), ge-
+ometric diagrams are inherently sparse, demanding exact
+placement of points, lines, and angles, and even a minor dis-
+tortion undermines their mathematical validity (Chen et al.,
+2022). This divergence presents both a challenge and an op-
+portunity. While current models struggle to capture precise
+spatial relationships and logical rules, the well-defined na-
+ture of geometry provides explicit, objective criteria. These
+criteria can serve as a principled foundation to calibrate gen-
+eration quality, a potential that has yet to be fully exploited
+by existing pixel-based generative frameworks.
+In this paper, we introduce GeoLingua, a novel generative-
+oriented formal language designed specifically for text-to-
+diagram synthesis in geometric domains. Central to GeoLin-
+gua is its role as an intermediate bridge that encodes geomet-
+1
+arXiv:2512.08180v2  [cs.CV]  9 Jun 2026
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+ric entities and relationships into a structured representation,
+facilitating the precise computation of coordinates necessary
+for high-fidelity rendering. This design draws inspiration
+from symbolic geometry solvers, where formal languages
+ensure logical consistency and computational rigor through
+unambiguous semantics (Chervonyi et al., 2025). Figure 1
+shows this analogy. However, while conventional formal
+languages focus on problem-solving, they often lack the
+explicit constructive dependencies required for diagram syn-
+thesis. To bridge this gap, GeoLingua explicitly incorporates
+sequential construction orders and topological constraints,
+ensuring that every point and line is generated following a
+mathematically sound hierarchy. Leveraging this language,
+we further develop GeoNF, a large-scale paired dataset that
+aligns natural language descriptions with their correspond-
+ing GeoLingua representations, providing a robust bench-
+mark for training and evaluating next-generation geometric
+generative models.
+To this end, we propose GeoLoom, a two-stage framework
+that decouples logical reasoning from spatial realization
+through an autoformalization module and a geometric con-
+straint solver. 1) The autoformalization module translates
+natural language descriptions into GeoLingua, a formal lan-
+guage specifically architected to capture the interplay be-
+tween geometric primitives and their constructive dependen-
+cies. Within GeoLingua, geometric content is categorized
+into primitives and constraints. Primitives are organized
+into a hierarchy of free and dependent points, reflecting
+their causal construction order. Concurrently, constraints
+encode rigorous spatial relations, such as metric lengths
+and angular orientations, that dictate the underlying topol-
+ogy of the diagram. 2) The second stage transforms these
+formal specifications into a visual diagram by optimizing
+point coordinates. We employ a Monte Carlo-based opti-
+mization algorithm (Metropolis & Ulam, 1949) to efficiently
+navigate the high-dimensional solution space. This solver
+iteratively refines the positions of free points via stochastic
+perturbations, guided by a quantitative objective function
+that penalizes constraint violations. By minimizing this
+“geometric energy”, the framework probabilistically con-
+verges on a precise spatial configuration that satisfies all
+mathematical prerequisites for accurate rendering.
+Experimental results demonstrate that GeoLoom signifi-
+cantly outperforms state-of-the-art baselines across both
+qualitative and quantitative metrics, establishing a new
+benchmark for geometric accuracy and logical consistency.
+Furthermore, an analysis of inference latency reveals that
+GeoLoom achieves superior computational efficiency; this
+rapid generation capability underscores its suitability for
+real-time applications in educational technology and auto-
+mated content creation. In summary, our primary contribu-
+tions are as follows:
+• Formal Language and Dataset.We introduce Ge-
+oLingua, a generative formal language that explic-
+itly encodes the hierarchical structure of geometric
+primitives, constraints, and constructive dependencies.
+Building on this foundation, we curate GeoNF, a high-
+quality paired dataset aligning natural language with
+formal representations, which serves as a rigorous
+benchmark for geometric diagram autoformalization.
+• Methodological Framework.We propose GeoLoom,
+a novel two-stage framework that decouples diagram
+generation into logical autoformalization and spatial
+realization. This framework integrates a Monte Carlo-
+based solver that iteratively optimizes point coordi-
+nates to satisfy complex geometric dependencies.
+• Empirical Validation.We provide extensive experi-
+mental evidence demonstrating that GeoLoom achieves
+state-of-the-art performance in both accuracy and log-
+ical consistency. Furthermore, its superior computa-
+tional efficiency validates its potential for real-time
+deployment in large-scale educational environments.
+2. Related Work
+Text-to-Image Generation.The field has progressed from
+GANs (Zhang et al., 2017; Kang et al., 2023) and autore-
+gressive models (Chang et al., 2023) to diffusion-based
+approaches (Lian et al., 2024; Sun et al., 2024) capable of
+high-fidelity synthesis. However, these models often fail
+to maintain the rigorous structural integrity required for ge-
+ometry. Existing diagram generation follows two primary
+paradigms: layout-guided, where LLMs plan spatial lay-
+outs for diffusion rendering (e.g., DiagrammerGPT (Zala
+et al., 2024)), and code-guided, which synthesizes program-
+matic code like TikZ from text (e.g., AutomaTikZ (Belouadi
+et al., 2024), DiagramAgent (Wei et al., 2024)). By contrast,
+formal systems like Penrose (Katherine et al., 2020) offer
+symbolic synthesis, yet they demand manual specification
+of complex logic, a limitation shared by dynamic geome-
+try tools including GeoGebra and Sketchpad. To address
+these challenges, we introduce GeoLingua, a generative-
+oriented formal language that explicitly encodes geometric
+primitives and constructive dependencies. Integrated with
+a Monte Carlo-based solver, our GeoLoom framework en-
+ables automated synthesis of high-fidelity diagrams.
+Vector Graphics Generation.Foundational work (Wu
+et al., 2025; Polaczek et al., 2025) in vector graphics syn-
+thesis includes DeepSVG (Carlier et al., 2020), which in-
+troduced a hierarchical generative model to disentangle
+high-level shapes from low-level B´ezier and line commands.
+Building on this, SVGFusion (Xing et al., 2024) proposed
+a scalable text-to-SVG framework that combines a vector-
+pixel fusion V AE with a diffusion transformer to learn a
+2
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+ 
+"choices": [
+        "56.6","138.6","169.7", "196"],
+  "answer": "C",
+Answer
+Find the area of the  
+pr rallelogram. Round 
+to the nearest tenth if  
+necessary.
+Geometry problems
+Autoformalization
+"text_logic_form": [
+    "Find(AreaOf(Parallelogram(A,D,B,C)))"],
+"diagram_logic_form": [
+    "Equals(LengthOf(Line(C, B)), 14)",
+    "Equals(LengthOf(Line(E, D)), 7)",
+    "Equals(MeasureOf(Angle(B,D, E)), 60)",
+    "PointLiesOnLine(E, Line(A, D))",
+    "Perpendicular(Line(B, E), Line(E, A))" ]
+Formal Language
+Symbolic Solver
+Geometry Problem Solving
+△ ABC is an isosceles triangle with BC as 
+the base, AD is the height on side BC, and 
+points E and F are the midpoints of AB and 
+AC, respectively, connecting ED and FD. 
+Natural Language
+ "shapes": [
+      "Polygon(ABC)"],
+"dependence": [
+        "DoPerpendicular(A,BC,D)",
+        "PointAtLine(E,AB,2)",
+        "PointAtLine(F,AC,2)"],
+"length constraint": [
+        "LengthRatio(AB,AC,Ratio(1,1))",
+        "ConnectPoints(ED)",
+        "ConnectPoints(FD)"],
+"angle constraint": []
+Formal Language(Our)
+Autoformalization
+Coordinate Solver
+Geometry Renderer
+Pf(x,y)   Pd (x,y )
+Coordinate
+Geometric Diagram Generation
+Figure 1.An overview of the analogy between geometry problem solving and geometric diagram generation, highlighting the central role
+of formal language in ensuring geometric correctness.
+continuous latent space aligned with textual prompts. De-
+spite these advancements in aesthetics, editability and scal-
+ability (Lopes et al., 2019; Carlier et al., 2020; Cai et al.,
+2023; Wu et al., 2023), most existing approaches lack ex-
+plicit modeling of geometric constraints such as parallelism
+and perpendicularity, limiting their applicability in domains
+requiring strict geometric correctness.
+3. GeoLingua
+While formal languages have long supported geometry solv-
+ing, existing representations often lack the capacity to cap-
+ture topological dependencies essential for accurate diagram
+synthesis (Polu & Sutskever, 2020; Lu et al., 2021). This
+section introduces GeoLingua, a generation-oriented formal
+language designed for geometric constructions. To ensure
+its rigor, we conducted systematic consultations with math-
+ematics experts. We first formally define the syntax and
+semantics of GeoLingua and then present GeoNF, a bench-
+mark dataset to facilitate supervised training and evaluation.
+Syntax and Semantics.We define four core components
+that underpin the generation of geometric diagrams: (1)
+Shape, (2) Dependence, (3) length constraint, and (4) Angle
+constraint. Building upon this abstraction, we introduce Ge-
+oLingua, a formal language framework designed to translate
+natural language (NL) problem descriptions into structured
+formal language (FL) representations. These representa-
+tions are explicitly organized along the four axes mentioned
+above, enabling downstream coordinate optimization. The
+detailed definition can be found in Appendix A.1.
+Shape: The foundational elements of a diagram are ba-
+sic geometric primitives such as line segments, triangles,
+and circles. The defining vertices of these primitives are
+categorized as free points Pf , whose coordinates can be
+independently determined (e.g., the two endpoints A and B
+of theABline segment);
+Dependence: Dependent points Pd are determined based
+on free points and geometric constraints (e.g., midpoints,
+perpendicular, intersections);
+Length constraint: These include length ratios Clin rat and
+length relations Clin rel, encoding proportional and rela-
+tional constraints between line segments;
+Angle constraint: These include fixed angle value Cang val,
+angular ratios Cang rat, and angular relationsCang rel, spec-
+ifying both absolute and relative angular properties.
+GeoNF Dataset.Building upon the developed formal lan-
+guage framework, we present GeoNF, a curated dataset of
+geometry problems sourced from national educational ex-
+aminations, specifically selected for their amenability to
+geometric diagram construction. To annotate the dataset, we
+recruited mathematics majors who were trained to translate
+natural language problem statements into structured formal
+representations. The detailed annotation process can be
+found in the AppendixA.2
+GeoNF involves various types of geometric relations and
+geometric shapes, and we classify and statistically analyze
+them according to these relations and geometric shapes. The
+resulting GeoNF comprises 4,730 high-quality aligned pairs
+of natural and formal language representations, denoted
+as {Nn, Fn}, where Nn represents the natural language
+description of a geometric problem, and Fn denotes its cor-
+responding formal expression. The specific distribution is
+shown in the Figure 2. The dataset is partitioned into 4,300
+training pairs and 430 test pairs, enabling models to learn
+mappings from informal language to formal specifications,
+thereby supporting constraint understanding.
+4. GeoLoom
+Based on GeoLingua, we propose GeoLoom, a two-stage
+framework for high-precision text-to-diagram generation in
+geometry domains. GeoLoom bridges natural language de-
+scriptions and structured geometric diagrams by integrating
+3
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Figure 2.Geometric relations and shapes distributions in GeoNF.
+an autoformalization module with a coordinate solver. An
+overview is illustrated in Figure 3.
+4.1. Autoformalization
+We investigate two complementary approaches: (1) a
+training-free, prompt-based method, and (2) a fine-tuning
+method. In both settings, the generated formal expressions
+are subsequently processed via Monte Carlo optimization to
+compute precise coordinates, further enabling high-quality
+generation.
+Training-free.We develop a prompt-engineering pipeline
+that interfaces directly with LLMs (specifically DeepSeek-
+V3 (Liu et al., 2024)), enabling translation from natural
+language to structured formal representations without addi-
+tional training. This pipeline integrates a validation mecha-
+nism to ensure syntactic and semantic compliance with the
+target formal language. Using the GeoNF test set, the pro-
+cess unfolds in three stages: (i) prompt construction guided
+by geometric semantics, (ii) structured generation of candi-
+date formal expressions, and (iii) validation-based filtering
+(prompt and detailed validation methods can be found in
+Appendix B.1 and Appendix B.2 respectively).
+Fine-tuning.To enhance model adaptability for formal
+language generation in geometric contexts, we conduct
+fine-tuning experiments across different model families
+(LLaMA (Grattafiori et al., 2024) and Qwen (Bai et al.,
+2023)) with various parameter scales. Each model is fine-
+tuned on the training split of the GeoNF dataset, which
+contains aligned pairs of natural language inputs and corre-
+sponding formal representations.
+This dual-path investigation offers a comprehensive com-
+parison of zero-shot and training-based strategies for auto-
+formalization, establishing a foundation for robust formal
+language generation.
+4.2. Coordinate Solver
+Geometric Constraint Deviation.The well-structured na-
+ture of geometric diagrams enables the use of explicit, quan-
+tifiable evaluation metrics, thereby providing a principled
+basis for supervising the diagram generation process. While
+general image evaluation (Lin et al., 2024) typically focuses
+on the presence of basic visual features and semantic align-
+ment with textual input (Radford et al., 2021), the evaluation
+of geometric diagrams necessitates a stricter adherence to
+mathematical precision. Specifically, this includes the ac-
+curate placement of point coordinates and compliance with
+geometric constraints related to line segments and angles.
+We hence identify five fundamental types of geometric con-
+straints that govern the structural fidelity of diagrams and
+formalize each as follows (In the below equation, [] is an
+Iverson bracket (Knuth, 1992), always 0 or 1.):
+• Length ratio.Given a ground-truth length ratio
+Lgt
+i /Lgt
+j =R gt line, the length ratio for generated
+diagram is Lgen
+i /Lgen
+j =R gen line. The evaluation
+metric for this constraint is defined as:
+Clin rat =R gen line/Rgt line.(1)
+• Length relation.For a relational expression between
+two line segments Llef t ⊙L right, and ⊙ ∈ {=, >,≥
+, <,≤}, the evaluation metric is given by:
+Clin rel = [⊙= “ = ”]·L lef t/Lright
++ [⊙= “⋆”andL lef t ⋆ Lright], (2)
+where ⋆ can be >(≥) or <(≤) , Llef t (Lright) rep-
+resents the left-hand (right-hand) side of the length
+relational expression.
+• Angle value.Given a ground-truth angle θgt and a
+generated angleθ gen, the constraint evaluation is:
+Cang val = [θgt ̸= 0]· θgen
+θgt
++ [θgt = 0andθ gen = 0].(3)
+• Angle ratio.Given a ground-truth angle ra-
+tio θgt
+i /θgt
+j =R gt angle, and a generated ratio
+θgen
+i /θgen
+j =R gen angle, the constraint metric is:
+Cang rat =R gen angle/Rgt angle.(4)
+• Angle relation.For an angle relation Alef t ⊙A right,
+with⊙ ∈ {=, >,≥, <,≤}, the evaluation is:
+Cang rel = [⊙= “ = ”]·A lef t/Aright
++ [⊙= “⋆”andA lef t ⋆ Aright]. (5)
+where ⋆ can be >(≥) or <(≤) , Alef t (Aright) are
+the left-hand (right-hand) side of the angle relation
+expression.
+The five values above constitute the normalized constraint
+satisfaction scores in the interval [0,1] , where 1 indicates
+4
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+LLM
+Fine-tuning
+Prompt+API
+or
+Shapes
+Dependence
+Angle constraint
+Length constraint
+GeoLingua
+AB is the diameter of ⊙ O, point C 
+is on circle O, point D is on inferior 
+arc AC, connecting AD, AC, CD, ∠ 
+ACD=∠ CAB, AD=2, AC=4.
+Natural Language
+"shapes": ["Circle(O,r)",
+          "StringOfCircle(O,AB)"],
+"dependence": [
+        "PointAtArc(C,O,0)",
+        "PointAtArc(D,AC,l,0)" ],
+"length constraint": [
+        "PointLineDistance(O,AB,0)",
+            ...
+        "Length(AD,2)",
+        "Length(AC,4)" ],
+"angle constraint": [
+       "AngleRatio(ACD,CAB,Ratio(1,1))"]
+Formal Language
+Pf : A, B, O;             Pd : C, D;
+Ck : Clin_rat , Cang_rat ;    Pd = Φ(Pf , Ck);
+Clin_rat
+Cang_rat
+Parser
+free points: Pf
+dependent points: Pd
+constraint: Ck
+line  and  arc: LAt 
+Clin_rat
+Clin_rel
+Cang_val
+Cang_rat
+Cang_rel
+Coordinate 
+solver
+ Coordinate solverGeoLoom framework
+Initialization
+P(0)
+f={p1, p2, ... ,pm },   Ck={c1, c2, ... ,ck }
+Geometric Diagram
+S*=S0=（P0
+f , P0
+d , Ck ）
+P(q)
+f={p1, p(q)
+2, ... ,pm }
+Monte Carlo 
+Random Optimize
+Newton Descent
+S*=S(t+1)
+No
+if ℒ(S(t+1))<ℒ(S(t))
+Geometry 
+Renderer
+Evaluator
+ℒ(S)max=
+max|1-Ỻi|,1≤ i≤k
+Yes
+P(0)
+d = Φ(P(0)
+f , Ck)={pm+1, pm+2, ... ,pn }
+if ℒ(S)max≤ β  
+End
+if ℒ(S(q))<ℒ(S(q-1)),S(t+1)=Sq
+P(t+)
+d = Φ(P(t+1)
+f , Ck)
+Figure 3.Illustrating GeoLoom framework: an autoformalization module and a coordinate solver.
+perfect satisfaction of the corresponding constraint, and
+lower values reflect increasing degrees of deviation.
+Monte Carlo-based Algorithm.To compute precise point
+coordinates in geometric diagrams, we adopt a Monte Carlo-
+guided coordinate solver, which iteratively perturbs the co-
+ordinates of free points, propagates updates to dependent
+points via constraint functions, and minimizes geometric
+constraint violations. This approach effectively balances
+local optimization and global search, thereby avoiding en-
+trapment in suboptimal configurations.
+Formally, from the formalized language, we regard
+a geometric diagram as S= (P f , Pd,C) . Pf =
+{p1, . . . , pm} denotes the set of free points whose coor-
+dinates {(x1, y1), . . . ,(xm, ym)} can be independently ad-
+justed. Pd ={p m+1, . . . , pn} denotes the set of dependent
+points, which are computed from the geometric constraints
+and the positions ofP f .
+For evaluation, we collect all scalar constraint scores into a
+single setC, which equals
+Clin rat ∪C lin rel ∪C ang val ∪C ang rat ∪C ang rel,(6)
+where each element Ck ∈C is the value of one constraint
+metric defined in the five families above. The optimiza-
+tion objective is to maximize the overall satisfaction of all
+constraints. We define the deviation loss as,
+L(S) = max
+Ck∈C
+|1−C k|.(7)
+Since each Ck ∈[0,1] , minimizing L(S) is equivalent to
+maximizing the minimum constraint satisfaction score. We
+iterative point coordinates until the deviation falls below
+the tolerance threshold α. The full procedure is detailed in
+Appendix C.1.
+Geometric Diagram Render.To support high-quality vi-
+sualization and compatibility with computational geometry
+tools, we use Matplotlib for rendering geometric diagrams.
+The renderer parses the formal language to extract points P
+and line segments L, then applies a dynamic coordinate ad-
+justment mechanism that computes appropriate scaling and
+translation based on the spatial distribution of points, which
+prevents overflow. Implementation details are provided in
+Appendix C.2.
+5. Experiments
+Implementation Details.The coordinate solver involves
+three principal hyperparameters: the loss convergence
+threshold α, the number of inner loop iterations Q, and
+the number of outer loop iterations T . Specifically, we set
+α= 0.05 , Q= 1000 , and T= 1000 . Complete imple-
+mentation details, including prompt formats and training
+configurations, are provided in the Appendix B.
+5.1. Results
+We conduct a comprehensive evaluation of GeoLoom by
+benchmarking it against strong baselines. Additionally, we
+analyze the computational efficiency of GeoLoom, high-
+lighting its scalability and inference speed.
+Qualitative Evaluation.Figure 4 presents representative
+visual examples comparing our method with three baselines:
+the state-of-the-art text-to-image model Seedream3.0 (Gao
+et al., 2025), Seedream5.0 and the domain-specific text-to-
+diagram generator AutomaTikZ (Belouadi et al., 2024). To
+verify the effectiveness of GeoLingua, we incorporate Ge-
+oLingua knowledge prior into the baseline methods. As
+shown, our approach, either training-free or fine-tuned, con-
+sistently generates diagrams that rigorously satisfy geomet-
+ric constraints. In contrast, the baseline methods, though
+capable of producing diagram-like visuals, frequently vio-
+late these constraints. This superior performance arises from
+5
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Training-free Fine-tuned AutomaTikZ Seedream3.0
+The triangle ABC is an inscribed equilateral 
+triangle of circle O, point O is the center, 
+po-ints D and E are on sides AC and AB 
+respec-tively, connecting OD and OE, 
+DA=BE.
+In triangle ABC, points D, E, and F are res -
+pectively the midpoints of AB, AC, and BC, 
+connecting DE, EF, and DF. Points P, M, 
+and N are respectively the midpoints of DE, 
+DF, and EF, con-necting PM, PN, and MN.
+I n the four sides ABCD,  ∠BAD=120◦,  
+∠ABC=∠ADC=90◦, find points M and N on 
+BC and CD respectively, and connect  AM 
+and AN. 
+In rectangle ABCD, point E is on edge AB, 
+connected to DE, which is the bisector of 
+∠ADC. Point F is on the extension of  DE, 
+connected to BF, ∠BFE = 90◦, connected to 
+AF, CF, CF, and AB intersecting with G.
+Natural Language
+ Origin-img
+ Seedream5.0 AutomaTiKZ Seedream3.0 Seedream5.0
+With Prior Knowledge
+Without Prior KnowledgeOursGround Truth
+Figure 4.Qualitative comparison with AutomaTikz (based on LLaMa7b), Seedream3.0 and Seedream5.0. With Prior Knowledge means
+that the model incorporates GeoLingua. (The introduction of baselines can be found in the Appendix D.1) and the corresponding formal
+language and the more results can be found in Appendix D.3
+Table 1.Quantitative comparison. Manual represents the accuracy
+of manual examination. Average represents the average value of
+LCI and ADI. The training-free model is DeepSeek-V3.
+Model Manual (Unit:%) LCI↓ADI↓Average↓
+Fine-tuned
+LLaMa3.1-8b 79.06 0.996 2.104 1.550
+LLaMa3.2-3b 77.21 0.951 2.104 1.549
+LLaMa3-8b 75.58 1.326 2.666 1.996
+Qwen2.5-7b 85.34 0.747 1.8181.283
+Qwen2.5-14b 83.72 0.871 1.083 1.427
+Training-free
+DeepSeek-V3 81.16 0.926 1.747 1.337
+our integration of formal representations and a constraint-
+aware coordinate solver, ensuring both semantic alignment
+and geometric validity.
+We further evaluate our method on more complex IMO-style
+datasets and compare with established tools that require hu-
+man intervention, namely Penrose (Katherine et al., 2020)
+and GeoGebra (Hohenwarter & Preiner, 2007). As illus-
+trated in Figure 5, while all three methods achieve mathemat-
+ical correctness, they differ significantly in efficiency and
+accessibility. GeoLoom automates the entire synthesis pro-
+cess in approximately 60 seconds per diagram. In contrast,
+Penrose imposes a high cognitive load, requiring users to
+learn and manually author complex symbolic scripts, while
+GeoGebra necessitates manual construction, averaging 300
+seconds of expert labor per diagram. Additionally, we con-
+ducted experiments using DeepSeek-V3 to directly convert
+text into geometric schematic diagrams via SVG (Direct-to-
+SVG). Experiments show that although SVG is a drawing
+language, it requires precise geometric point coordinates as
+a prerequisite. Therefore, models cannot directly use SVG
+to draw correct geometric diagrams.
+Quantitative Evaluation.To complement the qualitative
+analysis, we quantified the error values between the gen-
+erated diagrams and the target diagrams.We leverage our
+geometric constraint deviation score and group them into
+two metrics that can be used as quantitative indicators. The
+first is Line Consistency Index (LCI) capturing deviations
+related to line segments,
+LCI= 1−
+P
+Clin rat +C lin rel
+
+Nl
+, (8)
+where Clin rat and Clin rel represent the length ratio and
+length relation constraint scores, respectively. Nl represents
+the number of all elements in the length constraint set. The
+second is Angle Deviation Index (ADI) capturing deviations
+related to angular properties,
+ADI= 1−
+P
+Cang val +C ang rat +C ang rel
+
+Na
+, (9)
+where Cang val, Cang rat and Cang rel represent angle value,
+angle ratio, and angle relationship constraints, respectively.
+Na represents the number of all elements in the Angle con-
+straint set.
+We report the quantitative results by conducting a compara-
+tive analysis of different LLMs under the finetuning setting,
+and the results are shown in Table 1. To ensure the relia-
+bility of our proposed quantitative indicators, we perform a
+human-centric validation where a manual evaluation team
+reviewed the generated diagrams for mathematical accuracy.
+Our evaluation includes two methodological paradigms for
+formal language generation: supervised fine-tuning and
+training-free (zero-shot) inference, both followed by our co-
+ordinate solver for diagram rendering. As shown in Table 1,
+the Qwen2.5-7B model, when fine-tuned with our formal
+language, achieves the highest generation accuracy. This
+highlights the efficacy of incorporating formal language
+6
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+SVG GeoGebraGround Ttuth PenroseGeoLoom
+ 
+  
+Figure 5.Complex IMO-style diagram generation comparison with Penrose, GeoGebra, and Direct-to-SVG. The results of GeoLoom from
+training-free mothod with DeepSeek-V3. Direct-to-SVG experiment using DeepSeek-V3. Natural language inputs appear in Figure 11.
+supervision to calibrate the model’s spatial and logical rea-
+soning during the fine-tuning process. We prioritized LCI
+and ADI to evaluate diagrams, because general images met-
+rics(e.g., CLIP (Radford et al., 2021)) are unsuitable for
+diagrams. The limitations of general indicators in the dia-
+grams can be analyzed in detail in the AppendixD.2
+User Study.To evaluate the effectiveness from a human-
+centric perspective, we conduct a user study on a randomly
+selected sample of 100 geometric diagrams. Ten participants
+with backgrounds in mathematics / computer science were
+recruited to evaluate each diagram along two dimensions:
+(i)(Quality) image quality, namely visual plausibility; and
+(ii)(Alignment) textual alignment, the consistency between
+the diagram and textual description. For each instance, par-
+ticipants were shown diagrams generated by four different
+methods (including ours) in the randomized order, accom-
+panied by the original textual description. The fifth option,
+“None of the above,” was provided to allow participants
+to reject all diagrams if none were satisfactory. Table 2
+presents the aggregated results. Our method consistently
+outperforms all baselines across both evaluation criteria. A
+small proportion of samples were rated unsatisfactory for
+all methods, suggesting that evaluators exercised critical
+judgment rather than responding arbitrarily.
+Table 2.User study in image quality and textual alignment.
+Model and Method Quality Alignment
+AutomaTikZ 0 0
+Seedream3.0 0 0.2
+Ours (training-free) 39.2 40.5
+Ours (fine-tuned) 55.1 53.9
+None of the above 5.7 5.4
+Efficiency Results.
+To evaluate the efficiency of the Monte Carlo method, we
+conducted experiments and measured the generation time
+7
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Figure 6.Parameter analysis. The changes of LCI,ADI and Time with the increase of x-axis multiplier forα,TandQ.
+of each instance. The results can be found in the Table 3.
+Nearly 70% of the generated images were generated within
+10 seconds, demonstrating the practical effectiveness of this
+method. The efficiency of the untrained form on the training
+set matches well with the time efficiency on the test set. This
+demonstrates the stability of the Monte Carlo method and
+emphasizes its reliability in time sensitive applications. The
+experimental configuration can be found in the Appendix
+D.4
+5.2. Analysis
+Failure Case Analysis.We analyze failure cases of the
+Qwen2.5-7B experiments from both qualitative and quan-
+titative perspectives. A sample is regarded as a failure if
+either the formalization or the generated diagram is incorrect.
+Most formalization errors arise from irregular or ambigu-
+ous natural-language descriptions that lead to topological
+mistakes. Even with correct formal inputs, the Monte Carlo
+optimization may still fall into local minima or produce
+overlapping configurations. Local minima constitute the pri-
+mary failure mode, accounting for about 8% of the test set.
+More examples and statistics are provided in Appendix E.1.
+The Effect of Validation Filters.We here ablate the impact
+of validation filters on automatic formalization. As shown
+in Table 4, incorporating these filters into training-free auto-
+formalization substantially improves the quality of the gen-
+erated geometric diagrams, while markedly reducing both
+LCI and ADI scores. Notably, the filtered autoformalization
+results approach the quality of manually annotated formal
+languages. These findings demonstrate that validation filters
+effectively correct non-standard or noisy constraints in the
+autoformalization process, thereby significantly enhancing
+the overall reliability and expressiveness of the resulting
+formal language.
+The Effect of Different Geometric Constraint Deviations.
+To evaluate the impact of different geometric constraints on
+the final generation quality, we further conduct constraint ab-
+lation experiments. As detailed in Table 4, isolating length
+constraints yields the highest length accuracy (indicated
+by the lowest LCI) and the most rapid convergence. This
+suggests that length-based objectives are computationally
+robust and relatively straightforward to satisfy within the
+optimization space. In contrast, preserving only angle con-
+straints results in comparable angular precision, indicating
+that angular relations are more sensitive to stochastic per-
+turbations. Crucially, while single-constraint models may
+excel in their specific metrics, they fail to maintain the over-
+all topological integrity of the diagram.
+Parameter Analysis.We investigate the impact of three
+key parameters, loss convergence threshold ( α= 0.05 ),
+inner-loop iterations (Q= 1000 ), and outer-loop iterations
+(T= 1000 ), on the efficiency and quality of geometric dia-
+gram generation. Figure 6 summarizes generation time and
+diagram accuracy under six varying configurations(x-axis).
+The convergence threshold α defines the stopping criterion
+for optimization. Smaller values enforce stricter conver-
+gence, yielding higher-precision diagrams at the cost of
+increased computation, while larger values accelerate termi-
+nation but may compromise spatial accuracy. The outer-loop
+count T governs global exploration, enhancing robustness
+by escaping local optima. The inner-loop iteration count
+Q controls local refinement granularity. Higher T and Q
+improves solution quality within neighborhoods but incurs
+greater per-step cost. While increasing Q and T improves
+generation quality, it also leads to longer run times. These
+results reveal a trade-off between computational efficiency
+and diagram accuracy.
+Visualization of Optimization Process.To elucidate the it-
+erative convergence behavior of the Monte Carlo algorithm,
+we present a visual analysis where in the intermediate states
+at each iteration are rendered as sequential snapshots, collec-
+tively forming a state transition diagram. This visualization
+offers an intuitive depiction of the diagram structure’s pro-
+gressive evolution toward the target configuration.
+Complementing the structural visualization, we plot the loss
+values at each iteration in Figure 7 to characterize the al-
+gorithm’s optimization dynamics. The resulting loss curve
+traces the objective function trajectory, revealing a consis-
+8
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Table 3.Efficienty results (Unit: %). Construct the training-free based on train set, average of the three fine-tuned Qwen2.5-7b on the test
+set, average of the three training-free based on test set. Three experiment of fine-tuned Qwen2.5-7b on the test set, three training-free
+experiments based on the test set.
+Method <10s 11s – 20s 21s – 30s 31s – 40s 41s – 50s 51s – 60s>60s
+Training-free (train set) 75.51 5.53 1.98 5.61 3.04 1.95 6.30
+Training-free (test set) 72.13 6.71 2.65 1.71 5.38 4.45 6.94
+Fine-tuned Qwen2.5-7b 71.36 7.85 2.83 2.83 1.94 1.46 11.73
+Table 4.Ablation study of filters and constraint. ”w Filter“ indi-
+cates the presence of filter configuration, while ”w/o Filter” indi-
+cates the removal of filter configuration.
+Setting LCI↓ADI↓Average Time
+Filters
+w Filter0.9621.747 1.337 13.379
+w/o Filter 1.340 1.864 1.602 15.945
+Constraint
+Full Constraint 0.870 1.537 1.203 15.782
+Only Length 0.651 - - 2.844
+Only Angle - 1.577 - 7.477
+Figure 7.Loss curve during optimization.(The corresponding natu-
+ral language and geometric diagrams can be found in Figure14).
+The geometry diagrams as shown in Figure15.
+tent decline that aligns with increasing structural fidelity.
+This correlation indicates that the loss function effectively
+guides the search toward geometrically coherent solutions.
+To verify the robustness of the autoformalization and visual-
+ize the convergence process during the coordinate solving
+phase, we conducted experimentsRandomness in autofor-
+malization and coordinate solverin the Appendix E.2.
+6. Conclusion
+In this work, we introduce GeoLoom, a novel framework
+designed to overcome the structural limitations of conven-
+tional text-to-image models in the geometric domain. By
+establishing GeoLingua, a generation-oriented formal lan-
+guage, and curating GeoNF, a high-quality paired dataset,
+we provide a principled foundation for aligning natural lan-
+guage with rigorous geometric construction. GeoLoom’s
+two-stage architecture, decoupling logical autoformaliza-
+tion from Monte Carlo-based spatial optimization, achieves
+a unique balance of mathematical precision and computa-
+tional efficiency. Through extensive experiments, we show
+that GeoLoom significantly outperforms existing baselines,
+making it a promising solution for scalable, accurate dia-
+gram generation in educational contexts. This work paves
+the way for future research in symbolic-geometric modeling
+and the integration of structured formalism into multimodal
+generation tasks.
+Limitations.While GeoLoom effectively automates 2D
+diagram generation, it has certain boundaries that offer av-
+enues for future exploration. First, the current framework
+is strictly designed for planar Euclidean geometry. Extend-
+ing the coordinate solver to handle 3D spatial constructions
+(e.g., prisms, spheres) or non-Euclidean surfaces would re-
+quire a more complex manifold-based optimization logic.
+Second, the model’s performance is tied to the clarity of the
+input text; highly ambiguous or nested linguistic descrip-
+tions can occasionally lead to errors in the autoformalization
+stage. Future work will focus on improving the system’s ro-
+bustness to diverse phrasing and expanding the GeoLingua
+vocabulary to support multi-dimensional geometry.
+Acknowledgments
+This work was jointly supported by the National Natural Sci-
+ence Foundation of China (62437001) and the Fundamental
+Research Funds for the Central Universities (2253500001,
+2243100004).
+Impact Statement
+This work mainly utilizes large model autoformalization
+tasks and Monte Carlo algorithms to generate text to ge-
+ometric diagrams. To protect privacy, all data and code
+will not be disclosed during the review stage. During the
+data collection process, manual annotators carefully review
+and remove all identifiable personal information, including
+name, school identification, and geographic location. In
+addition, potentially harmful or inappropriate content (such
+as offensive language) has been automatically filtered by
+the system. Therefore, the dataset used in this article only
+contains interaction content that is de identified and relevant
+9
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+to teaching.
+From a broader perspective, as multimodal models are in-
+creasingly deployed in classroom teaching, tutoring plat-
+forms, and remote learning environments, their ability to
+provide context sensitive and teaching compliant guidance
+has become one of the key factors determining the quality
+of education. Therefore, this framework not only facili-
+tates model benchmark evaluation, but also promotes the
+deployment of LLMs in educational settings.
+References
+Bai, J., Bai, S., Yang, S., Wang, S., Tan, S., Wang, P.,
+Lin, J., and Zhou, J. Qwen-vl: A frontier large vision-
+language model with versatile abilities.arXiv preprint
+arXiv:2308.12966, 2023.
+Belouadi, J., Lauscher, A., and Eger, S. Automatikz: Text-
+guided synthesis of scientific vector graphics with tikz.
+InThe Twelfth International Conference on Learning
+Representations, 2024.
+Cai, M., Huang, Z., Li, Y ., Wang, H., and Lee, Y . Leveraging
+large language models for scalable vector graphics-driven
+image understanding.arXiv preprint :2306.06094, 2023.
+Carlier, A., Danelljan, M., Alahi, A., and Timofte, R.
+Deepsvg: A hierarchical generative network for vector
+graphics animation. InProceedings of the 34th Con-
+ference on Neural Information Processing Systems, pp.
+16351–16361, 2020.
+Chang, H., Zhang, H., Barber, J., Maschinot, A., Lezama,
+J., Jiang, L., Yang, M.-H., Murphy, K. P., Freeman, W. T.,
+Rubinstein, M., Li, Y ., and Krishnan, D. Muse: Text-to-
+image generation via masked generative transformers. In
+Krause, A., Brunskill, E., Cho, K., Engelhardt, B., Sabato,
+S., and Scarlett, J. (eds.),International Conference on
+Machine Learning (ICML 2023), pp. 4055–4075, 2023.
+Chen, J., Li, T., Qin, J., Lu, P., Lin, L., Chen, C., and Liang,
+X. Unigeo: Unifying geometry logical reasoning via
+reformulating mathematical expression.In Proceedings
+of the 2022 Conference on Empirical Methods in Natural
+Language Processing, pp. 3313–3323, 2022.
+Chervonyi, Y ., Trinh, T. H., Ol ˇs´ak, M., Yang, X.-M.,
+Nguyen, H., Menegali, M., Jung, J., Verma, V ., Le, Q. V .,
+and Luong, T. Gold-medalist performance in solving
+olympiad geometry with alphageometry2.arXiv preprint
+arXiv:2502.03544, 2025.
+Gao, Y ., Gong, L., Guo, Q., Hou, X., Lai, Z., Li, F., Li, L.,
+Lian, X., Liao, C., et al. Seedream 3.0 technical report.
+arXiv preprint arXiv:2504.11346, 2025.
+Grattafiori, A., Dubey, A., Jauhri, A., Pandey, A., Kadian,
+A., Aldahle, A., Letman, A., Mathur, A., Schelten, A.,
+Vaughan, A., et al. The llama 3 herd of models.arXiv
+preprint arXiv:2407.21783, 2024.
+Hohenwarter, M. and Preiner, J. Dynamic mathematics
+with geogebra.Journal of Online Mathematics and its
+Applications, 7, 2007. Article 1448.
+Jia, Z., Zhang, Z., Wang, L., and Tan, T. Human image
+generation: A comprehensive survey.ACM Computing
+Surveys, 56(11):1–39, 2024.
+Jiahui, Y ., Yuanzhong, X., Yukoh, J., Pang, J., Ruoming, Q.,
+Ku, A., Yuhui, X., Baldridge, J., and Yonghui, W. Scal-
+ing autoregressive models for content-rich text-to-image
+generation.arXiv preprint arXiv:2206.10789, 2022.
+Kang, M., Zhu, J., Zhang, R., Park, J., Shechtman, E.,
+Paris, S., and Park, T. Scaling up gans for text-to-image
+synthesis. InIEEE/CVF Conference on Computer Vision
+and Pattern Recognition, pp. 10124–10134, 2023.
+Katherine, Y ., Wode, N., Max, K., Dor, M., Jenna, W.,
+Jonathan, A., Joshua, S., and Keenan, C. Penrose: from
+mathematical notation to beautiful diagrams.Association
+for Computing Machinery, 39(4), 2020. ISSN 0730-0301.
+Knuth, D. E. Two notes on notation.American Mathemati-
+cal Monthly, 99(5):403–422, 1992.
+Kou, S., Jin, J., Liu, Z., Liu, C., Ma, Y ., Jia, J., Chen,
+Q., Jiang, P., and Deng, Z. Orthus: Autoregressive in-
+terleaved image-text generation with modality-specific
+heads. InF orty-second International Conference on Ma-
+chine Learning, 2025.
+Langley, P. Crafting papers on machine learning. In Langley,
+P. (ed.),Proceedings of the 17th International Conference
+on Machine Learning (ICML 2000), pp. 1207–1216, Stan-
+ford, CA, 2000. Morgan Kaufmann.
+Lian, L., Li, B., Yala, A., and Darrell, T. Llm grounded dif-
+fusion: Enhancing prompt understanding of text-to-image
+diffusion models with large language models.Transac-
+tions on Machine Learning Research, pp. 2835–8856,
+2024.
+Lin, Z., Pathak, D., Li, B., Li, J., Xia, X., Neubig, G., Zhang,
+P., and Ramanan, D. Evaluating text-to-visual generation
+with image-to-text generation.Computer Vision – ECCV,
+2024.
+Liu, A., Feng, B., Xue, B., Wang, B., Wu, B., Lu, C., Zhao,
+C., Deng, C., Zhang, C., Ruan, C., et al. Deepseek-v3
+technical report.arXiv preprint arXiv:2412.19437, 2024.
+10
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Lopes, R. G., Ha, D., Eck, D., and Shlens, J. A learned repre-
+sentation for scalable vector graphics. In2019 IEEE/CVF
+International Conference on Computer Vision (ICCV), pp.
+7929–7938, 2019.
+Lu, P., Gong, R., Jiang, S., Qiu, L., Huang, S., Liang, X.,
+and Zhu, S. Inter-gps: Interpretable geometry problem
+solving with formal language and symbolic reasoning.
+InProceedings of the 59th Annual Meeting of the Asso-
+ciation for Computational Linguistics, pp. 6774–6786,
+2021.
+Metropolis, N. and Ulam, S. The monte carlo method.
+Journal of the American Statistical Association, 44(247):
+335–341, 1949.
+Mi, Z., Wang, K.-C., Qian, G., Ye, H., Liu, R., Tulyakov,
+S., Aberman, K., and Xu, D. I think, therefore i diffuse:
+Enabling multimodal in-context reasoning in diffusion
+models. InF orty-second International Conference on
+Machine Learning, 2025.
+Polaczek, S., Alaluf, Y ., Richardson, E., Shamir, A., Cohen-
+Or, D., et al. NeuralSVG: An implicit representation for
+text-to-vector generation. InarXiv preprint:2501.03992,
+2025.
+Polu, S. and Sutskever, I. Generative language model-
+ing for automated theorem proving.arXiv preprint
+arXiv:2009.03393, 2020.
+Radford, A., Kim, J.-W., Hallacy, C., Ramesh, A., Goh, G.,
+Agarwal, S., Sastry, G., Askell, A., Mishkin, P., Clark,
+J., Krueger, G., and Sutskever, I. Learning transferable
+visual models from natural language supervision. In
+Proceedings of the 38th International Conference on Ma-
+chine Learning, PMLR 139:8748-8763,, 2021.
+Ramesh, A., Dhariwal, P., Nichol, A., Chu, C., and Chen,
+M. Hierarchical text-conditional image generation with
+clip latents.arXiv preprint arXiv:2204.06125, 2022.
+Ren, S., Yu, Q., He, J., Shen, X., Yuille, A., and Chen,
+L.-C. FlowAR: Scale-wise autoregressive image genera-
+tion meets flow matching. InF orty-second International
+Conference on Machine Learning, 2025.
+Rombach, R., Blattmann, A., Lorenz, D., Esser, P., and
+Ommer, B. High resolution image synthesis with latent
+diffusion models. InIEEE/CVF Conference on Computer
+Vision and Pattern Recognition (CVPR 2022), pp. 10674–
+10685, 2022.
+Saharia, C., Chan, W., Saxena, S., Li, L., Whang, J., et al.
+Photorealistic text-to-image diffusion models with deep
+language understanding. InNeurIPS 2022, 2022.
+Sun, Q., Yu, Q., Cui, Y ., Zhang, F., Zhang, X., Wang, Y .,
+Gao, H., Liu, J., Huang, T., and Wang, X. Emu: Genera-
+tive pretraining in multimodality. InInternational Con-
+ference on Learning Representations (ICLR), pp. 12352–
+12380, 2024.
+Wei, J., Tan, C., Chen, Q., Zhang, X., Li, Y ., et al. From
+words to structured visuals: A benchmark and frame-
+work for text-to-diagram generation and editing. In
+arXiv:2411.11916, 2024.
+Wu, R., Su, W., Ma, K., and Liao, J. Iconshop: Text-guided
+vector icon synthesis with autoregressive transformers.
+arXiv preprint arXiv:2304.14400, 2023.
+Wu, R., Su, W., and Liao, J. Chat2SVG: Vector graphics gen-
+eration with large language models and image diffusion
+models. InProceedings of the IEEE/CVF Conference on
+Computer Vision and Pattern Recognition (CVPR 2025),
+pp. 23690–23700, 2025.
+Xing, X., Xu, D., and Yu, Q. Svgfusion: Scalable text-to-
+svg generation via vector space diffusion.arXiv preprint
+arXiv:2412.10437, 2024.
+Yu, X., Gan, W., Yang, D., and Lai, S. Automatic recon-
+struction of plane geometry figures in documents. In
+2015 International Conference on Educational Innova-
+tion through Technology (EITT), pp. 46–50, 2015.
+Zala, A., Lin, H., Cho, J., and Bansal, M. DiagrammerGPT:
+Generating open-domain, open-platform diagrams via
+LLM planning. InFirst Conference on Language Model-
+ing, 2024.
+Zhang, C., Zhang, C., Zhang, M., and Kweon, I. Text-to-
+image diffusion models in generative ai: A survey.arXiv
+preprint arXiv:2303.07909, 2023.
+Zhang, H., Xu, T., and Li, H. Stackgan: Text to photo-
+realistic image synthesis with stacked generative adver-
+sarial networks. InIEEE International Conference on
+Computer Vision, ICCV 2017, V enice, Italy, October 22-
+29, pp. 5908–5916, 2017.
+Zhang, J., Xiong, H., and Peng, X. Free software ssp for
+teaching mathematics. InSymbolic Computation and
+Education, pp. 115–135. World Scientific, 2007.
+11
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+A. Dataset
+A.1. Formal Language Framework
+This chapter will provide a detailed introduction to GeoNF and the framework for defining formal languages (Section 3).
+The formal language statements of the four module in GeoLingua are shown in the Table 5, Table 6, Table 7 and Table 8.
+Geometric names, length values, and angle values in formal language can be adjusted according to actual situations.
+Table 5.Formal language definitions for “shapes” of GeoLingua.
+Natural LanguageFormal Language
+Circle /⊙, radius=rCircle(center name,radius value)
+TrianglePolygon(triangle name)
+ParallelogramParallelogram(parallelogram name)
+RhombusRhombus(rhombus name)
+SquareSquare(square name)
+RectangleRectangle(rectangle name)
+TrapezoidPolygon(trapezoid name)
+SectorSector(sector name,the angle of sector,radius value)
+String of circleStringOfCircle(circle center,string name)
+Circle inscribed polygonInscribedPolygon(circle center,polygon name)
+The inscribed circle of a polygonCircumscribedPolygon(circle center,polygon name)
+Other polygonPolygon(polygon name)
+A.2. GeoNF Dataset Annotation
+To ensure high-quality annotations, we implemented a multi-stage pipeline with three roles: (i) 10 mathematics-major
+annotators, (ii) a quality inspection team of 3 middle school teachers, and (iii) an Acceptance Team of 2 domain experts.
+(1) Phase 1: Standardized Specification: The Acceptance Team defined a detailed annotation protocol covering problem
+statements, solution objectives, formal language (GeoLingua), and diagrams, and explained it to annotators and inspectors
+for consistent understanding.
+(2) Phase 2: Data Collection and Curation: The annotator team collected geometry problems from middle school exam-
+inations over the past five years. An initial pool of approximately 5,000+ problems was obtained. The annotators then
+conducted manual filtering to remove duplicates and low-quality samples (e.g., incomplete statements or missing diagrams),
+resulting in a refined dataset of approximately 4,700 high-quality instances.
+(3) Phase 3: Independent Annotation: We adopted a double-blind annotation scheme. The dataset was randomly divided
+into 5 subsets, each annotated independently by two annotators. The inspection team reviewed all annotations, and disputed
+cases were escalated to the Acceptance Team for arbitration.
+(4) Phase 4: Iterative Verification and Final Validation: The inspection team conducted a pairwise review of the two
+annotations per instance. Consistent, correct samples were accepted; inconsistent or incorrect samples were re-annotated
+iteratively. Acceptance Team performed an independent audit on at least 10% of each batch of final dataset; batches below
+98%accuracy were re-verified by the inspection team. This process ensured overall annotation accuracy more than 98%.
+B. Training-free Details
+This section will provide a detailed introduction to prompt formats and validation-based filter of the training-free (Section
+4.1).
+B.1. Prompt Formats
+For the design of prompt, we have divided it into four parts: role, formal language framework, examples, and requirements.
+The content of each section is as follows:
+12
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Table 6.Formal language definitions for “depengence” of GeoLingua.
+Natural LanguageFormal Language
+Point at line segmentPointAtLine(point name,line name,0)
+Proportional point of line segmentPointAtLine(point name,line name,ratio value)
+IntersectionLineIntersect(line name1,line name2,intersection)
+Point on the arcPointAtArc(point name,arc name,arc type,)
+Point P on the circlePointAtArc(point name,circle center,0)
+Extend the points on the lineExtensionLine(extension-line name,point name)
+Tangent of circleTangent(circle center,point of tangency,tangent)
+Make perpendicular line at pointDoPerpendicular(point name,line name,foot)
+Point inside polygonPointInShape(point namw,polygon name,0)
+Table 7.Formal language definitions for “length constraint” of GeoLingua.
+Natural LanguageFormal Language
+Segment lengthLength(line name,length value)
+Line segment ratioLengthRatio(line name1,line name2,Ratio(value1,value2))
+Arc ratioArcRatio(arc name1,arc name2,Ratio(value1,value2))
+Line segment relationshipLengthAddandSub((left side ),relation,(right side))
+Perimeter of polygonLengthAddandSub((lines name of polygon),equal,perimeter)
+Distance from point to linePointLineDistance(point name,line name,distance value)
+Connect line segmentConnectPoints(line name)
+• Role:You are a professional formal language translation assistant capable of accurately converting natural language de-
+scriptions (natural language) of geometry problems into structured formal language (formal language). The conversion
+rules from natural language to formal language are as follows:
+•Formal Language Framework:A formal language framework in the form of markdown.
+•Examples:Listed the diverse geometric natural language and formal language.
+• Requirements:You must strictly follow the conversion rules defined above and special conversion rules for the
+conversion. The final output JSON format is as follows : “JSON data format”. The natural language description entered
+by the user is as follows:” Among them, the JSON data format is: “shapes”: [], “dependence”: [], “length constraint”:
+[], “angle constraint”: []
+B.2. Validation-based Filter
+There is an illusion problem with large models. In order to prevent the model from outputting undefined formal statements,
+we set validation-based filter to ensure that the formal language content meets the defined requirements. Validation-based
+filters are mainly designed to prevent tampering or the addition of formal language statements to the Large Language model.
+We have set up filters three times. If it does not meet the requirements of formal language, the prompt will be reloaded until
+all three chances are exhausted. If required, the formal language will be outputted.
+C. Method of Coordinate Solver
+In this section, we will briefly introduce the algorithm of coording solver.
+C.1. Monte Carlo-based Algorithm
+In this section, We have provided a detailed introduction to the implementation algorithm of a coordinate solver driven by
+Monte Carlo (Monte Carlo-based Algorithm of the Section 4.2). The specific algorithm process is shown in Algorithm 1.
+13
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Table 8.Formal language definitions for “angle constraint” of GeoLingua.
+Natural LanguageFormal Language
+∥Parallel(line name1,line name2,0)
+⊥Perpendicular(line name1,line name2,90)
+Degree of angleAngle(angle name,degree value)
+Trigonometric functionTriFunction(function,angle name,value)
+Angle ratioAngleRatio(angle name1,angle name2,Ratio(value1,value2))
+Angle relationshipAngleAddandSub((left side),relation,(right side))
+C.2. Geometric Diagram Render Algorithm
+This section will provide a detailed introduction to geometric rendering algorithms(Geometric Diagram render of the Section
+4.2).
+We use the regular matching method to extract the points identifiers P and all line segment representations L in
+the geometric diagram from the formal language. By solving the coordinates, we obtained the coordinates P=
+{p1(x1, y1), . . . , pm(xm, ym)} of each point. In order to better present the geometric diagram, we designed an adaptive
+canvas. The adaptive canvas algorithm is as Algorithm 2
+D. Experiment result
+In this section, we will briefly introduce the formal language corresponding to baseline methods, geometric diagrams in
+qualitative evaluation, limitation of CLIP in geometric giagrams, and efficiency results in quantitative evaluation (Section
+5.1).
+D.1. Baseline Methods:
+In the comparative experiment, we have compared our method with the following baselines:
+1) AutomaTiKZ:AutomaTikZ is an abstract graphics language based on vector drawing, which describes geometric
+shapes, charts, scientific diagrams, etc. through code, compiles and outputs scalable vector graphics. We choose the
+TiKZ-LLaMa7b model trained on LLaMa as base model.
+2)SeeDream:Basic model for bilingual image generation in Chinese and English
+3) Penrose:Penrose describes geometric and mathematical relationships using the Substance language, and then automati-
+cally generates a diagram that satisfies these constraints through optimization. However, its drawback is that users must
+first learn and manually specify this relatively complex description language.
+4) GeoGebra:GeoGebra relies on manual diagram construction, which can ensure high visual quality but requires
+substantial human effort and time.
+The AutomaTiKZ and SeeDream methods perform fully automatic geometric diagram generation, Penrose and GeoGebra
+require human intervention. On standard benchmark datasets(GeoNF), we compare our approach with AutomaTiKZ and
+SeeDream and show that it can generate correct diagrams both rapidly and reliably. On more challenging datasets such as
+IMO-style problems, we compare our method with Penrose and GeoGebra. Although these baselines are able to produce
+high-quality diagrams, under comparable visual quality our method is faster and does not require any manual involvement.
+D.2. Limitations of CLIP
+Our evaluation already includes two specialized, geometry-based metrics: Length Consistency Index (LCI) and Angle
+Deviation Index (ADI), which quantify the deviation between generated diagram and target diagram based on constraints
+(e.g., lengths and angles). LCI and ADI are coordinate-based metrics designed to measure precise mathematical alignment.
+Baselines (Seedream3.0, AutomaTikZ) generate either raw pixels or non-structured TikZ code without explicit coordinate
+constraints, lacking the structured metadata required to calculate these geometric indices. This lack of ”structural awareness”
+14
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Algorithm 1Monte Carlo-based algorithm
+Input:Textual descriptionT
+Output:Geometric diagramS global
+Initialize geometric diagramS 0 = (P 0
+f ,P 0
+d ,C) and Calculate the initial loss valueL(S 0);
+Define the global optimal solution as the initial stateS global =S 0;
+whilet < TorL(S) max > αdo
+for the (t-1)-th iteration result:S t−1 =(P t−1
+f , P t−1
+d ,C);
+whileq < Qdo
+Sq =S t−1;
+L(S)best =L(S q)max;
+Monte Carlo perturbation free pointP q
+f ;
+L(Sq)max = evaluate(Sq,P q
+f ,P q
+d );
+ifL(S q)max <L(S) best then
+Update local optimal solution:L(S) best =L(S q)max;
+Slocal =S q ;
+end
+end
+Update the dependency points based on the local optimal solution:S (t) =S local;P (t)
+d = Φ(P t
+f ,C);
+L(St)max = evaluate(St, P t
+f , P t
+d);
+ifL(S t)max <L(S) best then
+Update the global optimal solution:L(S) best =L(S t)max;
+Sglobal =S t ;
+end
+returnS global;
+end
+in baselines is precisely the limitation our GeoLoom framework aims to solve. To provide a side-by-side comparison, we
+conducted experiments on Figure4 using the CLIP Score to measureimage-text alignmentandimage similarity. As can be
+observed in Figure4, the outputs generated by baselines exhibit significant deviations from the ground truth but still achieve
+high CLIP scores. In contrast, our generated geometric results, which are visually more consistent with the ground truth,
+receive lower CLIP scores. The findings indicate that CLIP is unsuitable for evaluating geometric diagram quality.
+Table 9.Proving the Limitations of CLIP in Geometric Diagrams Based on Figure4. (image-text alignment|image similarity)
+Row Ours (training-free) Ours (fine-tuned) SeeDream3.0 AutomaTiKZ
+The first row 0.2548 0.8135 0.2548 0.8135 0.2736 0.9207 0.2824 0.8652
+The second row 0.2463 0.7390 0.2463 0.7390 0.2729 0.8784 0.2766 0.9267
+The third row 0.2828 0.9249 0.2870 0.8953 0.3130 0.9184 0.3114 0.8798
+The fourth row 0.2251 0.8960 0.2230 0.9241 0.2129 0.8862 0.2282 0.9209
+D.3. Qualitative Evaluation Experiment
+The additional results in the qualitative evaluation experiment are shown in Figure 8. (The other resultds of qualitative
+evaluation is shown in the Figure 4 of Section 5.1). The formal languages corresponding to the geometric diagrams are
+shown as Figure 12. The natural-language descriptions corresponding to Figure 5 in Section 5.1 are shown in the Figure 11.
+15
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Algorithm 2Geometric Diagram Render Algorithm
+Input:Geometric diagramS global.
+Output:Image of geometric diagram.
+Extract all points coordinateP=p 1(x1, y1), . . . , pm(xm, ym)fromS global.
+Regularly parsing pointsPand linesLfrom formal languages.
+step1: Calculate coordinate offsets.
+xf = -min(x) if min(x)<0else 0;
+yf = -min(y) if min(y)<0else 0;
+step2: Apply coordinate translation.
+ifx f ̸= 0ory f ̸= 0then
+foreach pointp∈Pdo
+x←x+x f ;y←y+y f ;
+end
+Update coordinate sets:P=p 1(x1, y1), . . . , pm(xm, ym);
+end
+step3: Determine canvas sizeC size .
+Mcoord ←max(max(x),max(y));
+ifM coord > Csize then
+Csize ←(⌊M coord/50⌋+ 1)×50(50 is used to ensure that the canvas is an integer multiple of 50);
+end
+Draw a geometric diagram with linesLand adjusted coordinatesPon a new canvasC size.
+returnGeometric diagram;
+Training-free Fine-tuned AutomaTikZ Seedream3.0
+In diamond shapes ABCD, AC and BD 
+intersect at points O, E, and F, which are the 
+midpoints of OA and OC, respec-tively, 
+Connect DF and BE.
+In square ABCD, the side length of square 
+ABCD is 4, connecting AC and BD at point 
+O, extending DC to point E, connecting AE, 
+∠CAE=15◦.
+Natural Language Origin-img Seedream5.0 AutomaTiKZ Seedream3.0 Seedream5.0
+With Prior KnowledgeWithout Prior KnowledgeOursGround Truth
+Figure 8.Additional result of quantitative evaluation. The baseline methon are AutomaTikz (base LLaMa-7b) and SeeDream model.
+D.4. Efficiency Results
+In the efficiency experiment (Efficiency result of the Section 5.1), three times experiments were conducted on the fine-tuned
+Qwen2.5-7b model and the training-free DeepSeek-V3, and the time consumption of the three times experiments and the
+The average time are shown in Table 3 . The three experiments in Table 3 indicate that the majority of geometric graph
+generation takes less than 10 seconds. The results of the time proportions of the two methods indicate that the efficiency of
+the coordinate parser is highly stable.
+E. Experiment Analysis
+In this section, We will supplement necessary experimental analysis for Section 5.2).
+E.1. Failure Case of GeoLoom
+• Topological of formal language: For a very small number of natural-language descriptions that are not written in a
+standard form, the automatic formalization process can produce errors in the topological ordering. As shown by the
+16
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+example on the right in Figure 9, the natural-language description uses DE ∥ AB, DF ∥ AC, while the standardized
+description should be DE ∥ BA, DF ∥ CA. Since the topological order is not corrected during formalization, the
+geometric diagram cannot be constructed correctly, and the evaluation metrics become extremely abnormal. Such cases
+account for 3%of the test set.
+• Local minima in Monte Carlo coordinate optimization: Since the geometric constraint objective is inherently highly non-
+convex (especially when multiple angle, ratio, collinearity, and concyclicity constraints are involved), the optimization
+process is inevitably prone to local minima. The local minimum solution is characterized by evaluation metrics that are
+close but do not meet the threshold, and geometric diagrams that visually resemble the target image but do not meet the
+required details. In the middle example of Figure 9, the segment ratio constraint is correctly specified in the formal
+language. However, during random optimization, the target ratio of 2:1 cannot be reached, causing the procedure to
+converge to a local minimum.
+• Overlapping problem: When two points are too close to each other, a quasi-overlapping issue arises. Although such
+cases still satisfy the quantitative evaluation metrics, they are visually unsatisfactory for practical use, as shown in
+Figure 9. These failure cases account for 3%of the test dataset.
+In triangle ABC, the angle bisector AD of 
+∠BAC meets BC at D. Point E lies on AC, and 
+point F lies on AB. Connect DF, DE such that 
+DE ∥ AB and DF ∥ AC. Determine the shape of 
+quadrilateral AFDE and explain your reasoning.
+Natural Language
+"shapes": [
+        "Polygon(ABC)"],
+"dependence": [
+        "PointAtLine(D,BC,0)",
+        "PointAtLine(E,AC,0)",
+        "PointAtLine(F,AB,0)"],
+"length constraint": [
+        "ConnectPoints(DF)",
+        "ConnectPoints(DE)"],
+"angle constraint": [
+        "AngleRatio(BAD,CAD,Ratio(1,1))",
+        "Parallel(DE,AB,0)",
+        "Parallel(DF,AC,0)"]
+Formal Language
+✘
+In quadrilaterals ABCD, AC and BD intersect at 
+point O, AO=CO, ∠BCA=∠CAD. E, F, G are 
+the midpoints of BO, CO, AD respectively, con-
+necting EF, GE, and GF. If BD=2AB, BC=15, 
+AC=16, calculate the circumference of EFG.
+Natural Language
+"shapes": ["Polygon(ABCD)" ],
+"dependence": [
+        "LineIntersect(AC,BD,O)",
+        "PointAtLine(E,BO,2)",
+        "PointAtLine(F,CO,2)",
+        "PointAtLine(G,AD,2)"],
+"length constraint": [
+       "LengthRatio(BD,AB,Ratio(2,1))",
+        "ConnectPoints(EF)",
+        "ConnectPoints(GE)",
+        "ConnectPoints(GF)",
+        "LengthRatio(AO,CO,Ratio(1,1))",
+        "Length(BC,15)",
+        "Length(AC,16)"],
+"angle constraint": [
+        "AngleRatio(BCA,CAD,Ratio(1,1))"]
+Formal Language
+✘
+BD≠ 2AB
+Correct version：
+"Parallel(DE,BA,0)"
+"Parallel(DF,CA,0)"
+Given that points A, B, and C in ⊙ O are three 
+points on a circle connecting OA, AC, CB, and 
+BO, and the degree of ∠ AOB is 100 ° , what is 
+the degree of ∠ ACB?
+Natural Language
+ "shapes": [
+        "Circle(O,r)"],
+ "dependence": [
+        "PointAtArc(A,O,0)",
+         "PointAtArc(B,O,0)",
+         "PointAtArc(C,O,0)"],
+ "length constraint": [
+         "ConnectPoints(OA)",
+         "ConnectPoints(AC)",
+         "ConnectPoints(CB)",
+         "ConnectPoints(BO)"],
+ "angle constraint": [
+         "Angle(AOB,100)"]
+Formal Language
+✘
+AC overlap
+✘
+✘
+Figure 9.Analysis of Failure Cases. On the left is a case of topological of formal language. In the middle is a case of local minima in
+Monte Carlo coordinate optimization, and on the right is a case of overlapping problem.
+E.2. Randomness in Autoformalization and Coordinate Solver
+Translating natural language into formal geometric representations inherently involves ambiguity, resulting in multiple
+formally distinct yet semantically equivalent expressions. This variation arises from the probabilistic nature of language
+models, which produce diverse outputs given identical inputs. Despite these differences, all generated formalizations
+preserve the underlying geometric semantics and constraints. Consequently, when processed by the downstream diagram
+generation system, they yield mathematically valid and structurally correct diagrams. This demonstrates the robustness of
+the autoformalization process in maintaining semantic fidelity amid linguistic variability.
+Beyond autoformalization, stochasticity also occurs in the coordinate solving stage. Our system’s Monte Carlo–based solver
+introduces randomness in point coordinate generation. Although each sampling iteration may produce different coordinates,
+these variations remain bounded within predefined tolerance thresholds that guarantee geometric consistency. Figure 10
+illustrates these two controlled sources of variation, highlighting the difference between autoformalization, list the geometric
+diagram generated by random sampling within the tolerance threshold.
+17
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Fine-tuned
+In rhombus ABCD, connect AC and BD , 
+with diagonal lines  AC and BD inter -
+secting at point O, AC=4, BD=8, point E 
+on the  edge Of AD, 3AE=AD. Connect 
+BE, BE intersects AC at point M.
+Natural Language & 
+Difference of formal language Training-free
+LLaMa3.1-8b LLaMa3.2-3b Qwen2.5-7b Qwen2.5-14bLLaMa3-8b
+(Ⅰ) 3AE=AD :
+ LengthRatio(AE,AD,Ratio(1,3))
+(Ⅱ)2AE=ED:
+ LengthRatio(AE,ED,Ratio(1,2)) (Ⅰ) (Ⅱ)
+(Ⅰ) (Ⅰ) (Ⅰ) (Ⅰ)
+In rectangles ABCD, point E is on line 
+segment CD, point F is on the extension of 
+line segment AB, connecting EF to line 
+segment BC at point G, and connecting 
+BD, DE=BF=2.
+(Ⅰ)DE=BF=2: 
+Length(DE,2), Length(BF,2)   
+(Ⅱ)DE=2,DE:BF=1:1:  
+Length(DE,2),
+LengthRatio(DE,BF,Ratio(1,1))
+In  triangle ABC,  AB=AC， m ake AD  
+perp endicular to BC at point D ， If ∠ 
+BAC=70 °.
+(Ⅰ)make AD⊥BC: 
+DoPerpendicular(A,BC,D)
+(Ⅱ)D at line BC, AD⊥BC: 
+PointAtLine(D,BC,0),
+Perpendicular(AD,BC,90)"
+(Ⅰ) (Ⅱ)(Ⅱ) (Ⅰ) (Ⅱ) (Ⅰ)
+(Ⅰ) (Ⅱ)(Ⅱ) (Ⅰ) (Ⅰ) (Ⅰ)
+Figure 10.Randomness in autoformalization and coordinate. Highlight the specific formal language that is different in fine-tuned and
+training-free methods.
+In the randomness in autoformalization and coordinate solver experimental (Randomness in autoformalization and coordinate
+solver of Section 5.2), The experimental results are as Figure 10. The formal language corresponding to the geometric
+diagram is as Figure13.
+18
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+dependence length constraintshapes angle constraint
+Natural lanuage Formal language
+"Circle(O,r)",         
+"InscribedPolygon(O,ABCD)"
+"ExtensionLine(BC,K)",            
+"ExtensionLine(CD,J)",            
+"ExtensionLine(CB,E)",            
+"PointAtLine(F,AB,2)",            
+"PointAtLine(G,BC,2)",            
+"PointAtLine(H,CD,2)",            
+"PointAtLine(I,DA,2)",            
+"LineIntersect(FH,GI,P)",            
+"LineIntersect(AB,DC,Q)"
+"LengthRatio(DJ,AD,Ratio(1,1))",            
+"LengthRatio(CK,BC,Ratio(1,1))",            
+"ConnectPoints(AE)",            
+"ConnectPoints(FG)",            
+"ConnectPoints(GH)",            
+"ConnectPoints(HI)",            
+"ConnectPoints(IF)",            
+"ConnectPoints(AJ)",            
+"ConnectPoints(KJ)"
+"Angle(ABC,120)",
+"Angle(ADC,60)",            
+"Angle(AEB,90)"
+Let ABCD be a cyclic quadrilateral with circumcircle 
+O, angle ABC = 120° , and angle CDA = 60° . Extend 
+CD beyond D to a point J such that DJ = AD. Extend 
+BC beyond C to a point K such that CK = BC. Join AJ 
+and KJ. Extend CB beyond B to a point E and join 
+AE, such that angle AEB = 90° . Let F, G, H, I be the 
+midpoints of AB, BC, CD, DA, respectively. Join FG, 
+GH, HI, IF, FH, and GI. Let FH and GI intersect at P, 
+and let BA and DC intersect at Q. Prove that FGHI is 
+a parallelogram.
+"Circle(O,r)",         
+"InscribedPolygon(O,ABC)"
+"ExtensionLine(BC,F)",
+"ExtensionLine(BA,E)",            
+"ExtensionLine(CB,H)",            
+"ExtensionLine(AB,I)",            
+"PointAtLine(G,AC,2)"
+"LengthRatio(AB,BC,Ratio(1,1))",            
+"LengthRatio(CF,BC,Ratio(1,1))",            
+"LengthRatio(AE,BA,Ratio(1,1))",            
+"LengthRatio(BH,BI,Ratio(1,1))",            
+"ConnectPoints(EG)",            
+"ConnectPoints(FG)",            
+"ConnectPoints(HG)",            
+"ConnectPoints(IG)",            
+"ConnectPoints(EF)",            
+"ConnectPoints(HE)",            
+"ConnectPoints(HI)",            
+"ConnectPoints(IF)"
+"Parallel(HI,EF,0)"
+Let ABC be a triangle inscribed in circle O, with AB = 
+BC. Point F lies on line BC such that CF = BC. Point 
+E lies on ray BA beyond A such that BA = AE. Point 
+G is the midpoint of AC. Join EF, EG, and GF. Extend 
+CB to a point H, and extend AB to a point I. Join HE, 
+HG, HI, and FI. The construction is such that HI is 
+parallel to EF. Prove that quadrilateral HIEF is an 
+isosceles trapezoid.
+"Rhombus(ABCD)"
+"LineIntersect(AC,BD,O)",            
+"PointAtLine(E,CD,2)",             
+"PointAtLine(G,AB,2)",            
+"ExtensionLine(OE,F)",            
+"ExtensionLine(OG,H)" 
+"LengthRatio(AB,CD,Ratio(1,1))",            
+"LengthRatio(BC,AD,Ratio(1,1))",            
+"LengthRatio(AB,BC,Ratio(1,1))",            
+"LengthRatio(OE,EF,Ratio(1,1))",            
+"LengthRatio(OG,GH,Ratio(1,1))",            
+"ConnectPoints(DF)",            
+"ConnectPoints(CF)",            
+"ConnectPoints(AH)",            
+"ConnectPoints(BH)",            
+"ConnectPoints(DH)",            
+"ConnectPoints(BF)"
+"Parallel(AB,DC,0)",            
+"Parallel(AD,BC,0)",            
+"Angle(ABC,100)"
+In a rhombus ABCD, the diagonals AC and BD 
+intersect at O. Let E be the midpoint of CD, and G the 
+midpoint of AB. Extend segment OE beyond E to a 
+point F such that OE = EF. Extend segment OG 
+beyond G to a point H such that OG = GH. Prove that 
+HDBF is a parallelogram, and that quadrilaterals 
+AHBO and DOCF are squares.
+ "Circle(O,r)",            
+"InscribedPolygon(O,ABC)"
+"PointAtLine(E,AC,0)",             
+"PointAtLine(D,BC,0)",            
+"PointAtLine(K,DC,0)",            
+"PointAtLine(G,AD,0)",            
+"LineIntersect(BE,AD,H)"
+"LengthRatio(AB,AC,Ratio(1,1))",            
+"LengthRatio(AH,OD,Ratio(2,1))",        
+"ConnectPoints(BG)",            
+"ConnectPoints(EG)",            
+"ConnectPoints(EO)",            
+"ConnectPoints(GC)"
+"Perpendicular(AD,BC,90)",            
+"Perpendicular(BE,AC,90)",            
+"Perpendicular(EO,AD,90)",            
+"Perpendicular(EK,BC,90)"
+In circle O, triangle ABC is inscribed and satisfies AB 
+= AC. Through B, draw BE perpendicular to AC with 
+foot E on AC. Through A, draw AD perpendicular to 
+BC with foot D on BC. Through E, draw EK 
+perpendicular to BC with foot K on BC. Join O and E; 
+suppose OE is perpendicular to AD. Lines BE and AD 
+intersect at H, and it is given that AH = 2· OD. Point G 
+lies on segment AD. Join BG, CG, and GE.
+"Circle(O,r)",            
+"InscribedPolygon(O,ABC)",            
+"StringOfCircle(O,DE)"
+"PointAtLine(P,BC,0)",             
+"ExtensionLine(BA,R)",                     
+"LineIntersect(RP,AC,Q)" 
+"PointLineDistance(O,DE,0)", 
+"ConnectPoints(DR)",            
+"ConnectPoints(RE)",            
+"ConnectPoints(RP)",            
+"ConnectPoints(DQ)",            
+"ConnectPoints(DP)",       
+"Angle(ABC,90)",
+"Perpendicular(DR,AB,90)",            
+"Perpendicular(DQ,AC,90)",            
+"Perpendicular(DP,BC,90)"
+An equilateral triangle ABC is inscribed in  circle O, 
+and angle ABC = 90° . Chord DE lies on circle O, and 
+point P is a point on segment BC. Extend  BA beyond 
+A to a point R, and join PR. Let PR  intersect AC at Q. 
+Join BE, RE, DR ，DP and DQ, with DQ  
+perpendicular to AC, DR perpendicular to AB and DP 
+be perpendicular to BC.
+"Circle(O,r)",            
+"InscribedPolygon(O,ABC)",            
+StringOfCircle(O,KE)",            
+"StringOfCircle(O,AD)"
+"PointAtLine(F,BC,0)", 
+"PointAtLine(G,DK,0)"
+"PointLineDistance(O,KE,0)",
+"PointLineDistance(O,AD,0)",            
+"LengthRatio(FG,FO,Ratio(1,1))",            
+"ConnectPoints(FG)",            
+"ConnectPoints(GO)",            
+"ConnectPoints(FO)",            
+"ConnectPoints(DK)"
+"Angle(BAC,80)",            
+"AngleRatio(BAD,CAD,Ratio(1,1)
+)"
+In circle O, triangle ABC is inscribed with angle B AC 
+= 80° . KE is a diameter of circle O. Another diameter 
+AD bisects angle BAC. Point F is the midpoint of BC, 
+and point G is the midpoint of segment DK. Join DK, 
+FG, GO, and FO. It is given that FG = FO.
+Figure 11.The formal language corresponding to natural language in Figure5.
+19
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+dependence length constraintshapes angle constraint
+Natural lanuage Formal language
+"Circle(O,r)",  
+"InscribedPolygon(O,ABC)"
+"PointAtLine(D,AC,0)",
+"PointAtLine(E,AB,0)"],
+"ConnectPoints(OD)", 
+"ConnectPoints(OE)", 
+"LengthRatio(AB,BC,Ratio(1,1))", 
+"LengthRatio(AB,AC,Ratio(1,1))",
+"LengthRatio(DA,EB,Ratio(1,1))"
+[]
+The triangle ABC is an inscri -
+bed equilateral  triangle of cir -
+cle O, point O is the center, 
+points D and E are on sides AC 
+and AB respe c tively, con -
+necting OD and OE, DA=BE.
+"Polygon(ABC)" 
+"PointAtLine(D,AB,2)",
+"PointAtLine(E,AC,2)", 
+"PointAtLine(F,BC,2)", 
+"PointAtLine(P,DE,2)",
+"PointAtLine(M,DF,2)",
+"PointAtLine(N,EF,2)"],
+"ConnectPoints(DE)", 
+"ConnectPoints(EF)", 
+"ConnectPoints(DF)",
+"ConnectPoints(PM)", 
+"ConnectPoints(PN)", 
+"ConnectPoints(MN)"
+[]
+In triangle ABC, points D, E, F 
+are respectively the midpoints 
+of AB, AC, and BC,  Connect-
+ing DE, EF, and DF. Points P, 
+M, and  N are respectively the 
+midpoints of DE, DF,  and EF, 
+connecting PM, PN, and MN.
+"Polygon(ABCD)" "PointAtLine(M,BC,0)",
+"PointAtLine(N,CD,0)"
+"ConnectPoints(AM)", 
+"ConnectPoints(AN)", 
+"Angle(BAD,120)",
+"Perpendicular(BA,BC,90)", 
+"Perpendicu-lar(DA,DC,90)"
+In the four sides ABCD, 
+∠BAD=120◦, ∠ABC=∠ADC
+=90◦, find points M and N on 
+BC  and CD respectively, and 
+connect AM and AN.
+"Rectangle(ABCD)
+"PointAtLine(E,AB,0)", 
+"ExtensionLine(DE,F)", 
+"LineIntersect(CF,AB,G)"
+"LengthRatio(AD,BC,Ratio(1,1))", 
+"LengthRatio(AB,DC,Ratio(1,1))", 
+"ConnectPoints(DE)",  
+"ConnectPoints(BF)", 
+"ConnectPoints(AF)", 
+"ConnectPoints(CF)"
+"Perpendicular(AB,AD,90)",
+"Perpendicular(DA,DC,90)", 
+"Perpendicular(FB,FE,90)", 
+"AngleRatio(ADE,CDE,
+  Ratio(1,1))"
+I n rectangle ABCD, point E is 
+on edge AB,  connected to DE, 
+D E  is the bisector of  ∠ADC. 
+Point F is on the extension of 
+DE, connected to BF, ∠BFE = 
+90◦, connected to  AF, CF, CF, 
+and AB intersecting with G.
+"Rhombus(ABCD)"
+"LineIntersect(AC,BD,O)", 
+"PointAtLine(E,OA,2)", 
+"PointAtLine(F,OC,2)"
+"LengthRatio(AB,CD,Ratio(1,1))",
+"LengthRatio(BC,AD,Ratio(1,1))", 
+"LengthRatio(AB,BC,Ratio(1,1))",    
+"ConnectPoints(AC)", 
+"ConnectPoints(BD)",
+"ConnectPoints(DF)", 
+"ConnectPoints(BE)"
+"Parallel(AB,DC,0)", 
+"Parallel(AD,BC,0)"
+I n diamond shapes ABCD, 
+AC and BD  intersect at points 
+O, E, and F, which are  the 
+midpoints of OA and OC, 
+respectively, c onnect DF and 
+BE
+"Square(ABCD)" "LineIntersect(AC,BD,O)",   
+"ExtensionLine(DC,E)"
+"LengthRatio(AB,AD,Ratio(1,1)),"
+LengthRatio(AB,BC,Ratio(1,1))",  
+"Length(AB,4)", 
+"ConnectPoints(AE)"
+"Perpendicular(AB,AD,90)",
+"Perpendicular(DA,DC,90)", 
+"Angle(CAE,15)"
+In square ABCD, the side 
+length of  square ABCD is 4, 
+connecting AC and  BD at 
+point O, extending DC to point 
+E, connecting AE, ∠CAE=15◦
+Figure 12.The formal language corresponding to natural language in Figure4 and Figure8.
+dependence length constraintshapes angle constraint
+Natural lanuage Formal language
+"Rhombus(ABCD)"
+"LineIntersect(AC,BD,O)", 
+"PointAtLine(E,AD,0)", 
+"LineIntersect(BE,AC,M)"
+"ConnectPoints(AC)", 
+"ConnectPoints(BD)", 
+"Length(AC,4)", "Length(BD,8)", 
+"LengthRatio(AE,AD,Ratio(1,3))", 
+"LengthRatio(AB,CD,Ratio(1,1))", 
+"LengthRatio(BC,AD,Ratio(1,1))", 
+"LengthRatio(AB,BC,Ratio(1,1))"
+"Parallel(AB,DC,0)", 
+"Parallel(AD,BC,0)"
+In rhombus ABCD, connect 
+AC and BD ,  with diagonal li -
+nes AC and BD intersecting at 
+point O, AC=4, BD=8, point E
+on the edge Of AD, 3AE=AD. 
+BE intersects AC at point M.
+"Rectangle(ABCD)"
+"PointAtLine(E,CD,0)", 
+"ExtensionLine(AB,F)", 
+"LineIntersect(EF,BC,G)"
+"ConnectPoints(EF)", 
+"ConnectPoints(BD)", 
+"Length(DE,2)", 
+"Length(BF,2)"
+[]
+In rectangles ABCD, point E is 
+on line segment CD, point F is 
+on the extension of  line seg -
+ment AB, connecting EF to 
+line  segment BC at point G, 
+connecting BD,  DE=BF=2
+"Polygon(ABC)" "DoPerpendicular(A,BC,D)" "LengthRatio(AB,AC,Ratio(1,1))" "Angle(BAC,70)"
+In triangle ABC, AB=AC,
+make AD perpendicular to BC 
+at point D， ∠BAC=70 °.
+Figure 13.The formal language corresponding to natural language of Figure10.
+20
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+dependence length constraintshapes angle constraint
+Natural lanuage Formal language
+"Polygon(ABC)" "PointAtLine(D,AC,0)",
+"PointAtLine(E,AB,0)"],
+"Length(AB,8)", "Length(BC,12)", 
+"ConnectPoints(BD)", 
+"ConnectPoints(AE)", 
+"ConnectPoints(CE)"
+"Perpendicular(BA,BC,90)", 
+"AngleRatio(ABD,BCE,
+  Ratio(1,1)"
+In △ ABC, ∠ ACB=90 ° , ∠ 
+ABC=30 ° , AD bisect ∠BA
+C , A D  passing  hrough A 
+intersects BC at  D, DE ⊥ AB ,  
+perpendicular foot is E, DE=1.
+"Polygon(ABC)"  "PointAtLine(D,BC,0)", 
+"DoPerpendicular(D,AB,E)" "Length(DE,1.5)", "Length(BD,3)" 
+"Perpendicular(CA,CB,90)", 
+"AngleRatio(BAD,DAC,
+  Ratio(1,1)" 
+In △ ABC, ∠ ABC=90 ° , 
+AB=8, BC=12, D is a moving 
+point on the AC  side, connec -
+ting BD. E is a moving  point 
+on BD, connecting AE and CE,
+∠ ABD=∠ BCE.
+"Polygon(ABC)" "PointAtLine(D,BC,0)", 
+"DoPerpendicular(D,AB,E)" "Length(DE,1.5)", "Length(BD,3)" 
+"Perpendicular(CA,CB,90)", 
+"AngleRatio(BAD,DAC,
+  Ratio(1,1)"
+In △ ABC, ∠ ACB=90 ° , AD 
+divides  ∠ BAC equally and 
+intersects BC with  D, DE is 
+perpendicular to AB with E.
+DE=1.5, BD=3.
+"Parallelogram(ABCD)" "DoPerpendicular(A,BD,E)"
+"LengthRatio(AB,CD,Ratio(1,1))", 
+"LengthRatio(BC,AD,Ratio(1,1))", 
+"LengthRatio(BD,CD,Ratio(1,1))" 
+"Parallel(AB,DC,0)", 
+"Parallel(AD,BC,0)", 
+"Angle(BCD,70)"
+In the parallelogram ABCD, 
+BD is the diagonal, BD=CD, ∠ 
+BCD=70 ° , AE is pe rpendicu-
+lar to BD at point E.
+ "Parallelogram(ABCD)" "LineIntersect(AC,BD,O)",
+"PointAtLine(H,BD,0)", 
+"LengthRatio(AB,CD,Ratio(1,1))", 
+"LengthRatio(BC,AD,Ratio(1,1))", 
+"LengthRatio(BD,CD,Ratio(1,1))",
+"Length(AB,2)" ,
+"Length(BC,$2sqrt{3}$)" ,
+"Parallel(AB,DC,0)", 
+"Parallel(AD,BC,0)", 
+"Perpendicular(AH,BD,90)", 
+In parallelogram ABCD, the 
+diagonal lines AC and BD int -
+ersect at point O,  AB ⊥ AC. 
+Point H is on the BD, AH
+⊥BD, AB=2, BC=$2sqrt{3}$.
+"Polygon(ABC)"  "PointAtLine(P,BC,0)" "Length(AC,3)", 
+"ConnectPoints(AP)"
+"Perpendicular(CB,CA,90)", 
+"Angle(ABC,30)"
+In triangle ABC, ∠ BCA=90 ° , 
+AC=3, ∠ ABC=30 ° , point P is 
+the moving point on the side of 
+BC, connecting AP.
+ "Circle(O,r)", 
+"StringOfCircle(O,AB)", 
+"StringOfCircle(O,CD)" 
+ "LineIntersect(AB,CD,E)"
+"PointLineDistance(O,AB,0)", 
+"ConnectPoints(OC)", 
+"ConnectPoints(BD)" 
+"Perpendicular(AB,CD,90)", 
+"Angle(AOC,110)"
+AB is the diameter of ⊙ O, 
+and the  string CD ⊥ AB 
+connects OC and BD  at point 
+E. ∠ AOC=110 ° .
+"Rhombus(ABCD)" "LineIntersect(AC,BD,O)"
+"LengthRatio(AB,CD,Ratio(1,1))", 
+"LengthRatio(BC,AD,Ratio(1,1))", 
+"LengthRatio(AB,BC,Ratio(1,1))", 
+"Length(OA,1)",
+"Length(OB,2)"
+"Parallel(AB,DC,0)", 
+"Parallel(AD,BC,0)"
+In rhombus ABCD, the 
+diagonals AC and BD intersect 
+at point O, where  OA=1 and 
+OB=2.
+"Rhombus(ABCD)"
+"PointAtLine(E,AB,2)", 
+"PointAtLine(F,BC,2)", 
+"PointAtLine(G,CD,2)", 
+"PointAtLine(H,DA,2)"
+"LengthRatio(AB,CD,Ratio(1,1))", 
+"LengthRatio(BC,AD,Ratio(1,1))", 
+"LengthRatio(AB,BC,Ratio(1,1))", 
+"Length(AB,6)", 
+"ConnectPoints(EF)","ConnectPoi
+nts(FG)","ConnectPoints(GH)", 
+"ConnectPoints(HE)
+"Parallel(AB,DC,0)", 
+"Parallel(AD,BC,0)", 
+"Angle(ABC,60)"
+In the rhombus ABCD, E, F, 
+G, and H  are the midpoints of 
+AB, BC, CD, and  DA, respec-
+tively. AB=6, ∠ ABC=60 ° , 
+connecting EF, FG, GH, and 
+HE.
+ "Rhombus(ABCD)"
+"DoPerpendicular(B,AD,E)", 
+"DoPerpendicular(B,CD,F)", 
+"ExtensionLine(BD,G)" 
+"LengthRatio(AB,CD,Ratio(1,1))", 
+"LengthRatio(BC,AD,Ratio(1,1))", 
+"LengthRatio(AB,BC,Ratio(1,1))", 
+"LengthRatio(DG,BD,Ratio(1,1)), 
+"LengthRatio(AE,DE,Ratio(1,1))", 
+"ConnectPoints(EG)",
+"ConnectPoints(FG)"
+"Parallel(AB,DC,0)", 
+"Parallel(AD,BC,0)"
+In the rhombus ABCD, passing
+through point B is marked as 
+BE ⊥ AD, BF ⊥ CD, with 
+vertical feet at  points E and F, 
+connecting BD and  extending 
+to G, DG=BD, connecting
+EG and FG, AE=DE.
+Figure 14.The formal language corresponding to natural language of Figure7.
+21
+GeoLoom: High-quality Geometric Diagram Generation from Textual Input
+Natural Language 
+In △ ABC, ∠ ACB=90 ° , ∠ ABC=30 ° , 
+the angle bisector AD of ∠ BAC passing 
+through point A intersects BC at point 
+D, and the perpendicular foot of DE ⊥ 
+AB passing through point D is E, DE=1.
+In △ ABC, ∠ ABC=90 ° , AB=8, 
+BC=12, D is a moving point on the AC 
+side, connecting BD. E is a moving 
+point on BD, connecting AE and CE, 
+∠ ABD=∠ BCE.
+Initial state Optimization process Final state
+In △ ABC, ∠ ACB=90 ° , AD divides 
+∠ BAC equally and intersects BC with 
+D, DE is perpendicular to AB with E. 
+DE=1.5, BD=3
+In the parallelogram ABCD, BD is the 
+diagonal, BD=CD, ∠ BCD=70 ° , AE is 
+perpendicular to BD at point E.
+In parallelogram  ABCD, the diagonal 
+lines AC and BD intersect at point O, 
+AB ⊥ AC. Point H is on the BD, 
+AH⊥BD ， AB=2, BC=$2sqrt {3}$.
+In triangle ABC, ∠ BCA=90 ° , AC=3, 
+∠ ABC=30 ° , point P is the moving 
+point on the side of BC, connecting 
+AP.
+AB is the diameter of ⊙ O, and the 
+string CD ⊥ AB connects OC and BD 
+at point E. ∠ AOC=110 °.
+In rhombus ABCD, the diagonals AC 
+and BD intersect at point O, where 
+OA=1 and OB=2.
+In the rhombus ABCD, E, F, G, and H 
+are the midpoints of AB, BC, CD, and 
+DA, respectively. AB=6, ∠ ABC=60 ° , 
+connecting EF, FG, GH, and HE.
+In the rhombus ABCD, passing 
+through point B is marked as BE ⊥ 
+AD, BF ⊥ CD, with vertical feet at 
+points E and F, connecting BD and 
+extending to G, DG=BD, connecting 
+EG and FG, AE=DE.
+Figure 15.Visualization of optimization process of geometric diagrams.
+22

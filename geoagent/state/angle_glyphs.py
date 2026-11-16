@@ -8,6 +8,8 @@ import math
 import re
 import numpy as np
 
+from .coordinate_precision import cartesian_values
+
 GLYPH_POLICY = {
     'glyph_max_diagonal_fraction': .20, 'glyph_max_side_ratio': 1.4,
     'glyph_turn_tolerance_degrees': 5, 'body_min_length_fraction': .12,
@@ -71,9 +73,9 @@ def _point(token, points):
     token = token.strip().strip('$').strip()
     if token in points:
         return np.asarray(points[token], float)
-    cart = re.fullmatch(r'\s*('+NUMBER+r')\s*,\s*('+NUMBER+r')\s*', token)
-    if cart:
-        return np.array(list(map(float, cart.groups())))
+    cart = cartesian_values(token)
+    if cart is not None:
+        return np.array(cart)
     polar = re.fullmatch(r'\s*('+NUMBER+r')\s*:\s*('+NUMBER+r')\s*', token)
     if polar:
         angle, radius = map(float, polar.groups())

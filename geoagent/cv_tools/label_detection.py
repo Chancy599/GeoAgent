@@ -745,8 +745,13 @@ def bind_point_labels(
 
     pending = [lab for lab in usable_labels if lab['id'] in unmatched_labels]
     bound_points = [np.asarray(b['point_px'],float) for b in bindings]
+    # Short Hough spans can be strokes of a letter. Their endpoints are not
+    # free geometry vertices, even if they are closest to the label centroid.
+    glyph_boxes = [lab['box_px'] for lab in usable_labels
+                   if not lab.get('ambiguous') and len(lab.get('box_px') or []) == 4]
     endpoints = [np.asarray(p,float) for p in free_ends
-                 if not any(np.linalg.norm(np.asarray(p)-q)<=max(12.,cap_h) for q in bound_points)]
+                 if not any(x0 <= p[0] <= x1 and y0 <= p[1] <= y1 for x0, y0, x1, y1 in glyph_boxes)
+                 and not any(np.linalg.norm(np.asarray(p)-q)<=max(12.,cap_h) for q in bound_points)]
     recovered=[]
     if pending and endpoints:
         costs=np.array([[np.linalg.norm(np.asarray(lab['centroid_px'])-p) for p in endpoints] for lab in pending])

@@ -151,6 +151,7 @@ def compile_tikz(
     stem: str = "figure",
     timeout: float = 120.0,
     paths: PathSettings | None = None,
+    probe_names: tuple[str, ...] = (),
 ) -> dict[str, Any]:
     """Compile ``tex`` to PDF (and leave the .tex next to it)."""
     out_root = Path(out_dir)
@@ -201,7 +202,17 @@ def compile_tikz(
     started = time.perf_counter()
     try:
         tex_file = work / "figure.tex"
-        tex_file.write_text(document, encoding="utf-8")
+        compile_source = document
+        if probe_names:
+            if (document.count(r"\end{tikzpicture}") != 1
+                    or any(not re.fullmatch(r"[A-Za-z][A-Za-z0-9_']*", name) for name in probe_names)):
+                raise ValueError("invalid coordinate probe")
+            lines = [r"\makeatletter", *(
+                rf"\pgfpointanchor{{{name}}}{{center}}\typeout{{GEOINT:{name}:\number\pgf@x:\number\pgf@y}}"
+                for name in probe_names
+            ), r"\makeatother"]
+            compile_source = document.replace(r"\end{tikzpicture}", "\n" + "\n".join(lines) + "\n" + r"\end{tikzpicture}")
+        tex_file.write_text(compile_source, encoding="utf-8")
         cmd = [compiler["path"]]
         if compiler.get("kind") == "tectonic":
             cmd += ["--keep-logs", "--untrusted", "figure.tex"]
@@ -233,7 +244,10 @@ def compile_tikz(
 
         final_tex = out_root / f"{stem}.tex"
         final_pdf = out_root / f"{stem}.pdf"
-        _safe_copy(tex_file, final_tex)
+        if probe_names:
+            final_tex.write_text(document, encoding="utf-8")
+        else:
+            _safe_copy(tex_file, final_tex)
         pdf_ok = pdf_src.exists() and pdf_src.stat().st_size > 0
         if pdf_ok:
             _safe_copy(pdf_src, final_pdf)
@@ -243,6 +257,10 @@ def compile_tikz(
             tail = [ln for ln in (combined or log_text).splitlines() if ln.strip()][-8:]
             errors = ["compilation produced no PDF"] + tail
         tail_text = "\n".join((combined or log_text).splitlines()[-40:])
+        anchors = {}
+        if probe_names:
+            anchors = {name: (int(x), int(y)) for name, x, y in
+                       re.findall(r"GEOINT:([A-Za-z][A-Za-z0-9_']*):(-?\d+):(-?\d+)", log_text)}
         return {
             "ok": bool(pdf_ok and returncode == 0),
             "returncode": returncode,
@@ -254,6 +272,7 @@ def compile_tikz(
             "tex_path": str(final_tex),
             "pdf_path": str(final_pdf) if pdf_ok else None,
             "log_tail": tail_text[-4000:],
+            **({"points_sp": anchors} if probe_names else {}),
         }
     finally:
         shutil.rmtree(work, ignore_errors=True)

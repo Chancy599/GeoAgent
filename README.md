@@ -2,86 +2,75 @@
 
 GeoAgent 先从原图测量图元和标签。Geometry Agent 在生成前整理点位、连接、线型及角标方向。Code Agent 据此编写 TikZ，经坐标后修复和编译渲染后，由 Critic 对照原图检查成品并给出修订意见。生成和修复不读取参考代码。
 
-- [当前 150 图结果](results/latest/report.md)
-- [几何约束修复消融](results/latest/ablation/report.md)
+- [150 图基准汇总](results/extended_hybrid/report.md)
+- [消融实验](#消融实验)
+- [整图通过率口径](#整图通过率)
+- [论文实验与编辑原型](deliverables/geoagent_research_report.md)
 - [本轮几何异常复核](results/latest/geometry_case_audit.md)
 - [高误差样本审计](results/latest/reference_quality_audit.md)
 - [流程与评测规则](docs/pipeline.md)
 
 ## 五种方法的 150 图评测
 
-五种方法使用同一批 150 张图片。视觉相似度用 SSIM、CLIP 和 DINO 比较原图与渲染图，几何指标衡量角度、长度比、线段连接和对齐后的点位误差。
+五种方法使用同一批 150 张图片。GeoAgent（ours）的结果按下方复验命令中的 `extended_hybrid` 修复模式统计。视觉相似度用 SSIM、CLIP 和 DINO 比较原图与渲染图，几何指标衡量角度、长度比、线段连接和对齐后的点位误差。
 
 <!-- benchmark:start -->
 
-| 方法 | SSIM ×100 ↑ | CLIP ×100 ↑ | DINO ×100 ↑ | 角度 MAE（含缺测，°）↓ | 比例 MRE（含缺测及封顶，%）↓ |
-|---|---:|---:|---:|---:|---:|
-| haiku-5.5 | 90.4785 | 97.4923 | 96.8642 | 20.097779 | 14.751138 |
-| gpt-5.4 | 90.4433 | 97.1431 | 96.1945 | 46.707012 | 31.548185 |
-| qwen3.5-plus | 90.2731 | 96.7473 | 95.3173 | 16.952001 | 22.720045 |
-| glm-5.3-flash | 90.1209 | 97.8122 | 96.9606 | 27.187580 | 23.463862 |
-| ours | 94.2216 | 99.3497 | 98.9333 | 0.121546 | 0.454324 |
+| 方法 | SSIM ×100 ↑ | CLIP ×100 ↑ | DINO ×100 ↑ | 角度 MAE（共同可测，°）↓ | 比例 MRE（共同可测，%）↓ | **线段 F1（%）↑** | **对齐后点位误差（%）↓** | **整图通过率（1° / 2%）↑** | **整图通过率（0.5° / 1%）↑** |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| haiku-5.5 | 90.5368 | 97.4663 | 96.8133 | 1.958559 | 5.494337 | 95.6761 | 1.8604 | 57/150（38.00%） | 28/150（18.67%） |
+| gpt-5.4 | 90.5708 | 97.2459 | 96.2508 | 2.539270 | 7.415228 | 90.0352 | 2.3993 | 6/150（4.00%） | 5/150（3.33%） |
+| qwen3.5-plus | 90.3925 | 96.8428 | 95.3246 | 5.700388 | 18.012649 | 96.4916 | 5.9289 | 6/150（4.00%） | 6/150（4.00%） |
+| glm-5.3-flash | 90.2170 | 97.8734 | 97.0237 | 4.007424 | 16.067963 | 93.9367 | 3.4618 | 4/150（2.67%） | 3/150（2.00%） |
+| ours | 94.3554 | 99.3702 | 98.9812 | 0.100519 | 0.315609 | 99.9733 | 0.0935 | 129/150（86.00%） | 99/150（66.00%） |
 
-几何指标纳入全部 150 张图、4551 个参考角度和 5543 个参考比例。缺测角度计 180°，缺测比例计 100%，可测比例误差同样封顶 100%。先在各图内平均，再等权平均 150 张图。
-
-| 方法 | 线段覆盖率（%）↑ | 角度覆盖率（%）↑ | 比例覆盖率（%）↑ |
-|---|---:|---:|---:|
-| haiku-5.5 | 93.5950 | 85.4757 | 84.8999 |
-| gpt-5.4 | 84.3486 | 64.8868 | 64.0628 |
-| qwen3.5-plus | 95.8432 | 92.5731 | 92.0260 |
-| glm-5.3-flash | 91.6514 | 79.7407 | 78.5856 |
-| ours | 100.0000 | 100.0000 | 100.0000 |
-
-线段和点位指标同样对全部 150 张图等权平均。点位误差以参考标签点集的直径为单位，表中显示百分比。
-
-| 方法 | 线段精确率（%）↑ | 线段 F1（%）↑ | 对齐后点位误差（%）↓ |
-|---|---:|---:|---:|
-| haiku-5.5 | 99.2664 | 95.9439 | 1.5665 |
-| gpt-5.4 | 98.9659 | 89.9973 | 2.4443 |
-| qwen3.5-plus | 95.9921 | 95.6662 | 5.9087 |
-| glm-5.3-flash | 98.3967 | 94.2504 | 3.4133 |
-| ours | 99.1800 | 99.5517 | 0.1128 |
+MAE 使用 149 张图的 2,585 个共同可测角度，MRE 使用 149 张图的 3,124 个共同可测长度比。先在每张图内平均，再对有共同项的图等权平均。缺测项不计入，误差不封顶。
+其他列基于全部 150 张图。
 
 <!-- benchmark:end -->
 
-视觉指标按 150 张图等权平均，表中乘以 100。SSIM 在 1000 × 1000 白底画布上比较灰度图。CLIP 和 DINO 计算整图特征的余弦相似度。逐图视觉值和图片哈希见 [visual.json](results/latest/visual.json)。
+视觉指标按图等权平均并乘以 100。SSIM 比较统一画布上的灰度图，CLIP 和 DINO 比较整图特征的余弦相似度。
 
-这批图已用于系统开发。缺标签、缺边或无法解析的条目按主表规则计分，同时报告实际覆盖率。完整汇总与输入哈希见 [comparison.json](results/latest/comparison.json)。
+这批图已用于开发。GeoAgent 从归档的 Code Agent 输出重放后修复，四组基线沿用同批输出。[评测汇总与逐图输入哈希](results/extended_hybrid/comparison.json) · [整图通过率明细](results/extended_hybrid/reference_constraints.json)
 
-## 几何约束修复消融
+## 消融实验
 
-后修复从 TikZ 中找出共用端点的两段已绘制边，再到原图分别拟合笔画中心线。原图支持共线时才拉直，并限制点位移动和边长变化，保护旁边已有的直线。两组对每张图使用同一份选中版本和坐标契约，只切换 TikZ 后修复。[配对消融](results/latest/ablation/report.md) · [方案比较](results/latest/ablation/tuning.json)
+两项消融均使用同一批 150 张图，并采用主表的指标和计分规则。关闭几何约束修复时，两组共享同一份生成代码、坐标契约和编译渲染设置。[几何修复消融统计](results/extended_hybrid/ablation.json)
+
+关闭 Critic 时，取同一运行中首次评审前通过编译和基础校验的版本，保留评审前的编译纠错。从经校验的修复前 TikZ 重放与完整方法相同的几何修复。完整方法取评审和后续修订后选出的版本，因此两项消融共享同一行完整方法作为对照。[Critic 消融统计](results/ablation/critic.json)
 
 <!-- ablation:start -->
 
-| 设置 | SSIM ×100 ↑ | CLIP ×100 ↑ | DINO ×100 ↑ | 角度 MAE（°）↓ | 长度比 MRE（%）↓ |
-|---|---:|---:|---:|---:|---:|
-| 关闭几何约束修复 | 94.1644 | 99.3473 | 98.9514 | 1.2669 | 1.2103 |
-| 开启几何约束修复 | 94.2216 | 99.3497 | 98.9333 | 0.1215 | 0.4543 |
+| 设置 | SSIM ×100 ↑ | CLIP ×100 ↑ | DINO ×100 ↑ | 角度 MAE（共同可测，°）↓ | 比例 MRE（共同可测，%）↓ | **线段 F1（%）↑** | **对齐后点位误差（%）↓** | **整图通过率（1° / 2%）↑** | **整图通过率（0.5° / 1%）↑** |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 完整方法 | 94.3554 | 99.3702 | 98.9812 | 0.104973 | 0.368299 | 99.9733 | 0.0935 | 129/150（86.00%） | 99/150（66.00%） |
+| 关闭几何约束修复 | 94.2784 | 99.3698 | 98.9869 | 0.121325 | 0.388483 | 99.8673 | 0.0991 | 125/150（83.33%） | 94/150（62.67%） |
+| 关闭 Critic | 94.2453 | 99.2107 | 98.7866 | 0.216081 | 0.646271 | 99.4810 | 0.1826 | 121/150（80.67%） | 100/150（66.67%） |
 
-| 设置 | 线段覆盖率（%）↑ | 角度覆盖率（%）↑ | 比例覆盖率（%）↑ | 线段精确率（%）↑ | 线段 F1（%）↑ | 点位误差（%）↓ |
-|---|---:|---:|---:|---:|---:|---:|
-| 关闭几何约束修复 | 99.5986 | 98.7256 | 98.4846 | 99.2219 | 99.3719 | 0.1175 |
-| 开启几何约束修复 | 100.0000 | 100.0000 | 100.0000 | 99.1800 | 99.5517 | 0.1128 |
+消融表的 MAE 和 MRE 用三组共同可测的 4,317 个角度和 5,285 个长度比，分别覆盖 150 张和 150 张图。主表和消融表各自在本表的共同项上计算。[消融共同项汇总](results/ablation/common_geometry.json)
 
 <!-- ablation:end -->
+
+## 整图通过率
+
+**整图几何通过率**沿用主表的冻结参考几何。要求 TikZ 编译成功、具名线段集合完全匹配（无漏画或多画），且每一个参考角度、每一个参考长度比均可测并在阈值内。报告两档阈值，常规档为 **1° / 2%**，较严格档为 **0.5° / 1%**。长度比误差用相对误差，角度与长度比沿用主表的源码解析规则。每档以通过的图数除以 150。
 
 ## 几何与参考核验
 
 新增指标借鉴平面几何图解析按图元和关系报告精确率、召回率和 F1 的做法，以及线框解析直接评估向量连接的思路。GeoAgent 用可见标签识别顶点，以此匹配线段两端。图像到 TikZ 的原始基准另报告编译、图像相似度、代码相似度和人工准确率。[Plane Geometry Diagram Parsing](https://arxiv.org/html/2205.09363) · [End-to-End Wireframe Parsing](https://arxiv.org/html/1905.03246) · [TriGeoBench](https://arxiv.org/html/2610.27626v1)
 
-| 指标 | 定义与适用范围 |
-|---|---|
-| 线段精确率和 F1 | 将实际绘制的直线归为无序端点标签对，再比较预测和参考集合。沿用至少 95% 线段长度有笔画支撑的判据，等价的共线分段合并计分。精确率衡量多画边，召回率就是上表的线段覆盖率，F1 综合两者。范围限于两端有标签的直线连接。 |
-| 对齐后点位误差 | 用共有标签拟合平移、旋转和统一缩放，保留镜像差异。点位残差除以参考标签点集的最大两点距离，再对每图所有参考标签取平均。残差封顶 100%，缺失标签计 100%。共有点在任一侧不足三个非共线点，或拟合会将图形缩成一点时，该图计 100%。 |
+**线段 F1** 比较预测和参考的具名线段集合。线段须有至少 95% 的长度得到笔画支撑，等价的共线分段合并处理。
 
-用可控 TikZ 样例校验了指标。四边形多画一条对角线时，线段精确率降到 80%，F1 降到 88.89%，点位误差仍为 0。删掉一条边时，线段召回率降到 75%，F1 降到 85.71%。把一个顶点标签改成另一个字母时，该缺失点使整图点位误差达到 25%。点位误差会随局部形变增大，并能检出镜像。整体平移、旋转和等比缩放、共线分段、标签排版偏移及直角符号写法的变化通过了等价性检查。150 份参考 TikZ 经既有参考校正后自比，线段 F1 均为 100%，最大归一化点位误差低于 10⁻¹²。[指标测试](tests/test_structure_geometry.py)
+当前 150 张图中，GeoAgent 匹配了 1,709/1,709 条参考具名线段，共计 1 个额外端点对和 0 个缺失端点对。149 张图的线段 F1 为 100%。[差异清单](results/extended_hybrid/cohort_update.json)
 
-在 `399_q_fig5` 中，五种方法都恢复了全部 7 条参考连接，点位误差进一步区分了它们对形状的还原程度。线段指标按标签对去重，圆弧、无标签边、实虚线样式和重复描边仍需结合渲染核对。点位误差衡量对齐后的整体形状，拟合时一个错绑点也可能影响其他点的残差。[逐图指标](results/latest/structure.json)
+**对齐后点位误差**按同名点拟合平移、旋转和等比缩放。点位残差除以参考点集的最大两点距离，封顶 100%，缺失点计 100%。线段 F1 和点位误差先按图计算，再对全部 150 张图等权平均。[指标测试](tests/test_structure_geometry.py)
+
+在 `399_q_fig5` 中，五种方法都恢复了全部 7 条参考连接，点位误差进一步区分了它们对形状的还原程度。线段指标按标签对去重，圆弧、无标签边、实虚线样式和重复描边仍需结合渲染核对。点位误差衡量对齐后的整体形状，拟合时一个错绑点也可能影响其他点的残差。[逐图指标](.cache/extended_hybrid/scores/structure.json)
 
 - `6983`参考O修正为(0,0)，E沿原极角投影至半径2的圆周，得到(-1.937327732, -0.496750701)。`6986`参考E使用BC与上半圆的第二交点。相关目标值和构造记录保存在`data/test/geometry_reference`。
 - `1269_s_fig2` 的参考解析按编译核验后的 PC 路径顺序选取 E，再重算 M。原始参考 TeX 保持原样。
 - `1489_s_fig1` 的参考 J 采用注释指定的交点坐标。`1296_q_fig3` 的参考 D 取 AF 与 CB 的交点。两条修订均记录在参考清单的 `corrections.json` 中。
+- `1489_s_fig1` 的参考 P、Q 取过 C 的水平线与 ED、BH 的交点。`1270_q_fig2` 的 P 使用 BC 中点。`1479_q_fig4` 的 C 取 AD 与过 E 的竖线交点，并随之重算 F。[参考修订清单](data/test/geometry_reference/corrections.json)
 - `1630`按源码实际坐标评测，不因直角符号改坐标；`411`保留原代码。
 - 其他误差与诊断见[17图审计](results/latest/reference_quality_audit.md)和[参考编译坐标核验](results/latest/reference_execution_audit.json)。缺边和错误点位仍需结合覆盖率分析。
 
@@ -94,40 +83,65 @@ python main.py run --image data/test/image/1035_q_fig1.png
 python -m streamlit run app.py
 ```
 
-模型接口由`.env`配置，参数见`configs/default.json`。`--no-geometry-repair`关闭后修复。编译器为`tool/tectonic/tectonic.exe`。
+模型接口由 `.env` 配置。默认开启严格几何修复。被选中的垂直、平行、共线约束须在编译后全部严格成立，同时通过已有直线关系和拓扑检查。无法验证时保留原始 TikZ。使用 `--geometry-repair-mode extended_hybrid` 可运行主表对应的修复模式，使用 `--no-geometry-repair` 可关闭后修复。编译器为 `tool/tectonic/tectonic.exe`。
 
 ## 评测与复验
 
-参考清单在 `data/test/geometry_reference` 中按图保存标签坐标、1735 条直线段、4551 个角度和 5543 个比例。评测按可见标签的代码绑定及经核验的参考修订取坐标。构建清单读取参考 TeX，评测仅读 JSON 与预测程序。
+参考清单在 `data/test/geometry_reference` 中按图保存标签坐标、1709 条直线段、4461 个角度和 5459 个比例。线段、角度、长度比与点位评测读取这份冻结清单，沿用其中的可见标签绑定与参考修订。独立参考约束评测读取参考 TeX 的源码几何。
 
 ```powershell
+python scripts/replay_extended_pipeline.py --mode extended_hybrid --out .cache/extended_hybrid/replay --workers 8
 python scripts/evaluate_structure_ab.py `
   --group haiku-5.5=outputs/baseline/haiku-5.5 `
   --group gpt-5.4=outputs/baseline/gpt-5.4 `
   --group qwen3.5-plus=outputs/baseline/qwen3.5-plus `
   --group glm-5.3-flash=outputs/baseline/glm-5.3-flash `
-  --group ours=outputs/ours `
-  --workers 20 --out results/latest/structure.json
+  --group ours=.cache/extended_hybrid/replay `
+  --workers 8 --out .cache/extended_hybrid/scores/structure.json
 python scripts/evaluate_visual_cached.py `
   --group haiku-5.5=outputs/baseline/haiku-5.5/image `
   --group gpt-5.4=outputs/baseline/gpt-5.4/image `
   --group qwen3.5-plus=outputs/baseline/qwen3.5-plus/image `
   --group glm-5.3-flash=outputs/baseline/glm-5.3-flash/image `
-  --group ours=outputs/ours/image `
-  --out results/latest/visual.json
-python scripts/merge_evaluation_results.py
-python scripts/evaluate_repair_ablation.py --workers 20
+  --group ours=.cache/extended_hybrid/replay/image `
+  --out .cache/extended_hybrid/scores/visual.json
 ```
 
-`merge_evaluation_results.py` 核验参考清单与输入哈希，按固定 150 图汇总并更新本页。单独汇总几何时可加 `--geometry-only`。几何解析依赖本地 `geom2code`，可通过 `GEOAGENT_GEOM2CODE` 指定。
+`merge_evaluation_results.py` 核验参考清单与输入哈希，按冻结参考清单汇总。单独汇总几何时可加 `--geometry-only`。几何解析依赖本地 `geom2code`，可通过 `GEOAGENT_GEOM2CODE` 指定。
+
+```powershell
+python scripts/evaluate_reference_constraints.py `
+  --group haiku-5.5=outputs/baseline/haiku-5.5/latex `
+  --group gpt-5.4=outputs/baseline/gpt-5.4/latex `
+  --group qwen3.5-plus=outputs/baseline/qwen3.5-plus/latex `
+  --group glm-5.3-flash=outputs/baseline/glm-5.3-flash/latex `
+  --group ours=.cache/extended_hybrid/replay/latex `
+  --group ours-no-repair=results/latest/ablation/raw/latex `
+  --out .cache/extended_hybrid/scores/reference_constraints.json `
+  --details .cache/extended_hybrid/scores/reference_constraints_details.json
+python scripts/merge_evaluation_results.py --results .cache/extended_hybrid/scores --ours .cache/extended_hybrid/replay --no-readme
+```
+
+Critic 消融可在完成上述完整方法重放后复验。脚本按归档哈希校验修复前源码，再用相同的修复模式生成关闭 Critic 的输出。
+
+```powershell
+python scripts/replay_critic_ablation.py --first-inputs results/ablation/critic_inputs.zip --full-replay .cache/extended_hybrid/replay --out .cache/critic_extended_ablation --summary results/ablation/critic.json --workers 12
+python scripts/evaluate_structure_ab.py `
+  --group ours=.cache/extended_hybrid/replay `
+  --group no_repair=results/latest/ablation/raw `
+  --group critic_off=.cache/critic_extended_ablation/critic_off `
+  --workers 8 --out .cache/extended_hybrid/scores/structure_combined_ablation.json
+```
+
+消融表使用 `structure_combined_ablation.json` 的 `paired_geometry`。
 
 ## 当前目录
 
 ```text
 outputs/
   ours/
-    image/                          # 当前150张PNG
-    latex/                          # 当前150份TikZ
+    image/                          # 归档 PNG
+    latex/                          # 归档 TikZ
     stem/                           # PDF、修复前源码与执行档案
   baseline/
     haiku-5.5/{image,latex}/         # e2e baseline
@@ -135,14 +149,25 @@ outputs/
     qwen3.5-plus/{image,latex}/     # e2e baseline
     glm-5.3-flash/{image,latex}/    # e2e baseline
 results/latest/
-  comparison.json, comparison.md   # 五种方法的视觉、几何指标与覆盖率
+  comparison.json, comparison.md   # 历史评测对照
   structure.json                   # 五种方法的逐图几何结果
   visual.json                      # 五种方法的逐图视觉结果
   baselines_geometry.json          # 四个端到端基线的逐项几何结果
   geometry_case_audit.md           # 本轮异常图复核与折弯定位
   reference_quality_audit.*        # 高误差参考质量审计
-  report.md, result.json           # 当前方法汇总与核验
+  report.md, result.json           # 历史评测汇总与核验
   ablation/                        # 配对指标、逐图哈希和关闭修复的 PNG/TikZ
+results/extended_hybrid/
+  report.md, comparison.json       # 本页主表与逐图输入哈希
+  ablation.json                    # 消融与修复验收汇总
+  reference_constraints.json      # 参考约束与整图指标
+results/ablation/
+  critic.json                      # Critic 消融汇总
+  critic_inputs.zip                # 经哈希核验的首次评审前、修复前 TikZ
+  common_geometry.json             # 消融表的三组共同可测 MAE 与 MRE
+.cache/extended_hybrid/
+  replay/                         # 后修复的 PNG、TikZ 和逐图修复记录
+  scores/                         # 主表的逐图视觉与几何指标
 ```
 
-当前 GeoAgent 批次用 20 个 worker 生成。参考 TeX 来自 TriGeoBench。运行中间文件和视觉特征缓存位于 `.cache/`。
+归档 GeoAgent 批次用 20 个 worker 生成。主表用 8 个 worker 重放后修复。参考 TeX 来自 TriGeoBench。
