@@ -232,7 +232,8 @@ def main():
     if quality_policy is not None:
         headers += ['**线段 F1（%）↑**', '**对齐后点位误差（%）↓**']
     if diagram_groups is not None:
-        headers += [f'**整图通过率（{a:g}° / {r*100:g}%）↑**' for a,r in DIAGRAM_THRESHOLDS]
+        angle_limit, ratio_limit = DIAGRAM_THRESHOLDS[0]
+        headers.append(f'**整图通过率（{angle_limit:g}° / {ratio_limit*100:g}%）↑**')
     lines = ['| ' + ' | '.join(headers) + ' |', '|---|' + '---:|' * (len(headers) - 1)]
     for name, row in values.items():
         fields = [metric(row[key], 100, 4) for key in visual_keys]
@@ -241,7 +242,8 @@ def main():
         if quality_policy is not None:
             fields.extend(metric(row['geometry_quality'][key], 100, 4) for key in ('edge_f1', 'point_error'))
         if diagram_groups is not None:
-            fields.extend(f'{n}/{len(stems)}（{n/len(stems)*100:.2f}%）' for n in row['diagram_pass'])
+            passed = row['diagram_pass'][0]
+            fields.append(f'{passed}/{len(stems)}（{passed/len(stems)*100:.2f}%）')
         lines.append('| ' + ' | '.join([name, *fields]) + ' |')
     angle, ratio = geometry['angle'], geometry['ratio']
     lines += ['', f"MAE 使用 {angle['n_images']} 张图的 {angle['n_items']:,} 个共同可测角度，"
