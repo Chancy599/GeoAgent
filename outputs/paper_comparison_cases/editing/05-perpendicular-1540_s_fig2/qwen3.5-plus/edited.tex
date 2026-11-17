@@ -1,0 +1,40 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc, angles, quotes}
+
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates for the triangle vertices
+    \coordinate (A) at (2, 5);
+    \coordinate (B) at (0, 0);
+    \coordinate (C) at (6, 0);
+    
+    % Define M as the midpoint of AB (standard geometry setup assumption)
+    \coordinate (M) at ($(A)!0.5!(B)$);
+    
+    % Draw the original triangle and segment CM
+    \draw (A) -- (B) -- (C) -- cycle;
+    \draw (C) -- (M);
+    
+    % Label the original points
+    \node[left] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[above left] at (M) {$M$};
+    
+    % --- EDIT: Perpendicular from B to CM ---
+    
+    % Calculate the foot of the perpendicular H from B to line CM
+    \coordinate (H) at ($(C)!(B)!(M)$);
+    
+    % Draw segment BH
+    \draw (B) -- (H);
+    
+    % Label H
+    \node[above right] at (H) {$H$};
+    
+    % Draw the right angle mark at H
+    \draw pic [draw, angle radius=2.5mm] {right angle = B--H--C};
+    
+\end{tikzpicture}
+\end{document}

@@ -6,6 +6,10 @@
 
 [查看同一批案例的四个 e2e 模型对比](e2e/README.md)
 
+[查看与 Haiku 5.5 的 16 个扩展案例](haiku_extended/README.md)
+
+[查看指定子段变虚线的六个单步案例](haiku_local_style/README.md)
+
 | 操作 | 指令 | 源图 | 输出 |
 |---|---|---|---|
 | 新增线段 | 连接点 A 和点 D，画出实线线段 AD。 | `6982_q_fig1` | [编辑图](01-add-segment/edited.png) · [核验](01-add-segment/edited.json) |

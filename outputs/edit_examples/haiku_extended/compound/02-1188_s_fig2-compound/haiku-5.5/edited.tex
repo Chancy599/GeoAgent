@@ -1,0 +1,58 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{amsmath}
+\begin{document}
+\begin{tikzpicture}[x=0.02cm,y=-0.02cm,line width=0.8pt,
+  every node/.style={font=\large},
+  dot/.style={circle,fill=black,inner sep=1.2pt}]
+
+% 圆 (圆心 O，半径 237 px)
+\draw (474,298) circle[radius=4.74cm];
+
+% 直线段
+\draw (70,298) -- (474,298);            % P 到 O (经过 A、N、M)
+\draw (70,298) -- (434,67);             % P 到 C (经过 D)
+\draw (238,298) -- (281,162);           % A 到 D
+\draw (281,162) -- (474,298);           % D 到 O
+\draw (434,67) -- (711,298);            % C 到 B
+
+% 虚线辅助线
+\draw[dashed] (281,162) -- (281,298);   % DN
+\draw[dashed] (434,67) -- (434,298);    % CM
+\draw[dashed] (474,298) -- (574,195);   % OH
+
+% 从 M 向 CP 作垂线，垂足 X
+\pgfmathsetmacro{\tx}{70 + (364*364)/185857*364}
+\pgfmathsetmacro{\ty}{298 - (364*364)/185857*231}
+\coordinate (X) at (329.5,133.3);
+\draw[dashed] (434,298) -- (X);
+
+% 直角标记
+\draw (281,284) -- (295,284) -- (295,298);      % N 处
+\draw (434,283) -- (448,283) -- (448,298);      % M 处
+\draw (574,195) ++(-0.768*14,-0.641*14) -- ++(0,0); % 占位（不绘制）
+\draw ($(574,195)+(0.768*14,0.641*14)$) -- ($(574,195)+(0.768*14,0.641*14)+(-0.696*14,0.718*14)$) -- ($(574,195)+(-0.696*14,0.718*14)$);  % H 处
+\draw ($(X)+(0.8444*14,-0.5358*14)$) -- ($(X)+(0.8444*14,-0.5358*14)+(0.536*14,0.845*14)$) -- ($(X)+(0.536*14,0.845*14)$);  % X 处
+
+% 点
+\node[dot] at (70,298) {};
+\node[dot] at (238,298) {};
+\node[dot] at (281,162) {};
+\node[dot] at (434,67) {};
+\node[dot] at (711,298) {};
+\node[dot] at (474,298) {};
+\node[dot] at (X) {};
+
+% 标签
+\node[below left] at (70,298) {$P$};
+\node[below] at (238,298) {$A$};
+\node[below] at (281,298) {$N$};
+\node[below] at (434,298) {$M$};
+\node[below] at (474,298) {$O$};
+\node[below] at (711,298) {$B$};
+\node[above] at (434,67) {$C$};
+\node[above left] at (281,162) {$D$};
+\node[above right] at (574,195) {$H$};
+\node[above left] at (X) {$X$};
+
+\end{tikzpicture}
+\end{document}

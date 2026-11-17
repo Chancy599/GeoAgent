@@ -1,0 +1,52 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{intersections}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.2]
+    % Define coordinates based on the visual layout
+    \coordinate (A) at (5, 6);
+    \coordinate (B) at (0, 0);
+    \coordinate (C) at (8, 0);
+    
+    % Points on the base line BC
+    % The point originally labeled D is now H
+    \coordinate (H) at (2, 0); 
+    \coordinate (G) at (3.3, 0);
+    \coordinate (F) at (4.8, 0);
+    
+    % Point E
+    \coordinate (E) at (9, 1.5);
+    
+    % Draw main triangle sides and base
+    \draw (A) -- (B);
+    \draw (A) -- (C);
+    \draw (B) -- (C);
+    
+    % Draw cevians from A to the base line
+    \draw (A) -- (H); % Originally AD
+    \draw (A) -- (G);
+    \draw (A) -- (F);
+    
+    % Draw transversal line starting from H (originally D) to E
+    \path[name path=transversal] (H) -- (E);
+    \draw (H) -- (E);
+    
+    % Draw line segment CE
+    \draw (C) -- (E);
+    
+    % Find intersection O of AC and the transversal
+    \path[name path=AC] (A) -- (C);
+    \path [name intersections={of=transversal and AC, by=O}];
+    
+    % Place labels
+    \node[above] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below] at (H) {$H$}; % Label changed from D to H
+    \node[below] at (G) {$G$};
+    \node[below] at (F) {$F$};
+    \node[below] at (C) {$C$};
+    \node[below] at (O) {$O$};
+    \node[right] at (E) {$E$};
+\end{tikzpicture}
+\end{document}

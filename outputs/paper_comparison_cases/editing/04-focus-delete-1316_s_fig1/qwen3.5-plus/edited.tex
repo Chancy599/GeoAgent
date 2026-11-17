@@ -1,0 +1,72 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{intersections, calc, angles, quotes}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.2]
+    % Define coordinates
+    \coordinate (O) at (0,0);
+    \def\R{3.5}
+    \coordinate (A) at (90:\R);
+    \coordinate (B) at (225:\R);
+    \coordinate (C) at (315:\R);
+    \coordinate (E) at (45:\R);
+    
+    % H is the projection of A on BC. Since B and C are symmetric wrt y-axis, H is on y-axis.
+    % y-coordinate of B and C is -R*sin(45)
+    \coordinate (H) at (0, {-\R*sin(45)});
+    
+    % Line AC
+    \path[name path=AC] (A) -- (C);
+    % Line BE (Diameter)
+    \path[name path=BE] (B) -- (E);
+    
+    % Intersection D
+    \path[name intersections={of=AC and BE, by=D}];
+    
+    % F is the foot of the perpendicular from B to AC
+    \path[name path=BF_line] (B) -- ($(B)!10!(A)$); % Dummy path to define direction, actually we need perpendicular
+    % Let's calculate F properly using projection
+    \coordinate (F) at ($(A)!(B)!(C)$);
+    
+    % Draw Circle
+    \draw (O) circle (\R);
+    
+    % Draw Triangle ABC
+    \draw (A) -- (B) -- (C) -- cycle;
+    
+    % Draw Altitude AH
+    % AO is dashed, OH is solid based on visual inspection
+    \draw[dashed] (A) -- (O);
+    \draw (O) -- (H);
+    
+    % Draw Line BE with gap DO
+    % The instruction says: "Delete the sub-segment DO on the continuous straight line."
+    % "The line segments outside DO on that straight line must be preserved."
+    % So we draw B -- O and D -- E.
+    \draw (B) -- (O);
+    \draw (D) -- (E);
+    
+    % Draw Line OC
+    \draw (O) -- (C);
+    
+    % Draw Line BF (perpendicular to AC)
+    \draw (B) -- (F);
+    
+    % Right angle mark at F
+    \draw ($(F)!3mm!(A)$) -- ($(F)!3mm!(A)!3mm!-90:(A)$) -- ($(F)!3mm!(B)$);
+    
+    % Labels
+    \node[above] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[above right] at (D) {$D$};
+    \node[above right] at (E) {$E$};
+    \node[below right] at (F) {$F$};
+    \node[below] at (H) {$H$};
+    \node[above left] at (O) {$O$};
+    
+\end{tikzpicture}
+
+\end{document}

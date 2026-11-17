@@ -1,0 +1,68 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{intersections}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.2]
+    % Define coordinates based on visual estimation
+    \coordinate (B) at (0,0);
+    \coordinate (C) at (5,0);
+    \coordinate (A) at (2,4);
+    
+    % Points on sides
+    \coordinate (F) at (3,0); % On BC
+    \coordinate (E) at (1,2); % On AB
+    
+    % M is on AC. Let's define it explicitly.
+    % Line AC: from (2,4) to (5,0). 
+    % Let's place M roughly 1/3 way from C to A? Or midpoint?
+    % Visually M is somewhat in the middle.
+    \coordinate (M) at (3.5, 2); 
+    
+    % N is above A.
+    \coordinate (N) at (1.5, 5.5);
+
+    % G is intersection of AF and BM (visually)
+    % Let's calculate intersection for precision if needed, but approximate is fine for drawing
+    % Line AF: (2,4) to (3,0)
+    % Line BM: (0,0) to (3.5, 2)
+    % Let's just place G visually near the crossing
+    \coordinate (G) at (2.6, 1.5);
+
+    % Draw solid triangle sides, EXCEPT AM
+    \draw[thick] (A) -- (B);
+    \draw[thick] (B) -- (C);
+    \draw[thick] (C) -- (M); 
+    % Note: Segment AM is intentionally omitted as per instruction
+
+    % Draw dashed lines
+    \draw[dashed] (A) -- (F);
+    \draw[dashed] (B) -- (M);
+    \draw[dashed] (E) -- (F);
+    
+    % Line segment EM passing through G
+    \draw[dashed] (E) -- (M);
+    
+    % Lines going to N
+    % Line N-A-F seems collinear
+    \draw[dashed] (A) -- (N);
+    % Line N-M seems to exist, possibly collinear with E-G-M? 
+    % In the image, there is a dashed line from M going up towards N.
+    \draw[dashed] (M) -- (N);
+
+    % Labels
+    \node[above left] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[left] at (E) {$E$};
+    \node[below] at (F) {$F$};
+    \node[right] at (M) {$M$};
+    \node[above] at (N) {$N$};
+    \node[right] at (G) {$G$};
+    
+    % Draw points (optional, but good for clarity)
+    \foreach \p in {A,B,C,E,F,M,N,G}
+        \fill (\p) circle (1pt);
+
+\end{tikzpicture}
+\end{document}

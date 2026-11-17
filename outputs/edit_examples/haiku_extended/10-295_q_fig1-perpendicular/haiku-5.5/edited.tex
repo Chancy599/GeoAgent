@@ -1,0 +1,43 @@
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{angles,quotes}
+
+\begin{document}
+\begin{tikzpicture}[scale=1, font=\large]
+
+  % 坐标点
+  \coordinate (P) at (0,0);
+  \coordinate (E) at (4.43,0);
+  \coordinate (D) at (11.80,0);
+  \coordinate (B) at (4.43,-4.40);
+  \coordinate (C) at (8.85,-4.40);
+
+  % 从 E 到 BP 的垂足 H
+  \coordinate (H) at (2.23,-2.22);
+
+  % 原图线段
+  \draw[thick] (P) -- (D);
+  \draw[thick] (P) -- (B);
+  \draw[thick] (B) -- (E);
+  \draw[thick] (B) -- (C);
+  \draw[thick] (C) -- (D);
+
+  % 新增垂线 EH
+  \draw[thick] (E) -- (H);
+
+  % 原图中 E 处直角标记
+  \pic[draw, angle radius=0.3cm, thick] {right angle=D--E--B};
+
+  % 垂足 H 处直角标记
+  \pic[draw, angle radius=0.3cm, thick] {right angle=E--H--B};
+
+  % 标签
+  \node[above left]  at (P) {$P$};
+  \node[above]       at (E) {$E$};
+  \node[above right] at (D) {$D$};
+  \node[below]       at (B) {$B$};
+  \node[below]       at (C) {$C$};
+  \node[below left]  at (H) {$H$};
+
+\end{tikzpicture}
+\end{document}

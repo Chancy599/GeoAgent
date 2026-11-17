@@ -1,0 +1,66 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (A) at (0, 5);
+    \coordinate (D) at (0, 0);
+    \coordinate (B) at (-4, 0);
+    \coordinate (C) at (3, 0);
+    
+    % Rectangle height
+    \def\recty{2}
+    
+    % Calculate E and H
+    % Line AB: y = 1.25(x+4)
+    % At y=2, x = -2.4
+    \coordinate (E) at (-2.4, \recty);
+    \coordinate (F) at (-2.4, 0);
+    
+    % Line AC: y = -5/3(x-3)
+    % At y=2, x = 1.8
+    \coordinate (H) at (1.8, \recty);
+    \coordinate (G) at (1.8, 0);
+    
+    % M is intersection
+    \coordinate (M) at (0, \recty);
+    
+    % Draw Triangle Sides
+    \draw (A) -- (B);
+    \draw (A) -- (C);
+    
+    % Draw Base Line segments
+    % FB solid
+    \draw (B) -- (F);
+    % DF dashed (Instruction: change DF to dashed)
+    \draw[dashed] (F) -- (D);
+    % GD solid (Instruction: keep GD solid)
+    \draw (D) -- (G);
+    % GC solid
+    \draw (G) -- (C);
+    
+    % Draw Altitude
+    \draw (A) -- (D);
+    
+    % Draw Rectangle
+    \draw (E) -- (F);
+    \draw (H) -- (G);
+    \draw (E) -- (H);
+    
+    % Right angle at M
+    \draw ($(M) + (0.15, 0)$) -- ($(M) + (0.15, 0.15)$) -- ($(M) + (0, 0.15)$);
+    
+    % Labels
+    \node[above] at (A) {A};
+    \node[below left] at (B) {B};
+    \node[below right] at (C) {C};
+    \node[below] at (D) {D};
+    \node[left] at (E) {E};
+    \node[below] at (F) {F};
+    \node[below] at (G) {G};
+    \node[right] at (H) {H};
+    \node[left] at (M) {M};
+\end{tikzpicture}
+\end{document}
