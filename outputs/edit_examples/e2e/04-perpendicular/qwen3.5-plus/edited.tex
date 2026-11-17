@@ -1,0 +1,51 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates based on the visual structure of the original image
+    % B is bottom-left, C is bottom-right, A is top vertex
+    \coordinate (B) at (0,0);
+    \coordinate (C) at (7,0);
+    \coordinate (A) at (2,6);
+    
+    % D is on segment BC. Visually, it is to the right of the altitude foot.
+    \coordinate (D) at (3,0);
+
+    % Draw the main triangle and the segment AD
+    \draw (A) -- (B) -- (C) -- cycle;
+    \draw (A) -- (D);
+
+    % Draw the points (filled circles)
+    \fill (A) circle (2pt);
+    \fill (B) circle (2pt);
+    \fill (C) circle (2pt);
+    \fill (D) circle (2pt);
+
+    % Add labels
+    \node[above] at (A) {A};
+    \node[left] at (B) {B};
+    \node[right] at (C) {C};
+    \node[below] at (D) {D};
+
+    % --- Edit Instruction: Draw perpendicular AH ---
+    
+    % Calculate the foot of the perpendicular from A to BC
+    \coordinate (H) at ($(B)!(A)!(C)$);
+    
+    % Draw the segment AH
+    \draw (A) -- (H);
+    
+    % Mark point H with a dot (consistent with other points)
+    \fill (H) circle (2pt);
+    
+    % Label H
+    \node[below] at (H) {H};
+    
+    % Draw the right angle symbol at H
+    % Drawing a small square corner: from (H + offset_x, 0) up to (H + offset_x, offset_y) then left to (H, offset_y)
+    \draw (H) ++(0.3,0) -- ++(0,0.3) -- ++(-0.3,0);
+
+\end{tikzpicture}
+\end{document}
