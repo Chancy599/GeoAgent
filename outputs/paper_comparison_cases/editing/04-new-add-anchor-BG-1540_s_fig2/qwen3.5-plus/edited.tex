@@ -1,0 +1,50 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{intersections}
+
+\begin{document}
+\begin{tikzpicture}
+    % Define coordinates
+    \coordinate (B) at (0,0);
+    \coordinate (C) at (6,0);
+    \coordinate (A) at (3,5.2);
+    
+    % Points on sides
+    \coordinate (E) at (1.2, 2.08); % On AB
+    \coordinate (F) at (3.5, 0);    % On BC
+    \coordinate (M) at (4.5, 2.6);  % On AC
+    
+    % Point N on extension of CA
+    % Vector CA = A - C = (-3, 5.2)
+    % N = A + 0.5 * CA = (3, 5.2) + (-1.5, 2.6) = (1.5, 7.8)
+    \coordinate (N) at (1.5, 7.8);
+    
+    % Calculate G as intersection of EM and NF
+    \path [name path=EM] (E) -- (M);
+    \path [name path=NF] (N) -- (F);
+    \path [name intersections={of=EM and NF, by=G}];
+    
+    % Draw Triangle ABC (solid)
+    \draw (A) -- (B) -- (C) -- cycle;
+    
+    % Draw dashed lines
+    \draw[dashed] (E) -- (F);
+    \draw[dashed] (E) -- (M); % Passes through G
+    \draw[dashed] (N) -- (F); % Passes through G
+    \draw[dashed] (A) -- (N); % Extension of CA
+    
+    % Instruction: Connect B and G with solid line
+    \draw (B) -- (G);
+    
+    % Labels
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[above] at (A) {$A$};
+    \node[left] at (E) {$E$};
+    \node[below] at (F) {$F$};
+    \node[right] at (M) {$M$};
+    \node[above] at (N) {$N$};
+    \node[right] at (G) {$G$};
+    
+\end{tikzpicture}
+\end{document}
